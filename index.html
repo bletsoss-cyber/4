@@ -170,6 +170,20 @@
         
         .quiz-chapter-item { padding: 15px 20px; border-top: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; color: var(--text-muted); cursor: pointer; transition: 0.2s; }
         .quiz-chapter-item:hover { color: var(--accent); background: rgba(255,255,255,0.02); padding-left: 25px; }
+
+        /* --- 14. SAVED FILES (Module 9) --- */
+        #savedFilesSection { display: none; animation: slideUp 0.5s ease; }
+        .empty-state { text-align: center; margin-top: 50px; opacity: 0.6; }
+        .empty-state i { font-size: 3rem; margin-bottom: 15px; color: var(--text-muted); }
+        
+        /* Το κουμπί Bookmark στον Viewer */
+        .bookmark-btn { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: white; width: 40px; height: 35px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; margin-right: 10px; }
+        .bookmark-btn:hover { border-color: var(--accent); color: var(--accent); }
+        .bookmark-btn.active { background: var(--accent); border-color: var(--accent); color: white; box-shadow: 0 0 15px var(--accent-glow); }
+        
+        /* Κουμπί διαγραφής στη λίστα */
+        .remove-bookmark { color: #ef4444; opacity: 0.6; padding: 5px 10px; cursor: pointer; transition: 0.2s; }
+        .remove-bookmark:hover { opacity: 1; transform: scale(1.1); }
     </style>
 </head>
 <body>
@@ -211,7 +225,7 @@
             <div class="nav-item" onclick="showGrid(); toggleLeftMenu();"><i class="fas fa-home"></i> Αρχική (Μαθήματα)</div>
             <div class="nav-item" onclick="showAllNotes(); toggleLeftMenu();"><i class="fas fa-book-open"></i> Όλες οι Σημειώσεις</div>
             <div class="nav-item" onclick="showQuizHub(); toggleLeftMenu();"><i class="fas fa-brain"></i> Κουίζ</div>
-            <div class="nav-item"><i class="fas fa-folder-open"></i> Αποθηκευμένα</div>
+            <div class="nav-item" onclick="showSavedFiles(); toggleLeftMenu();"><i class="fas fa-bookmark"></i> Αποθηκευμένα</div>
             <div class="nav-item" style="margin-top: auto; color: #ef4444;" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Έξοδος</div>
         </div>
     </nav>
@@ -274,6 +288,14 @@
                 </div>
         </div>
 
+        <div id="savedFilesSection">
+            <div class="notes-header">
+                <button class="back-btn" onclick="showGrid()"><i class="fas fa-arrow-left"></i> Επιστροφή</button>
+                <h2 style="margin: 0;"><i class="fas fa-bookmark" style="color:var(--accent); margin-right:10px;"></i> Αποθηκευμένα</h2>
+            </div>
+            <div id="savedFilesContainer"></div>
+        </div>
+
     </main>
 
     <div class="fab-container" id="fabContainer" style="display:none;">
@@ -316,6 +338,7 @@
             <button class="viewer-back" onclick="closeViewer()"><i class="fas fa-arrow-left"></i> Πίσω</button>
             <div class="viewer-title" id="viewerTitle">Φόρτωση...</div>
             <div class="viewer-tools">
+                <button id="bookmarkBtn" class="bookmark-btn" onclick="toggleBookmark()" title="Αποθήκευση"><i class="fas fa-heart"></i></button>
                 <button class="tool-btn" onclick="toggleTimerSidebar()"><i class="fas fa-stopwatch"></i> Timer</button>
                 <button class="tool-btn" id="scratchBtn" onclick="toggleScratchpad()"><i class="fas fa-pen-nib"></i> Scratchpad</button>
             </div>
@@ -442,6 +465,7 @@
                 dbData = data || { streak: 0, theme: 'default', notes: '', stats: { daily_min: 0, milestone_name: "Set Goal", milestone_done: 0, milestone_target: 10 }, chapter_notes: {} };
                 if(!dbData.stats) dbData.stats = { daily_min: 0, milestone_name: "Set Goal", milestone_done: 0, milestone_target: 10 };
                 if(!dbData.chapter_notes) dbData.chapter_notes = {};
+                if(!dbData.bookmarks) dbData.bookmarks = [];
 
                 document.getElementById('notesArea').value = dbData.notes || '';
                 setTheme(dbData.theme || 'default', false);
@@ -537,6 +561,15 @@
             // Φόρτωση σημειώσεων του συγκεκριμένου κεφαλαίου στο Scratchpad
             if(!dbData.chapter_notes) dbData.chapter_notes = {};
             document.getElementById('scratchpadTextarea').value = dbData.chapter_notes[currentSelectedChapter.id] || '';
+
+            // Έλεγχος Bookmark
+            if(!dbData.bookmarks) dbData.bookmarks = [];
+            const btn = document.getElementById('bookmarkBtn');
+            if(dbData.bookmarks.includes(currentSelectedChapter.id)) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
         }
 
         function closeViewer() { document.getElementById('viewerOverlay').style.display = 'none'; document.getElementById('contentFrame').src = ''; }
@@ -716,6 +749,84 @@
         
         async function logout() { await supabaseClient.auth.signOut(); location.reload(); }
         supabaseClient.auth.onAuthStateChange((event, session) => { if (session) initApp(session.user); });
+
+        async function sync() {
+            if(dbData && dbData.user_id) {
+                await supabaseClient.from('profiles').update({ 
+                    streak: dbData.streak, theme: dbData.theme, notes: dbData.notes, stats: dbData.stats, chapter_notes: dbData.chapter_notes, bookmarks: dbData.bookmarks 
+                }).eq('user_id', dbData.user_id);
+            }
+        }
+
+        // --- MODULE 9: SAVED FILES LOGIC ---
+        function toggleBookmark() {
+            if(!currentSelectedChapter) return;
+            if(!dbData.bookmarks) dbData.bookmarks = [];
+            
+            const id = currentSelectedChapter.id;
+            const btn = document.getElementById('bookmarkBtn');
+            const index = dbData.bookmarks.indexOf(id);
+            
+            if(index > -1) {
+                // Υπάρχει, άρα το διαγράφουμε
+                dbData.bookmarks.splice(index, 1);
+                btn.classList.remove('active');
+            } else {
+                // Δεν υπάρχει, το προσθέτουμε
+                dbData.bookmarks.push(id);
+                btn.classList.add('active');
+            }
+            sync(); // Αποθήκευση στη βάση
+        }
+
+        function showSavedFiles() {
+            // Κρύβουμε τα πάντα
+            document.getElementById('heroDashboard').style.display = 'none';
+            document.getElementById('subjectsSection').style.display = 'none';
+            document.getElementById('chapterSection').style.display = 'none';
+            document.getElementById('allNotesSection').style.display = 'none';
+            if(document.getElementById('quizHubSection')) document.getElementById('quizHubSection').style.display = 'none';
+            
+            document.getElementById('savedFilesSection').style.display = 'block';
+            
+            const container = document.getElementById('savedFilesContainer');
+            container.innerHTML = '';
+            
+            if(!dbData.bookmarks || dbData.bookmarks.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="far fa-folder-open"></i>
+                        <p>Δεν έχεις αποθηκεύσει κανένα κεφάλαιο ακόμα.</p>
+                    </div>`;
+                return;
+            }
+
+            let foundCount = 0;
+            subjectsData.forEach(sub => {
+                sub.chapters.forEach(ch => {
+                    if(dbData.bookmarks.includes(ch.id)) {
+                        foundCount++;
+                        container.innerHTML += `
+                        <div class="chapter-item">
+                            <span onclick="openChapterModal(${ch.id}, '${ch.title}', '${ch.notes}', '${ch.quiz}'); openResource('notes');" style="flex:1; display:flex; align-items:center; gap:10px;">
+                                <i class="fas fa-heart" style="color:var(--accent);"></i> ${ch.title} <span style="font-size:0.8rem; opacity:0.6; margin-left:10px;">(${sub.title})</span>
+                            </span>
+                            <i class="fas fa-trash remove-bookmark" onclick="removeBookmarkDirect(${ch.id})" title="Αφαίρεση"></i>
+                        </div>`;
+                    }
+                });
+            });
+        }
+
+        // Γρήγορη διαγραφή από τη λίστα
+        function removeBookmarkDirect(id) {
+            const index = dbData.bookmarks.indexOf(id);
+            if(index > -1) {
+                dbData.bookmarks.splice(index, 1);
+                sync();
+                showSavedFiles(); // Refresh τη λίστα
+            }
+        }
     </script>
 </body>
 </html>
