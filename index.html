@@ -157,6 +157,18 @@
 
         @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
         @keyframes slideUp { from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
+
+        /* --- 12. ALL NOTES SECTION (Module 6) --- */
+        #allNotesSection { display: none; animation: fadeIn 0.5s ease; }
+        .notes-header { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; }
+        
+        .subject-notes-group { background: var(--card-dark); border: var(--border); border-radius: 16px; margin-bottom: 20px; overflow: hidden; }
+        .subject-notes-title { background: rgba(0,0,0,0.3); padding: 15px 20px; font-weight: 600; color: var(--accent); display: flex; align-items: center; gap: 10px; border-bottom: var(--border); }
+        
+        .chapter-note-block { padding: 15px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .chapter-note-block:last-child { border-bottom: none; }
+        .chapter-note-title { font-weight: 500; margin-bottom: 10px; color: white; display: flex; align-items: center; gap: 8px; }
+        .chapter-note-content { font-size: 0.95rem; color: var(--text-muted); white-space: pre-wrap; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 10px; border: 1px dashed rgba(255,255,255,0.1); line-height: 1.6; }
     </style>
 </head>
 <body>
@@ -194,10 +206,18 @@
         </div>
         <div class="menu-nav">
             <div class="nav-item" onclick="showGrid(); toggleLeftMenu();"><i class="fas fa-home"></i> Αρχική (Μαθήματα)</div>
-            <div class="nav-item" onclick="alert('Θα προστεθεί στο Module 6!');"><i class="fas fa-book-open"></i> Όλες οι Σημειώσεις</div>
+            <div class="nav-item" onclick="showAllNotes(); toggleLeftMenu();"><i class="fas fa-book-open"></i> Όλες οι Σημειώσεις</div>
             <div class="nav-item"><i class="fas fa-brain"></i> Κουίζ</div>
             <div class="nav-item"><i class="fas fa-folder-open"></i> Αποθηκευμένα</div>
             <div class="nav-item" style="margin-top: auto; color: #ef4444;" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Έξοδος</div>
+        </div>
+        <div id="allNotesSection">
+            <div class="notes-header">
+                <button class="back-btn" onclick="showGrid()"><i class="fas fa-arrow-left"></i> Επιστροφή</button>
+                <h2 style="margin: 0;">Το Τετράδιό μου</h2>
+            </div>
+            <div id="allNotesContainer">
+                </div>
         </div>
     </nav>
 
@@ -303,7 +323,7 @@
                     <button class="scratch-tab" onclick="switchScratchTab('draw')"><i class="fas fa-paint-brush"></i> Σκίτσο</button>
                 </div>
                 <div class="scratch-content active" id="tabType">
-                    <textarea class="scratch-textarea" placeholder="Γρήγορες σημειώσεις..."></textarea>
+                    <textarea id="scratchpadTextarea" class="scratch-textarea" placeholder="Γρήγορες σημειώσεις κεφαλαίου..." oninput="saveScratchpadNotes()"></textarea></textarea>
                 </div>
                 <div class="scratch-content" id="tabDraw">
                     <div class="canvas-container"><canvas id="drawingCanvas"></canvas></div>
@@ -438,10 +458,10 @@
             }
         }
 
-        async function sync() {
+       async function sync() {
             if(dbData && dbData.user_id) {
                 await supabaseClient.from('profiles').update({ 
-                    streak: dbData.streak, theme: dbData.theme, notes: dbData.notes, stats: dbData.stats 
+                    streak: dbData.streak, theme: dbData.theme, notes: dbData.notes, stats: dbData.stats, chapter_notes: dbData.chapter_notes 
                 }).eq('user_id', dbData.user_id);
             }
         }
