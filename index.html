@@ -3,55 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Uni Hub - Core Engine</title>
+    <title>Uni Hub - The Ultimate Engine</title>
     
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
-    
-    /* --- 8. CHAPTER MENU (Μακρόστενες Μπάρες) --- */
-        #chapterSection { display: none; animation: fadeIn 0.4s ease; margin-top: 20px; }
-        .chapter-header { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; }
-        .back-btn { background: rgba(255,255,255,0.05); border: var(--border); border-radius: 10px; color: var(--text-dark); padding: 8px 15px; cursor: pointer; display: flex; align-items: center; gap: 8px; font-family: 'Outfit'; }
-        .back-btn:hover { background: var(--accent); border-color: var(--accent); }
-        
-        .chapter-list { display: flex; flex-direction: column; gap: 12px; }
-        .chapter-item {
-            background: var(--card-dark); border: var(--border); padding: 18px 25px;
-            border-radius: 16px; cursor: pointer; display: flex; justify-content: space-between;
-            align-items: center; width: 100%; transition: 0.2s;
-        }
-        .chapter-item:hover {
-            background: rgba(255,255,255,0.05); border-color: var(--accent); transform: translateX(5px);
-        }
-        .chapter-title { font-weight: 500; font-size: 1.1rem; display: flex; align-items: center; gap: 15px; }
-        .chapter-icon { color: var(--accent); opacity: 0.8; }
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-        /* --- 9. RESOURCE SELECTION MODAL (Κουίζ ή Σημειώσεις) --- */
-        .modal-overlay {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 3000;
-            display: none; justify-content: center; align-items: center; backdrop-filter: blur(5px);
-        }
-        .modal-box {
-            background: var(--card-dark); border: 1px solid var(--accent); padding: 35px;
-            border-radius: 20px; width: 360px; text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8); animation: slideUp 0.3s;
-        }
-        .modal-box h3 { margin-bottom: 5px; font-weight: 600; font-size: 1.3rem; }
-        .resource-options { display: flex; flex-direction: column; gap: 12px; margin-top: 25px; }
-        
-        .res-btn {
-            background: rgba(255,255,255,0.05); border: var(--border); color: white;
-            padding: 15px; border-radius: 12px; cursor: pointer; font-size: 1.05rem;
-            display: flex; align-items: center; justify-content: center; gap: 12px; font-family: 'Outfit';
-        }
-        .res-btn:hover { background: var(--accent); border-color: var(--accent); transform: scale(1.02); }
-        .res-btn i { font-size: 1.2rem; }
-        
-        .close-modal { margin-top: 20px; background: transparent; border: none; color: var(--text-muted); cursor: pointer; font-size: 0.9rem; }
-        .close-modal:hover { color: white; text-decoration: underline; }
     <style>
-        /* --- 1. CORE VARIABLES (Deep Purple Mac Style) --- */
+        /* --- 1. CORE VARIABLES --- */
         :root {
             --bg-dark: #1e1b4b; 
             --card-dark: rgba(30, 27, 75, 0.9);
@@ -62,685 +21,544 @@
             --border: 1px solid rgba(255, 255, 255, 0.1);
             --bg-gradient: radial-gradient(circle at 15% 50%, rgba(76, 29, 149, 0.3), transparent 25%), 
                            radial-gradient(circle at 85% 30%, rgba(124, 58, 237, 0.15), transparent 25%);
+            --progress-bg: rgba(255,255,255,0.1);
+            --progress-fill: linear-gradient(90deg, #8b5cf6, #a78bfa);
         }
+
+        [data-theme="ocean"] { --bg-dark: #0f172a; --accent: #38bdf8; --bg-gradient: radial-gradient(circle at 20% 20%, rgba(14, 165, 233, 0.3), transparent 40%); }
+        [data-theme="forest"] { --bg-dark: #052e16; --accent: #34d399; --bg-gradient: radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.2), transparent 50%); }
+        [data-theme="midnight"] { --bg-dark: #000000; --accent: #ffffff; --bg-gradient: none; --card-dark: rgba(20,20,20,0.95); }
 
         /* --- 2. BASE SETUP --- */
         body {
-            background-color: var(--bg-dark);
-            background-image: var(--bg-gradient);
-            background-attachment: fixed;
-            color: var(--text-dark);
-            font-family: 'Outfit', sans-serif;
-            margin: 0; padding: 0;
-            min-height: 100vh;
-            overflow-x: hidden;
+            background-color: var(--bg-dark); background-image: var(--bg-gradient); background-attachment: fixed;
+            color: var(--text-dark); font-family: 'Outfit', sans-serif; margin: 0; padding: 0;
+            min-height: 100vh; overflow-x: hidden; transition: background 0.5s ease;
         }
         * { box-sizing: border-box; transition: all 0.3s ease; }
-        
-        /* Glassmorphism Utility */
-        .glass {
-            background: var(--card-dark);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: var(--border);
-        }
+        .glass { background: var(--card-dark); backdrop-filter: blur(15px); border: var(--border); }
 
-        /* --- 3. TOP NAVIGATION BAR --- */
-        .top-bar {
-            position: fixed; top: 0; left: 0; width: 100%; height: 70px;
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 0 30px; z-index: 1000;
-        }
+        /* --- 3. LOGIN SCREEN --- */
+        .login-wrapper { position: fixed; inset: 0; display: flex; justify-content: center; align-items: center; background: var(--bg-dark); z-index: 6000; }
+        .login-box { background: var(--card-dark); padding: 40px; border-radius: 24px; width: 380px; text-align: center; border: var(--border); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+        .login-input { width: 100%; padding: 12px; margin: 10px 0; background: rgba(255,255,255,0.05); border: var(--border); border-radius: 8px; color: white; outline: none; font-family: 'Outfit'; }
+        .login-input:focus { border-color: var(--accent); background: rgba(255,255,255,0.1); }
+        .btn-main { width: 100%; padding: 12px; margin-top: 15px; background: var(--accent); border: none; color: white; font-weight: 600; border-radius: 8px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; font-family: 'Outfit'; }
+        .btn-main:hover { box-shadow: 0 0 20px var(--accent-glow); transform: translateY(-1px); }
 
-        /* Left side: Hamburger & User */
+        /* --- 4. TOP BAR & LEFT MENU --- */
+        .top-bar { position: fixed; top: 0; left: 0; width: 100%; height: 70px; display: flex; justify-content: space-between; align-items: center; padding: 0 30px; z-index: 1000; border-bottom: var(--border); }
         .top-left { display: flex; align-items: center; gap: 20px; }
-        .menu-btn {
-            background: transparent; border: none; color: white; font-size: 1.5rem;
-            cursor: pointer; padding: 5px;
-        }
+        .menu-btn { background: transparent; border: none; color: white; font-size: 1.5rem; cursor: pointer; padding: 5px; }
         .menu-btn:hover { color: var(--accent); }
-        .user-greeting { font-weight: 500; letter-spacing: 0.5px; }
-
-        /* Center: Search Bar */
-        .search-container {
-            position: relative; width: 400px; max-width: 50%;
-        }
-        .search-input {
-            width: 100%; padding: 10px 15px 10px 40px; border-radius: 20px;
-            background: rgba(0,0,0,0.3); border: var(--border);
-            color: white; outline: none; font-family: 'Outfit', sans-serif;
-        }
+        .search-container { position: relative; width: 400px; max-width: 50%; }
+        .search-input { width: 100%; padding: 10px 15px 10px 40px; border-radius: 20px; background: rgba(0,0,0,0.3); border: var(--border); color: white; outline: none; font-family: 'Outfit'; }
         .search-input:focus { border-color: var(--accent); background: rgba(0,0,0,0.5); }
-        .search-icon {
-            position: absolute; left: 15px; top: 50%; transform: translateY(-50%);
-            color: var(--text-muted); pointer-events: none;
-        }
+        .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted); pointer-events: none; }
 
-        /* --- 4. LEFT SIDEBAR (Hamburger Menu) --- */
-        .left-menu {
-            position: fixed; top: 0; left: -300px; width: 300px; height: 100vh;
-            background: rgba(19, 15, 37, 0.98); border-right: 1px solid var(--accent);
-            z-index: 2000; padding: 30px 20px; box-shadow: 10px 0 30px rgba(0,0,0,0.5);
-        }
+        .left-menu { position: fixed; top: 0; left: -300px; width: 300px; height: 100vh; background: rgba(19, 15, 37, 0.98); border-right: 1px solid var(--accent); z-index: 2000; padding: 30px 20px; box-shadow: 10px 0 30px rgba(0,0,0,0.5); }
         .left-menu.active { left: 0; }
-        
-        .menu-close {
-            position: absolute; top: 20px; right: 20px; background: transparent;
-            border: none; color: var(--text-muted); font-size: 1.2rem; cursor: pointer;
-        }
+        .menu-close { position: absolute; top: 20px; right: 20px; background: transparent; border: none; color: var(--text-muted); font-size: 1.2rem; cursor: pointer; }
         .menu-close:hover { color: white; }
-
-        /* Profile Section in Menu */
         .menu-profile { text-align: center; margin-bottom: 40px; padding-top: 20px; }
-        .profile-avatar {
-            width: 70px; height: 70px; border-radius: 50%; background: var(--accent);
-            margin: 0 auto 10px; display: flex; align-items: center; justify-content: center;
-            font-size: 2rem; box-shadow: 0 0 15px var(--accent-glow);
-        }
-        .profile-stats { font-size: 0.85rem; color: var(--text-muted); }
-
-        /* Menu Links */
+        .profile-avatar { width: 70px; height: 70px; border-radius: 50%; background: var(--accent); margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-size: 2rem; box-shadow: 0 0 15px var(--accent-glow); }
         .menu-nav { display: flex; flex-direction: column; gap: 10px; }
-        .nav-item {
-            display: flex; align-items: center; gap: 15px; padding: 15px 20px;
-            border-radius: 12px; cursor: pointer; color: var(--text-dark);
-            text-decoration: none; font-weight: 500;
-        }
+        .nav-item { display: flex; align-items: center; gap: 15px; padding: 15px 20px; border-radius: 12px; cursor: pointer; color: var(--text-dark); text-decoration: none; font-weight: 500; }
         .nav-item:hover { background: rgba(255,255,255,0.05); color: var(--accent); transform: translateX(5px); }
         .nav-item i { width: 20px; text-align: center; }
+        .menu-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1500; display: none; backdrop-filter: blur(3px); }
+        .menu-overlay.active { display: block; }
 
-        /* --- 5. MAIN CONTENT AREA --- */
-        .main-content {
-            padding: 100px 30px 30px; /* Padding top to account for fixed top-bar */
-            max-width: 1400px; margin: 0 auto;
-        }
-
-        /* Overlay for when menu is open */
-        .overlay {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1500;
-            display: none; backdrop-filter: blur(3px);
-        }
-        .overlay.active { display: block; }
-    /* --- 6. SUBJECTS GRID (Square Cards με Animation) --- */
-        .grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); 
-            gap: 30px; margin-top: 20px; animation: fadeIn 0.8s; 
-        }
-        .card { 
-            background: var(--card-dark); border: var(--border); padding: 30px; 
-            border-radius: 20px; cursor: pointer; text-align: center; 
-            position: relative; overflow: hidden; display: flex; flex-direction: column; 
-            align-items: center; justify-content: center; height: 220px; 
-        }
-        .card:hover { 
-            transform: translateY(-5px); border-color: var(--accent); 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3); 
-        }
+        /* --- 5. DASHBOARD LAYOUT --- */
+        .main-content { padding: 100px 30px 30px; max-width: 1400px; margin: 0 auto; display: none; }
+        .hero-section { display: grid; grid-template-columns: 2fr 1fr; gap: 25px; margin-bottom: 40px; animation: fadeIn 0.8s; }
+        .hero-card { background: var(--card-dark); border: var(--border); border-radius: 24px; padding: 35px; position: relative; display: flex; flex-direction: column; justify-content: space-between; }
+        .hero-title { font-size: 2rem; font-weight: 700; margin-bottom: 5px; }
         
-        /* Animation Περιγράμματος */
+        /* Milestones & Stats */
+        .milestone-widget { margin-top: 30px; background: rgba(0,0,0,0.2); padding: 20px; border-radius: 16px; border: var(--border); }
+        .milestone-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .milestone-title { font-size: 0.9rem; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; }
+        .progress-container { width: 100%; height: 8px; background: var(--progress-bg); border-radius: 4px; overflow: hidden; margin-bottom: 8px; }
+        .progress-bar { height: 100%; background: var(--progress-fill); width: 0%; transition: width 1s ease; }
+        .progress-stats { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-muted); }
+        
+        .stats-card { background: var(--card-dark); border: var(--border); border-radius: 24px; padding: 30px; display: flex; flex-direction: column; gap: 20px; }
+        .stat-item { display: flex; align-items: center; gap: 15px; }
+        .stat-icon { width: 45px; height: 45px; background: rgba(139, 92, 246, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: 1.2rem; }
+        .stat-info h4 { font-size: 1.5rem; font-weight: 700; margin: 0; }
+
+        /* --- 6. SUBJECTS GRID (Square) --- */
+        .grid-header { font-size: 1.1rem; font-weight: 600; margin-bottom: 20px; color: var(--text-muted); border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; margin-bottom: 50px; animation: slideUp 0.8s; }
+        .card { background: var(--card-dark); border: var(--border); padding: 30px; border-radius: 20px; cursor: pointer; text-align: center; position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 220px; }
+        .card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
         .card span { position: absolute; display: block; background: var(--accent); transition: 0.5s; }
         .card span:nth-child(1) { top:0; left:0; width:0; height:2px; } .card:hover span:nth-child(1) { width:100%; }
         .card span:nth-child(2) { top:0; right:0; width:2px; height:0; transition-delay:0.1s; } .card:hover span:nth-child(2) { height:100%; }
         .card span:nth-child(3) { bottom:0; right:0; width:0; height:2px; transition-delay:0.2s; } .card:hover span:nth-child(3) { width:100%; }
         .card span:nth-child(4) { bottom:0; left:0; width:2px; height:0; transition-delay:0.3s; } .card:hover span:nth-child(4) { height:100%; }
-        
         .card-icon { font-size: 3rem; margin-bottom: 15px; color: var(--accent); }
-        .card h3 { font-size: 1.2rem; margin: 0 0 5px 0; font-weight: 600; }
-        
-        /* --- 7. FAB BUTTONS (Κάτω Δεξιά) --- */
-        .fab-container { 
-            position: fixed; bottom: 30px; right: 30px; 
-            display: flex; flex-direction: column; gap: 15px; z-index: 100; 
-        }
-        .fab { 
-            width: 60px; height: 60px; background: var(--card-dark); 
-            border: var(--border); color: var(--text-dark); border-radius: 50%; 
-            display: flex; align-items: center; justify-content: center; 
-            font-size: 1.5rem; cursor: pointer; backdrop-filter: blur(10px); 
-        }
-        .fab:hover { 
-            transform: scale(1.1); background: var(--accent); 
-            color: white; border-color: var(--accent); 
-            box-shadow: 0 10px 30px var(--accent-glow); 
-        }
-        
-        @keyframes fadeIn { from {opacity:0; transform:translateY(10px);} to {opacity:1; transform:translateY(0);} }
 
-        /* --- 10. GLOBAL SIDEBAR (Timer & Study Methods) --- */
-        .sidebar {
-            position: fixed; top: 0; right: -400px; width: 400px; height: 100vh;
-            background: rgba(19, 15, 37, 0.98); border-left: 1px solid var(--accent);
-            z-index: 4000; padding: 30px; display: flex; flex-direction: column; gap: 20px;
-            box-shadow: -10px 0 50px rgba(0,0,0,0.8); transition: right 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-        .sidebar.open { right: 0; }
+        /* --- 7. CHAPTER MENU (Wide Bars) --- */
+        #chapterSection { display: none; animation: slideUp 0.5s; }
+        .chapter-list { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+        .chapter-item { background: var(--card-dark); border: var(--border); padding: 18px 25px; border-radius: 12px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; width: 100%; transition: 0.2s; }
+        .chapter-item:hover { border-color: var(--accent); transform: translateX(5px); background: rgba(255,255,255,0.05); }
+
+        /* --- 8. FAB BUTTONS & THEME PANEL --- */
+        .fab-container { position: fixed; bottom: 30px; right: 30px; display: flex; flex-direction: column; gap: 15px; z-index: 100; }
+        .fab { width: 60px; height: 60px; background: var(--card-dark); border: var(--border); color: var(--text-dark); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; cursor: pointer; backdrop-filter: blur(10px); }
+        .fab:hover { transform: scale(1.1); background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 10px 30px var(--accent-glow); }
         
-        .sidebar-close {
-            position: absolute; top: 20px; left: -40px; width: 40px; height: 50px;
-            background: var(--accent); color: white; border: none;
-            border-radius: 10px 0 0 10px; cursor: pointer; display: flex;
-            align-items: center; justify-content: center; font-size: 1.2rem;
-            box-shadow: -5px 0 15px var(--accent-glow);
-        }
-        .sidebar-close:hover { filter: brightness(1.2); }
+        .theme-panel { position: fixed; bottom: 110px; right: 30px; width: 300px; background: var(--bg-dark); border: 1px solid var(--accent); border-radius: 20px; padding: 20px; display: none; z-index: 101; box-shadow: 0 20px 50px rgba(0,0,0,0.8); }
+        .theme-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 10px; }
+        .theme-btn { height: 40px; border-radius: 8px; cursor: pointer; border: 2px solid transparent; }
+        .theme-btn:hover { transform: scale(1.1); border-color: white; }
 
-        .sidebar-overlay {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 3999;
-            display: none; backdrop-filter: blur(2px);
-        }
-        .sidebar-overlay.active { display: block; }
-
-        /* Timer UI */
+        /* --- 9. GLOBAL TIMER SIDEBAR --- */
+        .timer-sidebar { position: fixed; top: 0; right: -400px; width: 400px; height: 100vh; background: rgba(19, 15, 37, 0.98); border-left: 1px solid var(--accent); z-index: 4000; padding: 30px; display: flex; flex-direction: column; gap: 20px; box-shadow: -10px 0 50px rgba(0,0,0,0.8); transition: right 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .timer-sidebar.open { right: 0; }
+        .timer-sidebar-close { position: absolute; top: 20px; left: -40px; width: 40px; height: 50px; background: var(--accent); color: white; border: none; border-radius: 10px 0 0 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
         .timer-display { font-size: 4.5rem; font-weight: 300; text-align: center; color: white; margin-bottom: 5px; font-variant-numeric: tabular-nums; }
-        .timer-status { text-align: center; color: var(--accent); font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 25px; text-transform: uppercase; font-weight: 600; }
-        
-        .method-btn {
-            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);
-            padding: 15px; border-radius: 12px; cursor: pointer; text-align: left;
-            display: flex; justify-content: space-between; align-items: center; transition: 0.2s;
-        }
+        .method-btn { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 15px; border-radius: 12px; cursor: pointer; text-align: left; display: flex; justify-content: space-between; align-items: center; transition: 0.2s; }
         .method-btn:hover { background: rgba(255,255,255,0.08); border-color: var(--accent); transform: translateX(-5px); }
-        .method-btn strong { font-size: 1rem; font-weight: 600; color: white; }
-        .method-btn span { font-size: 0.85rem; color: var(--text-muted); display: block; margin-top: 4px; }
         .method-btn .tag { font-weight: 800; color: var(--accent); font-size: 1.1rem; }
-    /* --- 11. FULL SCREEN VIEWER & SCRATCHPAD --- */
-        .viewer-overlay {
-            position: fixed; inset: 0; background: var(--bg-dark); z-index: 5000;
-            display: none; flex-direction: column; animation: fadeIn 0.3s;
-        }
-        
-        .viewer-header {
-            height: 60px; background: rgba(0,0,0,0.5); display: flex;
-            align-items: center; justify-content: space-between; padding: 0 20px;
-            border-bottom: var(--border); backdrop-filter: blur(10px);
-        }
-        
-        .viewer-back {
-            background: rgba(255,255,255,0.05); border: var(--border); color: white;
-            padding: 8px 15px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 8px;
-            font-family: 'Outfit'; transition: 0.2s;
-        }
+        .timer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 3999; display: none; backdrop-filter: blur(2px); }
+
+        /* --- 10. FULL SCREEN VIEWER & SCRATCHPAD --- */
+        .viewer-overlay { position: fixed; inset: 0; background: var(--bg-dark); z-index: 5000; display: none; flex-direction: column; animation: fadeIn 0.3s; }
+        .viewer-header { height: 60px; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: space-between; padding: 0 20px; border-bottom: var(--border); backdrop-filter: blur(10px); }
+        .viewer-back { background: rgba(255,255,255,0.05); border: var(--border); color: white; padding: 8px 15px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 8px; font-family: 'Outfit'; transition: 0.2s; }
         .viewer-back:hover { background: var(--accent); border-color: var(--accent); }
-        
-        .viewer-title { font-weight: 600; color: white; letter-spacing: 1px; font-size: 1.1rem; }
-        
         .viewer-tools { display: flex; gap: 10px; }
-        .tool-btn {
-            background: transparent; border: 1px solid rgba(255,255,255,0.2);
-            color: white; padding: 8px 15px; border-radius: 8px; cursor: pointer;
-            font-family: 'Outfit'; transition: 0.2s;
-        }
+        .tool-btn { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: white; padding: 8px 15px; border-radius: 8px; cursor: pointer; font-family: 'Outfit'; transition: 0.2s; }
         .tool-btn:hover, .tool-btn.active { background: var(--accent); border-color: var(--accent); }
-        
         .viewer-body { flex: 1; display: flex; position: relative; overflow: hidden; }
-        
-        /* Το Iframe που δείχνει το αρχείο σου */
         .viewer-iframe { flex: 1; width: 100%; height: 100%; border: none; background: #ffffff; transition: 0.3s; }
         
-        /* SCRATCHPAD SIDEBAR */
-        .scratchpad-sidebar {
-            width: 0; background: rgba(19, 15, 37, 0.95); border-left: var(--border);
-            display: flex; flex-direction: column; transition: width 0.3s ease; overflow: hidden;
-        }
+        .scratchpad-sidebar { width: 0; background: rgba(19, 15, 37, 0.95); border-left: var(--border); display: flex; flex-direction: column; transition: width 0.3s ease; overflow: hidden; }
         .scratchpad-sidebar.open { width: 400px; }
-        
         .scratch-tabs { display: flex; border-bottom: var(--border); }
-        .scratch-tab {
-            flex: 1; padding: 15px; text-align: center; cursor: pointer;
-            background: rgba(0,0,0,0.2); color: var(--text-muted); border: none; font-weight: 600;
-            font-family: 'Outfit';
-        }
+        .scratch-tab { flex: 1; padding: 15px; text-align: center; cursor: pointer; background: rgba(0,0,0,0.2); color: var(--text-muted); border: none; font-weight: 600; font-family: 'Outfit'; }
         .scratch-tab.active { background: transparent; color: var(--accent); border-bottom: 2px solid var(--accent); }
-        
         .scratch-content { flex: 1; display: none; padding: 20px; flex-direction: column; }
         .scratch-content.active { display: flex; }
-        
-        .scratch-textarea {
-            flex: 1; background: rgba(0,0,0,0.3); border: var(--border); border-radius: 12px;
-            color: white; padding: 15px; resize: none; outline: none; font-family: 'Outfit'; font-size: 1rem;
-        }
+        .scratch-textarea { flex: 1; background: rgba(0,0,0,0.3); border: var(--border); border-radius: 12px; color: white; padding: 15px; resize: none; outline: none; font-family: 'Outfit'; font-size: 1rem; }
         .scratch-textarea:focus { border-color: var(--accent); }
-        
-        .canvas-container {
-            flex: 1; background: #1a1a1a; border-radius: 12px; overflow: hidden;
-            position: relative; border: var(--border); cursor: crosshair;
-        }
+        .canvas-container { flex: 1; background: #1a1a1a; border-radius: 12px; overflow: hidden; position: relative; border: var(--border); cursor: crosshair; }
         #drawingCanvas { width: 100%; height: 100%; display: block; }
+
+        /* --- 11. MODALS (Popups) --- */
+        .modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 6000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
+        .modal-box { background: var(--card-dark); border: 1px solid var(--accent); padding: 35px; border-radius: 20px; width: 360px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.8); animation: slideUp 0.3s; }
+        .res-btn { background: rgba(255,255,255,0.05); border: var(--border); color: white; padding: 15px; border-radius: 12px; cursor: pointer; font-size: 1.05rem; display: flex; align-items: center; justify-content: center; gap: 12px; font-family: 'Outfit'; margin-top:10px; width:100%; }
+        .res-btn:hover { background: var(--accent); border-color: var(--accent); transform: scale(1.02); }
+
+        @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+        @keyframes slideUp { from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
     </style>
 </head>
 <body>
 
-    <header class="glass top-bar">
+    <div id="loginScreen" class="login-wrapper">
+        <div class="login-box">
+            <h2 style="margin-bottom:10px; font-weight:600; letter-spacing:1px;">Uni Hub Pro</h2>
+            <div id="loginMsg" style="color:#ef4444; margin-bottom:15px; font-size:0.9rem; min-height:20px;"></div>
+            <input type="email" id="email" class="login-input" placeholder="Email Address">
+            <input type="password" id="pass" class="login-input" placeholder="Password">
+            <button onclick="handleAuth()" class="btn-main">Log In</button>
+            <p onclick="toggleAuthMode()" style="margin-top:20px; cursor:pointer; font-size:0.85rem; color:var(--text-muted);">New Account</p>
+        </div>
+    </div>
+
+    <header class="glass top-bar" style="display:none;" id="topBar">
         <div class="top-left">
             <button class="menu-btn" onclick="toggleLeftMenu()"><i class="fas fa-bars"></i></button>
-            <div class="user-greeting">Γεια σου, <span style="color:var(--accent)">Stathis</span></div>
+            <div class="user-greeting">Γεια σου, <span id="topUsername" style="color:var(--accent)">User</span></div>
         </div>
-        
         <div class="search-container">
             <i class="fas fa-search search-icon"></i>
-            <input type="text" class="search-input" placeholder="Αναζήτηση όρου (π.χ. Λεμφαγγεία)...">
+            <input type="text" class="search-input" placeholder="Αναζήτηση (π.χ. Λεμφαγγεία)...">
         </div>
-        
-        <div style="color: var(--text-muted); cursor: pointer;"><i class="fas fa-edit"></i> Ημερήσιοι Στόχοι</div>
+        <div style="color: var(--text-muted); cursor: pointer;" onclick="openMilestoneModal()"><i class="fas fa-flag"></i> Στόχοι</div>
     </header>
 
-    <div class="overlay" id="menuOverlay" onclick="toggleLeftMenu()"></div>
+    <div class="menu-overlay" id="menuOverlay" onclick="toggleLeftMenu()"></div>
     <nav class="left-menu" id="leftMenu">
         <button class="menu-close" onclick="toggleLeftMenu()"><i class="fas fa-times"></i></button>
-        
         <div class="menu-profile">
             <div class="profile-avatar"><i class="fas fa-user"></i></div>
-            <h3>Stathis</h3>
-            <div class="profile-stats"><i class="fas fa-clock"></i> 0 ώρες χρήσης</div>
+            <h3 id="menuUsername">User</h3>
+            <div class="profile-stats"><i class="fas fa-fire"></i> <span id="menuStreak">0</span> Days</div>
         </div>
-
         <div class="menu-nav">
-            <div class="nav-item"><i class="fas fa-home"></i> Αρχική (Μαθήματα)</div>
-            <div class="nav-item"><i class="fas fa-book-open"></i> Σημειώσεις</div>
+            <div class="nav-item" onclick="showGrid(); toggleLeftMenu();"><i class="fas fa-home"></i> Αρχική (Μαθήματα)</div>
+            <div class="nav-item" onclick="alert('Θα προστεθεί στο Module 6!');"><i class="fas fa-book-open"></i> Όλες οι Σημειώσεις</div>
             <div class="nav-item"><i class="fas fa-brain"></i> Κουίζ</div>
-            <div class="nav-item"><i class="fas fa-folder-open"></i> Αποθηκευμένα Αρχεία</div>
-            <div class="nav-item" style="margin-top: auto; color: #ef4444;"><i class="fas fa-sign-out-alt"></i> Έξοδος</div>
+            <div class="nav-item"><i class="fas fa-folder-open"></i> Αποθηκευμένα</div>
+            <div class="nav-item" style="margin-top: auto; color: #ef4444;" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Έξοδος</div>
         </div>
     </nav>
 
     <main class="main-content" id="appRoot">
-        <h2 style="margin-bottom: 20px; font-weight: 600; letter-spacing: 1px;">
-            <i class="fas fa-layer-group" style="color:var(--accent); margin-right:10px;"></i>
-            Η Βιβλιοθήκη μου
-        </h2>
         
-        <div id="subjectsGrid" class="grid"></div>
+        <div class="hero-section">
+            <div class="hero-card">
+                <div>
+                    <div class="hero-title">Welcome back.</div>
+                    <div class="hero-subtitle">Let's maintain focus today.</div>
+                </div>
+                <div class="milestone-widget">
+                    <div class="milestone-header">
+                        <span class="milestone-title"><i class="fas fa-flag"></i> Current Milestone</span>
+                        <button class="milestone-edit" style="background:none; border:none; color:var(--text-muted); cursor:pointer;" onclick="openMilestoneModal()"><i class="fas fa-cog"></i> Config</button>
+                    </div>
+                    <div style="font-size:1.1rem; font-weight:600; margin-bottom:5px;" id="milestoneName">No Active Goal</div>
+                    <div class="progress-container"><div id="milestoneBar" class="progress-bar"></div></div>
+                    <div class="progress-stats">
+                        <span><span id="milestoneCurrent">0</span> hrs done</span>
+                        <span>Target: <span id="milestoneTarget">0</span> hrs</span>
+                    </div>
+                </div>
+            </div>
+            <div class="stats-card">
+                <div class="stat-item"><div class="stat-icon"><i class="fas fa-fire"></i></div><div class="stat-info"><h4 id="streakCount">0</h4><p>Day Streak</p></div></div>
+                <div class="stat-item"><div class="stat-icon"><i class="fas fa-clock"></i></div><div class="stat-info"><h4 id="todayMins">0</h4><p>Minutes Today</p></div></div>
+            </div>
+        </div>
+
+        <div id="subjectsSection">
+            <div class="grid-header">Η ΒΙΒΛΙΟΘΗΚΗ ΜΟΥ</div>
+            <div id="subjectsGrid" class="grid"></div>
+        </div>
+
         <div id="chapterSection">
-            <div class="chapter-header">
-                <button class="back-btn" onclick="showGrid()"><i class="fas fa-arrow-left"></i> Επιστροφή</button>
+            <div style="display:flex; align-items:center; gap:15px; margin-bottom:20px;">
+                <button style="background:rgba(255,255,255,0.05); border:var(--border); border-radius:10px; color:white; padding:8px 15px; cursor:pointer;" onclick="showGrid()"><i class="fas fa-arrow-left"></i> Επιστροφή</button>
                 <h2 id="chapterTitle" style="margin: 0;">Όνομα Μαθήματος</h2>
             </div>
-            <div id="chapterList" class="chapter-list">
-                </div>
-        </div>
-        
-        <div class="modal-overlay" id="resourceModal">
-            <div class="modal-box">
-                <h3 id="modalChapterTitle">Κεφάλαιο 1</h3>
-                <p style="color: var(--text-muted); font-size: 0.9rem;">Τι θέλεις να μελετήσεις;</p>
-                <div class="resource-options">
-                    <button class="res-btn" onclick="openResource('notes')">
-                        <i class="fas fa-book-open"></i> Σημειώσεις
-                    </button>
-                    <button class="res-btn" onclick="openResource('quiz')">
-                        <i class="fas fa-brain"></i> Κουίζ
-                    </button>
-                </div>
-                <button class="close-modal" onclick="closeResourceModal()">Ακύρωση</button>
-            </div>
+            <div id="chapterList" class="chapter-list"></div>
         </div>
 
-        <div class="fab-container">
-            <div class="fab" title="Επιστημονικές Μέθοδοι & Timer" onclick="openStudyMethods()">
-                <i class="fas fa-brain"></i>
-            </div>
-            <div class="fab" title="Αλλαγή Θέματος" onclick="openThemes()">
-                <i class="fas fa-palette"></i>
-            </div>
-        </div>
     </main>
 
-<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
-    
-    <div id="studySidebar" class="sidebar">
-        <button class="sidebar-close" onclick="toggleSidebar()"><i class="fas fa-chevron-right"></i></button>
-        
+    <div class="fab-container" id="fabContainer" style="display:none;">
+        <div class="fab" title="Timer" onclick="toggleTimerSidebar()"><i class="fas fa-brain"></i></div>
+        <div class="fab" title="Themes" onclick="toggleThemePanel()"><i class="fas fa-palette"></i></div>
+    </div>
+
+    <div id="themePanel" class="theme-panel">
+        <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+            <span>Theme</span> <i class="fas fa-times" style="cursor:pointer;" onclick="toggleThemePanel()"></i>
+        </div>
+        <div class="theme-grid">
+            <div class="theme-btn" style="background:#8b5cf6" onclick="setTheme('default')"></div>
+            <div class="theme-btn" style="background:#38bdf8" onclick="setTheme('ocean')"></div>
+            <div class="theme-btn" style="background:#34d399" onclick="setTheme('forest')"></div>
+            <div class="theme-btn" style="background:#000000; border:1px solid #333;" onclick="setTheme('midnight')"></div>
+        </div>
+    </div>
+
+    <div class="timer-overlay" id="timerOverlay" onclick="toggleTimerSidebar()"></div>
+    <div id="timerSidebar" class="timer-sidebar">
+        <button class="timer-sidebar-close" onclick="toggleTimerSidebar()"><i class="fas fa-chevron-right"></i></button>
         <div>
             <div id="timerDisplay" class="timer-display">00:00</div>
-            <div id="timerMode" class="timer-status">ΕΤΟΙΜΟΣ ΓΙΑ ΔΙΑΒΑΣΜΑ</div>
-            
+            <div id="timerMode" style="text-align:center; color:var(--accent); font-size:0.9rem; letter-spacing:2px; margin-bottom:25px; font-weight:600;">ΕΤΟΙΜΟΣ</div>
             <div style="display: flex; flex-direction: column; gap: 12px;">
                 <div class="method-btn" onclick="startTimer(25, 'POMODORO')">
-                    <div>
-                        <strong>Pomodoro Technique</strong>
-                        <span>25' Διάβασμα / 5' Διάλειμμα. Ιδανικό για υψηλή ένταση και αποφυγή burnout.</span>
-                    </div>
-                    <div class="tag">25'</div>
+                    <div><strong>Pomodoro</strong><span>25' Διάβασμα / 5' Διάλειμμα</span></div><div class="tag">25'</div>
                 </div>
                 <div class="method-btn" onclick="startTimer(50, 'DEEP WORK')">
-                    <div>
-                        <strong>Deep Work</strong>
-                        <span>50' Διάβασμα / 10' Διάλειμμα. Για εκμάθηση σύνθετων εννοιών και θεωρίας.</span>
-                    </div>
-                    <div class="tag">50'</div>
+                    <div><strong>Deep Work</strong><span>50' Διάβασμα / 10' Διάλειμμα</span></div><div class="tag">50'</div>
                 </div>
                 <div class="method-btn" onclick="startTimer(90, 'FLOW STATE')">
-                    <div>
-                        <strong>Flow State (Ultradian)</strong>
-                        <span>90' Διάβασμα. Πλήρης βύθιση βάσει του βιολογικού υπερκιρκάδιου ρυθμού.</span>
-                    </div>
-                    <div class="tag">90'</div>
+                    <div><strong>Flow State</strong><span>90' Πλήρης βύθιση</span></div><div class="tag">90'</div>
                 </div>
             </div>
-            
-            <button class="btn-main" style="background:#ef4444; width:100%; margin-top:20px;" onclick="stopTimer()">
-                <i class="fas fa-stop-circle"></i> Διακοπή Συνεδρίας
-            </button>
+            <button class="btn-main" style="background:#ef4444; width:100%; margin-top:20px;" onclick="stopTimer()"><i class="fas fa-stop"></i> Τέλος</button>
         </div>
-        
         <div style="flex:1; display:flex; flex-direction:column; margin-top:20px;">
-            <div style="margin-bottom:10px; font-size:0.85rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; font-weight:600;">
-                <i class="fas fa-pen"></i> Στόχος Συνεδρίας
-            </div>
-            <textarea id="quickNotes" style="flex:1; background:rgba(0,0,0,0.3); border:var(--border); border-radius:12px; color:white; padding:15px; resize:none; outline:none; font-family:'Outfit'; font-size:0.95rem; line-height:1.5;" placeholder="Τι ακριβώς πρέπει να πετύχεις σε αυτό το χρονικό πλαίσιο; Κατάγραψέ το εδώ..."></textarea>
+            <div style="margin-bottom:10px; font-size:0.85rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; font-weight:600;">Στόχος Συνεδρίας</div>
+            <textarea id="notesArea" style="flex:1; background:rgba(0,0,0,0.3); border:var(--border); border-radius:12px; color:white; padding:15px; resize:none; outline:none; font-family:'Outfit';" placeholder="Κατάγραψε..." oninput="saveNotes()"></textarea>
         </div>
     </div>
 
     <div class="viewer-overlay" id="viewerOverlay">
-        
         <div class="viewer-header">
-            <button class="viewer-back" onclick="closeViewer()"><i class="fas fa-arrow-left"></i> Πίσω στη Βάση</button>
+            <button class="viewer-back" onclick="closeViewer()"><i class="fas fa-arrow-left"></i> Πίσω</button>
             <div class="viewer-title" id="viewerTitle">Φόρτωση...</div>
             <div class="viewer-tools">
-                <button class="tool-btn" onclick="openStudyMethods()" title="Άνοιγμα Χρονομέτρου"><i class="fas fa-stopwatch"></i> Timer</button>
+                <button class="tool-btn" onclick="toggleTimerSidebar()"><i class="fas fa-stopwatch"></i> Timer</button>
                 <button class="tool-btn" id="scratchBtn" onclick="toggleScratchpad()"><i class="fas fa-pen-nib"></i> Scratchpad</button>
             </div>
         </div>
-        
         <div class="viewer-body">
             <iframe id="contentFrame" class="viewer-iframe" src=""></iframe>
-            
             <div class="scratchpad-sidebar" id="scratchpadSidebar">
-                
                 <div class="scratch-tabs">
                     <button class="scratch-tab active" onclick="switchScratchTab('type')"><i class="fas fa-keyboard"></i> Κείμενο</button>
                     <button class="scratch-tab" onclick="switchScratchTab('draw')"><i class="fas fa-paint-brush"></i> Σκίτσο</button>
                 </div>
-                
                 <div class="scratch-content active" id="tabType">
-                    <div style="font-size:0.85rem; color:var(--text-muted); margin-bottom:10px; text-transform:uppercase;">Γρήγορες Σημειώσεις</div>
-                    <textarea class="scratch-textarea" placeholder="Γράψε εδώ ιδέες, απορίες ή λέξεις-κλειδιά..."></textarea>
+                    <textarea class="scratch-textarea" placeholder="Γρήγορες σημειώσεις..."></textarea>
                 </div>
-                
                 <div class="scratch-content" id="tabDraw">
-                    <div style="font-size:0.85rem; color:var(--text-muted); margin-bottom:10px; text-transform:uppercase;">Ελεύθερο Σχέδιο</div>
-                    <div class="canvas-container">
-                        <canvas id="drawingCanvas"></canvas>
-                    </div>
-                    <button class="btn-main" style="margin-top:15px; background:transparent; border:1px solid #ef4444; color:#ef4444;" onclick="clearCanvas()">
-                        <i class="fas fa-trash"></i> Καθαρισμός Σκίτσου
-                    </button>
+                    <div class="canvas-container"><canvas id="drawingCanvas"></canvas></div>
+                    <button class="btn-main" style="background:transparent; border:1px solid #ef4444; color:#ef4444; margin-top:10px;" onclick="clearCanvas()"><i class="fas fa-trash"></i> Καθαρισμός</button>
                 </div>
-                
             </div>
         </div>
     </div>
 
+    <div class="modal-bg" id="resourceModal">
+        <div class="modal-box">
+            <h3 id="modalChapterTitle">Κεφάλαιο</h3>
+            <p style="color:var(--text-muted); font-size:0.9rem;">Τι θέλεις να μελετήσεις;</p>
+            <button class="res-btn" onclick="openResource('notes')"><i class="fas fa-book-open"></i> Σημειώσεις</button>
+            <button class="res-btn" onclick="openResource('quiz')"><i class="fas fa-brain"></i> Κουίζ</button>
+            <button style="margin-top:15px; background:none; border:none; color:var(--text-muted); cursor:pointer;" onclick="document.getElementById('resourceModal').style.display='none'">Ακύρωση</button>
+        </div>
+    </div>
+
+    <div class="modal-bg" id="milestoneModal">
+        <div class="modal-box">
+            <h3 style="margin-bottom:20px;">Εβδομαδιαίος Στόχος</h3>
+            <input type="text" id="msNameIn" class="login-input" placeholder="Όνομα Στόχου (π.χ. Εξεταστική)">
+            <input type="number" id="msTargetIn" class="login-input" placeholder="Στόχος σε Ώρες (π.χ. 10)">
+            <div style="display:flex; gap:10px; margin-top:20px;">
+                <button class="btn-main" style="background:transparent; border:1px solid #555;" onclick="document.getElementById('milestoneModal').style.display='none'">Ακύρωση</button>
+                <button class="btn-main" onclick="setMilestone()">Αποθήκευση</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-bg" id="breakModal">
+        <div class="modal-box">
+            <div style="font-size:3rem; margin-bottom:10px;">☕</div>
+            <h2 style="margin-bottom:10px;">Ολοκληρώθηκε!</h2>
+            <p id="breakMessage" style="color:var(--text-muted); margin-bottom:20px;"></p>
+            <button class="btn-main" onclick="document.getElementById('breakModal').style.display='none'">Συνέχεια</button>
+        </div>
+    </div>
+
+    <audio id="alarmSound" src="https://assets.mixkit.co/sfx/preview/mixkit-positive-notification-951.mp3"></audio>
+
     <script>
-        // Module 1 Scripts: Menu Toggle Logic
-        function toggleLeftMenu()
-// Module 2 Scripts: Μαθήματα
-        const subjects = [
-            { id: 1, title: "Ανατομία III", icon: "fa-skull", chapters: 5 },
-            { id: 2, title: "Εμβρυολογία", icon: "fa-baby-carriage", chapters: 3 },
-            { id: 3, title: "Ιατρική Γενετική", icon: "fa-dna", chapters: 4 },
-            { id: 4, title: "Οδοντική Χειρ.", icon: "fa-tooth", chapters: 8 },
-            { id: 5, title: "Προκλινική", icon: "fa-notes-medical", chapters: 2 },
-            { id: 6, title: "Ακτινολογία", icon: "fa-x-ray", chapters: 6 },
-            { id: 7, title: "Προληπτική", icon: "fa-shield-virus", chapters: 4 }
+        // --- SUPABASE CONFIG ---
+        const SUPABASE_URL = "ΒΑΛΕ_ΕΔΩ_ΤΟ_URL";
+        const SUPABASE_KEY = "ΒΑΛΕ_ΕΔΩ_ΤΟ_ANON_KEY";
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        let dbData = null;
+        let isLoginMode = true;
+        let studyTimer = null;
+        let timeLeft = 0;
+        let currentSelectedChapter = null;
+
+        // --- DATA ---
+        const subjectsData = [
+            { id: 1, title: "Ανατομία III", icon: "fa-skull", chapters: [{ id: 101, title: "Κεφ 1: Λεμφαγγεία", notes: "anatomy_ch1_notes.html", quiz: "anatomy_ch1_quiz.html" }] },
+            { id: 2, title: "Εμβρυολογία", icon: "fa-baby-carriage", chapters: [{ id: 201, title: "Κεφ 1: Γονιμοποίηση", notes: "embryo_ch1_notes.html", quiz: "embryo_ch1_quiz.html" }] },
+            { id: 3, title: "Ιατρική Γενετική", icon: "fa-dna", chapters: [{ id: 301, title: "Κεφ 1: Εισαγωγή", notes: "genetics_notes.html", quiz: "" }] },
+            { id: 4, title: "Οδοντική Χειρ.", icon: "fa-tooth", chapters: [{ id: 401, title: "Κεφ 1: Εργαλεία", notes: "surgery_notes.html", quiz: "" }] },
+            { id: 5, title: "Προκλινική", icon: "fa-notes-medical", chapters: [{ id: 501, title: "Κεφ 1: Αρχές", notes: "preclinical_notes.html", quiz: "" }] },
+            { id: 6, title: "Ακτινολογία", icon: "fa-x-ray", chapters: [{ id: 601, title: "Κεφ 1: Ακτίνες Χ", notes: "radio_notes.html", quiz: "" }] },
+            { id: 7, title: "Προληπτική", icon: "fa-shield-virus", chapters: [{ id: 701, title: "Κεφ 1: Φθορίωση", notes: "preventive_notes.html", quiz: "" }] }
         ];
 
+        // --- AUTH ---
+        async function handleAuth() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('pass').value;
+            if(!email || !password) return alert("Συμπλήρωσε τα πεδία.");
+            try {
+                if(isLoginMode) {
+                    const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+                    if(error) throw error;
+                } else {
+                    const { error } = await supabaseClient.auth.signUp({ email, password });
+                    if(error) throw error;
+                    alert("Ο λογαριασμός δημιουργήθηκε. Κάνε Login."); toggleAuthMode();
+                }
+            } catch(e) { document.getElementById('loginMsg').innerText = e.message; }
+        }
+        function toggleAuthMode() {
+            isLoginMode = !isLoginMode;
+            document.querySelector('#loginScreen .btn-main').innerText = isLoginMode ? "LOG IN" : "CREATE ACCOUNT";
+        }
+
+        // --- INIT & SYNC ---
+        async function initApp(user) {
+            let { data } = await supabaseClient.from('profiles').select('*').eq('user_id', user.id).single();
+            if(!data) {
+                const { data: newProf } = await supabaseClient.from('profiles').insert([{ 
+                    user_id: user.id, streak: 0, theme: 'default', notes: '', 
+                    stats: { daily_min: 0, milestone_name: "Set Goal", milestone_done: 0, milestone_target: 10 }
+                }]).select().single();
+                data = newProf;
+            }
+            dbData = data;
+            if(!dbData.stats) dbData.stats = { daily_min: 0, milestone_name: "Set Goal", milestone_done: 0, milestone_target: 10 };
+
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('topBar').style.display = 'flex';
+            document.getElementById('appRoot').style.display = 'block';
+            document.getElementById('fabContainer').style.display = 'flex';
+            
+            const username = user.email.split('@')[0];
+            document.getElementById('usernameDisp').innerText = username;
+            document.getElementById('topUsername').innerText = username;
+            document.getElementById('menuUsername').innerText = username;
+            document.getElementById('notesArea').value = dbData.notes || '';
+            
+            setTheme(dbData.theme || 'default', false);
+            renderSubjects();
+            updateUI();
+        }
+
+        async function sync() {
+            if(dbData) await supabaseClient.from('profiles').update({ 
+                streak: dbData.streak, theme: dbData.theme, notes: dbData.notes, stats: dbData.stats 
+            }).eq('user_id', dbData.user_id);
+        }
+
+        function updateUI() {
+            const s = dbData.stats;
+            document.getElementById('streakCount').innerText = dbData.streak;
+            document.getElementById('menuStreak').innerText = dbData.streak;
+            document.getElementById('todayMins').innerText = s.daily_min;
+
+            document.getElementById('milestoneName').innerText = s.milestone_name;
+            document.getElementById('milestoneCurrent').innerText = (s.milestone_done / 60).toFixed(1);
+            document.getElementById('milestoneTarget').innerText = (s.milestone_target / 60).toFixed(0);
+            document.getElementById('milestoneBar').style.width = Math.min((s.milestone_done / s.milestone_target) * 100, 100) + '%';
+        }
+
+        // --- UI TOGGLES ---
+        function toggleLeftMenu() { document.getElementById('leftMenu').classList.toggle('active'); document.getElementById('menuOverlay').classList.toggle('active'); }
+        function toggleTimerSidebar() { document.getElementById('timerSidebar').classList.toggle('open'); document.getElementById('timerOverlay').classList.toggle('active'); }
+        function toggleThemePanel() { const p = document.getElementById('themePanel'); p.style.display = p.style.display === 'block' ? 'none' : 'block'; }
+        
+        function openMilestoneModal() { document.getElementById('milestoneModal').style.display = 'flex'; }
+        function setMilestone() {
+            const name = document.getElementById('msNameIn').value; const hours = document.getElementById('msTargetIn').value;
+            if(name && hours) { dbData.stats.milestone_name = name; dbData.stats.milestone_target = hours * 60; dbData.stats.milestone_done = 0; sync(); updateUI(); document.getElementById('milestoneModal').style.display = 'none'; }
+        }
+
+        function setTheme(t, save = true) {
+            document.body.setAttribute('data-theme', t);
+            if(save && dbData) { dbData.theme = t; sync(); }
+            document.getElementById('themePanel').style.display = 'none';
+        }
+
+        // --- GRID & CHAPTERS ---
         function renderSubjects() {
             const grid = document.getElementById('subjectsGrid');
             let html = '';
-            subjects.forEach(s => {
+            subjectsData.forEach(s => {
                 html += `
-        // Module 3 Scripts: Πλοήγηση & Δεδομένα Κεφαλαίων
-        
-        // Φτιάχνουμε μια πιο "πλούσια" βάση δεδομένων για τα μαθήματα
-        const subjectsData = [
-            { 
-                id: 1, title: "Ανατομία III", icon: "fa-skull", 
-                chapters: [
-                    { id: 101, title: "Κεφ 1: Λεμφαγγεία", notes: "anatomy_ch1_notes.html", quiz: "anatomy_ch1_quiz.html" },
-                    { id: 102, title: "Κεφ 2: Νευρικό Σύστημα", notes: "anatomy_ch2_notes.html", quiz: "anatomy_ch2_quiz.html" }
-                ] 
-            },
-            { 
-                id: 2, title: "Εμβρυολογία", icon: "fa-baby-carriage", 
-                chapters: [
-                    { id: 201, title: "Κεφ 1: Γονιμοποίηση", notes: "embryo_ch1_notes.html", quiz: "embryo_ch1_quiz.html" }
-                ] 
-            }
-        ];
+                <div class="card" onclick="openSubject(${s.id})">
+                    <span></span><span></span><span></span><span></span>
+                    <div class="card-icon"><i class="fas ${s.icon}"></i></div>
+                    <h3>${s.title}</h3>
+                </div>`;
+            });
+            grid.innerHTML = html;
+        }
 
-        let currentSelectedChapter = null;
-
-        // Αντικαθιστούμε την παλιά openSubject
         function openSubject(id) {
-            // Κρύβουμε το Grid, δείχνουμε τα Κεφάλαια
-            document.getElementById('subjectsGrid').style.display = 'none';
-            document.querySelector('.fab-container').style.display = 'none'; // Κρύβουμε τα κουμπιά
+            document.getElementById('subjectsSection').style.display = 'none';
             document.getElementById('chapterSection').style.display = 'block';
             
-            // Βρίσκουμε το μάθημα από τη νέα βάση
-            const subject = subjectsData.find(s => s.id === id) || { title: "Μάθημα", chapters: [] };
+            const subject = subjectsData.find(s => s.id === id);
             document.getElementById('chapterTitle').innerText = subject.title;
-            
-            // Φτιάχνουμε τη λίστα
             const list = document.getElementById('chapterList');
             list.innerHTML = '';
             
-            if (subject.chapters.length === 0) {
-                list.innerHTML = '<p style="opacity:0.6;">Δεν έχεις προσθέσει html αρχεία ακόμα γι\' αυτό το μάθημα.</p>';
-                return;
-            }
-
+            if (subject.chapters.length === 0) { list.innerHTML = '<p style="opacity:0.6">Δεν υπάρχουν αρχεία.</p>'; return; }
             subject.chapters.forEach(ch => {
                 list.innerHTML += `
                 <div class="chapter-item" onclick="openChapterModal('${ch.title}', '${ch.notes}', '${ch.quiz}')">
-                    <span class="chapter-title"><i class="fas fa-file-alt chapter-icon"></i> ${ch.title}</span>
-                    <i class="fas fa-chevron-right" style="color: var(--text-muted);"></i>
+                    <span style="font-weight:500"><i class="fas fa-file-alt" style="color:var(--accent); margin-right:10px;"></i> ${ch.title}</span>
+                    <i class="fas fa-chevron-right" style="opacity:0.5;"></i>
                 </div>`;
             });
         }
 
-        // Επιστροφή στην Αρχική
-        function showGrid() {
-            document.getElementById('chapterSection').style.display = 'none';
-            document.getElementById('subjectsGrid').style.display = 'grid';
-            document.querySelector('.fab-container').style.display = 'flex';
-        }
-
-        // Άνοιγμα του Popup για Σημειώσεις ή Κουίζ
-        function openChapterModal(title, notesUrl, quizUrl) {
-            currentSelectedChapter = { notes: notesUrl, quiz: quizUrl };
+        function showGrid() { document.getElementById('chapterSection').style.display = 'none'; document.getElementById('subjectsSection').style.display = 'block'; }
+        
+        function openChapterModal(title, notes, quiz) {
+            currentSelectedChapter = { notes, quiz };
             document.getElementById('modalChapterTitle').innerText = title;
             document.getElementById('resourceModal').style.display = 'flex';
         }
 
-        function closeResourceModal() {
-            document.getElementById('resourceModal').style.display = 'none';
-            currentSelectedChapter = null;
-        }
-
-        // Τι γίνεται όταν διαλέξεις (Αυτό θα συνδεθεί στο Module 4)
-        function openResource(type) // --- Module 5 Scripts: Viewer & Scratchpad Logic ---
-        
         function openResource(type) {
-            closeResourceModal(); // Κλείνουμε το προηγούμενο Popup
-            
+            document.getElementById('resourceModal').style.display = 'none';
             const url = type === 'notes' ? currentSelectedChapter.notes : currentSelectedChapter.quiz;
             const title = document.getElementById('modalChapterTitle').innerText;
-            
-            // Ρυθμίζουμε τον Viewer
             document.getElementById('viewerTitle').innerText = title + (type === 'notes' ? ' (Σημειώσεις)' : ' (Κουίζ)');
             document.getElementById('contentFrame').src = url;
             document.getElementById('viewerOverlay').style.display = 'flex';
-            
-            // Βεβαιωνόμαστε ότι το Scratchpad είναι κλειστό όταν ανοίγει ένα νέο αρχείο
             document.getElementById('scratchpadSidebar').classList.remove('open');
             document.getElementById('scratchBtn').classList.remove('active');
         }
 
-        function closeViewer() {
-            document.getElementById('viewerOverlay').style.display = 'none';
-            document.getElementById('contentFrame').src = ''; // Αδειάζουμε το iframe
-        }
+        function closeViewer() { document.getElementById('viewerOverlay').style.display = 'none'; document.getElementById('contentFrame').src = ''; }
 
-        function toggleScratchpad() {
-            const sidebar = document.getElementById('scratchpadSidebar');
-            const btn = document.getElementById('scratchBtn');
-            
-            sidebar.classList.toggle('open');
-            btn.classList.toggle('active');
-            
-            // Αν ανοίξει το scratchpad, ρυθμίζουμε το μέγεθος του καμβά
-            if(sidebar.classList.contains('open')) {
-                setTimeout(resizeCanvas, 300); // 300ms για να προλάβει να ανοίξει το CSS animation
-            }
-        }
-
-        function switchScratchTab(tab) {
-            document.querySelectorAll('.scratch-tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.scratch-content').forEach(c => c.classList.remove('active'));
-            
-            if(tab === 'type') {
-                document.querySelectorAll('.scratch-tab')[0].classList.add('active');
-                document.getElementById('tabType').classList.add('active');
-            } else {
-                document.querySelectorAll('.scratch-tab')[1].classList.add('active');
-                document.getElementById('tabDraw').classList.add('active');
-                resizeCanvas();
-            }
-        }
-
-        // --- Λειτουργικότητα Καμβά (Σχεδίαση με Ποντίκι/Tablet) ---
-        const canvas = document.getElementById('drawingCanvas');
-        const ctx = canvas.getContext('2d');
-        let isDrawing = false;
-
-        function resizeCanvas() {
-            // Προσαρμόζουμε τον καμβά στο πραγματικό μέγεθος του container του
-            canvas.width = canvas.parentElement.clientWidth;
-            canvas.height = canvas.parentElement.clientHeight;
-            
-            // Ρυθμίσεις "Μολυβιού"
-            ctx.strokeStyle = "#8b5cf6"; // Το μωβ χρώμα του theme
-            ctx.lineWidth = 3;
-            ctx.lineCap = "round";
-            ctx.lineJoin = "round";
-        }
-
-        // Event Listeners για σχεδίαση
-        canvas.addEventListener('mousedown', startDrawing);
-        canvas.addEventListener('mousemove', draw);
-        canvas.addEventListener('mouseup', stopDrawing);
-        canvas.addEventListener('mouseout', stopDrawing);
-
-        // Προσθήκη Touch Events για Tablets
-        canvas.addEventListener('touchstart', (e) => {
-            e.preventDefault(); // Αποφυγή scrolling
-            const touch = e.touches[0];
-            const mouseEvent = new MouseEvent("mousedown", { clientX: touch.clientX, clientY: touch.clientY });
-            canvas.dispatchEvent(mouseEvent);
-        }, { passive: false });
-        
-        canvas.addEventListener('touchmove', (e) => {
-            e.preventDefault();
-            const touch = e.touches[0];
-            const mouseEvent = new MouseEvent("mousemove", { clientX: touch.clientX, clientY: touch.clientY });
-            canvas.dispatchEvent(mouseEvent);
-        }, { passive: false });
-
-        canvas.addEventListener('touchend', () => {
-            const mouseEvent = new MouseEvent("mouseup", {});
-            canvas.dispatchEvent(mouseEvent);
-        });
-
-        function startDrawing(e) {
-            isDrawing = true;
-            draw(e);
-        }
-
-        function draw(e) {
-            if (!isDrawing) return;
-            const rect = canvas.getBoundingClientRect();
-            // Υπολογισμός σωστών συντεταγμένων
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-
-            ctx.lineTo(x, y);
-            ctx.stroke();
-            ctx.beginPath();
-            ctx.moveTo(x, y);
-        }
-
-        function stopDrawing() {
-            isDrawing = false;
-            ctx.beginPath();
-        }
-
-        function clearCanvas() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-        }
-
-        // Προσωρινές συναρτήσεις μέχρι να φτιάξουμε τα επόμενα modules
-        function openSubject(id) { 
-            console.log("Θα ανοίγει η λίστα κεφαλαίων για το μάθημα: " + id); 
-        }
-        function openStudyMethods()
-        // Module 4 Scripts: Sidebar & Timer Logic
-        let studyTimer = null;
-        let timeLeft = 0;
-
-        // Συνδέουμε το FAB κουμπί με το Sidebar
-        function openStudyMethods() {
-            toggleSidebar();
-        }
-
-        function toggleSidebar() {
-            const sidebar = document.getElementById('studySidebar');
-            const overlay = document.getElementById('sidebarOverlay');
-            sidebar.classList.toggle('open');
-            overlay.classList.toggle('active');
-        }
-
-        // Λειτουργία Χρονομέτρου
-        function startTimer(minutes, modeName) {
-            stopTimer(); // Σταματάμε τυχόν προηγούμενο timer
-            document.getElementById('timerMode').innerText = modeName;
-            timeLeft = minutes * 60;
-            updateTimeDisplay();
-            
+        // --- TIMER ---
+        function startTimer(min, mode) {
+            stopTimer(); document.getElementById('timerMode').innerText = mode;
+            let sec = min * 60; let totalMin = min; updateTimeDisplay(sec);
             studyTimer = setInterval(() => {
-                timeLeft--;
-                updateTimeDisplay();
-                
-                if(timeLeft <= 0) {
-                    stopTimer();
-                    // Προσωρινό alert (Στο μέλλον θα το κάνουμε ένα ωραίο Modal συγχαρητηρίων)
-                    alert("Συγχαρητήρια! Η συνεδρία '" + modeName + "' ολοκληρώθηκε.\nΑξίζεις ένα καλό διάλειμμα.");
+                sec--; updateTimeDisplay(sec);
+                if(sec % 60 === 0) { dbData.stats.daily_min++; dbData.stats.milestone_done++; updateUI(); sync(); }
+                if(sec <= 0) {
+                    stopTimer(); document.getElementById('alarmSound').play(); dbData.streak++; updateUI(); sync();
+                    document.getElementById('breakMessage').innerText = `${totalMin} λεπτά ολοκληρώθηκαν.`;
+                    document.getElementById('breakModal').style.display = 'flex';
                 }
             }, 1000);
         }
+        function stopTimer() { clearInterval(studyTimer); updateTimeDisplay(0); document.getElementById('timerMode').innerText = "ΕΤΟΙΜΟΣ"; }
+        function updateTimeDisplay(sec) { const m = Math.floor(sec/60).toString().padStart(2,'0'); const s = (sec%60).toString().padStart(2,'0'); document.getElementById('timerDisplay').innerText = `${m}:${s}`; }
+        function customTimer() { let m = prompt("Λεπτά:"); if(m && !isNaN(m)) startTimer(m, "CUSTOM"); }
+        function saveNotes() { dbData.notes = document.getElementById('notesArea').value; sync(); }
 
-        function stopTimer() {
-            clearInterval(studyTimer);
-            document.getElementById('timerMode').innerText = "ΕΤΟΙΜΟΣ ΓΙΑ ΔΙΑΒΑΣΜΑ";
-            document.getElementById('timerDisplay').innerText = "00:00";
+        // --- SCRATCHPAD & CANVAS ---
+        function toggleScratchpad() {
+            const sb = document.getElementById('scratchpadSidebar');
+            const btn = document.getElementById('scratchBtn');
+            sb.classList.toggle('open'); btn.classList.toggle('active');
+            if(sb.classList.contains('open')) setTimeout(resizeCanvas, 300);
+        }
+        function switchScratchTab(tab) {
+            document.querySelectorAll('.scratch-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.scratch-content').forEach(c => c.classList.remove('active'));
+            if(tab === 'type') { document.querySelectorAll('.scratch-tab')[0].classList.add('active'); document.getElementById('tabType').classList.add('active'); } 
+            else { document.querySelectorAll('.scratch-tab')[1].classList.add('active'); document.getElementById('tabDraw').classList.add('active'); resizeCanvas(); }
         }
 
-        function updateTimeDisplay() {
-            if(timeLeft <= 0) return;
-            const m = Math.floor(timeLeft / 60).toString().padStart(2, '0');
-            const s = (timeLeft % 60).toString().padStart(2, '0');
-            document.getElementById('timerDisplay').innerText = `${m}:${s}`;
-        },
-        {
-            const menu = document.getElementById('leftMenu');
-            const overlay = document.getElementById('menuOverlay');
-            
-            menu.classList.toggle('active');
-            overlay.classList.toggle('active');
-        }
+        const canvas = document.getElementById('drawingCanvas');
+        const ctx = canvas.getContext('2d');
+        let isDrawing = false;
+        function resizeCanvas() { if(!canvas.parentElement) return; canvas.width = canvas.parentElement.clientWidth; canvas.height = canvas.parentElement.clientHeight; ctx.strokeStyle = "#8b5cf6"; ctx.lineWidth = 3; ctx.lineCap = "round"; ctx.lineJoin = "round"; }
+        
+        canvas.addEventListener('mousedown', startDrawing); canvas.addEventListener('mousemove', draw); canvas.addEventListener('mouseup', stopDrawing); canvas.addEventListener('mouseout', stopDrawing);
+        canvas.addEventListener('touchstart', (e) => { e.preventDefault(); const touch = e.touches[0]; canvas.dispatchEvent(new MouseEvent("mousedown", { clientX: touch.clientX, clientY: touch.clientY })); }, { passive: false });
+        canvas.addEventListener('touchmove', (e) => { e.preventDefault(); const touch = e.touches[0]; canvas.dispatchEvent(new MouseEvent("mousemove", { clientX: touch.clientX, clientY: touch.clientY })); }, { passive: false });
+        canvas.addEventListener('touchend', () => canvas.dispatchEvent(new MouseEvent("mouseup", {})));
+
+        function startDrawing(e) { isDrawing = true; draw(e); }
+        function draw(e) { if (!isDrawing) return; const rect = canvas.getBoundingClientRect(); const x = e.clientX - rect.left; const y = e.clientY - rect.top; ctx.lineTo(x, y); ctx.stroke(); ctx.beginPath(); ctx.moveTo(x, y); }
+        function stopDrawing() { isDrawing = false; ctx.beginPath(); }
+        function clearCanvas() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
+
+        async function logout() { await supabaseClient.auth.signOut(); location.reload(); }
+        supabaseClient.auth.onAuthStateChange((event, session) => { if (session) initApp(session.user); });
+
     </script>
-
 </body>
 </html>
