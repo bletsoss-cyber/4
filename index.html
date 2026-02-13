@@ -153,6 +153,23 @@
 
         @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
         @keyframes slideUp { from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
+
+        /* --- 13. QUIZ HUB (Module 8) --- */
+        #quizHubSection { display: none; animation: slideUp 0.5s ease; }
+        .quiz-subject-card { background: var(--card-dark); border: var(--border); border-radius: 16px; margin-bottom: 15px; overflow: hidden; }
+        
+        /* Η μπάρα που πατάς για να ανοίξει */
+        .quiz-subject-header { padding: 18px 20px; background: rgba(0,0,0,0.3); display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 600; color: white; transition: 0.2s; }
+        .quiz-subject-header:hover { background: rgba(255,255,255,0.05); }
+        .quiz-subject-header i.fa-chevron-down { transition: transform 0.3s; }
+        .quiz-subject-header.open i.fa-chevron-down { transform: rotate(180deg); } /* Γυρίζει το βελάκι */
+        
+        /* Η λίστα που κρύβεται από κάτω */
+        .quiz-chapter-list { display: none; flex-direction: column; background: rgba(0,0,0,0.1); }
+        .quiz-chapter-list.open { display: flex; animation: fadeIn 0.3s ease; }
+        
+        .quiz-chapter-item { padding: 15px 20px; border-top: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; color: var(--text-muted); cursor: pointer; transition: 0.2s; }
+        .quiz-chapter-item:hover { color: var(--accent); background: rgba(255,255,255,0.02); padding-left: 25px; }
     </style>
 </head>
 <body>
@@ -193,7 +210,7 @@
         <div class="menu-nav">
             <div class="nav-item" onclick="showGrid(); toggleLeftMenu();"><i class="fas fa-home"></i> Αρχική (Μαθήματα)</div>
             <div class="nav-item" onclick="showAllNotes(); toggleLeftMenu();"><i class="fas fa-book-open"></i> Όλες οι Σημειώσεις</div>
-            <div class="nav-item"><i class="fas fa-brain"></i> Κουίζ</div>
+            <div class="nav-item" onclick="showQuizHub(); toggleLeftMenu();"><i class="fas fa-brain"></i> Κουίζ</div>
             <div class="nav-item"><i class="fas fa-folder-open"></i> Αποθηκευμένα</div>
             <div class="nav-item" style="margin-top: auto; color: #ef4444;" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Έξοδος</div>
         </div>
