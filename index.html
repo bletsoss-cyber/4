@@ -39,6 +39,22 @@
         .search-container { position: relative; width: 400px; max-width: 50%; }
         .search-input { width: 100%; padding: 10px 15px 10px 40px; border-radius: 20px; background: rgba(0,0,0,0.3); border: var(--border); color: white; outline: none; font-family: 'Outfit'; }
         .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
+        
+        /* --- Ζωντανά Αποτελέσματα Αναζήτησης --- */
+        .search-results {
+            position: absolute; top: 110%; left: 0; width: 100%;
+            background: rgba(19, 15, 37, 0.95); border: 1px solid var(--accent); border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8); backdrop-filter: blur(15px);
+            max-height: 350px; overflow-y: auto; display: none; flex-direction: column; z-index: 1001;
+        }
+        .search-item {
+            padding: 12px 20px; border-bottom: 1px solid rgba(255,255,255,0.05);
+            cursor: pointer; display: flex; flex-direction: column; transition: 0.2s;
+        }
+        .search-item:last-child { border-bottom: none; }
+        .search-item:hover { background: rgba(255,255,255,0.05); transform: translateX(5px); }
+        .search-item-title { font-weight: 500; color: white; display: flex; align-items: center; gap: 8px; }
+        .search-item-path { font-size: 0.8rem; color: var(--text-muted); margin-top: 4px; }
 
         .left-menu { position: fixed; top: 0; left: -300px; width: 300px; height: 100vh; background: rgba(19, 15, 37, 0.98); border-right: 1px solid var(--accent); z-index: 2000; padding: 30px 20px; box-shadow: 10px 0 30px rgba(0,0,0,0.5); transition: left 0.3s; }
         .left-menu.active { left: 0; }
@@ -159,7 +175,9 @@
         </div>
         <div class="search-container">
             <i class="fas fa-search search-icon"></i>
-            <input type="text" class="search-input" placeholder="Αναζήτηση (π.χ. Λεμφαγγεία)...">
+            <input type="text" id="searchInput" class="search-input" placeholder="Αναζήτηση (π.χ. Λεμφαγγεία)..." oninput="performSearch()">
+            
+            <div id="searchResults" class="search-results"></div>
         </div>
         <div style="color: var(--text-muted); cursor: pointer;" onclick="openMilestoneModal()"><i class="fas fa-flag"></i> Στόχοι</div>
     </header>
@@ -557,6 +575,57 @@
         canvas.addEventListener('touchstart', (e) => { e.preventDefault(); const touch = e.touches[0]; canvas.dispatchEvent(new MouseEvent("mousedown", { clientX: touch.clientX, clientY: touch.clientY })); }, { passive: false }); canvas.addEventListener('touchmove', (e) => { e.preventDefault(); const touch = e.touches[0]; canvas.dispatchEvent(new MouseEvent("mousemove", { clientX: touch.clientX, clientY: touch.clientY })); }, { passive: false }); canvas.addEventListener('touchend', () => canvas.dispatchEvent(new MouseEvent("mouseup", {})));
         function startDrawing(e) { isDrawing = true; draw(e); } function draw(e) { if (!isDrawing) return; const rect = canvas.getBoundingClientRect(); const x = e.clientX - rect.left; const y = e.clientY - rect.top; ctx.lineTo(x, y); ctx.stroke(); ctx.beginPath(); ctx.moveTo(x, y); }
         function stopDrawing() { isDrawing = false; ctx.beginPath(); } function clearCanvas() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
+
+        // --- 9. MODULE 7: LIVE SEARCH ---
+        function performSearch() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const resultsBox = document.getElementById('searchResults');
+            resultsBox.innerHTML = '';
+            
+            // Αν έχει γράψει κάτω από 2 γράμματα, κρύψε το μενού
+            if(query.length < 2) {
+                resultsBox.style.display = 'none';
+                return;
+            }
+            
+            let matches = 0;
+            // Ψάχνουμε μέσα στα δεδομένα μας (Τίτλους Μαθημάτων & Κεφαλαίων)
+            subjectsData.forEach(sub => {
+                sub.chapters.forEach(ch => {
+                    if(ch.title.toLowerCase().includes(query) || sub.title.toLowerCase().includes(query)) {
+                        matches++;
+                        resultsBox.innerHTML += `
+                        <div class="search-item" onclick="openSearchResult(${sub.id}, ${ch.id}, '${ch.title}', '${ch.notes}', '${ch.quiz}')">
+                            <span class="search-item-title"><i class="fas fa-file-alt" style="color:var(--accent);"></i> ${ch.title}</span>
+                            <span class="search-item-path"><i class="fas ${sub.icon}"></i> ${sub.title}</span>
+                        </div>`;
+                    }
+                });
+            });
+            
+            if(matches === 0) {
+                resultsBox.innerHTML = '<div style="padding:15px; text-align:center; color:var(--text-muted); font-size:0.9rem;">Δεν βρέθηκαν αποτελέσματα.</div>';
+            }
+            
+            resultsBox.style.display = 'flex';
+        }
+
+        function openSearchResult(subId, chId, title, notes, quiz) {
+            // Καθαρίζουμε την αναζήτηση και κλείνουμε το dropdown
+            document.getElementById('searchInput').value = '';
+            document.getElementById('searchResults').style.display = 'none';
+            
+            // Ανοίγουμε απευθείας το Modal Επιλογής!
+            openChapterModal(chId, title, notes, quiz);
+        }
+
+        // Κλείσιμο της αναζήτησης αν ο χρήστης κάνει κλικ κάπου αλλού στην οθόνη
+        document.addEventListener('click', (e) => {
+            if(!e.target.closest('.search-container')) {
+                const resultsBox = document.getElementById('searchResults');
+                if(resultsBox) resultsBox.style.display = 'none';
+            }
+        });
 
         async function logout() { await supabaseClient.auth.signOut(); location.reload(); }
         supabaseClient.auth.onAuthStateChange((event, session) => { if (session) initApp(session.user); });
