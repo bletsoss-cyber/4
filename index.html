@@ -17,8 +17,45 @@
             --bg-gradient: radial-gradient(circle at 15% 50%, rgba(76, 29, 149, 0.3), transparent 25%), radial-gradient(circle at 85% 30%, rgba(124, 58, 237, 0.15), transparent 25%);
             --progress-bg: rgba(255,255,255,0.1); --progress-fill: linear-gradient(90deg, #8b5cf6, #a78bfa);
         }
-        [data-theme="ocean"] { --bg-dark: #0f172a; --accent: #38bdf8; --bg-gradient: radial-gradient(circle at 20% 20%, rgba(14, 165, 233, 0.3), transparent 40%); }
-        [data-theme="forest"] { --bg-dark: #052e16; --accent: #34d399; --bg-gradient: radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.2), transparent 50%); }
+        /* --- ΘΕΜΑΤΑ (THEMES) --- */
+        /* 1. Deep Purple (Default) - Το κρατάμε ως έχει */
+
+        /* 2. Ocean (Blue) - Το κρατάμε */
+        [data-theme="ocean"] { 
+            --bg-dark: #0f172a; 
+            --accent: #38bdf8; 
+            --accent-glow: rgba(56, 189, 248, 0.4);
+            --bg-gradient: radial-gradient(circle at 20% 20%, rgba(14, 165, 233, 0.2), transparent 40%); 
+        }
+
+        /* 3. Midnight (OLED Black) - Το κρατάμε */
+        [data-theme="midnight"] { 
+            --bg-dark: #000000; 
+            --accent: #ffffff; 
+            --accent-glow: rgba(255, 255, 255, 0.3);
+            --bg-gradient: none; 
+            --card-dark: rgba(20,20,20,0.95); 
+        }
+
+        /* 4. Academia (Coffee/Brown) - ΝΕΟ! */
+        [data-theme="coffee"] {
+            --bg-dark: #271c19; /* Σκούρο εσπρέσο */
+            --accent: #d4a373; /* Χρώμα Latte/Χρυσό */
+            --accent-glow: rgba(212, 163, 115, 0.4);
+            --bg-gradient: radial-gradient(circle at 80% 20%, rgba(160, 100, 60, 0.2), transparent 50%);
+            --card-dark: rgba(45, 30, 25, 0.95);
+            --progress-fill: linear-gradient(90deg, #d4a373, #faedcd);
+        }
+
+        /* 5. Clinical (Medical Cyan) - ΝΕΟ! */
+        [data-theme="clinical"] {
+            --bg-dark: #134e4a; /* Σκούρο Πετρόλ (Surgical Green/Blue) */
+            --accent: #2dd4bf; /* Φωτεινό Τιρκουάζ */
+            --accent-glow: rgba(45, 212, 191, 0.4);
+            --bg-gradient: radial-gradient(circle at 10% 90%, rgba(45, 212, 191, 0.2), transparent 40%);
+            --card-dark: rgba(15, 60, 55, 0.95);
+            --progress-fill: linear-gradient(90deg, #2dd4bf, #99f6e4);
+        }
         [data-theme="midnight"] { --bg-dark: #000000; --accent: #ffffff; --bg-gradient: none; --card-dark: rgba(20,20,20,0.95); }
 
         body { background-color: var(--bg-dark); background-image: var(--bg-gradient); background-attachment: fixed; color: var(--text-dark); font-family: 'Outfit', sans-serif; margin: 0; padding: 0; min-height: 100vh; overflow-x: hidden; transition: background 0.5s ease; }
@@ -349,13 +386,18 @@
 
     <div id="themePanel" class="theme-panel">
         <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
-            <span>Theme</span> <i class="fas fa-times" style="cursor:pointer;" onclick="toggleThemePanel()"></i>
+            <span>THEME</span> <i class="fas fa-times" style="cursor:pointer;" onclick="toggleThemePanel()"></i>
         </div>
         <div class="theme-grid">
-            <div class="theme-btn" style="background:#8b5cf6" onclick="setTheme('default')"></div>
-            <div class="theme-btn" style="background:#38bdf8" onclick="setTheme('ocean')"></div>
-            <div class="theme-btn" style="background:#34d399" onclick="setTheme('forest')"></div>
-            <div class="theme-btn" style="background:#000000; border:1px solid #333;" onclick="setTheme('midnight')"></div>
+            <div class="theme-btn" style="background:#8b5cf6" title="Deep Purple" onclick="setTheme('default')"></div>
+            
+            <div class="theme-btn" style="background:#38bdf8" title="Ocean Blue" onclick="setTheme('ocean')"></div>
+            
+            <div class="theme-btn" style="background:#000000; border:1px solid #444;" title="Midnight" onclick="setTheme('midnight')"></div>
+            
+            <div class="theme-btn" style="background:#7f5539" title="Academia" onclick="setTheme('coffee')"></div>
+            
+            <div class="theme-btn" style="background:#2dd4bf" title="Clinical" onclick="setTheme('clinical')"></div>
         </div>
     </div>
 
