@@ -264,6 +264,15 @@
             </div>
             <div id="allNotesContainer"></div>
         </div>
+        
+        <div id="quizHubSection">
+            <div class="notes-header">
+                <button class="back-btn" onclick="showGrid()"><i class="fas fa-arrow-left"></i> Επιστροφή</button>
+                <h2 style="margin: 0;"><i class="fas fa-brain" style="color:var(--accent); margin-right:10px;"></i> Κέντρο Κουίζ</h2>
+            </div>
+            <div id="quizHubContainer">
+                </div>
+        </div>
 
     </main>
 
@@ -643,7 +652,68 @@
                 if(resultsBox) resultsBox.style.display = 'none';
             }
         });
+        // --- MODULE 8: QUIZ HUB LOGIC ---
+        function showQuizHub() {
+            // Κρύβουμε όλα τα άλλα
+            document.getElementById('heroDashboard').style.display = 'none';
+            document.getElementById('subjectsSection').style.display = 'none';
+            document.getElementById('chapterSection').style.display = 'none';
+            document.getElementById('allNotesSection').style.display = 'none';
+            
+            // Εμφανίζουμε το Quiz Hub
+            document.getElementById('quizHubSection').style.display = 'block';
+            
+            const container = document.getElementById('quizHubContainer');
+            container.innerHTML = '';
+            
+            let hasAnyQuiz = false;
 
+            // Ψάχνουμε στα δεδομένα μας
+            subjectsData.forEach(subject => {
+                // Φιλτράρουμε μόνο τα κεφάλαια που ΕΧΟΥΝ αρχείο quiz
+                const quizChapters = subject.chapters.filter(ch => ch.quiz && ch.quiz.trim() !== '');
+                
+                if (quizChapters.length > 0) {
+                    hasAnyQuiz = true;
+                    let chaptersHtml = '';
+                    
+                    quizChapters.forEach(ch => {
+                        // Όταν πατάς, ανοίγει απευθείας ο Viewer σε λειτουργία "quiz"
+                        chaptersHtml += `
+                            <div class="quiz-chapter-item" onclick="openChapterModal(${ch.id}, '${ch.title}', '${ch.notes}', '${ch.quiz}'); openResource('quiz');">
+                                <span style="font-weight: 500;"><i class="fas fa-question-circle" style="margin-right:8px; color:var(--accent);"></i> ${ch.title}</span>
+                                <i class="fas fa-play" style="font-size:0.8rem; opacity:0.5;"></i>
+                            </div>
+                        `;
+                    });
+                    
+                    // Προσθέτουμε το πτυσσόμενο μενού (Accordion)
+                    container.innerHTML += `
+                        <div class="quiz-subject-card">
+                            <div class="quiz-subject-header" onclick="toggleQuizAccordion(this)">
+                                <span><i class="fas ${subject.icon}" style="color:var(--accent); margin-right:10px;"></i> ${subject.title}</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="quiz-chapter-list">
+                                ${chaptersHtml}
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+            
+            if (!hasAnyQuiz) {
+                container.innerHTML = '<p style="text-align:center; opacity:0.6; margin-top:40px;">Δεν βρέθηκαν διαθέσιμα Κουίζ.</p>';
+            }
+        }
+
+        // Η λειτουργία που ανοιγοκλείνει (συμπτύσσει) τις λίστες
+        function toggleQuizAccordion(headerElement) {
+            headerElement.classList.toggle('open');
+            const list = headerElement.nextElementSibling;
+            list.classList.toggle('open');
+        }
+        
         async function logout() { await supabaseClient.auth.signOut(); location.reload(); }
         supabaseClient.auth.onAuthStateChange((event, session) => { if (session) initApp(session.user); });
     </script>
