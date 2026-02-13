@@ -516,16 +516,33 @@
         }
 
         function openSubject(id) {
+            // 1. Κρύβουμε ΟΛΑ τα άλλα τμήματα (Updated)
+            document.getElementById('heroDashboard').style.display = 'none';
             document.getElementById('subjectsSection').style.display = 'none';
             document.getElementById('allNotesSection').style.display = 'none';
-            document.getElementById('heroDashboard').style.display = 'none';
+            
+            // Αυτές είναι οι γραμμές που έλειπαν:
+            if(document.getElementById('savedFilesSection')) {
+                document.getElementById('savedFilesSection').style.display = 'none';
+            }
+            if(document.getElementById('quizHubSection')) {
+                document.getElementById('quizHubSection').style.display = 'none';
+            }
+
+            // 2. Εμφανίζουμε μόνο τα Κεφάλαια
             document.getElementById('chapterSection').style.display = 'block';
             
+            // 3. Φορτώνουμε τα δεδομένα
             const subject = subjectsData.find(s => s.id === id);
             document.getElementById('chapterTitle').innerText = subject.title;
-            const list = document.getElementById('chapterList'); list.innerHTML = '';
+            const list = document.getElementById('chapterList'); 
+            list.innerHTML = '';
             
-            if (subject.chapters.length === 0) { list.innerHTML = '<p style="opacity:0.6">Δεν υπάρχουν αρχεία.</p>'; return; }
+            if (subject.chapters.length === 0) { 
+                list.innerHTML = '<p style="opacity:0.6">Δεν υπάρχουν αρχεία.</p>'; 
+                return; 
+            }
+            
             subject.chapters.forEach(ch => {
                 list.innerHTML += `
                 <div class="chapter-item" onclick="openChapterModal(${ch.id}, '${ch.title}', '${ch.notes}', '${ch.quiz}')">
@@ -533,7 +550,7 @@
                     <i class="fas fa-chevron-right" style="opacity:0.5;"></i>
                 </div>`;
             });
-        }
+        }    
 
         function showGrid() { 
             document.getElementById('chapterSection').style.display = 'none'; 
