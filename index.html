@@ -251,6 +251,27 @@
         .task-item:hover .task-delete { opacity: 1; }
 
         @keyframes slideDown { from {opacity:0; transform:translateY(-20px);} to {opacity:1; transform:translateY(0);} }
+
+        /* --- 17. ACTIVE RECALL MODE (Module 12) --- */
+        /* Όταν το iframe έχει αυτή την κλάση, τα bold κρύβονται */
+        .active-recall-body b, 
+        .active-recall-body strong {
+            background-color: var(--text-dark); /* Μαύρο φόντο */
+            color: transparent !important;      /* Κρυμμένο κείμενο */
+            border-radius: 4px;
+            padding: 0 5px;
+            cursor: help;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        /* Όταν περνάς το ποντίκι, εμφανίζεται */
+        .active-recall-body b:hover, 
+        .active-recall-body strong:hover {
+            background-color: transparent;
+            color: var(--accent) !important; /* Γίνεται μωβ/γαλάζιο */
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -424,6 +445,7 @@
             <button class="viewer-back" onclick="closeViewer()"><i class="fas fa-arrow-left"></i> Πίσω</button>
             <div class="viewer-title" id="viewerTitle">Φόρτωση...</div>
             <div class="viewer-tools">
+                <button class="tool-btn" onclick="toggleActiveRecall()" title="Active Recall (Κρύψε τα SOS)"><i class="fas fa-low-vision"></i></button>
                 <button id="bookmarkBtn" class="bookmark-btn" onclick="toggleBookmark()" title="Αποθήκευση"><i class="fas fa-heart"></i></button>
                 <button class="tool-btn" onclick="toggleTimerSidebar()"><i class="fas fa-stopwatch"></i> Timer</button>
                 <button class="tool-btn" id="scratchBtn" onclick="toggleScratchpad()"><i class="fas fa-pen-nib"></i> Scratchpad</button>
@@ -997,6 +1019,39 @@
             dbData.tasks.splice(index, 1);
             sync();
             renderTasks();
+        }
+        // --- MODULE 12: ACTIVE RECALL LOGIC ---
+        function toggleActiveRecall() {
+            const iframe = document.getElementById('contentFrame');
+            
+            // Πρέπει να έχουμε πρόσβαση στο εσωτερικό του Iframe
+            // Προσοχή: Αυτό δουλεύει αν τα αρχεία είναι στον ίδιο φάκελο (Local)
+            try {
+                const innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+                const body = innerDoc.body;
+                
+                // Προσθέτουμε/Αφαιρούμε την κλάση στο body του HTML αρχείου σου
+                body.classList.toggle('active-recall-body');
+                
+                // Inject το CSS μέσα στο iframe για να πιάσει το στυλ
+                if (!innerDoc.getElementById('recall-style')) {
+                    const style = innerDoc.createElement('style');
+                    style.id = 'recall-style';
+                    style.textContent = `
+                        .active-recall-body b, .active-recall-body strong {
+                            background-color: #333; color: transparent; border-radius: 4px; padding: 0 4px; cursor: help; transition: 0.2s;
+                        }
+                        .active-recall-body b:hover, .active-recall-body strong:hover {
+                            background-color: transparent; color: #8b5cf6;
+                        }
+                    `;
+                    innerDoc.head.appendChild(style);
+                }
+                
+            } catch(e) {
+                console.error("Δεν μπορώ να πειράξω το iframe (Cross-Origin Policy).");
+                alert("Για να δουλέψει αυτό, τα αρχεία .html πρέπει να είναι στον ίδιο φάκελο!");
+            }
         }
     </script>
 </body>
