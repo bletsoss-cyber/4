@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Uni Hub - The Ultimate Engine</title>
+    <title>Uni Hub - Troubleshooting Fix</title>
     
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -29,16 +29,14 @@
         [data-theme="forest"] { --bg-dark: #052e16; --accent: #34d399; --bg-gradient: radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.2), transparent 50%); }
         [data-theme="midnight"] { --bg-dark: #000000; --accent: #ffffff; --bg-gradient: none; --card-dark: rgba(20,20,20,0.95); }
 
-        /* --- 2. BASE SETUP --- */
         body {
             background-color: var(--bg-dark); background-image: var(--bg-gradient); background-attachment: fixed;
             color: var(--text-dark); font-family: 'Outfit', sans-serif; margin: 0; padding: 0;
             min-height: 100vh; overflow-x: hidden; transition: background 0.5s ease;
         }
         * { box-sizing: border-box; transition: all 0.3s ease; }
-        .glass { background: var(--card-dark); backdrop-filter: blur(15px); border: var(--border); }
 
-        /* --- 3. LOGIN SCREEN --- */
+        /* --- 2. LOGIN SCREEN --- */
         .login-wrapper { position: fixed; inset: 0; display: flex; justify-content: center; align-items: center; background: var(--bg-dark); z-index: 6000; }
         .login-box { background: var(--card-dark); padding: 40px; border-radius: 24px; width: 380px; text-align: center; border: var(--border); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
         .login-input { width: 100%; padding: 12px; margin: 10px 0; background: rgba(255,255,255,0.05); border: var(--border); border-radius: 8px; color: white; outline: none; font-family: 'Outfit'; }
@@ -46,8 +44,8 @@
         .btn-main { width: 100%; padding: 12px; margin-top: 15px; background: var(--accent); border: none; color: white; font-weight: 600; border-radius: 8px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; font-family: 'Outfit'; }
         .btn-main:hover { box-shadow: 0 0 20px var(--accent-glow); transform: translateY(-1px); }
 
-        /* --- 4. TOP BAR & LEFT MENU --- */
-        .top-bar { position: fixed; top: 0; left: 0; width: 100%; height: 70px; display: flex; justify-content: space-between; align-items: center; padding: 0 30px; z-index: 1000; border-bottom: var(--border); }
+        /* --- 3. TOP BAR & LEFT MENU --- */
+        .top-bar { position: fixed; top: 0; left: 0; width: 100%; height: 70px; display: flex; justify-content: space-between; align-items: center; padding: 0 30px; z-index: 1000; border-bottom: var(--border); background: rgba(30, 27, 75, 0.9); backdrop-filter: blur(15px); }
         .top-left { display: flex; align-items: center; gap: 20px; }
         .menu-btn { background: transparent; border: none; color: white; font-size: 1.5rem; cursor: pointer; padding: 5px; }
         .menu-btn:hover { color: var(--accent); }
@@ -56,7 +54,7 @@
         .search-input:focus { border-color: var(--accent); background: rgba(0,0,0,0.5); }
         .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted); pointer-events: none; }
 
-        .left-menu { position: fixed; top: 0; left: -300px; width: 300px; height: 100vh; background: rgba(19, 15, 37, 0.98); border-right: 1px solid var(--accent); z-index: 2000; padding: 30px 20px; box-shadow: 10px 0 30px rgba(0,0,0,0.5); }
+        .left-menu { position: fixed; top: 0; left: -300px; width: 300px; height: 100vh; background: rgba(19, 15, 37, 0.98); border-right: 1px solid var(--accent); z-index: 2000; padding: 30px 20px; box-shadow: 10px 0 30px rgba(0,0,0,0.5); transition: left 0.3s; }
         .left-menu.active { left: 0; }
         .menu-close { position: absolute; top: 20px; right: 20px; background: transparent; border: none; color: var(--text-muted); font-size: 1.2rem; cursor: pointer; }
         .menu-close:hover { color: white; }
@@ -69,13 +67,12 @@
         .menu-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1500; display: none; backdrop-filter: blur(3px); }
         .menu-overlay.active { display: block; }
 
-        /* --- 5. DASHBOARD LAYOUT --- */
+        /* --- 4. DASHBOARD LAYOUT --- */
         .main-content { padding: 100px 30px 30px; max-width: 1400px; margin: 0 auto; display: none; }
         .hero-section { display: grid; grid-template-columns: 2fr 1fr; gap: 25px; margin-bottom: 40px; animation: fadeIn 0.8s; }
         .hero-card { background: var(--card-dark); border: var(--border); border-radius: 24px; padding: 35px; position: relative; display: flex; flex-direction: column; justify-content: space-between; }
         .hero-title { font-size: 2rem; font-weight: 700; margin-bottom: 5px; }
         
-        /* Milestones & Stats */
         .milestone-widget { margin-top: 30px; background: rgba(0,0,0,0.2); padding: 20px; border-radius: 16px; border: var(--border); }
         .milestone-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
         .milestone-title { font-size: 0.9rem; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; }
@@ -88,7 +85,7 @@
         .stat-icon { width: 45px; height: 45px; background: rgba(139, 92, 246, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: 1.2rem; }
         .stat-info h4 { font-size: 1.5rem; font-weight: 700; margin: 0; }
 
-        /* --- 6. SUBJECTS GRID (Square) --- */
+        /* --- 5. SUBJECTS GRID --- */
         .grid-header { font-size: 1.1rem; font-weight: 600; margin-bottom: 20px; color: var(--text-muted); border-bottom: 1px solid var(--border); padding-bottom: 10px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; margin-bottom: 50px; animation: slideUp 0.8s; }
         .card { background: var(--card-dark); border: var(--border); padding: 30px; border-radius: 20px; cursor: pointer; text-align: center; position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 220px; }
@@ -100,13 +97,13 @@
         .card span:nth-child(4) { bottom:0; left:0; width:2px; height:0; transition-delay:0.3s; } .card:hover span:nth-child(4) { height:100%; }
         .card-icon { font-size: 3rem; margin-bottom: 15px; color: var(--accent); }
 
-        /* --- 7. CHAPTER MENU (Wide Bars) --- */
+        /* --- 6. CHAPTER MENU --- */
         #chapterSection { display: none; animation: slideUp 0.5s; }
         .chapter-list { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
         .chapter-item { background: var(--card-dark); border: var(--border); padding: 18px 25px; border-radius: 12px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; width: 100%; transition: 0.2s; }
         .chapter-item:hover { border-color: var(--accent); transform: translateX(5px); background: rgba(255,255,255,0.05); }
 
-        /* --- 8. FAB BUTTONS & THEME PANEL --- */
+        /* --- 7. FAB BUTTONS & THEME PANEL --- */
         .fab-container { position: fixed; bottom: 30px; right: 30px; display: flex; flex-direction: column; gap: 15px; z-index: 100; }
         .fab { width: 60px; height: 60px; background: var(--card-dark); border: var(--border); color: var(--text-dark); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; cursor: pointer; backdrop-filter: blur(10px); }
         .fab:hover { transform: scale(1.1); background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 10px 30px var(--accent-glow); }
@@ -116,17 +113,20 @@
         .theme-btn { height: 40px; border-radius: 8px; cursor: pointer; border: 2px solid transparent; }
         .theme-btn:hover { transform: scale(1.1); border-color: white; }
 
-        /* --- 9. GLOBAL TIMER SIDEBAR --- */
+        /* --- 8. GLOBAL TIMER SIDEBAR --- */
         .timer-sidebar { position: fixed; top: 0; right: -400px; width: 400px; height: 100vh; background: rgba(19, 15, 37, 0.98); border-left: 1px solid var(--accent); z-index: 4000; padding: 30px; display: flex; flex-direction: column; gap: 20px; box-shadow: -10px 0 50px rgba(0,0,0,0.8); transition: right 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
         .timer-sidebar.open { right: 0; }
         .timer-sidebar-close { position: absolute; top: 20px; left: -40px; width: 40px; height: 50px; background: var(--accent); color: white; border: none; border-radius: 10px 0 0 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+        
+        /* Διόρθωσα το μέγεθος του Display για να χωράει καλά */
         .timer-display { font-size: 4.5rem; font-weight: 300; text-align: center; color: white; margin-bottom: 5px; font-variant-numeric: tabular-nums; }
+        
         .method-btn { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 15px; border-radius: 12px; cursor: pointer; text-align: left; display: flex; justify-content: space-between; align-items: center; transition: 0.2s; }
         .method-btn:hover { background: rgba(255,255,255,0.08); border-color: var(--accent); transform: translateX(-5px); }
         .method-btn .tag { font-weight: 800; color: var(--accent); font-size: 1.1rem; }
         .timer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 3999; display: none; backdrop-filter: blur(2px); }
 
-        /* --- 10. FULL SCREEN VIEWER & SCRATCHPAD --- */
+        /* --- 9. FULL SCREEN VIEWER & SCRATCHPAD --- */
         .viewer-overlay { position: fixed; inset: 0; background: var(--bg-dark); z-index: 5000; display: none; flex-direction: column; animation: fadeIn 0.3s; }
         .viewer-header { height: 60px; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: space-between; padding: 0 20px; border-bottom: var(--border); backdrop-filter: blur(10px); }
         .viewer-back { background: rgba(255,255,255,0.05); border: var(--border); color: white; padding: 8px 15px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 8px; font-family: 'Outfit'; transition: 0.2s; }
@@ -149,7 +149,7 @@
         .canvas-container { flex: 1; background: #1a1a1a; border-radius: 12px; overflow: hidden; position: relative; border: var(--border); cursor: crosshair; }
         #drawingCanvas { width: 100%; height: 100%; display: block; }
 
-        /* --- 11. MODALS (Popups) --- */
+        /* --- 10. MODALS (Popups) --- */
         .modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 6000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
         .modal-box { background: var(--card-dark); border: 1px solid var(--accent); padding: 35px; border-radius: 20px; width: 360px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.8); animation: slideUp 0.3s; }
         .res-btn { background: rgba(255,255,255,0.05); border: var(--border); color: white; padding: 15px; border-radius: 12px; cursor: pointer; font-size: 1.05rem; display: flex; align-items: center; justify-content: center; gap: 12px; font-family: 'Outfit'; margin-top:10px; width:100%; }
@@ -172,7 +172,7 @@
         </div>
     </div>
 
-    <header class="glass top-bar" style="display:none;" id="topBar">
+    <header class="top-bar" style="display:none;" id="topBar">
         <div class="top-left">
             <button class="menu-btn" onclick="toggleLeftMenu()"><i class="fas fa-bars"></i></button>
             <div class="user-greeting">Γεια σου, <span id="topUsername" style="color:var(--accent)">User</span></div>
@@ -206,7 +206,8 @@
         <div class="hero-section">
             <div class="hero-card">
                 <div>
-                    <div class="hero-title">Welcome back.</div>
+                    <button onclick="logout()" style="float:right; background:none; border:none; color:var(--text-muted); cursor:pointer;"><i class="fas fa-sign-out-alt"></i></button>
+                    <div class="hero-title">Welcome back, <span id="usernameDisp" style="color:var(--accent)">Stathis</span>.</div>
                     <div class="hero-subtitle">Let's maintain focus today.</div>
                 </div>
                 <div class="milestone-widget">
@@ -233,7 +234,7 @@
             <div id="subjectsGrid" class="grid"></div>
         </div>
 
-        <div id="chapterSection">
+        <div id="chapterSection" style="display:none;">
             <div style="display:flex; align-items:center; gap:15px; margin-bottom:20px;">
                 <button style="background:rgba(255,255,255,0.05); border:var(--border); border-radius:10px; color:white; padding:8px 15px; cursor:pointer;" onclick="showGrid()"><i class="fas fa-arrow-left"></i> Επιστροφή</button>
                 <h2 id="chapterTitle" style="margin: 0;">Όνομα Μαθήματος</h2>
@@ -262,7 +263,7 @@
 
     <div class="timer-overlay" id="timerOverlay" onclick="toggleTimerSidebar()"></div>
     <div id="timerSidebar" class="timer-sidebar">
-        <button class="timer-sidebar-close" onclick="toggleTimerSidebar()"><i class="fas fa-chevron-right"></i></button>
+        <button class="timer-sidebar-close" onclick="toggleTimerSidebar()"><i id="timerHandleIcon" class="fas fa-chevron-left"></i></button>
         <div>
             <div id="timerDisplay" class="timer-display">00:00</div>
             <div id="timerMode" style="text-align:center; color:var(--accent); font-size:0.9rem; letter-spacing:2px; margin-bottom:25px; font-weight:600;">ΕΤΟΙΜΟΣ</div>
@@ -357,15 +358,21 @@
         let timeLeft = 0;
         let currentSelectedChapter = null;
 
-        // --- DATA ---
+        // --- DATA (ΕΔΩ ΒΑΖΕΙΣ ΤΑ ΔΙΚΑ ΣΟΥ HTML ΑΡΧΕΙΑ) ---
         const subjectsData = [
-            { id: 1, title: "Ανατομία III", icon: "fa-skull", chapters: [{ id: 101, title: "Κεφ 1: Λεμφαγγεία", notes: "anatomy_ch1_notes.html", quiz: "anatomy_ch1_quiz.html" }] },
+            { 
+                id: 1, title: "Ανατομία III", icon: "fa-skull", 
+                chapters: [
+                    { id: 101, title: "Κεφ 1: Λεμφαγγεία", notes: "anatomy_ch1_notes.html", quiz: "anatomy_ch1_quiz.html" },
+                    { id: 102, title: "Κεφ 2: Νευρικό Σύστημα", notes: "anatomy_ch2_notes.html", quiz: "anatomy_ch2_quiz.html" }
+                ] 
+            },
             { id: 2, title: "Εμβρυολογία", icon: "fa-baby-carriage", chapters: [{ id: 201, title: "Κεφ 1: Γονιμοποίηση", notes: "embryo_ch1_notes.html", quiz: "embryo_ch1_quiz.html" }] },
-            { id: 3, title: "Ιατρική Γενετική", icon: "fa-dna", chapters: [{ id: 301, title: "Κεφ 1: Εισαγωγή", notes: "genetics_notes.html", quiz: "" }] },
-            { id: 4, title: "Οδοντική Χειρ.", icon: "fa-tooth", chapters: [{ id: 401, title: "Κεφ 1: Εργαλεία", notes: "surgery_notes.html", quiz: "" }] },
-            { id: 5, title: "Προκλινική", icon: "fa-notes-medical", chapters: [{ id: 501, title: "Κεφ 1: Αρχές", notes: "preclinical_notes.html", quiz: "" }] },
-            { id: 6, title: "Ακτινολογία", icon: "fa-x-ray", chapters: [{ id: 601, title: "Κεφ 1: Ακτίνες Χ", notes: "radio_notes.html", quiz: "" }] },
-            { id: 7, title: "Προληπτική", icon: "fa-shield-virus", chapters: [{ id: 701, title: "Κεφ 1: Φθορίωση", notes: "preventive_notes.html", quiz: "" }] }
+            { id: 3, title: "Ιατρική Γενετική", icon: "fa-dna", chapters: [] },
+            { id: 4, title: "Οδοντική Χειρ.", icon: "fa-tooth", chapters: [] },
+            { id: 5, title: "Προκλινική", icon: "fa-notes-medical", chapters: [] },
+            { id: 6, title: "Ακτινολογία", icon: "fa-x-ray", chapters: [] },
+            { id: 7, title: "Προληπτική", icon: "fa-shield-virus", chapters: [] }
         ];
 
         // --- AUTH ---
@@ -389,42 +396,58 @@
             document.querySelector('#loginScreen .btn-main').innerText = isLoginMode ? "LOG IN" : "CREATE ACCOUNT";
         }
 
-        // --- INIT & SYNC ---
+        // --- INIT & SYNC (ΔΙΟΡΘΩΘΗΚΕ) ---
         async function initApp(user) {
-            let { data } = await supabaseClient.from('profiles').select('*').eq('user_id', user.id).single();
-            if(!data) {
-                const { data: newProf } = await supabaseClient.from('profiles').insert([{ 
-                    user_id: user.id, streak: 0, theme: 'default', notes: '', 
-                    stats: { daily_min: 0, milestone_name: "Set Goal", milestone_done: 0, milestone_target: 10 }
-                }]).select().single();
-                data = newProf;
-            }
-            dbData = data;
-            if(!dbData.stats) dbData.stats = { daily_min: 0, milestone_name: "Set Goal", milestone_done: 0, milestone_target: 10 };
+            try {
+                // Φορτώνουμε πρώτα το UI για να μην φαίνεται το "User"
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('topBar').style.display = 'flex';
+                document.getElementById('appRoot').style.display = 'block';
+                document.getElementById('fabContainer').style.display = 'flex';
+                
+                const username = user.email.split('@')[0];
+                document.getElementById('usernameDisp').innerText = username;
+                document.getElementById('topUsername').innerText = username;
+                document.getElementById('menuUsername').innerText = username;
+                
+                // Προσπαθούμε να συνδεθούμε με τη Βάση
+                let { data, error } = await supabaseClient.from('profiles').select('*').eq('user_id', user.id).single();
+                
+                if(error && error.code === 'PGRST116') {
+                    // Αν δεν υπάρχει προφίλ, δημιουργούμε ένα
+                    const { data: newProf } = await supabaseClient.from('profiles').insert([{ 
+                        user_id: user.id, streak: 0, theme: 'default', notes: '', 
+                        stats: { daily_min: 0, milestone_name: "Set Goal", milestone_done: 0, milestone_target: 10 }
+                    }]).select().single();
+                    data = newProf;
+                }
+                
+                dbData = data || { streak: 0, theme: 'default', notes: '', stats: { daily_min: 0, milestone_name: "Set Goal", milestone_done: 0, milestone_target: 10 } };
+                if(!dbData.stats) dbData.stats = { daily_min: 0, milestone_name: "Set Goal", milestone_done: 0, milestone_target: 10 };
 
-            document.getElementById('loginScreen').style.display = 'none';
-            document.getElementById('topBar').style.display = 'flex';
-            document.getElementById('appRoot').style.display = 'block';
-            document.getElementById('fabContainer').style.display = 'flex';
-            
-            const username = user.email.split('@')[0];
-            document.getElementById('usernameDisp').innerText = username;
-            document.getElementById('topUsername').innerText = username;
-            document.getElementById('menuUsername').innerText = username;
-            document.getElementById('notesArea').value = dbData.notes || '';
-            
-            setTheme(dbData.theme || 'default', false);
-            renderSubjects();
-            updateUI();
+                document.getElementById('notesArea').value = dbData.notes || '';
+                setTheme(dbData.theme || 'default', false);
+                
+                renderSubjects();
+                updateUI();
+                
+            } catch(e) {
+                console.error("Σφάλμα Βάσης:", e);
+                // Αν γίνει λάθος (πχ RLS error), φορτώνουμε το UI ούτως ή άλλως
+                renderSubjects();
+            }
         }
 
         async function sync() {
-            if(dbData) await supabaseClient.from('profiles').update({ 
-                streak: dbData.streak, theme: dbData.theme, notes: dbData.notes, stats: dbData.stats 
-            }).eq('user_id', dbData.user_id);
+            if(dbData && dbData.user_id) {
+                await supabaseClient.from('profiles').update({ 
+                    streak: dbData.streak, theme: dbData.theme, notes: dbData.notes, stats: dbData.stats 
+                }).eq('user_id', dbData.user_id);
+            }
         }
 
         function updateUI() {
+            if(!dbData) return;
             const s = dbData.stats;
             document.getElementById('streakCount').innerText = dbData.streak;
             document.getElementById('menuStreak').innerText = dbData.streak;
@@ -433,12 +456,20 @@
             document.getElementById('milestoneName').innerText = s.milestone_name;
             document.getElementById('milestoneCurrent').innerText = (s.milestone_done / 60).toFixed(1);
             document.getElementById('milestoneTarget').innerText = (s.milestone_target / 60).toFixed(0);
-            document.getElementById('milestoneBar').style.width = Math.min((s.milestone_done / s.milestone_target) * 100, 100) + '%';
+            
+            let percent = 0;
+            if(s.milestone_target > 0) percent = Math.min((s.milestone_done / s.milestone_target) * 100, 100);
+            document.getElementById('milestoneBar').style.width = percent + '%';
         }
 
         // --- UI TOGGLES ---
         function toggleLeftMenu() { document.getElementById('leftMenu').classList.toggle('active'); document.getElementById('menuOverlay').classList.toggle('active'); }
-        function toggleTimerSidebar() { document.getElementById('timerSidebar').classList.toggle('open'); document.getElementById('timerOverlay').classList.toggle('active'); }
+        function toggleTimerSidebar() { 
+            const sb = document.getElementById('timerSidebar');
+            sb.classList.toggle('open'); 
+            document.getElementById('timerOverlay').classList.toggle('active'); 
+            document.getElementById('timerHandleIcon').className = sb.classList.contains('open') ? "fas fa-chevron-right" : "fas fa-chevron-left";
+        }
         function toggleThemePanel() { const p = document.getElementById('themePanel'); p.style.display = p.style.display === 'block' ? 'none' : 'block'; }
         
         function openMilestoneModal() { document.getElementById('milestoneModal').style.display = 'flex'; }
@@ -514,9 +545,10 @@
             let sec = min * 60; let totalMin = min; updateTimeDisplay(sec);
             studyTimer = setInterval(() => {
                 sec--; updateTimeDisplay(sec);
-                if(sec % 60 === 0) { dbData.stats.daily_min++; dbData.stats.milestone_done++; updateUI(); sync(); }
+                if(sec % 60 === 0 && dbData) { dbData.stats.daily_min++; dbData.stats.milestone_done++; updateUI(); sync(); }
                 if(sec <= 0) {
-                    stopTimer(); document.getElementById('alarmSound').play(); dbData.streak++; updateUI(); sync();
+                    stopTimer(); document.getElementById('alarmSound').play(); 
+                    if(dbData) { dbData.streak++; updateUI(); sync(); }
                     document.getElementById('breakMessage').innerText = `${totalMin} λεπτά ολοκληρώθηκαν.`;
                     document.getElementById('breakModal').style.display = 'flex';
                 }
@@ -525,7 +557,7 @@
         function stopTimer() { clearInterval(studyTimer); updateTimeDisplay(0); document.getElementById('timerMode').innerText = "ΕΤΟΙΜΟΣ"; }
         function updateTimeDisplay(sec) { const m = Math.floor(sec/60).toString().padStart(2,'0'); const s = (sec%60).toString().padStart(2,'0'); document.getElementById('timerDisplay').innerText = `${m}:${s}`; }
         function customTimer() { let m = prompt("Λεπτά:"); if(m && !isNaN(m)) startTimer(m, "CUSTOM"); }
-        function saveNotes() { dbData.notes = document.getElementById('notesArea').value; sync(); }
+        function saveNotes() { if(dbData) { dbData.notes = document.getElementById('notesArea').value; sync(); } }
 
         // --- SCRATCHPAD & CANVAS ---
         function toggleScratchpad() {
