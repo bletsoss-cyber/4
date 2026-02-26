@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="el" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Κλινικός Οδηγός Τερηδόνας - Σημειώσεις</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb',
+                        darkBg: '#0f172a',
+                        darkCard: '#1e293b'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Smooth transitions for theme switching */
+        body {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .card {
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        /* Styling for the tables */
+        th, td {
+            border-color: #e2e8f0;
+        }
+        .dark th, .dark td {
+            border-color: #334155;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 dark:bg-darkBg dark:text-gray-200 antialiased font-sans">
+
+    <!-- Header / Nav -->
+    <header class="sticky top-0 z-50 bg-white dark:bg-darkCard shadow-sm border-b border-gray-200 dark:border-gray-700">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-xl md:text-2xl font-bold text-primary dark:text-blue-400">Κλινικός Οδηγός: Τερηδόνα</h1>
+            <button id="theme-toggle" class="p-2 rounded-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-primary transition-colors">
+                <!-- Sun Icon -->
+                <svg id="theme-toggle-light-icon" class="w-6 h-6 hidden text-yellow-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                <!-- Moon Icon -->
+                <svg id="theme-toggle-dark-icon" class="w-6 h-6 hidden text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            </button>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-8 space-y-10">
+
+        <!-- 1. ΣΥΛΛΟΓΗ ΣΤΟΙΧΕΙΩΝ & ΑΙΤΙΟΛΟΓΙΑ -->
+        <section class="card bg-white dark:bg-darkCard rounded-xl shadow-md p-6 lg:p-8 border-l-4 border-blue-500">
+            <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">1. Η Φύση της Νόσου & Αιτιολογία</h2>
+            <div class="space-y-4 text-gray-700 dark:text-gray-300">
+                <p>Η τερηδόνα είναι μια <strong>ενδογενής τοπική λοίμωξη</strong>. Προκαλείται από τη διαταραχή της οικολογικής ισορροπίας της οδοντικής πλάκας υπέρ των οξεογόνων μικροβίων. Η τερηδονική κοιλότητα (τρύπα) αποτελεί απλώς το <em>σύμπτωμα</em> της νόσου.</p>
+                
+                <h3 class="font-bold text-lg text-primary dark:text-blue-400 mt-4">1.1 Γενικά Νοσήματα & Υποσιαλία</h3>
+                <p class="text-sm mb-2">Το σάλιο είναι ο σημαντικότερος αμυντικός μηχανισμός. Μείωση της ροής του αυξάνει δραματικά τον κίνδυνο.</p>
+                <ul class="list-disc pl-5 space-y-1">
+                    <li><strong>Άμεση επίδραση (στους αδένες):</strong> Αυτοάνοσα (Σύνδρομο Sjögren, Ρευματοειδής αρθρίτιδα), Ορμονικές διαταραχές (Διαβήτης, Υπερθυρεοειδισμός, Εμμηνόπαυση), Νευρολογικά (Parkinson, Alzheimer), Αλκοολισμός, Νευρογενής Ανορεξία.</li>
+                    <li><strong>Έμμεση επίδραση:</strong> Ακτινοβολήσεις κεφαλής/τραχήλου (καταστροφή αδένων), ατέλειες διάπλασης αδαμαντίνης.</li>
+                </ul>
+
+                <h3 class="font-bold text-lg text-primary dark:text-blue-400 mt-4">1.2 Φάρμακα (Περίπου 1.800 προκαλούν υποσιαλία)</h3>
+                <p class="text-sm">Δρουν είτε κεντρικά (εγκέφαλος) είτε περιφερικά (αυτόνομο νευρικό σύστημα). Η βαρύτητα εξαρτάται από τη δόση, το είδος και τη διάρκεια λήψης.</p>
+                <ul class="list-disc pl-5 space-y-1">
+                    <li><strong>Σοβαρή Υποσιαλία (Ομάδα 1):</strong> Αντικαταθλιπτικά, Αντιπαρκινσονικά, Νευροληπτικά, Σπασμολυτικά, Αντιχολινεργικά.</li>
+                    <li><strong>Μέτρια/Πιθανή Υποσιαλία (Ομάδες 2 & 3):</strong> Αντιυπερτασικά, Διουρητικά, Υπνωτικά, Αντιισταμινικά.</li>
+                </ul>
+
+                <h3 class="font-bold text-lg text-primary dark:text-blue-400 mt-4">1.3 Διαιτητικές Συνήθειες & Υδατάνθρακες</h3>
+                <p class="text-sm mb-2">Αξιολόγηση μέσω: (α) Ερωτηματολογίου συχνότητας 50-150 τροφών, (β) 24ωρης ανάκλησης, (γ) Δελτίου δίαιτας 3 ημερών.</p>
+                <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded text-sm space-y-2">
+                    <p><strong>Τερηδονογόνος ικανότητα:</strong> Εξαρτάται από τη συχνότητα (κύριος παράγοντας), τη χημική σύσταση και την κολλώδη υφή (χρόνος παραμονής).</p>
+                    <ul class="list-disc pl-5">
+                        <li><strong>Σακχαρόζη (Κοινή ζάχαρη):</strong> Η πιο τερηδονογόνος (Διασπάται άμεσα από την ινβερτάση σε 2 ATP, δημιουργεί εξωκυττάριους πολυσακχαρίτες για προσκόλληση міκροβίων).</li>
+                        <li><strong>Φρουκτόζη / Γλυκόζη:</strong> Εξίσου επικίνδυνες (ταχέως μεταβολιζόμενες).</li>
+                        <li><strong>Λακτόζη:</strong> Βραδέως μεταβολιζόμενη, κίνδυνος κυρίως σε βρέφη (παρατεταμένος θηλασμός).</li>
+                        <li><strong>Άμυλο:</strong> Δεν είναι άμεσα τερηδονογόνο ωμό. Αν μαγειρευτεί (ζελατινοποίηση), διασπάται από την α-αμυλάση του σάλιου. Αν έχει κολλώδη υφή, εγκλωβίζεται και αυξάνει τον κίνδυνο.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. ΚΛΙΝΙΚΗ ΕΞΕΤΑΣΗ & ΔΙΑΓΝΩΣΗ -->
+        <section class="card bg-white dark:bg-darkCard rounded-xl shadow-md p-6 lg:p-8 border-l-4 border-indigo-500">
+            <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">2. Κλινική Εξέταση & Διαφοροδιάγνωση</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6 text-gray-700 dark:text-gray-300">
+                <div>
+                    <h3 class="text-xl font-semibold mb-2 text-primary dark:text-blue-300">Εμπειρία vs Δραστηριότητα</h3>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li><strong>Τερηδονική Εμπειρία (Παρελθόν):</strong> Το "αποτέλεσμα" της νόσου. Μετριέται με τους δείκτες <strong>DMFT</strong> (Max: 28 δόντια) και <strong>DMFS</strong> (Max: 128 επιφάνειες). <em>Οι εξαγωγές προσμετρώνται μόνο αν έγιναν λόγω τερηδόνας σε άτομα κάτω των 30 ετών.</em> Δεν συνυπολογίζει τις αρχόμενες βλάβες (D1, D2).</li>
+                        <li><strong>Τερηδονική Δραστηριότητα (Παρόν):</strong> Η ταχύτητα εξέλιξης των νέων βλαβών. 0=Ανύπαρκτη, 1-2=Χαμηλή, >4=Υψηλή (πολλές λευκές κηλίδες, άτυπη εντόπιση π.χ. κοπτικά χείλη, κάτω πρόσθια).</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-2 text-primary dark:text-blue-300">Ακτινογραφική Διαβάθμιση (D1-D4)</h3>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li><strong>D1:</strong> Εξωτερικό 1/2 αδαμαντίνης (Σχήμα V ή U).</li>
+                        <li><strong>D2:</strong> Εσωτερικό 1/2 αδαμαντίνης (ως την αδαμαντινο-οδοντινική ένωση, χωρίς επέκταση στην οδοντίνη).</li>
+                        <li><strong>D3:</strong> Εξωτερικό 1/2 οδοντίνης. <em>Χρειάζεται χειρουργική παρέμβαση αν υπάρχει λύση συνέχειας.</em></li>
+                        <li><strong>D4:</strong> Εσωτερικό 1/2 οδοντίνης (κοντά στον πολφό).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 class="font-bold text-lg text-primary dark:text-blue-400 mt-6">Κλινικά Σημεία Υποσιαλίας (Προγνωστικά)</h3>
+            <p class="text-sm mb-2 text-gray-700 dark:text-gray-300">Η Ξηροστομία είναι το υποκειμενικό σύμπτωμα. Η Υποσιαλία είναι το αντικειμενικό εύρημα:</p>
+            <ul class="list-disc pl-5 space-y-1 text-sm text-gray-700 dark:text-gray-300 mb-6">
+                <li>Δυσκολία κατάποσης ξηρής τροφής (π.χ. παξιμάδι, ψωμί).</li>
+                <li>Αφρώδες σάλιο / Φυσαλιδώδης μορφή.</li>
+                <li>Το κάτοπτρο "κολλάει" στο βλεννογόνο της παρειάς.</li>
+                <li>Τερηδόνες σε άτυπες θέσεις (κοπτικά χείλη, λείες επιφάνειες κάτω προσθίων).</li>
+            </ul>
+
+            <h3 class="font-bold text-lg text-primary dark:text-blue-400 mt-6">Διαφοροδιάγνωση: Τερηδόνα vs Διάβρωση</h3>
+            <div class="overflow-x-auto mt-2">
+                <table class="w-full text-left border-collapse text-sm">
+                    <thead>
+                        <tr class="bg-indigo-50 dark:bg-indigo-900/30">
+                            <th class="p-2 border">Χαρακτηριστικό</th>
+                            <th class="p-2 border">Τερηδόνα</th>
+                            <th class="p-2 border">Διάβρωση</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b dark:border-gray-700">
+                            <td class="p-2 border font-semibold">Αιτιολογία</td>
+                            <td class="p-2 border">Μικροβιακά οξέα (γαλακτικό οξύ από πλάκα)</td>
+                            <td class="p-2 border">Χημικά οξέα (γαστρικά υγρά, αναψυκτικά)</td>
+                        </tr>
+                        <tr class="border-b dark:border-gray-700">
+                            <td class="p-2 border font-semibold">Μηχανισμός / pH</td>
+                            <td class="p-2 border">Υπο-επιφανειακή απασβεστίωση (pH: 5.5-4.0)</td>
+                            <td class="p-2 border">Επιφανειακή απώλεια ουσίας (pH < 4.0)</td>
+                        </tr>
+                        <tr>
+                            <td class="p-2 border font-semibold">Συνύπαρξη;</td>
+                            <td class="p-2 border text-red-500" colspan="2">ΔΕΝ μπορούν να συμβαίνουν ταυτόχρονα στο ίδιο σημείο (Λόγω διαφοράς στο κρίσιμο pH).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 3. ΔΟΚΙΜΑΣΙΕΣ (TESTS) -->
+        <section class="card bg-white dark:bg-darkCard rounded-xl shadow-md p-6 lg:p-8 border-l-4 border-purple-500">
+            <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">3. Εργαστηριακές Δοκιμασίες (Tests)</h2>
+            <p class="mb-4 text-sm text-gray-700 dark:text-gray-300">Πρέπει να γίνονται τουλάχιστον 1 ώρα μετά από φαγητό, κάπνισμα ή βούρτσισμα (για τα μικροβιακά 2 ώρες).</p>
+            
+            <div class="space-y-6 text-gray-700 dark:text-gray-300">
+                <!-- Saliva Flow -->
+                <div>
+                    <h3 class="text-lg font-bold text-primary dark:text-blue-400">Α. Σιαλομετρία (Ταχύτητα Ροής)</h3>
+                    <ul class="list-disc pl-5 space-y-1 text-sm">
+                        <li><strong>Σάλιο Ηρεμίας:</strong> Ο ασθενής κάθεται όρθιος, κεφάλι σκυφτό. Συλλογή για <strong>15 λεπτά</strong> σε ογκομετρικό σωλήνα. <em>(Φυσιολογικό: >0.25 ml/min)</em>.</li>
+                        <li><strong>Σάλιο Διέγερσης:</strong> Μάσηση παραφίνης για <strong>5 λεπτά</strong> (αφού πρώτα μασήσει λίγο και καταπιεί το αρχικό σάλιο). <em>(Φυσιολογικό: 1.0 - 3.0 ml/min)</em>.</li>
+                    </ul>
+                </div>
+
+                <!-- Buffer Capacity -->
+                <div>
+                    <h3 class="text-lg font-bold text-primary dark:text-blue-400">Β. Ρυθμιστική Ικανότητα</h3>
+                    <p class="text-sm mb-1">Στο σάλιο ηρεμίας κυριαρχεί το σύστημα <strong>φωσφορικών ιόντων</strong>. Στο διέγερσης, το σύστημα <strong>ανθρακικού οξέος / διττανθρακικών</strong>.</p>
+                    <ul class="list-disc pl-5 space-y-1 text-sm">
+                        <li><strong>Μέθοδος Ericsson:</strong> Ανάμιξη 1ml σάλιου με 3ml υδροχλωρικό οξύ (HCl 0.005mol/L για διέγερσης). Προσθήκη 1 σταγόνας 2-octanol για αντιαφριστικό. Ανακίνηση 20 λεπτά για διωγμό CO2. Μέτρηση με πεχάμετρο.</li>
+                        <li><strong>Dentobuff® strip:</strong> Ταινία απορροφητικού χάρτου εμποτισμένη με οξύ. Σταγόνα σάλιου -> Αναμονή 5'. <em>(Μπλε: >6.0 Υψηλή, Πράσινο: 4.5-5.5 Μέτρια, Κίτρινο: <4.0 Χαμηλή)</em>.</li>
+                    </ul>
+                </div>
+
+                <!-- Microbial Tests -->
+                <div>
+                    <h3 class="text-lg font-bold text-primary dark:text-blue-400">Γ. Μικροβιακά Tests</h3>
+                    <ul class="list-disc pl-5 space-y-2 text-sm">
+                        <li><strong>Dentocult® LB (Γαλακτοβάκιλλοι):</strong> Αξιολογεί την <em>κατανάλωση ζάχαρης</em> και την παρουσία κακοτεχνιών/κοιλοτήτων (κατακράτηση πλάκας). Μάσηση παραφίνης -> Το σάλιο περιχύνεται και στις 2 όψεις πλακιδίου με εκλεκτικό άγαρ -> <strong>Επώαση 4 ημέρες</strong> σε θερμοκρασία δωματίου. (>10⁵ = Πολύ Υψηλός κίνδυνος).</li>
+                        <li><strong>Strip Mutans test:</strong> Αξιολογεί την <em>άμεση τερηδονική δραστηριότητα</em>. Μάσηση παραφίνης -> Περιστροφή ειδικής πλαστικής σπάτουλας <strong>10 φορές</strong> στη γλώσσα -> Τοποθέτηση σε φιαλίδιο με δίσκο <strong>βακιτρακίνης</strong> (αντιβιοτικό που καθιστά το υλικό εκλεκτικό μόνο για mutans) -> <strong>Επώαση 48 ώρες</strong> στους 37°C. (≥200 αποικίες στο πλακίδιο = >10⁶/ml σάλιου = Πολύ Υψηλός).</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4 & 5. ΔΙΑΓΝΩΣΗ & ΑΞΙΟΛΟΓΗΣΗ ΚΙΝΔΥΝΟΥ -->
+        <section class="card bg-white dark:bg-darkCard rounded-xl shadow-md p-6 lg:p-8 border-l-4 border-yellow-500">
+            <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">4. Αξιολόγηση Κινδύνου & Ενεργότητας</h2>
+            <p class="mb-4 text-gray-700 dark:text-gray-300">Ο <strong>σημαντικότερος παράγοντας πρόγνωσης</strong> είναι η προηγούμενη (παρελθούσα) τερηδονική εμπειρία (Δείκτης DMF). Δείχνει ότι το άτομο είναι τερηδονοευαίσθητο και το πιθανότερο είναι τα αίτια να είναι ακόμα ενεργά.</p>
+            
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <!-- Ενεργός vs Αναχαιτισμένη -->
+                <div class="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg border border-yellow-200 dark:border-yellow-700">
+                    <h3 class="font-bold text-yellow-800 dark:text-yellow-400 mb-2">Κλινική Διάγνωση: Ενεργός Βλάβη</h3>
+                    <ul class="list-disc pl-5 text-sm space-y-1 text-gray-800 dark:text-gray-200">
+                        <li><strong>Χρώμα:</strong> Λευκή (λευκή κηλίδα), ματ / σαν κιμωλία.</li>
+                        <li><strong>Υφή:</strong> Τραχιά στην επιφάνεια, μαλακή σύσταση.</li>
+                        <li><strong>Περιβάλλον:</strong> Καλύπτεται από άφθονη μικροβιακή πλάκα.</li>
+                        <li><strong>Εντόπιση:</strong> Συνήθως κοντά στα ούλα (αυχενικό τριτημόριο).</li>
+                    </ul>
+                </div>
+                <div class="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border border-green-200 dark:border-green-700">
+                    <h3 class="font-bold text-green-800 dark:text-green-400 mb-2">Κλινική Διάγνωση: Αναχαιτισμένη Βλάβη</h3>
+                    <ul class="list-disc pl-5 text-sm space-y-1 text-gray-800 dark:text-gray-200">
+                        <li><strong>Χρώμα:</strong> Σκούρο (κίτρινο έως πολύ σκούρο καφέ).</li>
+                        <li><strong>Υφή:</strong> Γυαλιστερή, λεία, πολύ σκληρή στην ανίχνευση.</li>
+                        <li><strong>Περιβάλλον:</strong> Απουσία πλάκας στο σημείο.</li>
+                        <li><strong>ΠΡΟΣΟΧΗ:</strong> Δεν επεμβαίνουμε χειρουργικά! Είναι ανθεκτικότερη και από την υγιή αδαμαντίνη.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 class="font-bold text-lg text-primary dark:text-blue-400 mt-6">Παράγοντες Κινδύνου (Άμεσοι vs Έμμεσοι)</h3>
+            <div class="overflow-x-auto mt-2">
+                <table class="w-full text-left border-collapse text-sm">
+                    <thead>
+                        <tr class="bg-gray-100 dark:bg-gray-700">
+                            <th class="p-2 border">Κατηγορία</th>
+                            <th class="p-2 border">Υψηλός Κίνδυνος (Παραδείγματα)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b dark:border-gray-700">
+                            <td class="p-2 border font-semibold">Βιολογικοί (Άμεσοι)</td>
+                            <td class="p-2 border">Παχιά πλάκα, συχνή ζάχαρη, απουσία φθορίου, χαμηλή ροή σάλιου. Συμμετέχουν άμεσα στις βιοχημικές διεργασίες.</td>
+                        </tr>
+                        <tr>
+                            <td class="p-2 border font-semibold">Δείκτες Επικινδυνότητας (Έμμεσοι)</td>
+                            <td class="p-2 border">Φάρμακα (υποσιαλία), χαμηλό μορφωτικό/οικονομικό επίπεδο, ορθοδοντικοί μηχανισμοί, βαθιές αύλακες, συνωστισμός δοντιών.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 6. ΘΕΡΑΠΕΥΤΙΚΗ ΑΝΤΙΜΕΤΩΠΙΣΗ -->
+        <section class="card bg-white dark:bg-darkCard rounded-xl shadow-md p-6 lg:p-8 border-l-4 border-teal-500">
+            <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">6. Θεραπευτική & Χειρουργική Αντιμετώπιση</h2>
+            
+            <p class="mb-4 text-gray-700 dark:text-gray-300">Η σύγχρονη στρατηγική ακολουθεί 3 επίπεδα: (1) Επαναφορά ισορροπίας (Πρόληψη), (2) Αναχαίτιση αρχόμενων βλαβών (Χωρίς τροχό), (3) Ελάχιστη χειρουργική παρέμβαση.</p>
+
+            <div class="space-y-6 text-gray-700 dark:text-gray-300">
+                
+                <!-- Φθόριο -->
+                <div>
+                    <h3 class="text-lg font-bold text-primary dark:text-blue-400">Α. Το Φθόριο (Ομάδα 1 - Ισχυρή Τεκμηρίωση)</h3>
+                    <p class="text-sm mb-2">Δρα τοπικά (στο υγρό περιβάλλον του δοντιού). Απενεργοποιεί το ένζυμο "ενολάση" των μικροβίων και σταματά τη γλυκόλυση.</p>
+                    <ul class="list-disc pl-5 space-y-2 text-sm">
+                        <li><strong>Πόσιμο Νερό:</strong> 0.5 - 1.0 ppm. Μειώνει 40-50% την τερηδόνα. Σήμερα παρατηρείται "φαινόμενο επικάλυψης" λόγω των οδοντοκρεμών.</li>
+                        <li><strong>Δισκία:</strong> 0.5 mg F/ημέρα. ΜΟΝΟ σε παιδιά >3 ετών υψηλού κινδύνου. Ποτέ αν το νερό έχει >0.5ppm F.</li>
+                        <li><strong>Στοματικά Διαλύματα:</strong> 0.05% (230 ppm F) καθημερινά Ή 0.2% (920 ppm F) εβδομαδιαία. Όχι σε παιδιά <6 ετών.</li>
+                        <li><strong>Ζελέ (Στο Ιατρείο):</strong> APF (1.23% - Όξινο, 12.300 ppm F) ή NaF (2% - Ουδέτερο). Προσοχή: Το όξινο APF διαβρώνει τις πορσελάνες (βάλε βαζελίνη). Εφαρμογή 1-4' σε δισκάριο. Φτύσιμο για 30''. 1 ώρα χωρίς φαγητό/νερό.</li>
+                        <li><strong>Βερνίκια (Duraphat):</strong> 5% NaF (22.600 ppm F). Μείωση 50-70% σε οπές/σχισμές. Δεν απαιτεί στίλβωση πριν, μόνο στέγνωμα. Ιδανικό για παιδιά, εφαρμογή κάθε 3-6 μήνες.</li>
+                    </ul>
+                </div>
+
+                <!-- Αντιμικροβιακά -->
+                <div>
+                    <h3 class="text-lg font-bold text-primary dark:text-blue-400">Β. Αντιμικροβιακή Θεραπεία (Χημικός Έλεγχος)</h3>
+                    <ul class="list-disc pl-5 space-y-2 text-sm">
+                        <li><strong>Κατιόντα (Χλωρεξιδίνη):</strong> Ο "Χρυσός Κανόνας". 0.12% (δόση 15ml) ή 0.2% (δόση 10ml). Δεσμεύεται στην κυτταρική μεμβράνη και εμποδίζει την προσκόλληση. <br><em>Παρενέργειες (μακροχρόνια):</em> Καφέ δυσχρωμίες, αλλοίωση γεύσης, ερεθισμός βλεννογόνου σε υποσιαλία.</li>
+                        <li><strong>Ανιόντα (SLS - Λαυρυλοθειικό Νάτριο):</strong> Απορρυπαντικό οδοντόκρεμας. Μετουσιώνει πρωτεΐνες. <strong>Ανταγωνίζεται τη Χλωρεξιδίνη:</strong> Πρέπει να μεσολαβούν τουλάχιστον 30 λεπτά μεταξύ βουρτσίσματος και στοματόπλυσης με CHX.</li>
+                        <li><strong>Πολυαλκοόλες (Ξυλιτόλη, Σορβιτόλη):</strong> "Αδειάζουν" τα ενεργειακά αποθέματα των μικροβίων, μειώνοντας το μεταβολισμό τους. Δεν ρίχνουν το pH της πλάκας.</li>
+                    </ul>
+                </div>
+
+                <!-- Χειρουργικά -->
+                <div class="bg-teal-50 dark:bg-teal-900/20 p-4 rounded-lg">
+                    <h3 class="text-lg font-bold text-teal-800 dark:text-teal-300 mb-2">Γ. Ελάχιστη Χειρουργική Παρέμβαση (3ο Επίπεδο)</h3>
+                    <ul class="list-disc pl-5 space-y-2 text-sm">
+                        <li><strong>Λείες Επιφάνειες / Ρίζες:</strong> Καθαρισμός πλάκας 2x/ημέρα + Φθόριο αρκεί για 100% αναχαίτιση. Αν χρειαστεί έμφραξη -> <strong>Υαλοϊονομερής κονία</strong> (προσκολλάται στην οδοντίνη, απελευθερώνει φθόριο).</li>
+                        <li><strong>Μασητικές Επιφάνειες:</strong> Αν λευκή κηλίδα -> Sealant. Αν βλάβη D3 -> <strong>Προληπτική Έμφραξη Ρητίνης (PRR):</strong> Αφαίρεση της τερηδόνας τοπικά (ρητίνη) και επικάλυψη των υπόλοιπων υγιών αυλάκων με sealant.</li>
+                        <li><strong>Όμορες Επιφάνειες:</strong> Κλασική διάνοιξη (θυσιάζουμε την οριακή ακρολοφία) Ή <strong>Μέθοδος Τούνελ (Tunnel):</strong> Διάνοιξη από τη μασητική διατηρώντας την οριακή ακρολοφία. Η κοιλότητα αποκτά σχήμα "σωλήνα" (οβάλ) προς την όμορη. Αποκατάσταση με υαλοϊονομερή (λόγω ρευστότητας) και κάλυψη με ρητίνη.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. CHEAT SHEET (ΚΡΙΣΙΜΕΣ ΤΙΜΕΣ) -->
+        <section class="card bg-gradient-to-br from-indigo-50 to-blue-50 dark:from-gray-800 dark:to-slate-800 rounded-xl shadow-lg p-6 lg:p-8 border-2 border-indigo-200 dark:border-indigo-900">
+            <div class="flex items-center gap-3 mb-6">
+                <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                <h2 class="text-3xl font-extrabold text-gray-900 dark:text-white">Cheat Sheet: Κρίσιμες Τιμές για Εξετάσεις</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- pH Values -->
+                <div class="bg-white dark:bg-darkCard p-5 rounded-lg shadow border border-gray-100 dark:border-gray-700">
+                    <h3 class="text-lg font-bold text-red-500 mb-3 border-b pb-2">Κρίσιμο pH (Καμπύλη Stephan)</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex justify-between"><span>Αδαμαντίνη:</span> <span class="font-mono font-bold">5.2 - 5.7 (M.O. 5.5)</span></li>
+                        <li class="flex justify-between"><span>Οδοντίνη (Ρίζα):</span> <span class="font-mono font-bold">6.2</span></li>
+                        <li class="flex justify-between text-xs text-gray-500 mt-2 border-t pt-2">Χρόνος πτώσης pH (Ζάχαρη): <span class="font-mono">2-5 λεπτά</span></li>
+                        <li class="flex justify-between text-xs text-gray-500">Μέγιστα γεύματα/ημέρα: <span class="font-mono">5-6 max</span></li>
+                    </ul>
+                </div>
+
+                <!-- Saliva Values -->
+                <div class="bg-white dark:bg-darkCard p-5 rounded-lg shadow border border-gray-100 dark:border-gray-700">
+                    <h3 class="text-lg font-bold text-blue-500 mb-3 border-b pb-2">Σιαλομετρία (ml/min)</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li class="font-semibold text-gray-700 dark:text-gray-300">Σάλιο Ηρεμίας (Μέτρηση 15'):</li>
+                        <li class="flex justify-between"><span>Φυσιολογικό:</span> <span class="font-mono">> 0.25</span></li>
+                        <li class="flex justify-between text-red-500 font-bold"><span>Υποσιαλία:</span> <span class="font-mono">< 0.1</span></li>
+                        <li class="font-semibold text-gray-700 dark:text-gray-300 mt-2 border-t pt-2">Σάλιο Διέγερσης (Μέτρηση 5'):</li>
+                        <li class="flex justify-between"><span>Φυσιολογικό:</span> <span class="font-mono">1.0 - 3.0</span></li>
+                        <li class="flex justify-between text-red-500 font-bold"><span>Υποσιαλία:</span> <span class="font-mono">< 0.7</span></li>
+                    </ul>
+                </div>
+
+                <!-- Microbes Values -->
+                <div class="bg-white dark:bg-darkCard p-5 rounded-lg shadow border border-gray-100 dark:border-gray-700">
+                    <h3 class="text-lg font-bold text-purple-500 mb-3 border-b pb-2">Μικροβιακά Tests (CFU/ml)</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li class="font-semibold text-gray-700 dark:text-gray-300">Γαλακτοβάκιλλοι (Ζάχαρη/Πλάκα):</li>
+                        <li class="flex justify-between text-green-500"><span>Χαμηλός:</span> <span class="font-mono">< 10³</span></li>
+                        <li class="flex justify-between text-red-500"><span>Πολύ Υψηλός:</span> <span class="font-mono">> 10⁵</span></li>
+                        <li class="font-semibold text-gray-700 dark:text-gray-300 mt-2 border-t pt-2">Mutans Στρεπτόκοκκοι (Κίνδυνος):</li>
+                        <li class="flex justify-between text-green-500"><span>Χαμηλός:</span> <span class="font-mono">< 10⁴ (< 4/cm²)</span></li>
+                        <li class="flex justify-between text-red-500"><span>Πολύ Υψηλός:</span> <span class="font-mono">> 10⁶ (>200/cm²)</span></li>
+                    </ul>
+                </div>
+
+                <!-- Fluoride Values -->
+                <div class="bg-white dark:bg-darkCard p-5 rounded-lg shadow border border-gray-100 dark:border-gray-700 md:col-span-2 lg:col-span-3">
+                    <h3 class="text-lg font-bold text-teal-500 mb-3 border-b pb-2">Συγκεντρώσεις (ppm F) & Αντιμικροβιακά</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                        <div>
+                            <span class="block text-gray-500 text-xs">Πόσιμο Νερό</span>
+                            <span class="font-mono font-bold text-lg">0.5 - 1.0 ppm</span>
+                        </div>
+                        <div>
+                            <span class="block text-gray-500 text-xs">Οδοντόκρεμα Ενηλίκων</span>
+                            <span class="font-mono font-bold text-lg">1000 - 1500 ppm</span>
+                        </div>
+                        <div>
+                            <span class="block text-gray-500 text-xs">Στοματικά Διαλύματα F</span>
+                            <span class="font-mono font-bold text-[15px]">230 / 920 ppm</span><br>
+                            <span class="text-[10px] text-gray-500">(0.05% Καθημ. / 0.2% Εβδομ.)</span>
+                        </div>
+                        <div>
+                            <span class="block text-gray-500 text-xs">Ιατρείο: Ζελέ APF / Βερνίκι</span>
+                            <span class="font-mono font-bold text-[15px]">12.300 / 22.600 ppm</span>
+                        </div>
+                        
+                        <!-- Extra box for Chlorhexidine -->
+                        <div class="col-span-2 md:col-span-4 mt-2 pt-3 border-t border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 rounded p-2 flex flex-col md:flex-row justify-between items-start md:items-center">
+                            <div>
+                                <span class="font-bold text-gray-700 dark:text-gray-300">Χλωρεξιδίνη (CHX):</span> 
+                                <span class="font-mono">0.12% (15ml) Ή 0.2% (10ml)</span>
+                            </div>
+                            <span class="text-xs text-red-500 mt-1 md:mt-0 font-semibold">Αναμονή >30' μετά από SLS (οδοντόκρεμα)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white dark:bg-darkCard py-6 text-center text-gray-500 dark:text-gray-400 text-sm mt-8 border-t border-gray-200 dark:border-gray-800">
+        <p>Βασισμένο στον "Σύγχρονο Κλινικό Οδηγό: Νόσος Τερηδόνα"</p>
+    </footer>
+
+    <!-- Script for Dark Mode Toggle -->
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const darkIcon = document.getElementById('theme-toggle-dark-icon');
+        const lightIcon = document.getElementById('theme-toggle-light-icon');
+
+        // Initial check
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            lightIcon.classList.remove('hidden');
+        } else {
+            document.documentElement.classList.remove('dark');
+            darkIcon.classList.remove('hidden');
+        }
+
+        // Toggle action
+        themeToggleBtn.addEventListener('click', function() {
+            darkIcon.classList.toggle('hidden');
+            lightIcon.classList.toggle('hidden');
+
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+            }
+        });
+    </script>
+</body>
+</html>
