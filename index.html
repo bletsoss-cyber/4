@@ -319,19 +319,17 @@
     </nav>
 
     <main class="main-content" id="appRoot">
-       <div class="calendar-section" id="calendarDashboard">
-            <h2 style="margin-top:0; margin-bottom:20px; font-size:1.5rem;">Πρόγραμμα Εβδομάδας</h2>
+    <div id="heroDashboard" style="margin-bottom: 40px; animation: fadeIn 0.5s;">
+            <h2 style="margin-top:0; margin-bottom:20px; font-size:1.5rem; color:white;">Πρόσφατα & Αγαπημένα</h2>
             
-            <div class="week-days" id="weekDays">
-                <div class="day-btn" onclick="selectDay(1)">ΔΕΥ</div>
-                <div class="day-btn" onclick="selectDay(2)">ΤΡΙ</div>
-                <div class="day-btn" onclick="selectDay(3)">ΤΕΤ</div>
-                <div class="day-btn" onclick="selectDay(4)">ΠΕΜ</div>
-                <div class="day-btn" onclick="selectDay(5)">ΠΑΡ</div>
-            </div>
-
-            <div class="schedule-list" id="scheduleList">
+            <div class="card" style="border: 2px solid #8b5cf6; background: #1a1b20; display:flex; flex-direction:row; align-items:center; height: auto; padding: 30px;" onclick="showSavedFiles()">
+                <div style="font-size: 3rem; margin-right: 20px; color: #8b5cf6;"><i class="fas fa-bookmark"></i></div>
+                <div style="text-align: left;">
+                    <h3 style="font-size: 1.5rem; color:white; margin:0;">Συνέχισε το Διάβασμα</h3>
+                    <div style="color:#a6a7ab; margin-top:8px; font-size:0.95rem;">Γρήγορη πρόσβαση στα κεφάλαια που έχεις αποθηκεύσει.</div>
                 </div>
+                <i class="fas fa-chevron-right" style="margin-left:auto; font-size:1.5rem; color:#8b5cf6;"></i>
+            </div>
         </div>
 
         <div id="tasksWidget" class="tasks-widget">
