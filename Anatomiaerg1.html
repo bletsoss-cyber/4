@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ανατομία 3: Διαδραστικός Εγκέφαλος</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 { color: #2c3e50; }
+        .container {
+            position: relative;
+            display: inline-block;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background: #fff;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+        #quiz-box {
+            display: none;
+            position: absolute;
+            background: white;
+            border: 2px solid #3498db;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 10;
+            text-align: left;
+            width: 280px;
+        }
+        #quiz-box h3 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+            color: #2980b9;
+        }
+        select, button {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        optgroup {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        button {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover { background-color: #2ecc71; }
+        #feedback {
+            font-weight: bold;
+            text-align: center;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+        .correct { color: #27ae60; }
+        .incorrect { color: #e74c3c; }
+        #close-btn {
+            background-color: #e74c3c;
+            margin-bottom: 0;
+        }
+        #close-btn:hover { background-color: #c0392b; }
+    </style>
+</head>
+<body>
+
+    <h1>Διαδραστικό Μάθημα Ανατομίας: ΚΝΣ</h1>
+    <p>Κάνε κλικ πάνω στις δομές του προπλάσματος για να τις αναγνωρίσεις.</p>
+
+    <div class="container">
+        <img src="image1.png" alt="Επιφάνεια Εγκεφάλου" usemap="#brain_map">
+        
+        <div id="quiz-box">
+            <h3>Τι είναι αυτή η δομή;</h3>
+            <select id="structure-select">
+                <option value="">-- Επίλεξε Δομή --</option>
+                
+                <optgroup label="Κύριες Σχισμές & Λοβοί">
+                    <option value="kentriki_avlaka">Κεντρική αύλακα (Rolando)</option>
+                    <option value="plagia_sxish">Πλάγια σχισμή (Sylvius)</option>
+                    <option value="vregmatoiniaki_sxismi">Βρεγματοϊνιακή σχισμή</option>
+                    <option value="metopiaios_lovos">Μετωπιαίος λοβός</option>
+                    <option value="vregmatikos_lovos">Βρεγματικός λοβός</option>
+                    <option value="krotafikos_lovos">Κροταφικός λοβός</option>
+                    <option value="iniakos_lovos">Ινιακός λοβός</option>
+                </optgroup>
+
+                <optgroup label="Έξω Επιφάνεια: Μετωπιαίος">
+                    <option value="prosthia_kentriki_elika">Πρόσθια κεντρική έλικα</option>
+                    <option value="ano_metopiaia_elika">Άνω μετωπιαία έλικα</option>
+                    <option value="mesi_metopiaia_elika">Μέση μετωπιαία έλικα</option>
+                    <option value="kato_metopiaia_elika">Κάτω μετωπιαία έλικα</option>
+                    <option value="kalyptriki_moira">Καλυπτρική μοίρα</option>
+                    <option value="trigoniki_moira">Τριγωνική μοίρα</option>
+                    <option value="kogxiki_moira">Κογχική μοίρα</option>
+                    <option value="prosthia_kentriki_avlaka">Πρόσθια κεντρική αύλακα</option>
+                    <option value="ano_metopiaia_avlaka">Άνω μετωπιαία αύλακα</option>
+                    <option value="kato_metopiaia_avlaka">Κάτω μετωπιαία αύλακα</option>
+                </optgroup>
+
+                <optgroup label="Έξω Επιφάνεια: Βρεγματικός & Κροταφικός">
+                    <option value="opisthia_kentriki_elika">Οπίσθια κεντρική έλικα</option>
+                    <option value="ano_vregmatiko_lovio">Άνω βρεγματικό λόβιο</option>
+                    <option value="kato_vregmatiko_lovio">Κάτω βρεγματικό λόβιο</option>
+                    <option value="yperxeilia_elika">Υπερχείλια έλικα</option>
+                    <option value="goniodis_elika">Γωνιώδης έλικα</option>
+                    <option value="diavregmatia_avlaka">Διαβρεγμάτια αύλακα</option>
+                    <option value="opisthia_kentriki_avlaka">Οπίσθια κεντρική αύλακα</option>
+                    <option value="ano_krotafiki_elika">Άνω κροταφική έλικα</option>
+                    <option value="mesi_krotafiki_elika">Μέση κροταφική έλικα</option>
+                    <option value="kato_krotafiki_elika">Κάτω κροταφική έλικα</option>
+                    <option value="ano_krotafiki_avlaka">Άνω κροταφική αύλακα</option>
+                    <option value="mesi_krotafiki_avlaka">Μέση κροταφική αύλακα</option>
+                </optgroup>
+
+                <optgroup label="Έσω Επιφάνεια (Οβελιαία)">
+                    <option value="mesolovio">Μεσολόβιο</option>
+                    <option value="mesolovia_avlaka">Μεσολόβια αύλακα</option>
+                    <option value="parakentro_lovio">Παράκεντρο λόβιο</option>
+                    <option value="
