@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ακτινολογία Ι - Μάθημα 3: Ψηφιακή Ακτινογραφία</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f4f8;
+            color: #2c3e50;
+        }
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
+        h1 {
+            text-align: center;
+            color: #1a5276;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 40px;
+        }
+        .slide-section {
+            background: #ffffff;
+            padding: 25px;
+            margin-bottom: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-top: 5px solid #2980b9;
+        }
+        .slide-img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #2980b9;
+            font-size: 1.5em;
+            margin-top: 0;
+        }
+        .notes-content {
+            background-color: #f9fbfc;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #f39c12;
+        }
+        h3 {
+            color: #d35400;
+            margin-top: 0;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .sos {
+            background-color: #fdedec;
+            padding: 10px 15px;
+            border-left: 4px solid #e74c3c;
+            font-weight: bold;
+            color: #c0392b;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #bdc3c7;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #34495e;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f6f8;
+        }
+        .highlight {
+            background-color: #ffffcc;
+            padding: 0 4px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Ακτινολογία Ι - Μάθημα 3: Ψηφιακή Ενδοστοματική Ακτινογραφία</h1>
+
+    <div class="slide-section">
+        <img src="slide02.png" alt="Ροή Δεδομένων" class="slide-img">
+        <div class="notes-content">
+            <h2>1. Ροή Δεδομένων: Από την έκθεση στην εικόνα</h2>
+            <p>Υπάρχουν δύο βασικές κλινικές διαδρομές για την παραγωγή της ψηφιακής εικόνας:</p>
+            <ul>
+                <li><strong>Έμμεση (CR - Computed Radiography):</strong> Με χρήση πλακών φωσφόρου (PSP). Μοιάζει με την κλασική ροή του φιλμ.</li>
+                <li><strong>Άμεση (DR - Digital Radiography):</strong> Με χρήση αισθητήρων (CCD/CMOS). Η εικόνα βγαίνει σε πραγματικό χρόνο (real-time).</li>
+            </ul>
+            
+            <table>
+                <tr>
+                    <th>Σύστημα</th>
+                    <th>Βήματα Ροής</th>
+                    <th>Χαρακτηριστικά</th>
+                </tr>
+                <tr>
+                    <td><strong>PSP (Πλάκες)</strong></td>
+                    <td>Έκθεση &rarr; Λανθάνουσα Εικόνα &rarr; Σάρωση (Laser) &rarr; Ψηφιακό Αρχείο</td>
+                    <td>Απαιτεί ξεχωριστό scanner. Πιο αργή ροή, αλλά πιο άνετο στο στόμα.</td>
+                </tr>
+                <tr>
+                    <td><strong>Sensors (DR)</strong></td>
+                    <td>Sensor + Scintillator &rarr; Ηλεκτρικό φορτίο &rarr; Εικόνα σε real-time</td>
+                    <td>Άμεση προβολή στην οθόνη. Ταχύτερη ροή, λιγότερο εργονομικό λόγω καλωδίου/πάχους.</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="slide-section">
+        <img src="slide03.png" alt="Τι είναι η ψηφιακή εικόνα" class="slide-img">
+        <div class="notes-content">
+            <h2>2. Βασικές Έννοιες: Τι είναι η ψηφιακή εικόνα;</h2>
+            <p>Η ψηφιακή εικόνα προκύπτει από δύο βασικές διαδικασίες: τη <strong>δειγματοληψία</strong> (sampling) και την <strong>κβαντοποίηση</strong> (quantization).</p>
+            <ul>
+                <li><strong>Δειγματοληψία σε μήτρα (Matrix):</strong> Η εικόνα χωρίζεται σε ένα πλέγμα (N x M pixels). Το μικρότερο pixel αυξάνει τη <em>θεωρητική</em> λεπτομέρεια, αλλά δεν εγγυάται από μόνο του καλύτερη διαγνωστική ποιότητα.</li>
+                <li><strong>Κβαντοποίηση & Bit Depth:</strong> Κάθε pixel παίρνει μια ακέραιη τιμή γκρι. Το βάθος bit καθορίζει πόσες αποχρώσεις του γκρι μπορούν να απεικονιστούν.</li>
+            </ul>
+            <div class="sos">SOS Μαθηματικός Τύπος: b bits = 2<sup>b</sup> επίπεδα γκρι. (π.χ. 8-bit = 256 τόνοι γκρι, 12-bit = 4096 τόνοι).</div>
+        </div>
+    </div>
+
+    <div class="slide-section">
+        <img src="slide04.png" alt="Αρχιτεκτονική Συστημάτων" class="slide-img">
+        <div class="notes-content">
+            <h2>3. Αρχιτεκτονική Συστημάτων (Sensors vs PSP)</h2>
+            
+            <table>
+                <tr>
+                    <th>Sensor-based Σύστημα (DR)</th>
+                    <th>PSP-based Σύστημα (CR)</th>
+                </tr>
+                <tr>
+                    <td>
+                        1. Protective layer<br>
+                        2. <strong>Scintillator</strong> (Σπινθηριστής)<br>
+                        3. Fiber optics / shield<br>
+                        4. CCD / CMOS array<br>
+                        5. Readout IC &rarr; ADC / software
+                    </td>
+                    <td>
+                        1. <strong>Πλάκα PSP</strong> (Λανθάνουσα εικόνα)<br>
+                        2. Laser scan &rarr; Εκπομπή φωτός<br>
+                        3. PMT / Photodiode<br>
+                        4. ADC &rarr; software
+                    </td>
+                </tr>
+                <tr>
+                    <td>Στους CCD το φορτίο μεταφέρεται <strong>σειριακά</strong>. Στους CMOS <strong>τοπικά ή/και κατά στήλη</strong>.</td>
+                    <td>Η πλάκα μετακινείται μηχανικά στο scanner. Το handling επηρεάζει την ανθεκτικότητα (κίνδυνος artifacts).</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="slide-section">
+        <img src="slide05.png" alt="Πλάκες Φωσφόρου (PSP)" class="slide-img">
+        <div class="notes-content">
+            <h2>4. Έμμεση Ψηφιακή (Πλάκες Φωσφόρου - PSP)</h2>
+            <p><strong>Πώς λειτουργούν:</strong> Οι ακτίνες Χ αποθηκεύουν ενέργεια στον φώσφορο δημιουργώντας τη "λανθάνουσα εικόνα". Στη συνέχεια, ο scanner "χτυπάει" την πλάκα με laser, ο φώσφορος εκπέμπει φως, το οποίο καταγράφεται. Μετά την ανάγνωση, η πλάκα "σβήνεται" (με δυνατό φως) και επαναχρησιμοποιείται.</p>
+            
+            <h3>Cheat Sheet: Υπέρ & Κατά των PSP</h3>
+            <ul>
+                <li>✅ <strong>Πλεονεκτήματα:</strong> Λεπτή, εύκαμπτη (film-like αίσθηση), χωρίς καλώδιο, μεγαλύτερη ενεργός επιφάνεια. Άνεση για τον ασθενή.</li>
+                <li>❌ <strong>Περιορισμοί:</strong> Υπάρχει καθυστέρηση (πρέπει να περάσει από scanner), είναι ευαίσθητες σε γρατζουνιές (scratches), στο φως (light exposure) και στη μηχανική καταπόνηση (handling).</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="slide-section">
+        <img src="slide06.png" alt="Αισθητήρες CCD / CMOS" class="slide-img">
+        <div class="notes-content">
+            <h2>5. Άμεση Ψηφιακή (Αισθητήρες CCD / CMOS)</h2>
+            <p>Η εικόνα εμφανίζεται στην οθόνη σε δευτερόλεπτα χωρίς την παρεμβολή scanner.</p>
+            <ul>
+                <li><strong>Πώς λειτουργούν:</strong> Ένας σπινθηριστής (scintillator) μετατρέπει πρώτα τις ακτίνες Χ σε φως. Το φως αυτό μετατρέπεται σε ηλεκτρικό φορτίο από το CCD ή το CMOS. <em>(Ακτίνες X &rarr; Φως &rarr; Φορτίο &rarr; Εικόνα)</em>.</li>
+                <li><strong>CMOS vs CCD:</strong> Σήμερα κυριαρχούν οι <strong>CMOS</strong> διότι έχουν χαμηλότερη κατανάλωση ενέργειας και υψηλότερη ενσωμάτωση κυκλωμάτων.</li>
+            </ul>
+            <div class="sos">Σημαντική Διευκρίνιση (Παγίδα): Στην κλινική πράξη τα solid-state συστήματα τα λέμε "άμεσα / DR" επειδή τα βλέπουμε αμέσως. Τεχνολογικά όμως, είναι <span class="highlight">έμμεσης μετατροπής</span>, επειδή μεσολαβεί ο σπινθηριστής (οι ακτίνες γίνονται πρώτα φως)!</div>
+        </div>
+    </div>
+
+    <div class="slide-section">
+        <img src="slide07.png" alt="Χωρική Διακριτική Ικανότητα" class="slide-img">
+        <div class="notes-content">
+            <h2>6. Φυσικά Χαρακτηριστικά: Χωρική Διακριτική Ικανότητα & Ανάλυση</h2>
+            <ul>
+                <li><strong>Spatial Resolution (Χωρική διακριτική ικανότητα):</strong> Η ικανότητα διάκρισης πολύ κοντινών λεπτομερειών (μετριέται σε lp/mm - ζεύγη γραμμών ανά χιλιοστό). Обόσο μεγαλύτερο το νούμερο, τόσο καλύτερα.</li>
+                <li><strong>Image Resolution:</strong> Αφορά απλά το πόσα pixels έχει η εικόνα. Περισσότερα pixels ΔΕΝ αρκούν αν υπάρχει θόρυβος ή διάχυση φωτός.</li>
+            </ul>
+            <div class="sos">
+                <strong>Τύπος Nyquist (Θεωρητικό όριο):</strong><br>
+                Nyquist &approx; 1 / (2 * p), όπου p = pixel size σε mm.<br>
+                <em>Παράδειγμα: Για pixel 20 &mu;m (0.02 mm) &rarr; Ανάλυση = 25 lp/mm.</em>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-section">
+        <img src="slide08.png" alt="Contrast Resolution" class="slide-img">
+        <div class="notes-content">
+            <h2>7. Φυσικά Χαρακτηριστικά: Διακριτική ικανότητα χαμηλής αντίθεσης</h2>
+            <p>Είναι η ικανότητα του συστήματος να ξεχωρίζει πολύ μικρές διαφορές σε επίπεδα γκρι (subtle διαφορές πυκνότητας).</p>
+            <ul>
+                <li>Εξαρτάται από το: <strong>Bit depth + Dynamic Range + SNR</strong> (Σηματοθορυβικός λόγος).</li>
+                <li>Όσο υψηλότερο το SNR, τόσο ευκολότερα βλέπουμε ήπιες μεταβολές.</li>
+                <li>Η οθόνη δεν προβάλλει όλα τα επίπεδα γκρι ταυτόχρονα. Μέσω <em>window/level</em> επιλέγουμε το "παράθυρο" αποχρώσεων που θέλουμε να μελετήσουμε.</li>
+            </ul>
+            <div class="sos">Κλινική Αξία: Η καλή αντίθεση είναι κρίσιμη για την πρώιμη διάγνωση τερηδόνας, για ήπιες περιακρορριζικές μεταβολές και για ενδοδοντικές λεπτομέρειες.</div>
+        </div>
+    </div>
+
+    <div class="slide-section">
+        <img src="slide09.png" alt="Θόρυβος" class="slide-img">
+        <div class="notes-content">
+            <h2>8. Θόρυβος (Noise) στην Ψηφιακή Ακτινογραφία</h2>
+            <p>Όσο ανεβαίνει ο συνολικός θόρυβος, τόσο <strong>πέφτει</strong> η δυνατότητα ανίχνευσης χαμηλής αντίθεσης (low-contrast detectability). Αλυσίδα επιπτώσεων: SNR $\downarrow$ &rarr; Λεπτομέρεια $\downarrow$ &rarr; Contrast $\downarrow$ &rarr; Αβεβαιότητα $\uparrow$.</p>
+            
+            <h3>Πίνακας Ειδών Θορύβου:</h3>
+            <table>
+                <tr>
+                    <th>Είδος Θορύβου</th>
+                    <th>Τι είναι / Πώς προκαλείται</th>
+                </tr>
+                <tr>
+                    <td><strong>Κβαντικός (Quantum)</strong></td>
+                    <td>Στατιστική διακύμανση φωτονίων. Αυξάνεται δραματικά όταν η έκθεση (δόση) είναι πολύ <strong>χαμηλή</strong> (quantum mottle).</td>
+                </tr>
+                <tr>
+                    <td><strong>Ηλεκτρονικός</strong></td>
+                    <td>Θόρυβος κατά την ανάγνωση από τα ηλεκτρονικά κυκλώματα (amplifier noise, dark current).</td>
+                </tr>
+                <tr>
+                    <td><strong>Υπολογιστικός / Κβαντισμού</strong></td>
+                    <td>Προκύπτει από το ADC (μετατροπή σε ψηφιακό), τη συμπίεση εικόνας ή το υπερ-φιλτράρισμα.</td>
+                </tr>
+                <tr>
+                    <td><strong>Δομικός / Ενδογενής</strong></td>
+                    <td>Fixed-pattern noise, νεκρά pixels, γρατζουνιές / φθορές στις πλάκες PSP.</td>
+                </tr>
+                <tr>
+                    <td><strong>Ανατομικός</strong></td>
+                    <td>Υπέρθεση φυσιολογικών δομών (π.χ. οστά, ζυγωματικό). Συχνά αυτός ο "θόρυβος" κρύβει τις παθολογίες περισσότερο από τον τεχνικό θόρυβο.</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="slide-section">
+        <img src="slide10.png" alt="Επεξεργασία Εικόνας" class="slide-img">
+        <div class="notes-content">
+            <h2>9. Επεξεργασία Εικόνας (Pre-processing vs Post-processing)</h2>
+            <p><strong>Αρχή Κλειδί:</strong> Η επεξεργασία <em>αναδιανέμει</em> την ήδη καταγεγραμμένη πληροφορία. ΔΕΝ μπορεί να διορθώσει ένα λάθος στην έκθεση ή στην κακή τοποθέτηση του δέκτη!</p>
+            
+            <table>
+                <tr>
+                    <th>Pre-processing (Από το Σύστημα)</th>
+                    <th>Post-processing (Από τον Χρήστη/Οδοντίατρο)</th>
+                </tr>
+                <tr>
+                    <td>
+                        <ul>
+                            <li>Εκτελείται αυτόματα πριν δει την εικόνα ο χρήστης.</li>
+                            <li><strong>Στόχος:</strong> Διόρθωση μη ομοιομορφιών, σταθερό grayscale mapping.</li>
+                            <li><strong>Διαδικασίες:</strong> offset/dark, gain correction, bad pixels, histogram/LUT.</li>
+                            <li>Στα PSP συχνά κάνει αυτόματο rescaling αν η δόση ήταν λάθος.</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>Γίνεται για καλύτερη οπτικοποίηση (diagnostic viewing).</li>
+                            <li><strong>Σημαντικό:</strong> Δεν προσθέτει πληροφορία που χάθηκε από κίνηση ή ακραία υπο/υπερέκθεση.</li>
+                            <li><strong>Εργαλεία:</strong> Window/level (φωτεινότητα/αντίθεση), zoom/pan, sharpen/smooth, invert (αρνητικό), μετρήσεις.</li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="slide-section">
+        <img src="slide11.png" alt="Πλεονεκτήματα Ψηφιακής Ακτινογραφίας" class="slide-img">
+        <div class="notes-content">
+            <h2>10. Κλινική Αξία: Πλεονεκτήματα</h2>
+            
+            <ul>
+                <li><strong>Για τον Ασθενή:</strong> Συνήθως μικρότερη δόση ακτινοβολίας (50-80% λιγότερο από το φιλμ) αν το πρωτόκολλο είναι σωστό. Καλύτερη επικοινωνία (βλέπει την εικόνα στην οθόνη).</li>
+                <li><strong>Για την Κλινική Ροή:</strong> Άμεση διαθεσιμότητα, χωρίς χημικά υγρά και σκοτεινό θάλαμο. Εύκολη επανάληψη, ταχύτερη εργασία, ψηφιακό αρχείο.</li>
+                <li><strong>Για την Πληροφορία:</strong> Δυνατότητα post-processing, μετρήσεων, αποθήκευσης (backup), αναπαραγωγής χωρίς απώλεια ποιότητας, και εύκολη διαμοίραση (τηλεσυμβουλευτική).</li>
+            </ul>
+            <div class="sos">Τελικό Συμπέρασμα: Η ισχύς της ψηφιακής δεν είναι μόνο στον αισθητήρα, αλλά στον συνδυασμό: Σωστή Έκθεση + Καλή Τοποθέτηση + Κατάλληλη Οθόνη + Ορθή Ερμηνεία.</div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
