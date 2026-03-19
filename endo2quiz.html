@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Διαδραστικό Quiz: Βασική Ανατομία - Ενδοδοντία ΙΙ</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        .question-card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            border-left: 5px solid #3498db;
+        }
+        .question-text {
+            font-size: 1.15em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .option {
+            padding: 12px 15px;
+            border: 2px solid #e0e6ed;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background-color: #f8fafc;
+            font-weight: 500;
+        }
+        .option:hover:not(.disabled) {
+            background-color: #e2e8f0;
+            border-color: #cbd5e1;
+        }
+        .option.disabled {
+            cursor: default;
+            pointer-events: none;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+        .option.wrong {
+            background-color: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+        .explanation {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #e8f4fd;
+            border-radius: 6px;
+            border-left: 4px solid #3498db;
+            font-size: 0.95em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Quiz Αξιολόγησης: Ανατομία Ριζικών Σωλήνων</h1>
+
+    <div id="quiz-container">
+        </div>
+
+    <script>
+        const questions = [
+            {
+                q: "1. Ποιο από τα παρακάτω ανατομικά ορόσημα του ακρορριζίου είναι το ΜΟΝΟ που διακρίνεται στην ακτινογραφία;",
+                options: [
+                    { text: "Η ακρορριζική στένωση", correct: false },
+                    { text: "Το ακρορριζικό τρήμα", correct: false },
+                    { text: "Το ανατομικό ή ακτινογραφικό άκρο", correct: true },
+                    { text: "Ο ακρορριζικός θύσανος", correct: false }
+                ],
+                exp: "Η ακρορριζική στένωση ΔΕΝ διακρίνεται ακτινογραφικά[cite: 100]. Το ανατομικό άκρο αποτελεί το μόνο σημείο που είναι διακριτό στην ακτινογραφία (ονομάζεται επίσης ακτινογραφικό άκρο)[cite: 97]."
+            },
+            {
+                q: "2. Ποιος ιστός περιβάλλει αποκλειστικά το ακρορριζικό τρήμα (τη φυσική έξοδο του ριζικού σωλήνα);",
+                options: [
+                    { text: "Οδοντίνη", correct: false },
+                    { text: "Αδαμάντινη", correct: false },
+                    { text: "Οστεΐνη", correct: true },
+                    { text: "Οδοντικός πολφός", correct: false }
+                ],
+                exp: "Το ακρορριζικό τρήμα, δηλαδή η φυσική έξοδος του ριζικού σωλήνα στους περιακρορριζικούς ιστούς μετά την ακρορριζική στένωση, περιβάλλεται από οστεΐνη[cite: 92, 93, 94]."
+            },
+            {
+                q: "3. Κατά τη μορφολογική εξέταση του μυλικού θαλάμου, ποια είναι η βασική διαφορά μεταξύ πρόσθιων και οπίσθιων δοντιών;",
+                options: [
+                    { text: "Τα πρόσθια δόντια δεν έχουν κανένα τοίχωμα", correct: false },
+                    { text: "Τα οπίσθια δόντια διαθέτουν επιπλέον υπερπολφικό και υποπολφικό τοίχωμα", correct: true },
+                    { text: "Τα πρόσθια δόντια έχουν έξι τοιχώματα", correct: false },
+                    { text: "Δεν υπάρχει καμία ανατομική διαφορά στο μυλικό θάλαμο", correct: false }
+                ],
+                exp: "Ο μυλικός θάλαμος στα πρόσθια δόντια διαθέτει τέσσερα τοιχώματα [cite: 63], ενώ στα οπίσθια διαθέτει τα τέσσερα συν το υπερπολφικό (οροφή) και το υποπολφικό (έδαφος)[cite: 64]."
+            },
+            {
+                q: "4. Σε ποιον παράγοντα οφείλεται η δημιουργία παράπλευρων ριζικών σωλήνων κατά τη διάπλαση του δοντιού;",
+                options: [
+                    { text: "Στην παρουσία σχετικά μεγάλων αγγείων μεγέθους 10-200μ", correct: true },
+                    { text: "Στην απορρόφηση της οδοντίνης", correct: false },
+                    { text: "Στην εναπόθεση δευτερογενούς οστεΐνης", correct: false },
+                    { text: "Σε τραύμα κατά την ανατολή του δοντιού", correct: false }
+                ],
+                exp: "Οι παράπλευροι ριζικοί σωλήνες σχηματίζονται κατά τη διάπλαση και οφείλονται στην παρουσία σχετικά μεγάλων αγγείων μεγέθους 10-200μ[cite: 75, 76, 80, 81, 82]."
+            },
+            {
+                q: "5. Ποιο ανατομικό σημείο αποτελεί το απόλυτο όριο (πέρας) της ενδοδοντικής θεραπείας, δηλαδή το όριο του μήκους εργασίας;",
+                options: [
+                    { text: "Το ακτινογραφικό άκρο", correct: false },
+                    { text: "Η ακρορριζική στένωση", correct: true },
+                    { text: "Το ακρορριζικό τρήμα", correct: false },
+                    { text: "Ο ανατομικός αυχένας", correct: false }
+                ],
+                exp: "Η ακρορριζική στένωση είναι το πέρας του ριζικού σωλήνα που είναι και το όριο της ενδοδοντικής θεραπείας[cite: 88]. Αποτελεί την οριοθέτηση του μήκους εργασίας και το ακραίο σημείο προπαρασκευής και έμφραξης[cite: 99]."
+            },
+            {
+                q: "6. Σε ποια απόσταση, κατά μέσο όρο, υπολογίζεται ότι βρίσκεται η ακρορριζική στένωση από το ακτινογραφικό άκρο;",
+                options: [
+                    { text: "0.5 χιλιοστά μετά το άκρο", correct: false },
+                    { text: "2 χιλιοστά πριν το άκρο", correct: false },
+                    { text: "Ταυτίζεται ακριβώς με το άκρο", correct: false },
+                    { text: "1 χιλιοστό πριν το ακτινογραφικό άκρο", correct: true }
+                ],
+                exp: "Έχει βρεθεί ότι η ακρορριζική στένωση είναι κατά μέσο όρο 1 χιλιοστό από το ακτινογραφικό άκρο[cite: 89, 90, 101]."
+            },
+            {
+                q: "7. Σύμφωνα με το σύστημα κωδικοποίησης (FDI), ποιο δόντι αντιπροσωπεύει ο αριθμός 85;",
+                options: [
+                    { text: "Τον δεύτερο νεογιλό γομφίο στο 4ο τεταρτημόριο (κάτω δεξιά)", correct: true },
+                    { text: "Τον τρίτο μόνιμο γομφίο στο 4ο τεταρτημόριο", correct: false },
+                    { text: "Τον πρώτο νεογιλό γομφίο στο 3ο τεταρτημόριο", correct: false },
+                    { text: "Τον κεντρικό τομέα στο 1ο τεταρτημόριο", correct: false }
+                ],
+                exp: "Το 4ο τεταρτημόριο περιλαμβάνει τα κάτω δεξιά δόντια[cite: 27]. Τα νεογιλά σε αυτό το τεταρτημόριο κωδικοποιούνται από 81 έως 85. Το 85 είναι ο δεύτερος νεογιλός γομφίος[cite: 25]."
+            },
+            {
+                q: "8. Πώς ονομάζεται ο παράπλευρος ριζικός σωλήνας που εντοπίζεται στο διχασμό των ριζών (furcation);",
+                options: [
+                    { text: "Πλευρικός ριζικός σωλήνας", correct: false },
+                    { text: "Ισθμός", correct: false },
+                    { text: "Μεσορριζικός", correct: true },
+                    { text: "Ακρορριζικό δέλτα", correct: false }
+                ],
+                exp: "Ο παράπλευρος ριζικός σωλήνας στο διχασμό των ριζών ονομάζεται μεσορριζικός[cite: 77]."
+            },
+            {
+                q: "9. Πόσους διαφορετικούς τύπους ριζικών σωλήνων σε ΜΙΑ ρίζα περιγράφει η ταξινόμηση κατά Vertucci;",
+                options: [
+                    { text: "4 τύπους", correct: false },
+                    { text: "6 τύπους", correct: false },
+                    { text: "8 τύπους", correct: true },
+                    { text: "10 τύπους", correct: false }
+                ],
+                exp: "Οι τύποι ριζικών σωλήνων που εμφανίζονται σε μία ρίζα κατά την ταξινόμηση Vertucci είναι οκτώ (Τύπος Ι έως VIII) [cite: 112-120]. (Η ταξινόμηση Weine έχει 4 τύπους [cite: 107-111])."
+            },
+            {
+                q: "10. Ποιες είναι οι λειτουργίες του οδοντικού πολφού σύμφωνα με τα ιστολογικά χαρακτηριστικά;",
+                options: [
+                    { text: "Μόνο αισθητήρια και αμυντική", correct: false },
+                    { text: "Παραγωγική, θρεπτική, αισθητήρια, αμυντική", correct: true },
+                    { text: "Στηρικτική, θρεπτική και παραγωγική", correct: false },
+                    { text: "Αποκλειστικά παραγωγική", correct: false }
+                ],
+                exp: "Οι λειτουργίες του οδοντικού πολφού είναι: παραγωγική, θρεπτική, αισθητήρια, αμυντική[cite: 45, 46]."
+            },
+            {
+                q: "11. Πώς επιβεβαιώνεται κλινικά η ακριβής θέση της ακρορριζικής στένωσης αφού δεν φαίνεται στην ακτινογραφία;",
+                options: [
+                    { text: "Με τη χρήση ηλεκτρονικών εντοπιστών του ακρορριζίου", correct: true },
+                    { text: "Με ειδική πανοραμική ακτινογραφία", correct: false },
+                    { text: "Υπολογίζεται αυθαίρετα στα 3 χιλιοστά από τη μύλη", correct: false },
+                    { text: "Με τη βοήθεια μικροσκοπίου από το μυλικό θάλαμο", correct: false }
+                ],
+                exp: "Η θέση της στένωσης επιβεβαιώνεται με τη χρήση των ηλεκτρονικών εντοπιστών του ακρορριζίου, οι οποίοι δίνουν ενδείξεις μόλις προσεγγίσουν το σημείο αυτό[cite: 103, 104]."
+            },
+            {
+                q: "12. Τι αντιπροσωπεύει ανατομικά η πολφική κοιλότητα στο σύνολό της;",
+                options: [
+                    { text: "Τη συνέχεια του περιοδοντικού συνδέσμου", correct: false },
+                    { text: "Μια κοιλότητα αποκλειστικά εντός της αδαμαντίνης", correct: false },
+                    { text: "Την αντανάκλαση της εξωτερικής επιφάνειας του δοντιού", correct: true },
+                    { text: "Τον ανατομικό αυχένα του δοντιού", correct: false }
+                ],
+                exp: "Η πολφική κοιλότητα αποτελεί αντανάκλαση της εξωτερικής επιφάνειας του δοντιού[cite: 58, 59]."
+            },
+            {
+                q: "13. Πώς αλλιώς ονομάζονται οι μεσοσωλήνιες διακλαδώσεις που ενώνουν δύο ριζικούς σωλήνες στην ίδια ρίζα;",
+                options: [
+                    { text: "Ακρορριζικά δέλτα", correct: false },
+                    { text: "Αναστομώσεις", correct: false },
+                    { text: "Ισθμοί (Isthmus)", correct: true },
+                    { text: "Πλευρικοί σωλήνες", correct: false }
+                ],
+                exp: "Οι μεσοσωλήνιες διακλαδώσεις στο σύστημα των ριζικών σωλήνων αναφέρονται και ως ισθμοί[cite: 78, 66]."
+            },
+            {
+                q: "14. Παρότι η ακρορριζική στένωση είναι το όριο παρασκευής, ποιο σημείο χρησιμοποιούμε αναγκαστικά ως 'σημείο αναφοράς' για να κάνουμε τις μετρήσεις μας;",
+                options: [
+                    { text: "Τον κλινικό αυχένα", correct: false },
+                    { text: "Το ακτινογραφικό άκρο", correct: true },
+                    { text: "Το έδαφος του πολφικού θαλάμου", correct: false },
+                    { text: "Την αδαμαντινοδοντινική ένωση", correct: false }
+                ],
+                exp: "Το σημείο αναφοράς από το οποίο γίνονται οι μετρήσεις είναι το ακτινογραφικό άκρο, επειδή είναι το μόνο ορατό στις ακτινογραφίες[cite: 102]."
+            },
+            {
+                q: "15. Το δόντι με κωδικό 47 σε ποια οδοντοφυΐα ανήκει και σε ποιο τεταρτημόριο βρίσκεται;",
+                options: [
+                    { text: "Νεογιλή οδοντοφυΐα, 4ο τεταρτημόριο", correct: false },
+                    { text: "Μόνιμη οδοντοφυΐα, 4ο τεταρτημόριο (κάτω δεξιά)", correct: true },
+                    { text: "Μόνιμη οδοντοφυΐα, 3ο τεταρτημόριο", correct: false },
+                    { text: "Νεογιλή οδοντοφυΐα, 2ο τεταρτημόριο", correct: false }
+                ],
+                exp: "Οι αριθμοί 11-47 αναφέρονται στη μόνιμη οδοντοφυΐα[cite: 37]. Ο αριθμός 4 δείχνει το 4ο τεταρτημόριο (κάτω δεξιά) [cite: 27] και το 47 είναι ο δεύτερος μόνιμος γομφίος[cite: 26]."
+            }
+        ];
+
+        const quizContainer = document.getElementById('quiz-container');
+
+        questions.forEach((qObj, qIndex) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+
+            const questionText = document.createElement('div');
+            questionText.className = 'question-text';
+            questionText.textContent = qObj.q;
+            card.appendChild(questionText);
+
+            const optionsContainer = document.createElement('div');
+            optionsContainer.className = 'options-container';
+            optionsContainer.id = `q${qIndex}-options`;
+
+            const explanationDiv = document.createElement('div');
+            explanationDiv.className = 'explanation';
+            explanationDiv.id = `q${qIndex}-exp`;
+            explanationDiv.innerHTML = `<strong>Επεξήγηση:</strong> ${qObj.exp}`;
+
+            qObj.options.forEach((opt, optIndex) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.textContent = opt.text;
+                
+                optionDiv.onclick = function() {
+                    // Αν έχει ήδη απαντηθεί η ερώτηση, μην κάνεις τίποτα
+                    if(this.classList.contains('disabled')) return;
+
+                    // Απενεργοποίησε όλες τις επιλογές για αυτή την ερώτηση
+                    const siblings = optionsContainer.children;
+                    for(let sibling of siblings) {
+                        sibling.classList.add('disabled');
+                    }
+
+                    // Έλεγχος Σωστού/Λάθους
+                    if(opt.correct) {
+                        this.classList.add('correct');
+                    } else {
+                        this.classList.add('wrong');
+                        // Βρες και κάνε πράσινη τη σωστή
+                        for(let sibling of siblings) {
+                            // Μια μικρή "hack" προσέγγιση για να βρούμε τη σωστή από το array
+                            const siblingText = sibling.textContent;
+                            const correctOpt = qObj.options.find(o => o.correct).text;
+                            if(siblingText === correctOpt) {
+                                sibling.classList.add('correct');
+                            }
+                        }
+                    }
+
+                    // Εμφάνιση επεξήγησης
+                    explanationDiv.style.display = 'block';
+                };
+
+                optionsContainer.appendChild(optionDiv);
+            });
+
+            card.appendChild(optionsContainer);
+            card.appendChild(explanationDiv);
+            quizContainer.appendChild(card);
+        });
+    </script>
+
+</body>
+</html>
