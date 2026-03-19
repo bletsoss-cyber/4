@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Προκλινική Ενδοδοντία Ι - Άμεση Ανατροφοδότηση</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        .quiz-container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .question-block {
+            margin-top: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #bdc3c7;
+        }
+        .question-block:last-child {
+            border-bottom: none;
+        }
+        .question-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+        .option-btn {
+            background: #ecf0f1;
+            padding: 12px 15px;
+            border-radius: 5px;
+            border: 1px solid #bdc3c7;
+            text-align: left;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .option-btn:hover:not(:disabled) {
+            background: #d5dbdb;
+            border-color: #7f8c8d;
+        }
+        .option-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        .feedback-box {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 0.95em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h1>🦷 Διαδραστικό Quiz με Άμεση Ανατροφοδότηση</h1>
+    <p style="text-align: center;">Κάνε κλικ σε μια απάντηση για να δεις αμέσως αν είναι σωστή και να διαβάσεις την επεξήγηση.</p>
+
+    <div class="question-block" id="q1">
+        <div class="question-title">1. Τι χρώμα έχει το μικροεργαλείο με νούμερο 50;</div>
+        <div class="options-grid">
+            <button class="option-btn" onclick="checkAnswer('q1', this, false, 'Τα λευκά εργαλεία είναι τα 15, 45 και 90. [cite: 30, 31, 32]')">Λευκό</button>
+            <button class="option-btn" onclick="checkAnswer('q1', this, true, 'Η χρωματική αλληλουχία επαναλαμβάνεται από το μέγεθος 45-80. Αφού το 20 είναι κίτρινο, το 50 είναι επίσης κίτρινο. [cite: 30, 31, 32]')">Κίτρινο</button>
+            <button class="option-btn" onclick="checkAnswer('q1', this, false, 'Τα κόκκινα εργαλεία είναι τα 25, 55 και 110. [cite: 30, 31, 32]')">Κόκκινο</button>
+            <button class="option-btn" onclick="checkAnswer('q1', this, false, 'Τα μπλε εργαλεία είναι τα 30, 60 και 120. [cite: 30, 31, 32]')">Μπλε</button>
+        </div>
+        <div class="feedback-box"></div>
+    </div>
+
+    <div class="question-block" id="q2">
+        <div class="question-title">2. Ποιο από τα παρακάτω μικροεργαλεία έχει χρώμα Πράσινο;</div>
+        <div class="options-grid">
+            <button class="option-btn" onclick="checkAnswer('q2', this, false, 'Το 60 είναι μπλε. [cite: 31]')">60</button>
+            <button class="option-btn" onclick="checkAnswer('q2', this, false, 'Το 55 είναι κόκκινο. [cite: 31]')">55</button>
+            <button class="option-btn" onclick="checkAnswer('q2', this, true, 'Η χρωματική αλληλουχία επαναλαμβάνεται. Το 35 είναι πράσινο, άρα το 70 (και το 130) είναι επίσης πράσινα. [cite: 30, 31, 32]')">70</button>
+            <button class="option-btn" onclick="checkAnswer('q2', this, false, 'Το 80 είναι μαύρο. [cite: 31]')">80</button>
+        </div>
+        <div class="feedback-box"></div>
+    </div>
+
+    <div class="question-block" id="q3">
+        <div class="question-title">3. Αν το νούμερο ενός μικροεργαλείου είναι 60, ποια είναι η διατομή του στο άκρο;</div>
+        <div class="options-grid">
+            <button class="option-btn" onclick="checkAnswer('q3', this, false, 'Αυτό θα ήταν το νούμερο 06. [cite: 33, 34]')">0.06 χιλιοστά</button>
+            <button class="option-btn" onclick="checkAnswer('q3', this, true, 'Κάθε μικροεργαλείο έχει χρώμα που αντιστοιχεί στη διατομή του σε εκατοστά του χιλιοστού. Άρα 60/100 του χιλιοστού = 0.60 χιλ. [cite: 33, 34]')">0.60 χιλιοστά</button>
+            <button class="option-btn" onclick="checkAnswer('q3', this, false, 'Αυτό είναι λάθος μονάδα μέτρησης (πολύ μεγάλο). [cite: 33]')">6 χιλιοστά</button>
+            <button class="option-btn" onclick="checkAnswer('q3', this, false, 'Τα νούμερα αντιστοιχούν σε εκατοστά του χιλιοστού, όχι σε ολόκληρα χιλιοστά. [cite: 33]')">60 χιλιοστά</button>
+        </div>
+        <div class="feedback-box"></div>
+    </div>
+
+    <div class="question-block" id="q4">
+        <div class="question-title">4. Μετά την προπαρασκευή του ριζικού σωλήνα με μικροεργαλείο νούμερο 45, τι κώνο γουταπέρκας θα επιλέξετε για την έμφραξη;</div>
+        <div class="options-grid">
+            <button class="option-btn" onclick="checkAnswer('q4', this, false, 'Πρέπει να υπάρχει απόλυτη ταύτιση μεγέθους. [cite: 46]')">Έναν κίτρινο κώνο νούμερο 50.</button>
+            <button class="option-btn" onclick="checkAnswer('q4', this, true, 'Οι κώνοι γουταπέρκας έχουν αντίστοιχα μεγέθη (άρα και χρωματισμό) με τα μικροεργαλεία ενδοδοντίας. [cite: 46]')">Έναν λευκό κώνο νούμερο 45.</button>
+            <button class="option-btn" onclick="checkAnswer('q4', this, false, 'Ο κώνος πρέπει να έχει το μέγεθος του τελευταίου εργαλείου προπαρασκευής, όχι απλώς το ίδιο χρώμα προηγούμενης σειράς. [cite: 46]')">Έναν λευκό κώνο νούμερο 15.</button>
+            <button class="option-btn" onclick="checkAnswer('q4', this, false, 'Το μέγεθος της γουταπέρκας έχει τεράστια σημασία και πρέπει να αντιστοιχεί στο μικροεργαλείο. [cite: 46]')">Το μέγεθος της γουταπέρκας δεν έχει σημασία.</button>
+        </div>
+        <div class="feedback-box"></div>
+    </div>
+
+    <div class="question-block" id="q5">
+        <div class="question-title">5. Τι υλικό χρησιμοποιείται για τους διακλυσμούς στο Εργαστήριο Προκλινικής για λόγους ασφάλειας;</div>
+        <div class="options-grid">
+            <button class="option-btn" onclick="checkAnswer('q5', this, false, 'Το υποχλωριώδες νάτριο χρησιμοποιείται στην κλινική πράξη, όχι στο εργαστήριο. [cite: 38]')">Υποχλωριώδες Νάτριο</button>
+            <button class="option-btn" onclick="checkAnswer('q5', this, false, 'Δεν αναφέρεται χρήση οινοπνεύματος για διακλυσμούς στο έγγραφο. [cite: 38]')">Οινόπνευμα</button>
+            <button class="option-btn" onclick="checkAnswer('q5', this, true, 'Για λόγους ασφάλειας και αποφυγής βλαβών, στο εργαστήριο χρησιμοποιείται νερό. [cite: 38]')">Νερό</button>
+            <button class="option-btn" onclick="checkAnswer('q5', this, false, 'Το φύραμα είναι συγκολλητικό υλικό για την έμφραξη, όχι υγρό διακλυσμών. [cite: 43]')">Φύραμα</button>
+        </div>
+        <div class="feedback-box"></div>
+    </div>
+
+</div>
+
+<script>
+    function checkAnswer(questionId, buttonElement, isCorrect, explanationText) {
+        // Βρίσκουμε το block της συγκεκριμένης ερώτησης
+        const questionBlock = document.getElementById(questionId);
+        
+        // Απενεργοποιούμε όλα τα κουμπιά της ερώτησης για να κλειδώσει η απάντηση
+        const allButtons = questionBlock.querySelectorAll('.option-btn');
+        allButtons.forEach(btn => {
+            btn.disabled = true;
+            btn.style.borderColor = '#bdc3c7'; // επαναφορά περιγράμματος
+        });
+
+        // Αλλάζουμε το χρώμα του κουμπιού που πατήθηκε
+        if (isCorrect) {
+            buttonElement.style.backgroundColor = '#2ecc71';
+            buttonElement.style.color = 'white';
+            buttonElement.style.borderColor = '#27ae60';
+        } else {
+            buttonElement.style.backgroundColor = '#e74c3c';
+            buttonElement.style.color = 'white';
+            buttonElement.style.borderColor = '#c0392b';
+            
+            // Προαιρετικά: Μπορούμε να δείξουμε ποια ήταν η σωστή επιλογή
+            // ψάχνοντας το κουμπί που έχει 'true' στην onclick function του.
+        }
+
+        // Εμφανίζουμε την ανατροφοδότηση
+        const feedbackBox = questionBlock.querySelector('.feedback-box');
+        feedbackBox.style.display = 'block';
+        
+        if (isCorrect) {
+            feedbackBox.style.backgroundColor = '#eafaf1';
+            feedbackBox.style.borderLeft = '5px solid #2ecc71';
+            feedbackBox.innerHTML = `<strong>✅ Σωστά!</strong><br>${explanationText}`;
+        } else {
+            feedbackBox.style.backgroundColor = '#fdedec';
+            feedbackBox.style.borderLeft = '5px solid #e74c3c';
+            feedbackBox.innerHTML = `<strong>❌ Λάθος.</strong><br>${explanationText}`;
+        }
+    }
+</script>
+
+</body>
+</html>
