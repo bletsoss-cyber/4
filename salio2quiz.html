@@ -3,99 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Δοκιμασίες Σάλιου - Quiz Υψηλής Δυσκολίας</title>
+    <title>Διαδραστικό Κουίζ Σάλιου - Άμεση Απάντηση</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #2c3e50;
-            max-width: 900px;
+            background-color: #f0f4f8;
+            color: #333;
+            max-width: 800px;
             margin: 0 auto;
-            padding: 30px;
-            background-color: #ecf0f1;
+            padding: 30px 20px;
+            line-height: 1.6;
         }
         h1 {
             text-align: center;
-            color: #2980b9;
-            border-bottom: 3px solid #3498db;
-            padding-bottom: 10px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        p.instructions {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 40px;
+            font-size: 1.1em;
         }
         .question-card {
-            background: #ffffff;
+            background-color: #fff;
+            border-radius: 8px;
             padding: 20px;
             margin-bottom: 20px;
-            border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            border-left: 5px solid #34495e;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+        }
+        .question-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+            border-color: #3498db;
         }
         .question-text {
+            font-size: 1.15em;
             font-weight: bold;
-            font-size: 1.1em;
+            color: #2c3e50;
             margin-bottom: 15px;
         }
         .options {
             list-style-type: none;
             padding: 0;
+            margin: 0;
         }
         .options li {
-            margin-bottom: 10px;
-            padding: 10px;
-            background-color: #f8f9f9;
-            border: 1px solid #d5dbdb;
-            border-radius: 4px;
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            padding: 10px 15px;
+            margin-bottom: 8px;
+            border-radius: 5px;
         }
-        .answers-section {
+        .answer-box {
             display: none;
-            background-color: #e8f8f5;
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 30px;
-            border: 2px solid #1abc9c;
-        }
-        .answers-section h2 {
-            color: #16a085;
-            margin-top: 0;
-        }
-        .btn {
-            display: block;
-            width: 100%;
+            margin-top: 15px;
             padding: 15px;
-            background-color: #e74c3c;
-            color: white;
-            text-align: center;
-            font-size: 1.2em;
-            font-weight: bold;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-top: 30px;
-            transition: background 0.3s;
+            background-color: #e8f8f5;
+            border-left: 5px solid #1abc9c;
+            border-radius: 4px;
+            animation: fadeIn 0.4s ease-in-out;
         }
-        .btn:hover {
-            background-color: #c0392b;
+        .question-card.revealed .answer-box {
+            display: block;
         }
-        .correct-ans {
+        .correct-letter {
             font-weight: bold;
-            color: #c0392b;
+            color: #e74c3c;
+            font-size: 1.1em;
+        }
+        .click-hint {
+            display: block;
+            text-align: right;
+            font-size: 0.85em;
+            color: #bdc3c7;
+            margin-top: 10px;
+            font-style: italic;
+        }
+        .question-card.revealed .click-hint {
+            display: none;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
 
-    <h1>Δοκιμασίες Σάλιου: Test Εφαρμογής & Λεπτομερειών</h1>
-    <p style="text-align: center;">Απάντησε στις παρακάτω 20 ερωτήσεις. Όταν τελειώσεις, πάτα το κουμπί στο τέλος για να δεις τις σωστές απαντήσεις.</p>
+    <h1>Διαδραστικό Κουίζ: Δοκιμασίες Σάλιου</h1>
+    <p class="instructions">Κάνε κλικ πάνω σε οποιαδήποτε ερώτηση για να εμφανιστεί αμέσως η σωστή απάντηση.</p>
 
-    <div class="question-card">
+    <div class="question-card" onclick="this.classList.toggle('revealed')">
         <div class="question-text">1. Ποιο είναι το όριο της ταχύτητας ροής για τη διάγνωση της υποσιαλίας στο σάλιο ηρεμίας;</div>
         <ul class="options">
-            <li>Α) < 0,7 ml/min</li>
-            <li>Β) < 0,25 ml/min</li>
-            <li>Γ) < 0,1 ml/min</li>
-            <li>Δ) < 1,0 ml/min</li>
+            <li>Α) &lt; 0,7 ml/min</li>
+            <li>Β) &lt; 0,25 ml/min</li>
+            <li>Γ) &lt; 0,1 ml/min</li>
+            <li>Δ) &lt; 1,0 ml/min</li>
         </ul>
+        <span class="click-hint">Κάνε κλικ για αποκάλυψη</span>
+        <div class="answer-box">
+            <span class="correct-letter">Σωστό: Γ</span><br>
+            Για το σάλιο ηρεμίας, υποσιαλία θεωρείται η ροή &lt; 0,1 ml/min. (Το &lt; 0,7 ml/min αφορά το σάλιο διέγερσης).
+        </div>
     </div>
 
-    <div class="question-card">
+    <div class="question-card" onclick="this.classList.toggle('revealed')">
         <div class="question-text">2. Κατά την εκτίμηση της ρυθμιστικής ικανότητας του σάλιου με τη μέθοδο της οξύνισης ad modum Ericsson, ένα τελικό pH ίσο με 5,0 υποδηλώνει:</div>
         <ul class="options">
             <li>Α) Κακή ρυθμιστική ικανότητα</li>
@@ -103,19 +121,29 @@
             <li>Γ) Καλή ρυθμιστική ικανότητα</li>
             <li>Δ) Υπερλειτουργία ρυθμιστικών συστημάτων</li>
         </ul>
+        <span class="click-hint">Κάνε κλικ για αποκάλυψη</span>
+        <div class="answer-box">
+            <span class="correct-letter">Σωστό: Β</span><br>
+            Η μέτρια ρυθμιστική ικανότητα (Medium - Πράσινο χρώμα) κυμαίνεται στο pH 4,5 - 5,5.
+        </div>
     </div>
 
-    <div class="question-card">
-        <div class="question-text">3. Σε ποια ορολογική ομάδα (ορότυπους) ανήκει ο Streptococcus sobrinus που απαντάται στον άνθρωπο;</div>
+    <div class="question-card" onclick="this.classList.toggle('revealed')">
+        <div class="question-text">3. Σε ποια ορολογική ομάδα ανήκει ο Streptococcus sobrinus που απαντάται στον άνθρωπο;</div>
         <ul class="options">
             <li>Α) c, e, f, k</li>
             <li>Β) a, b</li>
             <li>Γ) d, g</li>
             <li>Δ) h, c</li>
         </ul>
+        <span class="click-hint">Κάνε κλικ για αποκάλυψη</span>
+        <div class="answer-box">
+            <span class="correct-letter">Σωστό: Γ</span><br>
+            Ο S. sobrinus ανήκει στους ορότυπους d και g. Οι ορότυποι c, e, f, k ανήκουν στον S. mutans.
+        </div>
     </div>
 
-    <div class="question-card">
+    <div class="question-card" onclick="this.classList.toggle('revealed')">
         <div class="question-text">4. Για τη μέτρηση του μικροβιακού φορτίου με το CRT® bacteria, η επώαση του ενοφθαλμισμένου μέσου πρέπει να γίνεται:</div>
         <ul class="options">
             <li>Α) Στους 25 °C για 24 ώρες</li>
@@ -123,9 +151,14 @@
             <li>Γ) Στους 37 °C για 48 ώρες</li>
             <li>Δ) Στους 40 °C για 72 ώρες</li>
         </ul>
+        <span class="click-hint">Κάνε κλικ για αποκάλυψη</span>
+        <div class="answer-box">
+            <span class="correct-letter">Σωστό: Γ</span><br>
+            Το πρωτόκολλο επώασης απαιτεί θερμοκρασία 37 °C για 48 ώρες.
+        </div>
     </div>
 
-    <div class="question-card">
+    <div class="question-card" onclick="this.classList.toggle('revealed')">
         <div class="question-text">5. Ποιο είναι το κύριο ρυθμιστικό σύστημα που δρα στο σάλιο διέγερσης;</div>
         <ul class="options">
             <li>Α) Φωσφορικά (H2PO4- / HPO4 2-)</li>
@@ -133,29 +166,44 @@
             <li>Γ) Καρβοξύλια σε μακρομόρια</li>
             <li>Δ) Ασβέστιο και Φωσφόρος</li>
         </ul>
+        <span class="click-hint">Κάνε κλικ για αποκάλυψη</span>
+        <div class="answer-box">
+            <span class="correct-letter">Σωστό: Β</span><br>
+            Όσο αυξάνεται η ταχύτητα ροής (διέγερση), η συγκέντρωση των διττανθρακικών (HCO3-) αυξάνεται δραματικά και αναλαμβάνει τον κύριο ρυθμιστικό ρόλο.
+        </div>
     </div>
 
-    <div class="question-card">
-        <div class="question-text">6. Με βάση την εξίσωση της Ξηροστομίας, η απώλεια του σάλιου ισούται με:</div>
+    <div class="question-card" onclick="this.classList.toggle('revealed')">
+        <div class="question-text">6. Με βάση την εξίσωση της Ξηροστομίας, η «Απώλεια Σάλιου» ισούται με:</div>
         <ul class="options">
             <li>Α) Εξάτμιση + Απορρόφηση + Κατάποση</li>
             <li>Β) Εξάτμιση + Μάσηση + Απορρόφηση</li>
             <li>Γ) Κατάποση + Διαπνοή + Εξάτμιση</li>
             <li>Δ) Παραγωγή - Εξάτμιση</li>
         </ul>
+        <span class="click-hint">Κάνε κλικ για αποκάλυψη</span>
+        <div class="answer-box">
+            <span class="correct-letter">Σωστό: Α</span><br>
+            Ξηροστομία = Παραγωγή σάλιου – Απώλεια σάλιου. Η απώλεια προκύπτει από το άθροισμα: Εξάτμιση + Απορρόφηση + Κατάποση.
+        </div>
     </div>
 
-    <div class="question-card">
+    <div class="question-card" onclick="this.classList.toggle('revealed')">
         <div class="question-text">7. Ποια είναι η φυσιολογική τιμή ταχύτητας ροής για το σάλιο διέγερσης;</div>
         <ul class="options">
             <li>Α) 0,25 – 0,35 ml/min</li>
             <li>Β) 0,7 – 1 ml/min</li>
             <li>Γ) 1 – 3 ml/min</li>
-            <li>Δ) > 3 ml/min</li>
+            <li>Δ) &gt; 3 ml/min</li>
         </ul>
+        <span class="click-hint">Κάνε κλικ για αποκάλυψη</span>
+        <div class="answer-box">
+            <span class="correct-letter">Σωστό: Γ</span><br>
+            Η φυσιολογική ροή στη διέγερση είναι 1-3 ml/min. Το 0,25-0,35 είναι η φυσιολογική τιμή για το σάλιο ηρεμίας.
+        </div>
     </div>
 
-    <div class="question-card">
+    <div class="question-card" onclick="this.classList.toggle('revealed')">
         <div class="question-text">8. Στο εμπορικό σκεύασμα CRT® bacteria, τι περιέχει το δισκίο που τοποθετείται πριν την επώαση;</div>
         <ul class="options">
             <li>Α) NaOH για εξουδετέρωση οξέων</li>
@@ -163,29 +211,44 @@
             <li>Γ) Φωσφορικά άλατα για ρύθμιση pH</li>
             <li>Δ) Ένζυμα διάσπασης υδατανθράκων</li>
         </ul>
+        <span class="click-hint">Κάνε κλικ για αποκάλυψη</span>
+        <div class="answer-box">
+            <span class="correct-letter">Σωστό: Β</span><br>
+            Το δισκίο περιέχει όξινο ανθρακικό νάτριο (NaHCO3) για την απελευθέρωση CO2, δημιουργώντας το κατάλληλο περιβάλλον για την ανάπτυξη των βακτηρίων.
+        </div>
     </div>
 
-    <div class="question-card">
-        <div class="question-text">9. Σε ποια κατηγορία κινδύνου κατατάσσεται ένας ασθενής που έχει φορτίο Γαλακτοβακίλων 10^5 CFU/ml σάλιου;</div>
+    <div class="question-card" onclick="this.classList.toggle('revealed')">
+        <div class="question-text">9. Σε ποια κατηγορία κινδύνου κατατάσσεται ένας ασθενής που έχει φορτίο Γαλακτοβακίλων 10⁵ CFU/ml σάλιου;</div>
         <ul class="options">
             <li>Α) Χαμηλός κίνδυνος</li>
             <li>Β) Μέτριος κίνδυνος</li>
             <li>Γ) Υψηλός κίνδυνος</li>
-            <li>Δ) Φυσιολογική χλωρίδα, κανένας κίνδυνος</li>
+            <li>Δ) Κανένας κίνδυνος</li>
         </ul>
+        <span class="click-hint">Κάνε κλικ για αποκάλυψη</span>
+        <div class="answer-box">
+            <span class="correct-letter">Σωστό: Γ</span><br>
+            Για τους γαλακτοβάκιλους, συγκεντρώσεις &ge; 10⁵ υποδηλώνουν υψηλό κίνδυνο. (Για τους Mutans το όριο υψηλού κινδύνου είναι &ge; 10⁶).
+        </div>
     </div>
 
-    <div class="question-card">
+    <div class="question-card" onclick="this.classList.toggle('revealed')">
         <div class="question-text">10. Πώς ορίζεται η μέθοδος της «τιτλοποίησης» για τον προσδιορισμό της ρυθμιστικής ικανότητας;</div>
         <ul class="options">
             <li>Α) Η μεταβολή του pH μετά από συγκεκριμένη προσθήκη οξέος.</li>
             <li>Β) Η ποσότητα οξέος που απαιτείται για μια συγκεκριμένη μεταβολή του pH.</li>
-            <li>Γ) Η ταχύτητα με την οποία το σάλιο επανέρχεται στο φυσιολογικό pH.</li>
-            <li>Δ) Η οπτική σύγκριση του χρώματος του σάλιου με τυποποιημένη κλίμακα.</li>
+            <li>Γ) Η ταχύτητα επανάκαμψης του φυσιολογικού pH.</li>
+            <li>Δ) Η οπτική σύγκριση χρώματος με τυποποιημένη κλίμακα.</li>
         </ul>
+        <span class="click-hint">Κάνε κλικ για αποκάλυψη</span>
+        <div class="answer-box">
+            <span class="correct-letter">Σωστό: Β</span><br>
+            Η τιτλοποίηση μετρά την απαιτούμενη ποσότητα οξέος. Η επιλογή (Α) περιγράφει τη μέθοδο της Οξύνισης.
+        </div>
     </div>
 
-    <div class="question-card">
+    <div class="question-card" onclick="this.classList.toggle('revealed')">
         <div class="question-text">11. Ποιοι από τους παρακάτω στρεπτόκοκκους της ομάδας Mutans απαντώνται σπανιότερα στον άνθρωπο;</div>
         <ul class="options">
             <li>Α) S. mutans και S. sobrinus</li>
@@ -193,57 +256,147 @@
             <li>Γ) S. ratti και S. criceti</li>
             <li>Δ) S. sanguinis και S. gordonii</li>
         </ul>
+        <span class="click-hint">Κάνε κλικ για αποκάλυψη</span>
+        <div class="answer-box">
+            <span class="correct-letter">Σωστό: Γ</span><br>
+            Οι S. ratti και S. criceti (όπως και οι S. ferus, S. macacae) είναι στελέχη που συναντώνται κυρίως σε ζώα και σπανιότερα στον άνθρωπο.
+        </div>
     </div>
 
-    <div class="question-card">
-        <div class="question-text">12. Τι ποσοστό της παραγωγής σάλιου προέρχεται από τους ελάσσονες σιελογόνους αδένες;</div>
+    <div class="question-card" onclick="this.classList.toggle('revealed')">
+        <div class="question-text">12. Τι ποσοστό της συνολικής παραγωγής σάλιου προέρχεται από τους ελάσσονες σιελογόνους αδένες;</div>
         <ul class="options">
             <li>Α) 5%</li>
             <li>Β) 10%</li>
             <li>Γ) 25%</li>
             <li>Δ) 90%</li>
         </ul>
+        <span class="click-hint">Κάνε κλικ για αποκάλυψη</span>
+        <div class="answer-box">
+            <span class="correct-letter">Σωστό: Β</span><br>
+            Οι ελάσσονες αδένες παράγουν το 10% του σάλιου, ενώ οι μείζονες (3 ζεύγη) το 90%.
+        </div>
     </div>
 
-    <div class="question-card">
-        <div class="question-text">13. Σε μια εξέταση ρυθμιστικής ικανότητας με CRT® buffer, η ταινία παίρνει κίτρινο χρώμα. Αυτό σημαίνει ότι το τελικό pH είναι:</div>
+    <div class="question-card" onclick="this.classList.toggle('revealed')">
+        <div class="question-text">13. Σε μια εξέταση με το CRT® buffer, η ταινία παίρνει κίτρινο χρώμα (Low). Τι σημαίνει αυτό για το τελικό pH;</div>
         <ul class="options">
-            <li>Α) > 5,5 (Καλή)</li>
-            <li>Β) 4,5 - 5,5 (Μέτρια)</li>
-            <li>Γ) < 4,5 (Κακή)</li>
-            <li>Δ) Ακριβώς 7,0 (Ουδέτερη)</li>
+            <li>Α) &gt; 5,5</li>
+            <li>Β) 4,5 - 5,5</li>
+            <li>Γ) &lt; 4,5</li>
+            <li>Δ) Παραμένει σταθερό στο 7,0</li>
         </ul>
+        <span class="click-hint">Κάνε κλικ για αποκάλυψη</span>
+        <div class="answer-box">
+            <span class="correct-letter">Σωστό: Γ</span><br>
+            Το κίτρινο χρώμα (Low) υποδηλώνει κακή ρυθμιστική ικανότητα και αντιστοιχεί σε τελικό pH &lt; 4,5.
+        </div>
     </div>
 
-    <div class="question-card">
-        <div class="question-text">14. Στη συλλογή σάλιου διέγερσης για σιελομετρία, πόσος είναι ο ακριβής χρόνος συλλογής του παραγόμενου σάλιου;</div>
+    <div class="question-card" onclick="this.classList.toggle('revealed')">
+        <div class="question-text">14. Στη συλλογή σάλιου διέγερσης για σιελομετρία, πόσος είναι ο ακριβής χρόνος συλλογής του παραγόμενου σάλιου (μετά την αρχική μάσηση);</div>
         <ul class="options">
             <li>Α) 2 λεπτά</li>
             <li>Β) 3 λεπτά</li>
             <li>Γ) 5 λεπτά</li>
             <li>Δ) 10 λεπτά</li>
         </ul>
+        <span class="click-hint">Κάνε κλικ για αποκάλυψη</span>
+        <div class="answer-box">
+            <span class="correct-letter">Σωστό: Γ</span><br>
+            Η συλλογή γίνεται αυστηρά για 5 λεπτά, προκειμένου να ογκομετρηθεί και να βγει η αναλογία ml/min.
+        </div>
     </div>
 
-    <div class="question-card">
-        <div class="question-text">15. Ποιο από τα παρακάτω ΔΕΝ ανήκει στις 4 κύριες ομάδες στρεπτόκοκκων της στοματικής κοιλότητας;</div>
+    <div class="question-card" onclick="this.classList.toggle('revealed')">
+        <div class="question-text">15. Ποιο από τα παρακάτω ΔΕΝ αποτελεί ομάδα στρεπτόκοκκων της στοματικής κοιλότητας;</div>
         <ul class="options">
             <li>Α) Ομάδα Mutans</li>
             <li>Β) Ομάδα Salivarius</li>
             <li>Γ) Ομάδα Anginosus (milleri)</li>
             <li>Δ) Ομάδα Lactobacilli</li>
         </ul>
+        <span class="click-hint">Κάνε κλικ για αποκάλυψη</span>
+        <div class="answer-box">
+            <span class="correct-letter">Σωστό: Δ</span><br>
+            Οι γαλακτοβάκιλοι (Lactobacilli) είναι διαφορετικό γένος βακτηρίων, όχι ομάδα στρεπτόκοκκων. Οι 4 ομάδες στρεπτόκοκκων είναι: Mutans, Salivarius, Anginosus, Mitis.
+        </div>
     </div>
 
-    <div class="question-card">
-        <div class="question-text">16. Η ξηροστομία ορίζεται αυστηρά ως:</div>
+    <div class="question-card" onclick="this.classList.toggle('revealed')">
+        <div class="question-text">16. Η ξηροστομία ορίζεται κλινικά ως:</div>
         <ul class="options">
-            <li>Α) Ταχύτητα ροής ηρεμίας < 0.1 ml/min</li>
+            <li>Α) Ταχύτητα ροής ηρεμίας &lt; 0.1 ml/min</li>
             <li>Β) Αντικειμενικό εύρημα μειωμένης έκκρισης σάλιου</li>
             <li>Γ) Υποκειμενικό σύμπτωμα του ασθενούς</li>
-            <li>Δ) Απουσία ελασσόνων σιελογόνων αδένων</li>
+            <li>Δ) Πλήρης απουσία ελασσόνων σιελογόνων αδένων</li>
         </ul>
+        <span class="click-hint">Κάνε κλικ για αποκάλυψη</span>
+        <div class="answer-box">
+            <span class="correct-letter">Σωστό: Γ</span><br>
+            Η «Ξηροστομία» είναι καθαρά υποκειμενικό σύμπτωμα (αίσθημα ξηρότητας). Η αντικειμενικά μειωμένη ροή ονομάζεται Υποσιαλία ή Ολιγοσιαλία.
+        </div>
     </div>
 
-    <div class="question-card">
-        <div class="question-text">17. Ποιος είναι ο κύριος ρόλος της εξέτασης του μικροβιακού φορτίου
+    <div class="question-card" onclick="this.classList.toggle('revealed')">
+        <div class="question-text">17. Ποια είναι η κλινική σημασία της μικροβιολογικής ανάλυσης του σάλιου (καταμέτρηση Mutans/Lactobacilli);</div>
+        <ul class="options">
+            <li>Α) Η διάγνωση των νόσων του περιοδοντίου</li>
+            <li>Β) Η εκτίμηση του τερηδονικού κινδύνου &amp; σχεδιασμός προληπτικού προγράμματος</li>
+            <li>Γ) Η άμεση μέτρηση της οξύτητας του σάλιου ηρεμίας</li>
+            <li>Δ) Ο υπολογισμός του ρυθμού απορρόφησης του σάλιου</li>
+        </ul>
+        <span class="click-hint">Κάνε κλικ για αποκάλυψη</span>
+        <div class="answer-box">
+            <span class="correct-letter">Σωστό: Β</span><br>
+            Οι μικροβιολογικές εξετάσεις δείχνουν τις οικολογικές μεταβολές που σχετίζονται άμεσα με τον τερηδονικό κίνδυνο και επιτρέπουν την αξιολόγηση των προληπτικών μέτρων.
+        </div>
+    </div>
+
+    <div class="question-card" onclick="this.classList.toggle('revealed')">
+        <div class="question-text">18. Κατά τη διέλευση του σάλιου από το αρχικό έκκριμα (λόβιο) προς τη στοματική κοιλότητα, ποιο ιόν παρουσιάζει μεγάλη ΑΥΞΗΣΗ στη συγκέντρωσή του (στο σάλιο ηρεμίας);</div>
+        <ul class="options">
+            <li>Α) Νάτριο (Na+)</li>
+            <li>Β) Χλώριο (Cl-)</li>
+            <li>Γ) Κάλιο (K+)</li>
+            <li>Δ) Διττανθρακικά (HCO3-)</li>
+        </ul>
+        <span class="click-hint">Κάνε κλικ για αποκάλυψη</span>
+        <div class="answer-box">
+            <span class="correct-letter">Σωστό: Γ</span><br>
+            Η συγκέντρωση του Καλίου (K+) αυξάνεται από τα 4 mM (στον λόβιο) στα 25 mM (στη στοματική κοιλότητα). Αντίθετα τα Na+, Cl- και HCO3- μειώνονται σημαντικά στο σάλιο ηρεμίας.
+        </div>
+    </div>
+
+    <div class="question-card" onclick="this.classList.toggle('revealed')">
+        <div class="question-text">19. Ποια συγκέντρωση Στρεπτόκοκκων ομάδας mutans θεωρείται «Μέτρια» με βάση τον ημιποσοτικό προσδιορισμό;</div>
+        <ul class="options">
+            <li>Α) &le; 10³ CFU/ml</li>
+            <li>Β) 10⁴ CFU/ml</li>
+            <li>Γ) 10⁵ CFU/ml</li>
+            <li>Δ) &ge; 10⁶ CFU/ml</li>
+        </ul>
+        <span class="click-hint">Κάνε κλικ για αποκάλυψη</span>
+        <div class="answer-box">
+            <span class="correct-letter">Σωστό: Γ</span><br>
+            Για τους Mutans, το 10⁵ CFU/ml θεωρείται μέτριο φορτίο (το &le;10⁴ είναι χαμηλό και το &ge;10⁶ υψηλό).
+        </div>
+    </div>
+
+    <div class="question-card" onclick="this.classList.toggle('revealed')">
+        <div class="question-text">20. Τα βακτηρίδια που αναζητούμε στη μικροβιολογική ανάλυση χαρακτηρίζονται από δύο ιδιότητες:</div>
+        <ul class="options">
+            <li>Α) Είναι αερόβια και πρωτεολυτικά</li>
+            <li>Β) Είναι οξεάντοχα και οξεογόνα</li>
+            <li>Γ) Είναι αλκαλόφιλα και αναερόβια</li>
+            <li>Δ) Είναι ιογενή και τοξικογόνα</li>
+        </ul>
+        <span class="click-hint">Κάνε κλικ για αποκάλυψη</span>
+        <div class="answer-box">
+            <span class="correct-letter">Σωστό: Β</span><br>
+            Τόσο οι Γαλακτοβάκιλοι όσο και οι στρεπτόκοκκοι ομάδας mutans είναι οξεάντοχα (αντέχουν σε όξινο περιβάλλον) και οξεογόνα (παράγουν οξέα).
+        </div>
+    </div>
+
+</body>
+</html>
