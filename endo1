@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOS Προκλινική Ενδοδοντία Ι - Cheat Sheet</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 3px solid #16a085;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #16a085;
+            margin-top: 30px;
+            border-left: 4px solid #16a085;
+            padding-left: 10px;
+            background-color: #f9fdfc;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        li {
+            background: #ecf0f1;
+            margin: 8px 0;
+            padding: 10px 15px;
+            border-radius: 5px;
+            border-left: 3px solid #bdc3c7;
+        }
+        .sos-box {
+            background-color: #ffeaa7;
+            border-left: 4px solid #fdcb6e;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+            text-align: center;
+        }
+        .color-item {
+            padding: 10px;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        .bg-white { background-color: #f1f2f6; color: #333; border: 1px solid #ccc; text-shadow: none; }
+        .bg-yellow { background-color: #f1c40f; color: #333; text-shadow: none; }
+        .bg-red { background-color: #e74c3c; }
+        .bg-blue { background-color: #3498db; }
+        .bg-green { background-color: #2ecc71; }
+        .bg-black { background-color: #2c3e50; }
+        .highlight { color: #e74c3c; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🦷 Cheat Sheet: Προκλινική Ενδοδοντία Ι</h1>
+    <p style="text-align: center;"><strong>Μάθημα:</strong> Προκλινική Ενδοδοντία Ι [cite: 7] | <strong>Διδάσκων:</strong> Εμμανουήλ Μαζίνης [cite: 4, 5]</p>
+
+    <h2>Τα 5 Βασικά Στάδια Ενδοδοντικής Θεραπείας</h2>
+    <ul>
+        <li><strong>1. Διάνοιξη</strong> [cite: 9]</li>
+        <li><strong>2. Προπαρασκευή</strong> [cite: 12]</li>
+        <li><strong>3. Διακλυσμοί</strong> [cite: 13]</li>
+        <li><strong>4. Έμφραξη Ριζικού Σωλήνα</strong> [cite: 14]</li>
+        <li><strong>5. Αποκατάσταση της Μύλης</strong> [cite: 15]</li>
+    </ul>
+
+    <h2>1. Διάνοιξη</h2>
+    <ul>
+        <li>Γίνεται με <strong>χειρολαβή υψηλών ταχυτήτων</strong> και <strong>στρογγυλή εγγλυφίδα</strong>[cite: 20, 21].</li>
+        <li><strong>Στόχος:</strong> Η δημιουργία κοιλότητας διάνοιξης για την προσπέλαση στον πολφικό θάλαμο και τους ριζικούς σωλήνες[cite: 17, 18, 22].</li>
+    </ul>
+
+    <h2>2. Προπαρασκευή Ριζικών Σωλήνων <span>(Πολύ Σημαντικό!)</span></h2>
+    <ul>
+        <li>Η προπαρασκευή γίνεται τοποθετώντας τα <strong>μικροεργαλεία (ή ρίνες-Κ)</strong> με μια συγκεκριμένη σειρά[cite: 25, 26, 27].</li>
+    </ul>
+    
+    <div class="sos-box">
+        🚨 SOS ΚΑΝΟΝΑΣ ΔΙΑΤΟΜΗΣ: <br>
+        Κάθε μικροεργαλείο έχει ένα συγκεκριμένο χρώμα που αντιστοιχεί στη διατομή του άκρου του σε <strong>εκατοστά του χιλιοστού</strong>[cite: 33]. <br>
+        <span style="color: #d35400;">Παράδειγμα:</span> Το εργαλείο <strong>Νο 15</strong> έχει διατομή άκρου <strong>15/100 του χιλιοστού (ή 0.15 χιλ)</strong>[cite: 34].
+    </div>
+
+    <h3>Χρωματική Αλληλουχία Μικροεργαλείων</h3>
+    <ul>
+        <li>Τα μικροεργαλεία μεγέθους <strong>06 - 08 - 10</strong> δεν επαναλαμβάνονται χρωματικά[cite: 28, 29].</li>
+        <li><strong>Βασική Σειρά (15 έως 40):</strong> [cite: 30]</li>
+    </ul>
+    
+    <div class="color-grid">
+        <div class="color-item bg-white">15 (Λευκό)</div>
+        <div class="color-item bg-yellow">20 (Κίτρινο)</div>
+        <div class="color-item bg-red">25 (Κόκκινο)</div>
+        <div class="color-item bg-blue">30 (Μπλε)</div>
+        <div class="color-item bg-green">35 (Πράσινο)</div>
+        <div class="color-item bg-black">40 (Μαύρο)</div>
+    </div>
+    
+    <ul>
+        <li><strong>Επανάληψη:</strong> Από το μέγεθος <strong>45-80</strong> (45, 50, 55, 60, 70, 80) και <strong>90-140</strong> (90, 100, 110, 120, 130, 140) τα χρώματα <span class="highlight">επαναλαμβάνονται</span> με την ίδια σειρά[cite: 31, 32].</li>
+    </ul>
+
+    <h2>3. Διακλυσμοί Ριζικών Σωλήνων</h2>
+    <ul>
+        <li><strong>Σκοπός:</strong> Η απολύμανση του ριζικού σωλήνα, η απομάκρυνση ρινισμάτων οδοντίνης και η διευκόλυνση λειτουργίας των μικροεργαλείων[cite: 37].</li>
+        <li><strong>Υλικό - Κλινική πράξη:</strong> Υποχλωριώδες νάτριο[cite: 38].</li>
+        <li><strong>Υλικό - Εργαστήριο:</strong> Χρησιμοποιείται <strong>νερό</strong>, για λόγους ασφάλειας και αποφυγής βλαβών[cite: 38].</li>
+        <li><strong>Τεχνική/Προσοχή:</strong> Η βελόνα της σύριγγας διακλυσμών πρέπει να κάμπτεται κατά τη χρήση. <strong>ΠΡΟΣΟΧΗ:</strong> Δεν πρέπει ποτέ να σφηνώσει στα τοιχώματα κατά τη διάρκεια του διακλυσμού[cite: 35, 39].</li>
+    </ul>
+
+    <h2>4. Έμφραξη Ριζικών Σωλήνων</h2>
+    <ul>
+        <li>Ακολουθεί μετά την προπαρασκευή[cite: 42].</li>
+        <li><strong>Υλικά:</strong> Γίνεται με <strong>κώνους γουταπέρκας</strong> και <strong>φύραμα</strong>[cite: 42].</li>
+        <li><strong>Ορισμός (Φύραμα):</strong> Είναι το συγκολλητικό υλικό που μπαίνει σε συνδυασμό με τη γουταπέρκα[cite: 43].</li>
+    </ul>
+
+    <div class="sos-box">
+        🚨 SOS ΚΩΝΟΙ ΓΟΥΤΑΠΕΡΚΑΣ: <br>
+        Οι κώνοι γουταπέρκας έχουν ακριβώς <strong>αντίστοιχα μεγέθη και χρωματισμό</strong> με τα μικροεργαλεία ενδοδοντίας! [cite: 46]
+    </div>
+
+    <ul>
+        <li>Στη διαδικασία χρησιμοποιείται επίσης <strong>βαμβάκι</strong> και υλικό <strong>προσωρινής έμφραξης</strong>[cite: 44, 45].</li>
+    </ul>
+
+    <h2>5. Αποκατάσταση Δοντιού</h2>
+    <ul>
+        <li>Γίνεται μετά το πέρας της ενδοδοντικής θεραπείας[cite: 49].</li>
+        <li>Ακολουθεί τις βασικές αρχές της <strong>Οδοντικής Χειρουργικής</strong> και της <strong>Προσθετικής</strong>[cite: 49].</li>
+    </ul>
+
+</div>
+
+</body>
+</html>
