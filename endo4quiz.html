@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hardcore Ενδοδοντικό Κουίζ (ΑΠΘ)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        .question-container {
+            background: #fff;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-left: 5px solid #3498db;
+        }
+        .question-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .option-btn {
+            padding: 12px 15px;
+            font-size: 1em;
+            text-align: left;
+            background-color: #ecf0f1;
+            border: 2px solid #bdc3c7;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .option-btn:hover:not(:disabled) {
+            background-color: #e0e6ed;
+            border-color: #95a5a6;
+        }
+        .option-btn:disabled {
+            cursor: default;
+        }
+        .correct {
+            background-color: #d4edda !important;
+            border-color: #28a745 !important;
+            color: #155724 !important;
+        }
+        .incorrect {
+            background-color: #f8d7da !important;
+            border-color: #dc3545 !important;
+            color: #721c24 !important;
+        }
+        .explanation {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #e8f4f8;
+            border-left: 4px solid #17a2b8;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Ενδοδοντία: Τεστ Λεπτομερειών</h1>
+    <p style="text-align:center; color:#7f8c8d; margin-bottom: 30px;">Κάνε κλικ στη σωστή απάντηση για να δεις την εξήγηση.</p>
+
+    <div class="question-container">
+        <div class="question-title">1. Πού υπολογίζεται συνήθως η ακρορριζική στένωση σε σχέση με το ακτινογραφικό ακρορρίζιο;</div>
+        <div class="options-wrapper">
+            <button class="option-btn" onclick="checkAnswer(this, false)">Ακριβώς πάνω στο ακτινογραφικό ακρορρίζιο.</button>
+            <button class="option-btn" data-correct="true" onclick="checkAnswer(this, true)">Περίπου 0.5 - 1 χιλιοστό από αυτό.</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">Περίπου 1.5 - 2 χιλιοστά από αυτό.</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">Στα 2 χιλιοστά κοντά στην ανατομική έξοδο.</button>
+        </div>
+        <div class="explanation"><strong>Εξήγηση:</strong> Η στένωση υπολογίζεται περίπου 0.5-1 χιλ. από το ακτινογραφικό άκρο[cite: 191].</div>
+    </div>
+
+    <div class="question-container">
+        <div class="question-title">2. Ποιο είναι το μέγεθος του εργαλείου που φέρει μωβ χρώμα και τι ισχύει για την αλληλουχία του;</div>
+        <div class="options-wrapper">
+            <button class="option-btn" onclick="checkAnswer(this, false)">Μέγεθος 08, το χρώμα επαναλαμβάνεται στο μέγεθος 40.</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">Μέγεθος 10, το χρώμα επαναλαμβάνεται στο μέγεθος 35.</button>
+            <button class="option-btn" data-correct="true" onclick="checkAnswer(this, true)">Μέγεθος 10, το χρώμα του ΔΕΝ επαναλαμβάνεται.</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">Μέγεθος 06, το χρώμα του ΔΕΝ επαναλαμβάνεται.</button>
+        </div>
+        <div class="explanation"><strong>Εξήγηση:</strong> Το 10άρι είναι μωβ. Τα μικροεργαλεία μεγέθους 06 (ροζ), 08 (γκρι) και 10 (μωβ) δεν επαναλαμβάνονται χρωματικά[cite: 89, 90].</div>
+    </div>
+
+    <div class="question-container">
+        <div class="question-title">3. Κατά τη μεταφορά του «αρχικού μήκους» στο πρώτο μικροεργαλείο, πόσα χιλιοστά αφαιρούμε προληπτικά μετακινώντας τον ανασχετικό δακτύλιο;</div>
+        <div class="options-wrapper">
+            <button class="option-btn" onclick="checkAnswer(this, false)">-0.5 χιλιοστά</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">-1 χιλιοστό</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">-1.5 χιλιοστά</button>
+            <button class="option-btn" data-correct="true" onclick="checkAnswer(this, true)">-2 χιλιοστά</button>
+        </div>
+        <div class="explanation"><strong>Εξήγηση:</strong> Αφαιρούμε -2 χιλιοστά με τη μετακίνηση του ανασχετικού δακτυλίου για να αποφύγουμε την τυχαία έξοδο εκτός ακρορριζίου κατά την ενδιάμεση ακτινογραφία[cite: 78].</div>
+    </div>
+
+    <div class="question-container">
+        <div class="question-title">4. Έστω ότι ένα μικροεργαλείο έχει κωνικότητα 02. Ποιος είναι ο ακριβής μαθηματικός τύπος για την εύρεση της διαμέτρου (Dx) σε μια συγκεκριμένη απόσταση από το άκρο (Do);</div>
+        <div class="options-wrapper">
+            <button class="option-btn" data-correct="true" onclick="checkAnswer(this, true)">Dx = Do + (0.02 × απόσταση)</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">Dx = Do + (0.2 × απόσταση)</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">Dx = (Do + 0.02) × απόσταση</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">Dx = Do × 0.02 × απόσταση</button>
+        </div>
+        <div class="explanation"><strong>Εξήγηση:</strong> Ο τύπος είναι $Dx = Do + (0.02 \times \text{απόσταση})$[cite: 262], καθώς 02 κωνικότητα σημαίνει σταθερή αύξηση κατά 0.02 χιλ. ανά 1 χιλ. μήκους[cite: 225].</div>
+    </div>
+
+    <div class="question-container">
+        <div class="question-title">5. Σε ένα δόντι με Μήκος Εργασίας 21 χιλιοστά και MAF μεγέθους #25, σε ποιο βάθος (μήκος) θα εισέλθει το εργαλείο μεγέθους #45 κατά την τεχνική Step-Back;</div>
+        <div class="options-wrapper">
+            <button class="option-btn" onclick="checkAnswer(this, false)">Στα 16 χιλιοστά</button>
+            <button class="option-btn" data-correct="true" onclick="checkAnswer(this, true)">Στα 17 χιλιοστά</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">Στα 18 χιλιοστά</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">Στα 19 χιλιοστά</button>
+        </div>
+        <div class="explanation"><strong>Εξήγηση:</strong> Αν αφαιρούμε 1 χιλιοστό για κάθε νούμερο: #30 στα 20χιλ, #35 στα 19χιλ, #40 στα 18χιλ, #45 στα 17χιλ ($45 = 21 - 4 = 17$ χιλ)[cite: 609].</div>
+    </div>
+
+    <div class="question-container">
+        <div class="question-title">6. Ποιο είναι το τρίπτυχο-κανόνας για την Ενδιάμεση Ακτινογραφία;</div>
+        <div class="options-wrapper">
+            <button class="option-btn" onclick="checkAnswer(this, false)">ΕΝΔΙΑΜΕΣΗ - ΕΛΕΓΧΩ - ΔΙΟΡΘΩΝΩ</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">ΕΝΔΙΑΜΕΣΗ - ΜΕΤΡΩ - ΕΚΤΙΜΩ</button>
+            <button class="option-btn" data-correct="true" onclick="checkAnswer(this, true)">ΕΝΔΙΑΜΕΣΗ - ΜΕΤΡΩ - ΑΚΡΙΒΩΣ</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">ΕΝΔΙΑΜΕΣΗ - ΑΦΑΙΡΩ - ΑΚΡΙΒΩΣ</button>
+        </div>
+        <div class="explanation"><strong>Εξήγηση:</strong> Ο μνημονικός κανόνας είναι «ΕΝΔΙΑΜΕΣΗ – ΜΕΤΡΩ – ΑΚΡΙΒΩΣ» [cite: 188], σε αντίθεση με την αρχική που είναι «ΑΡΧΙΚΗ - ΜΕΤΡΩ - ΕΚΤΙΜΩ»[cite: 69].</div>
+    </div>
+
+    <div class="question-container">
+        <div class="question-title">7. Ποιο είναι το ΜΟΝΟ εργαλείο που κατά τη διάρκεια της συνολικής προπαρασκευής έχει προσπέλαση στο ΠΛΗΡΕΣ Μήκος Εργασίας;</div>
+        <div class="options-wrapper">
+            <button class="option-btn" onclick="checkAnswer(this, false)">Το πρώτο μικροεργαλείο (#10 ή #15)</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">Η φρέζα Gates Glidden</button>
+            <button class="option-btn" data-correct="true" onclick="checkAnswer(this, true)">Η Κύρια Ακρορριζική Ρίνη (MAF)</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">Κανένα από τα παραπάνω</button>
+        </div>
+        <div class="explanation"><strong>Εξήγηση:</strong> Η MAF (Master Apical File) είναι το μόνο εργαλείο που κατά την προπαρασκευή έχει προσπέλαση στο ΠΛΗΡΕΣ μήκος εργασίας[cite: 391, 394].</div>
+    </div>
+
+    <div class="question-container">
+        <div class="question-title">8. Ποιο είναι το σταθερό μήκος του ενεργού/εργαζόμενου τμήματος (operative/working part) σε ένα τυπικό K-file;</div>
+        <div class="options-wrapper">
+            <button class="option-btn" onclick="checkAnswer(this, false)">16 mm</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">21 mm</button>
+            <button class="option-btn" data-correct="true" onclick="checkAnswer(this, true)">25 mm</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">31 mm</button>
+        </div>
+        <div class="explanation"><strong>Εξήγηση:</strong> Το ενεργό/εργαζόμενο τμήμα (Operative part / Working part) του μικροεργαλείου έχει σταθερό μήκος 25 mm[cite: 71, 96, 241].</div>
+    </div>
+
+    <div class="question-container">
+        <div class="question-title">9. Κατά την προσπάθεια ΕΝΤΟΠΙΣΜΟΥ του ριζικού σωλήνα και του μυλικού θαλάμου, ποιες είναι οι ενδεδειγμένες κινήσεις του εργαλείου;</div>
+        <div class="options-wrapper">
+            <button class="option-btn" onclick="checkAnswer(this, false)">1/2 στροφή δεξιά, 1/2 αριστερά και έλξη</button>
+            <button class="option-btn" data-correct="true" onclick="checkAnswer(this, true)">Ήπιες κινήσεις δεξιά/αριστερά σε 1/4 πλήρους περιστροφής</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">Πλήρης περιστροφή 360 μοιρών</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">Κινήσεις ρινισμών μόνο (πάνω-κάτω)</button>
+        </div>
+        <div class="explanation"><strong>Εξήγηση:</strong> Για τον εντοπισμό απαιτούνται ήπιες κινήσεις δεξιά/αριστερά σε 1/4 πλήρους περιστροφής[cite: 133]. Οι κινήσεις 1/2 στροφής αφορούν τη φάση διεύρυνσης[cite: 678].</div>
+    </div>
+
+    <div class="question-container">
+        <div class="question-title">10. Τι μέγεθος οφείλει να είναι ΤΟΥΛΑΧΙΣΤΟΝ η MAF σύμφωνα με το πρωτόκολλο;</div>
+        <div class="options-wrapper">
+            <button class="option-btn" onclick="checkAnswer(this, false)">Τουλάχιστον #15</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">Τουλάχιστον #20</button>
+            <button class="option-btn" data-correct="true" onclick="checkAnswer(this, true)">Τουλάχιστον #25</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">Τουλάχιστον #30</button>
+        </div>
+        <div class="explanation"><strong>Εξήγηση:</strong> Το μέγεθος του τελευταίου εργαλείου της αρχικής διεύρυνσης αποτελεί την MAF, η οποία πρέπει να είναι τουλάχιστον μεγέθους #25[cite: 382].</div>
+    </div>
+
+    <div class="question-container">
+        <div class="question-title">11. Ποια τεχνική προπαρασκευής χαρακτηρίζεται από την αλληλουχία μικροεργαλείων «από το μεγαλύτερο στο μικρότερο»;</div>
+        <div class="options-wrapper">
+            <button class="option-btn" onclick="checkAnswer(this, false)">Step-back</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">Step-down</button>
+            <button class="option-btn" data-correct="true" onclick="checkAnswer(this, true)">Crown-down</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">Balanced force</button>
+        </div>
+        <div class="explanation"><strong>Εξήγηση:</strong> Στην τεχνική Crown-Down η αλληλουχία είναι από το μεγαλύτερο στο μικρότερο μικροεργαλείο με βαθμιαία προώθηση[cite: 284, 285].</div>
+    </div>
+
+    <div class="question-container">
+        <div class="question-title">12. Τι πρέπει οπωσδήποτε να κάνει ο ανασχετικός δακτύλιος (rubber stop) κατά την τοποθέτηση του μικροεργαλείου για την επιβεβαίωση της μέτρησης;</div>
+        <div class="options-wrapper">
+            <button class="option-btn" onclick="checkAnswer(this, false)">Να απέχει 1 χιλιοστό από το σημείο αναφοράς για ασφάλεια.</button>
+            <button class="option-btn" data-correct="true" onclick="checkAnswer(this, true)">Να έρθει σε απόλυτη επαφή με το ακραίο σημείο της μύλης.</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">Να βρίσκεται στο ύψος των ούλων.</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">Να αφαιρεθεί τελείως κατά την ακτινογραφία.</button>
+        </div>
+        <div class="explanation"><strong>Εξήγηση:</strong> Ο ανασχετικός δακτύλιος πρέπει να έρθει σε επαφή με το ακραίο σημείο της μύλης, επιβεβαιώνοντας την ορθή τοποθέτηση του μικροεργαλείου[cite: 174, 175, 176, 177, 178, 179].</div>
+    </div>
+
+    <div class="question-container">
+        <div class="question-title">13. Σε ποια χιλιοστά γίνεται η ΠΑΘΗΤΙΚΗ διεύρυνση αμέσως μετά την ενδιάμεση ακτινογραφία και τον προσδιορισμό του μήκους εργασίας;</div>
+        <div class="options-wrapper">
+            <button class="option-btn" onclick="checkAnswer(this, false)">Στα τελευταία 2 χιλιοστά.</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">Σε όλο το μήκος του σωλήνα ταυτόχρονα.</button>
+            <button class="option-btn" data-correct="true" onclick="checkAnswer(this, true)">Στα 4-5 πρώτα χιλιοστά.</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">Μόνο στον μυλικό θάλαμο.</button>
+        </div>
+        <div class="explanation"><strong>Εξήγηση:</strong> Αρχικά, πραγματοποιείται παθητική διεύρυνση στα 4-5 πρώτα χιλιοστά για την ευχερέστερη είσοδο των μικροεργαλείων και τη διευκόλυνση των διακλυσμών[cite: 367, 368, 369].</div>
+    </div>
+
+    <div class="question-container">
+        <div class="question-title">14. Ποιο είναι το συχνότερο σύμβαμα (λάθος) κατά την προπαρασκευή σύμφωνα με τη διάλεξη, και ποια είναι η κύρια αιτία του;</div>
+        <div class="options-wrapper">
+            <button class="option-btn" onclick="checkAnswer(this, false)">Η διάτρηση του εδάφους λόγω υπερβολικών διακλυσμών.</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">Ο πόνος (flare-up) λόγω υπεροργάνωσης του ακρορριζίου.</button>
+            <button class="option-btn" data-correct="true" onclick="checkAnswer(this, true)">Η θραύση εργαλείου/δημιουργία βάθρου λόγω ενσφήνωσης.</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">Η απώλεια μήκους εργασίας λόγω έλλειψης NaOCl.</button>
+        </div>
+        <div class="explanation"><strong>Εξήγηση:</strong> Το συχνότερο σύμβαμα είναι η θραύση μικροεργαλείου και η δημιουργία βάθρου, που έχει ως αιτία την ενσφήνωση των μικροεργαλείων[cite: 684].</div>
+    </div>
+
+    <div class="question-container">
+        <div class="question-title">15. Ποιο χρώμα αντιστοιχεί στο μικροεργαλείο μεγέθους #90;</div>
+        <div class="options-wrapper">
+            <button class="option-btn" onclick="checkAnswer(this, false)">Μαύρο</button>
+            <button class="option-btn" data-correct="true" onclick="checkAnswer(this, true)">Λευκό</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">Κίτρινο</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">Μπλε</button>
+        </div>
+        <div class="explanation"><strong>Εξήγηση:</strong> Η αλληλουχία λευκό-κίτρινο-κόκκινο-μπλε-πράσινο-μαύρο ξεκινά από το 15-40, επαναλαμβάνεται στο 45-80, και ξεκινά πάλι από το λευκό στο 90[cite: 91, 92, 93].</div>
+    </div>
+
+    <div class="question-container">
+        <div class="question-title">16. Τι πρέπει ΠΑΝΤΑ να κάνετε εάν ένα μεγαλύτερο μέγεθος μικροεργαλείου αρνείται να προσεγγίσει το επιθυμητό μήκος εργασίας;</div>
+        <div class="options-wrapper">
+            <button class="option-btn" onclick="checkAnswer(this, false)">Να ασκήσετε ελαφρώς περισσότερη κάθετη πίεση.</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">Να περάσετε απευθείας στο επόμενο μεγαλύτερο εργαλείο.</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">Να χρησιμοποιήσετε EDTA.</button>
+            <button class="option-btn" data-correct="true" onclick="checkAnswer(this, true)">Να επιστρέψετε στα προηγούμενα μεγέθη και να επαναλάβετε τη διαδικασία.</button>
+        </div>
+        <div class="explanation"><strong>Εξήγηση:</strong> Εάν ένα μεγαλύτερο μέγεθος δεν προσεγγίσει το επιθυμητό μήκος, επιστρέφουμε στα προηγούμενα μεγέθη και επαναλαμβάνουμε τη διαδικασία[cite: 685]. Η πίεση θα δημιουργήσει βάθρο!</div>
+    </div>
+
+    <div class="question-container">
+        <div class="question-title">17. Πόσα μεγέθη μεγαλύτερη (τουλάχιστον) πρέπει να είναι η MAF σε σχέση με το ΠΡΩΤΟ μικροεργαλείο που διεύρυνε τον σωλήνα;</div>
+        <div class="options-wrapper">
+            <button class="option-btn" onclick="checkAnswer(this, false)">1-2 μεγέθη</button>
+            <button class="option-btn" data-correct="true" onclick="checkAnswer(this, true)">2-3 μεγέθη</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">3-4 μεγέθη</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">Εξαρτάται αποκλειστικά από την αρχική ακτινογραφία</button>
+        </div>
+        <div class="explanation"><strong>Εξήγηση:</strong> Ακολουθεί διεύρυνση στο μήκος εργασίας σε 2-3 μεγέθη μεγαλύτερα από το πρώτο μικροεργαλείο[cite: 378]. Το τελευταίο είναι η MAF[cite: 380].</div>
+    </div>
+
+    <div class="question-container">
+        <div class="question-title">18. Κατά τη φάση διεύρυνσης (όχι εντοπισμού), ποιες είναι οι ακριβείς υποδεικνυόμενες κινήσεις;</div>
+        <div class="options-wrapper">
+            <button class="option-btn" data-correct="true" onclick="checkAnswer(this, true)">1/2 στροφή δεξιά, 1/2 στροφή αριστερά και ελαφρά πίεση έξω.</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">1/4 στροφή δεξιά, 1/4 στροφή αριστερά.</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">Πλήρης περιστροφή με ταυτόχρονη πίεση προς τα κάτω.</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">Μόνο κινήσεις ρινισμού (πάνω-κάτω) χωρίς περιστροφή.</button>
+        </div>
+        <div class="explanation"><strong>Εξήγηση:</strong> Οι κινήσεις διεύρυνσης είναι 1/2 στροφή δεξιά - 1/2 στροφή αριστερά και μετά ελαφρά πίεση έξω (παράλληλα γίνονται κινήσεις ρινισμών)[cite: 678, 681].</div>
+    </div>
+
+    <div class="question-container">
+        <div class="question-title">19. Τι υλικό χρησιμοποιείται κυρίως για τους διακλυσμούς, εξασφαλίζοντας το «υγρό περιβάλλον» εργασίας;</div>
+        <div class="options-wrapper">
+            <button class="option-btn" onclick="checkAnswer(this, false)">Φυσιολογικός ορός</button>
+            <button class="option-btn" data-correct="true" onclick="checkAnswer(this, true)">NaOCl (Υποχλωριώδες νάτριο)</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">EDTA</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">Χλωρεξιδίνη</button>
+        </div>
+        <div class="explanation"><strong>Εξήγηση:</strong> Όπως φαίνεται στο διάγραμμα του διακλυσμού, χρησιμοποιείται NaOCl[cite: 296, 326].</div>
+    </div>
+
+    <div class="question-container">
+        <div class="question-title">20. Σε ποιες περιπτώσεις προτείνεται η επανάληψη της διαδικασίας ΜΟΝΟ με μικροεργαλεία μικρού μεγέθους;</div>
+        <div class="options-wrapper">
+            <button class="option-btn" onclick="checkAnswer(this, false)">Σε δόντια με μεγάλη ακρορριζική αλλοίωση.</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">Όταν το αρχικό μήκος εργασίας είναι μικρότερο από 18 χιλιοστά.</button>
+            <button class="option-btn" onclick="checkAnswer(this, false)">Σε δόντια νεαρών ασθενών με ευρείς σωλήνες.</button>
+            <button class="option-btn" data-correct="true" onclick="checkAnswer(this, true)">Σε στενούς σωλήνες ή σε σωλήνες με κάμψη.</button>
+        </div>
+        <div class="explanation"><strong>Εξήγηση:</strong> Σε στενούς σωλήνες ή σε σωλήνες με κάμψη, επαναλαμβάνουμε τη διαδικασία με μικροεργαλεία μικρού μεγέθους για να αποφύγουμε συμβάματα[cite: 676].</div>
+    </div>
+
+    <script>
+        function checkAnswer(btn, isCorrect) {
+            // Find parent question container
+            const questionDiv = btn.closest('.question-container');
+            
+            // Disable all buttons in this question
+            const buttons = questionDiv.querySelectorAll('.option-btn');
+            buttons.forEach(b => b.disabled = true);
+
+            // Highlight selected button
+            if (isCorrect) {
+                btn.classList.add('correct');
+            } else {
+                btn.classList.add('incorrect');
+                // Also highlight the correct one to show the user what they missed
+                buttons.forEach(b => {
+                    if (b.dataset.correct === "true") {
+                        b.classList.add('correct');
+                    }
+                });
+            }
+
+            // Show explanation
+            const explanation = questionDiv.querySelector('.explanation');
+            explanation.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
