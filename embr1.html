@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Guide: Γαμετογένεση & Καταμήνιος Κύκλος</title>
+    <style>
+        :root {
+            --primary-dark: #2c3e50;
+            --primary-blue: #3498db;
+            --light-blue: #ebf5fb;
+            --accent-orange: #e67e22;
+            --accent-red: #e74c3c;
+            --bg-gray: #f8f9fa;
+            --white: #ffffff;
+            --text-main: #333333;
+            --border-color: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: var(--text-main);
+            background-color: var(--bg-gray);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid var(--primary-blue);
+        }
+
+        h1 {
+            color: var(--primary-dark);
+            font-size: 2.4em;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .clinical-alert {
+            background-color: #fdf2e9;
+            border-left: 5px solid var(--accent-orange);
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 40px;
+        }
+
+        .clinical-alert strong {
+            color: #d35400;
+            font-size: 1.1em;
+        }
+
+        .topic-section {
+            margin-bottom: 50px;
+        }
+
+        h2 {
+            color: var(--primary-dark);
+            background-color: var(--light-blue);
+            padding: 15px 20px;
+            border-radius: 8px;
+            border-left: 5px solid var(--primary-blue);
+            margin-bottom: 25px;
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .card-sos {
+            background-color: #fff9f9;
+            border-top: 4px solid var(--accent-red);
+        }
+
+        .card-deep {
+            background-color: #f4fdf8;
+            border-top: 4px solid #2ecc71;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-sos h3 { color: var(--accent-red); }
+        .card-deep h3 { color: #27ae60; }
+
+        ul {
+            padding-left: 20px;
+            margin-bottom: 0;
+        }
+
+        li { margin-bottom: 10px; }
+
+        .highlight {
+            background-color: #fff3cd;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .badge {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            background-color: var(--white);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: var(--primary-blue);
+            color: var(--white);
+        }
+
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        
+        .citation {
+            font-size: 0.8em;
+            color: #95a5a6;
+            vertical-align: super;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Γαμετογένεση & Καταμήνιος Κύκλος</h1>
+            <div class="subtitle">Ενοποιημένος Οδηγός Μελέτης: Αποστήθιση & Βαθιά Κατανόηση</div>
+        </header>
+
+        <div class="clinical-alert">
+            <strong>⚠️ Κλινική Διευκρίνιση:</strong> Η εμβρυολογία, η γαμετογένεση και ο καταμήνιος κύκλος <u>δεν</u> έχουν εφαρμογή στην ενδοδοντική θεραπεία. Η κλινική συσχέτιση που παρέχεται στην ύλη αφορά αποκλειστικά τη διερεύνηση της <strong>υπογονιμότητας και τις παθολογίες των γαμετών</strong>. Εκεί θα εστιάσουμε.
+        </div>
+
+        <section class="topic-section">
+            <h2>1. Αρχέγονα Γεννητικά Κύτταρα (ΑΓΚ) & Μείωση</h2>
+            <div class="grid-layout">
+                <div class="card card-sos">
+                    <h3>⚡ Γρήγορα SOS (Cheat Sheet)</h3>
+                    <ul>
+                        <li><strong>Προέλευση:</strong> Οι γαμέτες προέρχονται από τα ΑΓΚ[cite: 11].</li>
+                        <li><strong>2η Εβδ.:</strong> Σχηματίζονται στην επιβλάστη[cite: 11].</li>
+                        <li><strong>4η Εβδ.:</strong> Μεταναστεύουν από τον λεκιθικό ασκό στις γονάδες[cite: 12].</li>
+                        <li><strong>Τέλος 5ης Εβδ.:</strong> Καταφθάνουν στις γεννητικές ακρολοφίες[cite: 12].</li>
+                        <li><strong>Μείωση:</strong> 2 κυτταρικές διαιρέσεις, χωρίς ενδιάμεση σύνθεση DNA[cite: 28, 29].</li>
+                        <li><strong>Αποτέλεσμα:</strong> 4 κύτταρα με απλοειδή αριθμό (n=23)[cite: 29].</li>
+                    </ul>
+                </div>
+                <div class="card card-deep">
+                    <h3>🧠 Βαθιά Κατανόηση</h3>
+                    <p>Τα ΑΓΚ είναι τα "βλαστοκύτταρα" της αναπαραγωγής. Κατά τη γαστριδίωση δεν πηγαίνουν κατευθείαν στις γονάδες, αλλά "κρύβονται" προσωρινά στο τοίχωμα του λεκιθικού ασκού[cite: 11]. Την 4η εβδομάδα ξεκινούν το μεγάλο ταξίδι μέσω του μεσοδέρματος και του οπισθίου μεσεντερίου[cite: 13, 14]. Καθ' όλη τη διάρκεια αυτού του ταξιδιού, δεν κάθονται άπραγα· διαιρούνται συνεχώς με μιτώσεις για να αυξήσουν τον αριθμό τους πριν καν φτάσουν στον προορισμό τους[cite: 14].</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="topic-section">
+            <h2>2. Ωογένεση: Το Χρονολόγιο των "Παύσεων"</h2>
+            <div class="grid-layout">
+                <div class="card card-sos">
+                    <h3>⚡ Γρήγορα SOS (Cheat Sheet)</h3>
+                    <ul>
+                        <li><strong>5ος Μήνας Κύησης:</strong> Απόπτωση, τα περισσότερα ωογόνια γίνονται άτρητα[cite: 37].</li>
+                        <li><strong>7ος Μήνας:</strong> Δημιουργία πρωτογενών ωοκυττάρων[cite: 41].</li>
+                        <li><strong>Γέννηση:</strong> Στάδιο ανάπαυσης στη διπλοταινία (πρόφαση Ι)[cite: 43, 65].</li>
+                        <li><strong>Εφηβεία:</strong> Κάθε μήνα ωριμάζουν 15-20 ωοθυλάκια[cite: 67].</li>
+                        <li><strong>Διάφανη Ζώνη:</strong> Εκκρίνεται από θυλακικά κύτταρα & ωοκύτταρο[cite: 72].</li>
+                        <li><strong>Ωορρηξία:</strong> Πυροδοτείται από την ορμόνη LH[cite: 76].</li>
+                        <li><strong>Μείωση ΙΙ:</strong> Σταματάει στη μετάφαση. Ολοκληρώνεται <u>μόνο</u> με γονιμοποίηση[cite: 78, 79].</li>
+                    </ul>
+                </div>
+                <div class="card card-deep">
+                    <h3>🧠 Βαθιά Κατανόηση</h3>
+                    <p>Η μεγάλη παγίδα στην ωογένεση είναι ότι ξεκινά <strong>πριν τη γέννηση</strong>[cite: 33]. Ο οργανισμός κάνει μια μαζική "εκκαθάριση" τον 5ο μήνα[cite: 37]. Όσα επιβιώσουν μπαίνουν σε μια τεράστια "χειμερία νάρκη" κατά τη γέννηση <span class="badge">1Η ΠΑΥΣΗ</span>[cite: 43]. Στην εφηβεία, τα ωοθυλάκια ξυπνούν, γεμίζουν υγρό (άντρο) [cite: 73] και σκάνε λόγω της LH. Η δεύτερη μεγάλη παγίδα είναι η <span class="badge">2Η ΠΑΥΣΗ</span>: Η Μείωση ΙΙ δεν θα τελειώσει ποτέ, εκτός αν ένα σπερματοζωάριο γονιμοποιήσει το ωάριο[cite: 79].</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="topic-section">
+            <h2>3. Ορμονικός Άξονας & Ενδομήτριο</h2>
+            <div class="card card-deep" style="margin-bottom: 25px;">
+                <h3>🧠 Το Φαινόμενο Ντόμινο</h3>
+                <p>Ο υποθάλαμος (GnRH) δίνει σήμα στην υπόφυση να βγάλει FSH και LH[cite: 98]. Η FSH αναπτύσσει τα ωοθυλάκια, τα οποία εκκρίνουν <span class="highlight">οιστρογόνα</span>[cite: 99, 100, 101]. Τα οιστρογόνα "χτίζουν" το παραγωγικό ενδομήτριο και κάνουν τη βλέννη λεπτόρρευστη[cite: 102, 103, 104, 105]. Το πικ των οιστρογόνων φέρνει την έκκριση LH (ωορρηξία)[cite: 106]. Το ωοθυλάκιο που έσκασε γίνεται <strong>Ωχρό Σωμάτιο</strong> και βγάζει προγεστερόνη[cite: 188, 189]. Αν υπάρξει κύηση, η ορμόνη hCG το συντηρεί ως "ωχρό σωμάτιο κύησης" έως τον 4ο μήνα[cite: 192, 193].</p>
+            </div>
+        </section>
+
+        <section class="topic-section">
+            <h2>4. Σπερματογένεση & Σπερμιογένεση</h2>
+            <div class="grid-layout">
+                <div class="card card-sos">
+                    <h3>⚡ Γρήγορα SOS (Cheat Sheet)</h3>
+                    <table>
+                        <tr><th>Στοιχείο</th><th>Βασικά Χαρακτηριστικά</th></tr>
+                        <tr><td><strong>Έναρξη</strong></td><td>Στην εφηβεία (σε αντίθεση με τη γυναίκα)[cite: 324].</td></tr>
+                        <tr><td><strong>Κύτταρα Sertoli</strong></td><td>Στηρίζουν, φαγοκυτταρώνουν, έχουν ορμονική δράση[cite: 375, 376, 377, 378, 379, 380].</td></tr>
+                        <tr><td><strong>Πορεία</strong></td><td>Σπερματογόνια &rarr; Πρωτογενή &rarr; Δευτερογενή &rarr; 4 Σπερματίδες[cite: 327, 328, 329].</td></tr>
+                        <tr><td><strong>Χρόνος</strong></td><td>74 ώρες για πλήρη ωρίμανση[cite: 412].</td></tr>
+                        <tr><td><strong>Παραγωγή</strong></td><td>300 δισεκατομμύρια ημερησίως[cite: 413].</td></tr>
+                    </table>
+                </div>
+                <div class="card card-deep">
+                    <h3>🧠 Βαθιά Κατανόηση</h3>
+                    <p>Στους άνδρες, η διαδικασία είναι μια συνεχής γραμμή παραγωγής. Το πιο SOS σημείο είναι η διαφορά Σπερματογένεσης (πολλαπλασιασμός) και <strong>Σπερμιογένεσης</strong>[cite: 405]. Οι σπερματίδες που παράγονται είναι στρογγυλές[cite: 345]. Η σπερμιογένεση είναι η <em>μεταμόρφωσή</em> τους σε "κολυμβητές": Αποκτούν ακρόσωμα (το τρυπάνι με τα ένζυμα) [cite: 407], συμπυκνώνουν τον πυρήνα [cite: 408], βγάζουν ουρά [cite: 410], και πετάνε το άχρηστο κυτταρόπλασμα, το οποίο "τρώνε" (φαγοκυτταρώνουν) τα κύτταρα Sertoli[cite: 411].</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="topic-section">
+            <h2>5. Κλινική Πράξη: Ανωμαλίες Γαμετών (Pathology)</h2>
+            <div class="grid-layout">
+                <div class="card card-sos">
+                    <h3>⚡ Γρήγορα SOS (Cheat Sheet)</h3>
+                    <ul>
+                        <li><span class="highlight">Ολιγοσπερμία:</span> < 20 εκατομμύρια σπερματοζωάρια/ml[cite: 461].</li>
+                        <li><span class="highlight">Αζωοσπερμία:</span> Πλήρης απουσία σπερματοζωαρίων[cite: 461].</li>
+                        <li><strong>Τερατοζωοσπερμία:</strong> Μορφολογικές αλλοιώσεις (ποιοτικό πρόβλημα)[cite: 465, 466].</li>
+                        <li><strong>Φυσιολογικό όριο:</strong> 10-25% ανώμαλη δομή θεωρείται αποδεκτή[cite: 459].</li>
+                    </ul>
+                </div>
+                <div class="card card-deep">
+                    <h3>🧠 Βαθιά Κατανόηση (Υπογονιμότητα)</h3>
+                    <p>Ο λόγος που μελετάμε την ιστολογία είναι για να εντοπίζουμε τα αίτια υπογονιμότητας. Στους άνδρες, σπερματοζωάρια με δύο κεφαλές, δύο ουρές ή αποχωρισμένη ουρά <strong>δεν έχουν κινητικότητα</strong> και άρα αδυνατούν να γονιμοποιήσουν[cite: 467, 468, 472, 485, 486]. Στις γυναίκες, αν γίνει λάθος στη μείωση, μπορεί να προκύψουν διπύρηνα ή τριπύρηνα ωοκύτταρα, τα οποία είναι καταδικασμένα να <strong>πεθάνουν πριν καν ωριμάσουν</strong>[cite: 483, 484].</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+</body>
+</html>
