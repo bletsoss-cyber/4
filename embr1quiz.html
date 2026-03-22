@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hardcore Quiz: Γαμετογένεση & Καταμήνιος Κύκλος</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --success: #27ae60;
+            --danger: #c0392b;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-main: #333333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            color: var(--primary);
+            border-bottom: 3px solid var(--secondary);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        .question-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--secondary);
+            transition: transform 0.2s;
+        }
+
+        .question-text {
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 15px;
+            margin-bottom: 10px;
+            border: 2px solid #e0e6ed;
+            border-radius: 8px;
+            background-color: #fdfdfd;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option-btn:hover:not(.disabled) {
+            background-color: #ecf0f1;
+            border-color: var(--secondary);
+        }
+
+        .option-btn.disabled {
+            cursor: not-allowed;
+        }
+
+        .option-btn.correct {
+            background-color: #e8f8f5;
+            border-color: var(--success);
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .option-btn.wrong {
+            background-color: #fdedec;
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        .explanation {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #eaf2f8;
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary);
+            font-size: 0.95em;
+        }
+
+        .explanation.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .score-container {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 12px;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Masterclass Quiz: Εμβρυολογία</h1>
+            <p>25 Ερωτήσεις για άριστα. Διάλεξε την απάντηση για να δεις την εξήγηση.</p>
+        </header>
+
+        <div id="quiz-container"></div>
+
+        <div class="score-container" id="score-display">
+            Σκορ: 0 / 25
+        </div>
+    </div>
+
+    <script>
+        const questionsData = [
+            {
+                question: "1. Πότε ακριβώς καταφθάνουν τα αρχέγονα γεννητικά κύτταρα στις αναπτυσσόμενες γονάδες;",
+                options: ["Στο τέλος της 4ης εβδομάδας", "Στο τέλος της 5ης εβδομάδας", "Τη 2η εβδομάδα", "Τον 5ο μήνα της κύησης"],
+                correct: 1,
+                explanation: "Ξεκινούν τη μετανάστευση την 4η εβδομάδα από τον λεκιθικό ασκό, αλλά καταφθάνουν στις γεννητικές ακρολοφίες στο τέλος της 5ης εβδομάδας."
+            },
+            {
+                question: "2. Πού βρίσκονται προσωρινά τα αρχέγονα γεννητικά κύτταρα κατά τη γαστριδίωση;",
+                options: ["Στην επιβλάστη", "Στο οπίσθιο μεσεντέριο", "Στο τοίχωμα του λεκιθικού ασκού", "Στις γεννητικές ακρολοφίες"],
+                correct: 2,
+                explanation: "Κατά τη γαστριδίωση, μεταναστεύουν και φιλοξενούνται προσωρινά στο τοίχωμα του λεκιθικού ασκού πριν ξεκινήσουν το ταξίδι τους για τις γονάδες."
+            },
+            {
+                question: "3. Σε ποιο ακριβώς στάδιο βρίσκονται τα ωοκύτταρα κατά τη γέννηση ενός θήλεος βρέφους;",
+                options: ["Στη μετάφαση της Μείωσης ΙΙ", "Στη φάση διπλοταινίας της πρόφασης Ι", "Στη φάση διπλοταινίας της πρόφασης ΙΙ", "Ως αδιαφοροποίητα ωογόνια"],
+                correct: 1,
+                explanation: "Κατά τη γέννηση, τα πρωτογενή ωοκύτταρα έχουν μπει στη Μείωση Ι αλλά σταματούν στη φάση της διπλοταινίας της πρόφασης Ι (στάδιο ανάπαυσης)."
+            },
+            {
+                question: "4. Ποια κύτταρα είναι υπεύθυνα για την έκκριση της γλυκοπρωτεΐνης που σχηματίζει τη διάφανη ζώνη;",
+                options: ["Μόνο τα κύτταρα της κοκκώδους στιβάδας", "Τα θυλακικά κύτταρα και το πρωτογενές ωοκύτταρο", "Τα κύτταρα της έσω θήκης", "Μόνο το πρωτογενές ωοκύτταρο"],
+                correct: 1,
+                explanation: "Τόσο τα θυλακικά κύτταρα όσο και το ίδιο το πρωτογενές ωοκύτταρο συμμετέχουν στην έκκριση της διάφανης ζώνης (zona pellucida)."
+            },
+            {
+                question: "5. Σε ποια φάση σταματά η δεύτερη μειωτική διαίρεση (Μείωση ΙΙ) του ωοκυττάρου πριν τη γονιμοποίηση;",
+                options: ["Ανάφαση", "Πρόφαση", "Τελόφαση", "Μετάφαση"],
+                correct: 3,
+                explanation: "Το δευτερογενές ωοκύτταρο ξεκινά τη Μείωση ΙΙ, αλλά κολλάει στη Μετάφαση. Θα την ολοκληρώσει ΜΟΝΟ αν εισχωρήσει σπερματοζωάριο."
+            },
+            {
+                question: "6. Τι προκαλεί η ορμόνη LH αμέσως πριν την ωορρηξία όσον αφορά το τοίχωμα του ωοθυλακίου;",
+                options: ["Σύσπαση του τοιχώματος (αυτό το κάνουν οι προσταγλανδίνες)", "Αυξημένη δραστηριότητα κολλαγονασών", "Πολλαπλασιασμό της έξω θήκης", "Έκκριση ινχιμπίνης"],
+                correct: 1,
+                explanation: "Η LH πυροδοτεί την αυξημένη δραστηριότητα των ενζύμων κολλαγονασών, τα οποία αποδομούν τις ίνες κολλαγόνου του γρααφιανού ωοθυλακίου για να σπάσει."
+            },
+            {
+                question: "7. Πόσο διαρκεί η μετατροπή των σπερματογονίων τύπου Α σε ώριμα σπερματοζωάρια (σύμφωνα αυστηρά με τις σημειώσεις);",
+                options: ["74 ημέρες", "74 ώρες", "2 εβδομάδες", "14 ημέρες"],
+                correct: 1,
+                explanation: "SOS λεπτομέρεια: Αν και κλασικά εγχειρίδια αναφέρουν 74 ημέρες, το συγκεκριμένο έγγραφο/σημειώσεις γράφει ρητά «Το διάστημα μετατροπής... είναι 74 ώρες»."
+            },
+            {
+                question: "8. Από πού προέρχονται τα κύτταρα Sertoli;",
+                options: ["Από τα αρχέγονα γεννητικά κύτταρα", "Από το μεσόδερμα του λεκιθικού ασκού", "Από το επιφανειακό επιθήλιο του όρχεως", "Από τα κύτταρα Leydig"],
+                correct: 2,
+                explanation: "Τα στηρικτικά κύτταρα Sertoli δεν έχουν γεννητική προέλευση, αλλά προέρχονται από το επιφανειακό επιθήλιο του όρχεως."
+            },
+            {
+                question: "9. Ποιο είναι το φυσιολογικό ποσοστό σπερματοζωαρίων με ανώμαλη δομή (μορφολογία) στο σπέρμα;",
+                options: ["0-5%", "10-25%", "30-50%", "Κάτω από 1%"],
+                correct: 1,
+                explanation: "Είναι απολύτως φυσιολογικό ένα ποσοστό 10-25% των σπερματοζωαρίων (τερατοζωοσπερμία σε μικρό βαθμό) να έχει μορφολογικές ανωμαλίες."
+            },
+            {
+                question: "10. Πώς ορίζεται η ολιγοσπερμία;",
+                options: ["Απουσία σπερματοζωαρίων", "Κάτω από 50 εκατομμύρια/ml", "Κάτω από 20 εκατομμύρια/ml", "Μειωμένη κινητικότητα κάτω του 20%"],
+                correct: 2,
+                explanation: "Η ολιγοσπερμία είναι η ποσοτική ελάττωση του αριθμού των σπερματοζωαρίων κάτω από 20 εκατομμύρια ανά ml σπέρματος."
+            },
+            {
+                question: "11. Τι συμβαίνει στα διπύρηνα ή τριπύρηνα ωοκύτταρα;",
+                options: ["Οδηγούν σε δίδυμη κύηση", "Διαιρούνται ταχύτερα στη μείωση", "Είναι ικανά προς γονιμοποίηση", "Πεθαίνουν πριν ωριμάσουν"],
+                correct: 3,
+                explanation: "Αποτελούν παθολογικούς γαμέτες και ο οργανισμός τα αποβάλλει, συνεπώς πεθαίνουν πριν ωριμάσουν."
+            },
+            {
+                question: "12. Ποιο από τα παρακάτω ΔΕΝ ανήκει στα στάδια της Σπερμιογένεσης;",
+                options: ["Σχηματισμός ακροσώματος", "Πύκνωση του πυρήνα", "Μειωτική διαίρεση των σπερματίδων", "Φαγοκυττάρωση κυτταροπλάσματος"],
+                correct: 2,
+                explanation: "Η σπερμιογένεση αφορά ΜΟΝΟ τη μορφολογική μετατροπή των ήδη απλοειδών σπερματίδων. Δεν περιλαμβάνει καμία κυτταρική διαίρεση."
+            },
+            {
+                question: "13. Πότε ξεκινάει η μαζική απόπτωση των ωογονίων στην εμβρυϊκή ζωή;",
+                options: ["Τον 3ο μήνα", "Τον 5ο μήνα", "Τον 7ο μήνα", "Κατά τη γέννηση"],
+                correct: 1,
+                explanation: "Τον 5ο μήνα ξεκινά η μεγάλη απόπτωσή τους και τα περισσότερα ωογόνια γίνονται άτρητα (καταστρέφονται)."
+            },
+            {
+                question: "14. Τι προκαλούν οι προσταγλανδίνες κατά τη διαδικασία της ωορρηξίας;",
+                options: ["Αποδόμηση του κολλαγόνου", "Σύσπαση του ωοθηκικού τοιχώματος", "Έκκριση προγεστερόνης", "Διόγκωση του ωχρού σωματίου"],
+                correct: 1,
+                explanation: "Ενώ η LH (μέσω κολλαγονασών) διαλύει το κολλαγόνο, οι προσταγλανδίνες προκαλούν τις μηχανικές συσπάσεις του ωοθηκικού τοιχώματος για την εξώθηση."
+            },
+            {
+                question: "15. Ποια είναι η σύσταση της θήκης του ωοθυλακίου (theca folliculi) όταν διαχωρίζεται;",
+                options: ["Έσω ινώδης και έξω εκκριτική", "Μόνο εκκριτικά κύτταρα", "Έσω εκκριτική και έξω ινώδης", "Κοκκιώδης και βασική"],
+                correct: 2,
+                explanation: "Η θήκη χωρίζεται σε Έσω θήκη (που έχει τα εκκριτικά κύτταρα) και Έξω θήκη (που αποτελείται από ινώδη κύτταρα)."
+            },
+            {
+                question: "16. Μέχρι πότε εκκρίνει προγεστερόνη το ωχρό σωμάτιο σε περίπτωση κύησης;",
+                options: ["Έως τον 2ο μήνα", "Έως τον 4ο μήνα", "Καθ' όλη τη διάρκεια της κύησης", "Για 14 ημέρες"],
+                correct: 1,
+                explanation: "Το ωχρό σωμάτιο της κύησης διατηρείται (λόγω hCG) και εκκρίνει προγεστερόνη αυστηρά μέχρι τον 4ο μήνα, οπότε και αναλαμβάνει πλήρως ο πλακούντας."
+            },
+            {
+                question: "17. Τι ακριβώς αποβάλλεται από την ωοθήκη κατά την ωορρηξία;",
+                options: ["Πρωτογενές ωοκύτταρο και διάφανη ζώνη", "Δευτερογενές ωοκύτταρο και ακτινωτός στέφανος", "Ωογόνιο και έσω θήκη", "Δευτερογενές ωοκύτταρο σκέτο"],
+                correct: 1,
+                explanation: "Αποβάλλεται το δευτερογενές ωοκύτταρο (αφού ολοκληρώθηκε η Μείωση Ι) μαζί με κύτταρα του ωοφόρου λοφιδίου που σχηματίζουν τον ακτινωτό στέφανο."
+            },
+            {
+                question: "18. Ποιος είναι ο ρόλος της ινχιμπίνης με βάση τα διαγράμματα του εγγράφου;",
+                options: ["Διεγείρει την ωορρηξία", "Προκαλεί τη μείωση", "Εκκρίνεται μαζί με τα οιστρογόνα για ανατροφοδότηση", "Διασπά τη διάφανη ζώνη"],
+                correct: 2,
+                explanation: "Η ινχιμπίνη εκκρίνεται από το ωοθυλάκιο/ωοθήκη παράλληλα με τα οιστρογόνα (και στους άνδρες από τα Sertoli) για την αρνητική ανατροφοδότηση της υπόφυσης (αναστολή)."
+            },
+            {
+                question: "19. Πόσα σπερματοζωάρια σχηματίζονται καθημερινά στον άνδρα;",
+                options: ["300 εκατομμύρια", "300 δισεκατομμύρια", "20 εκατομμύρια", "1 δισεκατομμύριο"],
+                correct: 1,
+                explanation: "Ο απίστευτος αριθμός παραγωγής είναι 300 δισεκατομμύρια σπερματοζωάρια την ημέρα!"
+            },
+            {
+                question: "20. Πώς ονομάζεται το ωοθυλάκιο όταν τα θυλακικά κύτταρα γίνονται κυβοειδή και πολύστιβα;",
+                options: ["Αρχέγονο ωοθυλάκιο", "Πρωτογενές ωοθυλάκιο", "Δευτερογενές ωοθυλάκιο", "Γρααφιανό ωοθυλάκιο"],
+                correct: 1,
+                explanation: "Μόλις τα επίπεδα κύτταρα του αρχέγονου γίνουν κυβοειδή/πολύστιβα (κοκκώδης στιβάδα), περνάμε στο στάδιο του πρωτογενούς ωοθυλακίου."
+            },
+            {
+                question: "21. Με τι είδους διαιρέσεις αυξάνουν τον αριθμό τους τα αρχέγονα γεννητικά κύτταρα κατά τη μετανάστευσή τους;",
+                options: ["Μειωτικές διαιρέσεις", "Μιτωτικές διαιρέσεις", "Αμιτωτικές διαιρέσεις", "Δεν διαιρούνται μέχρι να φτάσουν"],
+                correct: 1,
+                explanation: "Κατά τη διάρκεια του ταξιδιού τους, τα ΑΓΚ πολλαπλασιάζονται συνεχώς με ΜΙΤΩΤΙΚΕΣ διαιρέσεις (αφού πρέπει να διατηρήσουν τον διπλοειδή αριθμό τους σε αυτή τη φάση)."
+            },
+            {
+                question: "22. Ποια είναι η λειτουργία της ορμόνης FSH στις γυναίκες στην αρχή του κύκλου;",
+                options: ["Προκαλεί τη ρήξη του ωοθυλακίου", "Μετατρέπει το ωχρό σωμάτιο σε λευκό", "Διασώζει 15-20 ωοθυλάκια και προκαλεί έκκριση οιστρογόνων", "Εκκρίνει προγεστερόνη"],
+                correct: 2,
+                explanation: "Η Θυλακιοτρόπος Ορμόνη (FSH) διασώζει μια ομάδα 15-20 ωοθυλακίων από την ατρησία, τα ωριμάζει και διεγείρει την έκκριση οιστρογόνων."
+            },
+            {
+                question: "23. Τι συμβαίνει στο κυτταρόπλασμα των σπερματίδων κατά τη σπερμιογένεση;",
+                options: ["Συμπυκνώνεται γύρω από τον πυρήνα", "Αποπίπτει και φαγοκυτταρώνεται από τα κύτταρα Sertoli", "Μετατρέπεται σε ακρόσωμα", "Μετατρέπεται στο μέσο τμήμα της ουράς"],
+                correct: 1,
+                explanation: "Για να γίνουν «ελαφριά» τα σπερματοζωάρια, το περισσότερο κυτταρόπλασμα πετιέται (υπολειμματικά σωμάτια) και φαγοκυτταρώνεται από τα κύτταρα Sertoli."
+            },
+            {
+                question: "24. Σε τι μετατρέπεται το ωχρό σωμάτιο αν ΔΕΝ συμβεί γονιμοποίηση;",
+                options: ["Ατρητικό ωοθυλάκιο", "Λευκό σωμάτιο (corpus albicans)", "Στίγμα της ωοθήκης", "Πρωτογενές ωοκύτταρο"],
+                correct: 1,
+                explanation: "Χωρίς την υποστήριξη της εγκυμοσύνης (hCG), το ωχρό σωμάτιο εκφυλίζεται σε μια ινώδη ουλή, το λευκό σωμάτιο."
+            },
+            {
+                question: "25. Ποιο είναι το αποτέλεσμα της έκκρισης οιστρογόνων στο αναπαραγωγικό σύστημα;",
+                options: ["Ισχαιμικό ενδομήτριο και πάχυνση βλέννης", "Εκκριτικό ενδομήτριο", "Παραγωγικό ενδομήτριο και λέπτυνση τραχηλικής βλέννης", "Ωοθυλακιορρηξία απευθείας"],
+                correct: 2,
+                explanation: "Τα οιστρογόνα είναι υπεύθυνα για την πολλαπλασιαστική (παραγωγική) φάση του ενδομητρίου και τη λέπτυνση της βλέννης για να διευκολυνθεί το σπέρμα."
+            }
+        ];
+
+        let score = 0;
+        let answeredQuestions = 0;
+        const container = document.getElementById('quiz-container');
+        const scoreDisplay = document.getElementById('score-display');
+
+        questionsData.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            
+            const questionTitle = document.createElement('div');
+            questionTitle.className = 'question-text';
+            questionTitle.innerText = q.question;
+            card.appendChild(questionTitle);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            const explanationDiv = document.createElement('div');
+            explanationDiv.className = 'explanation';
+            explanationDiv.innerHTML = `<strong>Εξήγηση:</strong> ${q.explanation}`;
+
+            q.options.forEach((optText, optIndex) => {
+                const li = document.createElement('li');
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerText = optText;
+
+                btn.addEventListener('click', function() {
+                    // Disable all buttons in this card
+                    const allBtns = optionsList.querySelectorAll('.option-btn');
+                    if (allBtns[0].classList.contains('disabled')) return; // Already answered
+
+                    allBtns.forEach(b => b.classList.add('disabled'));
+
+                    if (optIndex === q.correct) {
+                        btn.classList.add('correct');
+                        score++;
+                    } else {
+                        btn.classList.add('wrong');
+                        allBtns[q.correct].classList.add('correct');
+                    }
+
+                    explanationDiv.classList.add('show');
+                    
+                    answeredQuestions++;
+                    scoreDisplay.innerText = `Σκορ: ${score} / 25`;
+                    
+                    if(answeredQuestions === 25) {
+                        scoreDisplay.innerHTML += `<br><span style="font-size: 0.6em; color: #f1c40f;">Το κουίζ ολοκληρώθηκε!</span>`;
+                    }
+                });
+
+                li.appendChild(btn);
+                optionsList.appendChild(li);
+            });
+
+            card.appendChild(optionsList);
+            card.appendChild(explanationDiv);
+            container.appendChild(card);
+        });
+    </script>
+</body>
+</html>
