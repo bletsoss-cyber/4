@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ακαδημαϊκό Quiz: Γενετική και Κυτταρική Διαίρεση</title>
+    <style>
+        :root {
+            --bg-color: #f9f9fb;
+            --text-color: #333;
+            --accent-color: #2c3e50;
+            --btn-bg: #ffffff;
+            --btn-hover: #eef2f5;
+            --correct-color: #27ae60;
+            --correct-bg: #eafaf1;
+            --wrong-color: #c0392b;
+            --wrong-bg: #fdedec;
+            --border-color: #dcdde1;
+        }
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+        h1 {
+            text-align: center;
+            color: var(--accent-color);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+        .question-block {
+            background: #fff;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+        }
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        button.option {
+            background-color: var(--btn-bg);
+            border: 2px solid var(--border-color);
+            padding: 1rem;
+            border-radius: 5px;
+            text-align: left;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--text-color);
+        }
+        button.option:hover:not(:disabled) {
+            background-color: var(--btn-hover);
+            border-color: #bdc3c7;
+        }
+        button.option:disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+        button.option.correct {
+            border-color: var(--correct-color);
+            background-color: var(--correct-bg);
+            color: var(--correct-color);
+            font-weight: bold;
+        }
+        button.option.wrong {
+            border-color: var(--wrong-color);
+            background-color: var(--wrong-bg);
+            color: var(--wrong-color);
+        }
+        .feedback {
+            margin-top: 1.5rem;
+            padding: 1.2rem;
+            border-radius: 5px;
+            display: none;
+            font-size: 0.95rem;
+            border-left: 4px solid #7f8c8d;
+            background-color: #f1f2f6;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Αξιολόγηση Ακαδημαϊκής Κατανόησης</h1>
+
+    <div id="quiz-container"></div>
+
+    <script>
+        const questions = [
+            {
+                text: "Ποια είναι η βασική διαφορά μεταξύ σπερματογένεσης και ωογένεσης όσον αφορά τον χρόνο διαφοροποίησης των κυττάρων;",
+                options: [
+                    [span_21](start_span){ text: "Α. Στα ωοκύτταρα η διαφοροποίηση συντελείται ταυτόχρονα με τη μείωση, ενώ στα σπερματοκύτταρα έπεται της μείωσης.", isCorrect: true, explanation: "Ορθή απάντηση. Η βιβλιογραφία ορίζει ρητά πως στα θηλυκά η διαφοροποίηση συμβαίνει παράλληλα με τις μειωτικές διαιρέσεις, ενώ στα αρσενικά τα σπερματοκύτταρα πρέπει πρώτα να ολοκληρώσουν τη μείωση για να ακολουθήσει η σπερμιογένεση (διαφοροποίηση σε σπερματοζωάριο)[span_21](end_span)." },
+                    { text: "Β. Στα σπερματοκύτταρα η διαφοροποίηση συντελείται πριν από την έναρξη της μείωσης.", isCorrect: false, explanation: "Λανθασμένη επιλογή. Αν η διαφοροποίηση γινόταν πριν τη μείωση, τα κύτταρα θα ήταν διπλοειδή (2n) σπερματογόνια, όχι γαμέτες. [span_22](start_span)[span_23](start_span)Η διαφοροποίηση απαιτεί το απλοειδές αποτέλεσμα της μείωσης ΙΙ[span_22](end_span)[span_23](end_span)." },
+                    { text: "Γ. Και στις δύο διαδικασίες η διαφοροποίηση ολοκληρώνεται αποκλειστικά μετά τη δεύτερη μειωτική διαίρεση.", isCorrect: false, explanation: "Λανθασμένη επιλογή. [span_24](start_span)[span_25](start_span)Στην ωογένεση η διαφοροποίηση (ανάπτυξη του ωοκυττάρου με τα απαραίτητα συστατικά) γίνεται *κατά τη διάρκεια* της μείωσης (η οποία μάλιστα παύει σε συγκεκριμένα στάδια), όχι αποκλειστικά μετά[span_24](end_span)[span_25](end_span)." },
+                    { text: "Δ. Η ωογένεση ολοκληρώνει τη διαφοροποίηση στο εμβρυϊκό στάδιο.", isCorrect: false, explanation: "Λανθασμένη επιλογή. Στο εμβρυϊκό στάδιο τα ωοκύτταρα απλώς σταματούν στην Πρόφαση Ι. [span_26](start_span)[span_27](start_span)Η πλήρης διαφοροποίηση και ολοκλήρωση της μείωσης απαιτεί την εφηβεία, την ωορρηξία και την επακόλουθη γονιμοποίηση[span_26](end_span)[span_27](end_span)." }
+                ]
+            },
+            {
+                text: "Ποια δομική έννοια χαρακτηρίζει με ακρίβεια την παρουσία των «αδελφών χρωματίδων»;",
+                options: [
+                    { text: "Α. Αποτελούν τα δύο αντίγραφα του ίδιου χρωμοσώματος, ένα κληρονομούμενο από τον πατέρα και ένα από τη μητέρα.", isCorrect: false, explanation: "Λανθασμένη επιλογή. [span_28](start_span)Η περιγραφή αυτή αφορά τα ομόλογα χρωμοσώματα[span_28](end_span), όχι τις αδελφές χρωματίδες." },
+                    { text: "Β. Εμφανίζονται μετά τη φάση S του κυτταρικού κύκλου ως πανομοιότυπες αλυσίδες DNA του ίδιου χρωμοσώματος.", isCorrect: true, explanation: "Ορθή απάντηση. Η σύνθεση (αντιγραφή) του DNA λαμβάνει χώρα στη φάση S, διπλασιάζοντας το υλικό του χρωμοσώματος. [span_29](start_span)[span_30](start_span)Οι πανομοιότυπες αυτές αλυσίδες ονομάζονται αδελφές χρωματίδες[span_29](end_span)[span_30](end_span)." },
+                    { text: "Γ. Προκύπτουν από τη σύναψη των ομόλογων χρωμοσωμάτων κατά τη δημιουργία του συναπτονηματικού συμπλέγματος.", isCorrect: false, explanation: "Λανθασμένη επιλογή. [span_31](start_span)Η σύναψη ομόλογων χρωμοσωμάτων δημιουργεί τετράδες (ή δίβαλα χρωμοσώματα) κατά την Πρόφαση Ι[span_31](end_span), δεν *δημιουργεί* τις αδελφές χρωματίδες, οι οποίες προϋπάρχουν από τη Μεσόφαση." },
+                    { text: "Δ. Διαχωρίζονται κατά την Ανάφαση Ι της μειωτικής διαίρεσης.", isCorrect: false, explanation: "Λανθασμένη επιλογή. Στην Ανάφαση Ι διαχωρίζονται τα *ομόλογα χρωμοσώματα*. [span_32](start_span)[span_33](start_span)Ο διαχωρισμός των *αδελφών χρωματίδων* λαμβάνει χώρα στην Ανάφαση ΙΙ της μείωσης (καθώς και στην Ανάφαση της μίτωσης)[span_32](end_span)[span_33](end_span)." }
+                ]
+            },
+            {
+                text: "Ποιος είναι ο ακριβής μηχανισμός και το αποτέλεσμα της διαδικασίας του επιχιασμού (crossing-over);",
+                options: [
+                    { text: "Α. Η ένωση των αδελφών χρωματίδων στο κεντρομερίδιο για τη σταθεροποίηση του κυττάρου.", isCorrect: false, explanation: "Λανθασμένη επιλογή. [span_34](start_span)Το κεντρομερίδιο συγκρατεί ήδη τις αδελφές χρωματίδες[span_34](end_span), δεν αποτελεί τον μηχανισμό του επιχιασμού." },
+                    { text: "Β. Ο διαχωρισμός των ομόλογων χρωμοσωμάτων σε δύο απλοειδή θυγατρικά κύτταρα.", isCorrect: false, explanation: "Λανθασμένη επιλογή. [span_35](start_span)Αυτό περιγράφει το γενικότερο αποτέλεσμα της πρώτης μειωτικής διαίρεσης (Ανάφαση/Τελόφαση Ι), όχι την ειδική μοριακή διαδικασία του επιχιασμού[span_35](end_span)." },
+                    { text: "Γ. Η τυχαία διάταξη των χρωμοσωμάτων στο ισημερινό επίπεδο της ατράκτου.", isCorrect: false, explanation: "Λανθασμένη επιλογή. [span_36](start_span)Η περιγραφή αυτή αναφέρεται στην ανεξάρτητη κατανομή κατά τη Μετάφαση Ι[span_36](end_span), η οποία επίσης προσδίδει ποικιλομορφία, αλλά αποτελεί ξεχωριστό φαινόμενο από τον επιχιασμό." },
+                    { text: "Δ. Η ανταλλαγή γενετικού υλικού μεταξύ μη αδελφών χρωματίδων των ομόλογων χρωμοσωμάτων.", isCorrect: true, explanation: "Ορθή απάντηση. [span_37](start_span)Ο επιχιασμός (ασυνδυασμός DNA) πραγματοποιείται στην Πρόφαση Ι και αφορά αυστηρά την ανταλλαγή αλληλουχιών μεταξύ *μη αδελφών* χρωματίδων ενός ζεύγους ομόλογων χρωμοσωμάτων[span_37](end_span)." }
+                ]
+            },
+            {
+                text: "Σύμφωνα με τα βιβλιογραφικά δεδομένα, πώς επηρεάζει η προχωρημένη ηλικία της μητέρας την ωογένεση;",
+                options: [
+                    { text: "Α. Προκαλεί αυξημένο αριθμό μιτωτικών διαιρέσεων στα ωογόνια, οδηγώντας σε συσσώρευση γονιδιακών μεταλλάξεων.", isCorrect: false, explanation: "Λανθασμένη επιλογή. [span_38](start_span)[span_39](start_span)Ο πολλαπλασιασμός μέσω συνεχών μιτωτικών διαιρέσεων (άρα και η συσσώρευση σφαλμάτων αντιγραφής/γονιδιακών μεταλλάξεων) αφορά αποκλειστικά τη *σπερματογένεση* στα αρσενικά[span_38](end_span)[span_39](end_span)." },
+                    { text: "Β. Αυξάνει τον κίνδυνο ανευπλοειδίας στο ωοκύτταρο λόγω φθοράς της κοεζίνης και δυσλειτουργίας του συμπλέγματος SAC.", isCorrect: true, explanation: "Ορθή απάντηση. [span_40](start_span)Τα δεδομένα δείχνουν ότι η ηλικία αυξάνει την ωοκυτταρική ανευπλοειδία λόγω λειτουργικών αλλοιώσεων, όπως η επιδείνωση της συνοχής (cohesin) και η δυσλειτουργία ελέγχου της ατράκτου (SAC)[span_40](end_span)." },
+                    { text: "Γ. Εμποδίζει δομικά την είσοδο των πρωτογενών ωοκυττάρων στη φάση της διπλοταινίας.", isCorrect: false, explanation: "Λανθασμένη επιλογή. [span_41](start_span)Τα ωοκύτταρα βρίσκονται ήδη στη φάση της διπλοταινίας από τον 5ο-6ο μήνα της *εμβρυϊκής ζωής* της γυναίκας[span_41](end_span), συνεπώς η μετέπειτα ηλικία δεν εμποδίζει την είσοδό τους σε αυτήν." },
+                    { text: "Δ. Μειώνει αυστηρά τον ρυθμό του επιχιασμού που συντελείται κατά τη Μετάφαση ΙΙ.", isCorrect: false, explanation: "Λανθασμένη επιλογή. [span_42](start_span)[span_43](start_span)Πέρα από το γεγονός ότι η αποτυχία ανασυνδυασμού μπορεί να αποτελεί παράγοντα, ο επιχιασμός συντελείται στην *Πρόφαση Ι*, όχι στη Μετάφαση ΙΙ[span_42](end_span)[span_43](end_span)." }
+                ]
+            },
+            {
+                text: "Κατά τη μετάβαση ενός κυττάρου στη φάση G0 του κυτταρικού κύκλου, ποια είναι η ακριβής βιολογική του κατάσταση;",
+                options: [
+                    { text: "Α. Συντίθεται μεγάλη ποσότητα πρωτεϊνών και το κύτταρο διπλασιάζει τον όγκο του πριν τη σύνθεση DNA.", isCorrect: false, explanation: "Λανθασμένη επιλογή. [span_44](start_span)Αυτή η αυξημένη πρωτεϊνική σύνθεση και αύξηση όγκου χαρακτηρίζει τη φάση G1 (έντονη ανάπτυξη), όχι τη G0[span_44](end_span)." },
+                    { text: "Β. Το κύτταρο εξέρχεται από τον ενεργό κύκλο διαίρεσης και περιέρχεται σε κατάσταση αδράνειας διαίρεσης.", isCorrect: true, explanation: "Ορθή απάντηση. Στη φάση G0 το κύτταρο εξέρχεται (cell cycle arrest) από την κυκλική διαδικασία της μίτωσης. [span_45](start_span)Αφορά κύτταρα που δεν διαιρούνται συχνά ή ποτέ, διατηρώντας όμως τη βιοχημική τους λειτουργικότητα[span_45](end_span)." },
+                    { text: "Γ. Η χρωματίνη συμπυκνώνεται στο μέγιστο βαθμό, αναμένοντας την ενεργοποίηση των μικροσωληνίσκων.", isCorrect: false, explanation: "Λανθασμένη επιλογή. [span_46](start_span)Η μέγιστη συμπύκνωση των χρωμοσωμάτων παρατηρείται κατά τη Μετάφαση της μίτωσης/μείωσης, όχι στη Μεσόφαση ή την G0[span_46](end_span)." },
+                    { text: "Δ. Το κύτταρο διπλασιάζει εντατικά το γενετικό του υλικό (DNA) σε προετοιμασία για μια μεταγενέστερη μίτωση.", isCorrect: false, explanation: "Λανθασμένη επιλογή. [span_47](start_span)Ο διπλασιασμός του DNA λαμβάνει χώρα αποκλειστικά στη φάση S του κυτταρικού κύκλου[span_47](end_span)." }
+                ]
+            }
+        ];
+
+        const container = document.getElementById('quiz-container');
+
+        questions.forEach((q, qIndex) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+            
+            const questionText = document.createElement('div');
+            questionText.className = 'question-text';
+            questionText.innerText = `${qIndex + 1}. ${q.text}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsContainer = document.createElement('div');
+            optionsContainer.className = 'options';
+
+            const feedbackDiv = document.createElement('div');
+            feedbackDiv.className = 'feedback';
+
+            q.options.forEach((opt, optIndex) => {
+                const btn = document.createElement('button');
+                btn.className = 'option';
+                btn.innerText = opt.text;
+                
+                btn.addEventListener('click', function() {
+                    const allButtons = optionsContainer.querySelectorAll('button');
+                    allButtons.forEach(b => b.disabled = true);
+                    
+                    if(opt.isCorrect) {
+                        this.classList.add('correct');
+                    } else {
+                        this.classList.add('wrong');
+                        // Find and highlight the correct one implicitly? 
+                        // The instructions strictly say "green for correct, red for wrong".
+                        // To be academically helpful, we highlight the user's choice and show explanation.
+                    }
+
+                    feedbackDiv.style.display = 'block';
+                    feedbackDiv.innerHTML = `<strong>Ανατροφοδότηση:</strong> <br> ${opt.explanation}`;
+                });
+
+                optionsContainer.appendChild(btn);
+            });
+
+            questionBlock.appendChild(optionsContainer);
+            questionBlock.appendChild(feedbackDiv);
+            container.appendChild(questionBlock);
+        });
+    </script>
+</body>
+</html>
