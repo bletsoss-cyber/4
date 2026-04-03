@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Όψιμη Εμβρυϊκή Περίοδος - Quiz Αξιολόγησης</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #34495e;
+            --correct: #28a745;
+            --wrong: #dc3545;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 30px;
+        }
+        .quiz-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        .question-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .question-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .option-btn {
+            background-color: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            padding: 12px 15px;
+            font-size: 1em;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .option-btn:hover:not(:disabled) {
+            background-color: #e2e6ea;
+            border-color: #dae0e5;
+        }
+        .option-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+        .option-btn.correct {
+            background-color: var(--correct);
+            border-color: var(--correct);
+            color: white;
+        }
+        .option-btn.wrong {
+            background-color: var(--wrong);
+            border-color: var(--wrong);
+            color: white;
+        }
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 6px;
+            display: none;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .feedback.show-correct {
+            display: block;
+            background-color: #d4edda;
+            color: #155724;
+            border-left: 5px solid var(--correct);
+        }
+        .feedback.show-wrong {
+            display: block;
+            background-color: #f8d7da;
+            color: #721c24;
+            border-left: 5px solid var(--wrong);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Quiz: Όψιμη Εμβρυϊκή Περίοδος</h1>
+    <div id="quiz-root" class="quiz-container"></div>
+
+    <script>
+        // Δεδομένα Ερωτήσεων
+        const questions = [
+            {
+                q: "Ποια είναι η χρονική διάρκεια της όψιμης (fetal) περιόδου;",
+                options: ["1η έως 8η εβδομάδα", "9η έως 38η εβδομάδα", "12η έως 40η εβδομάδα", "24η έως 38η εβδομάδα"],
+                correct: 1,
+                [span_56](start_span)exp: "Η οργανογενετική (πρώιμη) περίοδος διαρκεί έως την 8η εβδομάδα. Η όψιμη (fetal) ξεκινά από την 9η και φτάνει έως το τέλος της κύησης (38η εβδομάδα από τη γονιμοποίηση)[span_56](end_span)."
+            },
+            {
+                q: "Ποια περίοδος της εμβρυϊκής ανάπτυξης χαρακτηρίζεται από τη μέγιστη ευπάθεια στους τερατογόνους παράγοντες;",
+                options: ["Η όψιμη περίοδος (9-38 εβδομάδα)", "Το τρίτο τρίμηνο", "Η οργανογενετική περίοδος (1-8 εβδομάδα)", "Κατά τον τοκετό"],
+                correct: 2,
+                [span_57](start_span)[span_58](start_span)exp: "Η οργανογενετική περίοδος (πρώτες 8 εβδομάδες) είναι η φάση σχηματισμού των κύριων οργάνων και παρουσιάζει τη μέγιστη ευπάθεια σε τερατογόνα, προκαλώντας τις πιο σοβαρές συγγενείς ανωμαλίες[span_57](end_span)[span_58](end_span)."
+            },
+            {
+                q: "Με βάση την Τελευταία Έμμηνο Ρύση (ΤΕΡ), πόσες εβδομάδες υπολογίζεται ότι διαρκεί φυσιολογικά μια κύηση;",
+                options: ["38 εβδομάδες (266 ημέρες)", "40 εβδομάδες (280 ημέρες)", "36 εβδομάδες", "42 εβδομάδες"],
+                correct: 1,
+                exp: "Από τη γονιμοποίηση η κύηση διαρκεί 38 εβδομάδες. [span_59](start_span)Ωστόσο, υπολογίζοντας από την έναρξη της Τελευταίας Κανονικής Έμμηνου Ρύσης, υπολογίζεται στις 40 εβδομάδες (280 ημέρες)[span_59](end_span)."
+            },
+            {
+                q: "Τι παρατηρείται φυσιολογικά στο έμβρυο στο τέλος της 8ης εβδομάδας όσον αφορά το έντερο;",
+                options: ["Έχει ολοκληρωθεί η πέψη", "Οι εντερικές έλικες βρίσκονται μέσα στον ομφάλιο λώρο", "Το έντερο καταλαμβάνει όλη την κοιλιακή κοιλότητα", "Παράγεται μηκώνιο"],
+                correct: 1,
+                [span_60](start_span)exp: "Στο τέλος της 8ης εβδομάδας, ο χώρος στην κοιλιά είναι μικρός (λόγω του μεγάλου ήπατος) και οι εντερικές έλικες προβάλλουν φυσιολογικά στον ομφάλιο λώρο, δημιουργώντας τη λεγόμενη 'φυσιολογική κήλη'[span_60](end_span)."
+            },
+            {
+                q: "Η διαπίστωση αυξημένης αυχενικής διαφάνειας στο υπερηχογράφημα ΜΕΤΑ την 13η εβδομάδα είναι ισχυρή ένδειξη για:",
+                options: ["Σύνδρομο Αναπνευστικής Δυσχέρειας", "Χρωμοσωμικές ανωμαλίες (π.χ. Τρισωμία 21) ή καρδιακές ανωμαλίες", "Δίδυμη κύηση", "Φυσιολογική ανάπτυξη του νευρικού συστήματος"],
+                correct: 1,
+                exp: "Η αυχενική διαφάνεια είναι ορατή σε όλα τα έμβρυα έως τη 13η εβδομάδα. [span_61](start_span)Αν όμως παραμένει αυξημένη μετά τη 13η εβδομάδα, αποτελεί ισχυρή ένδειξη για Τρισωμία 21 ή άλλες ανωμαλίες[span_61](end_span)."
+            },
+            {
+                q: "Σε ποια εβδομάδα αρχίζει τυπικά η έκκριση του επιφανειοδραστικού παράγοντα (surfactant) από τα πνευμονοκύτταρα;",
+                options: ["12η εβδομάδα", "18η εβδομάδα", "24η εβδομάδα", "34η εβδομάδα"],
+                correct: 2,
+                exp: "Την 24η εβδομάδα ξεκινά η έκκριση επιφανειοδραστικού παράγοντα (surfactant) από τα πνευμονοκύτταρα τύπου ΙΙ. [span_62](start_span)Αυτό αποτελεί ορόσημο για τη δυνατότητα επιβίωσης του προώρου[span_62](end_span)."
+            },
+            {
+                q: "Ποια από τις παρακάτω δηλώσεις είναι αληθής για το φαιό λίπος του εμβρύου;",
+                options: ["Παράγεται κατά την 8η εβδομάδα", "Είναι υπεύθυνο για την έκκριση ινσουλίνης", "Εμφανίζεται μεταξύ 17ης-20ης εβδομάδας (π.χ. πίσω από το στέρνο) για παραγωγή θερμότητας", "Αποτελεί τον κύριο όγκο του υποδόριου ιστού σε ένα πρόωρο έμβρυο"],
+                correct: 2,
+                exp: "Μεταξύ 17ης και 20ης εβδομάδας εμφανίζεται το φαιό λίπος (πίσω από το στέρνο, περινεφρικά), το οποίο είναι υπεύθυνο για την παραγωγή θερμότητας. [span_63](start_span)Εκείνη την περίοδο το λευκό (υποδόριο) λίπος είναι ελάχιστο[span_63](end_span)."
+            },
+            {
+                q: "Από πού προέρχεται η ινσουλίνη που ρυθμίζει τον μεταβολισμό του εμβρύου;",
+                options: ["Παράγεται αποκλειστικά από τον πλακούντα", "Περνάει από τη μητρική κυκλοφορία μέσω του πλακούντα", "Παράγεται από το πάγκρεας του ίδιου του εμβρύου", "Μεταφέρεται μέσω του αμνιακού υγρού"],
+                correct: 2,
+                exp: "Η ινσουλίνη της μητέρας ελάχιστα περνά από την πλακουντιακή μεμβράνη. [span_64](start_span)Το έμβρυο βασίζεται στην ινσουλίνη που παράγει το δικό του πάγκρεας για να μεταβολίσει τη γλυκόζη[span_64](end_span)."
+            },
+            {
+                q: "Τι ορίζεται ως Μειωμένη Ενδομήτρια Ανάπτυξη (IUGR);",
+                options: ["Βάρος γέννησης μικρότερο από την 10η εκατοστιαία θέση", "Βάρος γέννησης &lt; 2500g αλλά υγιές νεογνό (SGA)", "Όταν το έμβρυο γεννιέται μετά την 42η εβδομάδα", "Όταν το κεφαλοουραίο μήκος είναι μεγαλύτερο του φυσιολογικού"],
+                correct: 0,
+                exp: "Η IUGR (Intrauterine Growth Restriction) ορίζεται όταν το έμβρυο βρίσκεται κάτω από την 10η εκατοστιαία θέση. [span_65](start_span)Συνοδεύεται από πτωχή πρόγνωση (υπογλυκαιμία, ΣΑΔ κ.ά.), σε αντίθεση με τα απλά μικρά (SGA) νεογνά[span_65](end_span)."
+            },
+            {
+                q: "Πότε μπορεί να πραγματοποιηθεί η Βιοψία Χοριακής Λάχνης (CVS) σε σχέση με την Αμνιοκέντηση;",
+                options: ["Ταυτόχρονα με την αμνιοκέντηση (15η-19η εβδ.)", "Αργότερα από την αμνιοκέντηση (στο 3ο τρίμηνο)", "Νωρίτερα από την αμνιοκέντηση (10η-12η εβδ.)", "Μόνο πριν την εμφύτευση"],
+                correct: 2,
+                [span_66](start_span)[span_67](start_span)exp: "Η βιοψία χοριακής λάχνης γίνεται μεταξύ 10ης και 12ης εβδομάδας, προσφέροντας διάγνωση αρκετές εβδομάδες νωρίτερα από την αμνιοκέντηση (η οποία γίνεται 15-19W), αν και έχει ελαφρώς μεγαλύτερο ρίσκο[span_66](end_span)[span_67](end_span)."
+            },
+            {
+                q: "Τι υποδηλώνει η αυξημένη συγκέντρωση α-εμβρυϊκής πρωτεΐνης (AFP) στο αμνιακό υγρό;",
+                options: ["Σύνδρομο Down", "Ανωμαλίες του Νευρικού Σωλήνα", "Φυσιολογική ανάπτυξη", "Σύνδρομο Υπερωριμότητας"],
+                correct: 1,
+                exp: "Η α-εμβρυϊκή πρωτεΐνη (AFP) εμφανίζεται αυξημένη στο αμνιακό υγρό και τον μητρικό ορό σε ανωμαλίες του Κεντρικού Νευρικού Συστήματος (Νευρικός Σωλήνας). [span_68](start_span)Αντίθετα, είναι μειωμένη στο Σύνδρομο Down[span_68](end_span)."
+            },
+            {
+                q: "Ποιο είναι το όριο βάρους που γενικά ορίζει τη 'βιωσιμότητα' (ικανότητα επιβίωσης εκτός μήτρας) του εμβρύου;",
+                options: ["200 gr", "500 gr", "1000 gr", "1500 gr"],
+                correct: 1,
+                exp: "Η βιωσιμότητα ορίζεται ως η ικανότητα του εμβρύου να επιβιώσει σε περιβάλλον εκτός μήτρας, και γενικά τοποθετείται σε βάρος &ge; [span_69](start_span)[span_70](start_span)500 gr (περίπου στην 22η-24η εβδομάδα)[span_69](end_span)[span_70](end_span)."
+            },
+            {
+                q: "Τι υποστηρίζει η Υπόθεση Barker (Barker Hypothesis) για τα πρόωρα νεογνά και τα νεογνά με IUGR;",
+                options: ["Ότι θα αναπτύξουν ανοσία σε όλους τους ιούς", "Ότι έχουν αυξημένη πιθανότητα να αναπτύξουν μεταβολικές διαταραχές, παχυσαρκία και καρδιαγγειακά ως ενήλικες", "Ότι το βάρος τους θα φυσιολογικοποιηθεί σε 1 μήνα χωρίς συνέπειες", "Ότι δεν θα παράγουν καθόλου surfactant"],
+                correct: 1,
+                exp: "Η υπόθεση Barker (1990) αναφέρει ότι «ό,τι συμβαίνει μέσα στη μήτρα δεν μένει μέσα στη μήτρα». [span_71](start_span)Νεογνά με IUGR ή πρόωρα προδιατίθενται για παχυσαρκία, υπέρταση και στεφανιαία νόσο στην ενήλικη ζωή[span_71](end_span)."
+            },
+            {
+                q: "Πώς παρουσιάζεται κλινικά το έμβρυο με Σύνδρομο Υπερωριμότητας (παράταση κύησης >3 εβδομάδες);",
+                options: ["Καλύπτεται από πολύ παχύ χνούδι και τυρώδες σμήγμα", "Έχει δέρμα ρυτιδωμένο, μακριά νύχια και απουσία χνουδιού/σμήγματος", "Έχει πολύ μικρό βάρος (&lt;1500g)", "Αδυνατεί να αναπνεύσει λόγω έλλειψης surfactant"],
+                correct: 1,
+                [span_72](start_span)exp: "Στην υπερωριμότητα (παράταση &ge; 3 Ws), το νεογνό είναι συνήθως υπέρβαρο, με δέρμα ρυτιδωμένο, χωρίς χνούδι ή τυρώδες σμήγμα και με μακριά νύχια[span_72](end_span)."
+            },
+            {
+                q: "Σε ποια εβδομάδα της ανάπτυξης αρχίζει να γίνεται αναγνωρίσιμο το φύλο του εμβρύου (στον υπέρηχο);",
+                options: ["6η - 8η εβδομάδα", "12η - 14η εβδομάδα", "20η - 24η εβδομάδα", "Μετά την 30η εβδομάδα"],
+                correct: 1,
+                [span_73](start_span)[span_74](start_span)exp: "Η διαφοροποίηση των έξω γεννητικών οργάνων αρχίζει την 9η εβδομάδα, αλλά το φύλο γίνεται υπερηχογραφικά αναγνωρίσιμο μεταξύ 12ης και 14ης εβδομάδας[span_73](end_span)[span_74](end_span)."
+            }
+        ];
+
+        const quizRoot = document.getElementById('quiz-root');
+
+        questions.forEach((qData, index) => {
+            // Δημιουργία κάρτας ερώτησης
+            const card = document.createElement('div');
+            card.className = 'question-card';
+
+            const title = document.createElement('div');
+            title.className = 'question-title';
+            title.innerText = `Ερώτηση ${index + 1}: ${qData.q}`;
+            card.appendChild(title);
+
+            const optionsGrid = document.createElement('div');
+            optionsGrid.className = 'options-grid';
+
+            const feedbackDiv = document.createElement('div');
+            feedbackDiv.className = 'feedback';
+
+            // Δημιουργία κουμπιών επιλογών
+            const buttons = [];
+            qData.options.forEach((optionText, optIndex) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerText = optionText;
+
+                btn.onclick = () => {
+                    // Απενεργοποίηση όλων των κουμπιών της τρέχουσας ερώτησης
+                    buttons.forEach(b => b.disabled = true);
+
+                    // Έλεγχος αν είναι σωστό
+                    if (optIndex === qData.correct) {
+                        btn.classList.add('correct');
+                        feedbackDiv.classList.add('show-correct');
+                        feedbackDiv.innerHTML = `<strong>Σωστό!</strong><br>${qData.exp}`;
+                    } else {
+                        btn.classList.add('wrong');
+                        // Δείξε και το σωστό
+                        buttons[qData.correct].classList.add('correct');
+                        feedbackDiv.classList.add('show-wrong');
+                        feedbackDiv.innerHTML = `<strong>Λάθος.</strong><br>${qData.exp}`;
+                    }
+                };
+
+                buttons.push(btn);
+                optionsGrid.appendChild(btn);
+            });
+
+            card.appendChild(optionsGrid);
+            card.appendChild(feedbackDiv);
+            quizRoot.appendChild(card);
+        });
+    </script>
+</body>
+</html>
