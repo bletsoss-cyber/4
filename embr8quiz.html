@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Clinical Embryology Quiz - 30 Questions</title>
+    <style>
+        :root {
+            --primary-dark: #1e293b;
+            --accent-blue: #3b82f6;
+            --correct-green: #22c55e;
+            --wrong-red: #ef4444;
+            --bg-gray: #f8fafc;
+            --text-main: #334155;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-gray);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+            border-bottom: 2px solid #e2e8f0;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            color: var(--primary-dark);
+            font-size: 2.2rem;
+            margin: 0;
+        }
+
+        .quiz-info {
+            color: #64748b;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+        }
+
+        .question-header {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .options-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .option-btn {
+            background: #fff;
+            border: 1px solid #cbd5e1;
+            padding: 15px 20px;
+            border-radius: 8px;
+            text-align: left;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            color: var(--text-main);
+        }
+
+        .option-btn:hover:not(:disabled) {
+            background-color: #f1f5f9;
+            border-color: var(--accent-blue);
+        }
+
+        .option-btn.correct {
+            background-color: #dcfce7;
+            border-color: var(--correct-green);
+            color: #166534;
+            font-weight: 600;
+        }
+
+        .option-btn.wrong {
+            background-color: #fee2e2;
+            border-color: var(--wrong-red);
+            color: #991b1b;
+        }
+
+        .feedback-box {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f0f7ff;
+            border-left: 5px solid var(--accent-blue);
+            border-radius: 4px;
+            display: none;
+            font-size: 0.95rem;
+        }
+
+        .feedback-header {
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Ακαδημαϊκή Αξιολόγηση: Συγγενείς Ανωμαλίες</h1>
+        <p class="quiz-info">Επίπεδο: Προχωρημένο (Προετοιμασία για 10) | Βάσει K.L. Moore & Α.Π.Θ.</p>
+    </header>
+
+    <div id="quiz-content">
+        </div>
+
+    <footer>
+        &copy; 2026 Ακαδημαϊκό Περιβάλλον Μελέτης - Κλινική Εμβρυολογία
+    </footer>
+</div>
+
+<script>
+    const questions = [
+        {
+            q: "Ποιο είναι το ποσοστό των ζωντανών γεννήσεων που παρουσιάζουν συγγενείς ανωμαλίες;",
+            options: ["0.5-1%", "2-3%", "5-10%", "15-20%"],
+            correct: 1,
+            feedback: "Η συχνότητα των συγγενών ανωμαλιών ανέρχεται σε 2-3% των ζωντανών γεννήσεων[cite: 6]. Οι μείζονες ανωμαλίες είναι αυτές που απαιτούν ιατρική παρέμβαση."
+        },
+        {
+            q: "Σε ποια κατηγορία αιτιολογίας ανήκει το 60-70% των συγγενών ανωμαλιών;",
+            options: ["Χρωμοσωμικές", "Περιβαλλοντικές", "Πολυπαραγοντικές", "Μονογονιδιακές"],
+            correct: 2,
+            feedback: "Η πλειονότητα των ανωμαλιών (60-70%) χαρακτηρίζεται ως πολυπαραγοντική, προκύπτοντας από την αλληλεπίδραση γενετικών και περιβαλλοντικών παραγόντων."
+        },
+        {
+            q: "Ποια είναι η χρωμοσωμική έλλειψη στο σύνδρομο Miller-Dieker;",
+            options: ["5p-", "15q11-13", "17p13.3", "22q11"],
+            correct: 2,
+            feedback: "Το σύνδρομο Miller-Dieker οφείλεται στην έλλειψη της περιοχής 17p13.3 [cite: 26], όπου εντοπίζεται το γονίδιο LIS1, προκαλώντας λυσεγκεφαλία[cite: 28]."
+        },
+        {
+            q: "Ποιο γονίδιο σχετίζεται άμεσα με τη λυσεγκεφαλία στο σύνδρομο Miller-Dieker;",
+            options: ["DHCR7", "LIS1", "UBEE3A", "FMR1"],
+            correct: 1,
+            feedback: "Το γονίδιο LIS1 είναι υπεύθυνο για τη σωστή μετανάστευση των νευρώνων. Μετάλλαξη ή έλλειψή του οδηγεί σε λυσεγκεφαλία[cite: 27, 28]."
+        },
+        {
+            q: "Γιατί οι μεταλλάξεις του μιτοχονδριακού DNA παρουσιάζουν αποκλειστικά μητρική κληρονομικότητα;",
+            options: ["Λόγω γονιδιακού εντυπώματος", "Το μιτοχονδριακό DNA υπάρχει μόνο στα ωάρια", "Λόγω πατρικής δισωμίας", "Λόγω φυλοσύνδετης κληρονομικότητας"],
+            correct: 1,
+            feedback: "Το μιτοχονδριακό DNA κληρονομείται μόνο από τη μητέρα, καθώς τα μιτοχόνδρια του ζυγωτού προέρχονται αποκλειστικά από το ωάριο[cite: 33, 34]."
+        },
+        {
+            q: "Το σύνδρομο Angelman προκαλείται από έλλειψη του:",
+            options: ["Πατρικού 15q11-13", "Μητρικού 15q11-13", "Πατρικού 17p13.3", "Μητρικού 22q11"],
+            correct: 1,
+            feedback: "Η έλλειψη του μητρικού χρωμοσώματος 15q11-13 προκαλεί το σύνδρομο Angelman[cite: 39]. Αυτό αποτελεί κλασικό παράδειγμα γονιδιακού εντυπώματος."
+        },
+        {
+            q: "Το σύνδρομο Prader-Willi προκαλείται από έλλειψη του:",
+            options: ["Μητρικού 15q11-13", "Πατρικού 15q11-13", "Χρωμοσώματος 21", "Γονιδίου DHCR7"],
+            correct: 1,
+            feedback: "Η έλλειψη του πατρικού χρωμοσώματος 15q11-13 οδηγεί στο σύνδρομο Prader-Willi, το οποίο χαρακτηρίζεται από παχυσαρκία και πολυφαγία[cite: 40, 46, 48]."
+        },
+        {
+            q: "Πόσες επαναλήψεις CGG απαιτούνται για την πλήρη κλινική εκδήλωση του συνδρόμου εύθραυστου Χ;",
+            options: ["6-39", "50-200", "Πάνω από 1000", "Ακριβώς 46"],
+            correct: 2,
+            feedback: "Ενώ οι φορείς έχουν έως 200 επαναλήψεις, η πλήρης εκδήλωση του συνδρόμου απαιτεί πάνω από 1000 επαναλήψεις CGG[cite: 53]."
+        },
+        {
+            q: "Ποια από τις παρακάτω οντότητες αφορά ενδογενείς ανωμαλίες της οργανογένεσης;",
+            options: ["Παραμορφώσεις", "Δυσμορφίες/Διαμαρτίες", "Παρεμβολές", "Ακολουθίες"],
+            correct: 1,
+            feedback: "Οι δυσμορφίες (malformations) αφορούν ενδογενείς ανωμαλίες της βλαστογένεσης και οργανογένεσης σε μορφογενετικά ενεργείς περιοχές[cite: 60, 61]."
+        },
+        {
+            q: "Τα δυσμορφικά όργανα συνήθως:",
+            options: ["Είναι ιστολογικά φυσιολογικά", "Προδιαθέτουν για καρκίνο", "Είναι πάντα θανατηφόρα", "Οφείλονται μόνο σε ιούς"],
+            correct: 0,
+            feedback: "Σε αντίθεση με τις δυσπλασίες, τα δυσμορφικά όργανα είναι συνήθως φυσιολογικά ιστολογικά και δεν προδιαθέτουν για καρκίνο[cite: 74]."
+        },
+        {
+            q: "Οι δυσπλασίες (dysplasias) αφορούν διαταραχές της:",
+            options: ["Μορφογένεσης", "Ιστογένεσης", "Βλαστογένεσης", "Φαινογένεσης"],
+            correct: 1,
+            feedback: "Οι δυσπλασίες αφορούν διαταραχές της ιστογένεσης (κυτταρικής διαφοροποίησης), μια διαδικασία που συνεχίζεται και μετά τη γέννηση[cite: 70, 71, 72]."
+        },
+        {
+            q: "Ποια οντότητα προδιαθέτει για καρκίνο;",
+            options: ["Δυσμορφία", "Παραμόρφωση", "Δυσπλασία", "Συσχέτιση"],
+            correct: 2,
+            feedback: "Οι δυσπλασίες προδιαθέτουν για καρκίνο λόγω της διαταραγμένης κυτταρικής διαφοροποίησης[cite: 73]."
+        },
+        {
+            q: "Οι παραμορφώσεις (deformations) είναι συνήθως:",
+            options: ["Πρωτογενείς βλάβες", "Δευτερογενείς αλλοιώσεις", "Μιτοχονδριακές μεταλλάξεις", "Πολυπαραγοντικές"],
+            correct: 1,
+            feedback: "Οι παραμορφώσεις αποτελούν δευτερογενείς αλλοιώσεις οργάνων που αρχικά είχαν διαπλαστεί φυσιολογικά, λόγω εξωτερικών δυνάμεων[cite: 76, 77]."
+        },
+        {
+            q: "Το ολιγοϋδράμνιο μπορεί να προκαλέσει:",
+            options: ["Δυσπλασία", "Παραμόρφωση άκρων", "Μενδέλια ανωμαλία", "Ανεγκεφαλία"],
+            correct: 1,
+            feedback: "Ο περιορισμός του χώρου λόγω ολιγοϋδράμνιου ασκεί μηχανικές πιέσεις, προκαλώντας παραμορφώσεις στα άκρα ή πλαγιοκεφαλία[cite: 78]."
+        },
+        {
+            q: "Η ακολουθία Potter προκαλείται πρωτογενώς από:",
+            options: ["Καρδιακές βλάβες", "Νεφρικές διαμαρτίες", "Ηπατική ανεπάρκεια", "Τρισωμία 18"],
+            correct: 1,
+            feedback: "Οι νεφρικές διαμαρτίες εμποδίζουν την παραγωγή ούρων, οδηγώντας σε ολιγοϋδράμνιο και τελικά στην ακολουθία Potter[cite: 85, 86]."
+        },
+        {
+            q: "Η ανωμαλία DiGeorge μπορεί να προκληθεί από έλλειψη του 22q11 ή από λήψη:",
+            options: ["Θαλιδομίδης", "Ισοτρετινοΐνης", "Οινοπνεύματος", "Ασπιρίνης"],
+            correct: 1,
+            feedback: "Η λήψη ισοτρετινοΐνης κατά την κύηση μπορεί να προκαλέσει φαινότυπο παρόμοιο με την ανωμαλία DiGeorge[cite: 84]."
+        },
+        {
+            q: "Η φαινογένεση αφορά τη διαδικασία όπου το έμβρυο αποκτά:",
+            options: ["Όργανα", "Κύτταρα", "Τελικά ποσοτικά ανθρωπομετρικά χαρακτηριστικά", "Νευρικό σωλήνα"],
+            correct: 2,
+            feedback: "Η φαινογένεση είναι η διαδικασία ταυτοποίησης του εμβρύου μέσω των τελικών ποσοτικών χαρακτηριστικών του[cite: 88, 89]."
+        },
+        {
+            q: "Οι διαταραχές της βλαστογένεσης συμβαίνουν κατά τις πρώτες:",
+            options: ["2 εβδομάδες", "4 εβδομάδες", "8 εβδομάδες", "12 εβδομάδες"],
+            correct: 1,
+            feedback: "Οι διαταραχές αυτές προκύπτουν τις 4 πρώτες εβδομάδες, όταν το έμβρυο αποτελεί ένα πρωτογενές πεδίο ανάπτυξης (γαστρίδιο)[cite: 93, 94]."
+        },
+        {
+            q: "Η σειρηνομελία χαρακτηρίζεται ως σοβαρή βλάβη στο:",
+            options: ["Πρόσθιο πεδίο", "Οπίσθιο άξονα (βλάστημα)", "Καρδιακό πεδίο", "Κεντρικό νευρικό σύστημα"],
+            correct: 1,
+            feedback: "Η σειρηνομελία αποτελεί σοβαρή ουραία βλάβη στο βλάστημα του οπίσθιου άξονα[cite: 95]."
+        },
+        {
+            q: "Η οργανογένεση συμβαίνει κυρίως μεταξύ των εβδομάδων:",
+            options: ["1-4", "4-8", "8-12", "12-20"],
+            correct: 1,
+            feedback: "Οι διαταραχές της οργανογένεσης συμβαίνουν στα δευτερογενή πεδία ανάπτυξης από την 4η ως την 8η εβδομάδα[cite: 98, 99]."
+        },
+        {
+            q: "Το σύνδρομο Pierre-Robin ξεκινά με διαταραχή της ανάπτυξης της:",
+            options: ["Άνω γνάθου", "Κάτω γνάθου", "Γλώσσας", "Υπερώας"],
+            correct: 1,
+            feedback: "Η διαταραχή ξεκινά από την κάτω γνάθο (μικρογναθία), η οποία εμποδίζει την κάθοδο της γλώσσας και τη σύντηξη των υπερώιων πετάλων[cite: 108]."
+        },
+        {
+            q: "Το σύνδρομο Smith-Lemli-Opitz οφείλεται σε διαταραχή της βιοσύνθεσης:",
+            options: ["Πρωτεϊνών", "Χοληστερόλης", "Λιπιδίων", "Γλυκόζης"],
+            correct: 1,
+            feedback: "Το σύνδρομο οφείλεται σε μεταλλάξεις του γονιδίου DHCR7, το οποίο εμπλέκεται στη βιοσύνθεση της χοληστερόλης[cite: 116]."
+        },
+        {
+            q: "Οι συσχετίσεις (associations) όπως η VATER αφορούν κυρίως:",
+            options: ["Τα άκρα", "Τη μέση γραμμή", "Τον εγκέφαλο", "Την καρδιά"],
+            correct: 1,
+            feedback: "Οι συσχετίσεις προσβάλλουν κυρίως τη μέση γραμμή και αποτελούν ιδιοπαθή συμβάντα[cite: 117, 118, 126]."
+        },
+        {
+            q: "Ποιο είναι το 'R' στη συσχέτιση VATER;",
+            options: ["Respiratory (Αναπνευστικό)", "Renal (Νεφρικό)", "Radius (Κερκίδα)", "Reflux (Παλινδρόμηση)"],
+            correct: 1,
+            feedback: "Η συσχέτιση VATER περιλαμβάνει σπονδυλικές (V), ορθοπρωκτικές (A), τραχειοισοφαγικές (TE) και νεφρικές (R) βλάβες[cite: 119]."
+        },
+        {
+            q: "Οι συσχετίσεις έχουν χαμηλό εμπειρικό κίνδυνο:",
+            options: ["Θνησιμότητας", "Επανεμφάνισης", "Μόλυνσης", "Χειρουργικής αποτυχίας"],
+            correct: 1,
+            feedback: "Οι συσχετίσεις είναι συνήθως σποραδικές με χαμηλό κίνδυνο επανεμφάνισης στους απογόνους[cite: 124]."
+        },
+        {
+            q: "Η ανεγκεφαλία αποτελεί παράδειγμα:",
+            options: ["Παραμόρφωσης", "Δυσμορφίας", "Δυσπλασίας", "Ακολουθίας"],
+            correct: 1,
+            feedback: "Η ανεγκεφαλία είναι μια μείζων δυσμορφία που προκύπτει από αποτυχία σύγκλεισης του νευρικού σωλήνα[cite: 65]."
+        },
+        {
+            q: "Ποιο ποσοστό των περιπτώσεων με πολλαπλές συγγενείς ανωμαλίες αποτελούν οι συσχετίσεις;",
+            options: ["5%", "15%", "29%", "50%"],
+            correct: 2,
+            feedback: "Οι συσχετίσεις αποτελούν το 29% των περιπτώσεων με πολλαπλές συγγενείς ανωμαλίες[cite: 123]."
+        },
+        {
+            q: "Η νευροϊνωμάτωση αποτελεί παράδειγμα:",
+            options: ["Δυσμορφίας", "Δυσπλασίας", "Παρεμβολής", "Συσχέτισης"],
+            correct: 1,
+            feedback: "Η νευροϊνωμάτωση είναι μια δυσπλασία που αφορά τη διαταραχή της ιστογένεσης[cite: 75]."
+        },
+        {
+            q: "Τι προκαλεί η πατρική δισωμία του χρωμοσώματος 15;",
+            options: ["Σύνδρομο Prader-Willi", "Σύνδρομο Angelman", "Σύνδρομο Down", "Σύνδρομο Miller-Dieker"],
+            correct: 1,
+            feedback: "Η πατρική δισωμία (δύο πατρικά αντίγραφα, κανένα μητρικό) οδηγεί στην έλλειψη του μητρικού εντυπώματος, προκαλώντας το σύνδρομο Angelman[cite: 38, 44]."
+        },
+        {
+            q: "Οι περιβαλλοντικές ανωμαλίες (disruptions) οφείλονται σε:",
+            options: ["Εσωτερικές μεταλλάξεις", "Εξωτερικές επιδράσεις", "Μιτοχονδριακό DNA", "Γονιδιακό εντύπωμα"],
+            correct: 1,
+            feedback: "Οι παρεμβολές ή διαρρήξεις (disruptions) προκαλούνται από περιβαλλοντικούς παράγοντες όπως φάρμακα ή παθήσεις της μητέρας[cite: 66, 67, 68]."
+        }
+    ];
+
+    function loadQuiz() {
+        const quizContainer = document.getElementById('quiz-content');
+        
+        questions.forEach((item, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.id = `q${index}`;
+
+            const qHeader = document.createElement('div');
+            qHeader.className = 'question-header';
+            qHeader.innerHTML = `<span>${index + 1}.</span> <span>${item.q}</span>`;
+            card.appendChild(qHeader);
+
+            const optionsGrid = document.createElement('div');
+            optionsGrid.className = 'options-list';
+
+            item.options.forEach((opt, optIndex) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.textContent = opt;
+                btn.onclick = () => checkAnswer(index, optIndex, item.correct, item.feedback);
+                optionsGrid.appendChild(btn);
+            });
+
+            card.appendChild(optionsGrid);
+
+            const feedback = document.createElement('div');
+            feedback.className = 'feedback-box';
+            feedback.id = `fb${index}`;
+            card.appendChild(feedback);
+
+            quizContainer.appendChild(card);
+        });
+    }
+
+    function checkAnswer(qIndex, selected, correct, feedbackText) {
+        const card = document.getElementById(`q${qIndex}`);
+        const buttons = card.querySelectorAll('.option-btn');
+        const feedbackBox = document.getElementById(`fb${qIndex}`);
+
+        buttons.forEach((btn, index) => {
+            btn.disabled = true;
+            if (index === correct) {
+                btn.classList.add('correct');
+            } else if (index === selected) {
+                btn.classList.add('wrong');
+            }
+        });
+
+        feedbackBox.innerHTML = `<span class="feedback-header">Ακαδημαϊκή Τεκμηρίωση:</span> ${feedbackText}`;
+        feedbackBox.style.display = 'block';
+    }
+
+    window.onload = loadQuiz;
+</script>
+
+</body>
+</html>
