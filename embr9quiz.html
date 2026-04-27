@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Exam: Περιβαλλοντική Τερατολογία (Moore)</title>
+    <style>
+        :root {
+            --primary-dark: #2c3e50;
+            --correct-green: #27ae60;
+            --error-red: #c0392b;
+            --academic-bg: #f4f7f6;
+            --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        body {
+            font-family: var(--font-main);
+            background-color: var(--academic-bg);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .quiz-wrapper {
+            max-width: 900px;
+            width: 100%;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        header {
+            border-bottom: 3px solid var(--primary-dark);
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+        }
+        h1 { margin: 0; color: var(--primary-dark); font-size: 1.8rem; }
+        .stats { font-size: 0.9rem; color: #7f8c8d; margin-top: 5px; }
+        
+        .question-card {
+            margin-bottom: 40px;
+            padding: 25px;
+            border: 1px solid #e1e8ed;
+            border-radius: 6px;
+            background: #fff;
+        }
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #1a202c;
+            line-height: 1.4;
+        }
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+        .option-btn {
+            padding: 15px;
+            border: 2px solid #edf2f7;
+            background: #f8fafc;
+            text-align: left;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+        }
+        .option-btn:hover:not(:disabled) {
+            background: #edf2f7;
+            border-color: #cbd5e0;
+        }
+        .option-btn.correct {
+            background-color: var(--correct-green) !important;
+            color: white;
+            border-color: #1e8449;
+        }
+        .option-btn.wrong {
+            background-color: var(--error-red) !important;
+            color: white;
+            border-color: #922b21;
+        }
+        .rationale {
+            margin-top: 15px;
+            padding: 15px;
+            background: #ebf8ff;
+            border-left: 4px solid #3182ce;
+            display: none;
+            font-size: 0.9rem;
+            color: #2c5282;
+            line-height: 1.5;
+        }
+        .highlight { font-weight: bold; text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-wrapper">
+    <header>
+        <h1>Πανεπιστημιακή Αξιολόγηση: Τερατογόνοι Παράγοντες</h1>
+        <div class="stats">Κάλυψη Ύλης: 100% (Βασισμένο στο "The Developing Human")</div>
+    </header>
+
+    <div id="quiz-container">
+        </div>
+</div>
+
+<script>
+const examData = [
+    // --- ΕΡΥΘΡΑ ---
+    {
+        q: "Ποια είναι η κρίσιμη περίοδος για την πρόκληση συγγενούς καταρράκτη από τον ιό της ερυθράς;",
+        options: ["4η εβδομάδα", "6η εβδομάδα", "9η εβδομάδα", "12η εβδομάδα"],
+        correct: 1,
+        why: "Ο καταρράκτης προκαλείται κατά την 6η εβδομάδα της κύησης. Η 9η εβδομάδα αφορά την κώφωση και η 5η-10η τις καρδιακές ανωμαλίες."
+    },
+    {
+        q: "Ποια ανατομική δομή του έσω ωτός καταστρέφεται από τον ιό της ερυθράς οδηγώντας σε κώφωση;",
+        options: ["Ημικύκλιοι σωλήνες", "Όργανο του Corti", "Τυμπανικός υμένας", "Σφύρα και Άκμονας"],
+        correct: 1,
+        why: "Ο ιός της ερυθράς προσβάλλει ειδικά το όργανο του Corti κατά την 9η εβδομάδα ανάπτυξης."
+    },
+    {
+        q: "Ποια καρδιακή ανωμαλία είναι η συχνότερη σε σύνδρομο συγγενούς ερυθράς;",
+        options: ["Τετραλογία Fallot", "Παραμονή αρτηριακού πόρου (PDA)", "Στένωση μιτροειδούς", "Αριστερή καρδιακή υποπλασία"],
+        correct: 1,
+        why: "Η παραμονή του αρτηριακού πόρου (PDA) μαζί με τη μεσοκολπική/μεσοκοιλιακή επικοινωνία είναι οι κύριες καρδιακές βλάβες της ερυθράς."
+    },
+    // --- CMV & HSV ---
+    {
+        q: "Ποιο είναι το παθογνωμονικό εύρημα σε λοίμωξη από CMV στο έμβρυο;",
+        options: ["Φωκομέλια", "Εγκεφαλικές αποτιτανώσεις", "Αποκόλληση αμφιβληστροειδούς", "Ατρησία οισοφάγου"],
+        correct: 1,
+        why: "Ο CMV προκαλεί χαρακτηριστικές εγκεφαλικές αποτιτανώσεις, μικροκεφαλία και χοριοαμφιστροειδίτιδα."
+    },
+    {
+        q: "Ποια είναι η κύρια εκδήλωση του ιού του απλού έρπητα (HSV) στο έμβρυο;",
+        options: ["Μικροφθαλμία και δυσπλασία αμφιβληστροειδούς", "Υποπλασία ονύχων", "Σύνδρομο Dandy-Walker", "Οδόντες Hutchinson"],
+        correct: 0,
+        why: "Ο HSV συσχετίζεται με μικροφθαλμία, μικροκεφαλία και ηπατοσπληνομεγαλία."
+    },
+    // --- ΤΟΞΟΠΛΑΣΜΩΣΗ & ΣΥΦΙΛΗ ---
+    {
+        q: "Ποια είναι η κλασική τριάδα της συγγενούς τοξοπλάσμωσης;",
+        options: ["Καταρράκτης, κώφωση, PDA", "Υδροκεφαλία, εγκεφαλικές αποτιτανώσεις, χοριοαμφιβληστροειδίτιδα", "Μικροκεφαλία, φωκομέλια, αμέλια", "Σύνδρομο Dandy-Walker, ρινική υποπλασία, IUGR"],
+        correct: 1,
+        why: "Η τοξοπλάσμωση (T. gondii) προκαλεί υδροκεφαλία λόγω απόφραξης και τις χαρακτηριστικές αποτιτανώσεις."
+    },
+    {
+        q: "Οι 'οδόντες Hutchinson' και η 'εφιππιοειδής μύτη' αποτελούν σημεία:",
+        options: ["Συγγενούς ερυθράς", "Συγγενούς σύφιλης", "Συνδρόμου FAS", "Έκθεσης σε θαλιδομίδη"],
+        correct: 1,
+        why: "Αποτελούν όψιμα σημεία συγγενούς σύφιλης, η οποία προκαλεί επίσης διάμεση κερατίτιδα και κώφωση."
+    },
+    // --- ΦΑΡΜΑΚΑ (ΘΑΛΙΔΟΜΙΔΗ κλπ) ---
+    {
+        q: "Ποιο είναι το στενό παράθυρο έκθεσης στη θαλιδομίδη που προκαλεί φωκομέλια;",
+        options: ["10η-15η μέρα", "24η-36η μέρα", "50η-60η μέρα", "2ο τρίμηνο"],
+        correct: 1,
+        why: "Η θαλιδομίδη δρα κατά την οργανογένεση των άκρων (24η-36η μέρα). Μπορεί να προκαλέσει και ατρησία εντέρου."
+    },
+    {
+        q: "Η Αμινοπτερίνη (ανταγωνιστής φυλλικού) προκαλεί:",
+        options: ["Μόνο υποπλασία δοντιών", "Ανεγκεφαλία, μηνιγγοκήλη και υδροκεφαλία", "Υπερτροφία κλειτορίδας", "Καρκίνο του κόλπου"],
+        correct: 1,
+        why: "Ως ισχυρός κυτταροστατικός παράγοντας, προκαλεί σοβαρές ανωμαλίες του νευρικού σωλήνα και του κρανίου."
+    },
+    {
+        q: "Ποιο φάρμακο προκαλεί το σύνδρομο 'Dandy-Walker' (αγενεσία σκώληκα παρεγκεφαλίδας);",
+        options: ["Warfarin", "Θαλιδομίδη", "Στρεπτομυκίνη", "Ινδομεθακίνη"],
+        correct: 0,
+        why: "Η βαρφαρίνη (αντιπηκτικό) κατά το 2ο και 3ο τρίμηνο επηρεάζει το ΚΝΣ και προκαλεί ρινική υποπλασία."
+    },
+    // --- ΑΝΤΙΕΠΙΛΗΠΤΙΚΑ ---
+    {
+        q: "Η υποπλασία των ονύχων και των άκρων των φαλάγγων είναι χαρακτηριστική του:",
+        options: ["Συνδρόμου εμβρυϊκής υδαντοΐνης", "Συνδρόμου εμβρυϊκού αλκοολισμού", "Συνδρόμου Moebius", "Συνδρόμου Potter"],
+        correct: 0,
+        why: "Η φαινυτοΐνη (υδαντοΐνη) προκαλεί χαρακτηριστική υποπλασία ονύχων και δακτύλων."
+    },
+    {
+        q: "Ποιος είναι ο κύριος κίνδυνος από τη λήψη βαλπροϊκού οξέος;",
+        options: ["Κώφωση", "Ανωμαλίες νευρικού σωλήνα", "Υπερωιοσχιστία", "Αμέλια"],
+        correct: 1,
+        why: "Το βαλπροϊκό οξύ αυξάνει δραματικά τον κίνδυνο για δισχιδή ράχη και άλλες βλάβες σύγκλεισης του νευρικού σωλήνα."
+    },
+    // --- LIFESTYLE & ΠΕΡΙΒΑΛΛΟΝ ---
+    {
+        q: "Το 'λείο φίλτρο' (smooth philtrum) και το λεπτό άνω χείλος είναι διαγνωστικά σημεία για:",
+        options: ["Σύνδρομο FAS (Αλκοόλ)", "Έκθεση σε κοκαΐνη", "Έκθεση σε υδράργυρο", "Σύνδρομο DES"],
+        correct: 0,
+        why: "Το αλκοόλ προκαλεί συγκεκριμένες προσωπικές δυσμορφίες, μικροκεφαλία και διανοητική καθυστέρηση."
+    },
+    {
+        q: "Τι προκαλεί η έκθεση σε οργανικό υδράργυρο (Νόσος Minamata);",
+        options: ["Φωκομέλια", "Συμπτώματα εγκεφαλικής παράλυσης", "Σύνδρομο ουραίας υποστροφής", "Καταρράκτη"],
+        correct: 1,
+        why: "Ο μεθυλυδράργυρος είναι ισχυρά νευροτοξικός και προκαλεί σοβαρές βλάβες στον εγκεφαλικό φλοιό."
+    },
+    {
+        q: "Ποια είναι η στατιστική αύξηση των νευρικών ανωμαλιών στη Fallujah (2013) λόγω ουρανίου;",
+        options: ["2 φορές", "13 φορές", "33 φορές", "100 φορές"],
+        correct: 2,
+        why: "Στη Fallujah καταγράφηκε αύξηση 33 φορές στις νευρικές ανωμαλίες και 13 φορές στις καρδιακές."
+    },
+    {
+        q: "Το Σύνδρομο Ουραίας Υποστροφής (Caudal Regression) συνδέεται με:",
+        options: ["Κάπνισμα", "Σακχαρώδη Διαβήτη Μητέρας", "Υπερθερμία", "Λήψη Λιθίου"],
+        correct: 1,
+        why: "Ο διαβήτης της μητέρας προκαλεί αγενεσία ιερών σπονδύλων και υποπλασία των κάτω άκρων."
+    },
+    {
+        q: "Ποια είναι η επίδραση της Διαιθυλοστιλβεστρόλης (DES) στις κόρες των γυναικών που την έλαβαν;",
+        options: ["Μικροκεφαλία", "Διαυγοκυτταρικό αδενοκαρκίνωμα κόλπου", "Κώφωση", "PDA"],
+        correct: 1,
+        why: "Το DES είναι το κλασικό παράδειγμα 'καθυστερημένης' τερατογένεσης, προκαλώντας καρκίνο στην εφηβεία των κορών."
+    },
+    {
+        q: "Η τετρακυκλίνη κατά την κύηση προκαλεί:",
+        options: ["Ανεγκεφαλία", "Μόνιμη χρώση οδόντων και υποπλασία αδαμαντίνης", "Φωκομέλια", "Πυρηνικό ίκτερο"],
+        correct: 1,
+        why: "Η τετρακυκλίνη δεσμεύεται στο ασβέστιο των δοντιών και των οστών, προκαλώντας μόνιμες αλλοιώσεις."
+    }
+];
+
+function initQuiz() {
+    const container = document.getElementById('quiz-container');
+    examData.forEach((data, index) => {
+        const card = document.createElement('div');
+        card.className = 'question-card';
+        card.innerHTML = `
+            <div class="question-text">${index + 1}. ${data.q}</div>
+            <div class="options-grid" id="options-${index}">
+                ${data.options.map((opt, i) => `
+                    <button class="option-btn" onclick="evaluateAnswer(${index}, ${i}, this)">${opt}</button>
+                `).join('')}
+            </div>
+            <div class="rationale" id="rationale-${index}">
+                <strong>Ακαδημαϊκή Τεκμηρίωση:</strong> ${data.why}
+            </div>
+        `;
+        container.appendChild(card);
+    });
+}
+
+window.evaluateAnswer = function(qIdx, choiceIdx, btn) {
+    const parent = document.getElementById(`options-${qIdx}`);
+    const buttons = parent.querySelectorAll('.option-btn');
+    const rationale = document.getElementById(`rationale-${qIdx}`);
+    const isCorrect = choiceIdx === examData[qIdx].correct;
+
+    // Disable all buttons for this question
+    buttons.forEach(b => b.disabled = true);
+
+    // Visual feedback
+    if (isCorrect) {
+        btn.classList.add('correct');
+    } else {
+        btn.classList.add('wrong');
+        buttons[examData[qIdx].correct].classList.add('correct');
+    }
+
+    // Show rationale
+    rationale.style.display = 'block';
+};
+
+initQuiz();
+</script>
+
+</body>
+</html>
