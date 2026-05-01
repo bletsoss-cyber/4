@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ακαδημαϊκό Quiz: Εμβρυολογία Άκρων</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --correct-color: #27ae60;
+            --wrong-color: #e74c3c;
+            --btn-bg: #ffffff;
+            --btn-hover: #ecf0f1;
+        }
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--primary-color);
+            display: flex;
+            justify-content: center;
+            padding: 2rem;
+            margin: 0;
+        }
+        .quiz-container {
+            background: #fff;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            max-width: 800px;
+            width: 100%;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+        .question-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .option-btn {
+            padding: 1rem 1.5rem;
+            font-size: 1.05rem;
+            text-align: left;
+            background-color: var(--btn-bg);
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .option-btn:hover:not(:disabled) {
+            background-color: var(--btn-hover);
+            border-color: var(--accent-color);
+        }
+        .option-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        .option-btn.correct {
+            background-color: var(--correct-color);
+            color: white;
+            border-color: var(--correct-color);
+        }
+        .option-btn.wrong {
+            background-color: var(--wrong-color);
+            color: white;
+            border-color: var(--wrong-color);
+        }
+        .feedback {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            border-left: 5px solid #bdc3c7;
+            display: none;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        .feedback strong { color: var(--primary-color); }
+        .controls {
+            margin-top: 2rem;
+            text-align: right;
+        }
+        #next-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            display: none;
+        }
+        #next-btn:hover { background-color: #2980b9; }
+        .score-display { font-size: 1.2rem; font-weight: bold; }
+        
+        /* CSS Rule to hide the citations from the reader inside the quiz */
+        .hide-cite { display: none !important; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <div class="header">
+        <h2 id="question-counter">Ερώτηση 1 / 45</h2>
+        <div class="score-display">Σκορ: <span id="score">0</span></div>
+    </div>
+    
+    <div class="question-text" id="question">Φόρτωση ερώτησης...</div>
+    
+    <div class="options" id="options">
+        <!-- Buttons will be generated via JS -->
+    </div>
+
+    <div class="feedback" id="feedback"></div>
+
+    <div class="controls">
+        <button id="next-btn" onclick="nextQuestion()">Επόμενη Ερώτηση</button>
+    </div>
+</div>
+
+<script>
+    const quizData = [
+        {
+            q: "Από ποιο εμβρυϊκό στρώμα προέρχεται το μεσέγχυμα που σχηματίζει τον πυρήνα των καταβολών των άκρων;",
+            options: [
+                "Από το εξώδερμα",
+                "Από το σπλαγχνικό μεσόδερμα",
+                "Από το σωματικό μεσόδερμα",
+                "Από το ενδιάμεσο μεσόδερμα"
+            ],
+            correct: 2,
+            explanation: "Σωστό. Το μεσέγχυμα των άκρων προέρχεται από το σωματικό πέταλο του πλάγιου μεσοδέρματος.<span class='hide-cite'></span>"
+        },
+        {
+            q: "Τι ακριβώς περιγράφει ο όρος 'Καταβολή' στην εμβρυολογία των άκρων;",
+            options: [
+                "Την πλήρη διαφοροποίηση του χόνδρου",
+                "Τον θάνατο των κυττάρων μεταξύ των δακτύλων",
+                "Το αρχέγονο όργανο ή την πρώτη ένδειξη δημιουργίας του",
+                "Την περιοχή αποδόμησης του μεσοδέρματος"
+            ],
+            correct: 2,
+            explanation: "Σωστό. Η καταβολή ορίζεται ως το αρχέγονο όργανο, η έναρξη σχηματισμού.<span class='hide-cite'></span>"
+        },
+        {
+            q: "Χρονικά, πότε κάνουν την εμφάνισή τους οι καταβολές των κάτω άκρων σε σχέση με τα άνω;",
+            options: [
+                "Ταυτόχρονα στο τέλος της 4ης εβδομάδας",
+                "2 ημέρες αργότερα από τις καταβολές των άνω άκρων",
+                "Στις αρχές της 6ης εβδομάδας",
+                "Μία εβδομάδα νωρίτερα από τα άνω άκρα"
+            ],
+            correct: 1,
+            explanation: "Σωστό. Οι καταβολές των άνω άκρων εμφανίζονται στο τέλος της 4ης εβδομάδας και των κάτω άκρων ακολουθούν 2 ημέρες αργότερα.<span class='hide-cite'></span>"
+        },
+        {
+            q: "Τοπογραφικά, απέναντι από ποιους σωμίτες εμφανίζεται η καταβολή του άνω άκρου;",
+            options: [
+                "Κατώτερους αυχενικούς σωμίτες",
+                "Οσφυϊκούς και ιερούς σωμίτες",
+                "Ανώτερους θωρακικούς σωμίτες",
+                "Μόνο απέναντι από τους ιερούς σωμίτες"
+            ],
+            correct: 0,
+            explanation: "Σωστό. Το άνω άκρο εμφανίζεται απέναντι από τους κατώτερους αυχενικούς σωμίτες.<span class='hide-cite'></span>"
+        },
+        {
+            q: "Ποια δομή διατηρεί τα μεσεγχυματικά κύτταρα της Ζώνης Προόδου σε συνεχή πολλαπλασιασμό και αδιαφοροποίητα;",
+            options: [
+                "Η Ζώνη Πολωτικής Δραστηριότητας (ZPA)",
+                "Το Δερμομυοτόμιο",
+                "Η Κορυφαία Εξωδερμική Ακρολοφία (ΚΕΑ)",
+                "Η Νωτιαία Χορδή"
+            ],
+            correct: 2,
+            explanation: "Σωστό. Η ΚΕΑ εκκρίνει παράγοντες FGF που κρατούν τα υποκείμενα κύτταρα αδιαφοροποίητα.<span class='hide-cite'></span>"
+        },
+        {
+            q: "Ποιο είναι το κύριο σηματοδοτικό μόριο που εκκρίνεται από την ΚΕΑ (AER);",
+            options: [
+                "Sonic Hedgehog (SHH)",
+                "Ινοβλαστικοί Αυξητικοί Παράγοντες (FGFs)",
+                "Μυελίνη",
+                "Οστεοκαλσίνη"
+            ],
+            correct: 1,
+            explanation: "Σωστό. Η ΚΕΑ εκκρίνει FGFs.<span class='hide-cite'></span>"
+        },
+        {
+            q: "Τι συμβαίνει στα κύτταρα του μεσεγχύματος όταν απομακρυνθούν από την επίδραση των FGFs της ΚΕΑ;",
+            options: [
+                "Υφίστανται άμεση απόπτωση",
+                "Μετατρέπονται σε εξώδερμα",
+                "Αρχίζουν να σχηματίζουν συμπυκνωμένο μεσέγχυμα (χονδροποίηση)",
+                "Μεταναστεύουν πίσω στον νευρικό σωλήνα"
+            ],
+            correct: 2,
+            explanation: "Σωστό. Καθώς η συγκέντρωση FGF μειώνεται, τα κύτταρα συμπυκνώνονται για διαφοροποίηση σε χόνδρο.<span class='hide-cite'></span>"
+        },
+        {
+            q: "Η Ζώνη Πολωτικής Δραστηριότητας (ZPA) εντοπίζεται:",
+            options: [
+                "Στο κέντρο ακριβώς της ζώνης προόδου",
+                "Στο οπίσθιο όριο της καταβολής κοντά στην ΚΕΑ",
+                "Στο πρόσθιο όριο της καταβολής",
+                "Μέσα στο νωτιαίο σωλήνα"
+            ],
+            correct: 1,
+            explanation: "Σωστό. Η ZPA βρίσκεται στο οπίσθιο όριο του άκρου.<span class='hide-cite'></span>"
+        },
+        {
+            q: "Ο ρόλος της ZPA είναι η ρύθμιση της διαμόρφωσης του άκρου στην:",
+            options: [
+                "Εγγύς-άπω κατεύθυνση",
+                "Ραχιαία-κοιλιακή κατεύθυνση",
+                "Πρόσθια-οπίσθια κατεύθυνση (από αντίχειρα προς μικρό δάκτυλο)",
+                "Αποκλειστικά στην ανάπτυξη των τριχών"
+            ],
+            correct: 2,
+            explanation: "Σωστό. Η ZPA ρυθμίζει τον προσθιο-οπίσθιο άξονα.<span class='hide-cite'></span>"
+        },
+        {
+            q: "Αν απουσιάζει η φυσιολογική διαβάθμιση του SHH από την ZPA, ποια είναι η αναμενόμενη κλινική εικόνα;",
+            options: [
+                "Αμέλια",
+                "Εικόνα καθρέφτη (mirror image)",
+                "Συγγενής ραιβοποδία",
+                "Φυσιολογικό χέρι"
+            ],
+            correct: 1,
+            explanation: "Σωστό. Χωρίς τη σωστή βαθμίδωση SHH, η ταυτότητα των δακτύλων διαταράσσεται (mirror image).<span class='hide-cite'></span>"
+        },
+        {
+            q: "Σε ποια εμβρυϊκή εβδομάδα τα άκρα έχουν μορφή πτερυγίου;",
+            options: [
+                "3η εβδομάδα",
+                "5η εβδομάδα",
+                "7η εβδομάδα",
+                "12η εβδομάδα"
+            ],
+            correct: 1,
+            explanation: "Σωστό. Την 5η εβδομάδα τα άκρα μοιάζουν με πτερύγια.<span class='hide-cite'></span>"
+        },
+        {
+            q: "Ποιο γεγονός χαρακτηρίζει μορφολογικά την 6η εβδομάδα της ανάπτυξης των άκρων;",
+            options: [
+                "Πλήρης διαχωρισμός των δακτύλων",
+                "Εμφάνιση πρωτογενών πυρήνων οστέωσης",
+                "Εμφάνιση των δακτυλικών ακτίνων",
+                "Έναρξη της κυκλοφορίας του αίματος"
+            ],
+            correct: 2,
+            explanation: "Σωστό. Την 6η εβδομάδα εμφανίζονται οι δακτυλικές ακτίνες.<span class='hide-cite'></span>"
+        },
+        {
+            q: "Την 7η εβδομάδα, τα δάκτυλα παρουσιάζουν την εξής μορφολογία:",
+            options: [
+                "Είναι απολύτως διακριτά και ξεχωριστά",
+                "Δεν έχουν σχηματιστεί καθόλου",
+                "Υπάρχουν εντομές μεταξύ των ακτίνων, αλλά παραμένουν συνδεδεμένα με μεμβράνη",
+                "Έχουν αποστεωθεί πλήρως"
+            ],
+            correct: 2,
+            explanation: "Σωστό. Την 7η εβδομάδα παραμένουν συνδεδεμένα με μεμβράνη (webbed).<span class='hide-cite'></span>"
+        },
+        {
+            q: "Πότε ολοκληρώνεται ο διαχωρισμός των δακτύλων;",
+            options: [
+                "4η εβδομάδα",
+                "6η εβδομάδα",
+                "8η εβδομάδα",
+                "12η εβδομάδα"
+            ],
+            correct: 2,
+            explanation: "Σωστό. Την 8η εβδομάδα τα δάκτυλα είναι πλέον διακριτά.<span class='hide-cite'></span>"
+        },
+        {
+            q: "Ποια είναι η προέλευση των μυοβλαστών που θα σχηματίσουν τους μύες των άκρων;",
+            options: [
+                "Από το εξώδερμα",
+                "Από το μυοτόμιο των σωμιτών",
+                "Από τον λεκιθικό ασκό",
+                "Από το ενδιάμεσο μεσόδερμα"
+            ],
+            correct: 1,
+            explanation: "Σωστό. Οι μυοβλάστες μεταναστεύουν από το μυοτόμιο.<span class='hide-cite'></span>"
+        },
+        {
+            q: "Οι εκτείνοντες μύες των άκρων αναπτύσσονται από:",
+            options: [
+                "Την κοιλιακή μυϊκή μάζα",
+                "Τη ραχιαία μυϊκή μάζα",
+                "Τον χόνδρο του άκρου",
+                "Τα κύτταρα της νευρικής ακρολοφίας"
+            ],
+            correct: 1,
+            explanation: "Σωστό. Η ραχιαία μυϊκή μάζα δίνει τους εκτείνοντες μύες.<span class='hide-cite'></span>"
+        },
+        {
+            q: "Σε ποια εβδομάδα εμφανίζονται οι πρώτοι πυρήνες χονδροποίησης;",
+            options: [
+                "3η εβδομάδα",
+                "5η εβδομάδα",
+                "9η εβδομάδα",
+                "12η εβδομάδα"
+            ],
+            correct: 1,
+            explanation: "Σωστό. Την 5η εβδομάδα ξεκινά η συμπύκνωση και η εμφάνιση πυρήνων.<span class='hide-cite'></span>"
+        },
+        {
+            q: "Τη 12η εβδομάδα, έχουν εμφανιστεί πρωτογενείς πυρήνες οστέωσης παντού στο άκρο, ΕΚΤΟΣ από:",
+            options: [
+                "Τις φάλαγγες",
+                "Το βραχιόνιο οστό",
+                "Τα οστά του καρπού",
+                "Το μηριαίο οστό"
+            ],
+            correct: 2,
+            explanation: "Σωστό. Τα οστά του καρπού οστεώνονται πολύ αργότερα.<span class='hide-cite'></span>"
+        },
+        {
+            q: "Πότε εισέρχονται οι πρώτοι κινητικοί νευράξονες στην καταβολή του άκρου;",
+            options: [
+                "3η εβδομάδα",
+                "5η εβδομάδα",
+                "8η εβδομάδα",
+                "10η εβδομάδα"
+            ],
+            correct: 1,
+            explanation: "Σωστό. Οι κινητικοί νευράξονες φτάνουν την 5η εβδομάδα.<span class='hide-cite'></span>"
+        },
+        {
+            q: "Η μυελίνη των περιφερικών νεύρων των άκρων παράγεται από κύτταρα που προέρχονται από:",
+            options: [
+                "Το ενδιάμεσο μεσόδερμα",
+                "Τη νευρική ακρολοφία",
+                "Το δερμοτόμιο",
+                "Τον σκληροτόμο"
+            ],
+            correct: 1,
+            explanation: "Σωστό. Τα κύτταρα Schwann προέρχονται εμβρυολογικά από τη νευρική ακρολοφία.<span class='hide-cite'></span>"
+        },
+        {
+            q: "Από ποιες νευρικές ρίζες εκτείνονται τα δερμοτόμια του κάτω άκρου;",
+            options: [
+                "C3 έως T2",
+                "T3 έως T12",
+                "L2 έως S3/S4",
+                "Μόνο από ιερούς σωμίτες"
+            ],
+            correct: 2,
+            explanation: "Σωστό. Η περιοχή του κάτω άκρου νευρώνεται δερμοτοπικά από τις ρίζες L2 έως S3/S4.<span class='hide-cite'></span>"
+        },
+        {
+            q: "Ποια κλινική οντότητα περιγράφει την πλήρη απουσία ενός άκρου;",
+            options: [
+                "Μερομέλια",
+                "Αμέλια",
+                "Συνδακτυλία",
+                "Βραχυδακτυλία"
+            ],
+            correct: 1,
+            explanation: "Σωστό. Η 'Αμέλια' είναι η πλήρης απουσία άκρου.<span class='hide-cite'></span>"
+        },
+        {
+            q: "Η ανωμαλία 'δίκην χηλής αστακού' περιγράφεται ιατρικά ως:",
+            options: [
+                "Συνδακτυλία",
+                "Συγγενής απουσία κερκίδας",
+                "Σχισμή στην άκρα χείρα / άκρο πόδα",
+                "Πολυδακτυλία"
+            ],
+            correct: 2,
+            explanation: "Σωστό. Είναι η 'Cleft hand/foot' (Σχισμή).<span class='hide-cite'></span>"
+        },
+        {
+            q: "Η πολυδακτυλία οφείλεται κυρίως σε διαταραχή ποιου σηματοδοτικού συστήματος;",
+            options: [
+                "Απουσία μυοτόμων",
+                "Υπερδραστηριότητα/Αλλοίωση της ZPA",
+                "Έλλειψη αγγειογένεσης",
+                "Μη αποκόλληση του αμνίου"
+            ],
+            correct: 1,
+            explanation: "Σωστό. Ανωμαλίες στον αριθμό σχετίζονται στενά με διαταραχές στη λειτουργία της ZPA.<span class='hide-cite'></span>"
+        },
+        {
+            q: "Η αποτυχία της απόπτωσης του ιστού μεταξύ των δακτυλικών ακτίνων οδηγεί σε:",
+            options: [
+                "Αμέλια",
+                "Βραχυδακτυλία",
+                "Συνδακτυλία",
+                "Εξάρθρημα ισχίου"
+            ],
+            correct: 2,
+            explanation: "Σωστό. Αν δεν 'πεθάνει' ο ιστός, τα δάκτυλα παραμένουν ενωμένα (Συνδακτυλία).<span class='hide-cite'></span>"
+        },
+        {
+            q: "Ποια είναι η αρχική αγγειακή δομή από την οποία εκβλαστάνουν οι αρτηρίες του άκρου;",
+            options: [
+                "Πνευμονική αρτηρία",
+                "Αρχική αξονική αρτηρία",
+                "Ομφαλική φλέβα",
+                "Καρωτίδα"
+            ],
+            correct: 1,
+            explanation: "Σωστό. Η αρχική αξονική αρτηρία τροφοδοτεί το άκρο.<span class='hide-cite'></span>"
+        },
+        {
+            q: "Ποιος είναι ο διπλός ρόλος του σωμίτη;",
+            options: [
+                "Σχηματίζει νεύρα και δέρμα",
+                "Διαφοροποιείται σε δερμομυοτόμιο και σκληροτόμιο",
+                "Διαφοροποιείται σε ΚΕΑ και ZPA",
+                "Δημιουργεί τον λεκιθικό ασκό"
+            ],
+            correct: 1,
+            explanation: "Σωστό. Ο σωμίτης δίνει το δερμομυοτόμιο και το σκληροτόμιο.<span class='hide-cite'></span>"
+        },
+        {
+            q: "Από ποιο σημείο μεταναστεύουν τα κύτταρα για να σχηματίσουν το αγγειακό δίκτυο των άκρων;",
+            options: [
+                "Από τον νευρικό σωλήνα",
+                "Είναι μεσεγχυματικής προέλευσης (αγγειογένεση)",
+                "Από το εξώδερμα της ΚΕΑ",
+                "Από το ενδόδερμα"
+            ],
+            correct: 1,
+            explanation: "Σωστό. Τα αγγεία προέρχονται από το μεσέγχυμα.<span class='hide-cite'></span>"
+        },
+        {
+            q: "Ποια από τις παρακάτω παθήσεις αναφέρεται στις σημειώσεις ως ανωμαλία των άκρων;",
+            options: [
+                "Συγγενής καταρράκτης",
+                "Συγγενές εξάρθρημα ισχίου",
+                "Δισχιδής ράχη",
+                "Κυστική ίνωση"
+            ],
+            correct: 1,
+            explanation: "Σωστό. Το συγγενές εξάρθρημα ισχίου αναφέρεται ρητά.<span class='hide-cite'></span>"
+        },
+        {
+            q: "Η κερκίδα, η ωλένη και το βραχιόνιο οστό ξεκινούν ως:",
+            options: [
+                "Οστίτης ιστός κατευθείαν από το εξώδερμα",
+                "Πυκνό μεσέγχυμα που σχηματίζει αρχέγονα προπλάσματα",
+                "Μυϊκές ίνες",
+                "Συλλογές λιπώδους ιστού"
+            ],
+            correct: 1,
+            explanation: "Σωστό. Αναπτύσσονται μέσω ενδοχόνδριας οστέωσης: πρώτα πυκνό μεσέγχυμα.<span class='hide-cite'></span>"
+        },
+        {
+            q: "Η λειτουργία της ZPA εξαρτάται άμεσα από την απόστασή της από:",
+            options: [
+                "Την ΚΕΑ (AER)",
+                "Τον νευρικό σωλήνα",
+                "Τους οσφυϊκούς σωμίτες",
+                "Τον ομφάλιο λώρο"
+            ],
+            correct: 0,
+            explanation: "Σωστό. Η ZPA βρίσκεται κοντά στην ΚΕΑ.<span class='hide-cite'></span>"
+        },
+        {
+            q: "Ποιο είναι το αποτέλεσμα της αφαίρεσης της ΚΕΑ (AER) κατά την εμβρυϊκή ανάπτυξη;",
+            options: [
+                "Ανάπτυξη διπλάσιου αριθμού δακτύλων",
+                "Διακοπή της επιμήκυνσης του άκρου",
+                "Μετατροπή του χεριού σε πόδι",
+                "Δεν έχει κανένα αποτέλεσμα"
+            ],
+            correct: 1,
+            explanation: "Σωστό. Αφού η ΚΕΑ ελέγχει τον πολλαπλασιασμό, η απουσία της σταματά την ανάπτυξη.<span class='hide-cite'></span>"
+        },
+        {
+            q: "Τι σημαίνει ο όρος 'δερμοτόμιο' στην κλινική εμβρυολογία των άκρων;",
+            options: [
+                "Η περιοχή του οστού που νευρώνεται",
+                "Η περιοχή του δέρματος που νευρώνεται από μια νωτιαία ρίζα",
+                "Το σημείο όπου ενώνονται οι τένοντες",
+                "Η εξωτερική στοιβάδα της ΚΕΑ"
+            ],
+            correct: 1,
+            explanation: "Σωστό. Το δερμοτόμιο είναι η δερματική περιοχή που ελέγχεται από ένα μεμονωμένο νωτιαίο νεύρο.<span class='hide-cite'></span>"
+        },
+        {
+            q: "Βάσει της ακαδημαϊκής βιβλιογραφίας, το Ενδιάμεσο Μεσόδερμα:",
+            options: [
+                "Δεν σχετίζεται άμεσα με τη δημιουργία των άκρων",
+                "Σχηματίζει την ΚΕΑ",
+                "Παράγει τους αυξητικούς παράγοντες FGF",
+                "Διαφοροποιείται στους μύες"
+            ],
+            correct: 0,
+            explanation: "Σωστό. Το ενδιάμεσο μεσόδερμα δίνει το ουροποιογεννητικό σύστημα. Τα άκρα προέρχονται από το πλάγιο και παραξονικό.<span class='hide-cite'></span>"
+        },
+        {
+            q: "Οι εντομές (notches) μεταξύ των δακτυλικών ακτίνων γίνονται εμφανείς την:",
+            options: [
+                "5η εβδομάδα",
+                "6η εβδομάδα",
+                "7η εβδομάδα",
+                "9η εβδομάδα"
+            ],
+            correct: 2,
+            explanation: "Σωστό. Την 7η εβδομάδα παρατηρούνται οι εντομές.<span class='hide-cite'></span>"
+        },
+        {
+            q: "Ένα βρέφος γεννιέται με 6 δάκτυλα. Ποιο σηματοδοτικό κέντρο υπέστη δυσλειτουργία;",
+            options: [
+                "Το Δερμοτόμιο C6",
+                "Η Ζώνη Πολωτικής Δραστηριότητας (ZPA)",
+                "Ο λεκιθικός ασκός",
+                "Το σπλαγχνικό μεσόδερμα"
+            ],
+            correct: 1,
+            explanation: "Σωστό. Η ZPA και το SHH ρυθμίζουν τον αριθμό των δακτύλων.<span class='hide-cite'></span>"
+        },
+        {
+            q: "Εάν αποτραπεί η απόπτωση την 8η εβδομάδα, η κλινική εικόνα θα είναι:",
+            options: [
+                "Αμέλια",
+                "Βραχυδακτυλία",
+                "Συνδακτυλία",
+                "Μερομέλια"
+            ],
+            correct: 2,
+            explanation: "Σωστό. Η απουσία απόπτωσης προκαλεί συνδακτυλία.<span class='hide-cite'></span>"
+        },
+        {
+            q: "Ποια από τις παρακάτω αρτηρίες αποτελεί κλάδο της αρχικής αξονικής αρτηρίας στο κάτω άκρο;",
+            options: [
+                "Κοινή καρωτίδα",
+                "Εν τω βάθει μηριαία και κνημιαίες",
+                "Βραχιόνιος",
+                "Μεσεντέρια"
+            ],
+            correct: 1,
+            explanation: "Σωστό. Η εν τω βάθει μηριαία και οι κνημιαίες είναι κλάδοι της αξονικής αρτηρίας.<span class='hide-cite'></span>"
+        },
+        {
+            q: "Η διαφοροποίηση του μεσεγχύματος σε αγγεία συμβαίνει:",
+            options: [
+                "Στα κύτταρα σε άμεση επαφή με την ΚΕΑ",
+                "Στο μεσέγχυμα πιο μακριά από την ΚΕΑ",
+                "Πριν την 3η εβδομάδα",
+                "Μετά τη γέννηση"
+            ],
+            correct: 1,
+            explanation: "Σωστό. Αυτά που απομακρύνονται από την ΚΕΑ διαφοροποιούνται σε αγγεία και χόνδρο.<span class='hide-cite'></span>"
+        },
+        {
+            q: "Πώς ονομάζεται το τμήμα του εξωδέρματος που κρατά αδιαφοροποίητα τα κύτταρα;",
+            options: [
+                "Νευρική πλάκα",
+                "Ενδιάμεσο εξώδερμα",
+                "Κορυφαία εξωδερμική ακρολοφία (ΚΕΑ)",
+                "Σκληροτόμιο"
+            ],
+            correct: 2,
+            explanation: "Σωστό. Η ΚΕΑ είναι η πάχυνση του εξωδέρματος με αυτόν τον ρόλο.<span class='hide-cite'></span>"
+        },
+        {
+            q: "Το 'έμβρυο 4.5 mm' αντιστοιχεί κατά προσέγγιση σε ποιο αναπτυξιακό στάδιο;",
+            options: [
+                "Τέλος 4ης - Αρχές 5ης εβδομάδας",
+                "2η εβδομάδα",
+                "10η εβδομάδα",
+                "3ο τρίμηνο"
+            ],
+            correct: 0,
+            explanation: "Σωστό. Οι καταβολές φαίνονται καθαρά στο τέλος της 4ης εβδομάδας.<span class='hide-cite'></span>"
+        },
+        {
+            q: "Η δερματική νεύρωση C8-T1 εντοπίζεται φυσιολογικά:",
+            options: [
+                "Στο κάτω άκρο (πέλμα)",
+                "Στο άνω άκρο",
+                "Στο στήθος",
+                "Στο πρόσωπο"
+            ],
+            correct: 1,
+            explanation: "Σωστό. Το C8-T1 βρίσκεται στο άνω άκρο.<span class='hide-cite'></span>"
+        },
+        {
+            q: "Η συγγενής έλλειψη κερκίδας συνοδεύεται συνήθως από ανατομική παραμόρφωση προς:",
+            options: [
+                "Την πλευρά της ωλένης",
+                "Την πλευρά της κερκίδας",
+                "Τα πίσω",
+                "Καμία παραμόρφωση"
+            ],
+            correct: 1,
+            explanation: "Σωστό. Το χέρι αποκλίνει κερκιδικά λόγω της απουσίας στηρίγματος.<span class='hide-cite'></span>"
+        },
+        {
+            q: "Τι είναι το ενδοεμβρυϊκό κοίλωμα;",
+            options: [
+                "Ο χώρος μέσα στον νευρικό σωλήνα",
+                "Ο κοιλωματικός χώρος που διχάζει το πλάγιο μεσόδερμα",
+                "Η κοιλότητα της καρδιάς",
+                "Ο χώρος ανάμεσα στα δάκτυλα"
+            ],
+            correct: 1,
+            explanation: "Σωστό. Χωρίζει το πλάγιο μεσόδερμα σε σωματικό και σπλαγχνικό.<span class='hide-cite'></span>"
+        },
+        {
+            q: "Η διαφοροποίηση των σωμιτών δημιουργεί το Δερμομυοτόμιο, το οποίο θα παράσχει:",
+            options: [
+                "Οστά και συνδέσμους",
+                "Αγγεία και αρτηρίες",
+                "Το χόριο του δέρματος και τους σκελετικούς μύες",
+                "Τη νωτιαία χορδή"
+            ],
+            correct: 2,
+            explanation: "Σωστό. Το δερμομυοτόμιο δίνει το χόριο (δέρμα) και το μυοτόμιο (μύες).<span class='hide-cite'></span>"
+        }
+    ];
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    const questionEl = document.getElementById('question');
+    const optionsEl = document.getElementById('options');
+    const feedbackEl = document.getElementById('feedback');
+    const nextBtn = document.getElementById('next-btn');
+    const counterEl = document.getElementById('question-counter');
+    const scoreEl = document.getElementById('score');
+
+    function loadQuestion() {
+        const currentQuizData = quizData[currentQuestionIndex];
+        
+        counterEl.innerText = `Ερώτηση ${currentQuestionIndex + 1} / ${quizData.length}`;
+        questionEl.innerText = currentQuizData.q;
+        optionsEl.innerHTML = '';
+        feedbackEl.style.display = 'none';
+        nextBtn.style.display = 'none';
+
+        currentQuizData.options.forEach((option, index) => {
+            const button = document.createElement('button');
+            button.innerText = option;
+            button.classList.add('option-btn');
+            button.onclick = () => selectAnswer(index, button);
+            optionsEl.appendChild(button);
+        });
+    }
+
+    function selectAnswer(selectedIndex, selectedBtn) {
+        const currentQuizData = quizData[currentQuestionIndex];
+        const buttons = optionsEl.querySelectorAll('.option-btn');
+        
+        // Disable all buttons
+        buttons.forEach(btn => btn.disabled = true);
+
+        if (selectedIndex === currentQuizData.correct) {
+            selectedBtn.classList.add('correct');
+            score++;
+            scoreEl.innerText = score;
+        } else {
+            selectedBtn.classList.add('wrong');
+            buttons[currentQuizData.correct].classList.add('correct');
+        }
+
+        feedbackEl.innerHTML = `<strong>Επεξήγηση Καθηγητή:</strong><br>${currentQuizData.explanation}`;
+        feedbackEl.style.display = 'block';
+        nextBtn.style.display = 'inline-block';
+        
+        if (currentQuestionIndex === quizData.length - 1) {
+            nextBtn.innerText = 'Ολοκλήρωση Αξιολόγησης';
+        }
+    }
+
+    function nextQuestion() {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < quizData.length) {
+            loadQuestion();
+        } else {
+            quizContainer = document.querySelector('.quiz-container');
+            let percentage = Math.round((score / quizData.length) * 100);
+            quizContainer.innerHTML = `
+                <div style="text-align: center; padding: 2rem;">
+                    <h2>Η Αξιολόγηση Ολοκληρώθηκε</h2>
+                    <p style="font-size: 1.5rem; margin: 2rem 0;">Το τελικό σας σκορ είναι: <strong>${score} / ${quizData.length}</strong> (${percentage}%)</p>
+                    <p style="font-size: 1.1rem; color: #7f8c8d;">Ως Καθηγητής, σας προτρέπω να μελετήσετε ξανά τις σημειώσεις στα σημεία όπου υπήρξαν αστοχίες. Η εμβρυολογία απαιτεί ακρίβεια.</p>
+                    <button onclick="location.reload()" style="margin-top: 2rem; padding: 1rem 2rem; background: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer;">Επανάληψη Αξιολόγησης</button>
+                </div>
+            `;
+        }
+    }
+
+    // Initialize the quiz
+    loadQuestion();
+</script>
+
+</body>
+</html>
