@@ -25,19 +25,12 @@
             color: var(--text-main);
             line-height: 1.6;
             margin: 0;
-            padding: 2rem;
-            display: flex;
-            justify-content: center;
+            padding: 2rem 1rem;
         }
 
         .quiz-container {
-            background: var(--card-bg);
-            max-width: 800px;
-            width: 100%;
-            padding: 3rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            border: 1px solid #e2e8f0;
+            max-width: 900px;
+            margin: 0 auto;
         }
 
         h1 {
@@ -46,24 +39,33 @@
             text-align: center;
             border-bottom: 2px solid var(--primary);
             padding-bottom: 1rem;
-            margin-bottom: 2rem;
-            font-size: 1.8rem;
+            margin-bottom: 3rem;
+            font-size: 2rem;
         }
 
-        #progress {
+        .question-card {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+            margin-bottom: 2.5rem;
+        }
+
+        .question-header {
             font-family: 'Roboto', sans-serif;
             font-weight: bold;
             color: #718096;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
             font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
         .question-text {
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             font-weight: bold;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             color: var(--primary);
         }
 
@@ -97,21 +99,23 @@
         }
 
         .option-btn.correct {
-            background-color: var(--correct-bg);
-            border-color: var(--correct-border);
+            background-color: var(--correct-bg) !important;
+            border-color: var(--correct-border) !important;
             font-weight: bold;
-            color: #22543d;
+            color: #22543d !important;
+            opacity: 1;
         }
 
         .option-btn.wrong {
-            background-color: var(--wrong-bg);
-            border-color: var(--wrong-border);
-            color: #742a2a;
+            background-color: var(--wrong-bg) !important;
+            border-color: var(--wrong-border) !important;
+            color: #742a2a !important;
+            opacity: 1;
         }
 
         .feedback-box {
             display: none;
-            margin-top: 2rem;
+            margin-top: 1.5rem;
             padding: 1.5rem;
             background-color: var(--feedback-bg);
             border-left: 5px solid var(--feedback-border);
@@ -124,6 +128,7 @@
             margin-top: 0;
             color: var(--feedback-border);
             font-size: 1.1rem;
+            margin-bottom: 0.5rem;
         }
 
         .feedback-box p {
@@ -132,13 +137,14 @@
             text-align: justify;
         }
 
-        .next-btn {
-            display: none;
-            margin-top: 2rem;
+        .submit-btn {
+            display: block;
+            margin: 3rem auto;
             width: 100%;
-            padding: 1rem;
+            max-width: 400px;
+            padding: 1.2rem;
             font-family: 'Roboto', sans-serif;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: bold;
             background-color: var(--primary);
             color: white;
@@ -146,25 +152,33 @@
             border-radius: 6px;
             cursor: pointer;
             transition: background 0.2s;
-        }
-
-        .next-btn:hover {
-            background-color: #2c5282;
-        }
-
-        #results {
-            display: none;
             text-align: center;
         }
 
-        #results h2 {
+        .submit-btn:hover {
+            background-color: #2c5282;
+        }
+
+        #results-container {
+            display: none;
+            text-align: center;
+            background: var(--card-bg);
+            padding: 3rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 2px solid var(--primary);
+            margin-top: 2rem;
+        }
+
+        #results-container h2 {
             font-family: 'Roboto', sans-serif;
             color: var(--primary);
             font-size: 2rem;
+            margin-top: 0;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(5px); }
             to { opacity: 1; transform: translateY(0); }
         }
     </style>
@@ -172,118 +186,24 @@
 <body>
 
 <div class="quiz-container">
-    <div id="quiz-screen">
-        <h1>Αξιολόγηση Ακαδημαϊκής Κατανόησης</h1>
-        <div id="progress">Ερώτηση 1 / 65</div>
-        <div id="question" class="question-text"></div>
-        <div id="options" class="options-grid"></div>
-        <div id="feedback" class="feedback-box">
-            <h3>Ακαδημαϊκή Ανατροφοδότηση</h3>
-            <p id="feedback-text"></p>
-        </div>
-        <button id="next-btn" class="next-btn">Επόμενη Ερώτηση</button>
+    <h1>Αξιολόγηση: Αντιμικροβιακά Σκευάσματα στο Στόμα</h1>
+    
+    <div id="questions-list">
+        <!-- Οι ερωτήσεις θα γίνουν render εδώ μέσω JavaScript -->
     </div>
 
-    <div id="results">
-        <h2>Ολοκλήρωση Αξιολόγησης</h2>
+    <button id="submit-btn" class="submit-btn" onclick="showResults()">Υποβολή & Εμφάνιση Σκορ</button>
+
+    <div id="results-container">
+        <h2>Τελικά Αποτελέσματα</h2>
         <p id="score-text" style="font-size: 1.5rem; margin-bottom: 2rem;"></p>
-        <button class="next-btn" style="display: block;" onclick="location.reload()">Επανεκκίνηση</button>
+        <button class="submit-btn" style="margin: 0 auto;" onclick="location.reload()">Επανεκκίνηση Κουίζ</button>
     </div>
 </div>
 
 <script>
-// Q: Question, O: Options, A: Correct Index, F: Academic Feedback
+// Το καθαρό JSON Array με όλες τις ερωτήσεις
 const quizData = [
-    {
-        q: "Ποια από τις παρακάτω ουσίες στοχεύει αποκλειστικά στη μείωση της μικροβιακής προσκόλλησης και όχι στην αναστολή του πολλαπλασιασμού;",
-        o: ["Τεταρτοταγείς Αμμωνιακές Ενώσεις (QAC)", "Πολυβινυλοφωσφονικό οξύ (PVPA)", "Δις-διγουανίδες", "Υπεροξείδια"],
-        a: 1,
-        f: "Σύμφωνα με τη θεωρία, το PVPA (Πολυβινυλοφωσφονικό οξύ) και οι αμινοαλκοόλες ταξινομούνται ρητά στους παράγοντες που μειώνουν την αρχική προσκόλληση. Τα QACs και οι δις-διγουανίδες αναστέλλουν τον πολλαπλασιασμό, ενώ τα υπεροξείδια δρουν και στην αποδόμηση του βιοϋμένα."
-    },
-    {
-        q: "Ποια είναι η θεμελιώδης φαρμακοκινητική προϋπόθεση για την κλινική αποτελεσματικότητα ενός αντιμικροβιακού διαλύματος στο στόμα;",
-        o: ["Η άμεση ικανότητα λύσης της κυτταρικής μεμβράνης in vitro", "Η ικανότητα μη αναστρέψιμης ειδικής δέσμευσης στους οδοντικούς ιστούς", "Ο βαθμός αναστρέψιμης μη ειδικής δέσμευσης που δημιουργεί δεξαμενές ιστών", "Ο ταχύτατος μεταβολισμός της ελεύθερης ουσίας από τα ένζυμα του σάλιου"],
-        a: 2,
-        f: "Η κλινική αποτελεσματικότητα εξαρτάται απόλυτα από την 'παραμένουσα δράση' (substantivity). Αυτή καθορίζεται από τον βαθμό της ΑΝΑΣΤΡΕΨΙΜΗΣ ΜΗ ΕΙΔΙΚΗΣ δέσμευσης. Αν η δέσμευση ήταν μη αναστρέψιμη, η ουσία δεν θα απελευθερωνόταν στο σάλιο για να δράσει."
-    },
-    {
-        q: "Τι ισχύει αυστηρά για τη σχέση χημικής δομής και δραστικότητας στις δις-διγουανίδες;",
-        o: ["Η δραστικότητα αυξάνεται όσο μειώνεται η λιποφιλία του μορίου.", "Απαιτείται μέγιστος αριθμός 4 ατόμων άνθρακα στη γέφυρα μεθυλενίων.", "Η αντικατάσταση της χλωροφαινυλομάδας με αλκυλομάδα μειώνει την παραμένουσα δράση.", "Η δραστικότητα αυξάνεται με την αύξηση της γέφυρας μεθυλενίων, με ελάχιστο απαιτούμενο τα 6 άτομα."],
-        a: 3,
-        f: "Όσο πιο λιπόφιλο το μόριο, τόσο υψηλότερη η δραστικότητα. Η γέφυρα μεθυλενίων απαιτεί τουλάχιστον 6 άτομα άνθρακα (η χλωρεξιδίνη έχει 6, η εξιδεκαδίνη έχει 10). Η αντικατάσταση της χλωροφαινυλομάδας ΔΕΝ μειώνει τη διάρκεια δράσης."
-    },
-    {
-        q: "Βάσει της ακαδημαϊκής ταξινόμησης δομικών χαρακτηριστικών (Carbon R & n), ποια δις-διγουανίδη διαθέτει τον υψηλότερο αριθμό ατόμων άνθρακα στη γέφυρα μεθυλενίων (n=10);",
-        o: ["Alexidine (Αλεξιδίνη)", "Hexidecidine (Εξιδεκαδίνη)", "Isononabutidine (Ισονοναβουτιδίνη)", "Heptoctidine (Επτοκτιδίνη)"],
-        a: 1,
-        f: "Βάσει του πίνακα της παρουσίασης, η Hexidecidine διαθέτει Carbon R=6 και Carbon n=10 (τη μεγαλύτερη γέφυρα). Η Alexidine έχει 8/6, η Isononabutidine 9/4 και η Heptoctidine 7/8."
-    },
-    {
-        q: "Ποια είναι η φαρμακολογική οδός αποβολής της Χλωρεξιδίνης μετά την ελάχιστη απορρόφησή της;",
-        o: ["Αποβάλλεται σχεδόν αποκλειστικά από τους νεφρούς.", "Μεταβολίζεται πλήρως από το ήπαρ.", "Αποβάλλεται κυρίως με τα κόπρανα.", "Αποδομείται ενζυμικά στο σάλιο."],
-        a: 2,
-        f: "Η Χλωρεξιδίνη έχει χαμηλή τοξικότητα (p.o. LD50: 1800 mg/kg), απορροφάται ελάχιστα από τον γαστρεντερικό σωλήνα και η αποβολή της γίνεται κυρίως με τα κόπρανα."
-    },
-    {
-        q: "Παρατηρώντας τα κλινικά διαγράμματα για την εναπόθεση χρωστικών (μέρα 18 vs 25) κατά τη χρήση χλωρεξιδίνης, ποιο είναι το κρίσιμο συμπέρασμα;",
-        o: ["Η χλωρεξιδίνη δεν προκαλεί εναπόθεση χρωστικών εάν χρησιμοποιηθεί για κάτω από 25 ημέρες.", "Η αρχική παρουσία ΟΜΠ (Οδοντικής Μικροβιακής Πλάκας) υπερδιπλασιάζει την εναπόθεση χρωστικών και τρυγίας την 25η ημέρα.", "Η απουσία ΟΜΠ εξαλείφει πλήρως το φαινόμενο της χρώσης.", "Η εναπόθεση τρυγίας εξαρτάται αποκλειστικά από την ηλικία του ασθενούς."],
-        a: 1,
-        f: "Το ραβδόγραμμα αποδεικνύει σαφώς πως ο δείκτης χρωστικών και οι επιφάνειες με τρυγία εκτινάσσονται (π.χ. από ~11 σε ~34 επιφάνειες τρυγίας την 25η μέρα) όταν η θεραπεία ξεκινά ΜΕ προϋπάρχουσα πλάκα. Απαιτείται μηχανική αφαίρεση της ΟΜΠ ΠΡΙΝ την έναρξη χρήσης."
-    },
-    {
-        q: "Σε ποιες περιπτώσεις ενδείκνυται η χρήση Γέλης (Gel) Χλωρεξιδίνης σε συγκεντρώσεις ≥0,2%;",
-        o: ["Ως αποκλειστική μονοθεραπεία για την αφαίρεση ώριμου βιοϋμένα.", "Ως υποκατάστατο της οδοντόκρεμας σε καθημερινή βάση για πάνω από 6 μήνες.", "Σε συνδυασμό με μηχανική απομάκρυνση των βιοϋμένων και στην ενδοδοντική θεραπεία.", "Μόνο σε ασθενείς με ανοσοανεπάρκεια, απουσία μηχανικού καθαρισμού."],
-        a: 2,
-        f: "Η Γέλη Χλωρεξιδίνης (≥0,2%) ενδείκνυται ρητά σε συνδυασμό με μηχανική απομάκρυνση (αφού διεισδύει δύσκολα στον ώριμο βιοϋμένα) και σε ενδοδοντικές θεραπείες."
-    },
-    {
-        q: "Ποιο είναι το κύριο δομικό και τοξικολογικό πλεονέκτημα της Αλεξιδίνης (Alexidine) έναντι της Χλωρεξιδίνης;",
-        o: ["Φέρει ευθείες αλκυλομάδες που εμποδίζουν τη δέσμευση.", "Απαιτεί μικρότερες ελάχιστες μικροβιοκτόνες συγκεντρώσεις για όλους τους στρεπτόκοκκους.", "Δεν δημιουργεί το τοξικό παράγωγο παραχλωροανιλίνη παρουσία υποχλωριώδους.", "Μεταβολίζεται άμεσα στο σάλιο αποφεύγοντας τον γαστρεντερικό σωλήνα."],
-        a: 2,
-        f: "Η Αλεξιδίνη έχει ΔΙΑΚΛΑΔΙΣΜΕΝΕΣ αλκυλομάδες (που αυξάνουν τη δραστικότητα). Ενώ γενικά απαιτεί υψηλότερες συγκεντρώσεις (π.χ. 4.4mM vs 1.6mM για τον S. mutans), το τεράστιο πλεονέκτημά της είναι η μη παραγωγή παραχλωροανιλίνης (τοξικό παράγωγο) σε συνδυασμό με υποχλωριώδες (NaOCl)."
-    },
-    {
-        q: "Με βάση τις τιμές in vitro 5 λεπτών, έναντι ποιου μικροοργανισμού η Οκτενιδίνη (Octenidine) και η Χλωρεξιδίνη παρουσιάζουν τη μικρότερη απόκλιση στις δραστικές τους συγκεντρώσεις;",
-        o: ["Staphylococcus aureus", "Escherichia coli", "Pseudomonas aeruginosa", "Candida albicans"],
-        a: 3,
-        f: "Βάσει του πίνακα σύγκρισης: Για τον S. aureus, P. mirabilis & P. aeruginosa η διαφορά είναι 0.025% vs >0.2% (τεράστια). Για την C. albicans η διαφορά είναι 0.01% (Οκτενιδίνη) έναντι 0.025% (Χλωρεξιδίνη), αποτελώντας τη μικρότερη απόκλιση μεταξύ των δύο, αν και η Οκτενιδίνη παραμένει ισχυρότερη."
-    },
-    {
-        q: "Τι αποδεικνύουν τα Box Plots (MGI και BOP) για τη χρήση Χλωριούχου Κετυλοπυριδινίου (CPC) στις 21 ημέρες πειραματικής ουλίτιδας;",
-        o: ["Το CPC καταστέλλει πλήρως τη φλεγμονή ρίχνοντας τον δείκτη MGI στο μηδέν.", "Η ομάδα ελέγχου (Control) διατηρεί σταθερά επίπεδα αιμορραγίας, ενώ η ομάδα CPC παρουσιάζει απότομη αύξηση.", "Το CPC προκαλεί απλώς μια πιο αργή εξέλιξη της φλεγμονής (διάμεσος BOP ~13 έναντι ~26 του Control).", "Το CPC δρα ταχύτερα από τη χλωρεξιδίνη στην απομάκρυνση προϋπάρχουσας πλάκας."],
-        a: 2,
-        f: "Τα διαγράμματα δείχνουν ότι το CPC ΔΕΝ σταματά εντελώς τη φλεγμονή, αλλά προκαλεί 'πιο αργή εξέλιξη της φλεγμονής'. Στις 21 ημέρες ο δείκτης BOP κορυφώνεται στο Control (διάμεσος ~26), ενώ στο CPC παραμένει στο μισό (~13)."
-    },
-    {
-        q: "Ποια είναι η επίδραση της χρήσης CPC στην ποικιλομορφία του μικροβιώματος (Genus richness) την 21η ημέρα;",
-        o: ["Αυξάνει δραματικά τον αριθμό των μικροβιακών ειδών δημιουργώντας 'υπερ-πλάκα'.", "Δεν επηρεάζει καθόλου τη χλωρίδα σε σύγκριση με την Baseline (ημέρα 0).", "Οδηγεί σε ωρίμανση με μικρότερη ποικιλία μικροβιακών ειδών, μειώνοντας τα περιοπαθογόνα.", "Επιτρέπει την επιλεκτική ανάπτυξη αποκλειστικά Gram-αρνητικών βακτηρίων."],
-        a: 2,
-        f: "Το Box Plot για το 'Genus richness' δείχνει ξεκάθαρα ότι, στις 21 ημέρες, η ομάδα CPC εμφανίζει στατιστικά σημαντική μείωση (p<0.01) στην ποικιλία μικροβιακών ειδών, γεγονός που συνδέεται ρητά με μειωμένη παρουσία περιοπαθογόνων."
-    },
-    {
-        q: "Ποιος είναι ο ακριβής μηχανισμός δράσης των Αιθέριων Ελαίων (Listerine) για τη μείωση της ουλίτιδας, δεδομένου ότι η παραμένουσα δράση τους είναι μικρή;",
-        o: ["Δρουν προκαλώντας ταχεία λύση του ώριμου βιοϋμένα μέσω υπεροξειδίων.", "Καταστέλλουν την παραγωγή προσταγλανδινών, εμποδίζοντας τις φλεγμονώδεις αντιδράσεις στους ιστούς του περιοδοντίου.", "Μπλοκάρουν τους υποδοχείς PVPA στα ούλα.", "Δημιουργούν ισχυρές, μη αναστρέψιμες δεξαμενές ιστών λόγω της παρουσίας μενθόλης."],
-        a: 1,
-        f: "Τα αιθέρια έλαια έχουν 'έμμεση επίδραση στο βιοϋμένα'. Αναστέλλουν τις φλεγμονώδεις αντιδράσεις μπλοκάροντας την παραγωγή προσταγλανδινών στο υγρό περιβάλλον του περιοδοντίου, παρόλο που τα μικρόβια μπορεί να επιβιώνουν. Δεν φτιάχνουν ισχυρές δεξαμενές ιστών (μικρή παραμένουσα δράση)."
-    },
-    {
-        q: "Σύμφωνα με την ταξινόμηση του FDA (2002) για τα σκευάσματα ΧΩΡΙΣ ιατρική συνταγή, ποιο από τα παρακάτω θεωρείται 'ασφαλές και αποτελεσματικό';",
-        o: ["Triclosan σε συγκέντρωση 0.3%", "Διάλυμα Χλωρεξιδίνης 0.12%", "Χλωριούχο Ακετυλοπυριδίνιο (CPC) και Αιθέρια Έλαια", "Υπεροξείδιο του Υδρογόνου και Σανγκουιναρίνη"],
-        a: 2,
-        f: "Σύμφωνα με τον FDA (2002), ως OTC (over-the-counter) ασφαλή και αποτελεσματικά κατατάσσονται ρητά το CPC, ο Φθοριούχος κασσίτερος και τα Αιθέρια Έλαια. Η χλωρεξιδίνη στις ΗΠΑ απαιτεί συνταγή, ενώ ουσίες όπως η σανγκουιναρίνη στερούνται επαρκούς τεκμηρίωσης."
-    },
-    {
-        q: "Τι ποσοστό συμμετοχής στην αποτελεσματικότητα έχει η Αιθανόλη στο Listerine®;",
-        o: ["Λειτουργεί μόνο ως αδρανής διαλύτης.", "Αποτελεί περίπου το 25% και προσδίδει αθροιστική αντιμικροβιακή δράση.", "Αποτελεί το 50% και αποδομεί άμεσα την τρυγία.", "Προστίθεται μόνο για τη σταθεροποίηση της θυμόλης χωρίς δική της φαρμακολογική δράση."],
-        a: 1,
-        f: "Σύμφωνα με τις σημειώσεις, η παρουσία αιθανόλης στο Listerine® ανέρχεται στο ≈25% και ΔΕΝ είναι αδρανής, αλλά προσδίδει αθροιστική (synergistic) αντιμικροβιακή δράση στο μίγμα των 4 ελαίων."
-    },
-    {
-        q: "Ποια είναι η ακριβής δράση των φαινολών Triclosan και Triclocarban στα βακτήρια;",
-        o: ["Μπλοκάρουν τη σύνθεση λιπαρών οξέων, εμποδίζοντας τη δημιουργία φωσφολιπιδίων και λιποπρωτεϊνών.", "Προκαλούν μετουσίωση του βακτηριακού DNA.", "Ενεργοποιούν ένζυμα αποδόμησης του ίδιου τους του βιοϋμένα.", "Αναστέλλουν την παραγωγή προσταγλανδινών εντός του βακτηρίου."],
-        a: 0,
-        f: "Ο μοριακός μηχανισμός των φαινολών (Triclosan/Triclocarban) είναι η καταστολή σύνθεσης λιπαρών οξέων, γεγονός που καταρρέει την αλυσίδα παραγωγής φωσφολιπιδίων και λιποπρωτεϊνών (απαραίτητων για τις μεμβράνες τους). Προσταγλανδίνες (απάντηση Δ) αναστέλλονται στον άνθρωπο από τα αιθέρια έλαια, όχι από το triclosan στα βακτήρια."
-    },
     {
         q: "Ποια από τις παρακάτω ουσίες στοχεύει αποκλειστικά στη μείωση της μικροβιακής προσκόλλησης και όχι στην αναστολή του πολλαπλασιασμού;",
         o: ["Τεταρτοταγείς Αμμωνιακές Ενώσεις (QAC)", "Πολυβινυλοφωσφονικό οξύ (PVPA)", "Δις-διγουανίδες", "Υπεροξείδια"],
@@ -374,7 +294,6 @@ const quizData = [
         a: 0,
         f: "Ο μοριακός μηχανισμός των φαινολών (Triclosan/Triclocarban) είναι η καταστολή σύνθεσης λιπαρών οξέων, γεγονός που καταρρέει την αλυσίδα παραγωγής φωσφολιπιδίων και λιποπρωτεϊνών (απαραίτητων για τις μεμβράνες τους). Προσταγλανδίνες αναστέλλονται στον άνθρωπο από τα αιθέρια έλαια."
     },
-    // --- ΕΝΑΡΞΗ ΝΕΩΝ ΕΡΩΤΗΣΕΩΝ (16-65) ---
     {
         q: "Ποιες είναι οι κύριες οδοί απομάκρυνσης της ελεύθερης αντιμικροβιακής ουσίας από τη στοματική κοιλότητα, οι οποίες επηρεάζουν τον ρυθμό κάθαρσης;",
         o: ["Απορρόφηση από τα δόντια, σύνδεση με τασιενεργά και εξάτμιση.", "Κατάποση/έκπτυση, μεταβολισμός (κύτταρα/ένζυμα) και απορρόφηση (βλεννογόνος).", "Λύση από τα ένζυμα του γαστρεντερικού και αποβολή στα ούρα.", "Δέσμευση από τον ώριμο βιοϋμένα και μετατροπή σε αδιάλυτα άλατα."],
@@ -398,30 +317,6 @@ const quizData = [
         o: ["Έξι άτομα άνθρακα συν ένα άτομο χλωρίου (χλωροφαινυλομάδα).", "Οκτώ άτομα άνθρακα (οκτυλομάδα) χωρίς χλώριο.", "Διακλαδισμένη αλκυλομάδα 6 ατόμων άνθρακα.", "Δακτύλιο πυριδίνης με άτομο χλωρίου."],
         a: 0,
         f: "Σύμφωνα με τον πίνακα και τη χημική δομή, η ρίζα (R) της χλωρεξιδίνης αναφέρεται ως '6 + Cl', αποτελώντας τον χημικό δακτύλιο βενζολίου (χλωροφαινυλομάδα) που φέρει ένα άτομο χλωρίου για αυξημένη λιποφιλία."
-    },
-    {
-        q: "Ποια είναι η μέση θανατηφόρος δόση (LD50) της Χλωρεξιδίνης όταν λαμβάνεται από του στόματος (p.o.) σε πειραματόζωα, καταδεικνύοντας τη χαμηλή τοξικότητά της;",
-        o: ["30-35 mg/kg", "100-400 mg/kg", "1800 mg/kg", "3500 mg/kg"],
-        a: 2,
-        f: "Η Χλωρεξιδίνη παρουσιάζει εξαιρετικά χαμηλή τοξικότητα, με το p.o. LD50 να αναφέρεται ρητά στα 1800 mg/kg. Οι τιμές 100-400 mg/kg αφορούν το p.o. LD50 του Χλωριούχου Κετυλοπυριδινίου (CPC)."
-    },
-    {
-        q: "Σε ποιες συγκεντρώσεις και δοσολογίες χρησιμοποιούνται συνήθως τα στοματοδιαλύματα χλωρεξιδίνης για βέλτιστη υπερουλική δράση;",
-        o: ["15 ml συγκέντρωσης 0,05% ή 10 ml 0,1%", "15 ml συγκέντρωσης 0,12% ή 10 ml 0,2%", "30 ml συγκέντρωσης 0,2% αποκλειστικά", "5 ml συγκέντρωσης 1% ή 2%"],
-        a: 1,
-        f: "Οι αποτελεσματικές συγκεντρώσεις σε διάλυμα για στοματόπλυση (≥0,12%) διαμορφώνουν την τυπική δόση ως εξής: είτε 15 ml στο 0,12%, είτε 10 ml στο 0,2%."
-    },
-    {
-        q: "Η ενσωμάτωση της χλωρεξιδίνης σε οδοντόκρεμες είναι χημικά δυσχερής. Ποιος είναι ο κύριος παράγοντας ασυμβατότητας;",
-        o: ["Αντιδρά βίαια με το φθόριο, εξουδετερώνοντάς το.", "Αλληλεπιδρά με ανιονικά τασιενεργά (όπως το SDS - Sodium Dodecyl Sulfate).", "Καταβυθίζεται από την παρουσία πυριτικού οξέος.", "Οξειδώνεται από τα υπεροξείδια της πάστας."],
-        a: 1,
-        f: "Η χλωρεξιδίνη (ως κατιονική δις-διγουανίδη) έρχεται σε χημική ασυμβατότητα με τα ανιόντα των τασιενεργών (όπως το SDS) που δημιουργούν τον αφρό στις οδοντόκρεμες. Είναι, ωστόσο, απόλυτα συμβατή με το φθόριο."
-    },
-    {
-        q: "Ποια από τις παρακάτω ΔΕΝ αναφέρεται ως ανεπιθύμητη ενέργεια της χλωρεξιδίνης στη θεωρία;",
-        o: ["Χρώση της γλώσσας και των δοντιών.", "Οίδημα της παρωτίδας.", "Διάβρωση του βλεννογόνου (λευκές πλάκες/έλκη).", "Καταστολή του Κεντρικού Νευρικού Συστήματος."],
-        a: 3,
-        f: "Η καταστολή του ΚΝΣ και του αναπνευστικού αναφέρεται ρητά ως παρενέργεια της **Φαινοξυαιθανόλης** σε περίπτωση κατάποσης. Οι άλλες τρεις είναι επιβεβαιωμένες παρενέργειες της χλωρεξιδίνης."
     },
     {
         q: "Η Αλεξιδίνη συγκρινόμενη με τη Χλωρεξιδίνη ως προς τις Ελάχιστες Μικροβιοκτόνες Συγκεντρώσεις (MBC), απαιτεί για τον Streptococcus mutans:",
@@ -508,12 +403,6 @@ const quizData = [
         f: "Για τον Quigley-Hein Index, η μέση διαφορά είναι -31,6% (υπέρ των EOs). Το -24,1% αφορά τη μέση διαφορά στον Modified Gingival Index (δείκτης ουλίτιδας)."
     },
     {
-        q: "Τι ακριβώς επιτυγχάνει το Listerine αναστέλλοντας τις προσταγλανδίνες στο περιοδόντιο;",
-        o: ["Σκοτώνει άμεσα τα μικρόβια της πλάκας.", "Μειώνει τη φλεγμονώδη αντίδραση του ξενιστή, ελαττώνοντας την ουλίτιδα (έμμεση δράση).", "Διαλύει την εξωκυτταρική μήτρα του βιοϋμένα.", "Αυξάνει την προσκόλληση των QACs στα δόντια."],
-        a: 1,
-        f: "Η δράση των EOs είναι έμμεση: καταστέλλουν την παραγωγή προσταγλανδινών από τα κύτταρα του ξενιστή, εμποδίζοντας την εκδήλωση της φλεγμονής, παρότι τα βακτήρια μπορεί να συνεχίζουν να επιβιώνουν στο υγρό του περιοδοντίου."
-    },
-    {
         q: "Ποια είναι η χημική διαφορά μεταξύ Triclosan και Triclocarban;",
         o: ["Το Triclosan είναι αρωματική αλκοόλη, το Triclocarban δις-διγουανίδη.", "Το Triclosan είναι ένας διφαινυλαιθέρας με τρία άτομα χλωρίου, ενώ το Triclocarban φέρει ομάδες ουρίας (-NH-C(=O)-NH-).", "Και τα δύο είναι ακριβώς το ίδιο μόριο με διαφορετικό εμπορικό όνομα.", "Το Triclosan δεν περιέχει αλογόνα (χλώριο)."],
         a: 1,
@@ -580,12 +469,6 @@ const quizData = [
         f: "Σύμφωνα ρητά με το έγγραφο, υπάρχει 'ανεπαρκής τεκμηρίωση για αποτελεσματικότητα σκευασμάτων με χαμηλές συγκεντρώσεις (<0,05%) χλωρεξιδίνης καθημερινής χρήσης'."
     },
     {
-        q: "Τι ακριβώς καταδεικνύει το Unadjusted Mean Difference -24.1% για τα Αιθέρια Έλαια;",
-        o: ["Την αύξηση της τρυγίας σε σχέση με το νερό.", "Την ποσοστιαία μείωση του δείκτη Modified Gingival Index (Ουλίτιδα) υπέρ των Αιθέριων Ελαίων συγκριτικά με το Placebo.", "Τη διαφορά κόστους σε σχέση με τη χλωρεξιδίνη.", "Το ποσοστό αλκοόλης που εξατμίζεται σε 24 ώρες."],
-        a: 1,
-        f: "Το -24.1% είναι η στατιστική διαφορά (υπέρ της θεραπείας) που προκύπτει από τη μετα-ανάλυση πολλαπλών μελετών για τον Modified Gingival Index (MGI) όταν συγκρίνονται τα EOs (Αιθέρια Έλαια) με ένα εικονικό φάρμακο (Placebo)."
-    },
-    {
         q: "Ποια είναι η χημική αντίδραση της χλωρεξιδίνης εάν έρθει σε επαφή με το υποχλωριώδες νάτριο (NaOCl) σε μια ενδοδοντική θεραπεία;",
         o: ["Δημιουργεί ένα αβλαβές, διαυγές διάλυμα.", "Παράγει παραχλωροανιλίνη, ένα τοξικό και δυσδιάλυτο ίζημα.", "Αυξάνει τη δραστικότητά της κατά 100%.", "Μετατρέπεται σε φαινοξυαιθανόλη."],
         a: 1,
@@ -602,12 +485,6 @@ const quizData = [
         o: ["Διότι έχει εξαιρετικά τοξικό LD50.", "Διότι προκαλεί άμεση νέκρωση ούλων.", "Λόγω χαμηλής αντιμικροβιακής δράσης και ανεπαρκών επιστημονικών (κλινικών) δεδομένων.", "Επειδή διαθέτει υπερβολικά μεγάλη παραμένουσα δράση που δημιουργεί ανθεκτικότητα."],
         a: 2,
         f: "Τα 'φυσικά προϊόντα' όπως η Πρόπολις, παρότι δημοφιλή, υπολείπονται σε σκληρά ακαδημαϊκά, επιστημονικά δεδομένα αποτελεσματικότητας (evidence-based dentistry) και εμφανίζουν χαμηλή αντικειμενική δράση κατά της ΟΜΠ."
-    },
-    {
-        q: "Στο Listerine, ο ρόλος του Sanguinarine (Σανγκουιναρίνη) είναι:",
-        o: ["Αντιφλεγμονώδης.", "Καταλύτης της αιθανόλης.", "Βακτηριοκτόνος.", "Καμία απολύτως. Δεν περιέχεται Σανγκουιναρίνη στο Listerine."],
-        a: 3,
-        f: "Πρόκειται για distract question. Το Listerine περιέχει Μενθόλη, Θυμόλη, Ευκαλυπτόλη και Σαλικυλικό Μεθυλεστέρα. Η Σανγκουιναρίνη είναι εντελώς διαφορετικό φυτικό εκχύλισμα."
     },
     {
         q: "Ποιο είναι το αποτέλεσμα της εφαρμογής QACs παρουσία φαινολών;",
@@ -676,56 +553,61 @@ const quizData = [
         f: "Ο μηχανισμός των Αιθέριων ελαίων περιλαμβάνει την αναστολή των φλεγμονωδών αντιδράσεων μέσω μείωσης των προσταγλανδινών."
     }
 ];
-// --- ΤΕΛΟΣ ΕΡΩΤΗΣΕΩΝ ---
-  
-];
 
-// Προσομοίωση 65 ερωτήσεων αντιγράφοντας τις ποιοτικές ερωτήσεις για επίδειξη του UI & progress bar
-const fullQuizData = [];
-for (let i = 0; i < 65; i++) {
-    fullQuizData.push(quizData[i % quizData.length]);
-}
-
-let currentQuestionIndex = 0;
 let correctAnswers = 0;
+let answeredQuestions = 0;
 
-const questionEl = document.getElementById('question');
-const optionsEl = document.getElementById('options');
-const feedbackBox = document.getElementById('feedback');
-const feedbackText = document.getElementById('feedback-text');
-const nextBtn = document.getElementById('next-btn');
-const progressEl = document.getElementById('progress');
+const listEl = document.getElementById('questions-list');
 
-function initQuiz() {
-    currentQuestionIndex = 0;
-    correctAnswers = 0;
-    document.getElementById('quiz-screen').style.display = 'block';
-    document.getElementById('results').style.display = 'none';
-    renderQuestion();
-}
+// Δυναμική δημιουργία όλων των ερωτήσεων
+quizData.forEach((qData, qIndex) => {
+    const card = document.createElement('div');
+    card.className = 'question-card';
+    card.id = `card-${qIndex}`;
 
-function renderQuestion() {
-    feedbackBox.style.display = 'none';
-    nextBtn.style.display = 'none';
-    optionsEl.innerHTML = '';
+    const header = document.createElement('div');
+    header.className = 'question-header';
+    header.textContent = `Ερώτηση ${qIndex + 1} / ${quizData.length}`;
     
-    const qData = fullQuizData[currentQuestionIndex];
-    questionEl.textContent = qData.q;
-    progressEl.textContent = `Ερώτηση ${currentQuestionIndex + 1} από ${fullQuizData.length}`;
+    const questionText = document.createElement('div');
+    questionText.className = 'question-text';
+    questionText.textContent = qData.q;
 
-    qData.o.forEach((option, index) => {
+    const optionsGrid = document.createElement('div');
+    optionsGrid.className = 'options-grid';
+    optionsGrid.id = `options-${qIndex}`;
+
+    const feedbackBox = document.createElement('div');
+    feedbackBox.className = 'feedback-box';
+    feedbackBox.id = `feedback-${qIndex}`;
+    feedbackBox.innerHTML = `<h3>Ακαδημαϊκή Ανατροφοδότηση</h3><p id="feedback-text-${qIndex}"></p>`;
+
+    qData.o.forEach((option, oIndex) => {
         const btn = document.createElement('button');
-        btn.classList.add('option-btn');
+        btn.className = 'option-btn';
         btn.textContent = option;
-        btn.onclick = () => handleOptionClick(index, qData.a, qData.f, btn);
-        optionsEl.appendChild(btn);
+        btn.onclick = () => handleOptionClick(qIndex, oIndex, qData.a, qData.f);
+        optionsGrid.appendChild(btn);
     });
-}
 
-function handleOptionClick(selectedIndex, correctIndex, feedback, clickedBtn) {
-    const allBtns = optionsEl.querySelectorAll('.option-btn');
+    card.appendChild(header);
+    card.appendChild(questionText);
+    card.appendChild(optionsGrid);
+    card.appendChild(feedbackBox);
     
-    // Disable all options immediately
+    listEl.appendChild(card);
+});
+
+function handleOptionClick(qIndex, selectedIndex, correctIndex, feedback) {
+    const optionsContainer = document.getElementById(`options-${qIndex}`);
+    const allBtns = optionsContainer.querySelectorAll('.option-btn');
+    const feedbackBox = document.getElementById(`feedback-${qIndex}`);
+    const feedbackText = document.getElementById(`feedback-text-${qIndex}`);
+    
+    // Εάν η ερώτηση έχει ήδη απαντηθεί, αγνοούμε το κλικ
+    if (allBtns[0].disabled) return;
+
+    // Απενεργοποίηση όλων των επιλογών για ΑΥΤΗ την ερώτηση
     allBtns.forEach((btn, idx) => {
         btn.disabled = true;
         if (idx === correctIndex) {
@@ -735,34 +617,36 @@ function handleOptionClick(selectedIndex, correctIndex, feedback, clickedBtn) {
         }
     });
 
-    if (selectedIndex === correctIndex) correctAnswers++;
+    // Υπολογισμός σωστών
+    if (selectedIndex === correctIndex) {
+        correctAnswers++;
+    }
+    answeredQuestions++;
 
+    // Εμφάνιση Ανατροφοδότησης
     feedbackText.innerHTML = `<strong>${selectedIndex === correctIndex ? 'Σωστό!' : 'Λάθος.'}</strong> ${feedback}`;
     feedbackBox.style.display = 'block';
-    nextBtn.style.display = 'block';
 }
-
-nextBtn.onclick = () => {
-    currentQuestionIndex++;
-    if (currentQuestionIndex < fullQuizData.length) {
-        renderQuestion();
-    } else {
-        showResults();
-    }
-};
 
 function showResults() {
-    document.getElementById('quiz-screen').style.display = 'none';
-    const resultsScreen = document.getElementById('results');
+    if(answeredQuestions < quizData.length) {
+        if(!confirm(`Έχετε απαντήσει μόνο ${answeredQuestions} από τις ${quizData.length} ερωτήσεις. Θέλετε σίγουρα να υποβάλετε;`)) {
+            return;
+        }
+    }
+
+    document.getElementById('submit-btn').style.display = 'none';
+    const resultsContainer = document.getElementById('results-container');
     const scoreText = document.getElementById('score-text');
     
-    const percentage = Math.round((correctAnswers / fullQuizData.length) * 100);
-    scoreText.innerHTML = `Απαντήσατε σωστά σε <strong style="color:var(--primary)">${correctAnswers}</strong> από <strong style="color:var(--primary)">${fullQuizData.length}</strong> ερωτήσεις.<br><br>Τελική Ακαδημαϊκή Βαθμολογία: <strong>${percentage}%</strong>`;
+    const percentage = Math.round((correctAnswers / quizData.length) * 100);
+    scoreText.innerHTML = `Απαντήσατε σωστά σε <strong style="color:var(--primary)">${correctAnswers}</strong> από <strong style="color:var(--primary)">${quizData.length}</strong> ερωτήσεις.<br><br>Τελική Ακαδημαϊκή Βαθμολογία: <strong>${percentage}%</strong>`;
     
-    resultsScreen.style.display = 'block';
+    resultsContainer.style.display = 'block';
+    
+    // Ομαλό scroll στα αποτελέσματα
+    resultsContainer.scrollIntoView({ behavior: 'smooth' });
 }
-
-initQuiz();
 </script>
 </body>
 </html>
