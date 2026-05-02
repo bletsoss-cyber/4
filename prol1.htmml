@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Quiz: Φθόριο & Τερηδόνα</title>
+    <style>
+        :root {
+            --bg: #fafafa;
+            --primary: #2c3e50;
+            --secondary: #34495e;
+            --accent: #2980b9;
+            --success: #27ae60;
+            --error: #c0392b;
+            --light: #ecf0f1;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--primary);
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+        h1 {
+            text-align: center;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 10px;
+        }
+
+        /* Navigation Bar Styling */
+        .page-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .page-link {
+            padding: 8px 12px;
+            background: var(--light);
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+        .page-link.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .quiz-status {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: var(--accent);
+            font-size: 1.1rem;
+        }
+
+        .question-card {
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .option-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            background: var(--light);
+            border: 1px solid #bdc3c7;
+            padding: 0.8rem;
+            margin-bottom: 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 1rem;
+        }
+
+        .option-btn:hover:not(:disabled) { background: #dfe6e9; }
+        .option-btn.correct { background: var(--success) !important; color: white; border-color: var(--success); }
+        .option-btn.wrong { background: var(--error) !important; color: white; border-color: var(--error); }
+
+        .feedback-box {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f1f8ff;
+            border-left: 4px solid var(--accent);
+            font-size: 0.95rem;
+            display: none;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            padding-bottom: 3rem;
+        }
+
+        .nav-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+        
+        .reset-btn {
+            background: var(--error);
+            display: block;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Εξονυχιστική Αξιολόγηση: Φθόριο & Τερηδόνα</h1>
+    
+    <div class="page-nav" id="page-nav"></div>
+    <div class="quiz-status" id="quiz-status"></div>
+    <div id="quiz-app"></div>
+
+    <div class="controls">
+        <button class="nav-btn" id="prev-btn" onclick="changePage(-1)">« Προηγούμενο</button>
+        <button class="nav-btn" id="next-btn" onclick="changePage(1)">Επόμενο »</button>
+    </div>
+
+    <script>
+        // Εδώ βάζεις ΟΛΕΣ τις ερωτήσεις σου
+        const quizData = [
+            {
+                q: "1. Σύμφωνα με την επιδημιολογική ανάλυση του H.T. Dean (1942), τι παρατηρείται σε συγκεντρώσεις φθορίου στο πόσιμο νερό πέραν των 1,2-1,4 ppm;",
+                options: ["Αύξηση της αντιτερηδονικής προστασίας με ταυτόχρονη μείωση της φθορίασης.", "Επιπέδωση (plateau) της αντιτερηδονικής δράσης και ταυτόχρονη, ραγδαία αύξηση της φθορίασης.", "Μείωση του δείκτη DMF στο μηδέν και γραμμική αύξηση της πολύ ήπιας φθορίασης.", "Σταθεροποίηση της φθορίασης στο 12% και συνεχής πτώση του αριθμού τερηδονισμένων δοντιών."],
+                correct: 1,
+                feedback: "Ορθή απάντηση: B. Όπως αποδεικνύεται από το γράφημα του Dean, η αύξηση της συγκέντρωσης φθορίου πάνω από το βέλτιστο όριο (1-1,2 ppm) δεν προσφέρει καμία περαιτέρω μείωση στον δείκτη DMF (επιπέδωση), αλλά εκτοξεύει την εμφάνιση και τη βαρύτητα της φθορίασης στο 100% του πληθυσμού."
+            },
+            // ... Πρόσθεσε εδώ τις ερωτήσεις 2 έως 99 που έχεις ήδη ...
+            {
+                q: "100. Πώς μεταβάλλεται το υγρό της ουλοδοντικής σχισμής παρουσία φλεγμονής (ουλίτιδας) και ποιο είναι το αποτέλεσμα;",
+                options: ["Γίνεται όξινο και προκαλεί τερηδόνα ρίζας.", "Γίνεται αλκαλικό (pH ≥ 7,4), δημιουργώντας συνθήκες υπερ-κορεσμού που οδηγούν στην κατακρήμνιση τρυγίας (πέτρας).", "Γίνεται ουδέτερο.", "Απορροφάται πλήρως."],
+                correct: 1,
+                feedback: "Ορθή απάντηση: Β. Σε φλεγμονή, το υγρό της σχισμής γίνεται αλκαλικό. Το υψηλό pH και η άφθονη παρουσία ιόντων δημιουργούν ακραίο υπερ-κορεσμό, ο οποίος αποτρέπει μεν την αφαλάτωση/τερηδόνα, αλλά προκαλεί τον σχηματισμό τρυγίας (πέτρας)."
+            }
+        ];
+
+        let currentPage = 1;
+        const itemsPerPage = 10;
+
+        function initQuiz() {
+            renderNav();
+            renderPage();
+        }
+
+        function renderNav() {
+            const nav = document.getElementById('page-nav');
+            const totalPages = Math.ceil(quizData.length / itemsPerPage);
+            nav.innerHTML = '';
+
+            for (let i = 1; i <= totalPages; i++) {
+                const btn = document.createElement('button');
+                btn.innerText = i;
+                btn.className = `page-link ${i === currentPage ? 'active' : ''}`;
+                btn.onclick = () => { 
+                    currentPage = i; 
+                    renderPage(); 
+                    renderNav(); 
+                    window.scrollTo(0,0); 
+                };
+                nav.appendChild(btn);
+            }
+        }
+
+        function renderPage() {
+            const container = document.getElementById('quiz-app');
+            container.innerHTML = '';
+            
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = Math.min(start + itemsPerPage, quizData.length);
+            const currentQuestions = quizData.slice(start, end);
+
+            document.getElementById('quiz-status').innerText = `Ερωτήσεις ${start + 1} - ${end} από ${quizData.length}`;
+
+            currentQuestions.forEach((item, index) => {
+                const globalIndex = start + index;
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                
+                card.innerHTML = `
+                    <div class="question-text">${item.q}</div>
+                    <div class="options-list" id="opts-${globalIndex}">
+                        ${item.options.map((opt, i) => `
+                            <button class="option-btn" id="btn-${globalIndex}-${i}" onclick="checkAnswer(${globalIndex}, ${i})">${opt}</button>
+                        `).join('')}
+                    </div>
+                    <div class="feedback-box" id="feedback-${globalIndex}">
+                        <strong>Ακαδημαϊκή Τεκμηρίωση:</strong><br>${item.feedback}
+                    </div>
+                `;
+                container.appendChild(card);
+                
+                // Αν η ερώτηση έχει ήδη απαντηθεί (από προηγούμενη επίσκεψη στη σελίδα)
+                if (item.answered !== undefined) {
+                    showResult(globalIndex, item.answered);
+                }
+            });
+
+            // Διαχείριση κουμπιών Next/Prev
+            document.getElementById('prev-btn').disabled = (currentPage === 1);
+            document.getElementById('next-btn').disabled = (end === quizData.length);
+            
+            // Αν φτάσαμε στο τέλος, εμφάνιση κουμπιού Reset
+            if(end === quizData.length) {
+                const resetBtn = document.createElement('button');
+                resetBtn.className = 'nav-btn reset-btn';
+                resetBtn.innerText = 'Επανεκκίνηση Κουίζ';
+                resetBtn.onclick = () => location.reload();
+                container.appendChild(resetBtn);
+            }
+        }
+
+        function checkAnswer(qIdx, selectedIdx) {
+            if (quizData[qIdx].answered !== undefined) return; // Προστασία από διπλό κλικ
+            
+            quizData[qIdx].answered = selectedIdx;
+            showResult(qIdx, selectedIdx);
+        }
+
+        function showResult(qIdx, selectedIdx) {
+            const correctIdx = quizData[qIdx].correct;
+            const feedbackBox = document.getElementById(`feedback-${qIdx}`);
+            
+            // Απενεργοποίηση και χρωματισμός
+            for (let i = 0; i < quizData[qIdx].options.length; i++) {
+                const btn = document.getElementById(`btn-${qIdx}-${i}`);
+                btn.disabled = true;
+                if (i === correctIdx) {
+                    btn.classList.add('correct');
+                } else if (i === selectedIdx) {
+                    btn.classList.add('wrong');
+                }
+            }
+
+            feedbackBox.style.display = 'block';
+        }
+
+        function changePage(step) {
+            currentPage += step;
+            renderPage();
+            renderNav();
+            window.scrollTo(0, 0);
+        }
+
+        window.onload = initQuiz;
+    </script>
+</body>
+</html>
