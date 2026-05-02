@@ -18,7 +18,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg);
             color: var(--primary);
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 2rem;
             line-height: 1.6;
@@ -28,101 +28,115 @@
             border-bottom: 2px solid var(--accent);
             padding-bottom: 10px;
         }
+
+        /* Navigation Bar Styling */
+        .page-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .page-link {
+            padding: 8px 12px;
+            background: var(--light);
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+        .page-link.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
         .quiz-status {
             text-align: center;
             font-weight: bold;
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
             color: var(--accent);
-            font-size: 1.2rem;
+            font-size: 1.1rem;
         }
-        .question-container {
+
+        .question-card {
             background: #fff;
-            padding: 2rem;
+            padding: 1.5rem;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
             margin-bottom: 2rem;
-            display: none;
+            border-left: 4px solid var(--secondary);
         }
-        .question-container.active {
-            display: block;
-        }
+
         .question-text {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 600;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }
+
         .option-btn {
             display: block;
             width: 100%;
             text-align: left;
             background: var(--light);
             border: 1px solid #bdc3c7;
-            padding: 1rem;
-            margin-bottom: 0.8rem;
+            padding: 0.8rem;
+            margin-bottom: 0.5rem;
             border-radius: 4px;
-            font-size: 1rem;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: 0.2s;
         }
-        .option-btn:hover:not(:disabled) {
-            background: #dfe6e9;
-            border-color: var(--accent);
-        }
-        .option-btn:disabled {
-            cursor: not-allowed;
-            opacity: 0.6;
-        }
-        .option-btn.correct {
-            background: var(--success);
-            color: white;
-            border-color: var(--success);
-            opacity: 1;
-        }
-        .option-btn.wrong {
-            background: var(--error);
-            color: white;
-            border-color: var(--error);
-            opacity: 1;
-        }
+
+        .option-btn:hover:not(:disabled) { background: #dfe6e9; }
+        .option-btn.correct { background: var(--success) !important; color: white; }
+        .option-btn.wrong { background: var(--error) !important; color: white; }
+
         .feedback-box {
-            margin-top: 1.5rem;
-            padding: 1.5rem;
-            border-left: 5px solid var(--accent);
-            background: #f4f6f7;
-            border-radius: 0 4px 4px 0;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #fdfdfd;
+            border-top: 1px dashed #ccc;
+            font-size: 0.95rem;
             display: none;
         }
-        .feedback-box h4 {
-            margin-top: 0;
-            color: var(--primary);
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
         }
+
         .nav-btn {
-            background: var(--accent);
+            background: var(--primary);
             color: white;
             border: none;
             padding: 0.8rem 2rem;
-            font-size: 1rem;
             border-radius: 4px;
             cursor: pointer;
-            display: none;
-            margin-top: 1rem;
-            float: right;
         }
-        .nav-btn:hover {
-            background: #21618c;
-        }
-        .clearfix::after {
-            content: "";
-            clear: both;
-            display: table;
-        }
+        .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
     </style>
 </head>
 <body>
 
     <h1>Εξονυχιστική Αξιολόγηση: Φθόριο & Τερηδόνα</h1>
-    <div class="quiz-status" id="quiz-status">Ερώτηση 1 από 100</div>
+    
+    <!-- Navigation Bar -->
+    <div class="page-nav" id="page-nav"></div>
+
+    <div class="quiz-status" id="quiz-status"></div>
+
     <div id="quiz-app"></div>
+
+    <div class="controls">
+        <button class="nav-btn" id="prev-btn" onclick="changePage(-1)">« Προηγούμενο</button>
+        <button class="nav-btn" id="next-btn" onclick="changePage(1)">Επόμενο »</button>
+    </div>
 
     <script>
         const quizData = [
@@ -1228,61 +1242,96 @@
             }
         ];
 
-        let currentQuestion = 0;
+        let currentPage = 1;
+        const itemsPerPage = 10;
 
-        function loadQuestion() {
-            document.getElementById('quiz-status').innerText = `Ερώτηση ${currentQuestion + 1} από ${quizData.length}`;
-            const q = quizData[currentQuestion];
-            let html = `
-                <div class="question-container active" id="q-container">
-                    <div class="question-text">${q.q}</div>
-                    ${q.options.map((opt, index) => `
-                        <button class="option-btn" onclick="checkAnswer(${index})">${opt}</button>
-                    `).join('')}
-                    <div class="feedback-box" id="feedback"></div>
-                    <button class="nav-btn" id="next-btn" onclick="nextQuestion()">Επόμενη Ερώτηση</button>
-                </div>
-            `;
-            document.getElementById('quiz-app').innerHTML = html;
+        function initQuiz() {
+            renderNav();
+            renderPage();
         }
 
-        function checkAnswer(selectedIndex) {
-            const q = quizData[currentQuestion];
-            const buttons = document.querySelectorAll('.option-btn');
-            const feedbackBox = document.getElementById('feedback');
-            const nextBtn = document.getElementById('next-btn');
+        function renderNav() {
+            const nav = document.getElementById('page-nav');
+            const totalPages = Math.ceil(quizData.length / itemsPerPage);
+            nav.innerHTML = '';
 
-            buttons.forEach((btn, index) => {
-                btn.disabled = true;
-                if (index === q.correct) {
-                    btn.classList.add('correct');
-                } else if (index === selectedIndex) {
-                    btn.classList.add('wrong');
-                }
-            });
-
-            feedbackBox.innerHTML = `<h4>Ακαδημαϊκή Ανατροφοδότηση:</h4><p>${q.feedback}</p>`;
-            feedbackBox.style.display = 'block';
-            nextBtn.style.display = 'block';
-        }
-
-        function nextQuestion() {
-            if (currentQuestion < quizData.length - 1) {
-                currentQuestion++;
-                loadQuestion();
-            } else {
-                document.getElementById('quiz-app').innerHTML = `
-                    <div class="question-container active" style="text-align:center;">
-                        <h2>Η Αξιολόγηση Ολοκληρώθηκε!</h2>
-                        <p>Έχετε εξεταστεί εξονυχιστικά στο 100% της ύλης.</p>
-                    </div>
-                `;
-                document.getElementById('quiz-status').style.display = 'none';
+            for (let i = 1; i <= totalPages; i++) {
+                const btn = document.createElement('button');
+                btn.innerText = i;
+                btn.className = `page-link ${i === currentPage ? 'active' : ''}`;
+                btn.onclick = () => { currentPage = i; renderPage(); renderNav(); window.scrollTo(0,0); };
+                nav.appendChild(btn);
             }
         }
 
-        // Initialize
-        loadQuestion();
+        function renderPage() {
+            const container = document.getElementById('quiz-app');
+            container.innerHTML = '';
+            
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = Math.min(start + itemsPerPage, quizData.length);
+            const currentQuestions = quizData.slice(start, end);
+
+            document.getElementById('quiz-status').innerText = `Εμφάνιση ερωτήσεων ${start + 1} - ${end} (Σύνολο: ${quizData.length})`;
+
+            currentQuestions.forEach((item, index) => {
+                const globalIndex = start + index;
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                card.innerHTML = `
+                    <div class="question-text">${item.q}</div>
+                    <div class="options-list" id="opts-${globalIndex}">
+                        ${item.options.map((opt, i) => `
+                            <button class="option-btn" id="btn-${globalIndex}-${i}" onclick="checkAnswer(${globalIndex}, ${i})">${opt}</button>
+                        `).join('')}
+                    </div>
+                    <div class="feedback-box" id="feedback-${globalIndex}">
+                        <strong>Ανατροφοδότηση:</strong> ${item.feedback}
+                    </div>
+                `;
+                container.appendChild(card);
+                
+                // Επαναφορά κατάστασης αν είχε ήδη απαντηθεί
+                if (item.answered !== undefined) {
+                    showResult(globalIndex, item.answered);
+                }
+            });
+
+            document.getElementById('prev-btn').disabled = currentPage === 1;
+            document.getElementById('next-btn').disabled = end === quizData.length;
+        }
+
+        function checkAnswer(qIdx, selectedIdx) {
+            if (quizData[qIdx].answered !== undefined) return;
+            
+            quizData[qIdx].answered = selectedIdx;
+            showResult(qIdx, selectedIdx);
+        }
+
+        function showResult(qIdx, selectedIdx) {
+            const correctIdx = quizData[qIdx].correct;
+            const feedbackBox = document.getElementById(`feedback-${qIdx}`);
+            
+            // Χρωματισμός κουμπιών
+            for (let i = 0; i < quizData[qIdx].options.length; i++) {
+                const btn = document.getElementById(`btn-${qIdx}-${i}`);
+                btn.disabled = true;
+                if (i === correctIdx) btn.classList.add('correct');
+                if (i === selectedIdx && i !== correctIdx) btn.classList.add('wrong');
+            }
+
+            feedbackBox.style.display = 'block';
+        }
+
+        function changePage(step) {
+            currentPage += step;
+            renderPage();
+            renderNav();
+            window.scrollTo(0, 0);
+        }
+
+        // Εκκίνηση
+        window.onload = initQuiz;
     </script>
 </body>
 </html>
