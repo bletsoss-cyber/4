@@ -3,93 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Οδοντιατρική Ακτινολογία - Quiz</title>
+    <title>Οδοντιατρική Ακτινολογία - Academic Quiz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-color: #f8fafc;
+            --container-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --primary-accent: #0f172a;
+            --success: #22c55e;
+            --error: #ef4444;
+            --border-color: #e2e8f0;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f7f6;
-            color: #333;
-            line-height: 1.6;
-            padding: 20px;
-            max-width: 900px;
-            margin: 0 auto;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
+
         h1 {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 30px;
-        }
-        .question-container {
-            background: #fff;
-            padding: 20px 25px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .question-title {
-            font-size: 1.1em;
             font-weight: 600;
-            margin-bottom: 15px;
-            color: #2c3e50;
+            font-size: 1.8rem;
+            margin-bottom: 40px;
+            color: var(--primary-accent);
         }
+
+        #quiz-app {
+            width: 100%;
+            max-width: 700px;
+        }
+
+        .question-container {
+            background: var(--container-bg);
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        }
+
+        .question-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+
         .options-list {
             list-style: none;
             padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
+
         .option-btn {
-            display: block;
             width: 100%;
             text-align: left;
-            background: #eef2f5;
-            border: 2px solid transparent;
-            padding: 12px 15px;
-            margin-bottom: 10px;
-            border-radius: 6px;
+            padding: 14px 20px;
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            color: var(--text-main);
             cursor: pointer;
-            font-size: 1em;
-            transition: all 0.2s ease;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
         .option-btn:hover:not(:disabled) {
-            background: #dfe6ed;
-            border-color: #b0c4de;
+            border-color: #94a3b8;
+            background: #f1f5f9;
         }
+
+        /* Καταστάσεις Αποτέλεσματος */
+        .option-btn.correct {
+            background-color: #f0fdf4 !important;
+            border-color: var(--success) !important;
+            color: #166534;
+            font-weight: 600;
+        }
+
+        .option-btn.wrong {
+            background-color: #fef2f2 !important;
+            border-color: var(--error) !important;
+            color: #991b1b;
+        }
+
         .option-btn:disabled {
             cursor: default;
         }
-        /* Χρώματα για σωστό/λάθος */
-        .option-btn.correct {
-            background: #d4edda;
-            border-color: #28a745;
-            color: #155724;
-        }
-        .option-btn.wrong {
-            background: #f8d7da;
-            border-color: #dc3545;
-            color: #721c24;
-        }
-        /* Επεξήγηση */
+
+        /* Ακαδημαϊκή Ανατροφοδότηση */
         .explanation {
             display: none;
-            margin-top: 15px;
-            padding: 15px;
-            background: #e2e3e5;
-            border-left: 5px solid #6c757d;
+            margin-top: 25px;
+            padding: 20px;
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
             border-radius: 4px;
-            font-size: 0.95em;
+            font-size: 0.92rem;
+            color: #334155;
+            line-height: 1.6;
         }
+
+        .explanation strong {
+            color: #1e293b;
+            display: block;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+
         .explanation.show {
             display: block;
-            animation: fadeIn 0.5s;
+            animation: slideIn 0.4s ease-out;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
     </style>
 </head>
 <body>
 
-    <h1>Ερωτήσεις Οδοντιατρικής Ακτινολογίας</h1>
+    <h1> Παλαια θεματα Οδοντιατρικής Ακτινολογίας</h1>
     <div id="quiz-app"></div>
 
     <script>
