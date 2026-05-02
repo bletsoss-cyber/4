@@ -18,7 +18,7 @@
         }
 
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-family: 'Georgia', serif;
             line-height: 1.6;
             color: var(--text-main);
             background-color: var(--bg-gray);
@@ -42,7 +42,7 @@
             border-bottom: 3px solid var(--primary-blue);
         }
 
-        h1 { color: var(--primary-dark); font-size: 2.4em; margin-bottom: 5px; }
+        h1 { color: var(--primary-dark); font-size: 2.2em; margin-bottom: 5px; font-family: 'Helvetica', sans-serif; }
         .subtitle { color: #7f8c8d; font-size: 1.1em; font-weight: 500; }
 
         .topic-section { margin-bottom: 50px; }
@@ -54,127 +54,189 @@
             border-radius: 8px;
             border-left: 5px solid var(--primary-blue);
             margin-bottom: 25px;
+            font-family: 'Helvetica', sans-serif;
+        }
+
+        .visual-translation {
+            background-color: #fcf8e3;
+            border: 1px solid #faebcc;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-size: 0.95em;
         }
 
         .grid-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
         @media (max-width: 768px) { .grid-layout { grid-template-columns: 1fr; } }
 
-        .card { padding: 20px; border-radius: 8px; border: 1px solid var(--border-color); position: relative; }
+        .card { padding: 20px; border-radius: 8px; border: 1px solid var(--border-color); }
         .card-sos { background-color: #fff9f9; border-top: 4px solid var(--accent-red); }
         .card-deep { background-color: #f4fdf8; border-top: 4px solid #2ecc71; }
 
-        .card h3 { margin-top: 0; display: flex; align-items: center; gap: 10px; font-size: 1.1em; }
-        .card-sos h3 { color: var(--accent-red); }
-        .card-deep h3 { color: #27ae60; }
-
+        .card h3 { margin-top: 0; display: flex; align-items: center; gap: 10px; color: var(--primary-dark); }
+        
         .highlight { background-color: #fff3cd; padding: 2px 5px; border-radius: 4px; font-weight: 600; }
-        .badge { background-color: var(--primary-dark); color: var(--white); padding: 3px 8px; border-radius: 12px; font-size: 0.8em; font-weight: bold; text-transform: uppercase; }
+        .badge { background-color: var(--primary-dark); color: var(--white); padding: 3px 8px; border-radius: 12px; font-size: 0.8em; font-weight: bold; }
 
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.9em; }
-        th, td { padding: 10px; text-align: left; border-bottom: 1px solid var(--border-color); }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid var(--border-color); font-size: 0.9em; }
         th { background-color: var(--primary-blue); color: var(--white); }
-        tr:nth-child(even) { background-color: #f9f9f9; }
 
-        .pro-tip { background-color: #e8f4fd; border-radius: 6px; padding: 15px; margin-top: 20px; border-left: 4px solid var(--primary-blue); font-size: 0.95em; }
+        .misconceptions { background: #fdf2f2; border-radius: 8px; padding: 20px; margin-top: 30px; border-left: 5px solid var(--accent-red); }
+        .summary { background: #eef7fe; border-radius: 8px; padding: 25px; margin-top: 40px; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <header>
-        <h1>Γαμετογένεση & Καταμήνιος Κύκλος</h1>
-        <div class="subtitle">Ενοποιημένος Οδηγός Μελέτης: Πλήρης Κάλυψη & Τεχνικές Λεπτομέρειες</div>
+        <h1>Γαμετογένεση & Καταμήνιες Μεταβολές</h1>
+        <div class="subtitle">Εξαντλητικός Ακαδημαϊκός Οδηγός: Μετάφραση Οπτικής & Κειμενικής Πληροφορίας</div>
     </header>
 
+    <!-- Section 1: PGCs -->
     <section class="topic-section">
-        <h2>1. Ωογένεση & Η "Ταυτότητα" του Ωαρίου</h2>
+        <h2>1. Αρχέγονα Γεννητικά Κύτταρα (PGCs) & Μετανάστευση</h2>
+        
+        <div class="visual-translation">
+            <strong>Ανάλυση Διαγράμματος Μετανάστευσης:</strong> 
+            Η οπτική πληροφορία δείχνει μια καμπύλη τροχιά των PGCs (πράσινα κύτταρα) που ξεκινά από το τοίχωμα του <b>λεκιθικού ασκού</b> κατά την 4η εβδομάδα. Τα βέλη μετανάστευσης υποδεικνύουν κίνηση προς το μεσόδερμα του <b>οπισθίου εντέρου</b>. Στη συνέχεια, τα κύτταρα μεταναστεύουν κατά μήκος του οπισθίου μεσεντερίου, περνώντας από την ιερή περιοχή (sacral region) και την περιοχή του αυχένα, για να καταλήξουν στις <b>γεννητικές ακρολοφίες</b> (μελλοντικοί όρχεις ή ωοθήκες) στο τέλος της 5ης εβδομάδας.
+        </div>
+
         <div class="grid-layout">
             <div class="card card-sos">
-                <h3>⚡ Κρίσιμες Λεπτομέρειες</h3>
+                <h3>⚡ SOS Στοιχεία</h3>
                 <ul>
-                    <li><strong>Πρωτεΐνες ZP:</strong> Η Διάφανη Ζώνη αποτελείται από τις γλυκοπρωτεΐνες <span class="highlight">ZP1, ZP2, ZP3, ZP4</span>.</li>
-                    <li><strong>1η Παύση:</strong> Διπλοταινία της Πρόφασης Ι (κατά τη γέννηση).</li>
-                    <li><strong>2η Παύση:</strong> Μετάφαση της Μείωσης ΙΙ (κατά την ωορρηξία).</li>
-                    <li><strong>Ολοκλήρωση:</strong> Μόνο με τη γονιμοποίηση.</li>
+                    <li><b>Προέλευση:</b> Σχηματίζονται στην <b>επιβλάστη</b> κατά τη 2η εβδομάδα[cite: 1].</li>
+                    <li><b>Πολλαπλασιασμός:</b> Μιτωτικές διαιρέσεις αυξάνουν τον αριθμό τους τόσο κατά τη μετακίνηση όσο και κατά την άφιξη στη γονάδα[cite: 1].</li>
+                    <li><b>Μείωση:</b> Λαμβάνει χώρα αποκλειστικά στη γονάδα[cite: 1].</li>
                 </ul>
             </div>
             <div class="card card-deep">
-                <h3>🧠 Βαθιά Κατανόηση</h3>
-                <p>Η LH είναι ο "διακόπτης" που ολοκληρώνει τη Μείωση Ι. Το δευτερογενές ωοκύτταρο που προκύπτει παίρνει όλο το κυτταρόπλασμα, ενώ το 1ο πολικό σωμάτιο είναι απλώς ένας φορέας αποβολής χρωμοσωμάτων. Αν δεν υπάρξει γονιμοποίηση εντός 24 ωρών, το ωάριο εκφυλίζεται.</p>
+                <h3>🧠 Ο Μηχανισμός της Μείωσης</h3>
+                <p>Η μείωση περιλαμβάνει δύο διαδοχικές διαιρέσεις χωρίς ενδιάμεση σύνθεση DNA[cite: 1]. Ο σκοπός είναι διπλός: η διατήρηση σταθερού αριθμού χρωμοσωμάτων (n=23) μεταξύ των γενεών και η επίτευξη γενετικής ποικιλομορφίας μέσω της ανταλλαγής υλικού και της τυχαίας διάταξης των χρωμοσωμάτων[cite: 1].</p>
             </div>
         </div>
+        
     </section>
 
+    <!-- Section 2: Oogenesis -->
     <section class="topic-section">
-        <h2>2. Σπερματογένεση & Σύσταση Σπέρματος</h2>
+        <h2>2. Ωογένεση: Η Στρατηγική των Παύσεων</h2>
+        
+        <div class="visual-translation">
+            <strong>Ανάλυση Ιστολογικών Διαγραμμάτων (Slide 11-13):</strong> 
+            Οι εικόνες δείχνουν τη φλοιώδη μοίρα της ωοθήκης όπου τα ωογόνια διατάσσονται σε ομάδες[cite: 1]. Τον 4ο μήνα, τα ωογόνια είναι πολυάριθμα, αλλά τον 7ο μήνα τα περισσότερα γίνονται άτρητα[cite: 1]. Η οπτική ανατομία του <b>αρχέγονου ωοθυλακίου</b> δείχνει ένα πρωτογενές ωοκύτταρο σε πρόφαση, περιβαλλόμενο από μία μονή στιβάδα <b>πλακωδών</b> θυλακικών κυττάρων[cite: 1].
+        </div>
+
         <div class="grid-layout">
             <div class="card card-sos">
-                <h3>⚡ Ποσοστά & Χρόνοι</h3>
-                <table>
-                    <tr><th>Πηγή</th><th>Ποσοστό %</th></tr>
-                    <tr><td>Σπερματοζωάρια</td><td>3 - 5%</td></tr>
-                    <tr><td>Σπερματοδόχες Κύστεις</td><td>60 - 65%</td></tr>
-                    <tr><td>Προστάτης</td><td>25 - 30%</td></tr>
-                    <tr><td>Βολβουρηθραίοι Αδένες</td><td>10%</td></tr>
-                </table>
-                <div class="pro-tip">
-                    <strong>Maturation:</strong> Τα σπερματοζωάρια χρειάζονται <strong>έως 2 εβδομάδες</strong> στην επιδιδυμίδα για να ωριμάσουν πλήρως.
-                </div>
+                <h3>⚡ Χρονοδιάγραμμα Παύσεων</h3>
+                <ul>
+                    <li><b>1η Παύση:</b> Στάδιο <b>διπλοταινίας</b> της πρόφασης Ι (κατά τη γέννηση)[cite: 1].</li>
+                    <li><b>2η Παύση:</b> <b>Μετάφαση</b> της μείωσης ΙΙ (κατά την ωορρηξία)[cite: 1].</li>
+                    <li><b>Ολοκλήρωση:</b> Η μείωση ΙΙ ολοκληρώνεται <b>μόνο</b> με τη γονιμοποίηση[cite: 1].</li>
+                </ul>
             </div>
             <div class="card card-deep">
-                <h3>🧠 Σπερμιογένεση vs Σπερματογένεση</h3>
-                <p>Η σπερματογένεση είναι ο πολλαπλασιασμός. Η σπερμιογένεση είναι η <strong>μεταμόρφωση</strong>: Το ακρόσωμα (ένζυμα) καλύπτει τον πυρήνα, τα μιτοχόνδρια συγκεντρώνονται στο μέσο τμήμα για ενέργεια, και τα κύτταρα Sertoli "σκουπίζουν" το περιττό κυτταρόπλασμα.</p>
+                <h3>🧠 Η Ταυτότητα του Ωαρίου</h3>
+                <p>Η <b>Διάφανη Ζώνη (Zona Pellucida)</b> είναι ένα στρώμα γλυκοπρωτεϊνών (<span class="highlight">ZP1, ZP2, ZP3, ZP4</span>) που εκκρίνεται από το ωοκύτταρο και τα θυλακικά κύτταρα[cite: 1]. Τα θυλακικά κύτταρα ονομάζονται πλέον κύτταρα της <b>κοκκώδους στιβάδας</b>[cite: 1].</p>
             </div>
         </div>
+        
     </section>
 
+    <!-- Section 3: Hormones & Cycle -->
     <section class="topic-section">
-        <h2>3. Χρονολόγιο Ενδομητρίου & Ωοθηκικός Κύκλος</h2>
+        <h2>3. Ορμονικός Άξονας & Ενδομήτριο</h2>
         <div class="card">
-            <h3>📅 Φάσεις Καταμήνιου Κύκλου (28 Ημέρες)</h3>
+            <h3>📅 Το Χρονολόγιο του Καταμήνιου Κύκλου (28 Ημέρες)</h3>
             <table>
                 <thead>
                     <tr>
                         <th>Ημέρες</th>
                         <th>Φάση Ενδομητρίου</th>
-                        <th>Κυρίαρχη Ορμόνη</th>
-                        <th>Γεγονός στην Ωοθήκη</th>
+                        <th>Ορμονική Κατάσταση</th>
+                        <th>Γεγονός Ωοθήκης</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>1 - 5</td>
                         <td>Εμμηνορρυσιακή</td>
-                        <td>Χαμηλές ορμόνες</td>
-                        <td>Αρχή νέων ωοθυλακίων</td>
+                        <td>Πτώση Οιστρογόνων/Προγεστερόνης</td>
+                        <td>Αρχή νέου κύκλου[cite: 1]</td>
                     </tr>
                     <tr>
                         <td>5 - 14</td>
-                        <td>Παραγωγική</td>
-                        <td>Οιστρογόνα</td>
-                        <td>Ωρίμανση ωοθυλακίου (FSH)</td>
+                        <td><b>Παραγωγική</b></td>
+                        <td>Κυριαρχία Οιστρογόνων</td>
+                        <td>FSH & Ωρίμανση Ωοθυλακίου[cite: 1]</td>
                     </tr>
                     <tr>
                         <td>14</td>
-                        <td>Ωορρηξία</td>
-                        <td>LH (Surge)</td>
-                        <td>Έξοδος ωαρίου / Στίγμα</td>
+                        <td><b>Ωορρηξία</b></td>
+                        <td><b>LH Surge</b> (Αιχμή)</td>
+                        <td>Στίγμα & Έξοδος Ωαρίου[cite: 1]</td>
                     </tr>
                     <tr>
                         <td>15 - 27</td>
-                        <td>Εκκριτική</td>
-                        <td>Προγεστερόνη</td>
-                        <td>Ωχρό Σωμάτιο</td>
+                        <td><b>Εκκριτική</b></td>
+                        <td>Κυριαρχία Προγεστερόνης</td>
+                        <td>Ωχρό Σωμάτιο[cite: 1]</td>
                     </tr>
                     <tr>
                         <td>27 - 28</td>
-                        <td>Ισχαιμική</td>
-                        <td>Πτώση ορμονών</td>
-                        <td>Λευκό Σωμάτιο (αν δεν υπάρχει κύηση)</td>
+                        <td><b>Ισχαιμική</b></td>
+                        <td>Απότομη πτώση ορμονών</td>
+                        <td>Λευκό Σωμάτιο[cite: 1]</td>
                     </tr>
                 </tbody>
             </table>
         </div>
+        
+    </section>
+
+    <!-- Section 4: Spermatogenesis -->
+    <section class="topic-section">
+        <h2>4. Σπερματογένεση & Σπερμιογένεση</h2>
+        <div class="visual-translation">
+            <strong>Ανάλυση Διαγράμματος Σπερμιογένεσης (Slide 33):</strong> 
+            Η εικόνα δείχνει τη μορφολογική μεταμόρφωση: Το σώμα Golgi δημιουργεί το <b>ακροσωμικό κοκκίο</b> (A), το οποίο επεκτείνεται σε <b>ακρόσωμα</b> που καλύπτει τον πυρήνα (B)[cite: 1]. Τα μιτοχόνδρια οργανώνονται στο <b>μέσο τμήμα</b> γύρω από τον άξονα της ουράς (C, D)[cite: 1]. Το κυτταρόπλασμα αποβάλλεται ως υπολειμματικά σωμάτια[cite: 1].
+        </div>
+
+        <div class="grid-layout">
+            <div class="card card-sos">
+                <h3>⚡ Στοιχεία Σπέρματος</h3>
+                <table>
+                    <tr><td><b>Σπερματοζωάρια</b></td><td>3 - 5%[cite: 1]</td></tr>
+                    <tr><td><b>Σπερματοδόχες Κύστεις</b></td><td>60 - 65%[cite: 1]</td></tr>
+                    <tr><td><b>Προστάτης</b></td><td>25 - 30%[cite: 1]</td></tr>
+                    <tr><td><b>Βολβουρηθραίοι Αδένες</b></td><td>10%[cite: 1]</td></tr>
+                </table>
+            </div>
+            <div class="card card-deep">
+                <h3>🧠 Ο Ρόλος των Sertoli</h3>
+                <p>Τα στηρικτικά κύτταρα <b>Sertoli</b> (από το επιφανειακό επιθήλιο) επιτελούν τρεις λειτουργίες: 1) Δομή-στήριξη, 2) Φαγοκυττάρωση του πλεονάζοντος κυτταροπλάσματος και 3) Ορμονική επίδραση[cite: 1]. Η παραγωγή είναι μαζική: 300 δισεκατομμύρια ημερησίως[cite: 1].</p>
+            </div>
+        </div>
+        
+    </section>
+
+    <!-- Misconceptions -->
+    <section class="misconceptions">
+        <h3>⚠️ Συχνές Παρανοήσεις (Critical Warnings)</h3>
+        <ul>
+            <li><b>Παρανόηση 1:</b> "Το ωάριο είναι έτοιμο στην ωορρηξία". <b>ΛΑΘΟΣ.</b> Είναι σταματημένο στη μετάφαση ΙΙ. Αν δεν μπει σπερματοζωάριο, δεν γίνεται ποτέ ώριμο ωάριο[cite: 1].</li>
+            <li><b>Παρανόηση 2:</b> "Η σπερμιογένεση είναι διαίρεση". <b>ΛΑΘΟΣ.</b> Είναι <b>μεταμόρφωση</b> (shape change). Οι διαιρέσεις έχουν τελειώσει[cite: 1].</li>
+            <li><b>Παρανόηση 3:</b> "Το ωχρό σωμάτιο ζει πάντα 14 μέρες". <b>ΛΑΘΟΣ.</b> Αν υπάρξει κύηση, η <b>hCG</b> το κρατάει ζωντανό έως τον 4ο μήνα[cite: 1].</li>
+        </ul>
+    </section>
+
+    <!-- Summary -->
+    <section class="summary">
+        <h3>📝 Executive Summary</h3>
+        <p>Η γαμετογένεση είναι μια εξαιρετικά ενορχηστρωμένη διαδικασία. Στα θηλυκά ξεκινά εμβρυϊκά, παρουσιάζει δύο μεγάλες παύσεις και ολοκληρώνεται μόνο με τη γονιμοποίηση[cite: 1]. Στα αρσενικά είναι συνεχής από την ήβη και μετά, με κύριο χαρακτηριστικό τη μορφολογική τελειοποίηση της σπερμιογένεσης[cite: 1]. Ο κύκλος ρυθμίζεται από τον άξονα υποθαλάμου-υπόφυσης, με την LH να αποτελεί τον κρίσιμο παράγοντα τόσο για την ωορρηξία όσο και για τη συντήρηση του ωχρού σωματίου[cite: 1].</p>
     </section>
 </div>
 
