@@ -39,9 +39,9 @@ const gicQuestions = [
     },
     {
         q: "Ποιο συστατικό της σκόνης είναι υπεύθυνο για την αδιαφάνεια και τη δεύτερη φάση της πήξης;",
-        options: ["$SiO_2$ (30%)", "$Al_2O_3$ (20%)", "$CaF_2$ (35%)", "$AlPO_4$ (10%)"],
+        options: ["SiO_2 (30%)", "Al_2O_3 (20%)", "CaF_2 (35%)", "AlPO_4 (10%)"],
         correct: 1,
-        why: "Η αλουμίνα ($Al_2O_3$) συμμετέχει στη φάση ωρίμανσης με την απελευθέρωση ιόντων Al3+."
+        why: "Η αλουμίνα (Al_2O_3) συμμετέχει στη φάση ωρίμανσης με την απελευθέρωση ιόντων Al3+."
     },
     {
         q: "Η χρήση όξινων φθοριούχων gel (APF) στην επιφάνεια της GIC προκαλεί:",
@@ -146,7 +146,7 @@ const gicQuestions = [
         why: "Αυτό είναι το τυπικό εύρος αντοχής για τις υαλοϊονομερείς κονίες."
     },
     {
-        q: "Το $AlPO_4$ (10%) στη σκόνη της GIC λειτουργεί ως:",
+        q: "Το AlPO_4 (10%) στη σκόνη της GIC λειτουργεί ως:",
         options: ["Χρωστική", "Δομικό στοιχείο της υάλου", "Φωτοεναρκτήρας", "Απολυμαντικό"],
         correct: 1,
         why: "Αποτελεί μέρος της χημικής σύστασης της πυριτιούχου υάλου."
@@ -211,7 +211,7 @@ const root = document.getElementById('quiz-root');
 gicQuestions.forEach((data, i) => {
     const card = document.createElement('div');
     card.className = 'q-card';
-    card.innerHTML = `<div class="q-text">${i + 1}. ${data.q}</div>`;
+    card.innerHTML = `<div class="q-text">{i + 1}. {data.q}</div>`;
     
     data.options.forEach((opt, idx) => {
         const btn = document.createElement('button');
@@ -232,7 +232,7 @@ gicQuestions.forEach((data, i) => {
     
     const feedback = document.createElement('div');
     feedback.className = 'justification';
-    feedback.innerHTML = `<strong>Επιστημονική Αιτιολόγηση:</strong> ${data.why}`;
+    feedback.innerHTML = `<strong>Επιστημονική Αιτιολόγηση:</strong> {data.why}`;
     card.appendChild(feedback);
     root.appendChild(card);
 });
