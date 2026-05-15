@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ΒΙΒΛΟΣ ΜΕΛΕΤΗΣ: ΚΕΦΑΛΑΙΟ 8</title>
+    <style>
+        :root {
+            --primary-teal: #006666;
+            --academic-gold: #c5a059;
+            --sos-red: #d32f2f;
+            --bg-grey: #f4f4f4;
+            --clinical-blue: #0277bd;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 1.7;
+            color: #222;
+            background-color: var(--bg-grey);
+            margin: 0;
+        }
+
+        header {
+            background: var(--primary-teal);
+            color: white;
+            padding: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        .main-container {
+            max-width: 1000px;
+            margin: 30px auto;
+            background: white;
+            padding: 50px;
+            border-radius: 4px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        h1 { color: var(--primary-teal); border-bottom: 4px solid var(--academic-gold); padding-bottom: 10px; }
+        h2 { color: var(--primary-teal); background: #e0f2f1; padding: 10px; border-left: 6px solid var(--academic-gold); margin-top: 40px; }
+        h3 { color: #004d40; border-bottom: 1px solid #eee; margin-top: 25px; }
+
+        .atomic-detail { background: #f9f9f9; border: 1px solid #ddd; padding: 15px; margin: 15px 0; border-radius: 4px; font-size: 0.95rem; }
+        .sos-callout { background: #fff5f5; border: 2px solid var(--sos-red); padding: 20px; margin: 25px 0; position: relative; }
+        .sos-callout::before { content: "⚠️ SOS ΕΞΕΤΑΣΕΩΝ"; color: var(--sos-red); font-weight: bold; display: block; margin-bottom: 10px; }
+        
+        .clinical-protocol { background: #e1f5fe; border: 2px solid var(--clinical-blue); padding: 20px; margin: 25px 0; }
+        .clinical-protocol::before { content: "⚕️ ΚΛΙΝΙΚΟ ΠΡΩΤΟΚΟΛΛΟ"; color: var(--clinical-blue); font-weight: bold; display: block; margin-bottom: 10px; }
+
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.9rem; }
+        th { background: var(--primary-teal); color: white; padding: 12px; text-align: left; }
+        td { padding: 12px; border: 1px solid #eee; }
+        tr:nth-child(even) { background: #fcfcfc; }
+
+        .formula-box { background: #263238; color: #81d4fa; padding: 20px; text-align: center; border-radius: 4px; margin: 20px 0; font-family: 'Courier New', monospace; }
+        .highlight { font-weight: bold; color: var(--primary-teal); }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <a href="#intro">ΕΙΣΑΓΩΓΗ</a>
+        <a href="#pulp-zones">ΖΩΝΕΣ ΠΟΛΦΟΥ</a>
+        <a href="#dentin-types">ΤΥΠΟΙ ΟΔΟΝΤΙΝΗΣ</a>
+        <a href="#molecular">ΜΟΡΙΑΚΗ ΒΑΣΗ</a>
+        <a href="#permeability">ΔΙΑΠΕΡΑΤΟΤΗΤΑ</a>
+    </nav>
+</header>
+
+<div class="main-container">
+    <h1 id="intro">ΚΕΦΑΛΑΙΟ 8: ΠΟΛΦΟΣ ΚΑΙ ΑΠΟΚΑΤΑΣΤΑΣΕΙΣ</h1>
+
+    <section id="pulp-zones">
+        <h2>1. Το Σύμπλεγμα Πολφού - Οδοντίνης (Ατομική Ανάλυση)</h2>
+        <p>Ο πολφός αντιδρά στα ερεθίσματα της αποκατάστασης (αποκοπή, χημικά, πίεση) επιστρατεύοντας αμυντικούς μηχανισμούς. Η διατήρηση της <span class="highlight">φυσιολογικής ακεραιότητας</span> είναι ο απόλυτος κλινικός στόχος.</p>
+
+        <h3>Α. Ιστολογικά Στοιχεία και Ζώνες</h3>
+        <div class="atomic-detail">
+            <ul>
+                <li><strong>Οδοντινοβλαστική Στιβάδα:</strong> Σώματα οδοντινοβλαστών σε παράταξη. Κύτταρα <span class="highlight">μετα-μιτωτικά</span> (μη αναγεννήσιμα). Ο πληθυσμός τους μειώνεται με την ηλικία, μειώνοντας την αμυντική ικανότητα.</li>
+                <li><strong>Ακύτταρη ζώνη του Weil (Υπο-οδοντινοβλαστική):</strong> Στενή ζώνη. Περιλαμβάνει:
+                    <ul>
+                        <li>Νευρικές απολήξεις (Πλέγμα Raschkow).</li>
+                        <li>Τριχοειδή αγγεία.</li>
+                        <li><strong>Δενδριτικά κύτταρα</strong> (ανοσοποιητικό).</li>
+                        <li>Θεμέλια ουσία για μεταβίβαση θρεπτικών ουσιών.</li>
+                    </ul>
+                </li>
+                <li><strong>Ζώνη Ινοβλαστών:</strong> Πλούσια σε κύτταρα, κυρίως ινοβλάστες. Περιέχει επίσης:
+                    <ul>
+                        <li>Μακροφάγα.</li>
+                        <li><strong>DPSCs</strong> (Αδιαφοροποίητα μεσεγχυματικά κύτταρα πολφού).</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="sos-callout">
+            <strong>Μεταβολές Πολφού με την Ηλικία (Εικόνα 8.3):</strong>
+            1. Μείωση μεγέθους πολφικής κοιλότητας. <br>
+            2. Μείωση κυτταρικού πληθυσμού. <br>
+            3. Αύξηση ινώδους ιστού. <br>
+            4. Σχηματισμός <span class="highlight">σκληρωτικής οδοντίνης</span> και νεκρών ζωνών (Tracts). <br>
+            5. Υποχώρηση πολφικών κεράτων (επηρεάζει τη σχεδίαση της κοιλότητας).
+        </div>
+    </section>
+
+    <section id="dentin-types">
+        <h2>2. Ταξινόμηση Οδοντίνης & Μηχανισμοί Δημιουργίας</h2>
+        
+        <h3>Α. Πρωτογενής & Δευτερογενής</h3>
+        <div class="atomic-detail">
+            <p><strong>Πρωτογενής:</strong> Παράγεται με γρήγορο ρυθμό πριν την ανατολή. Αποτελεί τον κύριο όγκο του δοντιού.</p>
+            <p><strong>Δευτερογενής:</strong> Φυσιολογική συνέχεια της πρωτογενούς. Παράγεται καθ' όλη τη ζωή.
+                <br>• <strong>Ρυθμός:</strong> Μεγαλύτερος στους <span class="highlight">γομφίους</span>.
+                <br>• <strong>Εντόπιση:</strong> Η παραγωγή είναι μεγαλύτερη στο <span class="highlight">σημείο διχασμού των ριζών</span> και στα πλάγια τοιχώματα του μυλικού θαλάμου (μικρότερος ρυθμός έκκρισης εκεί).</p>
+        </div>
+
+        <h3>Β. Τριτογενής Οδοντίνη: Η Άμυνα του Πολφού</h3>
+        <table>
+            <tr>
+                <th>Κατηγορία</th>
+                <th>Μηχανισμός</th>
+                <th>Κυτταρική Προέλευση</th>
+            </tr>
+            <tr>
+                <td><strong>Αντιδραστική (Reactionary)</strong></td>
+                <td>Απάντηση σε ήπιο/χρόνιο ερέθισμα (π.χ. αργή τερηδόνα).</td>
+                <td><span class="highlight">Πρωταρχικοί οδοντινοβλάστες</span> που επιβίωσαν.</td>
+            </tr>
+            <tr>
+                <td><strong>Επανορθωτική (Reparative)</strong></td>
+                <td>Απάντηση σε ισχυρό ερέθισμα (π.χ. ταχεία τερηδόνα, αποκάλυψη).</td>
+                <td><span class="highlight">Νέα κύτταρα (δίκην οδοντινοβλαστών)</span> που διαφοροποιήθηκαν.</td>
+            </tr>
+        </table>
+    </section>
+
+    <section id="molecular">
+        <h2 id="molecular">3. Μοριακή Βάση και Σηματοδότηση (Atomic Detail)</h2>
+        <div class="atomic-detail">
+            <p>Η δημιουργία τριτογενούς οδοντίνης ελέγχεται από συγκεκριμένα μόρια που απελευθερώνονται από την οδοντινική μήτρα:</p>
+            <ul>
+                <li><strong>Βιοενεργά Μόρια (Growth Factors):</strong> <span class="highlight">TGF-β1, VEGF, FGF2, PDGF</span>.</li>
+                <li><strong>Σηματοδοτικά Μονοπάτια (Εικόνα 8.7):</strong> Η διαφοροποίηση των αρχέγονων κυττάρων (DPSCs) ελέγχεται από τα σήματα:
+                    <ul>
+                        <li><span class="highlight">Notch 1, Notch 2, Notch 3</span></li>
+                        <li><span class="highlight">Jagged1, Delta1</span></li>
+                    </ul>
+                </li>
+                <li><strong>Αρχέγονα Κύτταρα:</strong> Επιστρατεύονται τα <strong>DPSCs</strong> (πολφού), τα <strong>PDLSCs</strong> (περιοδοντίου) και τα <strong>SCAPs</strong> (ακρορριζικής θηλής).</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="permeability">
+        <h2>4. Διαπερατότητα Οδοντίνης & Υδροδυναμική</h2>
+        <div class="atomic-detail">
+            <p><strong>Αριθμητικά Δεδομένα SOS:</strong></p>
+            <ul>
+                <li>Διάμετρος σωληναρίων: <strong>2 - 4 μm</strong>.</li>
+                <li>Πυκνότητα: <strong>18.000 - 21.000 / mm²</strong>.</li>
+                <li><strong>Κλινικό Αξίωμα:</strong> Η διάμετρος και η πυκνότητα <span class="highlight">αυξάνονται</span> προς τον πολφό. Η διαπερατότητα είναι μέγιστη στις εν τω βάθει περιοχές (RDT < 0.5mm).</li>
+            </ul>
+        </div>
+
+        <div class="formula-box">
+            Νόμος Poiseuille-Hager: <br>
+            $$Q = \frac{\pi \cdot \Delta P \cdot r^4}{8 \cdot \eta \cdot l}$$
+        </div>
+        <div class="atomic-detail">
+            <p><strong>Μεταβλητές:</strong> <br>
+            Q = Ροή υγρού (διαπερατότητα). <br>
+            ΔP = Διαφορά πίεσης. <br>
+            r = Ακτίνα σωληναρίου (ο κρισιμότερος παράγοντας - υψωμένη στην 4η). <br>
+            l = Μήκος σωληναρίων (πάχος οδοντίνης). <br>
+            η = Ιξώδες υγρού.</p>
+        </div>
+    </section>
+</div>
+
+<section id="protection">
+        <h2>3. Κλινική Διαδικασία Προστασίας του Πολφού</h2>
+        <p>Η απόφαση για την προστασία του πολφού δεν είναι εμπειρική, αλλά βασίζεται σε αυστηρά βιολογικά κριτήρια και αριθμητικά όρια πάχους οδοντίνης.</p>
+
+        <div class="sos-callout">
+            <strong>Η Λεπτή Ισορροπία της Φλεγμονής (Σελ. 272):</strong>
+            Η φλεγμονώδης αντίδραση είναι <strong>προϋπόθεση</strong> για την οδοντινογένεση, ΑΛΛΑ:
+            <ul>
+                <li><strong>Χαμηλές συγκεντρώσεις</strong> κυτοκινών & αυξητικών παραγόντων -> Επαγωγή διαφοροποίησης κυττάρων και επούλωση.</li>
+                <li><strong>Υψηλές συγκεντρώσεις / Έντονη φλεγμονή</strong> -> Κυτταρικός θάνατος, αποδιοργάνωση ιστού και αδυναμία επούλωσης.</li>
+                <li><span class="highlight">Κλινικό Σημείο:</span> Η προϋπάρχουσα ευαισθησία στο δόντι είναι δείκτης ήδη εγκατεστημένης πολφικής διέγερσης και μειωμένης αμυντικής ικανότητας.</li>
+            </ul>
+        </div>
+
+        <h3>Α. Το Πρωτόκολλο του Πάχους (RDT - Remaining Dentin Thickness)</h3>
+        <p>Με βάση τη διεθνή βιβλιογραφία (Σελ. 273), το πάχος της παραμένουσας οδοντίνης χωρίζεται σε 3 κλίμακες:</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Πάχος Οδοντίνης (RDT)</th>
+                    <th>Χαρακτηρισμός</th>
+                    <th>Κλινική Οδηγία</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>&ge; 1,5 mm</strong></td>
+                    <td>Ασφαλής Φραγμός</td>
+                    <td>Δεν απαιτείται πρόσθετο υλικό προστασίας (επαρκούν οι συγκολλητικοί παράγοντες).</td>
+                </tr>
+                <tr>
+                    <td><strong>&lt; 1,5 mm</strong></td>
+                    <td>Επισφαλής Φραγμός</td>
+                    <td>Επιβεβλημένη η χρήση υλικού προστασίας (Liner/Base).</td>
+                </tr>
+                <tr>
+                    <td><strong>Κλινική Έκθεση</strong></td>
+                    <td>Αποκάλυψη Πολφού</td>
+                    <td>Άμεση Κάλυψη Πολφού (Direct Pulp Capping).</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Β. Τεχνικές Κάλυψης</h3>
+        <div class="atomic-detail">
+            <ul>
+                <li><strong>Έμμεση Κάλυψη:</strong> Εφαρμόζεται σε βαθιές κοιλότητες χωρίς συμπτώματα πολφίτιδας. Αφήνεται ένα στρώμα απομεταλλικοποιημένης οδοντίνης για να αποφευχθεί η αποκάλυψη και προκαλείται σχηματισμός <strong>αντιδραστικής</strong> οδοντίνης.</li>
+                <li><strong>Άμεση Κάλυψη:</strong> Τοποθέτηση υλικού απευθείας στον εκτεθειμένο ιστό. Στόχος είναι η δημιουργία <strong>γέφυρας οδοντίνης</strong> (σκληρός ιστός).</li>
+            </ul>
+        </div>
+
+        <div class="sos-callout">
+            <strong>ΠΙΝΑΚΑΣ 8.1: Αναγκαίες Συνθήκες για Άμεση Κάλυψη (SOS)</strong>
+            <ul>
+                <li>Απουσία αυτόματου πόνου ή πόνου στην επίκρουση.</li>
+                <li>Φυσιολογική ακτινογραφική εικόνα (όχι περιακρορριζική αλλοίωση).</li>
+                <li>Μέγεθος αποκάλυψης <strong>&le; 1 mm</strong>.</li>
+                <li>Πλήρης έλεγχος αιμορραγίας πριν την τοποθέτηση του υλικού.</li>
+                <li>Θετικό τεστ ζωτικότητας.</li>
+            </ul>
+        </div>
+
+        <h2>4. Υλικά Προστασίας (Atomic Detail)</h2>
+        
+        <h3>1. Υδροξείδιο του Ασβεστίου [Ca(OH)₂] - "Η Χρυσή Σταθερά"</h3>
+        <div class="atomic-detail">
+            <ul>
+                <li><strong>Μηχανισμός:</strong> Πολύ υψηλό pH (<strong>11-12</strong>). Προκαλεί τοπική πηκτική νέκρωση (2mm) που διεγείρει την επούλωση.</li>
+                <li><strong>Χημικά σκληρυνόμενα (π.χ. Dycal):</strong> Σύστημα Βάσης/Καταλύτη. 
+                    <br>• <em>Χρόνος πήξης:</em> <strong>2-3 λεπτά</strong>.
+                </li>
+                <li><strong>Μειονεκτήματα:</strong> Υψηλή διαλυτότητα (φαινόμενο "Tunneling" στη γέφυρα οδοντίνης), καμία συγκόλληση με οδοντίνη, χαμηλές μηχανικές αντοχές.</li>
+            </ul>
+        </div>
+
+        <h3>2. MTA (Mineral Trioxide Aggregate)</h3>
+        <div class="atomic-detail">
+            <ul>
+                <li><strong>Σύνθεση:</strong> Κονία Portland + Οξείδιο Βισμουθίου (για ακτινοσκιερότητα).</li>
+                <li><strong>Πλεονεκτήματα:</strong> Ερμητική απόφραξη λόγω ελαφράς διαστολής, βιοενεργό (σχηματισμός υδροξυαπατίτη), χαμηλή κυτταροτοξικότητα.</li>
+                <li><strong>Μειονεκτήματα:</strong> Δύσκολος χειρισμός (ψαθυρή πάστα), υψηλό κόστος, <strong>μεγάλος χρόνος πήξης (έως 3 ώρες)</strong>, κίνδυνος αποχρωματισμού.</li>
+            </ul>
+        </div>
+
+        <h3>3. Biodentine</h3>
+        <div class="clinical-protocol">
+            <strong>Το "Έξυπνο" Υλικό (Σελ. 279):</strong>
+            <ul>
+                <li><strong>Σύνθεση:</strong> Πυριτικό ασβέστιο + Χλωριούχο ασβέστιο (επιταχυντής).</li>
+                <li><strong>Χρόνος πήξης:</strong> <strong>9-12 λεπτά</strong> (σημαντικά ταχύτερο από το MTA).</li>
+                <li><strong>Ιδιότητα:</strong> Μηχανικές αντοχές παρόμοιες με της φυσικής οδοντίνης. <strong>Δεν</strong> επηρεάζεται από την αδροποίηση (acid etching).</li>
+            </ul>
+        </div>
+    </section>
+
+  <section id="materials-extended">
+        <h2>4. Υαλοϊονομερείς Κονίες & Συγκολλητικά (Atomic Analysis)</h2>
+        <p>Τα υλικά αυτά αποτελούν τη βάση της σύγχρονης επανορθωτικής, αλλά η χρήση τους κοντά στον πολφό απαιτεί αυστηρή τήρηση των ορίων πάχους.</p>
+
+        <h3>Α. Χημικά Σκληρυνόμενες Υαλοϊονομερείς Κονίες (GIC)</h3>
+        <div class="atomic-detail">
+            <ul>
+                <li><strong>Σύνθεση Σκόνης:</strong> Ασβεστο-αλουμινο-αργιλο-πυριτικός ύαλος με υψηλή συγκέντρωση <strong>φθορίου</strong>.</li>
+                <li><strong>Σύνθεση Υγρού:</strong> Υδατικό διάλυμα <strong>πολυακρυλικού οξέος</strong>.</li>
+                <li><strong>Χρόνος Πήξης:</strong> 3-4 λεπτά από την έναρξη της ανάμιξης.</li>
+                <li><strong>Πλεονέκτημα:</strong> Χημική συνάφεια με τους οδοντικούς ιστούς και απελευθέρωση φθορίου.</li>
+                <li><span class="highlight">Κίνδυνος:</span> Ευαίσθητες στην υγρασία κατά την πήξη και χαμηλότερες αντοχές από τις ρητίνες.</li>
+            </ul>
+        </div>
+
+        <h3>Β. Ρητινωδώς Τροποποιημένες Υαλοϊονομερείς (RMGIC)</h3>
+        <div class="atomic-detail">
+            <ul>
+                <li><strong>Σύνθεση:</strong> Παρόμοια με τις GIC, αλλά με προσθήκη ρητινοτροποποιημένου πολυακρυλικού οξέος και υδρόφιλων μονομερών (<strong>HEMA</strong>).</li>
+                <li><strong>Χρόνος Πήξης:</strong> ~1 λεπτό (με φωτοπολυμερισμό).</li>
+                <li><strong>SOS Κλινική Χρήση:</strong> 
+                    <ul>
+                        <li>ΔΕΝ χρησιμοποιούνται σε <strong>Άμεση Κάλυψη</strong> λόγω κυτταροτοξικότητας του HEMA.</li>
+                        <li>Χρησιμοποιούνται μόνο ως υποστρώματα (liners) σε RDT < 1,5 mm.</li>
+                        <li><strong>Μέγιστο Πάχος:</strong> Δεν πρέπει να υπερβαίνει το <strong>1 mm</strong>.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <h3>Γ. Συγκολλητικοί Παράγοντες (Adhesives)</h3>
+        <div class="sos-callout">
+            <strong>Η Τοξικότητα των Μονομερών (Σελ. 282):</strong>
+            Σε βαθιές κοιλότητες (RDT < 1,5 mm), οι συγκολλητικοί παράγοντες ενέχουν κινδύνους:
+            1. <strong>Ατελής Πολυμερισμός:</strong> Διάχυση μονομερών (Bis-GMA, UDMA, TEGDMA, HEMA) προς τον πολφό. <br>
+            2. <strong>Αναστολή Μεταβολισμού:</strong> Το <strong>Bis-GMA</strong> έχει αποδειχθεί ότι αναστέλλει τον κυτταρικό μεταβολισμό και τη σύνθεση DNA. <br>
+            3. <strong>Υβριδική Ζώνη:</strong> Η ποιότητά της είναι επισφαλής σε οδοντίνη μετά από αφαίρεση τερηδόνας λόγω <strong>υδρόλυσης</strong> και <strong>ενζυματικής αποδόμησης</strong> με την πάροδο του χρόνου.
+        </div>
+
+        <div class="clinical-protocol">
+            <strong>Πρωτόκολλο για RDT < 1,5 mm:</strong>
+            Απαγορεύεται η χρήση μόνο συγκολλητικού. <br>
+            <strong>Βήμα 1:</strong> Τοποθέτηση λεπτού στρώματος GIC (~0,5 mm). <br>
+            <strong>Βήμα 2:</strong> Εφαρμογή συγκολλητικού παράγοντα και ρητίνης.
+        </div>
+
+        <h2>5. Συγκεντρωτικός Πίνακας Χημικής Σύνθεσης (SOS)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Υλικό</th>
+                    <th>Βασικά Συστατικά & Αναλογίες</th>
+                    <th>Βιολογική Δράση / Ιδιαιτερότητα</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Dycal (Ca(OH)₂)</strong></td>
+                    <td>Βάση: 50% Ca(OH)₂, 10% ZnO <br> Καταλύτης: 40% γλυκοσαλυκιλικό νάτριο</td>
+                    <td>pH 11-12, Τοπική πηκτική νέκρωση, υψηλή διαλυτότητα.</td>
+                </tr>
+                <tr>
+                    <td><strong>MTA</strong></td>
+                    <td>Πυριτικό ασβέστιο + Οξείδιο Βισμουθίου</td>
+                    <td>Διαστολή κατά την πήξη (ερμητική έμφραξη), σχηματισμός υδροξυαπατίτη.</td>
+                </tr>
+                <tr>
+                    <td><strong>Biodentine</strong></td>
+                    <td>Σκόνη: Ca₃SiO₅ <br> Υγρό: CaCl₂ (επιταχυντής)</td>
+                    <td>Πήξη σε 9-12', μηχανικές αντοχές οδοντίνης, αντοχή στην αδροποίηση.</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+  <div class="atomic-detail">
+            <h3>Στατιστική Υπεροχή Βιοενεργών Υλικών (Σελ. 279)</h3>
+            <ul>
+                <li><strong>Ποιότητα Γέφυρας Οδοντίνης:</strong> Μετά την εφαρμογή <strong>MTA</strong>, ο σχηματισμός γέφυρας παρατηρείται σε ποσοστό <strong>>70%</strong> των περιπτώσεων, με μεγαλύτερο πάχος και λιγότερους πόρους συγκριτικά με το $Ca(OH)_2$.</li>
+                <li><strong>Αντοχή στην Αδροποίηση:</strong> Το <strong>Biodentine</strong> είναι το μοναδικό από τα τρία που δεν καταστρέφεται από την επαφή με ορθοφωσφορικό οξύ 37%.</li>
+            </ul>
+        </div>
+
+        <h3>Πίνακας 8.3: Ιδανικά Χαρακτηριστικά για Έμμεση Κάλυψη</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Κριτήριο</th>
+                    <th>Ακαδημαϊκή Τεκμηρίωση</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Βιοσυμβατότητα</strong></td>
+                    <td>Να μην είναι τοξικό και να μην προάγει τη φλεγμονή.</td>
+                </tr>
+                <tr>
+                    <td><strong>Συγκόλληση</strong></td>
+                    <td>Να συνδέεται χημικά ή μηχανικά με τους οδοντικούς ιστούς.</td>
+                </tr>
+                <tr>
+                    <td><strong>Αντιμικροβιακή Δράση</strong></td>
+                    <td>Να αναστέλλει την ανάπτυξη υπολειμματικών μικροβίων.</td>
+                </tr>
+                <tr>
+                    <td><strong>Συμβατότητα με Ρητίνες</strong></td>
+                    <td>Να μην εμποδίζει τον πολυμερισμό των σύνθετων ρητινών.</td>
+                </tr>
+                <tr>
+                    <td><strong>Μέτρο Ελαστικότητας</strong></td>
+                    <td>Να έχει παρόμοιες μηχανικές ιδιότητες με την οδοντίνη.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="sos-callout">
+            <span class="sos-title">ΚΡΙΣΙΜΗ ΛΕΠΤΟΜΕΡΕΙΑ: Υβριδική Ζώνη & Τερηδόνα (Σελ. 283)</span>
+            Η ποιότητα του υβριδικού στρώματος είναι <strong>ιδιαίτερα επισφαλής</strong> όταν η οδοντίνη προέρχεται από αφαίρεση τερηδόνας (caries-affected dentin). 
+            <br>• <strong>Αιτία:</strong> Η δομή της είναι αποδιοργανωμένη, καθιστώντας την ευάλωτη σε <strong>υδρόλυση</strong> και <strong>ενζυματική αποδόμηση</strong> από μεταλλοπρωτεϊνάσες (MMPs). 
+            <br>• <strong>Συνέπεια:</strong> Η στεγανή έμφραξη χάνεται με την πάροδο του χρόνου, εκθέτοντας τον πολφό σε μικροδιείσδυση.
+        </div>
+
+        <div class="clinical-protocol">
+            <span class="clinical-title">ΧΡΟΝΟΙ & ΔΙΑΔΙΚΑΣΙΕΣ SOS</span>
+            <ul>
+                <li><strong>Αδροποίηση (Acid Etching):</strong> 15 δευτερόλεπτα με ορθοφωσφορικό οξύ 37% (Σελ. 277).</li>
+                <li><strong>Εφαρμογή GIC:</strong> Αν το οξύ παραμείνει πάνω από 10-15 δευτερόλεπτα στην επιφάνεια της κονίας, προκαλείται αποδόμηση της (Σελ. 281).</li>
+                <li><strong>TiO₂ (Διοξείδιο του Τιτανίου):</strong> Περιέχεται σε ποσοστό <strong>10% κ.β.</strong> στον καταλύτη του $Ca(OH)_2$ για την απόδοση λευκού χρώματος (Σελ. 276).</li>
+            </ul>
+        </div>
+
+</body>
+</html>
