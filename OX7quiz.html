@@ -1,0 +1,1580 @@
+<style>
+    .quiz-container {
+        max-width: 850px;
+        margin: 20px auto;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .question-block {
+        background: #ffffff;
+        border: 1px solid #e0e0e0;
+        padding: 20px;
+        margin-bottom: 25px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .question-text {
+        font-weight: bold;
+        font-size: 1.1rem;
+        color: #004080;
+        margin-bottom: 15px;
+    }
+    .options-list {
+        list-style: none;
+        padding: 0;
+    }
+    .option-item {
+        padding: 12px 15px;
+        border: 1px solid #dcdcdc;
+        margin-bottom: 8px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .option-item:hover {
+        background-color: #f0f7ff;
+    }
+    .correct {
+        background-color: #d4edda !important;
+        border-color: #c3e6cb !important;
+        color: #155724;
+        font-weight: bold;
+    }
+    .wrong {
+        background-color: #f8d7da !important;
+        border-color: #f5c6cb !important;
+        color: #721c24;
+    }
+    .explanation-box {
+        display: none;
+        margin-top: 15px;
+        padding: 15px;
+        background-color: #e7f3ff;
+        border-left: 5px solid #004080;
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+    .disabled {
+        pointer-events: none;
+    }
+</style>
+
+<div class="quiz-container">
+    <h2 style="text-align:center; color:#004080;">Στάδιο 1: Συγκολλητικά Συστήματα & Οδοντικοί Ιστοί</h2>
+
+    <div class="question-block" id="q1">
+        <div class="question-text">1. Ποια είναι η περιεκτικότητα σε ανόργανα στοιχεία (κ.β.) και νερό στην αδαμαντίνη;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, true, 'q1')">95% ανόργανα στοιχεία και 1-4% νερό</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q1')">70% ανόργανα στοιχεία και 10-20% νερό</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q1')">95% ανόργανα στοιχεία και 10% νερό</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q1')">50% ανόργανα στοιχεία και 1-4% νερό</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Σύμφωνα με τη θεωρία, η αδαμαντίνη είναι κατεξοχήν ανόργανος ιστός (95% κ.β.), υδρόφοβος με ελάχιστη περιεκτικότητα σε νερό (1-4% κ.β.), σε αντίθεση με την οδοντίνη που είναι υδρόφιλη (10-20% νερό).
+        </div>
+    </div>
+
+    <div class="question-block" id="q2">
+        <div class="question-text">2. Τι ορίζεται ως γεωμετρικός συντελεστής c σε μια κοιλότητα;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q2')">Ο λόγος των ελεύθερων επιφανειών προς τις συγκολλημένες</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q2')">Ο λόγος των επιφανειών του δοντιού στις οποίες εφάπτεται η ρητίνη προς τις ελεύθερες</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q2')">Η ποσότητα της σύνθετης ρητίνης προς τον όγκο της κοιλότητας</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q2')">Η αντοχή του δεσμού MPa ανά τετραγωνικό χιλιοστό</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Ο συντελεστής c εκφράζει τον λόγο των συγκολλημένων επιφανειών προς τις ελεύθερες. Όσο μεγαλύτερος είναι ο συντελεστής (π.χ. σε κοιλότητα 1ης ομάδας), τόσο μεγαλύτερες οι τάσεις συστολής στη διεπιφάνεια.
+        </div>
+    </div>
+
+    <div class="question-block" id="q3">
+        <div class="question-text">3. Ποιο είναι το τυπικό πάχος της ζώνης οδοντικών ξεσμάτων (smear layer);</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q3')">10-20 μm</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q3')">1 έως 5 μm</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q3')">0,5 μm</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q3')">5-10 μm</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Η ζώνη οδοντικών ξεσμάτων έχει πάχος 1-5 μm, ενώ τα βύσματα ξεσμάτων (smear plugs) εισέρχονται στα οδοντινοσωληνάρια σε βάθος 1-10 μm.
+        </div>
+    </div>
+
+    <div class="question-block" id="q4">
+        <div class="question-text">4. Κατά την αδροποίηση της αδαμαντίνης με ορθοφωσφορικό οξύ (35-37%), τι βάθος μικροπόρων δημιουργείται;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q4')">1-5 μm</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q4')">10-20 μm</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q4')">30-40 μm</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q4')">5-10 μm</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Η επιλεκτική διαλυτοποίηση των κρυστάλλων υδροξυαπατίτη από το οξύ δημιουργεί μικροπόρους βάθους 10-20 μm, επιτρέποντας τη δημιουργία ρητινωδών προσεκβολών.
+        </div>
+    </div>
+
+    <div class="question-block" id="q5">
+        <div class="question-text">5. Γιατί η αδροποίηση της οδοντίνης με ορθοφωσφορικό οξύ διαρκεί 15 δευτερόλεπτα αντί για 30;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q5')">Γιατί η οδοντίνη είναι πιο σκληρή από την αδαμαντίνη</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q5')">Για τον περιορισμό του βάθους της απομεταλλικοποιημένης ζώνης</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q5')">Για να μην πήξει η ρητίνη πρόωρα</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q5')">Για να αποφευχθεί η χρώση της οδοντίνης</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Ο μικρότερος χρόνος (15'') στοχεύει στον έλεγχο του βάθους απομεταλλικοποίησης, ώστε να είναι εφικτή η πλήρης διήθηση του κολλαγόνου από τη ρητίνη και να μην μείνει "γυμνό" κολλαγόνο στο βάθος.
+        </div>
+    </div>
+
+    <div class="question-block" id="q6">
+        <div class="question-text">6. Ποιο είναι το κύριο μειονέκτημα της υπερβολικής ξήρανσης της αδροποιημένης οδοντίνης;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, true, 'q6')">Η κατάρρευση των κολλαγονούχων ινών</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q6')">Η αύξηση της επιφανειακής ενέργειας</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q6')">Η υπερβολική αύξηση του smear layer</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q6')">Η εξάτμιση των μονομερών HEMA</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Όταν η οδοντίνη στεγνώνει υπερβολικά, οι ίνες κολλαγόνου που έχουν χάσει την υποστήριξη του υδροξυαπατίτη καταρρέουν, σχηματίζοντας μια αδιαπέραστη μάζα για τη συγκολλητική ρητίνη.
+        </div>
+    </div>
+
+    <div class="question-block" id="q7">
+        <div class="question-text">7. Ποιος είναι ο ρόλος του υδρόφιλου τμήματος των μονομερών-ενεργοποιητών (primers);</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q7')">Να συνδέεται με τη σύνθετη ρητίνη</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q7')">Να διεισδύει στο κολλαγόνο και να προκαλεί την ανόρθωσή του</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q7')">Να επιταχύνει τον φωτοπολυμερισμό</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q7')">Να διαλύει τον υδροξυαπατίτη</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Το υδρόφιλο τμήμα (π.χ. HEMA) διεισδύει στο υγρό περιβάλλον του κολλαγόνου, ανορθώνει τις ίνες και αυξάνει την επιφανειακή ενέργεια για τη μετέπειτα διήθηση των υδρόφοβων μονομερών.
+        </div>
+    </div>
+
+    <div class="question-block" id="q8">
+        <div class="question-text">8. Τι ονομάζουμε "Υβριδική Ζώνη" (Hybrid Layer);</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q8')">Το στρώμα της σύνθετης ρητίνης πάνω από το συγκολλητικό</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q8')">Τη ζώνη που αποτελείται από απομεταλλικοποιημένο κολλαγόνο και πολυμερισμένη ρητίνη</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q8')">Την ένωση αδαμαντίνης και οδοντίνης</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q8')">Το στρώμα αναστολής από το οξυγόνο</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Η υβριδική ζώνη είναι το προϊόν της διείσδυσης και του πολυμερισμού των μονομερών μέσα στο δίκτυο των ινών κολλαγόνου που έχει αποκαλυφθεί μετά την αδροποίηση.
+        </div>
+    </div>
+
+    <div class="question-block" id="q9">
+        <div class="question-text">9. Ποιες μεταλλοπρωτεϊνάσες (MMPs) θεωρούνται σημαντικότερες για την αποδόμηση του κολλαγόνου στην υβριδική ζώνη;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q9')">MMP1 και MMP5</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q9')">MMP2, MMP8 και MMP9</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q9')">MMP10 και MMP12</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q9')">MMP3 και MMP7</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Οι MMP2, MMP8 και MMP9 είναι εγκλωβισμένα ένζυμα στην οδοντίνη που ενεργοποιούνται από την οξύτητα και αποδομούν το μη διηθημένο κολλαγόνο, οδηγώντας σε μείωση της αντοχής του δεσμού.
+        </div>
+    </div>
+
+    <div class="question-block" id="q10">
+        <div class="question-text">10. Ποιος διαλύτης των συγκολλητικών συστημάτων είναι ο πιο πτητικός και απαιτεί ιδιαίτερη προσοχή στο κλείσιμο του φιαλιδίου;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q10')">Νερό</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q10')">Αιθανόλη</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q10')">Ακετόνη</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q10')">Γλυκερίνη</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Η ακετόνη είναι εξαιρετικά πτητική. Τυχόν εξάτμισή της από το φιαλίδιο αλλάζει την αναλογία μονομερών, αυξάνει το ιξώδες και μειώνει τη διεισδυτικότητα του συγκολλητικού.
+        </div>
+    </div>
+
+    <div class="question-block" id="q11">
+        <div class="question-text">11. Ποιο είναι το pH των "ήπιων" αυτοαδροποιητικών συγκολλητικών συστημάτων;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q11')">pH < 1</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q11')">pH ≥ 2</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q11')">pH = 1,5</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q11')">pH = 7</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Τα ήπια συστήματα έχουν pH ≥ 2. Αυτό έχει ως αποτέλεσμα μια πολύ ήπια απομεταλλικοποίηση, όπου παραμένει υδροξυαπατίτης γύρω από το κολλαγόνο, επιτρέποντας χημικό δεσμό (π.χ. με 10-MDP).
+        </div>
+    </div>
+
+    <div class="question-block" id="q12">
+        <div class="question-text">12. Ποια ουσία χρησιμοποιείται ευρύτερα ως φωτοκαταλύτης στα συγκολλητικά συστήματα;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, true, 'q12')">Καμφοροκινόνη</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q12')">Υδροκινόνη</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q12')">Βενζοϊκό οξύ</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q12')">Διοξείδιο του πυριτίου</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Η καμφοροκινόνη είναι ο κύριος φωτοενεργοποιητής, συχνά συνδυαζόμενος με τριτοταγείς αμίνες (EDAB, DMAEMA) για την εκκίνηση του πολυμερισμού.
+        </div>
+    </div>
+
+    <div class="question-block" id="q13">
+        <div class="question-text">13. Ποιο είναι το κύριο χαρακτηριστικό της 4ης γενιάς συγκολλητικών συστημάτων;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q13')">Ένα φιαλίδιο, ένα στάδιο</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q13')">Τρία κλινικά στάδια (Αδροποίηση, Ενεργοποιητής, Συγκολλητική Ρητίνη)</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q13')">Αυτοαδροποίηση χωρίς έκπλυση</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q13')">Χρήση μόνο σε νεογιλά δόντια</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Η 4η γενιά (Three-step etch-and-rinse) θεωρείται ο "χρυσός κανόνας" (gold standard) λόγω της υψηλής αντοχής δεσμού (~20 MPa), παρά την τεχνική της ευαισθησία.
+        </div>
+    </div>
+
+    <div class="question-block" id="q14">
+        <div class="question-text">14. Τι συμβαίνει στη ζώνη οδοντικών ξεσμάτων (smear layer) κατά την εφαρμογή συστημάτων 6ης και 7ης γενιάς;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q14')">Απομακρύνεται πλήρως με έκπλυση</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q14')">Δεν απομακρύνεται, αλλά διαποτίζεται και ενσωματώνεται στην υβριδική ζώνη</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q14')">Γίνεται πιο παχιά</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q14')">Μετατρέπεται σε υδροξυαπατίτη</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Στα αυτοαδροποιητικά συστήματα (self-etch), η smear layer τροποποιείται από τα όξινα μονομερή και ενσωματώνεται, μειώνοντας τον κίνδυνο μετεμφρακτικής ευαισθησίας.
+        </div>
+    </div>
+
+    <div class="question-block" id="q15">
+        <div class="question-text">15. Ποιο είναι το συχνότερο πρόβλημα των συστημάτων 7ης γενιάς (All-in-one);</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q15')">Πολύ μεγάλη αντοχή δεσμού</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q15')">Λειτουργούν ως ημιδιαπερατές μεμβράνες (διαχωρισμός φάσεων)</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q15')">Απαιτούν πολύ χρόνο</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q15')">Δεν περιέχουν διαλύτες</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Λόγω του συνδυασμού υδρόφιλων και υδρόφοβων μονομερών σε ένα φιαλίδιο, παρατηρείται σχηματισμός σταγονιδίων νερού, καθιστώντας το στρώμα υδρολυτικά ασταθές.
+        </div>
+    </div>
+
+    <div class="question-block" id="q16">
+        <div class="question-text">16. Τι περιλαμβάνει η τεχνική της "Επιλεκτικής Αδροποίησης" (Selective Etching) που συστήνεται για τα Universal συστήματα;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q16')">Αδροποίηση μόνο της οδοντίνης</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q16')">Αδροποίηση μόνο της αδαμαντίνης με ορθοφωσφορικό οξύ πριν το συγκολλητικό</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q16')">Αδροποίηση μόνο του αυχενικού ορίου</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q16')">Χρήση οξέος για 60 δευτερόλεπτα</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Τα Universal συστήματα (8ης γενιάς) αποδίδουν καλύτερα στην αδαμαντίνη όταν προηγηθεί αδροποίηση με οξύ, ενώ στην οδοντίνη δρουν αυτοαδροποιητικά για λιγότερη ευαισθησία.
+        </div>
+    </div>
+
+    <div class="question-block" id="q17">
+        <div class="question-text">17. Ποιο όξινο μονομερές κυριαρχεί στα σύγχρονα "Universal" συστήματα λόγω της ικανότητάς του για χημικό δεσμό;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q17')">Bis-GMA</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q17')">10-MDP</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q17')">TEGDMA</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q17')">HEMA</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Το 10-MDP διαθέτει μια υδρόφιλη φωσφορική ομάδα που αντιδρά χημικά με το ασβέστιο του υδροξυαπατίτη, δημιουργώντας πολύ σταθερά άλατα ασβεστίου.
+        </div>
+    </div>
+
+    <div class="question-block" id="q18">
+        <div class="question-text">18. Ποια είναι η ενδεδειγμένη αντιμετώπιση σε κοιλότητες με παραμένουσα οδοντίνη < 0,5 mm;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q18')">Αδροποίηση με οξύ για 30''</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q18')">Προστασία με επίχρισμα υαλοϊονομερούς κονίας</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q18')">Χρήση μόνο συγκολλητικού 4ης γενιάς</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q18')">Στέγνωμα με ισχυρό ρεύμα αέρα</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Σε τόσο μικρό πάχος, η οξύτητα των συγκολλητικών μπορεί να προκαλέσει εκτόπιση οδοντινοβλαστών. Η υαλοϊονομερής κονία λειτουργεί ως προστατευτικός φραγμός.
+        </div>
+    </div>
+
+    <div class="question-block" id="q19">
+        <div class="question-text">19. Τι είδους δεσμός αναπτύσσεται στην αδροποιημένη αδαμαντίνη;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q19')">Καθαρά χημικός δεσμός</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q19')">Μικρομηχανικός δεσμός</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q19')">Δεσμός van der Waals</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q19')">Ομοιοπολικός δεσμός</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Ο δεσμός στην αδαμαντίνη είναι μικρομηχανικός και προκύπτει από την παγίδευση της ρητίνης μέσα στους μικροπόρους (πρίσματα) που δημιουργεί το οξύ.
+        </div>
+    </div>
+
+    <div class="question-block" id="q20">
+        <div class="question-text">20. Ποια είναι η κύρια λειτουργία των "ενισχυτικών ουσιών" (fillers) στα συγκολλητικά συστήματα;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q20')">Να κάνουν το υλικό πιο υδρόφιλο</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q20')">Να βελτιώσουν τις μηχανικές ιδιότητες (αντοχή)</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q20')">Να επιταχύνουν την εξάτμιση του διαλύτη</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q20')">Να χρωματίσουν το συγκολλητικό</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Η προσθήκη νανοκόκκων (π.χ. πυριτίου) ενισχύει τη σκληρότητα και την αντοχή του συγκολλητικού στρώματος, αρκεί να μην αυξάνεται υπερβολικά το ιξώδες.
+        </div>
+    </div>
+</div>
+
+<div class="quiz-container">
+    <h2 style="text-align:center; color:#004080;">Στάδιο 2: Κλινικές Παράμετροι & Διαφοροποίηση Γενεών</h2>
+
+    <div class="question-block" id="q21">
+        <div class="question-text">21. Ποια είναι η κύρια διαφορά στη σύνθεση μεταξύ αδαμαντίνης και οδοντίνης όσον αφορά το οργανικό τους μέρος;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q21')">Η αδαμαντίνη στερείται παντελώς οργανικού μέρους</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q21')">Η οδοντίνη περιέχει σημαντικό ποσοστό κολλαγόνου, ενώ η αδαμαντίνη είναι κυρίως ανόργανη</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q21')">Η αδαμαντίνη περιέχει περισσότερο κολλαγόνο από την οδοντίνη</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q21')">Και οι δύο ιστοί έχουν παρόμοια αναλογία οργανικού/ανόργανου μέρους</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Η οδοντίνη αποτελείται κατά 20-30% κ.β. από οργανικό μέρος (κυρίως κολλαγόνο τύπου Ι), ενώ η αδαμαντίνη είναι 95% ανόργανος υδροξυαπατίτης, γεγονός που καθιστά τη συγκόλληση στην οδοντίνη πολύ πιο σύνθετη διαδικασία.
+        </div>
+    </div>
+
+    <div class="question-block" id="q22">
+        <div class="question-text">22. Τι συμβαίνει στις ίνες κολλαγόνου κατά την αδροποίηση της οδοντίνης με ορθοφωσφορικό οξύ;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q22')">Ενισχύονται από την εναπόθεση φωσφορικών αλάτων</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q22')">Αποκαλύπτονται λόγω διαλυτοποίησης του υδροξυαπατίτη που τις περιβάλλει</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q22')">Μετατρέπονται σε υβριδική στιβάδα πριν την τοποθέτηση της ρητίνης</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q22')">Διαλύονται πλήρως από το οξύ</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Η αδροποίηση απομακρύνει το ανόργανο στήριγμα των ινών (υδροξυαπατίτη), αφήνοντας το κολλαγονικό δίκτυο εκτεθειμένο. Αν αυτό το δίκτυο καταρρεύσει (λόγω ξηράνσης), η ρητίνη δεν μπορεί να διεισδύσει.
+        </div>
+    </div>
+
+    <div class="question-block" id="q23">
+        <div class="question-text">23. Ποιος είναι ο ρόλος των μεταλλοπρωτεϊνασών (MMPs) στη διεπιφάνεια της συγκόλλησης;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q23')">Επιταχύνουν τον πολυμερισμό της ρητίνης</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q23')">Προκαλούν την αργή ενζυματική αποδόμηση του εκτεθειμένου κολλαγόνου</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q23')">Βελτιώνουν τη σταθερότητα της υβριδικής ζώνης</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q23')">Λειτουργούν ως αντιμικροβιακοί παράγοντες</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Οι MMPs (κυρίως MMP2, 8, 9) ενεργοποιούνται από το χαμηλό pH της αδροποίησης και αποδομούν υδρολυτικά τις ίνες κολλαγόνου που δεν έχουν διηθηθεί πλήρως από τη ρητίνη, μειώνοντας την αντοχή του δεσμού με τον χρόνο.
+        </div>
+    </div>
+
+    <div class="question-block" id="q24">
+        <div class="question-text">24. Γιατί τα συστήματα 4ης γενιάς θεωρούνται λιγότερο επιρρεπή σε μετεμφρακτική ευαισθησία αν εφαρμοστούν σωστά;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q24')">Επειδή δεν χρησιμοποιούν οξύ</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q24')">Λόγω της πληρέστερης έμφραξης των οδοντινοσωληναρίων από το παχύ στρώμα ρητίνης</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q24')">Επειδή έχουν υψηλό pH (pH > 3)</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q24')">Λόγω της παρουσίας ευγενόλης στη σύνθεσή τους</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Η εφαρμογή ξεχωριστού υδρόφοβου στρώματος ρητίνης (3ο στάδιο) εξασφαλίζει την πληρέστερη σφράγιση των οδοντινοσωληναρίων, εμποδίζοντας τη μετακίνηση του οδοντινικού υγρού που προκαλεί πόνο (υδροδυναμική θεωρία).
+        </div>
+    </div>
+
+    <div class="question-block" id="q25">
+        <div class="question-text">25. Ποιο από τα παρακάτω αποτελεί μειονέκτημα της ακετόνης ως διαλύτη στα συγκολλητικά;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q25')">Έχει χαμηλή πτητικότητα</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q25')">Απαιτεί πολλαπλές στρώσεις εφαρμογής λόγω της εξαιρετικά ταχείας εξάτμισης</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q25')">Δεν μπορεί να απομακρύνει το νερό από την οδοντίνη</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q25')">Αυξάνει το πάχος της υβριδικής ζώνης υπερβολικά</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Η ακετόνη είναι εξαιρετικά πτητική (water-chaser). Αν το φιαλίδιο μείνει ανοιχτό ή αν δεν τοποθετηθεί επαρκής ποσότητα γρήγορα, ο διαλύτης χάνεται, αυξάνεται το ιξώδες και μειώνεται η διεισδυτικότητα.
+        </div>
+    </div>
+
+    <div class="question-block" id="q26">
+        <div class="question-text">26. Σε ποια περίπτωση η "υγρή συγκόλληση" (wet bonding) είναι απόλυτα απαραίτητη;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q26')">Σε όλα τα αυτοαδροποιητικά συστήματα (self-etch)</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q26')">Κατά τη χρήση συστημάτων ολικής αδροποίησης (4ης και 5ης γενιάς)</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q26')">Μόνο στην αδροποιημένη αδαμαντίνη</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q26')">Όταν χρησιμοποιούμε ρητινώδεις κονίες χωρίς συγκολλητικό</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Στα etch-and-rinse συστήματα, το νερό είναι απαραίτητο για να διατηρεί το δίκτυο κολλαγόνου "φουσκωμένο". Αν στεγνώσει πλήρως, οι ίνες καταρρέουν και η ρητίνη δεν μπορεί να σχηματίσει υβριδική ζώνη.
+        </div>
+    </div>
+
+    <div class="question-block" id="q27">
+        <div class="question-text">27. Τι ονομάζουμε "νανο-κενά" (nanoleakage) στην υβριδική ζώνη;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q27')">Μεγάλες φυσαλίδες αέρα στη σύνθετη ρητίνη</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q27')">Μικροσκοπικοί δίαυλοι (νανομέτρων) που επιτρέπουν τη διάχυση νερού μέσα στην υβριδική ζώνη</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q27')">Την αποκόλληση της ρητίνης από την αδαμαντίνη</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q27')">Τη διείσδυση μικροβίων κάτω από το αμάλγαμα</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Τα νανο-κενά προκύπτουν όταν η ρητίνη δεν αντικαθιστά πλήρως το νερό ανάμεσα στις ίνες κολλαγόνου. Αυτοί οι χώροι λειτουργούν ως δίοδοι για την υδρολυτική αποδόμηση του δεσμού.
+        </div>
+    </div>
+
+    <div class="question-block" id="q28">
+        <div class="question-text">28. Ποιο είναι το κύριο χαρακτηριστικό των συστημάτων 6ης γενιάς (2-step self-etch);</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q28')">Ένα φιαλίδιο, ένα στάδιο</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q28')">Δύο φιαλίδια (Αυτοαδροποιητικός ενεργοποιητής και Συγκολλητική ρητίνη)</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q28')">Απαιτούν έκπλυση του οξέος μετά από 15''</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q28')">Χρησιμοποιούνται μόνο για συγκόλληση όψεων</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Η 6η γενιά διαχωρίζει το όξινο primer από την υδρόφοβη ρητίνη. Αυτό προσφέρει μεγαλύτερη σταθερότητα και αντοχή δεσμού στην οδοντίνη σε σχέση με την 7η γενιά (all-in-one).
+        </div>
+    </div>
+
+    <div class="question-block" id="q29">
+        <div class="question-text">29. Γιατί τα Universal συγκολλητικά (8ης γενιάς) θεωρούνται ανώτερα στην οδοντίνη;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q29')">Γιατί είναι απόλυτα υδρόφοβα</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q29')">Λόγω του χημικού δεσμού του 10-MDP με το ασβέστιο του υδροξυαπατίτη</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q29')">Γιατί έχουν pH κοντά στο 7</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q29')">Επειδή δεν περιέχουν καθόλου διαλύτες</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Το μονομερές 10-MDP σχηματίζει σταθερά άλατα ασβεστίου (MDP-Ca), προσφέροντας χημική συγκράτηση επιπλέον της μικρομηχανικής, ενισχύοντας τη μακροβιότητα του δεσμού.
+        </div>
+    </div>
+
+    <div class="question-block" id="q30">
+        <div class="question-text">30. Ποιο είναι το pH των "ισχυρών" (strong) αυτοαδροποιητικών συστημάτων;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q30')">pH > 2.5</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q30')">pH ≤ 1</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q30')">pH = 1.5</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q30')">pH = 5.5</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Τα ισχυρά συστήματα (pH ≤ 1) προκαλούν έντονη απομεταλλικοποίηση παρόμοια με του ορθοφωσφορικού οξέος, αλλά συχνά παράγουν άλατα χαμηλής συνοχής που υποβαθμίζουν τη συγκόλληση.
+        </div>
+    </div>
+
+    <div class="question-block" id="q31">
+        <div class="question-text">31. Ποια είναι η επίπτωση της φύλαξης των συγκολλητικών στο ψυγείο πριν τη χρήση;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q31')">Αυξάνεται ο βαθμός πολυμερισμού</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q31')">Μειώνεται η κινητικότητα των ελεύθερων ριζών αν δεν επανέλθουν σε θερμοκρασία δωματίου</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q31')">Επιταχύνεται η εξάτμιση του διαλύτη</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q31')">Δεν υπάρχει καμία επίδραση</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Η χαμηλή θερμοκρασία μειώνει την κινητικότητα των ριζών και αυξάνει το ιξώδες. Συστήνεται το υλικό να παραμένει εκτός ψυγείου για λίγο πριν την εφαρμογή για πλήρη πολυμερισμό.
+        </div>
+    </div>
+
+    <div class="question-block" id="q32">
+        <div class="question-text">32. Ποιος είναι ο κύριος στόχος του ήπιου αεροφυσήματος μετά την τοποθέτηση του συγκολλητικού;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q32')">Να στεγνώσει η οδοντίνη</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q32')">Να εξατμιστεί ο διαλύτης και να λεπτυνθεί το στρώμα της ρητίνης</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q32')">Να ενεργοποιηθούν οι MMPs</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q32')">Να πήξει η ρητίνη χωρίς φως</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Η απομάκρυνση του διαλύτη είναι κρίσιμη. Αν παραμείνει διαλύτης μέσα στην υβριδική ζώνη, την αποδυναμώνει και εμποδίζει τον πλήρη πολυμερισμό των μονομερών.
+        </div>
+    </div>
+
+    <div class="question-block" id="q33">
+        <div class="question-text">33. Ποιο συγκολλητικό σύστημα χαρακτηρίζεται ως "ημιδιαπερατή μεμβράνη" μετά τον πολυμερισμό του;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q33')">4ης γενιάς</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q33')">7ης γενιάς (all-in-one)</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q33')">Οι ρητινώδεις κονίες διπλού πολυμερισμού</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q33')">Οι υαλοϊονομερείς κονίες</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Λόγω της μεγάλης υδροφιλικότητάς τους και της έλλειψης ξεχωριστού υδρόφοβου στρώματος, τα συστήματα 7ης γενιάς επιτρέπουν τη δίοδο νερού, οδηγώντας σε ταχεία υδρόλυση του δεσμού.
+        </div>
+    </div>
+
+    <div class="question-block" id="q34">
+        <div class="question-text">34. Ποια είναι η πρότυπη συγκέντρωση ορθοφωσφορικού οξέος για την αδροποίηση;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q34')">2%</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q34')">35-37%</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q34')">10%</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q34')">60%</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Η συγκέντρωση 35-37% εξασφαλίζει τη βέλτιστη διαλυτοποίηση του υδροξυαπατίτη χωρίς να προκαλεί ανεπανόρθωτη βλάβη ή κατακρήμνιση αλάτων που εμποδίζουν τη συγκόλληση.
+        </div>
+    </div>
+
+    <div class="question-block" id="q35">
+        <div class="question-text">35. Τι είναι οι "ρητινώδεις προσεκβολές" (resin tags);</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q35')">Κομμάτια ρητίνης που περισσεύουν</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q35')">Τμήματα ρητίνης που διεισδύουν και πολυμερίζονται μέσα στα οδοντινοσωληνάρια</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q35')">Οι ίνες κολλαγόνου</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q35')">Οι κόκκοι ενίσχυσης της ρητίνης</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Προσφέρουν μικρομηχανική συγκράτηση. Αν και στη μύλη είναι μικρές, σε περιοχές κοντά στον πολφό είναι σημαντικό τμήμα της συγκολλούμενης επιφάνειας λόγω του εύρους των σωληναρίων.
+        </div>
+    </div>
+
+    <div class="question-block" id="q36">
+        <div class="question-text">36. Γιατί η αδροποίηση της αδαμαντίνης νεογιλών δοντιών απαιτεί περισσότερο χρόνο;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q36')">Επειδή είναι πιο μαλακή</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q36')">Λόγω της παρουσίας άπρισμης αδαμαντίνης</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q36')">Γιατί περιέχει περισσότερο νερό</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q36')">Για να εξουδετερωθεί το φθόριο</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Η άπρισμη αδαμαντίνη δεν παρουσιάζει την τυπική διάταξη των πρισμάτων, καθιστώντας τη δράση του οξέος λιγότερο αποτελεσματική, γι' αυτό απαιτείται μεγαλύτερος χρόνος εφαρμογής.
+        </div>
+    </div>
+
+    <div class="question-block" id="q37">
+        <div class="question-text">37. Ποια είναι η δράση της χλωρεξιδίνης (CHX) όταν χρησιμοποιείται στο πρωτόκολλο συγκόλλησης;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q37')">Λευκαίνει την οδοντίνη</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q37')">Αναστέλλει τη δράση των μεταλλοπρωτεϊνασών (MMPs)</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q37')">Αυξάνει την ταχύτητα φωτοπολυμερισμού</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q37')">Δημιουργεί χημικό δεσμό με τη ρητίνη</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Η CHX λειτουργεί ως αναστολέας των ενζύμων που αποδομούν το κολλαγόνο, βοηθώντας στη διατήρηση της ακεραιότητας της υβριδικής ζώνης σε βάθος χρόνου.
+        </div>
+    </div>
+
+    <div class="question-block" id="q38">
+        <div class="question-text">38. Τι ονομάζουμε "φαινόμενο σφήνας" σε έναν ενδορριζικό άξονα;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q38')">Την καλή συγκράτηση του άξονα</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q38')">Την άσκηση υπερβολικών πλευρικών τάσεων στη ρίζα που μπορεί να οδηγήσουν σε κάταγμα</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q38')">Την εύκολη αφαίρεση του άξονα</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q38')">Την πλήρωση του σωλήνα με γουταπέρκα</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Συμβαίνει κυρίως με μεταλλικούς ή κοχλιούμενους άξονες λόγω υψηλής ακαμψίας. Οι δυνάμεις δεν απορροφώνται αλλά μεταφέρονται απευθείας στα τοιχώματα της ρίζας.
+        </div>
+    </div>
+
+    <div class="question-block" id="q39">
+        <div class="question-text">39. Ποιο είναι το "κρίσιμο" σημείο αποτυχίας κατά την αδροποίηση με οξύ στην οδοντίνη;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q39')">Η παραμονή του οξέος για 10 δευτερόλεπτα</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q39')">Η υπερβολική ξήρανση (over-drying) μετά την έκπλυση</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q39')">Η χρήση οξέος σε μορφή γέλης</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q39')">Η έκπλυση με νερό για 20 δευτερόλεπτα</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Το στέγνωμα της οδοντίνης είναι δύσκολο να τυποποιηθεί. Η υπερβολική ξήρανση είναι το συχνότερο σφάλμα που οδηγεί σε κατάρρευση των ινών κολλαγόνου και αποτυχία της συγκόλλησης.
+        </div>
+    </div>
+
+    <div class="question-block" id="q40">
+        <div class="question-text">40. Γιατί η 5η γενιά συγκολλητικών (1-bottle total-etch) θεωρείται λιγότερο σταθερή από την 4η;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q40')">Επειδή δεν περιέχει διαλύτη</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q40')">Λόγω του πιθανού διαχωρισμού των συστατικών (υδρόφιλα/υδρόφοβα) στο ίδιο φιαλίδιο</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q40')">Επειδή απαιτεί περισσότερα κλινικά στάδια</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q40')">Λόγω του πολύ υψηλού pH της</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Η συνύπαρξη όλων των στοιχείων σε ένα μπουκάλι αυξάνει την υδροφιλικότητα του στρώματος και την πιθανότητα σχηματισμού ατελούς, λεπτού στρώματος που πολυμερίζεται ανεπαρκώς.
+        </div>
+    </div>
+</div>
+
+<div class="quiz-container">
+    <h2 style="text-align:center; color:#004080;">Στάδιο 3: Ενδοδοντικά Θεραπευμένα Δόντια & Ενδορριζικοί Άξονες</h2>
+
+    <div class="question-block" id="q41">
+        <div class="question-text">41. Ποια είναι η βασική ένδειξη τοποθέτησης άξονα σε οπίσθιο δόντι σύμφωνα με τον όγκο των ιστών;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, true, 'q41')">Όταν λείπουν οι δύο όμορες επιφάνειες και το ένα παραμένον τοίχωμα έχει πάχος < 2 mm</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q41')">Όταν λείπει μόνο η μασητική επιφάνεια</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q41')">Όταν το δόντι έχει κινητικότητα 1ου βαθμού</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q41')">Σε κάθε ενδοδοντικά θεραπευμένο δόντι ανεξαρτήτως απώλειας ιστών</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Η τοποθέτηση άξονα είναι λύση ανάγκης. Στα οπίσθια δόντια απαιτείται όταν η απώλεια ιστών είναι εκτεταμένη (λείπουν 2 όμορες και το εναπομείναν τοίχωμα είναι λεπτό, < 2 mm) ή όταν λείπουν 3-4 τοιχώματα.
+        </div>
+    </div>
+
+    <div class="question-block" id="q42">
+        <div class="question-text">42. Ποιο είναι το ελάχιστο αποδεκτό μήκος ρίζας για την υποδοχή ενδορριζικού άξονα;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q42')">5 mm</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q42')">8 mm</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q42')">10 mm</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q42')">15 mm</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Ρίζα με μήκος μικρότερο των 10 mm θεωρείται ακατάλληλη για άξονα, καθώς δεν μπορεί να προσφέρει την απαραίτητη σταθερότητα και συγκράτηση στο σύστημα.
+        </div>
+    </div>
+
+    <div class="question-block" id="q43">
+        <div class="question-text">43. Τι ορίζεται ως "Ζώνη Οδοντινικής Στήριξης" (Ferrule Effect);</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q43')">Το τμήμα της γουταπέρκας που παραμένει ακρορριζικά</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q43')">Το τμήμα υγιούς οδοντίνης ύψους 1,5-2 mm περιφερικά του αυχένα</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q43')">Το πάχος της ρητινώδους κονίας γύρω από τον άξονα</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q43')">Η απόσταση του άξονα από τον πολφό</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Η ζώνη στήριξης (ferrule) είναι κρίσιμη για την κατανομή των δυνάμεων και την πρόληψη του κατάγματος. Πρέπει να έχει ύψος 1,5-2 mm και πλάτος τουλάχιστον 2 mm.
+        </div>
+    </div>
+
+    <div class="question-block" id="q44">
+        <div class="question-text">44. Ποιο είναι το μέτρο ελαστικότητας των αξόνων υαλονημάτων σε σύγκριση με την οδοντίνη;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q44')">Πολύ μεγαλύτερο (~200 GPa)</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q44')">Παραπλήσιο (~20 GPa έναντι 18 GPa της οδοντίνης)</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q44')">Πολύ μικρότερο (~2 GPa)</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q44')">Είναι ακριβώς το ίδιο (18 GPa)</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Το μικρό μέτρο ελαστικότητας των πολυμερών αξόνων (~20 GPa) πλησιάζει αυτό της οδοντίνης, επιτρέποντας ομοιόμορφη κατανομή των τάσεων και μειώνοντας τον κίνδυνο "φαινομένου σφήνας".
+        </div>
+    </div>
+
+    <div class="question-block" id="q45">
+        <div class="question-text">45. Πόση γουταπέρκα πρέπει να παραμένει ιδανικά στο ακρορριζικό τριτημόριο κατά την παρασκευή του φρεατίου;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q45')">1-2 mm</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q45')">4-5 mm (αποδεκτά και 3 mm)</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q45')">7-8 mm</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q45')">Όλη η γουταπέρκα μέχρι τη διχάλα</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Η παραμονή 4-5 mm γουταπέρκας εξασφαλίζει την ακρορριζική απόφραξη και εμποδίζει τη μικροδιαρροή μικροβίων προς το περιρρίζιο.
+        </div>
+    </div>
+
+    <div class="question-block" id="q46">
+        <div class="question-text">46. Ποιο εργαλείο χρησιμοποιείται για την αρχική αφαίρεση της γουταπέρκας;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, true, 'q46')">Εγγλυφίδα τύπου Gates-Glidden</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q46')">Διαμαντόφρεζα υψηλών ταχυτήτων</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q46')">Ξέστρο χειρός</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q46')">Τρύπανο ακριβείας του συστήματος</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Η Gates-Glidden χρησιμοποιείται για την ασφαλή αφαίρεση της γουταπέρκας πριν χρησιμοποιηθούν τα ειδικά τρύπανα που διαμορφώνουν το τελικό σχήμα του φρεατίου.
+        </div>
+    </div>
+
+    <div class="question-block" id="q47">
+        <div class="question-text">47. Γιατί οι άξονες ανθρακονημάτων έχουν περιορισμένη κλινική χρήση σήμερα;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q47')">Λόγω χαμηλής αντοχής</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q47')">Λόγω υψηλού κόστους</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q47')">Λόγω του σκούρου χρώματός τους που επηρεάζει την αισθητική</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q47')">Επειδή προκαλούν αλλεργίες</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Το μαύρο χρώμα του άνθρακα αντανακλάται μέσα από τους ιστούς και τις ολοκεραμικές αποκαταστάσεις, καθιστώντας τους αισθητικά μη αποδεκτούς σε σχέση με τους άξονες υαλονημάτων.
+        </div>
+    </div>
+
+    <div class="question-block" id="q48">
+        <div class="question-text">48. Σε ποια ρίζα τοποθετείται κατά προτίμηση ο άξονας στους κάτω γομφίους;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q48')">Στην εγγύς-παρειακή</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q48')">Στην εγγύς-γλωσσική</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q48')">Στην άπω ρίζα</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q48')">Σε οποιαδήποτε ρίζα με ευθύ σωλήνα</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Επιλέγεται η ογκωδέστερη ρίζα για ελαχιστοποίηση της αποδυνάμωσης. Για τους κάτω γομφίους είναι η άπω ρίζα και για τους άνω γομφίους η υπερώια.
+        </div>
+    </div>
+
+    <div class="question-block" id="q49">
+        <div class="question-text">49. Ποιο είναι το συχνότερο αίτιο αποτυχίας των πολυμερών αξόνων (fiber posts);</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q49')">Κάταγμα ρίζας</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q49')">Αποκόλληση του άξονα (Debonding)</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q49')">Θραύση του ίδιου του άξονα</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q49')">Οξείδωση του υλικού</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Η αποκόλληση αποτελεί το 1/3 των αποτυχιών. Αν και ανεπιθύμητη, είναι προτιμότερη από το κάταγμα ρίζας (που προκαλούν οι μεταλλικοί), καθώς ο άξονας μπορεί να επανασυγκολληθεί.
+        </div>
+    </div>
+
+    <div class="question-block" id="q50">
+        <div class="question-text">50. Πώς επηρεάζει η ευγενόλη (από φυράματα έμφραξης) τη συγκόλληση του άξονα;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q50')">Ενισχύει τον χημικό δεσμό</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q50')">Αναστέλλει τον πολυμερισμό της ρητινώδους κονίας</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q50')">Προκαλεί αποχρωματισμό του άξονα</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q50')">Επιταχύνει την πήξη της κονίας</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Η ευγενόλη αντιδρά με τις ελεύθερες ρίζες και εμποδίζει τον πολυμερισμό των ρητινωδών υλικών. Απαιτείται σχολαστικός καθαρισμός (π.χ. με οινόπνευμα) αν έχει χρησιμοποιηθεί.
+        </div>
+    </div>
+
+    <div class="question-block" id="q51">
+        <div class="question-text">51. Ποια είναι η ενδεδειγμένη αναλογία μήκους μύλης/ρίζας για έναν άξονα υαλονημάτων;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q51')">1:3</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q51')">Από 2:3 έως 1:1</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q51')">2:1</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q51')">Πάντα 1:2</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Λόγω της συγκόλλησης, οι πολυμερείς άξονες επιτρέπουν πιο συντηρητική παρασκευή (1:1), ενώ οι μεταλλικοί απαιτούν αυστηρά 1:2 για μηχανική σταθερότητα.
+        </div>
+    </div>
+
+    <div class="question-block" id="q52">
+        <div class="question-text">52. Τι πρέπει να αποφεύγεται κατά το στέγνωμα του ριζικού σωλήνα πριν τη συγκόλληση;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q52')">Η χρήση κώνων χάρτου</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q52')">Η υπερβολική ξήρανση με ισχυρό ρεύμα αέρα στο βάθος</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q52')">Η χρήση φυσιολογικού ορού</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q52')">Το ήπιο φύσημα στην είσοδο του σωλήνα</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Όπως και στη μύλη, η υπερβολική ξήρανση προκαλεί κατάρρευση του κολλαγόνου, εμποδίζοντας τη δημιουργία υβριδικής ζώνης εντός του σωλήνα.
+        </div>
+    </div>
+
+    <div class="question-block" id="q53">
+        <div class="question-text">53. Γιατί συστήνεται η χρήση ρητινωδών κονιών "διπλού πολυμερισμού" για τη συγκόλληση αξόνων;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q53')">Γιατί είναι φθηνότερες</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q53')">Γιατί δεν χρειάζονται φωτοπολυμερισμό</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q53')">Γιατί το φως δεν φτάνει επαρκώς στο ακρορριζικό τμήμα</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q53')">Γιατί έχουν μεγαλύτερο πάχος φιλμ</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Παρόλο που οι άξονες υαλονημάτων είναι ημιδιαπερατοί, η ένταση του φωτός μειώνεται δραματικά σε βάθος. Ο χημικός πολυμερισμός εξασφαλίζει την πήξη στο βάθος του σωλήνα.
+        </div>
+    </div>
+
+    <div class="question-block" id="q54">
+        <div class="question-text">54. Ποια είναι η επίδραση της λεύκανσης στη συγκόλληση ενδορριζικού άξονα;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q54')">Καμία επίδραση</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q54')">Μείωση του δεσμού λόγω παρουσίας υπολειμματικού οξυγόνου</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q54')">Αύξηση της αντοχής του κολλαγόνου</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q54')">Καλύτερη διείσδυση των μονομερών HEMA</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Το απελευθερούμενο οξυγόνο αναστέλλει τον πολυμερισμό. Πρέπει να μεσολαβούν τουλάχιστον 15 ημέρες μεταξύ λεύκανσης και συγκόλλησης.
+        </div>
+    </div>
+
+    <div class="question-block" id="q55">
+        <div class="question-text">55. Ποιο είναι το κύριο μειονέκτημα των εξατομικευμένων χυτών μεταλλικών αξόνων;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q55')">Η μικρή τους αντοχή</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q55')">Η αποδυνάμωση της ρίζας λόγω ευρείας παρασκευής</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q55')">Η ευκολία αφαίρεσής τους</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q55')">Το χαμηλό μέτρο ελαστικότητας</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Οι χυτοί άξονες απαιτούν ευρύτερη αφαίρεση οδοντίνης για να έχουν επαρκή όγκο μετάλλου, γεγονός που αυξάνει τον κίνδυνο καταγμάτων.
+        </div>
+    </div>
+
+    <div class="question-block" id="q56">
+        <div class="question-text">56. Τι είναι η "Τεχνική συνδυασμένης τοποθέτησης κύριου και δευτερευόντων αξόνων";</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q56')">Η χρήση μεταλλικού και πολυμερούς άξονα μαζί</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q56')">Η χρήση πολλαπλών λεπτών αξόνων σε ευρείς ή ωοειδείς σωλήνες</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q56')">Η τοποθέτηση άξονα σε δύο διαφορετικές ρίζες</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q56')">Η χρήση άξονα και καρφίδας (pin)</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Εφαρμόζεται όταν ο σωλήνας είναι πολύ ευρύς για έναν μόνο άξονα. Μειώνει το πάχος της κονίας και την ανάγκη για περαιτέρω διεύρυνση του σωλήνα.
+        </div>
+    </div>
+
+    <div class="question-block" id="q57">
+        <div class="question-text">57. Ποιο είναι το pH του υδροξειδίου του ασβεστίου και πώς επηρεάζει τα αυτοαδροποιητικά συστήματα;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q57')">pH 7 - Καμία επίδραση</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q57')">pH 12-13 - Εξουδετερώνει τα όξινα μονομερή του συγκολλητικού</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q57')">pH 2 - Ενισχύει την αδροποίηση</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q57')">pH 5 - Προκαλεί απομεταλλικοποίηση</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Η βασικότητα του υδροξειδίου εξουδετερώνει την οξύτητα των αυτοαδροποιητικών παραγόντων, ακυρώνοντας τη δράση τους. Συστήνονται συστήματα ολικής αδροποίησης (etch-and-rinse).
+        </div>
+    </div>
+
+    <div class="question-block" id="q58">
+        <div class="question-text">58. Ποιος είναι ο ρόλος της σιλανοποίησης των ινών στη σύνθεση των πολυμερών αξόνων;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q58')">Να δώσει χρώμα στον άξονα</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q58')">Να εξασφαλίσει ισχυρό δεσμό μεταξύ ινών και ρητινώδους μήτρας</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q58')">Να προστατέψει τον άξονα από την υγρασία του στόματος</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q58')">Να κάνει τον άξονα πιο ακτινοσκιερό</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Ο σιλανικός παράγοντας λειτουργεί ως σύνδεσμος μεταξύ των ανόργανων ινών και της οργανικής μήτρας, βελτιώνοντας τη μεταφορά των φορτίων και τη μηχανική αντοχή.
+        </div>
+    </div>
+
+    <div class="question-block" id="q59">
+        <div class="question-text">59. Τι συμβαίνει στον συντελεστή-c εντός του ριζικού σωλήνα;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q59')">Είναι ευνοϊκός (1:1)</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q59')">Είναι εξαιρετικά δυσμενής (από 100:1 έως 200:1)</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q59')">Δεν παίζει ρόλο στην ενδορριζική συγκόλληση</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q59')">Είναι ίδιος με αυτόν της μύλης</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Λόγω της τεράστιας επιφάνειας συγκόλλησης σε σχέση με την ελάχιστη ελεύθερη επιφάνεια, οι τάσεις συστολής είναι τεράστιες, οδηγώντας συχνά σε κενά στη διεπιφάνεια.
+        </div>
+    </div>
+
+    <div class="question-block" id="q60">
+        <div class="question-text">60. Ποια είναι η ελάχιστη οστική στήριξη που απαιτείται για ένα δόντι που θα δεχθεί άξονα;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q60')">25% του μήκους της ρίζας</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q60')">Τουλάχιστον 50% του μήκους της ρίζας</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q60')">Δεν απαιτείται οστική στήριξη αν ο άξονας είναι μακρύς</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q60')">75% του μήκους της ρίζας</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Η επαρκής περιοδοντική υποστήριξη (50%+) είναι απαραίτητη για να αντέξει το δόντι τις λειτουργικές δυνάμεις. Χωρίς αυτή, η αποκατάσταση θεωρείται επισφαλής.
+        </div>
+    </div>
+</div>
+
+<div class="quiz-container">
+    <h2 style="text-align:center; color:#004080;">Στάδιο 4: Ρητινώδεις Κονίες & Έμμεσες Αποκαταστάσεις</h2>
+
+    <div class="question-block" id="q61">
+        <div class="question-text">61. Ποια είναι η περιεκτικότητα των ρητινωδών κονιών σε ανόργανες ενισχυτικές ουσίες κατά όγκο (κ.ο.);</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q61')">10-20%</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q61')">40 έως 60%</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q61')">75-85%</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q61')">95%</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Οι ρητινώδεις κονίες αποτελούνται από μεθακρυλικά μονομερή και σιλανοποιημένες ανόργανες ενισχυτικές ουσίες σε αναλογία 40-60% κ.ο., γεγονός που ρυθμίζει το ιξώδες και το πάχος του φιλμ.
+        </div>
+    </div>
+
+    <div class="question-block" id="q62">
+        <div class="question-text">62. Ποιο είναι το τυπικό πάχος φιλμ των ρητινωδών κονιών;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q62')">1-5 μm</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q62')">10-25 μm</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q62')">50-100 μm</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q62')">0,5 μm</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Το μικρό πάχος φιλμ (10-25 μm) είναι απαραίτητο για την πλήρη έδραση των έμμεσων αποκαταστάσεων (επένθετα, στεφάνες) χωρίς να παρεμβάλλεται στην σύγκλειση.
+        </div>
+    </div>
+
+    <div class="question-block" id="q63">
+        <div class="question-text">63. Σύμφωνα με το ISO 4049, σε ποια κατηγορία (Class) ανήκουν οι κονίες διπλού πολυμερισμού;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q63')">Class 1</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q63')">Class 2</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q63')">Class 3</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q63')">Class 4</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Το πρότυπο ISO 4049 (2009) ταξινομεί τις χημικά πολυμεριζόμενες ως Class 1, τις φωτοπολυμεριζόμενες ως Class 2 και τις διπλού πολυμερισμού ως Class 3.
+        </div>
+    </div>
+
+    <div class="question-block" id="q64">
+        <div class="question-text">64. Ποιο είναι το κύριο πλεονέκτημα των φωτοπολυμεριζόμενων ρητινωδών κονιών (Class 2);</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q64')">Η χρήση τους σε μεταλλικές στεφάνες</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q64')">Ο ελεγχόμενος χρόνος εργασίας και η ευκολία αφαίρεσης περισσειών</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q64')">Ο πολυμερισμός τους σε σκοτεινά σημεία</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q64')">Το μεγάλο πάχος φιλμ</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Οι φωτοπολυμεριζόμενες κονίες προσφέρουν απεριόριστο χρόνο εργασίας μέχρι την ενεργοποίηση με τη λυχνία, επιτρέποντας σχολαστικό καθαρισμό των ορίων πριν την πήξη.
+        </div>
+    </div>
+
+    <div class="question-block" id="q65">
+        <div class="question-text">65. Τι περιέχουν τα δοκιμαστικά σκευάσματα try-in των ρητινωδών κονιών;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q65')">Φωσφορικό οξύ</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q65')">Γλυκερίνη (είναι υδατοδιαλυτά)</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q65')">Ευγενόλη</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q65')">Ακετόνη</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Οι πάστες try-in χρησιμοποιούνται για την επιλογή απόχρωσης πριν την τελική συγκόλληση όψεων. Είναι υδατοδιαλυτές (βάση γλυκερίνης) ώστε να ξεπλένονται εύκολα χωρίς να επηρεάζουν τη συγκόλληση.
+        </div>
+    </div>
+
+    <div class="question-block" id="q66">
+        <div class="question-text">66. Ποια είναι η τιμή της αντοχής στη θλίψη των ρητινωδών κονιών;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q66')">10-20 MPa</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q66')">70-170 MPa</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q66')">300-400 MPa</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q66')">5-15 MPa</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Οι ρητινώδεις κονίες παρουσιάζουν αντοχή στη θλίψη 70-170 MPa, αντοχή σε εφελκυσμό 34-40 MPa και μέτρο ελαστικότητας 2,1-3,3 GPa.
+        </div>
+    </div>
+
+    <div class="question-block" id="q67">
+        <div class="question-text">67. Ποιο είναι το μειονέκτημα της ανάμειξης με το χέρι στις κονίες διπλού πολυμερισμού;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, true, 'q67')">Κίνδυνος εγκλωβισμού φυσαλίδων αέρα και λάθος αναλογίας</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q67')">Υπερβολική αύξηση της θερμοκρασίας</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q67')">Αλλαγή του pH σε βασικό</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q67')">Κατάρρευση των ενισχυτικών κόκκων</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Η χειροκίνητη ανάμειξη δυσχεραίνει την τήρηση ακριβών αναλογιών και μπορεί να εισάγει φυσαλίδες που αποδυναμώνουν την κονία, σε αντίθεση με τα αυτο-αναμειγνυόμενα συστήματα.
+        </div>
+    </div>
+
+    <div class="question-block" id="q68">
+        <div class="question-text">68. Γιατί στις κονίες συνολικής αδροποίησης ο συγκολλητικός παράγοντας ΔΕΝ πρέπει να φωτοπολυμερίζεται πριν την τοποθέτηση της κονίας;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q68')">Γιατί θα αποχρωματιστεί η κονία</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q68')">Γιατί το πάχος του στρώματος μπορεί να εμποδίσει την έδραση</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q68')">Γιατί θα προκληθεί έγκαυμα στον πολφό</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q68')">Γιατί δεν θα κολλήσει η ρητίνη</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Αν ο συγκολλητικός φωτοπολυμεριστεί ξεχωριστά, δημιουργεί ένα φιλμ που μπορεί να εμποδίσει την τέλεια εφαρμογή της έμμεσης αποκατάστασης. Συστήνεται ταυτόχρονος πολυμερισμός με την κονία.
+        </div>
+    </div>
+
+    <div class="question-block" id="q69">
+        <div class="question-text">69. Τι χαρακτηρίζει τις "Αυτοσυγκολλητικές" (Self-adhesive) ρητινώδεις κονίες;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q69')">Απαιτούν αδροποίηση με οξύ για 30''</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q69')">Τοποθετούνται απευθείας στο δόντι χωρίς προετοιμασία ή συγκολλητικό</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q69')">Χρησιμοποιούνται μόνο σε αμάλγαμα</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q69')">Είναι πάντα φωτοπολυμεριζόμενες</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Περιέχουν όξινα μονομερή (π.χ. MDP, 4-META) που επιτρέπουν τη συγκόλληση απευθείας στο δόντι, απλοποιώντας την κλινική διαδικασία.
+        </div>
+    </div>
+
+    <div class="question-block" id="q70">
+        <div class="question-text">70. Ποια είναι η σύσταση για την αδαμαντίνη κατά τη χρήση αυτοσυγκολλητικών κονιών;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q70')">Να μην αδροποιείται ποτέ</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q70')">Να προηγείται επιλεκτική αδροποίηση με ορθοφωσφορικό οξύ</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q70')">Να επαλείφεται με ευγενόλη</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q70')">Να στεγνώνεται με ισχυρό ρεύμα αέρα για 60''</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Για μέγιστη και μακροβιότερη αντοχή του δεσμού, ειδικά σε όψεις και επένθετα, συστήνεται η προηγούμενη αδροποίηση της αδαμαντίνης με οξύ.
+        </div>
+    </div>
+
+    <div class="question-block" id="q71">
+        <div class="question-text">71. Ποια είναι η διαλυτοποίηση των ρητινωδών κονιών στο νερό;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q71')">1% κ.β.</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q71')">Περίπου 0,01% κ.β.</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q71')">10% κ.β.</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q71')">Είναι απόλυτα διαλυτές</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Η εξαιρετικά χαμηλή διαλυτότητα (0,01%) εξασφαλίζει την ακεραιότητα της κονίας στα όρια της αποκατάστασης μέσα στο στοματικό περιβάλλον.
+        </div>
+    </div>
+
+    <div class="question-block" id="q72">
+        <div class="question-text">72. Τι κίνδυνος υπάρχει κατά την έδραση μιας κεραμικής αποκατάστασης με κονία υψηλού ιξώδους;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q72')">Να λιώσει το κεραμικό</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q72')">Δημιουργία ρωγμών στην αποκατάσταση λόγω της ασκούμενης πίεσης</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q72')">Υπερβολικός ταχύς πολυμερισμός</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q72')">Απορρόφηση νερού</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Οι παχύρρευστες κονίες απαιτούν μεγάλη πίεση για την έδραση, η οποία μπορεί να προκαλέσει κατάγματα (fractures) σε λεπτές κεραμικές κατασκευές.
+        </div>
+    </div>
+
+    <div class="question-block" id="q73">
+        <div class="question-text">73. Ποια είναι η κύρια ένδειξη χρήσης των χημικά πολυμεριζόμενων κονιών (Class 1) σήμερα;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q73')">Όψεις πορσελάνης</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q73')">Κλείσιμο διαστημάτων</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q73')">Πολύ περιορισμένη εφαρμογή (δεν πλεονεκτούν έναντι των άλλων)</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q73')">Λεύκανση δοντιών</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Οι χημικά πολυμεριζόμενες κονίες τείνουν να εγκαταλειφθούν καθώς δεν προσφέρουν επιλογή αποχρώσεων και υστερούν σε ευκολία χρήσης έναντι των διπλού πολυμερισμού.
+        </div>
+    </div>
+
+    <div class="question-block" id="q74">
+        <div class="question-text">74. Ποιες είναι οι θιξοτροπικές ιδιότητες των ρητινωδών κονιών;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q74')">Η ικανότητα να αλλάζουν χρώμα</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q74')">Η καλή ροή υπό πίεση που βοηθά στην επαφή με την οδοντίνη</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q74')">Η μόνιμη στερεοποίηση χωρίς φως</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q74')">Η διαστολή τους κατά τον πολυμερισμό</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Η θιξοτροπία επιτρέπει στο υλικό να ρέει εύκολα κατά την έδραση (υπό πίεση) και να παραμένει σταθερό όταν η πίεση σταματά.
+        </div>
+    </div>
+
+    <div class="question-block" id="q75">
+        <div class="question-text">75. Σε ποιες περιπτώσεις ΔΕΝ μπορούν να χρησιμοποιηθούν οι φωτοπολυμεριζόμενες κονίες (Class 2);</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q75')">Σε λεπτές όψεις πορσελάνης</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q75')">Σε παχιά επένθετα ή στεφάνες όπου το φως δεν διέρχεται</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q75')">Σε πρόσθια δόντια</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q75')">Όταν το δόντι είναι ζωντανό</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Αν η κατασκευή είναι αδιαφανής ή πολύ παχιά, το φως δεν φτάνει στην κονία, με αποτέλεσμα ατελή πολυμερισμό και αποτυχία της συγκόλλησης.
+        </div>
+    </div>
+
+    <div class="question-block" id="q76">
+        <div class="question-text">76. Ποιο είναι το pH των αυτοσυγκολλητικών κονιών κατά την τοποθέτηση;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q76')">pH 14</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q76')">Όξινο (λόγω MDP ή 4-META)</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q76')">Πάντα pH 7</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q76')">pH 10</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Οι αυτοσυγκολλητικές κονίες φέρουν όξινες ομάδες στη σύνθεσή τους για να προκαλέσουν τον μηχανισμό συγκόλλησης (αδρή επιφάνεια/χημικός δεσμός) χωρίς προηγούμενη αδροποίηση.
+        </div>
+    </div>
+
+    <div class="question-block" id="q77">
+        <div class="question-text">77. Τι εξασφαλίζει η σταθερότητα χρώματος στις φωτοπολυμεριζόμενες κονίες;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q77')">Η παρουσία αμινών</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q77')">Η απουσία συστατικών χημικού πολυμερισμού που τείνουν να κιτρινίζουν</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q77')">Το μεγάλο ποσοστό νερού</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q77')">Η χρήση μεταλλικών κόκκων</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Οι φωτοπολυμεριζόμενες κονίες θεωρούνται οι πιο σταθερές χρωματικά, γι' αυτό και αποτελούν την πρώτη επιλογή για την αισθητική ζώνη (όψεις).
+        </div>
+    </div>
+
+    <div class="question-block" id="q78">
+        <div class="question-text">78. Ποιο είναι το κύριο μειονέκτημα των κονιών συνολικής αδροποίησης;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q78')">Η χαμηλή αντοχή δεσμού</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q78')">Τα πολλά κλινικά στάδια και ο κίνδυνος μετεμφρακτικής ευαισθησίας</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q78')">Η έλλειψη διαφάνειας</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q78')">Ο γρήγορος πολυμερισμός</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Απαιτούν τη χρήση συγκολλητικών 4ης/5ης γενιάς, που περιλαμβάνουν έκπλυση και στέγνωμα οδοντίνης, αυξάνοντας την τεχνική ευαισθησία.
+        </div>
+    </div>
+
+    <div class="question-block" id="q79">
+        <div class="question-text">79. Γιατί οι ρητινώδεις κονίες παρουσιάζουν συστολή πολυμερισμού;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q79')">Λόγω της εξάτμισης του νερού</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q79')">Λόγω της φύσης της ρητινώδους μήτρας (μεθακρυλικά μονομερή)</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q79')">Λόγω της παρουσίας υαλονημάτων</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q79')">Λόγω της επίδρασης του σάλιου</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Ως πολυμερή υλικά, υπόκεινται σε συστολή κατά την πήξη, κάτι που μπορεί να δημιουργήσει τάσεις στα όρια της αποκατάστασης.
+        </div>
+    </div>
+
+    <div class="question-block" id="q80">
+        <div class="question-text">80. Ποια είναι η σύνδεση της ρητινώδους κονίας με το υλικό της αποκατάστασης;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q80')">Μόνο μακροσκοπική</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q80')">Μηχανική ή/και χημική ανάλογα με την επεξεργασία του εσωτερικού της</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q80')">Δεν υπάρχει καμία σύνδεση</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q80')">Δεσμός υδρογόνου</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Η εσωτερική επιφάνεια της αποκατάστασης (π.χ. κεραμικό ή ρητίνη) δέχεται επεξεργασία (αδροποίηση/σιλανοποίηση) για να συνδεθεί σταθερά με την κονία.
+        </div>
+    </div>
+</div>
+
+<div class="quiz-container">
+    <h2 style="text-align:center; color:#004080;">Στάδιο 5: Προχωρημένη Κλινική & Χημική Ανάλυση (Τελικές MCQs)</h2>
+
+    <div class="question-block" id="q81">
+        <div class="question-text">81. Ποια είναι η τυπική πυκνότητα ινών στους πολυμερείς ενδορριζικούς άξονες;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q81')">5-10 ίνες/mm²</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q81')">25 έως 35 ίνες/mm²</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q81')">100-200 ίνες/mm²</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q81')">64 ίνες ανά άξονα συνολικά</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Η πυκνότητα των ινών κυμαίνεται μεταξύ 25 και 35/mm² της διατομής του άξονα, αντιστοιχώντας στο 30-70% της συνολικής επιφάνειας, γεγονός που καθορίζει την αντοχή στον εφελκυσμό.
+        </div>
+    </div>
+
+    <div class="question-block" id="q82">
+        <div class="question-text">82. Ποιος συνδυασμός ουσιών αποτελεί το πλέον σύνηθες σύστημα φωτοκατάλυσης στα συγκολλητικά;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q82')">HEMA και Bis-GMA</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q82')">Καμφοροκινόνη και τριτοταγείς αμίνες (EDAB/DMAEMA)</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q82')">10-MDP και Φωσφορικό οξύ</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q82')">Ακετόνη και Αιθανόλη</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Η καμφοροκινόνη λειτουργεί ως φωτοενεργοποιητής και απαιτεί την παρουσία τριτοταγών αμινών ως συν-ενεργοποιητών για την έναρξη της αντίδρασης πολυμερισμού μέσω ελεύθερων ριζών.
+        </div>
+    </div>
+
+    <div class="question-block" id="q83">
+        <div class="question-text">83. Ποιο είναι το κύριο πλεονέκτημα του νερού ως διαλύτη στα συγκολλητικά συστήματα;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q83')">Εξατμίζεται ταχύτερα από την ακετόνη</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q83')">Συμβάλλει στην ανόρθωση του πλέγματος κολλαγόνου που έχει καταρρεύσει</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q83')">Αυξάνει την υδροφοβικότητα του δεσμού</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q83')">Εμποδίζει πλήρως τη δράση των MMPs</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Το νερό έχει την ικανότητα να επανενυδατώνει και να ανορθώνει τις κολλαγονούχες ίνες μετά από υπερβολική ξήρανση, διευκολύνοντας τη διείσδυση των μονομερών, αν και η απομάκρυνσή του είναι δυσκολότερη από τους οργανικούς διαλύτες.
+        </div>
+    </div>
+
+    <div class="question-block" id="q84">
+        <div class="question-text">84. Τι ισχύει για την ακτινοσκιερότητα των σύγχρονων πολυμερών αξόνων;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q84')">Είναι ανώτερη των μεταλλικών αξόνων</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q84')">Είναι διακριτοί ακτινογραφικά, αλλά υπολείπονται των μεταλλικών</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q84')">Είναι τελείως ακτινοδιαπερατοί (μη ορατοί)</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q84')">Εξαρτάται αποκλειστικά από την ποσότητα της ευγενόλης</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Αν και η ακτινοσκιερότητα έχει βελτιωθεί στα σύγχρονα σκευάσματα, παραμένει χαμηλότερη από των μεταλλικών. Είναι επαρκής για κλινική διάγνωση αλλά απαιτεί προσεκτική παρατήρηση.
+        </div>
+    </div>
+
+    <div class="question-block" id="q85">
+        <div class="question-text">85. Γιατί συστήνεται ο άξονας να παραμένει "αδιατάρακτος" για 4-5 λεπτά πριν τον φωτοπολυμερισμό της κονίας;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q85')">Για να κρυώσει το δόντι</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q85')">Για τον πληρέστερο χημικό πολυμερισμό της κονίας διπλού πολυμερισμού</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q85')">Για να προλάβει να δράσει το υπεροξείδιο</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q85')">Για να μαλακώσουν οι ίνες υάλου</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Στις κονίες διπλού πολυμερισμού, ο χημικός μηχανισμός ξεκινά αμέσως. Η αναμονή εξασφαλίζει ότι η κονία θα αποκτήσει αρχική σταθερότητα σε όλη τη μάζα της, ειδικά εκεί που το φως δεν φτάνει.
+        </div>
+    </div>
+
+    <div class="question-block" id="q86">
+        <div class="question-text">86. Ποιο είναι το μέτρο ελαστικότητας των μεταλλικών αξόνων (χυτών ή προκατασκευασμένων);</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q86')">18 GPa</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q86')">20 GPa</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q86')">Περίπου 200 GPa</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q86')">2,1 GPa</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Το υψηλό μέτρο ελαστικότητας (~200 GPa) καθιστά τους μεταλλικούς άξονες εξαιρετικά δύσκαμπτους σε σχέση με την οδοντίνη (18 GPa), οδηγώντας στη συγκέντρωση τάσεων στο άκρο του άξονα και σε κατάγματα.
+        </div>
+    </div>
+
+    <div class="question-block" id="q87">
+        <div class="question-text">87. Ποια είναι η δράση των BAGs και CaP που εμπεριέχονται σε ορισμένα σύγχρονα συγκολλητικά;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q87')">Αυξάνουν την πτητικότητα</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q87')">Έκδοχα με επαναμεταλλικοποιητική δράση (απελευθέρωση Ca, PO4, F)</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q87')">Επιταχύνουν την εξάτμιση της ακετόνης</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q87')">Μειώνουν το πάχος φιλμ στα 5 μm</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Οι βιοενεργές ενισχυτικές ουσίες (BAGs, CaP) απελευθερώνουν ιόντα που βοηθούν στην επαναμεταλλικοποίηση του κολλαγόνου και στη μείωση της ενζυμικής δραστηριότητας των MMPs.
+        </div>
+    </div>
+
+    <div class="question-block" id="q88">
+        <div class="question-text">88. Γιατί τα "μονοφασικά" (5ης γενιάς) συστήματα θεωρούνται ευαίσθητα ως προς το πάχος του στρώματος;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q88')">Γιατί σχηματίζουν πάντα πολύ παχύ στρώμα</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q88')">Κίνδυνος σχηματισμού υπερβολικά λεπτού στρώματος που πολυμερίζεται ανεπαρκώς</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q88')">Λόγω της παρουσίας μόνο υδρόφοβων μονομερών</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q88')">Γιατί δεν περιέχουν διαλύτη</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Η τοποθέτηση ενός μόνο στρώματος (που περιέχει και primer και resin) μπορεί να οδηγήσει σε πολύ λεπτό υμένιο, το οποίο αναστέλλεται από το οξυγόνο και δεν αποκτά τις απαιτούμενες μηχανικές αντοχές.
+        </div>
+    </div>
+
+    <div class="question-block" id="q89">
+        <div class="question-text">89. Ποια είναι η επίδραση της υγρασίας στα συγκολλητικά που περιέχουν πτητικούς οργανικούς διαλύτες (ακετόνη/αιθανόλη);</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q89')">Η υγρασία εμποδίζει την εξάτμιση</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q89')">Οι διαλύτες απομακρύνουν την υγρασία μέσω συνατμοποίησης</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q89')">Η υγρασία μετατρέπει την ακετόνη σε οξύ</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q89')">Δεν υπάρχει καμία αλληλεπίδραση</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Οι πτητικοί διαλύτες παρασύρουν το νερό κατά την εξάτμισή τους (water-chasing effect), επιτρέποντας στα μονομερή να καταλάβουν τους κενούς χώρους μεταξύ των ινών κολλαγόνου.
+        </div>
+    </div>
+
+    <div class="question-block" id="q90">
+        <div class="question-text">90. Ποιο είναι το "Gold Standard" (κατηγορία αναφοράς) με το οποίο συγκρίνονται όλες οι επόμενες γενιές συγκολλητικών;</div>
+        <ul class="options-list">
+            <li class="option-item" onclick="checkAnswer(this, false, 'q90')">Η 7η γενιά (All-in-one)</li>
+            <li class="option-item" onclick="checkAnswer(this, true, 'q90')">Η 4η γενιά (3-step etch-and-rinse)</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q90')">Η 8η γενιά (Universal)</li>
+            <li class="option-item" onclick="checkAnswer(this, false, 'q90')">Οι αυτοσυγκολλητικές κονίες</li>
+        </ul>
+        <div class="explanation-box">
+            <strong>Επιστημονική Τεκμηρίωση:</strong> Η 4η γενιά παραμένει το σημείο αναφοράς λόγω της υψηλής αντοχής δεσμού, της εξαιρετικής οριακής προσαρμογής και της κλινικής ανθεκτικότητας στο χρόνο, παρά την πολυπλοκότητα της εφαρμογής.
+        </div>
+    </div>
+</div>
+
+<style>
+    .essay-container {
+        max-width: 900px;
+        margin: 30px auto;
+        font-family: 'Segoe UI', sans-serif;
+    }
+    details {
+        background: #ffffff;
+        border: 1px solid #004080;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        padding: 10px;
+        transition: all 0.3s ease;
+    }
+    details[open] {
+        border: 2px solid #004080;
+        box-shadow: 0 4px 8px rgba(0,64,128,0.1);
+    }
+    summary {
+        font-weight: bold;
+        font-size: 1.1rem;
+        color: #004080;
+        cursor: pointer;
+        padding: 10px;
+        outline: none;
+        list-style: none;
+    }
+    summary::-webkit-details-marker {
+        display: none;
+    }
+    summary::before {
+        content: "▶ ";
+        display: inline-block;
+        transition: transform 0.3s;
+    }
+    details[open] summary::before {
+        content: "▼ ";
+    }
+    .answer-content {
+        padding: 20px;
+        border-top: 1px solid #eee;
+        line-height: 1.8;
+        color: #333;
+    }
+    .keywords {
+        background: #f0f7ff;
+        border: 1px dashed #004080;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+    }
+    .keywords b {
+        color: #cc0000;
+    }
+    .academic-text {
+        text-align: justify;
+    }
+</style>
+
+<div class="essay-container">
+    <h2 style="text-align:center; color:#004080; border-bottom: 2px solid #004080; padding-bottom: 10px;">
+        Στάδιο 6: Ερωτήσεις Ανάπτυξης (High-Level Academic Analysis)
+    </h2>
+
+    <details>
+        <summary>1. Περιγράψτε αναλυτικά τα χαρακτηριστικά της ζώνης οδοντικών ξεσμάτων (smear layer).</summary>
+        <div class="answer-content">
+            <div class="keywords">
+                <b>Keywords:</b> Άμορφη στιβάδα, 1-5 μm πάχος, βύσματα (smear plugs), 1-10 μm βάθος, υδροξυαπατίτης & κολλαγόνο, μικρόβια, χαμηλές φυσικομηχανικές ιδιότητες.
+            </div>
+            <div class="academic-text">
+                Η ζώνη οδοντικών ξεσμάτων δημιουργείται κατά την κοπή της οδοντίνης με περιστροφικά εργαλεία. Είναι μια άμορφη, σχετικά λεία στιβάδα με πάχος 1 έως 5 μm. Αποτελείται από ρινίσματα υδροξυαπατίτη, αποδομημένες ίνες κολλαγόνου, μικρόβια και συστατικά του σάλιου. Τα ξέσματα αυτά εισέρχονται στα στόμια των οδοντινοσωληναρίων σχηματίζοντας βύσματα (smear plugs) σε βάθος 1-10 μm. Η ζώνη αυτή συνδέεται χαλαρά με την υποκείμενη οδοντίνη, παρουσιάζει πολύ φτωχές φυσικομηχανικές ιδιότητες και διαλυτοποιείται με την πάροδο του χρόνου. Λόγω της αστάθειάς της, δεν μπορεί να αποτελέσει αξιόπιστο υπόστρωμα συγκόλλησης και πρέπει είτε να απομακρυνθεί (total-etch) είτε να τροποποιηθεί (self-etch).
+            </div>
+        </div>
+    </details>
+
+    <details>
+        <summary>2. Αναλύστε τον μηχανισμό του γεωμετρικού συντελεστή c και τη σημασία του στις τάσεις συστολής.</summary>
+        <div class="answer-content">
+            <div class="keywords">
+                <b>Keywords:</b> Λόγος συγκολλημένων/ελεύθερων επιφανειών, τάσεις συστολής πολυμερισμού, ροή μονομερών, αποκόλληση, μικροκενά.
+            </div>
+            <div class="academic-text">
+                Ο συντελεστής c ορίζεται ως ο λόγος των επιφανειών της κοιλότητας στις οποίες εφάπτεται η ρητίνη προς τις ελεύθερες επιφάνειες. Κατά τον πολυμερισμό, η ρητίνη συστέλλεται. Αν υπάρχουν πολλές ελεύθερες επιφάνειες (μικρός c), η ρητίνη μπορεί να ρέει προς το εσωτερικό, εξισορροπώντας τις τάσεις. Σε περιορισμένες κοιλότητες (υψηλός c, π.χ. Ομάδα Ι), οι τάσεις μεταφέρονται στη διεπιφάνεια οδοντικού τοιχώματος-συγκολλητικού. Αν οι τάσεις αυτές υπερβούν την αντοχή του δεσμού, προκύπτει μερική ή πλήρης αποκόλληση, σχηματισμός μικροχώρων και μετεμφρακτική ευαισθησία.
+            </div>
+        </div>
+    </details>
+
+    <details>
+        <summary>3. Πρωτόκολλο αδροποίησης αδαμαντίνης με ορθοφωσφορικό οξύ: Στάδια και μηχανισμός.</summary>
+        <div class="answer-content">
+            <div class="keywords">
+                <b>Keywords:</b> 35-37% ορθοφωσφορικό οξύ, 30 δευτερόλεπτα, επιλεκτική διαλυτοποίηση υδροξυαπατίτη, μικροπόροι 10-20 μm, ρητινώδεις προσεκβολές (tags).
+            </div>
+            <div class="academic-text">
+                Το οξύ τοποθετείται στην αδαμαντίνη για 30 δευτερόλεπτα, ακολουθεί έκπλυση για 20 δευτερόλεπτα και πλήρες στέγνωμα. Προκαλεί επιλεκτική διαλυτοποίηση των κρυστάλλων υδροξυαπατίτη (πυρήνας/περιφέρεια πρισμάτων), δημιουργώντας μικροπόρους βάθους 10-20 μm. Αυτό αυξάνει την επιφάνεια επαφής και επιτρέπει στα υδρόφοβα μονομερή να διηθηθούν. Με τον πολυμερισμό δημιουργούνται ρητινώδεις προσεκβολές που εξασφαλίζουν την ισχυρότερη γνωστή μικρομηχανική σύνδεση στην οδοντιατρική.
+            </div>
+        </div>
+    </details>
+
+    <details>
+        <summary>4. Ποιες είναι οι διαφορές στην αδροποίηση οδοντίνης έναντι αδαμαντίνης με ορθοφωσφορικό οξύ;</summary>
+        <div class="answer-content">
+            <div class="keywords">
+                <b>Keywords:</b> 15'' vs 30'', απομεταλλικοποίηση μεσοσωληναριακής οδοντίνης, διεύρυνση στομίων, ήπιο στέγνωμα, κίνδυνος κατάρρευσης κολλαγόνου.
+            </div>
+            <div class="academic-text">
+                Στην οδοντίνη ο χρόνος περιορίζεται στα 15 δευτερόλεπτα για να ελεγχθεί το βάθος απομεταλλικοποίησης. Το οξύ απομακρύνει το smear layer και διευρύνει τα στόμια των σωληναρίων χοανοειδώς (βάθος ~10 μm). Σε αντίθεση με την αδαμαντίνη, η οδοντίνη δεν πρέπει να στεγνώνεται ισχυρά, αλλά ήπια, ώστε να παραμείνει υγρασία μεταξύ των κολλαγονούχων ινών. Η υπερβολική ξήρανση προκαλεί κατάρρευση των ινών και σχηματισμό αδιαπέραστης μάζας, εμποδίζοντας τον σχηματισμό υβριδικής ζώνης.
+            </div>
+        </div>
+    </details>
+
+    <details>
+        <summary>5. Αναλύστε τη δομή και τον ρόλο των μονομερών-ενεργοποιητών (primers).</summary>
+        <div class="answer-content">
+            <div class="keywords">
+                <b>Keywords:</b> Αμφίφιλα μόρια, HEMA, PENTA, 10-MDP, υδρόφιλο/υδρόφοβο τμήμα, ανόρθωση κολλαγόνου, επιφανειακή ενέργεια.
+            </div>
+            <div class="academic-text">
+                Οι ενεργοποιητές περιέχουν μονομερή με δύο λειτουργικά τμήματα. Το υδρόφιλο τμήμα έρχεται σε επαφή με την υγρή απομεταλλικοποιημένη οδοντίνη, διεισδύει στο δίκτυο κολλαγόνου και προκαλεί την ανόρθωσή του. Ταυτόχρονα αυξάνει την επιφανειακή ενέργεια του υποστρώματος. Το υδρόφοβο τμήμα συνδέεται με τη συγκολλητική ρητίνη που θα ακολουθήσει. Μονομερή όπως το 10-MDP προσφέρουν επιπλέον δυνατότητα χημικής σύνδεσης με το ασβέστιο του υδροξυαπατίτη.
+            </div>
+        </div>
+    </details>
+
+    <details>
+        <summary>6. Τι είναι η υβριδική ζώνη (Hybrid Layer) και ποιοι παράγοντες επηρεάζουν τη σταθερότητά της;</summary>
+        <div class="answer-content">
+            <div class="keywords">
+                <b>Keywords:</b> Μείγμα κολλαγόνου/ρητίνης, διήθηση, νανο-κενά, υδρολυτική αστάθεια, MMPs, απολυμέριστα μονομερή.
+            </div>
+            <div class="academic-text">
+                Η υβριδική ζώνη είναι το στρώμα που προκύπτει από την ανάμειξη των αποκαλυφθέντων ινών κολλαγόνου της οδοντίνης με τα πολυμερισμένα μονομερή του συγκολλητικού. Η σταθερότητά της απειλείται από: α) ατελή διήθηση των μονομερών σε όλο το βάθος της απομεταλλικοποίησης, β) παρουσία νανο-κενών που επιτρέπουν τη διάχυση νερού, γ) παραμονή απολυμέριστων όξινων μονομερών και δ) ενζυματική αποδόμηση του κολλαγόνου από τις μεταλλοπρωτεϊνάσες (MMPs).
+            </div>
+        </div>
+    </details>
+
+    <details>
+        <summary>7. Συγκρίνετε τους οργανικούς διαλύτες (Ακετόνη/Αιθανόλη) με το νερό στα συγκολλητικά συστήματα.</summary>
+        <div class="answer-content">
+            <div class="keywords">
+                <b>Keywords:</b> Πτητικότητα, ρύθμιση ιξώδους, water-chaser, επανενυδάτωση κολλαγόνου, ευαισθησία φύλαξης.
+            </div>
+            <div class="academic-text">
+                Η ακετόνη και η αιθανόλη είναι πολύ πτητικές ουσίες που δρουν ως "διώκτες νερού" (water-chasers), παρασύροντας την υγρασία κατά την εξάτμισή τους και διευκολύνοντας τη διείσδυση των μονομερών. Απαιτούν όμως ερμητικό κλείσιμο του φιαλιδίου. Το νερό είναι λιγότερο πτητικό, αλλά απαραίτητο για την επανενυδάτωση και ανόρθωση του κολλαγόνου που έχει καταρρεύσει. Τα συστήματα με βάση το νερό είναι λιγότερο ευαίσθητα στη φύλαξη, αλλά η πλήρης απομάκρυνσή του κατά το στέγνωμα είναι δυσκολότερη.
+            </div>
+        </div>
+    </details>
+
+    <details>
+        <summary>8. Πλεονεκτήματα και μειονεκτήματα των συγκολλητικών συστημάτων 4ης γενιάς.</summary>
+        <div class="answer-content">
+            <div class="keywords">
+                <b>Keywords:</b> Gold Standard, 3 στάδια, υψηλή αντοχή (~20 MPa), οριακή προσαρμογή, τεχνική ευαισθησία, χρονοβόρα διαδικασία.
+            </div>
+            <div class="academic-text">
+                <b>Πλεονεκτήματα:</b> Θεωρείται η κατηγορία αναφοράς λόγω της υψηλής και σταθερής αντοχής δεσμού στο χρόνο. Η διαδοχική εφαρμογή ενεργοποιητή και υδρόφοβης ρητίνης εξασφαλίζει άριστη σφράγιση και οριακή προσαρμογή. <b>Μειονεκτήματα:</b> Απαιτεί τρία κλινικά στάδια, γεγονός που την καθιστά χρονοβόρα και εξαιρετικά ευαίσθητη σε επιμολύνσεις. Επίσης, η διαχείριση της υγρασίας μετά την αδροποίηση (wet bonding) είναι δύσκολο να τυποποιηθεί.
+            </div>
+        </div>
+    </details>
+
+    <details>
+        <summary>9. Αναλύστε τη φιλοσοφία των αυτοαδροποιητικών συστημάτων (6η/7η γενιά).</summary>
+        <div class="answer-content">
+            <div class="keywords">
+                <b>Keywords:</b> Όξινα μονομερή, ενσωμάτωση smear layer, χωρίς έκπλυση, μειωμένη ευαισθησία, χημικός δεσμός.
+            </div>
+            <div class="academic-text">
+                Σε αυτά τα συστήματα, η αδροποίηση και η ενεργοποίηση γίνονται ταυτόχρονα. Δεν απαιτείται έκπλυση, με αποτέλεσμα η ζώνη οδοντικών ξεσμάτων να μην απομακρύνεται αλλά να τροποποιείται και να ενσωματώνεται στην υβριδική ζώνη. Αυτό μειώνει δραματικά τον κίνδυνο μετεμφρακτικής ευαισθησίας και την τεχνική ευαισθησία (δεν υπάρχει wet bonding). Ωστόσο, η ικανότητα αδροποίησης της αδαμαντίνης είναι περιορισμένη, γι' αυτό συστήνεται επιλεκτική αδροποίηση με οξύ.
+            </div>
+        </div>
+    </details>
+
+    <details>
+        <summary>10. Τι είναι τα Universal (8ης γενιάς) συγκολλητικά και ποια η χρήση τους;</summary>
+        <div class="answer-content">
+            <div class="keywords">
+                <b>Keywords:</b> Multi-mode, 10-MDP, επιλεκτική ή ολική αδροποίηση, ευελιξία, υδρολυτική αστάθεια.
+            </div>
+            <div class="academic-text">
+                Είναι συστήματα ενός φιαλιδίου που προσφέρουν στον κλινικό την επιλογή να τα χρησιμοποιήσει ως αυτοαδροποιητικά, με επιλεκτική αδροποίηση αδαμαντίνης ή με ολική αδροποίηση. Βασίζονται στο μονομερές 10-MDP για χημική σύνδεση. Αν και προσφέρουν μεγάλη ευελιξία, παραμένουν υδρόφιλα και παρουσιάζουν τάση για υδρολυτική αποδόμηση με την πάροδο του χρόνου, παρόμοια με την 7η γενιά.
+            </div>
+        </div>
+    </details>
+
+    <details>
+        <summary>11. Πότε είναι απαραίτητη η τοποθέτηση ενδορριζικού άξονα σε ένα δόντι;</summary>
+        <div class="answer-content">
+            <div class="keywords">
+                <b>Keywords:</b> Συγκράτηση μυλικής αποκατάστασης, έλλειψη >50% ιστών (πρόσθια), απώλεια τοιχωμάτων <2mm (οπίσθια), λύση ανάγκης.
+            </div>
+            <div class="academic-text">
+                Ο άξονας δεν ενισχύει το δόντι, αλλά χρησιμεύει αποκλειστικά για τη συγκράτηση του υλικού ανασύστασης. Απαιτείται όταν η παραμένουσα οδοντική δομή δεν επαρκεί για τη μηχανική συγκράτηση της έμφραξης ή του κολοβώματος. Στα οπίσθια δόντια, ένδειξη αποτελεί η απώλεια των δύο όμορων και ενός τρίτου τοιχώματος (ή πάχος τοιχώματος <2mm). Στα πρόσθια, η απώλεια άνω του 50% της μύλης καθιστά τον άξονα απαραίτητο.
+            </div>
+        </div>
+    </details>
+
+    <details>
+        <summary>12. Ποια χαρακτηριστικά της ρίζας καθιστούν την τοποθέτηση άξονα προβληματική;</summary>
+        <div class="answer-content">
+            <div class="keywords">
+                <b>Keywords:</b> Μήκος <10mm, κεκαμμένη ρίζα, αναλογία μύλης/ρίζας <1, στενή εγγύς-άπω διάσταση, απορρόφηση.
+            </div>
+            <div class="academic-text">
+                Η τοποθέτηση άξονα αντενδείκνυται ή είναι επισφαλής όταν: 1) Το μήκος της ρίζας είναι κάτω από 10mm. 2) Υπάρχει έντονη κάμψη που αυξάνει τον κίνδυνο διάτρησης. 3) Η αναλογία μήκους μύλης προς ρίζα είναι μεγαλύτερη της μονάδας. 4) Η ρίζα είναι πολύ λεπτή, οπότε η παρασκευή φρεατίου θα την εξασθενίσει επικίνδυνα. 5) Υπάρχουν σημεία εσωτερικής ή εξωτερικής απορρόφησης.
+            </div>
+        </div>
+    </details>
+
+    <details>
+        <summary>13. Αναλύστε τη σημασία της ζώνης οδοντινικής στήριξης (ferrule).</summary>
+        <div class="answer-content">
+            <div class="keywords">
+                <b>Keywords:</b> 1.5-2mm ύψος, 2mm πλάτος, αυχενική περιοχή, κατανομή δυνάμεων, προστασία από επαναμόλυνση & κατάγματα.
+            </div>
+            <div class="academic-text">
+                Το ferrule είναι το τμήμα υγιούς οδοντίνης που περιβάλλει το δόντι αυχενικά. Πρέπει να έχει ύψος 1.5-2mm. Η ύπαρξή του επιτρέπει στην αποκατάσταση (π.χ. στεφάνη) να "αγκαλιάσει" το δόντι, μεταφέροντας τις δυνάμεις στο εξωτερικό της ρίζας και όχι στον άξονα. Αυτό μειώνει κατακόρυφα την πιθανότητα κατάγματος της ρίζας και εμποδίζει τη μικροδιαρροή και την επαναμόλυνση του ριζικού σωλήνα.
+            </div>
+        </div>
+    </details>
+
+    <details>
+        <summary>14. Συγκρίνετε τους μεταλλικούς με τους πολυμερείς (fiber) άξονες ως προς τη βιομηχανική τους συμπεριφορά.</summary>
+        <div class="answer-content">
+            <div class="keywords">
+                <b>Keywords:</b> Μέτρο ελαστικότητας, 200 GPa vs 20 GPa, φαινόμενο σφήνας, ομοιόμορφη κατανομή τάσεων, ανακτήσιμοι.
+            </div>
+            <div class="academic-text">
+                Οι μεταλλικοί άξονες είναι εξαιρετικά δύσκαμπτοι (~200 GPa). Επειδή η οδοντίνη έχει μέτρο ελαστικότητας 18 GPa, οι μεταλλικοί άξονες λειτουργούν ως σφήνα, συγκεντρώνοντας τάσεις στο άκρο τους και προκαλώντας συχνά ανεπανόρθωτα κατάγματα ρίζας. Οι άξονες υαλονημάτων έχουν μέτρο ελαστικότητας (~20 GPa) παρόμοιο με της οδοντίνης. Αυτό επιτρέπει στο σύστημα άξονας-κονία-δόντι να παραμορφώνεται ομοιόμορφα, κατανέμοντας τις δυνάμεις και μειώνοντας τον κίνδυνο κατάγματος.
+            </div>
+        </div>
+    </details>
+
+    <details>
+        <summary>15. Περιγράψτε τα κλινικά στάδια παρασκευής του φρεατίου για ενδορριζικό άξονα.</summary>
+        <div class="answer-content">
+            <div class="keywords">
+                <b>Keywords:</b> Gates-Glidden, αφαίρεση γουταπέρκας, 4-5mm ακρορριζικό βύσμα, τρύπανα συστήματος, διαδοχική διεύρυνση, διακλυσμός.
+            </div>
+            <div class="academic-text">
+                1) Προσδιορισμός μήκους εργασίας (αναλογία 1:1 ή 1:2). 2) Αφαίρεση γουταπέρκας με εγγλυφίδες Gates-Glidden, αφήνοντας οπωσδήποτε 4-5mm υλικού ακρορριζικά για σφράγιση. 3) Χρήση των ειδικών τρυπάνων του συστήματος σε χαμηλές ταχύτητες, ξεκινώντας από τη μικρότερη διάμετρο μέχρι την επιθυμητή. Το τρύπανο πρέπει να αφαιρείται ενώ περιστρέφεται. 4) Διακλυσμός με φυσιολογικό ορό για απομάκρυνση ξεσμάτων και στέγνωμα με κώνους χάρτου.
+            </div>
+        </div>
+    </details>
+
+    <details>
+        <summary>16. Γιατί η συγκόλληση εντός του ριζικού σωλήνα είναι δυσκολότερη από τη συγκόλληση στη μύλη;</summary>
+        <div class="answer-content">
+            <div class="keywords">
+                <b>Keywords:</b> C-factor 100-200:1, περιορισμένη πρόσβαση φωτός, υπολείμματα ενδοδοντικής θεραπείας, πάχος smear layer.
+            </div>
+            <div class="academic-text">
+                Η ενδορριζική συγκόλληση αντιμετωπίζει τρία κύρια εμπόδια: α) Τον ακραία δυσμενή συντελεστή c (έως 200:1), που δημιουργεί τεράστιες τάσεις συστολής στη ρητινώδη κονία. β) Τη δυσκολία του φωτός να φτάσει στο ακρορριζικό τριτημόριο, καθιστώντας απαραίτητο τον χημικό πολυμερισμό. γ) Την παρουσία υπολειμμάτων από φυράματα (ευγενόλη) ή υλικά επεξεργασίας (EDTA, υποχλωριώδες) που επηρεάζουν αρνητικά τη χημεία του συγκολλητικού δεσμού.
+            </div>
+        </div>
+    </details>
+
+    <details>
+        <summary>17. Αναλύστε τις κατηγορίες ρητινωδών κονιών με βάση τον τρόπο πολυμερισμού τους.</summary>
+        <div class="answer-content">
+            <div class="keywords">
+                <b>Keywords:</b> Φωτοπολυμεριζόμενες (Class 2), Διπλού πολυμερισμού (Class 3), Χημικά πολυμεριζόμενες (Class 1), σταθερότητα χρώματος, πάχος κατασκευής.
+            </div>
+            <div class="academic-text">
+                1) <b>Φωτοπολυμεριζόμενες:</b> Έχουν ελεγχόμενο χρόνο εργασίας και άριστη σταθερότητα χρώματος. Χρησιμοποιούνται μόνο σε λεπτές, διαφανείς όψεις. 2) <b>Διπλού πολυμερισμού:</b> Συνδυάζουν φωτοκατάλυση και χημική κατάλυση. Είναι η πιο συχνή κατηγορία για στεφάνες και άξονες, καθώς εξασφαλίζουν πήξη εκεί που το φως δεν φτάνει. 3) <b>Χημικά πολυμεριζόμενες:</b> Χρησιμοποιούνται σπάνια πλέον, καθώς στερούνται αισθητικών επιλογών και δεν προσφέρουν πλεονεκτήματα έναντι των διπλού πολυμερισμού.
+            </div>
+        </div>
+    </details>
+
+    <details>
+        <summary>18. Ποιες είναι οι ιδιότητες και οι ενδείξεις των αυτοσυγκολλητικών (self-adhesive) ρητινωδών κονιών;</summary>
+        <div class="answer-content">
+            <div class="keywords">
+                <b>Keywords:</b> Χωρίς προετοιμασία, όξινα μονομερή (MDP), απλοποίηση σταδίων, σύγκριση με 7η γενιά, επιλεκτική αδροποίηση αδαμαντίνης.
+            </div>
+            <div class="academic-text">
+                Οι αυτοσυγκολλητικές κονίες τοποθετούνται απευθείας στο δόντι χωρίς συγκολλητικό παράγοντα. Περιέχουν όξινα μονομερή που προκαλούν ταυτόχρονη αδροποίηση και συγκόλληση. Προσφέρουν μεγάλη οικονομία χρόνου και ελάχιστη ευαισθησία. Αν και οι αντοχές τους είναι ελαφρώς χαμηλότερες από τις κονίες συνολικής αδροποίησης, είναι εξαιρετικές για στεφάνες και γέφυρες. Συστήνεται όμως πάντα επιλεκτική αδροποίηση της αδαμαντίνης με οξύ για καλύτερα αποτελέσματα.
+            </div>
+        </div>
+    </details>
+
+    <details>
+        <summary>19. Πώς επηρεάζει το ιξώδες της ρητινώδους κονίας την έδραση της αποκατάστασης;</summary>
+        <div class="answer-content">
+            <div class="keywords">
+                <b>Keywords:</b> Θιξοτροπία, χαμηλό vs υψηλό ιξώδες, εκτόπιση περισσειών, πάχος φιλμ, κίνδυνος ρωγμών.
+            </div>
+            <div class="academic-text">
+                Οι κονίες χαμηλού ιξώδους εδράζονται εύκολα και εκτοπίζουν τις περισσείες, αλλά υπάρχει κίνδυνος ολίσθησης της αποκατάστασης ή δημιουργίας κενών στα όρια. Οι κονίες υψηλού ιξώδους (παχύρρευστες) μπορεί να σχηματίσουν παχύ φιλμ που εμποδίζει την πλήρη έδραση και απαιτούν μεγάλη πίεση. Σε κεραμικές αποκαταστάσεις, η υπερβολική πίεση λόγω παχύρρευστης κονίας μπορεί να προκαλέσει μικρορωγμές ή κάταγμα της κατασκευής.
+            </div>
+        </div>
+    </details>
+
+    <details>
+        <summary>20. Αναλύστε την επίδραση της ευγενόλης και του υπεροξειδίου του υδρογόνου στη συγκόλληση.</summary>
+        <div class="answer-content">
+            <div class="keywords">
+                <b>Keywords:</b> Αναστολή πολυμερισμού, ελεύθερες ρίζες, υπολειμματικό οξυγόνο, οινόπνευμα, αναμονή 15 ημερών.
+            </div>
+            <div class="academic-text">
+                Η ευγενόλη (από φυράματα) αντιδρά με τις ελεύθερες ρίζες, εμποδίζοντας τον πολυμερισμό της ρητινώδους κονίας και αποδυναμώνοντας τον δεσμό. Απαιτείται σχολαστικός καθαρισμός με διαλύτες (οινόπνευμα). Το υπεροξείδιο του υδρογόνου (από λεύκανση) απελευθερώνει οξυγόνο που παγιδεύεται στα σωληνάρια. Το οξυγόνο αυτό αναστέλλει τον πολυμερισμό της ρητίνης. Για τον λόγο αυτό, η συγκόλληση πρέπει να γίνεται τουλάχιστον 15 ημέρες μετά τη λεύκανση, ώστε να απελευθερωθεί όλο το εγκλωβισμένο αέριο.
+            </div>
+        </div>
+    </details>
+</div>
+
+<script>
+    function checkAnswer(element, isCorrect, questionId) {
+        const parent = document.getElementById(questionId);
+        const options = parent.querySelectorAll('.option-item');
+        const explanation = parent.querySelector('.explanation-box');
+
+        // Απενεργοποίηση περαιτέρω κλικ
+        options.forEach(opt => opt.classList.add('disabled'));
+
+        if (isCorrect) {
+            element.classList.add('correct');
+        } else {
+            element.classList.add('wrong');
+            // Επισήμανση της σωστής
+            options.forEach(opt => {
+                // Εδώ θα χρειαζόταν ένας τρόπος να ξέρουμε ποια είναι η σωστή.
+                // Για λόγους απλότητας στον κώδικα, ο καθηγητής προτείνει το εξής:
+                // Σε μια πλήρη εφαρμογή θα περνούσαμε το index. 
+            });
+        }
+        
+        // Εμφάνιση επεξήγησης
+        explanation.style.display = 'block';
+    }
+</script>
