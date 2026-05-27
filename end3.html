@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mastering Endodontic Morphology</title>
+    <style>
+        :root {
+            --primary: #1e293b;
+            --secondary: #3b82f6;
+            --danger: #ef4444;
+            --bg: #f1f5f9;
+            --card-bg: #ffffff;
+            --text: #334155;
+            --font: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            font-family: var(--font);
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            margin: 0;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary);
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            border-bottom: 3px solid var(--secondary);
+            padding-bottom: 1rem;
+        }
+
+        .tooth-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid var(--secondary);
+        }
+
+        .tooth-title {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-top: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sos-badge {
+            background-color: #fee2e2;
+            color: var(--danger);
+            font-size: 0.85rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-weight: 600;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        li::before {
+            content: "•";
+            color: var(--secondary);
+            font-weight: bold;
+            font-size: 1.2rem;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+
+        .highlight {
+            background-color: #fef08a;
+            padding: 0 4px;
+            font-weight: 600;
+            border-radius: 3px;
+        }
+
+        .percent {
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background-color: #f8fafc;
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>High-Yield Θεωρία: Μορφολογία & Ενδοδοντία</h1>
+
+    <div class="grid-2">
+        <!-- ΑΝΩ ΓΝΑΘΟΣ -->
+        <div>
+            <h2 style="color: var(--primary); border-bottom: 2px solid #cbd5e1; padding-bottom: 0.5rem;">Άνω Γνάθος</h2>
+
+            <div class="tooth-card">
+                <h3 class="tooth-title">Άνω Κεντρικός Τομέας (11, 21)</h3>
+                <ul>
+                    <li><strong>Ρίζα:</strong> Σχεδόν πάντα μία, ευθεία, ογκώδης και κωνική. Αποτελεί το πιο «προβλέψιμο» δόντι.</li>
+                    <li><strong>Απόκλιση:</strong> Χαρακτηριστική <span class="highlight">υπερώια απόκλιση 29°</span>.</li>
+                    <li><strong>Μυλικός θάλαμος:</strong> <span class="highlight">Δεν διαχωρίζεται</span> από τον ριζικό σωλήνα. Στον αυχένα έχει σχήμα <strong>τριγωνικό</strong> (βάση χειλικά, κορυφή υπερώια).</li>
+                    <li><strong>Παράπλευροι σωλήνες:</strong> Σπάνιοι, περίπου <span class="percent">9,2%</span>.</li>
+                </ul>
+            </div>
+
+            <div class="tooth-card">
+                <h3 class="tooth-title">Άνω Πλάγιος Τομέας (12, 22) <span class="sos-badge">Κίνδυνος Διάτρησης</span></h3>
+                <ul>
+                    <li><strong>Ακρορρίζιο:</strong> Συχνή <span class="highlight">άπω κάμψη σε ποσοστό 53%</span>. (SOS για ιατρογενή σφάλματα όπως βάθρο).</li>
+                    <li><strong>Μορφολογία Μύλης:</strong> Εμφανίζει συχνά βαθιά <strong>υπερώια αύλακα</strong> ή «φύμα του γύπα», προκαλώντας περιοδοντικά προβλήματα.</li>
+                    <li><strong>Διατομή Ριζικού Σωλήνα:</strong> Ωοειδής αυχενικά (μεγαλύτερη χειλεοϋπερώια) και κυκλικός ακρορριζικά.</li>
+                </ul>
+            </div>
+
+            <div class="tooth-card">
+                <h3 class="tooth-title">Άνω Κυνόδοντας (13, 23)</h3>
+                <ul>
+                    <li><strong>Μήκος:</strong> Το <span class="highlight">μεγαλύτερο δόντι</span> στον φραγμό.</li>
+                    <li><strong>Μυλικός θάλαμος:</strong> Αντίθετα με τους τομείς, παρουσιάζει <span class="highlight">σαφή στένωση στον αυχένα</span> πριν μεταπέσει στον ριζικό σωλήνα.</li>
+                    <li><strong>Δεύτερος σωλήνας:</strong> Σπάνιος, σε ποσοστό <span class="percent">6%</span> (συνήθως σε κοινό τρήμα).</li>
+                    <li><strong>Ακρορρίζιο:</strong> Κάμψη συχνά προς τα άπω και χειλικά.</li>
+                </ul>
+            </div>
+
+            <div class="tooth-card">
+                <h3 class="tooth-title">Άνω Πρώτος Προγόμφιος (14, 24) <span class="sos-badge">Παράπλευροι Σωλήνες</span></h3>
+                <ul>
+                    <li><strong>Ρίζες:</strong> Δίρριζος (<span class="percent">61%</span>), Μονόρριζος (<span class="percent">35%</span>), Τρίρριζος (<span class="percent">4%</span> - 2 παρειακές, 1 υπερώια).</li>
+                    <li><strong>Μυλικός Θάλαμος:</strong> Σχήμα <strong>8</strong> στην εγκάρσια διατομή (λόγω μέσης στένωσης). Το παρειακό φύμα/κέρας είναι μεγαλύτερο.</li>
+                    <li><strong>Παράπλευροι Σωλήνες:</strong> Πρώτος σε συχνότητα! <span class="highlight">50-81%</span>, κυρίως στο ακρορριζικό.</li>
+                </ul>
+            </div>
+
+            <div class="tooth-card">
+                <h3 class="tooth-title">Άνω Δεύτερος Προγόμφιος (15, 25) <span class="sos-badge">Αναντιστοιχία Ρίζας/Σωλήνων</span></h3>
+                <ul>
+                    <li><strong>Στατιστικό Παράδοξο:</strong> Ενώ έχει <strong>Μία Ρίζα (81%)</strong>, διαθέτει <span class="highlight">Δύο Ριζικούς Σωλήνες (77%)</span>. (1 Σωλήνας: 22%).</li>
+                    <li><strong>Δυσκολία:</strong> Το υποπολφικό έδαφος (αν έχει 2 σωλήνες) εντοπίζεται αρκετά βαθιά.</li>
+                    <li><strong>Μύλη:</strong> Φύματα (παρειακό/υπερώιο) σχεδόν στο ίδιο ύψος.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ΚΑΤΩ ΓΝΑΘΟΣ -->
+        <div>
+            <h2 style="color: var(--primary); border-bottom: 2px solid #cbd5e1; padding-bottom: 0.5rem;">Κάτω Γνάθος</h2>
+
+            <div class="tooth-card">
+                <h3 class="tooth-title">Κάτω Τομείς (31,32 & 41,42)</h3>
+                <ul>
+                    <li><strong>Δεύτερος Σωλήνας:</strong> Υψηλό ποσοστό! <span class="highlight">28% εμφανίζουν δεύτερο σωλήνα γλωσσικά</span> (συνήθως ενώνεται ακρορριζικά).</li>
+                    <li><strong>Μύλη:</strong> Μικρή, συμμετρική, με <strong>γλωσσική απόκλιση</strong> ως προς τη ρίζα.</li>
+                    <li><strong>Διατομή Ριζικού:</strong> Πολύ στενός εγγύς-άπω, μεγάλος χειλεογλωσσικά (αποκτά κυκλικό σχήμα μόνο στο ακρορρίζιο).</li>
+                </ul>
+            </div>
+
+            <div class="tooth-card">
+                <h3 class="tooth-title">Κάτω Κυνόδοντας (33, 43)</h3>
+                <ul>
+                    <li><strong>Μορφολογία:</strong> Πιο στενός εγγύς-άπω από τον άνω, φαίνεται πιο επιμήκης.</li>
+                    <li><strong>Ρίζες/Σωλήνες:</strong> Μονόρριζος (<span class="percent">95%</span>). Όμως, εμφανίζει <span class="highlight">δεύτερο ριζικό σωλήνα στο 14%</span>. Όταν είναι δίρριζος (5%), αποσχίζεται σε χειλική και γλωσσική ρίζα.</li>
+                </ul>
+            </div>
+
+            <div class="tooth-card">
+                <h3 class="tooth-title">Κάτω Πρώτος Προγόμφιος (34, 44) <span class="sos-badge">Ανατομία "Snake"</span></h3>
+                <ul>
+                    <li><strong>Σωλήνες:</strong> Ένας (<span class="percent">74%</span>), Δύο (<span class="percent">24%</span> - ο διχασμός γίνεται μέσο/ακρορριζικά), Τρεις (0,5%).</li>
+                    <li><strong>Ρίζα:</strong> Πιθανότητα 12% να εμφανίσει <strong>διπλή σιγμοειδή κάμψη (S)</strong>.</li>
+                    <li><strong>Πολφικά Κέρατα:</strong> Μεγάλο παρειακό (λόγω φύματος), υποπλαστικό γλωσσικό. Η μύλη έχει <strong>γλωσσική κλίση</strong>.</li>
+                </ul>
+            </div>
+
+            <div class="tooth-card">
+                <h3 class="tooth-title">Κάτω Δεύτερος Προγόμφιος (35, 45)</h3>
+                <ul>
+                    <li><strong>Μορφολογία έναντι 1ου:</strong> Πιο ογκώδης μύλη, αρκετά <span class="highlight">πιο ανεπτυγμένο γλωσσικό φύμα</span>.</li>
+                    <li><strong>Σωλήνες:</strong> Μικρότερο ποσοστό δεύτερου σωλήνα από τον πρώτο προγόμφιο (<span class="percent">16%</span>).</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
