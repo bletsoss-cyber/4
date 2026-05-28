@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <title>Endodontics 7 </title>
+    <style>
+        :root { --main: #2c3e50; --accent: #3498db; --bg: #f4f7f6; --text: #34495e; --warn: #e74c3c; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); margin: 0; display: flex; }
+        #sidebar { width: 280px; background: var(--main); color: white; height: 100vh; position: fixed; padding: 25px; }
+        #content { margin-left: 330px; padding: 50px; max-width: 950px; }
+        .card { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 6px 12px rgba(0,0,0,0.1); margin-bottom: 30px; animation: fadeIn 0.5s; }
+        h1, h2 { color: var(--accent); }
+        .nav-link { display: block; color: #bdc3c7; text-decoration: none; margin: 18px 0; cursor: pointer; font-weight: 500; }
+        .nav-link:hover { color: white; border-left: 3px solid var(--accent); padding-left: 10px; }
+        .hidden { display: none; }
+        .note { background: #fff3e0; border-left: 5px solid #f39c12; padding: 15px; margin: 15px 0; }
+        .error { color: var(--warn); font-weight: bold; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+<nav id="sidebar">
+    <h2>Endo-Academy</h2>
+    <a class="nav-link" onclick="show('gen')">1. Γενικές Αρχές</a>
+    <a class="nav-link" onclick="show('ant')">2. Πρόσθια Δόντια</a>
+    <a class="nav-link" onclick="show('pre')">3. Προγόμφιοι</a>
+    <a class="nav-link" onclick="show('prob')">4. Προβλήματα & Σφάλματα</a>
+    <a class="nav-link" onclick="show('tools')">5. Εργαλεία & Τεχνική</a>
+    <a class="nav-link" onclick="show('anatomy-details')">6. Διαφορική Διάγνωση Σφαλμάτων</a>
+    <a class="nav-link" onclick="show('iatrogenic-risks')">7. Ιατρογενή σφάλματα</a>
+    <a class="nav-link" onclick="show('tools-detailed')">8. Εξειδικευμένα Εργαλεία Διάνοιξης</a>
+    <a class="nav-link" onclick="show('orifices-prep')">9. Εντοπισμός Στομίων και την Προετοιμασία των Ριζικών Σωλήνων</a>
+    <a class="nav-link" onclick="show('isolation-safety')">10. Ενδοδοντικός Απομονωτήρας</a>
+</nav>
+
+<div id="content">
+    <div id="gen" class="card">
+        <h1>Γενικές Αρχές Διάνοιξης</h1>
+        <p>Η διάνοιξη είναι ο πρωτεύων σταθμός της ενδοδοντικής θεραπείας. Στόχος: Η άνετη είσοδος των εργαλείων χωρίς την αλλοίωση της ανατομίας του θαλάμου.</p>
+        <div class="note">Προσοχή: Πάντα αφαίρεση τερηδόνας και παλιών αποκαταστάσεων πριν τη διάνοιξη για αποφυγή μόλυνσης.</div>
+        
+
+[Image of endodontic access cavity preparation]
+
+    </div>
+
+    <div id="ant" class="card hidden">
+        <h1>Πρόσθια Δόντια (Τομείς)</h1>
+        <h3>Άνω Κεντρικός/Πλάγιος</h3>
+        <p>Τριγωνικό σχήμα. Η διάνοιξη ξεκινά από το κέντρο της υπερώιας επιφάνειας, κάθετα σε αυτήν, και μόλις μπούμε στον θάλαμο, η εγγλυφίδα γίνεται παράλληλη στον άξονα του δοντιού.</p>
+        <h3>Κάτω Τομείς</h3>
+        <p>Στενό ωοειδές. <span class="error">SOS:</span> Έλεγχος για 2ο σωλήνα (28% επίπτωση).</p>
+    </div>
+
+    <div id="pre" class="card hidden">
+        <h1>Προγόμφιοι</h1>
+        <h3>Άνω Προγόμφιοι</h3>
+        <p>Ωοειδές σχήμα με μεγαλύτερη διάμετρο παρειοϋπερώια.</p>
+        <h3>Κάτω Προγόμφιοι</h3>
+        <p>Διαμόρφωση στο κέντρο της μασητικής. Αν εντοπιστεί 2ος σωλήνας, η διάνοιξη επεκτείνεται γλωσσικά.</p>
+        
+    </div>
+
+    <div id="prob" class="card hidden">
+        <h1>Προβλήματα κατά τη Διάνοιξη</h1>
+        <ul>
+            <li><strong>Διάτρηση:</strong> Συμβαίνει συνήθως λόγω λανθασμένης γωνίωσης (έλλειψη παραλληλισμού).</li>
+            <li><strong>Furcation Perforation:</strong> Συμβαίνει λόγω υπερβολικής χρήσης εγγλυφίδας στον πυθμένα (υποπολφικό τοίχωμα).</li>
+            <li><strong>Απώλεια προσανατολισμού:</strong> Κίνδυνος όταν υπάρχει έντονη κλίση της ρίζας (π.χ. κάτω προγόμφιοι).</li>
+        </ul>
+        <p class="error">Η ατελής αφαίρεση οροφής οδηγεί σε παραμονή ιστών και αποτυχία!</p>
+    </div>
+
+    <div id="tools" class="card hidden">
+        <h1>Εργαλεία & Τεχνική</h1>
+        <p>Χρήση στρογγυλής εγγλυφίδας No 2, 3, 4 για το περίγραμμα. Χρήση <strong>Endo-Z</strong> (με αποστρογγυλεμένο άκρο) για τη λείανση των τοιχωμάτων.</p>
+        <p><em>Σημείωση:</em> Ποτέ ρεύματα αέρος!</p>
+    </div>
+</div>
+
+  <div id="anatomy-details" class="card hidden">
+    <h2>Ανατομικά Διαγνωστικά Σημεία</h2>
+    <div class="note">
+        <strong>Κάτω Κεντρικοί Τομείς (SOS):</strong> Εντοπισμός δεύτερου ριζικού σωλήνα στο 28% των περιπτώσεων. Ο 2ος σωλήνας συχνά ενώνεται με τον κύριο πριν την έξοδο.
+    </div>
+    <div class="note">
+        <strong>Άνω Προγόμφιοι:</strong> Ιδιαίτερη προσοχή στο "αυχενικό στένωμα". Η διάνοιξη πρέπει να είναι αρκετά ευρεία ώστε να αποφεύγεται η συσσώρευση οδοντίνης που εμποδίζει την είσοδο.
+    </div>
+    <p><em>Σημείωση:</em> Σε περίπτωση αμφιβολίας για τον αριθμό των ριζικών σωλήνων, η χρήση μεγέθυνσης είναι επιβεβλημένη.</p>
+</div>
+
+<div id="iatrogenic-risks" class="card hidden">
+    <h2>Ιατρογενή Σφάλματα & Πρόληψη</h2>
+    <table style="width:100%; border-collapse: collapse; margin-top: 20px;">
+        <tr style="background: var(--accent); color: white;">
+            <th style="padding: 10px;">Σφάλμα</th>
+            <th style="padding: 10px;">Αιτία</th>
+            <th style="padding: 10px;">Πρόληψη</th>
+        </tr>
+        <tr>
+            <td style="padding: 10px; border-bottom: 1px solid #ddd;">Διάτρηση Πυθμένα</td>
+            <td style="padding: 10px; border-bottom: 1px solid #ddd;">Χρήση εγγλυφίδας στον πυθμένα</td>
+            <td style="padding: 10px; border-bottom: 1px solid #ddd;">Χρήση Endo-Z (αποστρογγυλεμένο άκρο)</td>
+        </tr>
+        <tr>
+            <td style="padding: 10px; border-bottom: 1px solid #ddd;">Διάτρηση Πλευρικού</td>
+            <td style="padding: 10px; border-bottom: 1px solid #ddd;">Λανθασμένη γωνίωση</td>
+            <td style="padding: 10px; border-bottom: 1px solid #ddd;">Παραλληλισμός στον επιμήκη άξονα</td>
+        </tr>
+        <tr>
+            <td style="padding: 10px; border-bottom: 1px solid #ddd;">Απώλεια Στομίου</td>
+            <td style="padding: 10px; border-bottom: 1px solid #ddd;">Ατελής αφαίρεση οροφής</td>
+            <td style="padding: 10px; border-bottom: 1px solid #ddd;">Χρήση μεγεθυντικού κατόπτρου</td>
+        </tr>
+    </table>
+    <div class="note" style="margin-top: 20px;">
+        <span class="error">SOS:</span> Πάντα να συγκρίνεις την κατεύθυνση του εργαλείου με την προεγχειρητική ακτινογραφία. Η κλίση του δοντιού στην ακτινογραφία καθορίζει τη γωνία εισόδου.
+    </div>
+</div>  
+
+<div id="tools-detailed" class="card hidden">
+    <h2>Εξειδικευμένα Εργαλεία & Τεχνικές</h2>
+    <p>Η επιλογή του εργαλείου καθορίζει την επιτυχία της προσπέλασης. Παρακάτω η ταξινόμηση ανάλογα με τη χρήση τους:</p>
+    
+    <ul style="line-height: 2;">
+        <li><strong>Στρογγυλές εγγλυφίδες (Round burs) No 2, 3, 4:</strong> 
+            Χρησιμοποιούνται για την αρχική διάνοιξη της αδαμαντίνης και τη δημιουργία του αρχικού περιγράμματος στο κέντρο της μασητικής ή υπερώιας επιφάνειας.</li>
+        
+        <li><strong>Endo-Z (Κωνική εγγλυφίδα):</strong> 
+            Το απαραίτητο εργαλείο για την αφαίρεση της οροφής του θαλάμου. Το <em>αποστρογγυλεμένο, μη ενεργό άκρο</em> επιτρέπει τη λείανση των τοιχωμάτων χωρίς τον κίνδυνο πρόκλησης διάτρησης στον πυθμένα (floor).</li>
+            
+        <li><strong>Gates-Glidden (No 2 & 3):</strong> 
+            Χρησιμοποιούνται κυρίως για την απομάκρυνση των προεξοχών οδοντίνης στα στόμια των σωλήνων, εξασφαλίζοντας 'ευθεία πρόσβαση' (straight-line access).</li>
+            
+        <li><strong>Ειδικοί Ανιχνευτές (Endodontic Explorers):</strong> 
+            Κρίσιμο εργαλείο για την επιβεβαίωση της θέσης των στομίων, ειδικά σε δύσκολες ανατομίες (π.χ. MB2 σωλήνες ή συρρέοντες σωλήνες).</li>
+    </ul>
+
+    <div class="note">
+        <strong>Συμβουλή για τις εξετάσεις:</strong> Η Endo-Z χρησιμοποιείται <strong>πάντα</strong> με κινήσεις από μέσα προς τα έξω (outward pull stroke). Ποτέ μην ασκείς πίεση προς τα μέσα (προς τον πυθμένα).
+    </div>
+</div>
+
+<div id="orifices-prep" class="card hidden">
+    <h2>Εντοπισμός Στομίων & Ευθεία Πρόσβαση</h2>
+    <p>Η σωστή προετοιμασία του μυλικού θαλάμου είναι η προϋπόθεση για τον εντοπισμό όλων των ριζικών σωλήνων. Αν τα στόμια δεν είναι ορατά, η διάνοιξη είναι πιθανότατα ανεπαρκής.</p>
+    
+    <ul style="line-height: 1.8;">
+        <li><strong>Κανόνες Εντοπισμού:</strong> Τα στόμια των ριζικών σωλήνων βρίσκονται συνήθως στο σημείο όπου τα τοιχώματα του μυλικού θαλάμου συναντούν το υποπολφικό τοίχωμα.</li>
+        
+        <li><strong>Ανατομικά Ορόσημα:</strong> Η ανατομία της διάνοιξης (σχήμα και προσανατολισμός) πρέπει να ακολουθεί την ανατομία του θαλάμου. Σε περίπτωση αμφιβολίας, χρησιμοποιούμε τον ανιχνευτή (explorer) για να αισθανθούμε "σκαλοπάτια" ή εισόδους.</li>
+        
+        <li><strong>Ευθεία Πρόσβαση (Straight-line access):</strong> 
+            <span class="note">Κρίσιμο:</span> Η αφαίρεση της οδοντίνης που αποτελεί το 'στενό' της κοιλότητας είναι επιβεβλημένη. Αν το εργαλείο κάμπτεται κατά την είσοδο στο σωλήνα, η διάνοιξη δεν είναι επαρκής και πρέπει να επεκταθεί.</li>
+    </ul>
+
+    <div class="note" style="background: #e3f2fd; border-left: 5px solid #2196f3;">
+        <strong>Εξεταστικό Tip:</strong> Ο συχνότερος λόγος αποτυχίας εντοπισμού του δεύτερου σωλήνα (π.χ. σε κάτω τομείς ή άνω προγομφίους) είναι η ατελής αφαίρεση της οδοντίνης του αυχενικού τοιχώματος του μυλικού θαλάμου.
+    </div>
+    
+</div>
+
+<div id="isolation-safety" class="card hidden">
+    <h2>Απομόνωση & Διαχείριση Ιστών</h2>
+    <p>Η απομόνωση με ελαστικό απομονωτήρα (rubber dam) δεν είναι απλώς προαιρετική, αλλά απαραίτητη προϋπόθεση για κάθε ενδοδοντική θεραπεία.</p>
+    
+    <ul style="line-height: 1.8;">
+        <li><strong>Στεγανότητα:</strong> Αποτρέπει την επιμόλυνση του ριζικού συστήματος από το σάλιο και τα μικρόβια της στοματικής κοιλότητας.</li>
+        
+        <li><strong>Ασφάλεια ασθενούς:</strong> Προστατεύει τον ασθενή από την κατάποση ή αναρρόφηση μικροεργαλείων (π.χ. ριζικών ρινών, Gates-Glidden).</li>
+        
+        <li><strong>Ορατότητα:</strong> Ο απομονωτήρας απομακρύνει τη γλώσσα και τα μάγουλα, επιτρέποντας στον κλινικό να εστιάσει αποκλειστικά στο δόντι υπό θεραπεία, βελτιώνοντας την ακρίβεια της διάνοιξης.</li>
+        
+        <li><strong>Χημική Προστασία:</strong> Προστατεύει τους μαλακούς ιστούς του ασθενούς από διαλύματα διακλυσμού (π.χ. NaOCl), τα οποία είναι καυστικά.</li>
+    </ul>
+
+    <div class="note" style="background: #fff3f3; border-left: 5px solid #e74c3c;">
+        <strong>Εξεταστικό Tip:</strong> Αν ερωτηθείς για το τι πρέπει να προηγείται της διάνοιξης σε δόντια με εκτεταμένες βλάβες, η απάντηση είναι πάντα η **αποκατάσταση του ορίου** και η **τοποθέτηση απομονωτήρα** (και μετά η διάνοιξη).
+    </div>
+    
+</div>
+<script>
+    function show(id) {
+        document.querySelectorAll('.card').forEach(c => c.classList.add('hidden'));
+        document.getElementById(id).classList.remove('hidden');
+    }
+</script>
+</body>
+</html>
