@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Πλήρης Οδηγός Μελέτης: Ακτινογραφία στην Ενδοδοντία</title>
+    <style>
+        :root {
+            --primary: #1a365d;
+            --secondary: #2b6cb0;
+            --accent: #e53e3e;
+            --bg-body: #f7fafc;
+            --bg-card: #ffffff;
+            --text-main: #2d3748;
+            --text-muted: #718096;
+            --success: #38a169;
+            --warning: #d69e2e;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 280px;
+            background-color: var(--primary);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            overflow-y: auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .sidebar h2 {
+            font-size: 1.2rem;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar a {
+            color: #e2e8f0;
+            text-decoration: none;
+            font-size: 0.95rem;
+            display: block;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .sidebar a:hover, .sidebar a.active {
+            background-color: var(--secondary);
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            padding: 40px 60px;
+            max-width: 900px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .header-title {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-top: 0;
+            border-bottom: 3px solid var(--secondary);
+            padding-bottom: 10px;
+        }
+
+        .section-card {
+            background-color: var(--bg-card);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--secondary);
+        }
+
+        .section-card h2 {
+            color: var(--primary);
+            margin-top: 0;
+            font-size: 1.6rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
+
+        .section-card h3 {
+            color: var(--secondary);
+            font-size: 1.2rem;
+            margin-top: 20px;
+        }
+
+        ul.theory-list {
+            padding-left: 20px;
+        }
+
+        ul.theory-list li {
+            margin-bottom: 8px;
+        }
+
+        /* SOS / Exam Tip Box */
+        .exam-tip {
+            background-color: #fffaf0;
+            border: 1px solid #fbd38d;
+            border-left: 5px solid var(--warning);
+            padding: 15px 20px;
+            border-radius: 6px;
+            margin: 20px 0;
+        }
+
+        .exam-tip strong {
+            color: #b7791f;
+            display: block;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: var(--primary);
+            color: white;
+            font-weight: 500;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        /* Highlighting */
+        .highlight {
+            background-color: #fefcbf;
+            font-weight: bold;
+            padding: 0 4px;
+            border-radius: 3px;
+        }
+
+        .important-red {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h2>Περιεχόμενα</h2>
+        <ul id="nav-list">
+            <li><a href="#intro" class="active">1. Βασικές Αρχές</a></li>
+            <li><a href="#bisecting">2. Τεχνική Διχοτόμου</a></li>
+            <li><a href="#paralleling">3. Τεχνική Παραλλήλου</a></li>
+            <li><a href="#clark">4. Κανόνας του Clark (SLOB)</a></li>
+            <li><a href="#digital">5. Ψηφιακή Ακτινογραφία</a></li>
+            <li><a href="#stages">6. Ακτινογραφίες στη Θεραπεία</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <h1 class="header-title">Ακτινογραφία στην Ενδοδοντία</h1>
+        <p style="font-size: 1.1rem; color: var(--text-muted);">Πλήρης οδηγός θεωρίας βασισμένος στο ακαδημαϊκό σύγγραμμα. Στοχευμένος για απόλυτη επιτυχία (10/10) σε ερωτήσεις πολλαπλής επιλογής.</p>
+
+        <!-- 1. ΒΑΣΙΚΕΣ ΑΡΧΕΣ -->
+        <div id="intro" class="section-card">
+            <h2>1. Βασικές Αρχές & Περιορισμοί</h2>
+            <p>Η ακτινογραφία αποτελεί το πολυτιμότερο διαγνωστικό μέσο, παρέχοντας πληροφορίες για την πολφική κοιλότητα, τις ρίζες και τους περιακρορριζικούς ιστούς. Η πλέον χρησιμοποιούμενη είναι η <strong>οπισθοφατνιακή ή περιακρορριζική</strong>.</p>
+            <div class="exam-tip">
+                <strong>ΣΗΜΑΝΤΙΚΟΣ ΠΕΡΙΟΡΙΣΜΟΣ (SOS)</strong>
+                Η ακτινογραφία δίνει μία <span class="important-red">δισδιάστατη</span> εικόνα ενός τρισδιάστατου αντικειμένου. Χάνεται η μία διάσταση (βάθος), αλλοιώνοντας τη γνησιότητα της εικόνας.
+            </div>
+            <p>Για να αντιμετωπιστεί αυτό, λαμβάνονται συχνά ακτινογραφίες με αλλαγή της οριζόντιας γωνίας (βλ. Κανόνας Clark).</p>
+        </div>
+
+        <!-- 2. ΤΕΧΝΙΚΗ ΔΙΧΟΤΟΜΟΥ -->
+        <div id="bisecting" class="section-card">
+            <h2>2. Τεχνική της Διχοτόμου</h2>
+            <p>Βασίζεται στον ισομετρικό <strong>κανόνα του Cieszynski</strong>. Λόγω μορφολογίας της στοματικής κοιλότητας, το πλακίδιο δεν μπορεί να τοποθετηθεί παράλληλα με τον επιμήκη άξονα του δοντιού.</p>
+            
+            <h3>Ο Κανόνας</h3>
+            <ul class="theory-list">
+                <li>Η κεντρική ακτίνα πρέπει να κατευθύνεται <span class="highlight">κάθετα στη διχοτόμο</span> της γωνίας που σχηματίζεται από τον επιμήκη άξονα του δοντιού και το πλακίδιο.</li>
+            </ul>
+
+            <h3>Σφάλματα Κατεύθυνσης Ακτίνας (Πολύ πιθανά στην εξέταση)</h3>
+            <ul class="theory-list">
+                <li><strong>Επιμήκυνση του ειδώλου:</strong> Όταν η κεντρική ακτίνα απομακρύνεται από τον επιμήκη άξονα (δηλαδή είναι πιο <em>οριζόντια</em>). Το είδωλο μεγαλώνει.</li>
+                <li><strong>Σμίκρυνση του ειδώλου:</strong> Όταν η κεντρική ακτίνα πλησιάζει τον επιμήκη άξονα (δηλαδή είναι πιο <em>κατακόρυφη</em>). Το είδωλο μικραίνει.</li>
+                <li><strong>Επικάλυψη επιφανειών:</strong> Όταν η <em>οριζόντια</em> γωνία είναι λανθασμένη (η ακτίνα δεν περνάει ακριβώς από τα όμορα διαστήματα).</li>
+            </ul>
+
+            <h3>Πίνακας 4.1 - Γωνίες Πρόσπτωσης (Κατακόρυφη γωνία)</h3>
+            <table>
+                <tr>
+                    <th>Ομάδα Δοντιών</th>
+                    <th>Άνω Γνάθος</th>
+                    <th>Κάτω Γνάθος</th>
+                </tr>
+                <tr><td>Τομείς</td><td>+55°</td><td>-20°</td></tr>
+                <tr><td>Κυνόδοντες</td><td>+45°</td><td>-20°</td></tr>
+                <tr><td>Προγόμφιοι</td><td>+45°</td><td>-10°</td></tr>
+                <tr><td>Γομφίοι</td><td>+35°</td><td>-5°</td></tr>
+            </table>
+
+            <h3>Πλεονεκτήματα & Μειονεκτήματα</h3>
+            <ul class="theory-list">
+                <li><strong>Πλεονέκτημα:</strong> Σύντομη διαδικασία (δεν χρειάζονται ιδιαίτερα εξαρτήματα).</li>
+                <li><strong>Μειονεκτήματα:</strong> Η διχοτόμος είναι <em>νοητή</em> (αδύνατος ο ακριβής καθορισμός). Δεν αναπαράγονται ίδιες ακτινογραφίες (κακή επαναληψιμότητα).</li>
+                <li><strong>Ειδικές παραμορφώσεις:</strong> Οι υπερώιες ρίζες άνω γομφίων εμφανίζονται μεγαλύτερες. Η <span class="highlight">ζυγωματική απόφυση</span> συχνά καλύπτει τα ακρορρίζια των γομφίων.</li>
+            </ul>
+
+            <div class="exam-tip">
+                <strong>Κλινική Εκπαίδευση στο Α.Π.Θ. (Συχνή ερώτηση)</strong>
+                Αν και η τεχνική παραλλήλου είναι καλύτερη, στο ΑΠΘ εφαρμόζεται κυρίως <strong>η τεχνική της διχοτόμου</strong>, λόγω περιορισμών της παραλλήλου στην εκπαίδευση (απαιτεί μεγαλύτερο χρόνο, εμπειρία και επιπρόσθετο εξοπλισμό).
+            </div>
+            
+            <h3>Οδηγίες Τοποθέτησης</h3>
+            <ul class="theory-list">
+                <li>Ασθενής σχεδόν όρθιος. <strong>Μασητικό επίπεδο παράλληλο</strong> με το οριζόντιο.</li>
+                <li>Η <span class="important-red">κουκκίδα του πλακιδίου</span> μπαίνει ΠΑΝΤΑ προς την κοπτική/μασητική πλευρά.</li>
+                <li>Χρήση τολύπιου βάμβακος (ανάμεσα σε δόντι-πλακίδιο) φέρνει το πλακίδιο πιο παράλληλα και αποτρέπει το λύγισμά του.</li>
+            </ul>
+        </div>
+
+        <!-- 3. ΤΕΧΝΙΚΗ ΠΑΡΑΛΛΗΛΟΥ -->
+        <div id="paralleling" class="section-card">
+            <h2>3. Τεχνική της Παραλλήλου</h2>
+            <p>Το πλακίδιο τοποθετείται παράλληλα προς τον επιμήκη άξονα. Για να γίνει αυτό, απομακρύνεται από τα δόντια σε πιο <strong>ευρύχωρο/βαθύ τμήμα της στοματικής κοιλότητας</strong>. Η κεντρική ακτίνα είναι κάθετη ΚΑΙ στο πλακίδιο ΚΑΙ στο δόντι.</p>
+            
+            <h3>Πλεονεκτήματα & Μειονεκτήματα</h3>
+            <ul class="theory-list">
+                <li><strong>Πλεονεκτήματα:</strong> Ακριβέστερη (μικρή αλλοίωση/παραμόρφωση). Αποφεύγεται η επικάλυψη του ακρορριζίου από το ζυγωματικό τόξο. <span class="highlight">Επιτρέπει την επαναληψιμότητα</span> (σταθερή παρακολούθηση).</li>
+                <li><strong>Μειονεκτήματα:</strong> Αδυναμία όταν η ρίζα είναι πολύ μεγάλη, όταν η υπερώα είναι αβαθής, ή σε ασθενείς με έντονο <strong>αντανακλαστικό εμέτου</strong>.</li>
+            </ul>
+            <p>Απαιτούνται <em>ειδικοί συγκρατητήρες-οδηγοί</em> ευθυγράμμισης.</p>
+        </div>
+
+        <!-- 4. ΚΑΝΟΝΑΣ CLARK -->
+        <div id="clark" class="section-card">
+            <h2>4. Κανόνας του Clark (SLOB Rule)</h2>
+            <p>Ονομάζεται και "κανόνας του παρειακού αντικειμένου". Εφαρμόζεται για την αναγνώριση της παρειογλωσσικής σχέσης του δοντιού.</p>
+            <div class="exam-tip">
+                <strong>Ακρωνύμιο SLOB</strong><br>
+                <strong>S</strong>ame <strong>L</strong>ingual – <strong>O</strong>pposite <strong>B</strong>uccal (Ίδια Γλωσσική – Αντίθετη Παρειακή)
+            </div>
+            <ul class="theory-list">
+                <li>Αν η κατεύθυνση της ακτινοβολίας στο οριζόντιο επίπεδο μετακινηθεί προς τα <strong>εγγύς</strong>:
+                    <ul>
+                        <li>Τα ανατομικά στοιχεία που βρίσκονται <span class="highlight">γλωσσικά/υπερώια</span> απεικονίζονται στην <span class="important-red">ίδια πλευρά (εγγύς)</span>.</li>
+                        <li>Τα ανατομικά στοιχεία που βρίσκονται <span class="highlight">παρειακά</span> απεικονίζονται στην <span class="important-red">αντίθετη πλευρά (άπω)</span>.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 5. ΨΗΦΙΑΚΗ ΑΚΤΙΝΟΓΡΑΦΙΑ -->
+        <div id="digital" class="section-card">
+            <h2>5. Ψηφιακή Ακτινογραφία</h2>
+            <p>Χρησιμοποιεί ηλεκτρονικό αισθητήρα (sensor) αντί για φιλμ.</p>
+            
+            <h3>Πλεονεκτήματα</h3>
+            <ul class="theory-list">
+                <li>Μειωμένος χρόνος ακτινοβολίας κατά <span class="highlight">80-90%</span>.</li>
+                <li>Δυνατότητα επεξεργασίας εικόνας (αντίθεση, μεγέθυνση).</li>
+                <li>Άμεση εμφάνιση, χωρίς υγρά. Δυνατότητα μέτρησης μήκους.</li>
+            </ul>
+
+            <h3>Μειονεκτήματα</h3>
+            <ul class="theory-list">
+                <li>Μικρότερη ευκρίνεια/ποιότητα απεικόνισης σε σχέση με τη συμβατική (βάσει του συγγράμματος).</li>
+                <li>Ευαισθησία συστήματος και υψηλό κόστος.</li>
+                <li><strong>Ο αισθητήρας είναι <span class="important-red">άκαμπτος, παχύς και δύσχρηστος</span></strong>, δυσχεραίνοντας τη λήψη. Επίσης, έχει μικρότερες διαστάσεις από το φιλμ.</li>
+            </ul>
+        </div>
+
+        <!-- 6. ΣΤΑΔΙΑ ΕΝΔΟΔΟΝΤΙΑΣ -->
+        <div id="stages" class="section-card">
+            <h2>6. Ακτινογραφίες κατά την Ενδοδοντική Θεραπεία</h2>
+            
+            <ul class="theory-list">
+                <li><strong>1. Αρχική Ακτινογραφία:</strong> Μόνη μέθοδος ελέγχου πριν τη θεραπεία. Πολλές φορές λαμβάνονται 2-3 με διαφορετική γωνία για αποκάλυψη περιοχών που αλληλεπικαλύπτονται. Υπολογίζεται το αρχικό μήκος.</li>
+                
+                <li><strong>2. Ενδιάμεση Ακτινογραφία (Μήκος Εργασίας):</strong> Λαμβάνεται με μικροεργαλείο εντός του σωλήνα. Το εργαλείο τοποθετείται <span class="highlight">2 χιλ. μικρότερο από το αρχικό μήκος</span> (για να μπει χωρίς πίεση).</li>
+                
+                <li><strong>3. Προτελική Ακτινογραφία:</strong> Λαμβάνεται με τον κύριο κώνο γουταπέρκας πριν την έμφραξη. <em>Σκοπός:</em> Επιβεβαίωση σωστής τοποθέτησης σε <span class="important-red">μήκος και πλάτος</span>.</li>
+                
+                <li><strong>4. Τελική Ακτινογραφία:</strong> Διαπίστωση ποιότητας της έμφραξης στο τέλος. Βάση για μελλοντική αξιολόγηση.</li>
+                
+                <li><strong>5. Ακτινογραφίες Επανελέγχου (Follow-up):</strong> Πρέπει να γίνονται στους <span class="highlight">3, 6, 12, 24 και 48 μήνες</span>.</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Απλό JS για το navigation active state
+        document.addEventListener('DOMContentLoaded', () => {
+            const links = document.querySelectorAll('.sidebar a');
+            const sections = document.querySelectorAll('.section-card');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (scrollY >= (sectionTop - 50)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                links.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
