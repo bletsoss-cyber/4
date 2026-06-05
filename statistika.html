@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ενδοδοντική Μορφολογία: Στατιστικά Δεδομένα & Quiz</title>
+    <style>
+        /* Αυστηρό Ακαδημαϊκό Design */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --bg-color: #ffffff;
+            --table-border: #bdc3c7;
+            --table-header-bg: #ecf0f1;
+            --correct-color: #27ae60;
+            --incorrect-color: #c0392b;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: var(--bg-color);
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1, h2, h3 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+
+        /* Στυλ Πίνακα */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            margin-bottom: 40px;
+            font-size: 0.95em;
+        }
+
+        th, td {
+            border: 1px solid var(--table-border);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .section-header {
+            background-color: #e8ecef;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* Στυλ Quiz */
+        .quiz-container {
+            margin-top: 40px;
+        }
+
+        .question-card {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-left: 5px solid var(--primary-color);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+
+        .question-text {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+
+        .options-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .options-list li {
+            margin-bottom: 10px;
+        }
+
+        .options-list label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .options-list label:hover {
+            background-color: #f1f1f1;
+        }
+
+        .options-list input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .submit-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            cursor: pointer;
+            border-radius: 4px;
+            display: block;
+            width: 100%;
+            margin-top: 30px;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        #results-container {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #e8f8f5;
+            border: 1px solid var(--correct-color);
+            border-radius: 4px;
+            display: none;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        /* Classes για χρωματισμό αποτελεσμάτων */
+        .correct-answer {
+            color: var(--correct-color);
+            font-weight: bold;
+        }
+        .wrong-answer {
+            color: var(--incorrect-color);
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Ενδοδοντική Μορφολογία & Στατιστικά Δεδομένα</h1>
+    
+    <h2>Πίνακας Δεδομένων</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Δόντι</th>
+                <th>Μορφολογικό Χαρακτηριστικό</th>
+                <th>Ποσοστό (%)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td colspan="3" class="section-header">ΑΝΩ ΓΝΑΘΟΣ</td></tr>
+            <tr><td>Άνω Κεντρικός Τομέας</td><td>Παράπλευροι ριζικοί σωλήνες</td><td>9,2%</td></tr>
+            <tr><td rowspan="2">Άνω Πλάγιος Τομέας</td><td>Ακρορριζική κάμψη ρίζας προς τα άπω</td><td>53%</td></tr>
+            <tr><td>Παράπλευροι ριζικοί σωλήνες</td><td>11%</td></tr>
+            <tr><td rowspan="3">Άνω Κυνόδοντας</td><td>Διχοτόμηση ρίζας ακρορριζικά</td><td>2,5%</td></tr>
+            <tr><td>Δεύτερος ριζικός σωλήνας</td><td>6%</td></tr>
+            <tr><td>Παράπλευροι ριζικοί σωλήνες</td><td>8,7%</td></tr>
+            <tr><td rowspan="5">Άνω 1ος Προγόμφιος</td><td>Μονόρριζος / Δίρριζος / Τρίρριζος</td><td>35% / 61% / 4%</td></tr>
+            <tr><td>1 ριζικός σωλήνας</td><td>25%</td></tr>
+            <tr><td>2 ριζικοί σωλήνες (παρειακός - υπερώιος)</td><td>71%</td></tr>
+            <tr><td>3 ριζικοί σωλήνες (2 παρειακοί - 1 υπερώιος)</td><td>4%</td></tr>
+            <tr><td>Παράπλευροι ριζικοί σωλήνες</td><td>50-81%</td></tr>
+            <tr><td rowspan="6">Άνω 1ος Προγ. (Μονόρριζος)</td><td>1 σωλήνας</td><td>18%</td></tr>
+            <tr><td>Διχασμός σε 2 ανεξάρτητα τρήματα</td><td>5%</td></tr>
+            <tr><td>Διχαζόμενος & ενωμένος (1 τρήμα)</td><td>3%</td></tr>
+            <tr><td>2 σωλήνες ανεξάρτητοι</td><td>27%</td></tr>
+            <tr><td>2 σωλήνες ενωμένοι</td><td>38,5%</td></tr>
+            <tr><td>2 σωλήνες ενωμένοι & πάλι διχαζόμενοι</td><td>2,5%</td></tr>
+            <tr><td rowspan="3">Άνω 2ος Προγόμφιος</td><td>Μία ρίζα / Δύο ρίζες / Τρεις ρίζες</td><td>81% / 18% / 1%</td></tr>
+            <tr><td>1 ριζικός σωλήνας / 2 ριζ. σωλήνες / 3 ριζ. σωλήνες</td><td>77% / 22% / 1%</td></tr>
+            <tr><td>Παράπλευροι ριζικοί σωλήνες</td><td>40-60%</td></tr>
+            
+            <tr><td colspan="3" class="section-header">ΚΑΤΩ ΓΝΑΘΟΣ</td></tr>
+            <tr><td rowspan="4">Κάτω Τομείς</td><td>Δεύτερος ριζικός σωλήνας (γλωσσικά)</td><td>28%</td></tr>
+            <tr><td>Παράπλευροι ριζικοί σωλήνες</td><td>4%</td></tr>
+            <tr><td>Ακρορριζική κάμψη: Χειλικά</td><td>15%</td></tr>
+            <tr><td>Ακρορριζική κάμψη: Άπω</td><td>11%</td></tr>
+            <tr><td rowspan="5">Κάτω Κυνόδοντας</td><td>Μία ρίζα / Δίρριζος</td><td>95% / 5%</td></tr>
+            <tr><td>Δεύτερος ριζικός σωλήνας (στον μονόρριζο)</td><td>14%</td></tr>
+            <tr><td>Παράπλευροι ριζικοί σωλήνες</td><td>20%</td></tr>
+            <tr><td>Ακρορριζική κάμψη: Άπω</td><td>16,5%</td></tr>
+            <tr><td>Ακρορριζική κάμψη: Χειλικά</td><td>5%</td></tr>
+            <tr><td rowspan="6">Κάτω 1ος Προγόμφιος</td><td>Διχοτόμηση ριζών</td><td>13%</td></tr>
+            <tr><td>Τρίρριζος</td><td>0,5%</td></tr>
+            <tr><td>Δεύτερος ριζικός σωλήνας (γλωσσικός)</td><td>18%</td></tr>
+            <tr><td>Παράπλευροι ριζικοί σωλήνες</td><td>35%</td></tr>
+            <tr><td>Ακρορριζική κάμψη: Άπω</td><td>12%</td></tr>
+            <tr><td>Διπλή κάμψη σχήματος S</td><td>12%</td></tr>
+            <tr><td rowspan="3">Κάτω 2ος Προγόμφιος</td><td>Δεύτερη ρίζα (δίρριζος)</td><td>12%</td></tr>
+            <tr><td>Δεύτερος ριζικός σωλήνας</td><td>16%</td></tr>
+            <tr><td>Παράπλευροι ριζικοί σωλήνες</td><td>35%</td></tr>
+        </tbody>
+    </table>
+
+    <h2>Αξιολόγηση (Active Recall)</h2>
+    <p>Απαντήστε στις παρακάτω ερωτήσεις για να ελέγξετε τις γνώσεις σας.</p>
+    
+    <div id="quiz-form" class="quiz-container">
+        </div>
+
+    <button type="button" class="submit-btn" onclick="evaluateQuiz()">Υποβολή Απαντήσεων</button>
+    <div id="results-container"></div>
+
+</div>
+
+<script>
+    // Σχολιασμός Κώδικα: Δομή Δεδομένων Quiz
+    // Κάθε αντικείμενο περιέχει την ερώτηση, τις επιλογές (ως πίνακας), και τον δείκτη της σωστής απάντησης.
+    const quizData = [
+        { q: "1. Ποιο είναι το ποσοστό εμφάνισης παράπλευρων ριζικών σωλήνων στον άνω κεντρικό τομέα;", options: ["9,2%", "11%", "28%", "4%"], correct: 0 },
+        { q: "2. Σε τι ποσοστό εμφανίζει ακρορριζική κάμψη προς τα άπω η ρίζα του άνω πλάγιου τομέα;", options: ["35%", "53%", "16,5%", "11%"], correct: 1 },
+        { q: "3. Ποιο είναι το ποσοστό παράπλευρων ριζικών σωλήνων στον άνω πλάγιο τομέα;", options: ["9,2%", "20%", "11%", "8,7%"], correct: 2 },
+        { q: "4. Πόσο συχνά παρατηρείται ακρορριζική διχοτόμηση της ρίζας στον άνω κυνόδοντα;", options: ["5%", "2,5%", "0,5%", "12%"], correct: 1 },
+        { q: "5. Ποιο είναι το ποσοστό εμφάνισης δεύτερου ριζικού σωλήνα στον άνω κυνόδοντα;", options: ["6%", "14%", "18%", "22%"], correct: 0 },
+        { q: "6. Σε τι ποσοστό απαντώνται παράπλευροι ριζικοί σωλήνες στον άνω κυνόδοντα;", options: ["11%", "4%", "8,7%", "20%"], correct: 2 },
+        { q: "7. Ποιο είναι το ποσοστό των άνω πρώτων προγόμφιων που εμφανίζονται ως μονόρριζοι;", options: ["35%", "61%", "4%", "81%"], correct: 0 },
+        { q: "8. Ποιο είναι το ποσοστό των άνω πρώτων προγόμφιων που είναι δίρριζοι;", options: ["35%", "71%", "61%", "18%"], correct: 2 },
+        { q: "9. Πόσο συχνά εμφανίζεται ο άνω πρώτος προγόμφιος ως τρίρριζος;", options: ["1%", "4%", "0,5%", "2,5%"], correct: 1 },
+        { q: "10. Ποιο είναι το γενικό ποσοστό εμφάνισης ενός (1) ριζικού σωλήνα στον άνω πρώτο προγόμφιο;", options: ["18%", "25%", "35%", "77%"], correct: 1 },
+        { q: "11. Ποιο είναι το γενικό ποσοστό εμφάνισης δύο (2) ριζικών σωλήνων στον άνω πρώτο προγόμφιο;", options: ["61%", "71%", "77%", "38,5%"], correct: 1 },
+        { q: "12. Σε τι ποσοστό ο άνω πρώτος προγόμφιος εμφανίζει τρεις (3) ριζικούς σωλήνες;", options: ["4%", "1%", "0,5%", "12%"], correct: 0 },
+        { q: "13. Ποιο είναι το εύρος συχνότητας εμφάνισης παράπλευρων ριζικών σωλήνων στον άνω πρώτο προγόμφιο;", options: ["40-60%", "35-50%", "50-81%", "10-20%"], correct: 2 },
+        { q: "14. Όταν ο άνω 1ος προγόμφιος είναι ΜΟΝΟΡΡΙΖΟΣ, σε τι ποσοστό εμφανίζει 1 μόνο σωλήνα;", options: ["25%", "18%", "27%", "38,5%"], correct: 1 },
+        { q: "15. (Μονόρριζος Άνω 1ος Προγ.) Ποιο είναι το ποσοστό του 1 σωλήνα που διχάζεται σε 2 ανεξάρτητα τρήματα;", options: ["5%", "3%", "2,5%", "8,7%"], correct: 0 },
+        { q: "16. (Μονόρριζος Άνω 1ος Προγ.) Σε τι ποσοστό εμφανίζει διχαζόμενο και ενωμένο σε 1 τρήμα σωλήνα;", options: ["5%", "2,5%", "3%", "12%"], correct: 2 },
+        { q: "17. (Μονόρριζος Άνω 1ος Προγ.) Σε τι ποσοστό εμφανίζει 2 σωλήνες εντελώς ανεξάρτητους;", options: ["38,5%", "27%", "18%", "71%"], correct: 1 },
+        { q: "18. (Μονόρριζος Άνω 1ος Προγ.) Ποια είναι η συχνότητα εμφάνισης 2 ενωμένων σωλήνων;", options: ["38,5%", "71%", "27%", "61%"], correct: 0 },
+        { q: "19. (Μονόρριζος Άνω 1ος Προγ.) Ποιο είναι το ποσοστό 2 σωλήνων που ενώνονται και πάλι διχάζονται;", options: ["5%", "4%", "3%", "2,5%"], correct: 3 },
+        { q: "20. Ποιο είναι το ποσοστό μονόρριζων άνω δεύτερων προγόμφιων (μία ρίζα);", options: ["61%", "81%", "95%", "77%"], correct: 1 },
+        { q: "21. Ποιο είναι το ποσοστό των δίρριζων άνω δεύτερων προγόμφιων;", options: ["18%", "22%", "12%", "35%"], correct: 0 },
+        { q: "22. Σε τι ποσοστό εμφανίζει τρεις ρίζες ο άνω δεύτερος προγόμφιος;", options: ["4%", "0,5%", "1%", "2,5%"], correct: 2 },
+        { q: "23. Ποιο είναι το ποσοστό εμφάνισης ενός (1) ριζικού σωλήνα στον άνω δεύτερο προγόμφιο;", options: ["25%", "81%", "77%", "18%"], correct: 2 },
+        { q: "24. Ποιο είναι το ποσοστό εμφάνισης δύο (2) ριζικών σωλήνων στον άνω δεύτερο προγόμφιο;", options: ["18%", "22%", "71%", "27%"], correct: 1 },
+        { q: "25. Σε τι ποσοστό εμφανίζει τρεις (3) ριζικούς σωλήνες ο άνω δεύτερος προγόμφιος;", options: ["4%", "1%", "0,5%", "3%"], correct: 1 },
+        { q: "26. Ποιο είναι το εύρος για τους παράπλευρους ριζικούς σωλήνες στον άνω δεύτερο προγόμφιο;", options: ["50-81%", "40-60%", "20-35%", "10-20%"], correct: 1 },
+        { q: "27. Σε τι ποσοστό εμφανίζουν δεύτερο (γλωσσικό) ριζικό σωλήνα οι κάτω τομείς;", options: ["18%", "14%", "28%", "16%"], correct: 2 },
+        { q: "28. Ποιο είναι το ποσοστό παράπλευρων ριζικών σωλήνων στους κάτω τομείς;", options: ["4%", "9,2%", "11%", "20%"], correct: 0 },
+        { q: "29. Σε τι ποσοστό εμφανίζουν ΧΕΙΛΙΚΗ ακρορριζική κάμψη οι κάτω τομείς;", options: ["11%", "5%", "15%", "16,5%"], correct: 2 },
+        { q: "30. Σε τι ποσοστό εμφανίζουν ΑΠΩ ακρορριζική κάμψη οι κάτω τομείς;", options: ["15%", "11%", "12%", "53%"], correct: 1 },
+        { q: "31. Σε τι ποσοστό ο κάτω κυνόδοντας έχει μία ρίζα;", options: ["81%", "95%", "100%", "61%"], correct: 1 },
+        { q: "32. Πόσο συχνά είναι δίρριζος ο κάτω κυνόδοντας;", options: ["12%", "5%", "2,5%", "18%"], correct: 1 },
+        { q: "33. Στον μονόρριζο κάτω κυνόδοντα, ποιο είναι το ποσοστό εμφάνισης δεύτερου ριζικού σωλήνα;", options: ["6%", "28%", "14%", "16%"], correct: 2 },
+        { q: "34. Ποιο είναι το ποσοστό παράπλευρων ριζικών σωλήνων στον κάτω κυνόδοντα;", options: ["8,7%", "4%", "20%", "35%"], correct: 2 },
+        { q: "35. Ποιο είναι το ποσοστό ακρορριζικής κάμψης προς τα ΑΠΩ στον κάτω κυνόδοντα;", options: ["16,5%", "53%", "12%", "11%"], correct: 0 },
+        { q: "36. Ποιο είναι το ποσοστό ακρορριζικής κάμψης ΧΕΙΛΙΚΑ στον κάτω κυνόδοντα;", options: ["15%", "5%", "11%", "16,5%"], correct: 1 },
+        { q: "37. Σε τι ποσοστό διχοτομούνται οι ρίζες στον κάτω πρώτο προγόμφιο;", options: ["13%", "12%", "18%", "5%"], correct: 0 },
+        { q: "38. Ποιο είναι το ποσοστό του τρίρριζου κάτω πρώτου προγόμφιου;", options: ["1%", "4%", "0,5%", "2,5%"], correct: 2 },
+        { q: "39. Ποιο είναι το ποσοστό εμφάνισης δεύτερου (γλωσσικού) ριζικού σωλήνα στον κάτω πρώτο προγόμφιο;", options: ["14%", "28%", "16%", "18%"], correct: 3 },
+        { q: "40. Ποιο είναι το ποσοστό παράπλευρων ριζικών σωλήνων στον κάτω πρώτο προγόμφιο;", options: ["35%", "20%", "40-60%", "50-81%"], correct: 0 },
+        { q: "41. Σε τι ποσοστό παρουσιάζει ακρορριζική κάμψη προς τα άπω ο κάτω πρώτος προγόμφιος;", options: ["11%", "12%", "16,5%", "53%"], correct: 1 },
+        { q: "42. Σε τι ποσοστό ο κάτω πρώτος προγόμφιος εμφανίζει διπλή κάμψη σχήματος S;", options: ["12%", "5%", "2,5%", "15%"], correct: 0 },
+        { q: "43. Ποιο είναι το ποσοστό εμφάνισης δεύτερης ρίζας (δίρριζος) στον κάτω δεύτερο προγόμφιο;", options: ["18%", "13%", "12%", "5%"], correct: 2 },
+        { q: "44. Ποιο είναι το ποσοστό εμφάνισης δεύτερου ριζικού σωλήνα στον κάτω δεύτερο προγόμφιο;", options: ["18%", "16%", "22%", "14%"], correct: 1 },
+        { q: "45. Ποιο είναι το ποσοστό παράπλευρων ριζικών σωλήνων στον κάτω δεύτερο προγόμφιο;", options: ["20%", "35%", "4%", "40-60%"], correct: 1 }
+    ];
+
+    // Σχολιασμός Κώδικα: Render του Quiz στο DOM και Άμεση Ανατροφοδότηση
+    const quizContainer = document.getElementById("quiz-form");
+    let currentScore = 0;
+    let answeredQuestions = 0;
+
+    function renderQuiz() {
+        quizData.forEach((item, index) => {
+            const questionDiv = document.createElement("div");
+            questionDiv.className = "question-card";
+            questionDiv.id = `question-${index}`;
+
+            const qText = document.createElement("div");
+            qText.className = "question-text";
+            qText.textContent = item.q;
+            questionDiv.appendChild(qText);
+
+            const optionsList = document.createElement("ul");
+            optionsList.className = "options-list";
+
+            item.options.forEach((opt, optIndex) => {
+                const li = document.createElement("li");
+                const label = document.createElement("label");
+                
+                const radio = document.createElement("input");
+                radio.type = "radio";
+                radio.name = `q${index}`;
+                radio.value = optIndex;
+
+                // Προσθήκη Event Listener για ΑΜΕΣΗ αξιολόγηση μόλις γίνει κλικ
+                radio.addEventListener('change', () => evaluateSingleQuestion(index, optIndex, item.correct));
+
+                label.appendChild(radio);
+                label.appendChild(document.createTextNode(opt));
+                
+                // Προσθήκη ID για επισήμανση χρωμάτων
+                label.id = `label-q${index}-o${optIndex}`;
+                
+                li.appendChild(label);
+                optionsList.appendChild(li);
+            });
+
+            questionDiv.appendChild(optionsList);
+            quizContainer.appendChild(questionDiv);
+        });
+    }
+
+    function evaluateSingleQuestion(qIndex, selectedOptIndex, correctOptIndex) {
+        // 1. Κλείδωμα όλων των επιλογών για τη συγκεκριμένη ερώτηση
+        const radios = document.querySelectorAll(`input[name="q${qIndex}"]`);
+        radios.forEach(radio => radio.disabled = true);
+
+        // 2. Έλεγχος και χρωματισμός
+        if (selectedOptIndex === correctOptIndex) {
+            document.getElementById(`label-q${qIndex}-o${selectedOptIndex}`).classList.add('correct-answer');
+            currentScore++;
+        } else {
+            // Σημειώνει λάθος τη δική σου επιλογή και πρασινίζει τη σωστή
+            document.getElementById(`label-q${qIndex}-o${selectedOptIndex}`).classList.add('wrong-answer');
+            document.getElementById(`label-q${qIndex}-o${correctOptIndex}`).classList.add('correct-answer');
+        }
+
+        answeredQuestions++;
+
+        // 3. Αν απαντηθούν όλες οι ερωτήσεις, εμφάνισε αυτόματα το τελικό σκορ
+        if (answeredQuestions === quizData.length) {
+            showFinalScore();
+        }
+    }
+
+    function showFinalScore() {
+        const resultsDiv = document.getElementById("results-container");
+        resultsDiv.style.display = "block";
+        resultsDiv.innerHTML = `Ολοκληρώσατε το Quiz! Το σκορ σας είναι: <br><span style="font-size:1.5em; color:var(--primary-color)">${currentScore} / ${quizData.length}</span>`;
+        
+        // Απόκρυψη του κουμπιού "Υποβολή Απαντήσεων" αφού εμφανίστηκε το σκορ
+        const submitBtn = document.querySelector('.submit-btn');
+        if (submitBtn) submitBtn.style.display = 'none';
+        
+        resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    // Αλλάζουμε τη συνάρτηση του κουμπιού (αν αποφασίσει ο χρήστης να το πατήσει πριν το τέλος)
+    function evaluateQuiz() {
+        showFinalScore();
+    }
+
+    // Εκτέλεση κατά τη φόρτωση
+    window.onload = renderQuiz;
+</script>
+
+</body>
+</html>
