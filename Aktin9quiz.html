@@ -125,6 +125,37 @@
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        .question-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.question-nav-btn {
+    width: 42px;
+    height: 38px;
+    border: 1px solid #ddd;
+    background: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--secondary);
+    transition: all 0.2s ease;
+}
+
+.question-nav-btn:hover {
+    border-color: var(--accent);
+    background: #f0f8ff;
+}
+
+.question-nav-btn.active {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+}
     </style>
 </head>
 <body>
@@ -134,6 +165,8 @@
         <h2>Ακτινολογία - Προχωρημένο Επίπεδο</h2>
         <div class="progress" id="progressText">Ερώτηση 1 / 20</div>
     </div>
+
+    <div class="question-nav" id="questionNav"></div>
     
     <div class="question-text" id="questionText">Η ερώτηση φορτώνει...</div>
     
@@ -1832,7 +1865,8 @@
     const explanationText = document.getElementById('explanationText');
     const nextBtn = document.getElementById('nextBtn');
     const progressText = document.getElementById('progressText');
-
+    const questionNav = document.getElementById('questionNav');
+    
     function loadQuestion() {
         const currentQ = quizQuestions[currentQuestionIndex];
         questionTextElement.textContent = currentQ.question;
@@ -1848,6 +1882,32 @@
             btn.textContent = option;
             btn.onclick = () => checkAnswer(index, btn);
             optionsContainer.appendChild(btn);
+            updateQuestionNav();
+
+            function createQuestionNav() {
+    questionNav.innerHTML = '';
+
+    quizQuestions.forEach((_, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'question-nav-btn';
+        btn.textContent = index + 1;
+        btn.onclick = () => goToQuestion(index);
+        questionNav.appendChild(btn);
+    });
+}
+
+function updateQuestionNav() {
+    const navButtons = questionNav.querySelectorAll('.question-nav-btn');
+
+    navButtons.forEach((btn, index) => {
+        btn.classList.toggle('active', index === currentQuestionIndex);
+    });
+}
+
+function goToQuestion(index) {
+    currentQuestionIndex = index;
+    loadQuestion();
+}
         });
     }
 
