@@ -163,6 +163,41 @@
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        .question-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e1e8ed;
+}
+
+.question-nav-btn {
+    width: 42px;
+    height: 38px;
+    border: 1px solid #d5dde5;
+    background: #ffffff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--secondary-color);
+    transition: all 0.2s ease;
+}
+
+.question-nav-btn:hover {
+    border-color: var(--accent-color);
+    background: #e8f4fd;
+}
+
+.question-nav-btn.active {
+    background: var(--accent-color);
+    color: white;
+    border-color: var(--accent-color);
+}
+
+.question-nav-btn.answered {
+    border-color: var(--correct-color);
+}
     </style>
 </head>
 <body>
@@ -173,6 +208,8 @@
                 <h1>Ψηφιακή Απεικόνιση - Μέσα Καταγραφής</h1>
                 <div class="progress">Ερώτηση <span id="current-q">1</span> από <span id="total-q">0</span></div>
             </div>
+
+            <div class="question-nav" id="question-nav"></div>
             
             <div class="question-text" id="question-text">
                 </div>
@@ -1105,7 +1142,9 @@
         const totalQSpan = document.getElementById('total-q');
         const quizArea = document.getElementById('quiz-area');
         const resultsArea = document.getElementById('results-area');
-
+        const questionNav = document.getElementById('question-nav');
+        const answeredQuestions = new Set();
+        
         function initQuiz() {
             if (quizQuestions.length === 0) {
                 questionTextElement.innerText = "Το array των ερωτήσεων είναι κενό. Παρακαλώ προσθέστε τις ερωτήσεις στον κώδικα.";
@@ -1113,9 +1152,37 @@
             }
             totalQSpan.innerText = quizQuestions.length;
             document.getElementById('final-total').innerText = quizQuestions.length;
+            createQuestionNav();
             loadQuestion();
-        }
 
+}
+
+        function createQuestionNav() {
+    questionNav.innerHTML = '';
+
+    quizQuestions.forEach((_, index) => {
+        const button = document.createElement('button');
+        button.className = 'question-nav-btn';
+        button.innerText = index + 1;
+        button.onclick = () => goToQuestion(index);
+        questionNav.appendChild(button);
+    });
+}
+
+function updateQuestionNav() {
+    const navButtons = questionNav.querySelectorAll('.question-nav-btn');
+
+    navButtons.forEach((button, index) => {
+        button.classList.toggle('active', index === currentQuestionIndex);
+        button.classList.toggle('answered', answeredQuestions.has(index));
+    });
+}
+
+function goToQuestion(index) {
+    currentQuestionIndex = index;
+    loadQuestion();
+}
+        
         function loadQuestion() {
             resetState();
             const currentQuestion = quizQuestions[currentQuestionIndex];
@@ -1128,6 +1195,7 @@
                 button.classList.add('option-btn');
                 button.onclick = () => selectOption(index, button);
                 optionsContainer.appendChild(button);
+                updateQuestionNav();
             });
         }
 
@@ -1153,6 +1221,8 @@
             });
 
             if (isCorrect) score++;
+            answeredQuestions.add(currentQuestionIndex);
+updateQuestionNav();
 
             // Εμφάνιση εξήγησης
             explanationText.innerHTML = currentQuestion.explanation;
@@ -1178,6 +1248,7 @@
         document.getElementById('restart-btn').addEventListener('click', () => {
             currentQuestionIndex = 0;
             score = 0;
+            answeredQuestions.clear();
             quizArea.style.display = 'block';
             resultsArea.style.display = 'none';
             loadQuestion();
