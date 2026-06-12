@@ -1859,32 +1859,15 @@
 
     let currentQuestionIndex = 0;
 
-    const questionTextElement = document.getElementById('questionText');
-    const optionsContainer = document.getElementById('optionsContainer');
-    const explanationBox = document.getElementById('explanationBox');
-    const explanationText = document.getElementById('explanationText');
-    const nextBtn = document.getElementById('nextBtn');
-    const progressText = document.getElementById('progressText');
-    const questionNav = document.getElementById('questionNav');
-    
-    function loadQuestion() {
-        const currentQ = quizQuestions[currentQuestionIndex];
-        questionTextElement.textContent = currentQ.question;
-        progressText.textContent = `Ερώτηση ${currentQuestionIndex + 1} / ${quizQuestions.length}`;
-        
-        optionsContainer.innerHTML = '';
-        explanationBox.style.display = 'none';
-        nextBtn.style.display = 'none';
+const questionTextElement = document.getElementById('questionText');
+const optionsContainer = document.getElementById('optionsContainer');
+const explanationBox = document.getElementById('explanationBox');
+const explanationText = document.getElementById('explanationText');
+const nextBtn = document.getElementById('nextBtn');
+const progressText = document.getElementById('progressText');
+const questionNav = document.getElementById('questionNav');
 
-        currentQ.options.forEach((option, index) => {
-            const btn = document.createElement('button');
-            btn.className = 'option-btn';
-            btn.textContent = option;
-            btn.onclick = () => checkAnswer(index, btn);
-            optionsContainer.appendChild(btn);
-            updateQuestionNav();
-
-            function createQuestionNav() {
+function createQuestionNav() {
     questionNav.innerHTML = '';
 
     quizQuestions.forEach((_, index) => {
@@ -1908,50 +1891,71 @@ function goToQuestion(index) {
     currentQuestionIndex = index;
     loadQuestion();
 }
-        });
+
+function loadQuestion() {
+    const currentQ = quizQuestions[currentQuestionIndex];
+
+    questionTextElement.textContent = currentQ.question;
+    progressText.textContent = `Ερώτηση ${currentQuestionIndex + 1} / ${quizQuestions.length}`;
+
+    optionsContainer.innerHTML = '';
+    explanationBox.style.display = 'none';
+    nextBtn.style.display = 'none';
+
+    currentQ.options.forEach((option, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.textContent = option;
+        btn.onclick = () => checkAnswer(index, btn);
+        optionsContainer.appendChild(btn);
+    });
+
+    updateQuestionNav();
+}
+
+function checkAnswer(selectedIndex, selectedBtn) {
+    const currentQ = quizQuestions[currentQuestionIndex];
+    const allButtons = optionsContainer.querySelectorAll('.option-btn');
+
+    // Κλείδωμα επιλογών
+    allButtons.forEach(btn => btn.disabled = true);
+
+    // Χρωματισμός σωστού/λάθους
+    if (selectedIndex === currentQ.correctIndex) {
+        selectedBtn.classList.add('correct');
+    } else {
+        selectedBtn.classList.add('wrong');
+        allButtons[currentQ.correctIndex].classList.add('correct');
     }
 
-    function checkAnswer(selectedIndex, selectedBtn) {
-        const currentQ = quizQuestions[currentQuestionIndex];
-        const allButtons = optionsContainer.querySelectorAll('.option-btn');
-        
-        // Κλείδωμα επιλογών
-        allButtons.forEach(btn => btn.disabled = true);
+    // Εμφάνιση εξήγησης και κουμπιού "Επόμενο"
+    explanationText.innerHTML = currentQ.explanation;
+    explanationBox.style.display = 'block';
+    nextBtn.style.display = 'block';
+}
 
-        // Χρωματισμός σωστού/λάθους
-        if (selectedIndex === currentQ.correctIndex) {
-            selectedBtn.classList.add('correct');
-        } else {
-            selectedBtn.classList.add('wrong');
-            allButtons[currentQ.correctIndex].classList.add('correct');
-        }
+function nextQuestion() {
+    currentQuestionIndex++;
 
-        // Εμφάνιση εξήγησης και κουμπιού "Επόμενο"
-        explanationText.innerHTML = currentQ.explanation;
-        explanationBox.style.display = 'block';
-        nextBtn.style.display = 'block';
-    }
-
-    function nextQuestion() {
-        currentQuestionIndex++;
-        if (currentQuestionIndex < quizQuestions.length) {
-            loadQuestion();
-        } else {
-            questionTextElement.textContent = "Συγχαρητήρια! Το τεστ ολοκληρώθηκε.";
-            optionsContainer.innerHTML = '';
-            explanationBox.style.display = 'none';
-            nextBtn.style.display = 'none';
-            progressText.textContent = "Ολοκληρώθηκε";
-        }
-    }
-
-    // Initialize (Θα λειτουργήσει μόλις βάλεις τα δεδομένα στον πίνακα)
-    if(quizQuestions.length > 0) {
-        createQuestionNav();
+    if (currentQuestionIndex < quizQuestions.length) {
         loadQuestion();
     } else {
-        questionTextElement.textContent = "Παρακαλώ προσθέστε ερωτήσεις στον πίνακα quizQuestions.";
+        questionTextElement.textContent = "Συγχαρητήρια! Το τεστ ολοκληρώθηκε.";
+        optionsContainer.innerHTML = '';
+        explanationBox.style.display = 'none';
+        nextBtn.style.display = 'none';
+        questionNav.style.display = 'none';
+        progressText.textContent = "Ολοκληρώθηκε";
     }
+}
+
+// Initialize
+if (quizQuestions.length > 0) {
+    createQuestionNav();
+    loadQuestion();
+} else {
+    questionTextElement.textContent = "Παρακαλώ προσθέστε ερωτήσεις στον πίνακα quizQuestions.";
+}
 </script>
 
 </body>
