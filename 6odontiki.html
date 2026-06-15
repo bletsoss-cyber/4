@@ -1,0 +1,1692 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz Οδοντιατρικών Υλικών — Ερωτήσεις Πολλαπλής</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f4f6f8;
+      color: #1f2933;
+      margin: 0;
+      padding: 24px;
+      line-height: 1.5;
+    }
+.quiz-container {
+  max-width: 980px;
+  margin: 0 auto;
+  background: #ffffff;
+  padding: 28px;
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+h1 {
+  margin-top: 0;
+  text-align: center;
+  color: #7a1f2b;
+  font-size: 28px;
+}
+
+.score-box {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #7a1f2b;
+  color: white;
+  padding: 14px 18px;
+  border-radius: 10px;
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+}
+
+.reset-btn {
+  border: none;
+  background: #ffffff;
+  color: #7a1f2b;
+  font-weight: bold;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.question-block {
+  border: 1px solid #d8dee6;
+  border-left: 6px solid #7a1f2b;
+  border-radius: 10px;
+  padding: 18px;
+  margin-bottom: 22px;
+  background: #fbfcfd;
+}
+
+.question-number {
+  font-weight: bold;
+  color: #7a1f2b;
+  margin-bottom: 8px;
+  font-size: 18px;
+}
+
+.question-text {
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.options-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.option-item {
+  background: #ffffff;
+  border: 1px solid #cfd7df;
+  padding: 11px 13px;
+  margin-bottom: 9px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.option-item:hover {
+  background: #f0f3f6;
+}
+
+.option-item.correct {
+  background: #d8f3dc;
+  border-color: #2d8a4d;
+  color: #14532d;
+  font-weight: bold;
+}
+
+.option-item.incorrect {
+  background: #fde2e1;
+  border-color: #c0392b;
+  color: #7f1d1d;
+  font-weight: bold;
+}
+
+.option-item.disabled {
+  pointer-events: none;
+  opacity: 0.95;
+}
+
+.academic-comment {
+  display: none;
+  margin-top: 14px;
+  padding: 13px 14px;
+  background: #fff7ed;
+  border-left: 4px solid #f59e0b;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+.page-citation {
+  display: block;
+  margin-top: 8px;
+  color: #6b7280;
+  font-style: italic;
+}
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <h1>Ερωτήσεις Πολλαπλής Επιλογής — Οδοντιατρικά Υλικά</h1>
+<div class="score-box">
+  <div>Σκορ: <span id="score">0</span> / <span id="total">10</span></div>
+  <button class="reset-btn" onclick="resetQuiz()">Reset</button>
+</div>
+
+<div class="question-block" id="q1">
+  <div class="question-number">Ερώτηση 1</div>
+  <div class="question-text">Ποια δήλωση αποδίδει ακριβέστερα τον ρόλο του νερού στις χημικά σκληρυνόμενες υαλοϊονομερείς κονίες;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 1, false)">A) Το νερό λειτουργεί κυρίως ως αδρανής διαβρεκτικός παράγοντας και απομακρύνεται πλήρως μετά την πήξη.</li>
+    <li class="option-item" onclick="checkAnswer(this, 1, true)">B) Το νερό δρα ως διαλύτης του πολυκαρβοξυλικού οξέος, προκαλεί ιονισμό και απελευθέρωση ιόντων από το γυαλί και αποτελεί βασικό συστατικό της στερεοποιημένης κονίας.</li>
+    <li class="option-item" onclick="checkAnswer(this, 1, false)">C) Το νερό αναστέλλει την οξεοβασική αντίδραση και γι’ αυτό η περίσσειά του αυξάνει την τελική αντοχή.</li>
+    <li class="option-item" onclick="checkAnswer(this, 1, false)">D) Το νερό απαιτείται μόνο όταν η σκόνη περιέχει αφυδατωμένο πολυακρυλικό οξύ και όχι στις υπόλοιπες μορφές υαλοϊονομερών κονιών.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Το νερό δεν είναι απλώς μέσο ανάμειξης. Διαλύει το πολυκαρβοξυλικό οξύ, επιτρέπει τον ιονισμό του και την απελευθέρωση ιόντων από το γυαλί, ενώ παραμένει δομικό συστατικό της στερεοποιημένης κονίας.
+    <span class="page-citation">Παραπομπή: Σελίδα 182</span>
+  </div>
+</div>
+
+<div class="question-block" id="q2">
+  <div class="question-number">Ερώτηση 2</div>
+  <div class="question-text">Σε υαλοϊονομερή κονία, ποια συνέπεια είναι πιθανότερη όταν η ανάμειξη σκόνης-υγρού ή η πήξη δεν γίνει σωστά και παραμείνει περίσσεια ελεύθερου νερού;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 2, false)">A) Αύξηση της αντοχής στην κάμψη λόγω μεγαλύτερης ενυδάτωσης της πολυαλκενικής μήτρας.</li>
+    <li class="option-item" onclick="checkAnswer(this, 2, false)">B) Ταχύτερη ωρίμανση της κονίας και μείωση του κινδύνου επιφανειακών ρωγμών.</li>
+    <li class="option-item" onclick="checkAnswer(this, 2, true)">C) Μειωμένη αντίσταση στη διαλυτοποίηση, μειωμένη αντοχή στην κάμψη και πιθανή εμφάνιση κιμωλιώδους χρώματος.</li>
+    <li class="option-item" onclick="checkAnswer(this, 2, false)">D) Αύξηση της διαφάνειας και βελτίωση της αισθητικής λόγω μείωσης των αδιαφανών πολυκαρβοξυλικών αλάτων.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η παραμονή περισσότερου ελεύθερου νερού σε σχέση με το δεσμευμένο υποβαθμίζει κρίσιμες ιδιότητες: μειώνει την αντίσταση στη διαλυτοποίηση και την κάμψη και συνδέεται με κιμωλιώδη όψη.
+    <span class="page-citation">Παραπομπή: Σελίδα 182</span>
+  </div>
+</div>
+
+<div class="question-block" id="q3">
+  <div class="question-number">Ερώτηση 3</div>
+  <div class="question-text">Ποια είναι η ακριβέστερη δράση του τρυγικού οξέος στο υγρό των υαλοϊονομερών κονιών;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 3, true)">A) Μειώνει το ιξώδες, διευκολύνει τον χειρισμό, αυξάνει τον χρόνο φύλαξης/χρήσης και καθυστερεί την πήξη εμποδίζοντας πρόωρο σχηματισμό άμορφων αλάτων αργιλίου.</li>
+    <li class="option-item" onclick="checkAnswer(this, 3, false)">B) Αυξάνει το ιξώδες ώστε να επιτευχθεί συμπυκνώσιμη σύσταση και προκαλεί άμεση δημιουργία αλάτων αργιλίου.</li>
+    <li class="option-item" onclick="checkAnswer(this, 3, false)">C) Αντικαθιστά το πολυκαρβοξυλικό οξύ ως κύριο οξύ της αντίδρασης και αυξάνει την απελευθέρωση φθορίου.</li>
+    <li class="option-item" onclick="checkAnswer(this, 3, false)">D) Αναστέλλει την απελευθέρωση ιόντων ασβεστίου και στροντίου, με αποτέλεσμα να επιταχύνει την τελική ωρίμανση.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Το τρυγικό οξύ δρα ρυθμιστικά: κάνει το υγρό πιο εύχρηστο, αυξάνει τον διαθέσιμο χρόνο εργασίας και καθυστερεί την πήξη ελέγχοντας τον πρόωρο σχηματισμό αλάτων αργιλίου.
+    <span class="page-citation">Παραπομπή: Σελίδα 182</span>
+  </div>
+</div>
+
+<div class="question-block" id="q4">
+  <div class="question-number">Ερώτηση 4</div>
+  <div class="question-text">Ποιος συνδυασμός περιγράφει ορθότερα τις ρητινώδεις τροποποιημένες υαλοϊονομερείς κονίες;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 4, false)">A) Έχουν σκόνη διαφορετικού τύπου από τις υαλοϊονομερείς κονίες, χωρίς φθόριο, και πήζουν αποκλειστικά με αντίδραση φωτοπολυμερισμού.</li>
+    <li class="option-item" onclick="checkAnswer(this, 4, false)">B) Περιέχουν μόνο BisGMA ή UDMA, χωρίς υδρόφιλο μονομερές HEMA, ώστε να περιορίζεται η πρόσληψη νερού.</li>
+    <li class="option-item" onclick="checkAnswer(this, 4, true)">C) Διαθέτουν παρόμοιο τύπο γυαλιού, τροποποιημένο υγρό με ρητινώδη στοιχεία, HEMA περίπου 4,5% κ.β. και φωτοκαταλύτη όπως η καμφοροκινόνη.</li>
+    <li class="option-item" onclick="checkAnswer(this, 4, false)">D) Περιέχουν αυξημένο ελεύθερο νερό συγκριτικά με τις συμβατικές κονίες, ώστε να βελτιώνεται ο βαθμός πολυμερισμού.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Οι ρητινώδεις τροποποιημένες υαλοϊονομερείς συνδυάζουν υαλοϊονομερή χημεία με ρητινώδες συστατικό, περιέχουν HEMA περίπου 4,5% κ.β. και φωτοκαταλύτη, συνήθως καμφοροκινόνη.
+    <span class="page-citation">Παραπομπή: Σελίδα 183</span>
+  </div>
+</div>
+
+<div class="question-block" id="q5">
+  <div class="question-number">Ερώτηση 5</div>
+  <div class="question-text">Σε κεραμομεταλλικές κονίες, ποια περιγραφή είναι πιο ακριβής;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 5, false)">A) Η σκόνη αποτελείται αποκλειστικά από καθαρό μέταλλο, ενώ το υγρό περιέχει ρητινώδη μήτρα με HEMA.</li>
+    <li class="option-item" onclick="checkAnswer(this, 5, true)">B) Η σκόνη μπορεί να είναι μίγμα γυαλιού υαλοϊονομερούς κονίας με τεμαχίδια κράματος αμαλγάματος ή τροποποιημένο γυαλί με κόκκους Ag, ενώ το υγρό έχει την ίδια σύσταση με των υαλοϊονομερών κονιών.</li>
+    <li class="option-item" onclick="checkAnswer(this, 5, false)">C) Η κύρια τροποποίηση τους είναι η αντικατάσταση του πολυκαρβοξυλικού οξέος από τρυγικό οξύ ώστε να αυξηθεί η διαφάνεια.</li>
+    <li class="option-item" onclick="checkAnswer(this, 5, false)">D) Το λευκό διοξείδιο του τιτανίου προστίθεται για να ενισχύσει τον φωτοπολυμερισμό και όχι για να επηρεάσει την απόχρωση.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Οι κεραμομεταλλικές κονίες συνδυάζουν γυαλί υαλοϊονομερούς κονίας με μεταλλικό συστατικό ή κόκκους αργύρου, ενώ το υγρό τους παραμένει ανάλογο των συμβατικών υαλοϊονομερών.
+    <span class="page-citation">Παραπομπή: Σελίδα 183</span>
+  </div>
+</div>
+
+<div class="question-block" id="q6">
+  <div class="question-number">Ερώτηση 6</div>
+  <div class="question-text">Ποια αλληλουχία περιγράφει σωστά τις δύο φάσεις πήξης των χημικά σκληρυνόμενων υαλοϊονομερών κονιών;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 6, false)">A) Πρώτα απελευθερώνονται τρισθενή ιόντα Al και ακολουθεί ταχεία απελευθέρωση δισθενών ιόντων Ca/Sr μετά τις 24 ώρες.</li>
+    <li class="option-item" onclick="checkAnswer(this, 6, true)">B) Αρχικά απελευθερώνονται δισθενή ιόντα Ca/Sr που σχηματίζουν πολυκαρβοξυλικά άλατα και προκαλούν αρχική στερεοποίηση· έπειτα απελευθερώνονται Al³⁺ και σχηματίζονται άλατα αργιλίου με βραδύτερη ωρίμανση.</li>
+    <li class="option-item" onclick="checkAnswer(this, 6, false)">C) Η πρώτη φάση είναι φωτοπολυμερισμός του HEMA και η δεύτερη είναι υδρόλυση της σιλάνης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 6, false)">D) Η πήξη ολοκληρώνεται αποκλειστικά στα πρώτα 30 δευτερόλεπτα και δεν υπάρχει κλινικά σημαντική ωρίμανση μετά την αρχική στερεοποίηση.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η αρχική στερεοποίηση οφείλεται σε δισθενή ιόντα Ca/Sr. Η δεύτερη, βραδύτερη φάση σχετίζεται με Al³⁺ και οδηγεί σε αύξηση διασταύρωσης, σταθερότητας, ακαμψίας και μείωση υδατοδιαλυτότητας.
+    <span class="page-citation">Παραπομπή: Σελίδα 184</span>
+  </div>
+</div>
+
+<div class="question-block" id="q7">
+  <div class="question-number">Ερώτηση 7</div>
+  <div class="question-text">Ποια κλινική οδηγία είναι ακριβέστερη για τη χημικά σκληρυνόμενη υαλοϊονομερή κονία αμέσως μετά την τοποθέτηση;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 7, false)">A) Η λείανση πρέπει να γίνει αμέσως, πριν περάσει το πρώτο λεπτό, ώστε να αφαιρεθεί η υγρή επιφανειακή φάση.</li>
+    <li class="option-item" onclick="checkAnswer(this, 7, false)">B) Η επιφάνεια πρέπει να μένει εκτεθειμένη στον αέρα για να ολοκληρωθεί ταχύτερα η αφυδάτωση και να αυξηθεί η τελική αντοχή.</li>
+    <li class="option-item" onclick="checkAnswer(this, 7, true)">C) Η επιφάνεια πρέπει να προστατεύεται περίπου για τα πρώτα 5 λεπτά με υδρόφοβο μέσο, ενώ η λείανση συνιστάται μετά από 10-15 λεπτά από την τοποθέτηση.</li>
+    <li class="option-item" onclick="checkAnswer(this, 7, false)">D) Η προστασία από νερό και αφυδάτωση είναι απαραίτητη μόνο στις ρητινώδεις τροποποιημένες κονίες και όχι στις χημικά σκληρυνόμενες.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Τα αρχικά πολυκαρβοξυλικά άλατα είναι ευαίσθητα σε απώλεια ή πρόσληψη νερού. Για αυτό η επιφάνεια προστατεύεται στα πρώτα λεπτά και η τελική επεξεργασία καθυστερεί μέχρι να προχωρήσει η πήξη.
+    <span class="page-citation">Παραπομπή: Σελίδες 184-185</span>
+  </div>
+</div>
+
+<div class="question-block" id="q8">
+  <div class="question-number">Ερώτηση 8</div>
+  <div class="question-text">Ποια δήλωση για τις ρητινώδεις τροποποιημένες υαλοϊονομερείς κονίες είναι ορθότερη;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 8, false)">A) Η πήξη τους βασίζεται αποκλειστικά στην οξεοβασική αντίδραση και για αυτό η λείανση πρέπει να αναβάλλεται για 24 ώρες.</li>
+    <li class="option-item" onclick="checkAnswer(this, 8, true)">B) Η πήξη στηρίζεται σε διπλό μηχανισμό, με κυρίαρχη την οξεοβασική αντίδραση και βοηθητικό τον φωτοπολυμερισμό ελεύθερων μεθακρυλικών ριζών.</li>
+    <li class="option-item" onclick="checkAnswer(this, 8, false)">C) Ο φωτοπολυμερισμός αποτελεί την κύρια αντίδραση και η οξεοβασική αντίδραση δεν συμβάλλει στη δομή της μάζας.</li>
+    <li class="option-item" onclick="checkAnswer(this, 8, false)">D) Η παρουσία HEMA καταργεί πλήρως την ανάγκη πολυμερισμού, αφού η στερεοποίηση γίνεται μόνο με αφυδάτωση.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Στις ρητινώδεις τροποποιημένες υαλοϊονομερείς εξελίσσονται σχεδόν ταυτόχρονα δύο αντιδράσεις: η οξεοβασική ως κύρια και ο φωτοπολυμερισμός ως βοηθητικός μηχανισμός.
+    <span class="page-citation">Παραπομπή: Σελίδα 185</span>
+  </div>
+</div>
+
+<div class="question-block" id="q9">
+  <div class="question-number">Ερώτηση 9</div>
+  <div class="question-text">Ποιο πλεονέκτημα των καψουλών υαλοϊονομερούς κονίας αποδίδεται ορθότερα στην προζυγισμένη δόση και μηχανική ανάμειξη;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 9, false)">A) Εξαλείφουν πλήρως τις φυσαλίδες αέρα, χωρίς να επηρεάζεται η μηχανική αντοχή από την αναλογία σκόνης-υγρού.</li>
+    <li class="option-item" onclick="checkAnswer(this, 9, false)">B) Επιτρέπουν χειροκίνητη τροποποίηση της αναλογίας σκόνης-υγρού κατά περίπτωση, ώστε να ρυθμίζεται αυθαίρετα ο χρόνος πήξης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 9, true)">C) Περιορίζουν τα σφάλματα αναλογίας και διαβροχής, μειώνουν τον εγκλωβισμό αέρα και επιτρέπουν υψηλότερη αναλογία σκόνης-υγρού με αύξηση της αντοχής.</li>
+    <li class="option-item" onclick="checkAnswer(this, 9, false)">D) Καταργούν την ανάγκη δόνησης ή ανάμειξης, επειδή η κονία βρίσκεται ήδη πλήρως στερεοποιημένη μέσα στην κάψουλα.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η χειροκίνητη ανάμειξη δημιουργεί προβλήματα ακρίβειας αναλογίας, διαβροχής και φυσαλίδων. Οι κάψουλες με μηχανική ανάμειξη μειώνουν αυτά τα σφάλματα και μπορούν να αυξήσουν την αναλογία σκόνης-υγρού και την αντοχή.
+    <span class="page-citation">Παραπομπή: Σελίδα 187</span>
+  </div>
+</div>
+
+<div class="question-block" id="q10">
+  <div class="question-number">Ερώτηση 10</div>
+  <div class="question-text">Ποια κλινική απόφαση συμφωνεί περισσότερο με τις φυσικομηχανικές ιδιότητες των υαλοϊονομερών κονιών;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 10, false)">A) Να χρησιμοποιούνται ως υλικό εκλογής σε εκτεταμένες οπίσθιες αποκαταστάσεις μόνιμων δοντιών με ισχυρά μασητικά φορτία.</li>
+    <li class="option-item" onclick="checkAnswer(this, 10, true)">B) Να αποφεύγονται σε μικρά πάχη περίπου κάτω από 1,5 mm λόγω αυξημένου κινδύνου κατάγματος, ενώ είναι καταλληλότερες για επιλεγμένες χαμηλής ή μέτριας φόρτισης εφαρμογές.</li>
+    <li class="option-item" onclick="checkAnswer(this, 10, false)">C) Να προτιμώνται συστηματικά έναντι σύνθετων ρητινών σε όλες τις οπίσθιες αποκαταστάσεις επειδή εμφανίζουν μικρότερη αποτριβή.</li>
+    <li class="option-item" onclick="checkAnswer(this, 10, false)">D) Να αποφεύγονται σε αυχενικές μη τερηδονικές βλάβες, επειδή δεν μπορούν να ακολουθήσουν καμπτικές τάσεις και παραμορφώσεις.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Οι υαλοϊονομερείς κονίες έχουν χαμηλότερη αντοχή από σύνθετες ρητίνες και κεραμικά, μικρή αντίσταση σε αποτριβή και αυξημένο κίνδυνο κατάγματος σε μικρά πάχη. Κλινικά προτιμώνται σε επιλεγμένες ενδείξεις χαμηλότερης φόρτισης.
+    <span class="page-citation">Παραπομπή: Σελίδα 188</span>
+  </div>
+</div>
+<div class="question-block" id="q11">
+  <div class="question-number">Ερώτηση 11</div>
+  <div class="question-text">Ποια δήλωση αποδίδει ακριβέστερα την κλινική σημασία της απελευθέρωσης φθορίου από τις υαλοϊονομερείς κονίες;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 11, false)">A) Το φθόριο συμμετέχει άμεσα στην αντίδραση πήξης και χωρίς αυτό δεν σχηματίζεται η πολυκαρβοξυλική μήτρα.</li>
+    <li class="option-item" onclick="checkAnswer(this, 11, true)">B) Το φθόριο δεν συμμετέχει ουσιαστικά στην πήξη, αλλά απελευθερώνεται και τροφοδοτεί το μικροπεριβάλλον της αποκατάστασης, μειώνοντας την πιθανότητα απασβεστίωσης όμορων ιστών.</li>
+    <li class="option-item" onclick="checkAnswer(this, 11, false)">C) Το φθόριο απελευθερώνεται μόνο μετά την πλήρη αποδόμηση της κονίας και γι’ αυτό δεν έχει κλινικό όφελος κατά τη διάρκεια ζωής της αποκατάστασης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 11, false)">D) Το φθόριο αυξάνει αποκλειστικά τη διαφάνεια της κονίας, χωρίς επίδραση στο μικροπεριβάλλον της αποκατάστασης.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η απελευθέρωση φθορίου αποτελεί αντιτερηδονογόνο χαρακτηριστικό των υαλοϊονομερών κονιών, όχι βασικό μηχανισμό πήξης. Το φθόριο τροφοδοτεί το μικροπεριβάλλον γύρω από την αποκατάσταση και μπορεί να συμβάλει στη μείωση της απασβεστίωσης.
+    <span class="page-citation">Παραπομπή: Σελίδα 189</span>
+  </div>
+</div>
+
+<div class="question-block" id="q12">
+  <div class="question-number">Ερώτηση 12</div>
+  <div class="question-text">Ποια επιλογή περιγράφει σωστά το πρότυπο απελευθέρωσης φθορίου των υαλοϊονομερών κονιών στον χρόνο;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 12, false)">A) Η απελευθέρωση είναι μηδενική τις πρώτες 48 ώρες και εμφανίζεται μόνο μετά από μακροχρόνια αποδόμηση.</li>
+    <li class="option-item" onclick="checkAnswer(this, 12, false)">B) Η απελευθέρωση παραμένει σταθερή και υψηλή σε όλη τη διάρκεια ζωής της αποκατάστασης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 12, true)">C) Είναι υψηλότερη αρχικά, ιδιαίτερα μέσα στις πρώτες 24–48 ώρες, και στη συνέχεια μειώνεται σταδιακά, διατηρώντας χαμηλό σταθερό ρυθμό.</li>
+    <li class="option-item" onclick="checkAnswer(this, 12, false)">D) Αυξάνεται συνεχώς με την πάροδο του χρόνου, επειδή η κονία γίνεται προοδευτικά πιο διαλυτή.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Οι υαλοϊονομερείς κονίες παρουσιάζουν αρχική έντονη απελευθέρωση φθορίου και στη συνέχεια χαμηλότερο σταθερό ρυθμό, κάτι που σχετίζεται με τη διάχυση και τη σταδιακή απελευθέρωση από τη μάζα της κονίας.
+    <span class="page-citation">Παραπομπή: Σελίδες 189-190</span>
+  </div>
+</div>
+
+<div class="question-block" id="q13">
+  <div class="question-number">Ερώτηση 13</div>
+  <div class="question-text">Ποια δήλωση για τις απόλυτες τιμές φθορίου που απελευθερώνεται από τις υαλοϊονομερείς κονίες είναι ακριβέστερη;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 13, true)">A) Ενδεικτικά αναφέρονται περίπου 10 ppm αρχικά, ενώ στην πορεία του χρόνου η τιμή σταθεροποιείται περίπου στα 1–3 ppm.</li>
+    <li class="option-item" onclick="checkAnswer(this, 13, false)">B) Οι τιμές παραμένουν σταθερά πάνω από 100 ppm για όλη τη διάρκεια ζωής της αποκατάστασης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 13, false)">C) Η απελευθέρωση φθορίου είναι κλινικά σημαντική μόνο όταν ξεπερνά τα 50 ppm μετά τον πρώτο μήνα.</li>
+    <li class="option-item" onclick="checkAnswer(this, 13, false)">D) Οι υαλοϊονομερείς κονίες δεν απελευθερώνουν μετρήσιμες ποσότητες φθορίου μετά την πρώτη εβδομάδα.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Το σύγγραμμα αναφέρει ενδεικτικά αρχικές απόλυτες τιμές γύρω στα 10 ppm, οι οποίες με την πάροδο του χρόνου σταθεροποιούνται περίπου στα 1–3 ppm.
+    <span class="page-citation">Παραπομπή: Σελίδα 190</span>
+  </div>
+</div>
+
+<div class="question-block" id="q14">
+  <div class="question-number">Ερώτηση 14</div>
+  <div class="question-text">Ποια διατύπωση συγκρίνει ορθότερα την απελευθέρωση φθορίου μεταξύ συμβατικών, ρητινωδώς τροποποιημένων και κεραμομεταλλικών υαλοϊονομερών κονιών;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 14, false)">A) Οι κεραμομεταλλικές απελευθερώνουν πάντοτε περισσότερο φθόριο επειδή περιέχουν μεταλλικά στοιχεία.</li>
+    <li class="option-item" onclick="checkAnswer(this, 14, false)">B) Οι ρητινώδεις τροποποιημένες απελευθερώνουν περισσότερο φθόριο από τις συμβατικές λόγω παρουσίας HEMA.</li>
+    <li class="option-item" onclick="checkAnswer(this, 14, true)">C) Οι ρητινώδεις τροποποιημένες και οι κεραμομεταλλικές απελευθερώνουν μικρότερα ποσά φθορίου σε σχέση με τις συμβατικές, λόγω της συγκριτικά μικρότερης διαλυτότητάς τους.</li>
+    <li class="option-item" onclick="checkAnswer(this, 14, false)">D) Όλοι οι τύποι απελευθερώνουν ακριβώς την ίδια ποσότητα φθορίου, επειδή η απελευθέρωση δεν επηρεάζεται από τη σύνθεση.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η μικρότερη διαλυτότητα των ρητινωδώς τροποποιημένων και των κεραμομεταλλικών κονιών συνδέεται με μικρότερη απελευθέρωση φθορίου συγκριτικά με τις συμβατικές υαλοϊονομερείς κονίες.
+    <span class="page-citation">Παραπομπή: Σελίδα 190</span>
+  </div>
+</div>
+
+<div class="question-block" id="q15">
+  <div class="question-number">Ερώτηση 15</div>
+  <div class="question-text">Ποια επιλογή αποδίδει ακριβέστερα την αισθητική συμπεριφορά των υαλοϊονομερών κονιών;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 15, false)">A) Είναι περισσότερο διαφανείς από τις σύνθετες ρητίνες και επομένως αποδίδουν ιδανικά κάθε χρωματική διαβάθμιση.</li>
+    <li class="option-item" onclick="checkAnswer(this, 15, true)">B) Είναι περισσότερο αδιαφανείς παρά διαφανείς, με αποχρώσεις που προσομοιάζουν αλλά δεν αναπαράγουν πλήρως τα χρώματα των οδοντικών ιστών.</li>
+    <li class="option-item" onclick="checkAnswer(this, 15, false)">C) Η διαφάνειά τους αυξάνεται όταν εκτεθούν σε υγρασία πριν από τα πρώτα 5 λεπτά της πήξης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 15, false)">D) Η αισθητική τους υπεροχή οφείλεται κυρίως στον υψηλό δείκτη διάθλασης της πολυκαρβοξυλικής μήτρας.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Οι υαλοϊονομερείς κονίες χαρακτηρίζονται ως περισσότερο αδιαφανείς, με αποχρώσεις που προσομοιάζουν στους οδοντικούς ιστούς, αλλά υστερούν σημαντικά ως προς τη χρωματική προσομοίωση σε σχέση με σύνθετες ρητίνες.
+    <span class="page-citation">Παραπομπή: Σελίδα 190</span>
+  </div>
+</div>
+
+<div class="question-block" id="q16">
+  <div class="question-number">Ερώτηση 16</div>
+  <div class="question-text">Ποιος μηχανισμός εξηγεί καλύτερα τη χημική συγκόλληση των υαλοϊονομερών κονιών στους οδοντικούς ιστούς;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 16, false)">A) Δημιουργία ρητινώδους υβριδικού στρώματος με βαθιά διείσδυση μονομερών στους οδοντινοσωληνάρια.</li>
+    <li class="option-item" onclick="checkAnswer(this, 16, true)">B) Αρχική διαβροχή από την υδρόφιλη κονία, ήπια αδρότητα και ιοντική ανταλλαγή μεταξύ καρβοξυλικών ομάδων της κονίας και ιόντων ασβεστίου/φωσφορικών των οδοντικών ιστών.</li>
+    <li class="option-item" onclick="checkAnswer(this, 16, false)">C) Μικρομηχανική συγκράτηση αποκλειστικά μέσω επιθετικής αδροποίησης με υδροφθορικό οξύ.</li>
+    <li class="option-item" onclick="checkAnswer(this, 16, false)">D) Χημική ένωση του φθορίου με το κολλαγόνο της οδοντίνης χωρίς συμμετοχή καρβοξυλικών ομάδων.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η συγκόλληση βασίζεται στη διαβροχή, στη δυναμική ζώνη ιοντικής ανταλλαγής και σε ισχυρότερους ιοντικούς δεσμούς μεταξύ καρβοξυλικών ομάδων και δεσμευμένων ιόντων ασβεστίου/φωσφορικών στους οδοντικούς ιστούς.
+    <span class="page-citation">Παραπομπή: Σελίδα 191</span>
+  </div>
+</div>
+
+<div class="question-block" id="q17">
+  <div class="question-number">Ερώτηση 17</div>
+  <div class="question-text">Ποια τιμή αντοχής συγκολλητικού δεσμού αναφέρεται για τις υαλοϊονομερείς κονίες και ποια ερμηνεία είναι ορθότερη;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 17, false)">A) 20–30 MPa στην αδαμαντίνη και 10–15 MPa στην οδοντίνη, τιμές που εξηγούν την πλήρη απουσία μηχανικής συγκράτησης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 17, true)">B) Περίπου 2,6–9,6 MPa στην αδαμαντίνη και 1,1–4,1 MPa στην οδοντίνη, με τις τιμές αυτές να μην αντιπροσωπεύουν πλήρως την πραγματική αντοχή επειδή κατά τη δοκιμή συχνά αποκολλάται και τμήμα της κονίας.</li>
+    <li class="option-item" onclick="checkAnswer(this, 17, false)">C) Άνω των 40 MPa σε αδαμαντίνη και οδοντίνη, επειδή η συγκόλληση είναι ισχυρότερη από των ρητινωδών συστημάτων.</li>
+    <li class="option-item" onclick="checkAnswer(this, 17, false)">D) Μηδενική στην οδοντίνη, επειδή ο δεσμός στηρίζεται αποκλειστικά στο ανόργανο μέρος της αδαμαντίνης.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Οι αναφερόμενες τιμές είναι 2,6–9,6 MPa για την αδαμαντίνη και 1,1–4,1 MPa για την οδοντίνη. Το κλινικό νόημα δεν περιορίζεται στη μετρούμενη εργαστηριακή τιμή, διότι συχνά κατά τη δοκιμή αποκολλάται και υλικό κονίας.
+    <span class="page-citation">Παραπομπή: Σελίδα 191</span>
+  </div>
+</div>
+
+<div class="question-block" id="q18">
+  <div class="question-number">Ερώτηση 18</div>
+  <div class="question-text">Ποια δήλωση είναι λανθασμένη σχετικά με τη συγκόλληση των υαλοϊονομερών κονιών;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 18, false)">A) Η υδρόφιλη φύση της κονίας ευνοεί την αρχική διαβροχή των οδοντικών ιστών.</li>
+    <li class="option-item" onclick="checkAnswer(this, 18, false)">B) Η αδροποίηση αφαιρεί τη ζώνη ξεσμάτων και αποκαλύπτει ιόντα ασβεστίου που συμμετέχουν στον δεσμό.</li>
+    <li class="option-item" onclick="checkAnswer(this, 18, false)">C) Στα πρώτα 15 λεπτά η κονία αναπτύσσει περίπου το 80% της μέγιστης αντοχής της.</li>
+    <li class="option-item" onclick="checkAnswer(this, 18, true)">D) Η παρατεταμένη αδροποίηση με πολυακρυλικό οξύ 10–25% είναι σήμερα απαραίτητη σε όλα τα σκευάσματα για να ενισχυθεί ο συγκολλητικός δεσμός.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η προετοιμασία με πολυακρυλικό οξύ 10–25% για 10–15 δευτερόλεπτα αναφέρεται σε κάποια εμπορικά σκευάσματα, αλλά πλέον στα περισσότερα δεν υπάρχει σύσταση χρήσης, επειδή δεν φαίνεται να ενισχύει τον συγκολλητικό δεσμό.
+    <span class="page-citation">Παραπομπή: Σελίδα 192</span>
+  </div>
+</div>
+
+<div class="question-block" id="q19">
+  <div class="question-number">Ερώτηση 19</div>
+  <div class="question-text">Ποιο από τα παρακάτω ανήκει στα θετικά χαρακτηριστικά των υαλοϊονομερών κονιών σύμφωνα με τη σύνοψη του συγγράμματος;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 19, true)">A) Συγκόλληση στους οδοντικούς ιστούς χωρίς μεσολάβηση χημικού παράγοντα, με δεσμό που σταθεροποιείται στον χρόνο.</li>
+    <li class="option-item" onclick="checkAnswer(this, 19, false)">B) Μεγάλη αντοχή σε ισχυρές λειτουργικές δυνάμεις και καταλληλότητα για κάθε εκτεταμένη οπίσθια αποκατάσταση.</li>
+    <li class="option-item" onclick="checkAnswer(this, 19, false)">C) Απόλυτη αντοχή στην υγρασία στο αρχικό στάδιο πήξης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 19, false)">D) Άριστη αισθητική λόγω πλήρους διαφάνειας και ιδανικής λείας επιφάνειας.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Στα θετικά χαρακτηριστικά των υαλοϊονομερών περιλαμβάνονται η συγκόλληση στους οδοντικούς ιστούς, η αντιτερηδονογόνος δράση και η σχετικά μικρή τεχνική ευαισθησία. Αντίθετα, η αντοχή σε ισχυρές δυνάμεις, η ευαισθησία στο νερό και η αισθητική αποτελούν περιορισμούς.
+    <span class="page-citation">Παραπομπή: Σελίδες 192-193</span>
+  </div>
+</div>
+
+<div class="question-block" id="q20">
+  <div class="question-number">Ερώτηση 20</div>
+  <div class="question-text">Σε ποια περίπτωση είναι κλινικά πιο τεκμηριωμένη η χρήση υαλοϊονομερούς κονίας σύμφωνα με τις αναφερόμενες ενδείξεις;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 20, false)">A) Εκτεταμένη μασητική αποκατάσταση μόνιμου γομφίου με υψηλά λειτουργικά φορτία.</li>
+    <li class="option-item" onclick="checkAnswer(this, 20, true)">B) Αυχενική μη τερηδονικής αιτιολογίας βλάβη μικρού αναλογικού μήκους ορίων αδαμαντίνης και δυσκολία ελέγχου υγρασίας.</li>
+    <li class="option-item" onclick="checkAnswer(this, 20, false)">C) Άμεση αισθητική αποκατάσταση πρόσθιου δοντιού όπου απαιτείται μέγιστη στιλπνότητα και χρωματική διαβάθμιση.</li>
+    <li class="option-item" onclick="checkAnswer(this, 20, false)">D) Ολική κεραμική στεφάνη υψηλής αισθητικής με ανάγκη μακροχρόνιας χρωματικής σταθερότητας.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Οι υαλοϊονομερείς κονίες ενδείκνυνται σε αυχενικές μη τερηδονικές βλάβες, τερηδόνες ρίζας, παιδοδοντιατρικές εφαρμογές, ART και μεταβατικές εμφράξεις, ειδικά όταν υπάρχει ανάγκη ελέγχου υγρασίας ή ασθενείς με περιορισμένη συνεργασία.
+    <span class="page-citation">Παραπομπή: Σελίδα 193</span>
+  </div>
+</div>
+
+<div class="question-block" id="q21">
+  <div class="question-number">Ερώτηση 21</div>
+  <div class="question-text">Ποια δήλωση για τη σύνθεση της κλασικής οδοντιατρικής πορσελάνης είναι ακριβέστερη;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 21, false)">A) Αποτελείται κυρίως από καθαρό διοξείδιο του ζιρκονίου, χωρίς υαλώδη φάση.</li>
+    <li class="option-item" onclick="checkAnswer(this, 21, true)">B) Τα βασικά συστατικά της είναι ενώσεις πυριτίου και αργιλίου, κυρίως ο άστριος, ο χαλαζίας και η άργιλος.</li>
+    <li class="option-item" onclick="checkAnswer(this, 21, false)">C) Περιέχει αποκλειστικά οργανική μήτρα και κεραμικά πληρωτικά, όπως οι σύνθετες ρητίνες.</li>
+    <li class="option-item" onclick="checkAnswer(this, 21, false)">D) Η κύρια φάση της είναι μεταλλικός σκελετός που επικαλύπτεται με πολυμερές.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η κλασική οδοντιατρική πορσελάνη βασίζεται σε άστριο, χαλαζία και άργιλο, δηλαδή σε συστατικά πυριτίου και αργιλίου. Η σύγχρονη οδοντιατρική πορσελάνη έχει κυρίως άστριο.
+    <span class="page-citation">Παραπομπή: Σελίδα 194</span>
+  </div>
+</div>
+
+<div class="question-block" id="q22">
+  <div class="question-number">Ερώτηση 22</div>
+  <div class="question-text">Ποια λειτουργία του αστρίου στην πορσελάνη αποδίδεται σωστά;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 22, true)">A) Προσδίδει σταθερότητα σχήματος, αντοχή, διαφάνεια και συντελεί στη ρύθμιση του συντελεστή θερμικής διαστολής ανάλογα με το ποσοστό κρυσταλλικής φάσης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 22, false)">B) Είναι οργανικό μονομερές που πολυμερίζεται κατά την όπτηση και δημιουργεί ρητινώδη μήτρα.</li>
+    <li class="option-item" onclick="checkAnswer(this, 22, false)">C) Προκαλεί αποκλειστικά αδιαφάνεια και για αυτό χρησιμοποιείται μόνο σε μεταλλοκεραμικές αποκαταστάσεις οπισθίων.</li>
+    <li class="option-item" onclick="checkAnswer(this, 22, false)">D) Λειτουργεί κυρίως ως συγκολλητικός παράγοντας μεταξύ πορσελάνης και οδοντίνης.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Ο άστριος συμβάλλει στη σταθερότητα του σχήματος, στην αντοχή, στη διαφάνεια και στη ρύθμιση του συντελεστή θερμικής διαστολής μέσω της σχέσης του με την κρυσταλλική φάση.
+    <span class="page-citation">Παραπομπή: Σελίδα 194</span>
+  </div>
+</div>
+
+<div class="question-block" id="q23">
+  <div class="question-number">Ερώτηση 23</div>
+  <div class="question-text">Ποια δήλωση για τον χαλαζία στην πορσελάνη είναι ορθότερη;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 23, false)">A) Ο χαλαζίας μειώνει την αντοχή σε θραύση και αυξάνει την οργανική απορρόφηση νερού.</li>
+    <li class="option-item" onclick="checkAnswer(this, 23, true)">B) Είναι κρυσταλλική μορφή του SiO₂ με υψηλό σημείο τήξης, συμβάλλει στη σταθερότητα κατά την όπτηση, στη δημιουργία σκελετού, στη ρύθμιση θερμικής διαστολής και στην αντοχή στη θραύση.</li>
+    <li class="option-item" onclick="checkAnswer(this, 23, false)">C) Είναι η κύρια χρωστική ουσία που καθορίζει το κίτρινο-κόκκινο χρώμα της πορσελάνης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 23, false)">D) Είναι πολυμερές που αποδομείται πλήρως κατά την όπτηση για να δημιουργηθούν πόροι.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Ο χαλαζίας είναι κρυσταλλικό SiO₂ και συμβάλλει σε δομικά και θερμικά χαρακτηριστικά της πορσελάνης, καθώς και στην αντοχή στη θραύση.
+    <span class="page-citation">Παραπομπή: Σελίδα 194</span>
+  </div>
+</div>
+
+<div class="question-block" id="q24">
+  <div class="question-number">Ερώτηση 24</div>
+  <div class="question-text">Ποια περιγραφή της μικροδομής της οδοντιατρικής πορσελάνης είναι ακριβέστερη;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 24, true)">A) Είναι σύνθετο υλικό με υαλώδη μήτρα, αποτελούμενη από δίκτυο Si–O, μέσα στην οποία ενισχύονται μία ή περισσότερες κρυσταλλικές φάσεις.</li>
+    <li class="option-item" onclick="checkAnswer(this, 24, false)">B) Είναι μονοφασικό πολυκρυσταλλικό υλικό χωρίς υαλώδη φάση, όπως η καθαρή ζιρκονία.</li>
+    <li class="option-item" onclick="checkAnswer(this, 24, false)">C) Είναι ρητινώδες υλικό με ανόργανα πληρωτικά συνδεδεμένα με σιλάνη.</li>
+    <li class="option-item" onclick="checkAnswer(this, 24, false)">D) Είναι μεταλλικό κράμα με λεπτή επιφανειακή οξείδωση που μιμείται την πορσελάνη.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Από πλευράς δομής, η οδοντιατρική πορσελάνη αποτελείται από υαλώδη μήτρα Si–O και μία ή περισσότερες κρυσταλλικές φάσεις που επηρεάζουν τις ιδιότητές της.
+    <span class="page-citation">Παραπομπή: Σελίδα 195</span>
+  </div>
+</div>
+
+<div class="question-block" id="q25">
+  <div class="question-number">Ερώτηση 25</div>
+  <div class="question-text">Ποια πρόταση αποδίδει σωστά τη σημασία της δυσθραυστότητας K<sub>IC</sub> στα κεραμικά;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 25, false)">A) Εκφράζει τη σκληρότητα της επιφάνειας και είναι ανεξάρτητη από την παρουσία ρωγμών.</li>
+    <li class="option-item" onclick="checkAnswer(this, 25, true)">B) Εκφράζει την αντίσταση του κεραμικού στη διάδοση των ρωγμών και είναι κλινικά σημαντικότερη από την απλή αντοχή.</li>
+    <li class="option-item" onclick="checkAnswer(this, 25, false)">C) Ισοδυναμεί με τον συντελεστή θερμικής διαστολής και καθορίζει αποκλειστικά τη συμβατότητα με μεταλλικό σκελετό.</li>
+    <li class="option-item" onclick="checkAnswer(this, 25, false)">D) Μετρά την ικανότητα της πορσελάνης να απορροφά νερό κατά την όπτηση.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Στα κεραμικά, η κρίσιμη ιδιότητα είναι η δυσθραυστότητα K<sub>IC</sub>, δηλαδή η αντίσταση στη διάδοση ρωγμών. Η αντοχή συσχετίζεται με αυτή, αλλά η διάδοση ρωγμών καθορίζει την αποτυχία.
+    <span class="page-citation">Παραπομπή: Σελίδα 196</span>
+  </div>
+</div>
+
+<div class="question-block" id="q26">
+  <div class="question-number">Ερώτηση 26</div>
+  <div class="question-text">Ποιο ζεύγος τιμών για τις μηχανικές ιδιότητες της πορσελάνης συμφωνεί με το κείμενο;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 26, false)">A) Αντοχή σε κάμψη 5–10 MPa και αντοχή σε θλίψη 20 MPa.</li>
+    <li class="option-item" onclick="checkAnswer(this, 26, true)">B) Αντοχή σε κάμψη περίπου 62–90 MPa και αντοχή σε θλίψη περίπου 170 MPa.</li>
+    <li class="option-item" onclick="checkAnswer(this, 26, false)">C) Αντοχή σε εφελκυσμό μεγαλύτερη από 100 MPa και αντοχή σε κάμψη περίπου 300 MPa.</li>
+    <li class="option-item" onclick="checkAnswer(this, 26, false)">D) Αντοχή σε θλίψη μικρότερη από την αντοχή σε εφελκυσμό λόγω της υαλώδους μήτρας.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Το κείμενο αναφέρει ότι η αντοχή της πορσελάνης στην κάμψη κυμαίνεται περίπου μεταξύ 62 και 90 MPa, ενώ η αντοχή σε θλίψη είναι υψηλή, φτάνοντας περίπου τα 170 MPa.
+    <span class="page-citation">Παραπομπή: Σελίδα 196</span>
+  </div>
+</div>
+
+<div class="question-block" id="q27">
+  <div class="question-number">Ερώτηση 27</div>
+  <div class="question-text">Γιατί η αυξημένη σκληρότητα της πορσελάνης μπορεί να αποτελεί κλινικό μειονέκτημα;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 27, false)">A) Επειδή μειώνει τη χημική αδράνεια και αυξάνει τη διαλυτότητα στο σάλιο.</li>
+    <li class="option-item" onclick="checkAnswer(this, 27, true)">B) Επειδή σε αδρή ή μη γυαλισμένη επιφάνεια μπορεί να προκαλέσει αυξημένη αποτριβή των φυσικών ανταγωνιστών δοντιών.</li>
+    <li class="option-item" onclick="checkAnswer(this, 27, false)">C) Επειδή αυξάνει τον συντελεστή θερμικής διαστολής πάνω από της αδαμαντίνης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 27, false)">D) Επειδή προκαλεί μείωση της αντοχής σε θλίψη κάτω από τα επίπεδα των πολυμερών.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η υψηλή σκληρότητα της πορσελάνης είναι πλεονέκτημα ως προς τη φθορά της ίδιας, αλλά σε αδρή ή ελλιπώς γυαλισμένη επιφάνεια μπορεί να προκαλέσει αποτριβή του ανταγωνιστή.
+    <span class="page-citation">Παραπομπή: Σελίδα 196</span>
+  </div>
+</div>
+
+<div class="question-block" id="q28">
+  <div class="question-number">Ερώτηση 28</div>
+  <div class="question-text">Ποια δήλωση για τη θερμική συμπεριφορά της πορσελάνης είναι ορθή;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 28, true)">A) Η θερμική αγωγιμότητα είναι περίπου 1,5 W/(m·°C), ενώ ο συντελεστής θερμικής διαστολής είναι σαφώς χαμηλός και κυμαίνεται περίπου από 7 έως 14·10<sup>-6</sup>/°C.</li>
+    <li class="option-item" onclick="checkAnswer(this, 28, false)">B) Η πορσελάνη έχει θερμική αγωγιμότητα μεγαλύτερη από τα μέταλλα και γι’ αυτό προκαλεί έντονους θερμικούς ερεθισμούς.</li>
+    <li class="option-item" onclick="checkAnswer(this, 28, false)">C) Η θερμική διαστολή της πορσελάνης είναι ανεξάρτητη από τη σύνθεση και τη μέθοδο όπτησης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 28, false)">D) Σε μεταλλοκεραμικά συστήματα είναι επιθυμητό η πορσελάνη να βρίσκεται σε εφελκυσμό και όχι σε συμπίεση.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η πορσελάνη έχει χαμηλή θερμική αγωγιμότητα και χαμηλό συντελεστή θερμικής διαστολής. Σε μεταλλοκεραμικά συστήματα επιδιώκεται μικρή διαφορά θερμικής διαστολής ώστε η πορσελάνη να παραμένει σε συμπίεση.
+    <span class="page-citation">Παραπομπή: Σελίδα 197</span>
+  </div>
+</div>
+
+<div class="question-block" id="q29">
+  <div class="question-number">Ερώτηση 29</div>
+  <div class="question-text">Ποια επιλογή αποδίδει σωστά τη βιολογική συμπεριφορά των κεραμικών υλικών;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 29, false)">A) Είναι βιολογικά δραστικά και προκαλούν συστηματικές αντιδράσεις λόγω απελευθέρωσης μονομερών.</li>
+    <li class="option-item" onclick="checkAnswer(this, 29, true)">B) Είναι χημικά σταθερά και κατατάσσονται στα πλέον βιοσυμβατά οδοντιατρικά υλικά, με αντοχή στη διάβρωση και χωρίς πρόκληση τοπικών ή συστηματικών αντιδράσεων.</li>
+    <li class="option-item" onclick="checkAnswer(this, 29, false)">C) Είναι κατάλληλα μόνο όταν καλύπτονται πλήρως από μέταλλο, επειδή η γυαλισμένη επιφάνειά τους ερεθίζει τους μαλακούς ιστούς.</li>
+    <li class="option-item" onclick="checkAnswer(this, 29, false)">D) Η βιοσυμβατότητά τους οφείλεται αποκλειστικά στην απελευθέρωση φθορίου.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Τα κεραμικά είναι χημικά σταθερά, ανθεκτικά στη διάβρωση και θεωρούνται ιδιαίτερα βιοσυμβατά. Με σωστή υάλωση παρέχουν λεία επιφάνεια συμβατή με περιοδοντικούς ιστούς και βλεννογόνο.
+    <span class="page-citation">Παραπομπή: Σελίδα 197</span>
+  </div>
+</div>
+
+<div class="question-block" id="q30">
+  <div class="question-number">Ερώτηση 30</div>
+  <div class="question-text">Ποιο είναι το βασικό μειονέκτημα των μεταλλοκεραμικών αποκαταστάσεων που οδήγησε στην ανάπτυξη νεότερων ολοκεραμικών συστημάτων;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 30, false)">A) Η αδυναμία δημιουργίας μηχανικής στήριξης λόγω πλήρους απουσίας μεταλλικού υποστρώματος.</li>
+    <li class="option-item" onclick="checkAnswer(this, 30, true)">B) Η διάδοση του φωτός παρεμποδίζεται από το αδιαφανές μεταλλικό υπόστρωμα, περιορίζοντας την αισθητική απόδοση.</li>
+    <li class="option-item" onclick="checkAnswer(this, 30, false)">C) Η έλλειψη αντοχής του μεταλλικού σκελετού σε μασητικά φορτία.</li>
+    <li class="option-item" onclick="checkAnswer(this, 30, false)">D) Η αδυναμία συγκόλλησης της πορσελάνης πάνω στο μεταλλικό υπόστρωμα.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Το βασικό πρόβλημα των μεταλλοκεραμικών είναι αισθητικό: το αδιαφανές υπόστρωμα εμποδίζει την απρόσκοπτη διάδοση του φωτός, γεγονός που οδήγησε στην ανάπτυξη ολοκεραμικών συστημάτων.
+    <span class="page-citation">Παραπομπή: Σελίδα 197</span>
+  </div>
+</div>
+
+<div class="question-block" id="q31">
+  <div class="question-number">Ερώτηση 31</div>
+  <div class="question-text">Σύμφωνα με την ταξινόμηση των αποκαταστάσεων με κεραμική επικάλυψη, ποια επιλογή αποτελεί ολοκεραμικό σύστημα και όχι μεταλλοκεραμικό;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 31, false)">A) Μεταλλικός σκελετός με επικάλυψη πορσελάνης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 31, false)">B) Μεταλλοκεραμική αποκατάσταση με αδιαφανή πορσελάνη επικάλυψης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 31, true)">C) Θερμοσυμπιεζόμενο ή CAD/CAM κεραμικό με ενισχυμένο πυρήνα διπυριτικού λιθίου που αδροποιείται.</li>
+    <li class="option-item" onclick="checkAnswer(this, 31, false)">D) Κράμα αμαλγάματος με επικάλυψη οπής με ρητινώδες υλικό.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Τα ολοκεραμικά περιλαμβάνουν συστήματα συμβατικής όπτησης πορσελάνης αστρίου, θερμοσυμπιεζόμενα ή CAD/CAM κεραμικά διπυριτικού λιθίου και κεραμικά ζιρκονίας. Μεταλλικός σκελετός με πορσελάνη είναι μεταλλοκεραμικό.
+    <span class="page-citation">Παραπομπή: Σελίδα 199</span>
+  </div>
+</div>
+
+<div class="question-block" id="q32">
+  <div class="question-number">Ερώτηση 32</div>
+  <div class="question-text">Ποια περιγραφή αντιστοιχεί στην τεχνική του πυροχωμάτινου εκμαγείου στα συμβατικά οπτούμενα ολοκεραμικά συστήματα;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 32, true)">A) Η πορσελάνη στοιβάζεται, συμπυκνώνεται και οπτάται πάνω σε πυροχωμάτινο εκμαγείο, το οποίο τελικά καταστρέφεται για να αφαιρεθεί η αποκατάσταση.</li>
+    <li class="option-item" onclick="checkAnswer(this, 32, false)">B) Η πορσελάνη εγχέεται σε μεταλλικό σκελετό και παραμένει ενσωματωμένη στο εκμαγείο μετά την όπτηση.</li>
+    <li class="option-item" onclick="checkAnswer(this, 32, false)">C) Το κεραμικό κατεργάζεται αποκλειστικά με CAD/CAM από προπυροσυσσωματωμένο κύβο ζιρκονίας.</li>
+    <li class="option-item" onclick="checkAnswer(this, 32, false)">D) Η αποκατάσταση μορφοποιείται απευθείας στο στόμα και πολυμερίζεται με λυχνία LED.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Στην τεχνική του πυροχωμάτινου εκμαγείου, η πορσελάνη δομείται πάνω σε πυροχωμάτινο υπόστρωμα και αυτό καταστρέφεται μετά την όπτηση για να απομακρυνθεί η αποκατάσταση.
+    <span class="page-citation">Παραπομπή: Σελίδα 197</span>
+  </div>
+</div>
+
+<div class="question-block" id="q33">
+  <div class="question-number">Ερώτηση 33</div>
+  <div class="question-text">Στα συστήματα συμβατικής όπτησης πορσελάνης αστρίου, τι συμβαίνει κατά την όπτηση;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 33, false)">A) Οι κόκκοι πορσελάνης πολυμερίζονται και αυξάνουν τον όγκο τους λόγω δημιουργίας ρητινώδους πλέγματος.</li>
+    <li class="option-item" onclick="checkAnswer(this, 33, true)">B) Κατά την όπτηση οι κόκκοι πορσελάνης συντήκονται, μειώνονται οι πόροι και οι μεγάλοι μεσοκόκκιοι χώροι, ενώ η μάζα συμπυκνώνεται.</li>
+    <li class="option-item" onclick="checkAnswer(this, 33, false)">C) Η πορσελάνη διαλύεται πλήρως στο οπτικό υγρό και επανακαθιζάνει ως κρύσταλλοι ζιρκονίας.</li>
+    <li class="option-item" onclick="checkAnswer(this, 33, false)">D) Η όπτηση προκαλεί αύξηση του πορώδους ώστε να βελτιωθεί η συγκόλληση.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Οι κόκκοι πορσελάνης αναμειγνύονται με ειδικό υγρό, στοιβάζονται και κατά την όπτηση συντήκονται, μειώνονται οι μεσοκόκκιοι χώροι και το πορώδες, και η μάζα γίνεται πιο συμπαγής.
+    <span class="page-citation">Παραπομπή: Σελίδα 200</span>
+  </div>
+</div>
+
+<div class="question-block" id="q34">
+  <div class="question-number">Ερώτηση 34</div>
+  <div class="question-text">Ποιος είναι ο κύριος λόγος χρήσης αδιαφάνειας, οδοντίνης και αδαμαντίνης ως διαφορετικών μαζών πορσελάνης πριν από την όπτηση;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 34, false)">A) Η αδιαφάνεια αυξάνει την αντοχή σε κάμψη, ενώ η αδαμαντίνη μειώνει τη θερμοκρασία όπτησης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 34, true)">B) Επιτρέπουν τη διαστρωμάτωση και την απόδοση των διαφορετικών οπτικών χαρακτηριστικών της φυσικής οδοντικής δομής.</li>
+    <li class="option-item" onclick="checkAnswer(this, 34, false)">C) Αντικαθιστούν την ανάγκη για τελικό γυάλωμα και επιφανειακή λείανση.</li>
+    <li class="option-item" onclick="checkAnswer(this, 34, false)">D) Χρησιμοποιούνται αποκλειστικά για να αυξήσουν το πορώδες και να περιορίσουν τη συστολή.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Οι μάζες πορσελάνης για αδιαφάνεια, οδοντίνη και αδαμαντίνη χρησιμοποιούνται ώστε να αποδοθεί διαστρωματικά η αισθητική και η οπτική συμπεριφορά του φυσικού δοντιού πριν από την τελική όπτηση.
+    <span class="page-citation">Παραπομπή: Σελίδα 201</span>
+  </div>
+</div>
+
+<div class="question-block" id="q35">
+  <div class="question-number">Ερώτηση 35</div>
+  <div class="question-text">Ποια δήλωση για τα θερμοσυμπιεζόμενα ολοκεραμικά συστήματα είναι ακριβέστερη;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 35, true)">A) Κατασκευάζονται με διαδικασία αποκήρωσης και συμπίεσης κεραμικού κυλίνδρου υψηλού ιξώδους σε υψηλή θερμοκρασία μέσα στο καλούπι.</li>
+    <li class="option-item" onclick="checkAnswer(this, 35, false)">B) Παρασκευάζονται αποκλειστικά με ενδοστοματικό φωτοπολυμερισμό και δεν απαιτούν εργαστηριακό στάδιο.</li>
+    <li class="option-item" onclick="checkAnswer(this, 35, false)">C) Περιέχουν μεταλλικό σκελετό που επικαλύπτεται με πορσελάνη αστρίου.</li>
+    <li class="option-item" onclick="checkAnswer(this, 35, false)">D) Δεν μπορούν να χρησιμοποιηθούν για ένθετα ή όψεις, αλλά μόνο για προσωρινές στεφάνες.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Στα θερμοσυμπιεζόμενα συστήματα κατασκευάζεται κέρινο πρόπλασμα, γίνεται αποκήρωση και το κεραμικό υλικό σε μορφή κυλίνδρου συμπιέζεται υπό υψηλή θερμοκρασία στο καλούπι.
+    <span class="page-citation">Παραπομπή: Σελίδες 201-202</span>
+  </div>
+</div>
+
+<div class="question-block" id="q36">
+  <div class="question-number">Ερώτηση 36</div>
+  <div class="question-text">Ποια δήλωση για τα συστήματα διπυριτικού λιθίου είναι σωστή;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 36, false)">A) Δεν αδροποιούνται με υδροφθορικό οξύ, επειδή είναι αμιγώς πολυκρυσταλλικά όπως η ζιρκονία.</li>
+    <li class="option-item" onclick="checkAnswer(this, 36, true)">B) Μπορούν να κατασκευαστούν με θερμοσυμπίεση ή CAD/CAM και η συγκόλλησή τους βασίζεται σε αδροποίηση με υδροφθορικό οξύ και εφαρμογή σιλανίου.</li>
+    <li class="option-item" onclick="checkAnswer(this, 36, false)">C) Η συγκράτησή τους βασίζεται αποκλειστικά στη μηχανική συγκράτηση με φωσφορική κονία χωρίς επιφανειακή προετοιμασία.</li>
+    <li class="option-item" onclick="checkAnswer(this, 36, false)">D) Χρησιμοποιούνται μόνο ως υποστρώματα για μεταλλοκεραμικές γέφυρες μεγάλου μήκους.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Οι αποκαταστάσεις διπυριτικού λιθίου μπορούν να κατασκευαστούν με θερμοσυμπίεση ή CAD/CAM και η συγκόλλησή τους γίνεται μετά από αδροποίηση με υδροφθορικό οξύ και εφαρμογή σιλανίου, ακολουθούμενη από ρητινώδη κονία διπλού πολυμερισμού.
+    <span class="page-citation">Παραπομπή: Σελίδα 202</span>
+  </div>
+</div>
+
+<div class="question-block" id="q37">
+  <div class="question-number">Ερώτηση 37</div>
+  <div class="question-text">Ποια είναι η βασική διαφορά στη φιλοσοφία συγκράτησης μεταξύ αποκαταστάσεων μερικής κάλυψης και ολικής κάλυψης σύμφωνα με το κείμενο;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 37, true)">A) Στις μερικής κάλυψης η συγκράτηση βασίζεται στη συγκόλληση με τους οδοντικούς ιστούς, ενώ στις ολικής κάλυψης χρησιμοποιούνται μη συγκολλητικές συμβατικές κονίες.</li>
+    <li class="option-item" onclick="checkAnswer(this, 37, false)">B) Στις μερικής κάλυψης χρησιμοποιείται αποκλειστικά φωσφορικός ψευδάργυρος, ενώ στις ολικής κάλυψης απαιτείται πάντα υδροφθορικό οξύ.</li>
+    <li class="option-item" onclick="checkAnswer(this, 37, false)">C) Στις μερικής κάλυψης δεν απαιτείται καμία επιφανειακή προετοιμασία, επειδή το υλικό συγκρατείται με πίεση.</li>
+    <li class="option-item" onclick="checkAnswer(this, 37, false)">D) Δεν υπάρχει διαφορά· και οι δύο βασίζονται αποκλειστικά στη μηχανική συγκράτηση.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Στις αποκαταστάσεις μερικής κάλυψης η συγκράτηση στηρίζεται στη συγκόλληση με τους οδοντικούς ιστούς, ενώ στις ολικής κάλυψης χρησιμοποιούνται μη συγκολλητικές συμβατικές κονίες.
+    <span class="page-citation">Παραπομπή: Σελίδα 202</span>
+  </div>
+</div>
+
+<div class="question-block" id="q38">
+  <div class="question-number">Ερώτηση 38</div>
+  <div class="question-text">Ποια περιγραφή αντιστοιχεί στη ζιρκονία πρώτης γενιάς 3Y-TZP;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 38, true)">A) Περιέχει περίπου 3% mol ύτρια, είναι λευκή και αδιαφανής, με υψηλή αντοχή στην κάμψη περίπου 1000–1500 MPa, αλλά αρχικά εμφάνιζε πρόβλημα αποκόλλησης της επικαλυπτικής πορσελάνης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 38, false)">B) Περιέχει 5% mol ύτρια, είναι ιδιαίτερα ημιδιαφανής και χρησιμοποιείται κυρίως για μονολιθικές πρόσθιες όψεις χωρίς επικάλυψη.</li>
+    <li class="option-item" onclick="checkAnswer(this, 38, false)">C) Είναι υαλώδες κεραμικό που αδροποιείται με υδροφθορικό οξύ και σιλανώνεται όπως το διπυριτικό λίθιο.</li>
+    <li class="option-item" onclick="checkAnswer(this, 38, false)">D) Έχει χαμηλή αντοχή στην κάμψη, περίπου 130–160 MPa, και χρησιμοποιείται μόνο ως προσωρινό υλικό.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η πρώτη γενιά 3Y-TZP ήταν λευκή, αδιαφανής και εξαιρετικά ανθεκτική, με αντοχή κάμψης 1000–1500 MPa, αλλά χρειάστηκε βελτίωση λόγω αποκόλλησης της επικαλυπτικής πορσελάνης.
+    <span class="page-citation">Παραπομπή: Σελίδα 203</span>
+  </div>
+</div>
+
+<div class="question-block" id="q39">
+  <div class="question-number">Ερώτηση 39</div>
+  <div class="question-text">Ποια περιγραφή της τρίτης γενιάς 5Y-PSZ ζιρκονίας είναι ορθή;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 39, false)">A) Έχει την υψηλότερη αντοχή κάμψης από όλες τις γενιές ζιρκονίας, περίπου 1500 MPa, αλλά είναι τελείως αδιαφανής.</li>
+    <li class="option-item" onclick="checkAnswer(this, 39, true)">B) Περιέχει υψηλότερη περιεκτικότητα σε ύτρια, περίπου 5 mol%, παρουσιάζει αυξημένη διαφάνεια αλλά μειωμένη αντοχή κάμψης, περίπου 500 MPa.</li>
+    <li class="option-item" onclick="checkAnswer(this, 39, false)">C) Είναι κατάλληλη αποκλειστικά για γέφυρες πλήρους τόξου λόγω εξαιρετικής μηχανικής αντοχής.</li>
+    <li class="option-item" onclick="checkAnswer(this, 39, false)">D) Χρησιμοποιείται μόνο ως πυρήνας που υποχρεωτικά καλύπτεται από πορσελάνη αστρίου.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η 5Y-PSZ εμφανίζει βελτιωμένη ημιδιαφάνεια λόγω αυξημένης ύτριας και μη διπολοθλασικής κυβικής φάσης, αλλά με χαμηλότερη αντοχή στην κάμψη, περίπου 500 MPa.
+    <span class="page-citation">Παραπομπή: Σελίδα 204</span>
+  </div>
+</div>
+
+<div class="question-block" id="q40">
+  <div class="question-number">Ερώτηση 40</div>
+  <div class="question-text">Ποια δήλωση για τα CAD/CAM ολοκεραμικά συστήματα αποδίδει ακριβέστερα το περιεχόμενο του κειμένου;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 40, false)">A) Η τεχνολογία CAD/CAM καταργεί πλήρως την ανάγκη κλινικής κρίσης, επειδή όλες οι αποκαταστάσεις ολοκληρώνονται αυτόματα σε λίγα δευτερόλεπτα.</li>
+    <li class="option-item" onclick="checkAnswer(this, 40, true)">B) Η τεχνολογία CAD/CAM επιτρέπει τον ψηφιακό σχεδιασμό και την κατεργασία ενθέτων, επενθέτων, όψεων, στεφανών και γεφυρών, με δυνατότητα εφαρμογής σε μία συνεδρία, αλλά απαιτεί εκπαίδευση και σημαντικό χρόνο εξοικείωσης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 40, false)">C) Τα συστήματα CAD/CAM χρησιμοποιούνται αποκλειστικά για μεταλλοκεραμικές αποκαταστάσεις και όχι για ολοκεραμικά υλικά.</li>
+    <li class="option-item" onclick="checkAnswer(this, 40, false)">D) Η κύρια ένδειξή τους είναι η άμεση κατασκευή σύνθετων ρητινών χωρίς ανάγκη σάρωσης ή σχεδιασμού.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Τα CAD/CAM συστήματα εξελίχθηκαν ώστε να κατασκευάζουν ένθετα, επένθετα, όψεις, στεφάνες και γέφυρες, ακόμη και σε μία συνεδρία. Παράλληλα, απαιτούν εκμάθηση και χρόνο εξοικείωσης.
+    <span class="page-citation">Παραπομπή: Σελίδες 205-206</span>
+  </div>
+</div>
+<div class="question-block" id="q41">
+  <div class="question-number">Ερώτηση 41</div>
+  <div class="question-text">Ποια ταξινόμηση των σύνθετων ρητινών κατά ISO 4049 αποδίδεται ακριβέστερα;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 41, false)">A) Τύπος 1 είναι όλα τα πολυμερή άμεσων αποκαταστάσεων, ενώ Τύπος 2 είναι μόνο τα υλικά στεφάνης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 41, true)">B) Τύπος 1 αφορά πολυμερή αποκαταστάσεων με ένδειξη καταλληλότητας για μασητικές αποκαταστάσεις, ενώ Τύπος 2 αφορά τα υπόλοιπα πολυμερή υλικά αποκαταστάσεων και συγκολλήσεις έμμεσων αποκαταστάσεων.</li>
+    <li class="option-item" onclick="checkAnswer(this, 41, false)">C) Τύπος 1 είναι μόνο τα φωτοπολυμεριζόμενα υλικά και Τύπος 2 μόνο τα αυτοπολυμεριζόμενα.</li>
+    <li class="option-item" onclick="checkAnswer(this, 41, false)">D) Τύπος 1 περιλαμβάνει αποκλειστικά τις υαλοϊονομερείς κονίες και Τύπος 2 τις σύνθετες ρητίνες.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η ταξινόμηση κατά ISO 4049 διακρίνει τα υλικά με βάση την προδιαγραφή καταλληλότητας και όχι απλώς τον μηχανισμό πολυμερισμού. Ο Τύπος 1 αφορά υλικά κατάλληλα για μασητικές αποκαταστάσεις, ενώ ο Τύπος 2 τα υπόλοιπα πολυμερή υλικά αποκαταστάσεων και συγκολλήσεις έμμεσων αποκαταστάσεων.
+    <span class="page-citation">Παραπομπή: Σελίδα 165</span>
+  </div>
+</div>
+
+<div class="question-block" id="q42">
+  <div class="question-number">Ερώτηση 42</div>
+  <div class="question-text">Ποια αντιστοίχιση κατηγορίας πολυμερισμού των σύνθετων ρητινών είναι ορθή;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 42, false)">A) Κατηγορία 1: εξωτερική ενέργεια, Κατηγορία 2: ενδοστοματική χημική πήξη, Κατηγορία 3: απουσία πολυμερισμού.</li>
+    <li class="option-item" onclick="checkAnswer(this, 42, true)">B) Κατηγορία 1: πήξη από ανάμειξη επιταχυντή με ενεργοποιητή, Κατηγορία 2: πήξη με εφαρμογή εξωτερικής ενέργειας, Κατηγορία 3: πήξη με εξωτερική ενέργεια αλλά και μηχανισμό αυτοπολυμερισμού.</li>
+    <li class="option-item" onclick="checkAnswer(this, 42, false)">C) Κατηγορία 1: μόνο θερμοπολυμεριζόμενα εργαστηρίου, Κατηγορία 2: μόνο υαλοϊονομερή, Κατηγορία 3: μόνο αμάλγαμα.</li>
+    <li class="option-item" onclick="checkAnswer(this, 42, false)">D) Κατηγορία 1: υλικά χωρίς πληρωτικά, Κατηγορία 2: υλικά με μακρόκοκκα πληρωτικά, Κατηγορία 3: νανοϋβριδικά υλικά.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η ταξινόμηση των σύνθετων ρητινών με βάση τον τύπο ενεργοποίησης διακρίνει χημικά ενεργοποιούμενα, εξωτερικά ενεργοποιούμενα και υλικά διπλού μηχανισμού, όπου υπάρχει και μηχανισμός αυτοπολυμερισμού.
+    <span class="page-citation">Παραπομπή: Σελίδα 165</span>
+  </div>
+</div>
+
+<div class="question-block" id="q43">
+  <div class="question-number">Ερώτηση 43</div>
+  <div class="question-text">Ποια δήλωση περιγράφει ακριβέστερα τα βασικά μονομερή των σύνθετων ρητινών σε σχέση με το MMA;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 43, true)">A) Έχουν μεγαλύτερο μοριακό βάρος, μεγαλύτερη δυνατότητα διασταυρούμενων δικτύων, αυξημένη ακαμψία και μικρότερη συστολή πολυμερισμού, απορρόφηση νερού και διαλυτότητα από το MMA.</li>
+    <li class="option-item" onclick="checkAnswer(this, 43, false)">B) Έχουν μικρότερο μοριακό βάρος και γι’ αυτό εμφανίζουν μεγαλύτερη συστολή και μεγαλύτερη διαλυτότητα από το MMA.</li>
+    <li class="option-item" onclick="checkAnswer(this, 43, false)">C) Χρησιμοποιούνται μόνο ως φωτοεκκινητές και δεν συμμετέχουν στη ρητινώδη μήτρα.</li>
+    <li class="option-item" onclick="checkAnswer(this, 43, false)">D) Είναι ανόργανα σωματίδια που καθορίζουν αποκλειστικά την ακτινοσκιερότητα της σύνθετης ρητίνης.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Τα βασικά μονομερή, όπως το BisGMA, είναι διμεθακρυλικά παράγωγα υψηλότερου μοριακού βάρους από το MMA. Ο διφαινυλικός πυρήνας και οι δύο τελικές διμεθακρυλικές ομάδες συμβάλλουν σε ακαμψία, διασταύρωση και μικρότερη συστολή.
+    <span class="page-citation">Παραπομπή: Σελίδα 165</span>
+  </div>
+</div>
+
+<div class="question-block" id="q44">
+  <div class="question-number">Ερώτηση 44</div>
+  <div class="question-text">Γιατί προστίθενται συμμονομερή όπως TEGDMA ή UDMA στα βασικά μονομερή των σύνθετων ρητινών;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 44, false)">A) Για να αυξηθεί το ιξώδες των βασικών μονομερών και να περιοριστεί η διαβροχή των πληρωτικών.</li>
+    <li class="option-item" onclick="checkAnswer(this, 44, true)">B) Για να λειτουργήσουν ως διαλύτες/αραιωτικά, επιτρέποντας την ανάμειξη της ρητινώδους μήτρας με πληρωτικά σε βαθμό που να επιτυγχάνονται οι απαιτούμενες μηχανικές και χειριστικές ιδιότητες.</li>
+    <li class="option-item" onclick="checkAnswer(this, 44, false)">C) Για να αντικαταστήσουν πλήρως τα ανόργανα πληρωτικά και να μειώσουν την ανάγκη σιλανίου.</li>
+    <li class="option-item" onclick="checkAnswer(this, 44, false)">D) Για να προκαλέσουν οξεοβασική πήξη αντί για πολυμερισμό ελευθέρων ριζών.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Τα βασικά μονομερή έχουν μεγάλο ιξώδες. Τα συμμονομερή χαμηλότερου μοριακού βάρους μειώνουν το ιξώδες και διευκολύνουν την ενσωμάτωση πληρωτικών και τον χειρισμό του υλικού.
+    <span class="page-citation">Παραπομπή: Σελίδες 165-166</span>
+  </div>
+</div>
+
+<div class="question-block" id="q45">
+  <div class="question-number">Ερώτηση 45</div>
+  <div class="question-text">Ποιος συνδυασμός ιδιοτήτων αποδίδεται στα συμμονομερή των σύνθετων ρητινών;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 45, false)">A) Βραδύτερη αντίδραση πολυμερισμού, μεγαλύτερη αναστολή από το οξυγόνο, μικρότερη συστολή και μικρότερη υδροφιλικότητα.</li>
+    <li class="option-item" onclick="checkAnswer(this, 45, true)">B) Ταχύτερη και πληρέστερη αντίδραση πολυμερισμού, μικρότερη επιφανειακή αναστολή από το οξυγόνο, αλλά μεγαλύτερη συστολή, υδροφιλικότητα, διαλυτότητα και απορρόφηση νερού.</li>
+    <li class="option-item" onclick="checkAnswer(this, 45, false)">C) Αύξηση της περιεκτικότητας σε ανόργανα πληρωτικά χωρίς μεταβολή της ρητινώδους φάσης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 45, false)">D) Μείωση του βαθμού μετατροπής και πλήρης εξάλειψη της συστολής πολυμερισμού.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Τα συμμονομερή βελτιώνουν τον πολυμερισμό και τον χειρισμό, αλλά το τίμημα είναι μεγαλύτερη συστολή πολυμερισμού, μεγαλύτερη υδροφιλικότητα και αυξημένη διαλυτότητα/απορρόφηση νερού.
+    <span class="page-citation">Παραπομπή: Σελίδα 166</span>
+  </div>
+</div>
+
+<div class="question-block" id="q46">
+  <div class="question-number">Ερώτηση 46</div>
+  <div class="question-text">Ποια είναι η κύρια λειτουργία των ενισχυτικών πληρωτικών υλικών στις σύνθετες ρητίνες;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 46, false)">A) Να αυξάνουν τη ρητινώδη φάση ώστε να βελτιώνεται η συστολή πολυμερισμού.</li>
+    <li class="option-item" onclick="checkAnswer(this, 46, true)">B) Να αποτελούν τη φάση διασποράς που καθορίζει σε μεγάλο βαθμό την κλινική αποτελεσματικότητα, βελτιώνοντας μηχανικές ιδιότητες και μειώνοντας συστολή, θερμική διαστολή, διαλυτότητα και απορρόφηση νερού.</li>
+    <li class="option-item" onclick="checkAnswer(this, 46, false)">C) Να δρουν ως φωτοεκκινητές και να αντικαθιστούν την καμφοροκινόνη.</li>
+    <li class="option-item" onclick="checkAnswer(this, 46, false)">D) Να επιταχύνουν αποκλειστικά τον χρόνο πήξης χωρίς επίδραση στις μηχανικές ιδιότητες.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Τα πληρωτικά είναι η κύρια φάση διασποράς. Η παρουσία τους βελτιώνει τις μηχανικές ιδιότητες και μειώνει τη συστολή πολυμερισμού, τον συντελεστή θερμικής διαστολής, τη διαλυτότητα και την απορρόφηση νερού.
+    <span class="page-citation">Παραπομπή: Σελίδες 166-167</span>
+  </div>
+</div>
+
+<div class="question-block" id="q47">
+  <div class="question-number">Ερώτηση 47</div>
+  <div class="question-text">Ποια περιγραφή αντιστοιχεί καλύτερα στα παραδοσιακά μακρόκοκκα σύνθετα υλικά;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 47, true)">A) Περιείχαν κυρίως χαλαζία, με σχετικά υψηλή περιεκτικότητα πληρωτικών, αλλά το μεγάλο και σκληρό μέγεθος κόκκων δυσχέραινε τη λείανση και τη στίλβωση.</li>
+    <li class="option-item" onclick="checkAnswer(this, 47, false)">B) Περιείχαν αποκλειστικά κολλοειδές SiO₂ μεγέθους 0,04 μm και είχαν εξαιρετική στιλπνότητα αλλά χαμηλή αντοχή.</li>
+    <li class="option-item" onclick="checkAnswer(this, 47, false)">C) Ήταν υλικά χωρίς ανόργανα πληρωτικά, με 100% οργανική μήτρα.</li>
+    <li class="option-item" onclick="checkAnswer(this, 47, false)">D) Χρησιμοποιούνταν κυρίως για νανοϋβριδικές πρόσθιες αποκαταστάσεις λόγω υψηλής διαφάνειας.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Τα πρώτα μακρόκοκκα σύνθετα περιείχαν κόκκους πυριτικών υάλων με κύριο εκπρόσωπο τον χαλαζία. Η σκληρότητα και το μεγάλο μέγεθος των κόκκων δυσχέραιναν τη λείανση/στίλβωση και προκαλούσαν επιφανειακή τραχύτητα.
+    <span class="page-citation">Παραπομπή: Σελίδα 167</span>
+  </div>
+</div>
+
+<div class="question-block" id="q48">
+  <div class="question-number">Ερώτηση 48</div>
+  <div class="question-text">Ποιο χαρακτηριστικό είναι τυπικό των μικρόκοκκων σύνθετων ρητινών;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 48, false)">A) Περιέχουν κόκκους χαλαζία 30–50 μm και εμφανίζουν αδυναμία στίλβωσης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 48, true)">B) Περιέχουν ενισχυτικά σωματίδια κολλοειδούς ή άμορφου SiO₂ με μέσο μέγεθος περίπου 0,04 μm και εμφανίζουν εξαιρετική στιλπνότητα και αισθητική.</li>
+    <li class="option-item" onclick="checkAnswer(this, 48, false)">C) Έχουν πάντα περιεκτικότητα σε ανόργανα πληρωτικά πάνω από 80% κ.ο. και γι’ αυτό υπερέχουν μηχανικά των υβριδικών.</li>
+    <li class="option-item" onclick="checkAnswer(this, 48, false)">D) Χρησιμοποιούνται αποκλειστικά σε μαζική πλήρωση οπισθίων κοιλοτήτων υψηλού φορτίου.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Τα μικρόκοκκα υλικά περιέχουν πολύ μικρά σωματίδια SiO₂, περίπου 0,04 μm. Η μικρή διάσταση τους επιτρέπει εξαιρετική στιλπνότητα και αισθητική, αλλά η χαμηλότερη περιεκτικότητα σε πληρωτικά περιορίζει τις μηχανικές ιδιότητες.
+    <span class="page-citation">Παραπομπή: Σελίδα 168</span>
+  </div>
+</div>
+
+<div class="question-block" id="q49">
+  <div class="question-number">Ερώτηση 49</div>
+  <div class="question-text">Γιατί τα ετερογενή μικρόκοκκα υλικά παρουσίαζαν, παρά την άριστη αισθητική τους, μηχανικούς περιορισμούς;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 49, true)">A) Λόγω μικρότερης συνολικής περιεκτικότητας σε ανόργανα πληρωτικά και σημαντικής παρουσίας οργανικής φάσης, είχαν μικρότερη αντοχή, μεγαλύτερη θερμική διαστολή, κάμψη και απορρόφηση νερού.</li>
+    <li class="option-item" onclick="checkAnswer(this, 49, false)">B) Επειδή περιείχαν μεγάλους κόκκους χαλαζία που δεν μπορούσαν να στιλβωθούν.</li>
+    <li class="option-item" onclick="checkAnswer(this, 49, false)">C) Επειδή δεν περιείχαν καθόλου ρητινώδη μήτρα και ήταν αποκλειστικά κεραμικά.</li>
+    <li class="option-item" onclick="checkAnswer(this, 49, false)">D) Επειδή η προσθήκη κολλοειδούς SiO₂ κατήργησε πλήρως τη δυνατότητα πολυμερισμού.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Παρότι τα ετερογενή μικρόκοκκα είχαν εξαιρετική αισθητική και λεία επιφάνεια, η μικρότερη περιεκτικότητα σε ανόργανα πληρωτικά και η αυξημένη οργανική φάση υποβάθμιζαν τις μηχανικές ιδιότητες.
+    <span class="page-citation">Παραπομπή: Σελίδα 168</span>
+  </div>
+</div>
+
+<div class="question-block" id="q50">
+  <div class="question-number">Ερώτηση 50</div>
+  <div class="question-text">Ποια επιλογή χαρακτηρίζει ορθότερα τα μικροϋβριδικά σύνθετα υλικά;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 50, false)">A) Έχουν αποκλειστικά κόκκους άνω των 30 μm και δεν μπορούν να χρησιμοποιηθούν σε πρόσθιες αποκαταστάσεις.</li>
+    <li class="option-item" onclick="checkAnswer(this, 50, true)">B) Το μέγεθος των κόκκων κυμαίνεται περίπου από 0,1 έως 7 μm, με συμπληρωματική κατανομή που μειώνει τις αποστάσεις μεταξύ σωματιδίων και επιτρέπει μεγάλη περιεκτικότητα σε ανόργανη φάση.</li>
+    <li class="option-item" onclick="checkAnswer(this, 50, false)">C) Αποτελούνται μόνο από προπολυμερισμένους κόκκους οργανικής μήτρας χωρίς ανόργανα πληρωτικά.</li>
+    <li class="option-item" onclick="checkAnswer(this, 50, false)">D) Έχουν κόκκους μικρότερους αποκλειστικά από 5 nm και γι’ αυτό ανήκουν στα νανογεμισμένα υλικά.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Τα μικροϋβριδικά υλικά περιγράφονται με εύρος κόκκων περίπου 0,1–7 μm και συμπληρωματική κατανομή μεγέθους, ώστε να μειώνεται η απόσταση μεταξύ σωματιδίων και να αυξάνεται η περιεκτικότητα σε πληρωτικά.
+    <span class="page-citation">Παραπομπή: Σελίδα 169</span>
+  </div>
+</div>
+
+<div class="question-block" id="q51">
+  <div class="question-number">Ερώτηση 51</div>
+  <div class="question-text">Ποια δήλωση για τα νανόκοκκα και νανοϋβριδικά σύνθετα υλικά είναι ακριβέστερη;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 51, false)">A) Είναι πάντα μηχανικά κατώτερα από τα μικρόκοκκα, επειδή δεν επιτρέπουν αύξηση της περιεκτικότητας σε πληρωτικά.</li>
+    <li class="option-item" onclick="checkAnswer(this, 51, true)">B) Περιέχουν νανοσωματίδια ή νανοσυμπλέγματα, συχνά SiO₂, SiO₂/ZrO₂, με στόχο αυξημένη διαφάνεια, καλύτερη στίλβωση και διατήρηση μηχανικών χαρακτηριστικών.</li>
+    <li class="option-item" onclick="checkAnswer(this, 51, false)">C) Περιέχουν αποκλειστικά ίνες μήκους 100 μm και χρησιμοποιούνται μόνο ως υποστρώματα.</li>
+    <li class="option-item" onclick="checkAnswer(this, 51, false)">D) Έχουν σχεδιαστεί για να αποφεύγεται πλήρως η χρήση σιλανίου στην επιφάνεια των κόκκων.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Τα νανόκοκκα/νανοϋβριδικά υλικά αποτελούν εξέλιξη των μικροϋβριδικών, με νανοσωματίδια ή συσσωματώματα SiO₂ και SiO₂/ZrO₂, με στόχο καλύτερη αισθητική, λείανση/στίλβωση και διατήρηση μηχανικών ιδιοτήτων.
+    <span class="page-citation">Παραπομπή: Σελίδα 170</span>
+  </div>
+</div>
+
+<div class="question-block" id="q52">
+  <div class="question-number">Ερώτηση 52</div>
+  <div class="question-text">Ποια είναι η βασική λειτουργία του παράγοντα σύζευξης σιλανίου στα σύνθετα υλικά;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 52, true)">A) Να δημιουργεί χημική σύνδεση μεταξύ ανόργανου πληρωτικού και οργανικής μήτρας, μέσω ομάδων που αντιδρούν με την επιφάνεια του γυαλιού και μεθακρυλικών ομάδων που συμπολυμερίζονται με τη ρητίνη.</li>
+    <li class="option-item" onclick="checkAnswer(this, 52, false)">B) Να απορροφά το μπλε φως και να λειτουργεί ως κύριος φωτοεκκινητής του πολυμερισμού.</li>
+    <li class="option-item" onclick="checkAnswer(this, 52, false)">C) Να αυξάνει την ποσότητα ελεύθερου νερού στη μάζα και να προκαλεί οξεοβασική πήξη.</li>
+    <li class="option-item" onclick="checkAnswer(this, 52, false)">D) Να αντικαθιστά τα ανόργανα πληρωτικά και να μειώνει την ανάγκη για ρητινώδη μήτρα.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Το σιλάνιο, όπως το γ-MPTS, υδρολύεται σε σιλανόλες που αντιδρούν με ομάδες Si–OH της επιφάνειας του πληρωτικού, ενώ η μεθακρυλική ομάδα του συμπολυμερίζεται με τη ρητινώδη μήτρα.
+    <span class="page-citation">Παραπομπή: Σελίδα 171</span>
+  </div>
+</div>
+
+<div class="question-block" id="q53">
+  <div class="question-number">Ερώτηση 53</div>
+  <div class="question-text">Ποιο είναι το κλινικό αποτέλεσμα ανεπαρκούς σύνδεσης πληρωτικών-μήτρας στις σύνθετες ρητίνες;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 53, false)">A) Αύξηση της υδρολυτικής σταθερότητας και μείωση της αποκόλλησης των κόκκων.</li>
+    <li class="option-item" onclick="checkAnswer(this, 53, true)">B) Δημιουργία εσωτερικών τάσεων, αποδόμηση της δευτερογενούς ένωσης, ρωγμές και πιθανή αποκόλληση κόκκων από τη μήτρα.</li>
+    <li class="option-item" onclick="checkAnswer(this, 53, false)">C) Πλήρης αναστολή της συστολής πολυμερισμού.</li>
+    <li class="option-item" onclick="checkAnswer(this, 53, false)">D) Μετατροπή της σύνθετης ρητίνης σε υαλοϊονομερή κονία.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Όταν τα ανόργανα σωματίδια δεν συνδέονται χημικά με τη μήτρα, μετά τον πολυμερισμό αναπτύσσονται εσωτερικές τάσεις που ευνοούν αποδόμηση, ρωγμές και αποκόλληση κόκκων. Η σιλάνωση περιορίζει αυτά τα φαινόμενα.
+    <span class="page-citation">Παραπομπή: Σελίδα 171</span>
+  </div>
+</div>
+
+<div class="question-block" id="q54">
+  <div class="question-number">Ερώτηση 54</div>
+  <div class="question-text">Ποια περιγραφή της αντίδρασης πολυμερισμού προσθήκης ελευθέρων ριζών είναι ορθή;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 54, true)">A) Περιλαμβάνει στάδιο ενεργοποίησης/έναρξης, πολλαπλασιασμού της αλυσίδας και τερματισμού, με τελικό προϊόν πολυμερές δίκτυο που περιέχει μικρή ποσότητα υπολειπόμενου μονομερούς.</li>
+    <li class="option-item" onclick="checkAnswer(this, 54, false)">B) Περιλαμβάνει μόνο οξεοβασική εξουδετέρωση χωρίς ελεύθερες ρίζες.</li>
+    <li class="option-item" onclick="checkAnswer(this, 54, false)">C) Ολοκληρώνεται με 100% μετατροπή όλων των δεσμών C=C σε όλες τις σύνθετες ρητίνες.</li>
+    <li class="option-item" onclick="checkAnswer(this, 54, false)">D) Δεν αφήνει ποτέ υπολειπόμενα μονομερή ή κρεμάμενους δεσμούς, διότι κάθε διμεθακρυλικό μόριο αντιδρά πλήρως και στα δύο άκρα.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Ο πολυμερισμός προσθήκης ελευθέρων ριζών περιλαμβάνει έναρξη, πολλαπλασιασμό και τερματισμό. Στο τελικό προϊόν παραμένει μικρή ποσότητα μονομερών, περίπου 2% κ.β., και καθηλωμένοι δεσμοί C=C λόγω στερεοχημικής παρεμπόδισης.
+    <span class="page-citation">Παραπομπή: Σελίδα 172</span>
+  </div>
+</div>
+
+<div class="question-block" id="q55">
+  <div class="question-number">Ερώτηση 55</div>
+  <div class="question-text">Ποιο εύρος βαθμού μετατροπής αναφέρεται για τα σκευάσματα σύνθετων ρητινών;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 55, false)">A) 10–15%, επειδή η ρητινώδης μήτρα παραμένει σχεδόν άθικτη.</li>
+    <li class="option-item" onclick="checkAnswer(this, 55, true)">B) Περίπου 55–75%, δηλαδή το ποσοστό δεσμών C=C που συμμετείχαν στον πολυμερισμό.</li>
+    <li class="option-item" onclick="checkAnswer(this, 55, false)">C) Πάνω από 98%, όπως απαιτείται για πλήρη μετατροπή όλων των μεθακρυλικών ομάδων.</li>
+    <li class="option-item" onclick="checkAnswer(this, 55, false)">D) Μηδενικός στις φωτοπολυμεριζόμενες και υψηλός μόνο στις αυτοπολυμεριζόμενες.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Ο βαθμός μετατροπής εκφράζει το ποσοστό των δεσμών C=C που συμμετέχουν στον πολυμερισμό και για τα σκευάσματα σύνθετων ρητινών κυμαίνεται περίπου από 55 έως 75%.
+    <span class="page-citation">Παραπομπή: Σελίδα 172</span>
+  </div>
+</div>
+
+<div class="question-block" id="q56">
+  <div class="question-number">Ερώτηση 56</div>
+  <div class="question-text">Ποια επιλογή εξηγεί ακριβέστερα τη ζώνη αναστολής πολυμερισμού από το οξυγόνο;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 56, false)">A) Οφείλεται στην υπερβολική αύξηση θερμοκρασίας και προκαλεί πλήρη τήξη των πληρωτικών στην επιφάνεια.</li>
+    <li class="option-item" onclick="checkAnswer(this, 56, true)">B) Το οξυγόνο αντιδρά με τις ελεύθερες ρίζες σχηματίζοντας ρίζες υπεροξειδίου με μικρότερη συγγένεια προς τα μονομερή, με αποτέλεσμα μαλακή και κολλώδη επιφανειακή στιβάδα.</li>
+    <li class="option-item" onclick="checkAnswer(this, 56, false)">C) Είναι στρώμα πλήρως πολυμερισμένης ρητίνης που δεν επηρεάζεται από το ατμοσφαιρικό οξυγόνο.</li>
+    <li class="option-item" onclick="checkAnswer(this, 56, false)">D) Εμφανίζεται μόνο στις υαλοϊονομερείς κονίες, επειδή αυτές περιέχουν νερό.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η ζώνη αναστολής δημιουργείται όταν το ατμοσφαιρικό οξυγόνο αντιδρά με ελεύθερες ρίζες και σχηματίζει ρίζες υπεροξειδίου. Το πάχος της επηρεάζεται από το ιξώδες του υλικού και την ταχύτητα της αντίδρασης.
+    <span class="page-citation">Παραπομπή: Σελίδα 172</span>
+  </div>
+</div>
+
+<div class="question-block" id="q57">
+  <div class="question-number">Ερώτηση 57</div>
+  <div class="question-text">Ποια δήλωση για τις αυτοπολυμεριζόμενες σύνθετες ρητίνες είναι ακριβέστερη;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 57, true)">A) Είναι υλικά δύο συστατικών, με ενεργοποιητή στο ένα και καταλύτη στο άλλο, παρέχουν σχετικά ομοιόμορφο πολυμερισμό, αλλά έχουν περίπου 2 λεπτά χρόνο εργασίας και περίπου 5 λεπτά χρόνο πήξης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 57, false)">B) Είναι μονοσυστατικά υλικά που πολυμερίζονται αποκλειστικά με μπλε φως LED σε 3 δευτερόλεπτα.</li>
+    <li class="option-item" onclick="checkAnswer(this, 57, false)">C) Δεν παρουσιάζουν αποχρωματισμό με την πάροδο του χρόνου, επειδή δεν περιέχουν αμίνες.</li>
+    <li class="option-item" onclick="checkAnswer(this, 57, false)">D) Είναι ανώτερα μηχανικά από όλες τις φωτοπολυμεριζόμενες σύνθετες ρητίνες, επειδή δεν παρουσιάζουν συστολή πολυμερισμού.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Οι αυτοπολυμεριζόμενες σύνθετες ρητίνες είναι δύο συστατικών, με ενεργοποιητή και καταλύτη. Παρουσιάζουν ομοιόμορφο πολυμερισμό, αλλά μικρό χρόνο εργασίας και πήξης, χρωματική μεταβολή με τον χρόνο και υποδεέστερα μηχανικά χαρακτηριστικά.
+    <span class="page-citation">Παραπομπή: Σελίδες 172-173</span>
+  </div>
+</div>
+
+<div class="question-block" id="q58">
+  <div class="question-number">Ερώτηση 58</div>
+  <div class="question-text">Ποια περιγραφή του φωτοπολυμερισμού με καμφοροκινόνη είναι ορθή;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 58, false)">A) Η καμφοροκινόνη απορροφά υπεριώδη ακτινοβολία κάτω από 300 nm και δεν χρειάζεται συν-εκκινητή.</li>
+    <li class="option-item" onclick="checkAnswer(this, 58, true)">B) Η καμφοροκινόνη έχει λmax περίπου 468 nm, διεγείρεται από ορατή μπλε ακτινοβολία και μέσω αντίδρασης με αμίνη δημιουργούνται οι απαιτούμενες ελεύθερες ρίζες.</li>
+    <li class="option-item" onclick="checkAnswer(this, 58, false)">C) Η καμφοροκινόνη χρησιμοποιείται αποκλειστικά σε κεραμικά υλικά για να αυξήσει τη διαφάνεια.</li>
+    <li class="option-item" onclick="checkAnswer(this, 58, false)">D) Η φωτοδιέγερση της καμφοροκινόνης μειώνει τη θερμοκρασία του υλικού και αναστέλλει τον πολυμερισμό.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Ο φωτοπολυμερισμός των σύνθετων ρητινών βασίζεται σε φωτοκαταλύτη όπως η καμφοροκινόνη, με λmax περίπου 468 nm, που απορροφά μπλε φως και, σε συνεργασία με αμίνη, οδηγεί σε παραγωγή ελευθέρων ριζών.
+    <span class="page-citation">Παραπομπή: Σελίδα 173</span>
+  </div>
+</div>
+
+<div class="question-block" id="q59">
+  <div class="question-number">Ερώτηση 59</div>
+  <div class="question-text">Ποιο από τα παρακάτω αποτελεί πλεονέκτημα του φωτοπολυμερισμού έναντι του αυτοπολυμερισμού;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 59, false)">A) Η ανάγκη ανάμειξης δύο παστών, που αυξάνει τον εγκλωβισμό αέρα και μειώνει τον χρόνο εργασίας.</li>
+    <li class="option-item" onclick="checkAnswer(this, 59, true)">B) Ο μεγάλος και ελεγχόμενος χρόνος εργασίας, η ταχύτερη πήξη, ο καλύτερος επιφανειακός πολυμερισμός και η δυνατότητα προσομοίωσης αποκαταστάσεων με οδοντικούς ιστούς μέσω συνδυασμού αποχρώσεων.</li>
+    <li class="option-item" onclick="checkAnswer(this, 59, false)">C) Η πλήρης απουσία συστολής πολυμερισμού και τάσεων συστολής.</li>
+    <li class="option-item" onclick="checkAnswer(this, 59, false)">D) Η δυνατότητα πολυμερισμού σε οποιοδήποτε βάθος χωρίς περιορισμό πάχους στρώματος.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Τα πλεονεκτήματα του φωτοπολυμερισμού περιλαμβάνουν ελεγχόμενο χρόνο εργασίας, απουσία ανάμειξης και εγκλωβισμού φυσαλίδων, ταχύτερη πήξη, καλύτερο επιφανειακό πολυμερισμό και επιλογή αποχρώσεων.
+    <span class="page-citation">Παραπομπή: Σελίδα 174</span>
+  </div>
+</div>
+
+<div class="question-block" id="q60">
+  <div class="question-number">Ερώτηση 60</div>
+  <div class="question-text">Ποια κλινική συνέπεια προκύπτει από τον περιορισμένο βαθμό βάθους πολυμερισμού στις φωτοπολυμεριζόμενες σύνθετες ρητίνες;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 60, false)">A) Η τοποθέτηση πρέπει να γίνεται πάντα σε μία μαζική δόση ανεξαρτήτως βάθους κοιλότητας.</li>
+    <li class="option-item" onclick="checkAnswer(this, 60, true)">B) Σε κοιλότητες μεγαλύτερου βάθους απαιτείται διαστρωματική τεχνική, επειδή το βάθος πολυμερισμού συνήθως κυμαίνεται περίπου στα 2–3 mm, ανάλογα με την απόχρωση και τη σύνθεση.</li>
+    <li class="option-item" onclick="checkAnswer(this, 60, false)">C) Το βάθος πολυμερισμού είναι πάντοτε πάνω από 10 mm και επομένως δεν επηρεάζει την τεχνική τοποθέτησης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 60, false)">D) Η σκληρότητα της κάτω επιφάνειας είναι πάντα μεγαλύτερη από το 100% της επιφανειακής σκληρότητας, ανεξάρτητα από το πάχος υλικού.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Ως βάθος πολυμερισμού ορίζεται το βάθος όπου η σκληρότητα είναι μικρότερη από το 80% της επιφανειακής. Συνήθως είναι περίπου 2–3 mm, γι’ αυτό σε βαθύτερες κοιλότητες εφαρμόζεται διαστρωματική τεχνική.
+    <span class="page-citation">Παραπομπή: Σελίδα 174</span>
+  </div>
+</div>
+<div class="question-block" id="q61">
+  <div class="question-number">Ερώτηση 61</div>
+  <div class="question-text">Ποια δήλωση αποδίδει ακριβέστερα τη μικροσκοπική πήξη μιας φωτοπολυμεριζόμενης σύνθετης ρητίνης;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 61, false)">A) Η πήξη ολοκληρώνεται μόνο όταν ο βαθμός μετατροπής φθάσει τουλάχιστον το 80%, οπότε μπορεί να χρησιμοποιηθεί ως ασφαλής δείκτης βάθους πολυμερισμού.</li>
+    <li class="option-item" onclick="checkAnswer(this, 61, true)">B) Η μικροσκοπική πήξη μπορεί να συμβεί σε πολύ χαμηλά ποσοστά μετατροπής, περίπου 10–15%, και γι’ αυτό δεν αποτελεί αξιόπιστη ένδειξη του βάθους πολυμερισμού.</li>
+    <li class="option-item" onclick="checkAnswer(this, 61, false)">C) Η πήξη της επιφάνειας και του βάθους είναι ταυτόχρονη, ανεξάρτητα από την απόχρωση και τη σύσταση του υλικού.</li>
+    <li class="option-item" onclick="checkAnswer(this, 61, false)">D) Η μικροσκοπική πήξη εξαρτάται αποκλειστικά από την περιεκτικότητα σε πληρωτικά και όχι από τον βαθμό μετατροπής.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η μικροσκοπική πήξη των φωτοπολυμεριζόμενων συνθέτων μπορεί να συμβεί σε χαμηλό βαθμό μετατροπής, περίπου 10–15%, άρα δεν αποτελεί αξιόπιστο κριτήριο επαρκούς βάθους πολυμερισμού.
+    <span class="page-citation">Παραπομπή: Σελίδα 174</span>
+  </div>
+</div>
+
+<div class="question-block" id="q62">
+  <div class="question-number">Ερώτηση 62</div>
+  <div class="question-text">Ποια περιγραφή αποδίδει σωστά τη συστολή πολυμερισμού στις φωτοπολυμεριζόμενες σύνθετες ρητίνες;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 62, false)">A) Η συστολή αφορά μόνο την επιφανειακή στιβάδα και δεν επηρεάζει τα βαθύτερα τμήματα της αποκατάστασης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 62, true)">B) Η νέα στερεή δομή του πολυμερούς πλέγματος προκαλεί μετακίνηση μονομερών και οδηγεί σε συστολή περίπου 2–6% κ.ο., με ανάπτυξη ανεπιθύμητων εφελκυστικών τάσεων στα τοιχώματα.</li>
+    <li class="option-item" onclick="checkAnswer(this, 62, false)">C) Η συστολή είναι πάντοτε κάτω από 0,5% κ.ο. και δεν σχετίζεται με τη διεύθυνση της λυχνίας.</li>
+    <li class="option-item" onclick="checkAnswer(this, 62, false)">D) Η συστολή εξαλείφεται πλήρως όταν χρησιμοποιείται υλικό υψηλού ιξώδους.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Κατά τον φωτοπολυμερισμό η δημιουργία πολυμερούς πλέγματος οδηγεί σε συστολή βαθύτερων στρωμάτων, περίπου 2–6% κ.ο., και ανάπτυξη τάσεων στα τοιχώματα της κοιλότητας.
+    <span class="page-citation">Παραπομπή: Σελίδα 174</span>
+  </div>
+</div>
+
+<div class="question-block" id="q63">
+  <div class="question-number">Ερώτηση 63</div>
+  <div class="question-text">Ποια κλινική συνέπεια συνδέεται ορθότερα με τις τάσεις συστολής πολυμερισμού σε μια φωτοπολυμεριζόμενη σύνθετη αποκατάσταση;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 63, true)">A) Οριακή αποκόλληση, μικροδιείσδυση, δευτερογενής τερηδόνα, μετακίνηση οδοντικών φυμάτων προς την έμφραξη και μετεμφρακτική ευαισθησία.</li>
+    <li class="option-item" onclick="checkAnswer(this, 63, false)">B) Αύξηση της συγκολλητικής αντοχής λόγω συμπίεσης της ρητίνης στα τοιχώματα.</li>
+    <li class="option-item" onclick="checkAnswer(this, 63, false)">C) Πλήρης εξάλειψη της ανάγκης για στρωματική τεχνική σε βαθιές κοιλότητες.</li>
+    <li class="option-item" onclick="checkAnswer(this, 63, false)">D) Βελτίωση της οριακής στεγανότητας λόγω αυξημένης πλαστικής ροής μετά την πήξη.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Οι συστολικές τάσεις μπορεί να προκαλέσουν οριακή αποκόλληση, μικροδιείσδυση, δευτερογενή τερηδόνα, μετακίνηση οδοντικών φυμάτων και μετεμφρακτική ευαισθησία.
+    <span class="page-citation">Παραπομπή: Σελίδα 174</span>
+  </div>
+</div>
+
+<div class="question-block" id="q64">
+  <div class="question-number">Ερώτηση 64</div>
+  <div class="question-text">Ποια δήλωση συγκρίνει ακριβέστερα τη συστολή αυτοπολυμεριζόμενων και φωτοπολυμεριζόμενων σύνθετων ρητινών;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 64, false)">A) Στα αυτοπολυμεριζόμενα υλικά δεν συμβαίνει συστολή, επειδή η αντίδραση είναι χημική.</li>
+    <li class="option-item" onclick="checkAnswer(this, 64, true)">B) Η συστολή συμβαίνει και στα αυτοπολυμεριζόμενα, αλλά ο βραδύτερος ρυθμός πήξης επιτρέπει καλύτερη ροή και μερική αντιρρόπηση των τάσεων σε σχέση με τον απότομο φωτοπολυμερισμό.</li>
+    <li class="option-item" onclick="checkAnswer(this, 64, false)">C) Η φωτοπολυμεριζόμενη ρητίνη εμφανίζει πάντοτε μικρότερη συστολή επειδή πολυμερίζεται από την επιφάνεια προς το βάθος.</li>
+    <li class="option-item" onclick="checkAnswer(this, 64, false)">D) Η συστολή εξαρτάται μόνο από τη λυχνία και όχι από τη σύσταση ή τον τύπο του υλικού.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η συστολή πολυμερισμού εμφανίζεται και στα αυτοπολυμεριζόμενα υλικά, αλλά η βραδύτερη εξέλιξη της αντίδρασης επιτρέπει μεγαλύτερη ροή και μερική χαλάρωση των τάσεων.
+    <span class="page-citation">Παραπομπή: Σελίδα 174</span>
+  </div>
+</div>
+
+<div class="question-block" id="q65">
+  <div class="question-number">Ερώτηση 65</div>
+  <div class="question-text">Ποια επιλογή διακρίνει σωστά ενδογενείς και εξωγενείς παράγοντες που επηρεάζουν τη συστολή στις φωτοπολυμεριζόμενες σύνθετες ρητίνες;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 65, false)">A) Ενδογενείς είναι μόνο ο τύπος λυχνίας και η διάρκεια ακτινοβόλησης, ενώ εξωγενείς είναι τα μονομερή και τα πληρωτικά.</li>
+    <li class="option-item" onclick="checkAnswer(this, 65, true)">B) Ενδογενείς είναι η σύνθεση των μονομερών, ο τύπος και η περιεκτικότητα των πληρωτικών και οι φωτοκαταλύτες, ενώ εξωγενείς είναι κυρίως οι τεχνικές τροποποίησης της έντασης και κατεύθυνσης του πολυμερισμού.</li>
+    <li class="option-item" onclick="checkAnswer(this, 65, false)">C) Ενδογενής παράγοντας είναι μόνο το χρώμα της αποκατάστασης και εξωγενής μόνο η θερμοκρασία του δωματίου.</li>
+    <li class="option-item" onclick="checkAnswer(this, 65, false)">D) Δεν υπάρχουν εξωγενείς παράγοντες, επειδή η συστολή είναι αποκλειστικά χημικό φαινόμενο της ρητινώδους μήτρας.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Οι ενδογενείς παράγοντες αφορούν τη σύσταση του υλικού, ενώ οι εξωγενείς αφορούν τον τρόπο εφαρμογής του φωτοπολυμερισμού και τις τεχνικές που στοχεύουν στον έλεγχο των τάσεων.
+    <span class="page-citation">Παραπομπή: Σελίδα 174</span>
+  </div>
+</div>
+
+<div class="question-block" id="q66">
+  <div class="question-number">Ερώτηση 66</div>
+  <div class="question-text">Ποια περιγραφή των τρόπων εκπομπής της λυχνίας είναι ορθότερη;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 66, false)">A) Όλες οι λυχνίες εκπέμπουν πάντα σταθερή μέγιστη ένταση από το πρώτο δευτερόλεπτο και δεν υπάρχουν τεχνικές μεταβολής της έντασης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 66, true)">B) Υπάρχουν μέθοδοι σταθερής υψηλής έντασης, χαμηλής αρχικής έντασης που φθάνει σε μέγιστη, βαθμιαίας αύξησης και παλμικής ή συνεχώς αυξανόμενης έντασης, με στόχο τον έλεγχο των τάσεων συστολής.</li>
+    <li class="option-item" onclick="checkAnswer(this, 66, false)">C) Η παλμική εκπομπή χρησιμοποιείται αποκλειστικά για αυτοπολυμεριζόμενες σύνθετες ρητίνες.</li>
+    <li class="option-item" onclick="checkAnswer(this, 66, false)">D) Οι τεχνικές χαμηλής αρχικής έντασης αυξάνουν σκόπιμα τη συνολική συστολή για να βελτιώσουν τη συγκράτηση.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Οι εξωγενείς τεχνικές πολυμερισμού περιλαμβάνουν σταθερή ένταση, ήπια έναρξη, βαθμιαία αύξηση και παλμικές μορφές εκπομπής, με στόχο τη ρύθμιση της εξέλιξης της συστολής και των τάσεων.
+    <span class="page-citation">Παραπομπή: Σελίδες 174-175</span>
+  </div>
+</div>
+
+<div class="question-block" id="q67">
+  <div class="question-number">Ερώτηση 67</div>
+  <div class="question-text">Ποια διατύπωση περιγράφει σωστά τον παράγοντα c-factor μιας κοιλότητας;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 67, true)">A) Είναι ο λόγος των συγκολλημένων προς τις μη συγκολλημένες επιφάνειες μιας αποκατάστασης και είναι επιθυμητό να είναι μικρότερος από 1.</li>
+    <li class="option-item" onclick="checkAnswer(this, 67, false)">B) Είναι το ποσοστό ανόργανων πληρωτικών και πρέπει να υπερβαίνει το 75% κ.β.</li>
+    <li class="option-item" onclick="checkAnswer(this, 67, false)">C) Είναι το βάθος πολυμερισμού και πρέπει να είναι μεγαλύτερο από 4 mm σε κάθε σύνθετη ρητίνη.</li>
+    <li class="option-item" onclick="checkAnswer(this, 67, false)">D) Είναι ο χρόνος εργασίας του υλικού πριν από την έκθεση στο φως.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Ο c-factor ορίζεται ως ο λόγος συγκολλημένων προς μη συγκολλημένες επιφάνειες. Όσο αυξάνει, τόσο δυσκολότερη γίνεται η εκτόνωση των τάσεων συστολής.
+    <span class="page-citation">Παραπομπή: Σελίδα 175</span>
+  </div>
+</div>
+
+<div class="question-block" id="q68">
+  <div class="question-number">Ερώτηση 68</div>
+  <div class="question-text">Ποια τεχνική σχετίζεται ορθότερα με τη βελτίωση του c-factor σε σύνθετες αποκαταστάσεις;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 68, false)">A) Τοποθέτηση ολόκληρης της αποκατάστασης σε ένα ενιαίο μαζικό στρώμα, ώστε να μειωθεί ο χρόνος εργασίας.</li>
+    <li class="option-item" onclick="checkAnswer(this, 68, true)">B) Διαμόρφωση της κοιλότητας ή τοποθέτηση της σύνθετης ρητίνης με κατάλληλη στρωματική τεχνική, συχνά με ρέουσα ρητίνη, ώστε να δημιουργείται αποδεκτός c-factor.</li>
+    <li class="option-item" onclick="checkAnswer(this, 68, false)">C) Πλήρης αποφυγή συγκόλλησης στα τοιχώματα, ώστε να μη δημιουργηθεί καθόλου πολυμερισμός.</li>
+    <li class="option-item" onclick="checkAnswer(this, 68, false)">D) Αύξηση της έντασης της λυχνίας στο μέγιστο από το πρώτο δευτερόλεπτο.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Ο c-factor μπορεί να βελτιωθεί με κατάλληλη τροποποίηση του σχήματος της κοιλότητας και με διαστρωματική τεχνική τοποθέτησης, ώστε να περιοριστεί η ανάπτυξη τάσεων.
+    <span class="page-citation">Παραπομπή: Σελίδα 175</span>
+  </div>
+</div>
+
+<div class="question-block" id="q69">
+  <div class="question-number">Ερώτηση 69</div>
+  <div class="question-text">Ποια είναι η λογική του πολυμερισμού μέσω των οδοντικών τοιχωμάτων, όπως περιγράφεται για τις σύνθετες αποκαταστάσεις;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 69, true)">A) Το υλικό συρρικνώνεται προς την εσωτερική επιφάνεια του τοιχώματος και αποφεύγεται η απομάκρυνσή του από τις οδοντικές επιφάνειες.</li>
+    <li class="option-item" onclick="checkAnswer(this, 69, false)">B) Η ακτινοβόληση μέσω των τοιχωμάτων καταργεί την ανάγκη συγκολλητικού συστήματος.</li>
+    <li class="option-item" onclick="checkAnswer(this, 69, false)">C) Η τεχνική χρησιμοποιείται για να μειωθεί ο βαθμός μετατροπής και να παραμείνει το υλικό ελαστικό.</li>
+    <li class="option-item" onclick="checkAnswer(this, 69, false)">D) Η συρρίκνωση κατευθύνεται σκόπιμα προς τη μασητική επιφάνεια ώστε να απομακρυνθεί από τα τοιχώματα.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Ο πολυμερισμός μέσω των οδοντικών τοιχωμάτων στοχεύει στο να κατευθυνθεί η συρρίκνωση προς το τοίχωμα, μειώνοντας την αποκόλληση του υλικού από τις οδοντικές επιφάνειες.
+    <span class="page-citation">Παραπομπή: Σελίδα 175</span>
+  </div>
+</div>
+
+<div class="question-block" id="q70">
+  <div class="question-number">Ερώτηση 70</div>
+  <div class="question-text">Ποια δήλωση για τα σκευάσματα μαζικής πλήρωσης κοιλοτήτων είναι ορθότερη;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 70, false)">A) Έχουν σχεδιαστεί αποκλειστικά για στρώματα μικρότερα του 1 mm και δεν διαφέρουν από τις συμβατικές σύνθετες ρητίνες.</li>
+    <li class="option-item" onclick="checkAnswer(this, 70, true)">B) Χρησιμοποιούν τεχνολογίες που επιτρέπουν βάθος πολυμερισμού περίπου 4–5 mm και ενσωματώνουν εξελίξεις μείωσης της συστολής πολυμερισμού.</li>
+    <li class="option-item" onclick="checkAnswer(this, 70, false)">C) Δεν χρειάζονται καθόλου πολυμερισμό επειδή πήζουν με οξεοβασική αντίδραση.</li>
+    <li class="option-item" onclick="checkAnswer(this, 70, false)">D) Χαρακτηρίζονται από μικρότερο βάθος πολυμερισμού λόγω απόλυτης αδιαφάνειας.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Τα υλικά μαζικής πλήρωσης σχεδιάστηκαν για ταχύτερη διαδικασία έμφραξης, με δυνατότητα βάθους πολυμερισμού περίπου 4–5 mm και τεχνολογίες μείωσης της συστολής.
+    <span class="page-citation">Παραπομπή: Σελίδα 175</span>
+  </div>
+</div>
+
+<div class="question-block" id="q71">
+  <div class="question-number">Ερώτηση 71</div>
+  <div class="question-text">Ποια δήλωση για την καμφοροκινόνη ως φωτοκαταλύτη είναι ακριβέστερη;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 71, false)">A) Είναι άχρωμη, υψηλής απόδοσης φωτοκαταλύτης και μπορεί να αυξηθεί απεριόριστα χωρίς αισθητική επίπτωση.</li>
+    <li class="option-item" onclick="checkAnswer(this, 71, true)">B) Είναι ο βασικός φωτοκαταλύτης των φωτοπολυμεριζόμενων συνθέτων, αλλά έχει έντονο κίτρινο χρώμα και χαμηλή απόδοση φωτοδιέγερσης, γεγονός που περιορίζει την αύξηση της περιεκτικότητάς της.</li>
+    <li class="option-item" onclick="checkAnswer(this, 71, false)">C) Χρησιμοποιείται μόνο στις υαλοϊονομερείς κονίες και όχι στις σύνθετες ρητίνες.</li>
+    <li class="option-item" onclick="checkAnswer(this, 71, false)">D) Απορροφά αποκλειστικά υπεριώδες φως και δεν ενεργοποιείται από λυχνίες LED.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η καμφοροκινόνη απορροφά στο μπλε φάσμα, αλλά έχει έντονο κίτρινο χρώμα και χαμηλή απόδοση φωτοδιέγερσης. Για αυτό η αύξηση της περιεκτικότητάς της πέρα από συγκεκριμένα όρια δεν είναι πρακτική.
+    <span class="page-citation">Παραπομπή: Σελίδα 176</span>
+  </div>
+</div>
+
+<div class="question-block" id="q72">
+  <div class="question-number">Ερώτηση 72</div>
+  <div class="question-text">Ποιο πρόβλημα προέκυψε με τις αρχικές λυχνίες LED στενού φάσματος και τους νεότερους φωτοκαταλύτες;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 72, false)">A) Οι LED εξέπεμπαν αποκλειστικά υπεριώδη ακτινοβολία, προκαλώντας πλήρη αποδόμηση της μήτρας.</li>
+    <li class="option-item" onclick="checkAnswer(this, 72, true)">B) Η στενή φασματική εκπομπή γύρω από την απορρόφηση της καμφοροκινόνης δεν επαρκούσε για φωτοδιέγερση νεότερων φωτοκαταλυτών με μικρότερα μήκη κύματος.</li>
+    <li class="option-item" onclick="checkAnswer(this, 72, false)">C) Οι LED δεν μπορούσαν να πολυμερίσουν κανένα υλικό που περιείχε καμφοροκινόνη.</li>
+    <li class="option-item" onclick="checkAnswer(this, 72, false)">D) Οι νεότεροι φωτοκαταλύτες απαιτούσαν αποκλειστικά θερμοπολυμερισμό και όχι φως.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Οι αρχικές λυχνίες LED ήταν προσαρμοσμένες κυρίως στην απορρόφηση της καμφοροκινόνης. Οι νεότεροι φωτοκαταλύτες με μικρότερα μήκη κύματος απαιτούσαν πολυχρωματικές LED ή κατάλληλη ομογενοποίηση της δέσμης.
+    <span class="page-citation">Παραπομπή: Σελίδα 176</span>
+  </div>
+</div>
+
+<div class="question-block" id="q73">
+  <div class="question-number">Ερώτηση 73</div>
+  <div class="question-text">Γιατί πρέπει να αποφεύγεται ο αρχικός φωτοπολυμερισμός με μέγιστη ένταση εκπομπής;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 73, false)">A) Επειδή μειώνει τον βαθμό μετατροπής των δεσμών C=C.</li>
+    <li class="option-item" onclick="checkAnswer(this, 73, true)">B) Επειδή ο ταχύς πολυμερισμός απελευθερώνει μεγάλα ποσά θερμότητας σε περιορισμένο χρόνο, γεγονός που σε βαθιές κοιλότητες μπορεί να προκαλέσει διέγερση του πολφού.</li>
+    <li class="option-item" onclick="checkAnswer(this, 73, false)">C) Επειδή προκαλεί οξεοβασική διάλυση της ρητινώδους μήτρας.</li>
+    <li class="option-item" onclick="checkAnswer(this, 73, false)">D) Επειδή καταργεί πλήρως τη ζώνη αναστολής οξυγόνου και έτσι μειώνεται η επιφανειακή σκληρότητα.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Ο αρχικός πολυμερισμός με μέγιστη ένταση μπορεί να αυξήσει απότομα τη θερμοκρασία λόγω θερμότητας από τη λυχνία και εξώθερμης αντίδρασης, προκαλώντας πιθανή διέγερση του πολφού σε βαθιές κοιλότητες.
+    <span class="page-citation">Παραπομπή: Σελίδα 176</span>
+  </div>
+</div>
+
+<div class="question-block" id="q74">
+  <div class="question-number">Ερώτηση 74</div>
+  <div class="question-text">Ποια επιλογή περιγράφει σωστά τον θερμοφωτοπολυμερισμό των σύνθετων ρητινών;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 74, true)">A) Η αύξηση της θερμοκρασίας αυξάνει τον αριθμό ελευθέρων ριζών, τον βαθμό μετατροπής C=C και επιτρέπει χαλάρωση εσωτερικών τάσεων λόγω μεγαλύτερης κινητικότητας των πολυμερικών αλυσίδων.</li>
+    <li class="option-item" onclick="checkAnswer(this, 74, false)">B) Η αύξηση της θερμοκρασίας αναστέλλει πλήρως τον πολυμερισμό και χρησιμοποιείται μόνο για προσωρινές αποκαταστάσεις.</li>
+    <li class="option-item" onclick="checkAnswer(this, 74, false)">C) Ο θερμοφωτοπολυμερισμός είναι η κύρια τεχνική άμεσων ενδοστοματικών αποκαταστάσεων.</li>
+    <li class="option-item" onclick="checkAnswer(this, 74, false)">D) Η θερμική κατεργασία μειώνει τον βαθμό μετατροπής ώστε να αυξηθεί η ελαστικότητα.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Ο θερμοφωτοπολυμερισμός βελτιώνει τον βαθμό μετατροπής και επιτρέπει χαλάρωση τάσεων, αλλά λόγω περιορισμών της στοματικής κοιλότητας εφαρμόζεται αποκλειστικά σε έμμεσες εργαστηριακές αποκαταστάσεις.
+    <span class="page-citation">Παραπομπή: Σελίδα 177</span>
+  </div>
+</div>
+
+<div class="question-block" id="q75">
+  <div class="question-number">Ερώτηση 75</div>
+  <div class="question-text">Ποιο από τα παρακάτω αποτελεί πλεονέκτημα του παρατεταμένου εργαστηριακού πολυμερισμού σύνθετης ρητίνης;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 75, false)">A) Μείωση του βαθμού μετατροπής και αύξηση των υπολειπόμενων μονομερών.</li>
+    <li class="option-item" onclick="checkAnswer(this, 75, true)">B) Μεγαλύτερος βαθμός μετατροπής, πληρέστερος αποχρωματισμός του καταλύτη, λιγότερα κενά ή αδρανές αέριο μέσα στη μάζα, μειωμένη ζώνη αναστολής οξυγόνου και βελτιωμένη επιφανειακή σκληρότητα/αντοχή στην αποτριβή.</li>
+    <li class="option-item" onclick="checkAnswer(this, 75, false)">C) Πλήρης κατάργηση της ανάγκης για πληρωτικά σωματίδια.</li>
+    <li class="option-item" onclick="checkAnswer(this, 75, false)">D) Μετατροπή της σύνθετης ρητίνης σε διπυριτικό λίθιο.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Ο παρατεταμένος εργαστηριακός πολυμερισμός, ιδίως σε ειδικούς κλιβάνους και κατάλληλες συνθήκες, αυξάνει τον βαθμό μετατροπής, μειώνει κενά/αέρα και βελτιώνει τη σκληρότητα και την αντοχή στην αποτριβή.
+    <span class="page-citation">Παραπομπή: Σελίδα 177</span>
+  </div>
+</div>
+
+<div class="question-block" id="q76">
+  <div class="question-number">Ερώτηση 76</div>
+  <div class="question-text">Ποια δήλωση χαρακτηρίζει ακριβέστερα τα υλικά διπλού μηχανισμού πολυμερισμού;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 76, false)">A) Είναι αποκλειστικά αυτοπολυμεριζόμενα και δεν περιέχουν φωτοκαταλύτη.</li>
+    <li class="option-item" onclick="checkAnswer(this, 76, true)">B) Συνδυάζουν φωτοπολυμερισμό και αυτοπολυμερισμό, με αρχική φωτοενεργοποίηση για μορφοποίηση/στερεοποίηση της ορατής επιφάνειας και συνέχιση του αυτοπολυμερισμού σε περιοχές όπου το φως δεν φτάνει επαρκώς.</li>
+    <li class="option-item" onclick="checkAnswer(this, 76, false)">C) Πολυμερίζονται μόνο όταν θερμανθούν σε εργαστηριακό κλίβανο πάνω από 110°C.</li>
+    <li class="option-item" onclick="checkAnswer(this, 76, false)">D) Δεν περιέχουν αμίνες ή καταλύτες και πήζουν με απλή εξάτμιση του διαλύτη.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Τα υλικά διπλού μηχανισμού περιέχουν φωτοκαταλύτη και συστατικά αυτοπολυμερισμού. Συνήθως προηγείται φωτοπολυμερισμός και ακολουθεί χημικός πολυμερισμός σε βαθύτερες ή δυσπρόσιτες περιοχές.
+    <span class="page-citation">Παραπομπή: Σελίδα 177</span>
+  </div>
+</div>
+
+<div class="question-block" id="q77">
+  <div class="question-number">Ερώτηση 77</div>
+  <div class="question-text">Ποια κλινική εφαρμογή ταιριάζει περισσότερο με τη χρήση υλικών διπλού μηχανισμού πολυμερισμού;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 77, false)">A) Επιφανειακή μικρή αποκατάσταση αδαμαντίνης όπου όλο το υλικό εκτίθεται άμεσα στο φως.</li>
+    <li class="option-item" onclick="checkAnswer(this, 77, true)">B) Περιπτώσεις με μεγάλο πάχος υλικού ή περιορισμένη διείσδυση φωτός, όπως υλικά μαζικής πλήρωσης, υλικά ανασύστασης κολοβωμάτων ή περιοχές με περιορισμένη πρόσβαση της λυχνίας.</li>
+    <li class="option-item" onclick="checkAnswer(this, 77, false)">C) Οποιαδήποτε εφαρμογή που απαιτεί αποκλειστικά οξεοβασική πήξη.</li>
+    <li class="option-item" onclick="checkAnswer(this, 77, false)">D) Μόνο προσωρινές αποκαταστάσεις χωρίς ανάγκη τελικής αντοχής.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Τα διπλού πολυμερισμού υλικά είναι χρήσιμα όταν το φως δεν φθάνει επαρκώς σε όλο το πάχος του υλικού. Χαρακτηριστικές εφαρμογές είναι υλικά μεγάλου πάχους, μαζικής πλήρωσης και ανασύστασης κολοβωμάτων.
+    <span class="page-citation">Παραπομπή: Σελίδα 177</span>
+  </div>
+</div>
+
+<div class="question-block" id="q78">
+  <div class="question-number">Ερώτηση 78</div>
+  <div class="question-text">Ποια είναι η βασική λειτουργία των αναστολέων πολυμερισμού στις σύνθετες ρητίνες;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 78, true)">A) Προστίθενται σε μικρές ποσότητες, όπως BHT 10–100 ppm, για να αποτρέπουν ανεξέλεγκτο πολυμερισμό από τυχαία παραγωγή ελευθέρων ριζών.</li>
+    <li class="option-item" onclick="checkAnswer(this, 78, false)">B) Χρησιμοποιούνται ως κύρια πληρωτικά και αυξάνουν τη μηχανική αντοχή.</li>
+    <li class="option-item" onclick="checkAnswer(this, 78, false)">C) Προστίθενται για να προκαλέσουν ταχεία πήξη μόλις το υλικό έρθει σε επαφή με νερό.</li>
+    <li class="option-item" onclick="checkAnswer(this, 78, false)">D) Αποτελούν χρωστικές ουσίες που καθορίζουν αποκλειστικά την απόχρωση.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Οι αναστολείς, με κύριο παράδειγμα το BHT σε συγκεντρώσεις 10–100 ppm, αποτρέπουν την ανεξέλεγκτη έναρξη πολυμερισμού από τυχαίες ελεύθερες ρίζες.
+    <span class="page-citation">Παραπομπή: Σελίδα 178</span>
+  </div>
+</div>
+
+<div class="question-block" id="q79">
+  <div class="question-number">Ερώτηση 79</div>
+  <div class="question-text">Ποια δήλωση αποδίδει σωστά τον ρόλο χρωστικών και οξειδίων στις σύνθετες ρητίνες;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 79, false)">A) Οι χρωστικές δεν επηρεάζουν τον πολυμερισμό, ακόμη και όταν η απόχρωση είναι πολύ σκούρα.</li>
+    <li class="option-item" onclick="checkAnswer(this, 79, true)">B) Οι χρωστικές επηρεάζουν την απορρόφηση ακτινοβολίας κατά τον πολυμερισμό, ενώ οξείδια όπως του τιτανίου ή του κασσιτέρου χρησιμοποιούνται για απόδοση αδιαφάνειας και καλυπτικής ικανότητας.</li>
+    <li class="option-item" onclick="checkAnswer(this, 79, false)">C) Τα οξείδια του τιτανίου προστίθενται αποκλειστικά για να αυξήσουν τη συστολή πολυμερισμού.</li>
+    <li class="option-item" onclick="checkAnswer(this, 79, false)">D) Οι χρωστικές είναι πάντα οργανικά μονομερή που συμπολυμερίζονται με το BisGMA.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Οι χρωστικές καθορίζουν την απόχρωση αλλά επηρεάζουν και την απορρόφηση ακτινοβολίας, ιδίως σε σκούρες αποχρώσεις. Λευκά οξείδια, όπως τιτανίου ή κασσιτέρου, χρησιμοποιούνται για αδιαφάνεια και κάλυψη.
+    <span class="page-citation">Παραπομπή: Σελίδα 178</span>
+  </div>
+</div>
+
+<div class="question-block" id="q80">
+  <div class="question-number">Ερώτηση 80</div>
+  <div class="question-text">Ποιο από τα παρακάτω αποδίδει ακριβέστερα τα αποδεκτά όρια βάθους πολυμερισμού για φωτοπολυμεριζόμενες σύνθετες ρητίνες κατά τον πίνακα ιδιοτήτων;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 80, false)">A) Τουλάχιστον 0,2 mm για όλες τις αποχρώσεις, ανεξάρτητα από τη διαφάνεια.</li>
+    <li class="option-item" onclick="checkAnswer(this, 80, true)">B) Τουλάχιστον 1 mm για αδιαφανή υλικά και τουλάχιστον 1,5 mm για άλλες αποχρώσεις.</li>
+    <li class="option-item" onclick="checkAnswer(this, 80, false)">C) Τουλάχιστον 5 mm για όλα τα φωτοπολυμεριζόμενα υλικά, ανεξαρτήτως σύνθεσης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 80, false)">D) Δεν προβλέπεται όριο βάθους πολυμερισμού για φωτοπολυμεριζόμενες σύνθετες ρητίνες.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Στα αποδεκτά όρια του πίνακα αναφέρεται βάθος πολυμερισμού τουλάχιστον 1 mm για αδιαφανή υλικά και τουλάχιστον 1,5 mm για τις άλλες αποχρώσεις.
+    <span class="page-citation">Παραπομπή: Σελίδα 180</span>
+  </div>
+</div>
+<div class="question-block" id="q81">
+  <div class="question-number">Ερώτηση 81</div>
+  <div class="question-text">Ποια δήλωση περιγράφει ακριβέστερα τη γενική απαίτηση από ένα υλικό αποκατάστασης;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 81, false)">A) Να είναι όσο το δυνατόν σκληρότερο, ακόμη κι αν δεν προσαρμόζεται στους οδοντικούς ιστούς.</li>
+    <li class="option-item" onclick="checkAnswer(this, 81, true)">B) Να προσεγγίζει τα φυσικομηχανικά χαρακτηριστικά των οδοντικών ιστών, να επιτρέπει λειτουργική αποκατάσταση και να διατηρεί σταθερότητα στο στοματικό περιβάλλον.</li>
+    <li class="option-item" onclick="checkAnswer(this, 81, false)">C) Να έχει αποκλειστικά υψηλή αισθητική, ανεξάρτητα από τη μηχανική συμπεριφορά του.</li>
+    <li class="option-item" onclick="checkAnswer(this, 81, false)">D) Να είναι πάντα κεραμικό, επειδή τα πολυμερή υλικά δεν χρησιμοποιούνται σε άμεσες αποκαταστάσεις.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Ιδανικά, ένα εμφρακτικό υλικό πρέπει να προσεγγίζει τις ιδιότητες των οδοντικών ιστών, να επιτρέπει εύκολη τοποθέτηση, να αντέχει στο στοματικό περιβάλλον και να διατηρεί τις ιδιότητές του κατά τη λειτουργία.
+    <span class="page-citation">Παραπομπή: Σελίδα 159</span>
+  </div>
+</div>
+
+<div class="question-block" id="q82">
+  <div class="question-number">Ερώτηση 82</div>
+  <div class="question-text">Ποια διάκριση των εμφρακτικών υλικών αποδίδεται σωστά στην εισαγωγή του κεφαλαίου;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 82, true)">A) Τα υλικά διακρίνονται σε σύνθετες ρητίνες, υαλοϊονομερείς κονίες και κεραμικά, με τα κεραμικά να χρησιμοποιούνται κυρίως σε έμμεσες αποκαταστάσεις.</li>
+    <li class="option-item" onclick="checkAnswer(this, 82, false)">B) Όλα τα υλικά του κεφαλαίου χρησιμοποιούνται αποκλειστικά σε άμεσες αποκαταστάσεις.</li>
+    <li class="option-item" onclick="checkAnswer(this, 82, false)">C) Τα κεραμικά και οι υαλοϊονομερείς κονίες είναι πάντα προσωρινά υλικά.</li>
+    <li class="option-item" onclick="checkAnswer(this, 82, false)">D) Οι σύνθετες ρητίνες χρησιμοποιούνται μόνο ως συγκολλητικά μέσα και όχι ως υλικά αποκατάστασης.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Το κεφάλαιο διακρίνει τα σύγχρονα εμφρακτικά υλικά σε σύνθετες ρητίνες, υαλοϊονομερείς κονίες και κεραμικά. Τα κεραμικά χρησιμοποιούνται μόνο σε έμμεσες αποκαταστάσεις.
+    <span class="page-citation">Παραπομπή: Σελίδα 159</span>
+  </div>
+</div>
+
+<div class="question-block" id="q83">
+  <div class="question-number">Ερώτηση 83</div>
+  <div class="question-text">Ποια δήλωση για τον χρόνο εργασίας και τον χρόνο πήξης ενός εμφρακτικού υλικού είναι ακριβέστερη;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 83, false)">A) Ο χρόνος εργασίας είναι πάντα μεγαλύτερος από τον χρόνο πήξης και δεν επηρεάζει τον κλινικό χειρισμό.</li>
+    <li class="option-item" onclick="checkAnswer(this, 83, true)">B) Ο χρόνος εργασίας είναι το διάστημα από την έναρξη ανάμειξης ή συσκευασίας έως τη σκλήρυνση σε τέτοιο βαθμό ώστε να μην υπάρχει δυνατότητα διαμόρφωσης, ενώ ο χρόνος πήξης αφορά την απόκτηση επαρκούς αντοχής για λειτουργία.</li>
+    <li class="option-item" onclick="checkAnswer(this, 83, false)">C) Ο χρόνος πήξης είναι αποκλειστικά εργαστηριακός δείκτης και δεν έχει σχέση με το στοματικό περιβάλλον.</li>
+    <li class="option-item" onclick="checkAnswer(this, 83, false)">D) Ο χρόνος εργασίας αφορά μόνο τα κεραμικά και όχι τα υλικά άμεσων αποκαταστάσεων.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Ο χρόνος εργασίας καθορίζει το διαθέσιμο διάστημα για χειρισμό και διαμόρφωση, ενώ ο χρόνος πήξης σχετίζεται με την απόκτηση αντοχής σε συνθήκες λειτουργίας του στοματικού περιβάλλοντος.
+    <span class="page-citation">Παραπομπή: Σελίδα 160</span>
+  </div>
+</div>
+
+<div class="question-block" id="q84">
+  <div class="question-number">Ερώτηση 84</div>
+  <div class="question-text">Ποια επιλογή αποδίδει ορθότερα την κλινική σημασία του ιξώδους ενός εμφρακτικού υλικού;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 84, false)">A) Όσο μεγαλύτερο είναι το ιξώδες τόσο ευκολότερη είναι πάντα η διαβροχή και η τοποθέτηση σε κάθε κοιλότητα.</li>
+    <li class="option-item" onclick="checkAnswer(this, 84, true)">B) Το ιξώδες επηρεάζει την ευκολία τοποθέτησης, την προσαρμογή στα τοιχώματα και την πρόσφυση στην κοιλότητα, ενώ η επιλογή του εξαρτάται από τη μορφή και τις απαιτήσεις της κοιλότητας.</li>
+    <li class="option-item" onclick="checkAnswer(this, 84, false)">C) Υλικά χαμηλού ιξώδους απαιτούν πάντα μεγαλύτερες διαστάσεις κοιλότητας λόγω μικρότερης δυνατότητας διαβροχής.</li>
+    <li class="option-item" onclick="checkAnswer(this, 84, false)">D) Το ιξώδες αφορά μόνο το χρώμα και τη διαφάνεια του υλικού.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Το ιξώδες είναι κρίσιμο για τον χειρισμό, την τοποθέτηση και την προσαρμογή του υλικού. Δεν υπάρχει ιδανικό ιξώδες για όλα τα υλικά και όλες τις κοιλότητες.
+    <span class="page-citation">Παραπομπή: Σελίδες 160-161</span>
+  </div>
+</div>
+
+<div class="question-block" id="q85">
+  <div class="question-number">Ερώτηση 85</div>
+  <div class="question-text">Ποια δήλωση για το πορώδες ενός εμφρακτικού υλικού είναι ακριβέστερη;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 85, true)">A) Το πορώδες αφορά το ποσοστό πόρων στη μάζα του υλικού και μπορεί να μειώσει την επιφανειακή αδρότητα, την αισθητική και την πρόσφυση στα τοιχώματα.</li>
+    <li class="option-item" onclick="checkAnswer(this, 85, false)">B) Το πορώδες είναι πάντοτε επιθυμητό γιατί αυξάνει τη μηχανική αντοχή και τη συγκόλληση.</li>
+    <li class="option-item" onclick="checkAnswer(this, 85, false)">C) Οι πόροι εμφανίζονται μόνο στην επιφάνεια και ποτέ στο εσωτερικό της μάζας.</li>
+    <li class="option-item" onclick="checkAnswer(this, 85, false)">D) Το πορώδες σχετίζεται αποκλειστικά με τα μεταλλικά υλικά και όχι με σύνθετες ρητίνες ή κονίες.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Οι πόροι μειώνουν την αισθητική, αυξάνουν την επιφανειακή αδρότητα και δημιουργούν ασυνέχειες στην πρόσφυση του υλικού στα τοιχώματα της κοιλότητας.
+    <span class="page-citation">Παραπομπή: Σελίδα 161</span>
+  </div>
+</div>
+
+<div class="question-block" id="q86">
+  <div class="question-number">Ερώτηση 86</div>
+  <div class="question-text">Ποια επιλογή περιγράφει ακριβέστερα την έννοια της αντοχής ενός εμφρακτικού υλικού στο στοματικό περιβάλλον;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 86, false)">A) Η αντοχή ταυτίζεται αποκλειστικά με την αντοχή σε θλίψη, επειδή οι εφελκυστικές και καμπτικές δυνάμεις δεν αναπτύσσονται σε αποκαταστάσεις.</li>
+    <li class="option-item" onclick="checkAnswer(this, 86, false)">B) Η αντοχή μετράται μόνο εργαστηριακά και δεν έχει κλινική σημασία όταν υπάρχει συγκολλητικός παράγοντας.</li>
+    <li class="option-item" onclick="checkAnswer(this, 86, true)">C) Το υλικό υφίσταται σύνθετες δυνάμεις θλίψης, εφελκυσμού, κάμψης και διάτμησης, ενώ κλινικά κρίσιμη συχνά είναι η συμπεριφορά σε κάμψη.</li>
+    <li class="option-item" onclick="checkAnswer(this, 86, false)">D) Η αντοχή ενός υλικού δεν επηρεάζεται από τη δομή, τη σύνθεση ή τους χειρισμούς του.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Οι αποκαταστάσεις στο στόμα δέχονται σύνθετα φορτία. Από τις επιμέρους δοκιμασίες, η κάμψη έχει ιδιαίτερη σημασία για την κλινική συμπεριφορά των εμφρακτικών υλικών.
+    <span class="page-citation">Παραπομπή: Σελίδα 161</span>
+  </div>
+</div>
+
+<div class="question-block" id="q87">
+  <div class="question-number">Ερώτηση 87</div>
+  <div class="question-text">Ποια δήλωση αποδίδει σωστά τη δυσθραυστότητα σε σχέση με την αντοχή των υλικών;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 87, true)">A) Όσο μεγαλύτερη είναι η δυσθραυστότητα τόσο μεγαλύτερο μέρος της ενέργειας απορροφάται πριν την αστοχία, γεγονός που προστατεύει από ρωγμές και ατέλειες.</li>
+    <li class="option-item" onclick="checkAnswer(this, 87, false)">B) Μεγάλη δυσθραυστότητα σημαίνει ότι το υλικό αποτυγχάνει ταχύτερα σε μικρότερη παραμόρφωση.</li>
+    <li class="option-item" onclick="checkAnswer(this, 87, false)">C) Η δυσθραυστότητα αφορά μόνο το χρώμα και τη διαφάνεια των κεραμικών.</li>
+    <li class="option-item" onclick="checkAnswer(this, 87, false)">D) Η δυσθραυστότητα είναι ανεξάρτητη από τη σύνθεση και τη δομή του υλικού.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Υλικά με μεγαλύτερη δυσθραυστότητα απορροφούν μεγαλύτερο μέρος των ασκούμενων δυνάμεων και προστατεύονται καλύτερα από εξέλιξη ρωγμών και ατελειών.
+    <span class="page-citation">Παραπομπή: Σελίδα 162</span>
+  </div>
+</div>
+
+<div class="question-block" id="q88">
+  <div class="question-number">Ερώτηση 88</div>
+  <div class="question-text">Ποια δήλωση για τη σκληρότητα ενός εμφρακτικού υλικού είναι ακριβέστερη;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 88, false)">A) Όσο σκληρότερο είναι ένα υλικό τόσο περισσότερο αποτρίβεται στο στόμα.</li>
+    <li class="option-item" onclick="checkAnswer(this, 88, true)">B) Η σκληρότητα εκφράζει την αντίσταση σε αποτριβή, αλλά δεν πρέπει να υπερβαίνει πολύ τη σκληρότητα της αδαμαντίνης γιατί αυξάνεται ο κίνδυνος αποτριβής του ανταγωνιστή.</li>
+    <li class="option-item" onclick="checkAnswer(this, 88, false)">C) Η σκληρότητα είναι κλινικά αδιάφορη επειδή όλα τα υλικά αποτρίβονται με τον ίδιο ρυθμό.</li>
+    <li class="option-item" onclick="checkAnswer(this, 88, false)">D) Η σκληρότητα αφορά αποκλειστικά τα μέταλλα και όχι τα κεραμικά ή τις σύνθετες ρητίνες.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η σκληρότητα σχετίζεται με την αντίσταση στην αποτριβή. Ωστόσο, υπερβολική σκληρότητα σε σχέση με την αδαμαντίνη μπορεί να αυξήσει την αποτριβή του ανταγωνιστή δοντιού.
+    <span class="page-citation">Παραπομπή: Σελίδα 162</span>
+  </div>
+</div>
+
+<div class="question-block" id="q89">
+  <div class="question-number">Ερώτηση 89</div>
+  <div class="question-text">Ποια είναι η ακριβέστερη κλινική ερμηνεία του ερπυσμού ενός εμφρακτικού υλικού;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 89, false)">A) Είναι η άμεση ελαστική παραμόρφωση που εξαφανίζεται πλήρως μόλις αφαιρεθεί η δύναμη.</li>
+    <li class="option-item" onclick="checkAnswer(this, 89, true)">B) Είναι η συνεχής πλαστική παραμόρφωση υπό συνεχή φόρτιση, που μπορεί να οδηγήσει σε μεταβολή όγκου, μεταφορά τάσεων και αποκόλληση ή κάταγμα της αποκατάστασης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 89, false)">C) Είναι η επιφανειακή στιλπνότητα που αποκτάται μετά τη λείανση.</li>
+    <li class="option-item" onclick="checkAnswer(this, 89, false)">D) Είναι η ικανότητα του υλικού να απελευθερώνει φθόριο στο στοματικό περιβάλλον.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Ο ερπυσμός περιγράφει τη συνεχή παραμόρφωση υπό συνεχή φόρτιση. Κλινικά μπορεί να οδηγήσει σε μετακίνηση υλικού, αποκόλληση, κάταγμα ή μεταφορά τάσεων στους οδοντικούς ιστούς.
+    <span class="page-citation">Παραπομπή: Σελίδα 162</span>
+  </div>
+</div>
+
+<div class="question-block" id="q90">
+  <div class="question-number">Ερώτηση 90</div>
+  <div class="question-text">Ποια δήλωση για τον συντελεστή θερμικής διαστολής/συστολής ενός εμφρακτικού υλικού είναι ορθή;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 90, true)">A) Πρέπει να είναι παραπλήσιος με εκείνον της αδαμαντίνης και της οδοντίνης, ώστε να αποφεύγονται τάσεις, προβλήματα αποκόλλησης και συσσώρευση τάσεων.</li>
+    <li class="option-item" onclick="checkAnswer(this, 90, false)">B) Πρέπει να είναι όσο το δυνατόν μεγαλύτερος, ώστε το υλικό να σφηνώνεται ισχυρότερα στην κοιλότητα.</li>
+    <li class="option-item" onclick="checkAnswer(this, 90, false)">C) Δεν επηρεάζεται από τη σύνθεση του υλικού αλλά μόνο από τη θερμοκρασία του δωματίου.</li>
+    <li class="option-item" onclick="checkAnswer(this, 90, false)">D) Έχει σημασία μόνο στα κεραμικά εργαστηρίου και όχι στις άμεσες αποκαταστάσεις.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Θερμοκρασιακές μεταβολές προκαλούν διαστασιακές μεταβολές. Αν ο συντελεστής του υλικού διαφέρει σημαντικά από των οδοντικών ιστών, αναπτύσσονται τάσεις και πιθανές αποκολλήσεις.
+    <span class="page-citation">Παραπομπή: Σελίδα 162</span>
+  </div>
+</div>
+
+<div class="question-block" id="q91">
+  <div class="question-number">Ερώτηση 91</div>
+  <div class="question-text">Ποια επιλογή περιγράφει ακριβέστερα την επιφανειακή αδρότητα ενός εμφρακτικού υλικού;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 91, false)">A) Είναι ανεξάρτητη από τη σύνθεση και εξαρτάται μόνο από το είδος της λυχνίας πολυμερισμού.</li>
+    <li class="option-item" onclick="checkAnswer(this, 91, true)">B) Εξαρτάται από την ικανότητα λείανσης του υλικού και από τα μηχανικά λειαντικά μέσα, ενώ ιδανικά πρέπει να προσεγγίζει την αδρότητα της αδαμαντίνης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 91, false)">C) Είναι επιθυμητό να είναι υψηλή για να κατακρατεί μικροβιακή πλάκα και να αυξάνει τη συγκόλληση.</li>
+    <li class="option-item" onclick="checkAnswer(this, 91, false)">D) Δεν επηρεάζει την αισθητική ή την κατακράτηση χρωστικών.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η επιφανειακή αδρότητα σχετίζεται με τη λείανση και τη στίλβωση. Ιδανικά, το υλικό πρέπει να έχει αδρότητα αντίστοιχη της αδαμαντίνης ώστε να περιορίζεται η κατακράτηση χρωστικών και μικροβιακής πλάκας.
+    <span class="page-citation">Παραπομπή: Σελίδες 162-163</span>
+  </div>
+</div>
+
+<div class="question-block" id="q92">
+  <div class="question-number">Ερώτηση 92</div>
+  <div class="question-text">Ποια σχέση μεταξύ λείας επιφάνειας και ανακλαστικότητας αποδίδεται σωστά;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 92, false)">A) Όσο πιο λεία είναι η επιφάνεια τόσο μειώνεται η κατοπτρική ανάκλαση και αυξάνεται η αδιαφάνεια.</li>
+    <li class="option-item" onclick="checkAnswer(this, 92, true)">B) Όσο πιο λεία είναι μια επιφάνεια τόσο αυξάνεται το ποσοστό ακτίνων που ανακλώνται με γωνία ίση προς την πρόσπτωση, βελτιώνοντας τη φυσική εμφάνιση της αποκατάστασης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 92, false)">C) Η λεία επιφάνεια επηρεάζει μόνο τη μηχανική αντοχή και όχι την οπτική συμπεριφορά.</li>
+    <li class="option-item" onclick="checkAnswer(this, 92, false)">D) Η ανακλαστικότητα αυξάνεται μόνο όταν η επιφάνεια έχει έντονη μικροτραχύτητα.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η λεία επιφάνεια αυξάνει την κανονική ανάκλαση, δηλαδή την ανάκλαση με γωνία ίση προς τη γωνία πρόσπτωσης, συμβάλλοντας σε φυσικότερη οπτική απόδοση.
+    <span class="page-citation">Παραπομπή: Σελίδα 163</span>
+  </div>
+</div>
+
+<div class="question-block" id="q93">
+  <div class="question-number">Ερώτηση 93</div>
+  <div class="question-text">Ποια δήλωση περιγράφει ακριβέστερα τη βιοαποδόμηση των εμφρακτικών υλικών;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 93, true)">A) Προκύπτει από παράγοντες όπως μηχανική αποτριβή, φόρτιση, θερμοκρασιακές εναλλαγές, απορρόφηση νερού, χημική αποδόμηση και ηλεκτροχημική διάβρωση στα μεταλλικά υλικά.</li>
+    <li class="option-item" onclick="checkAnswer(this, 93, false)">B) Αφορά μόνο τα κεραμικά υλικά, επειδή οι σύνθετες ρητίνες δεν επηρεάζονται από το στοματικό περιβάλλον.</li>
+    <li class="option-item" onclick="checkAnswer(this, 93, false)">C) Είναι πάντοτε επιφανειακό φαινόμενο χωρίς επίδραση στις ιδιότητες του υλικού.</li>
+    <li class="option-item" onclick="checkAnswer(this, 93, false)">D) Προκαλεί αποκλειστικά βελτίωση των ιδιοτήτων λόγω ωρίμανσης του υλικού.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Τα υλικά μέσα στο στόμα υφίστανται βιοαποδόμηση από μηχανικούς, θερμικούς, χημικούς και ηλεκτροχημικούς παράγοντες. Το τελικό αποτέλεσμα είναι υποβάθμιση ιδιοτήτων ή και θραύση/μεταβολή χρώματος.
+    <span class="page-citation">Παραπομπή: Σελίδες 163-164</span>
+  </div>
+</div>
+
+<div class="question-block" id="q94">
+  <div class="question-number">Ερώτηση 94</div>
+  <div class="question-text">Ποια περιγραφή της βιοσυμβατότητας ενός εμφρακτικού υλικού είναι ακριβέστερη;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 94, false)">A) Ένα υλικό θεωρείται βιοσυμβατό όταν προκαλεί έντονο αλλά αναστρέψιμο ερεθισμό στους ιστούς.</li>
+    <li class="option-item" onclick="checkAnswer(this, 94, true)">B) Το υλικό δεν πρέπει να είναι τοξικό ούτε να προκαλεί ερεθισμό ή βλάβες στους ιστούς με τους οποίους έρχεται σε άμεση ή έμμεση επαφή, καθώς συστατικά του μπορούν να μεταφερθούν μέσω οδοντινοσωληναρίων ή συστηματικά.</li>
+    <li class="option-item" onclick="checkAnswer(this, 94, false)">C) Η βιοσυμβατότητα αφορά μόνο τον πολφό και όχι τους μαλακούς ιστούς ή τη συστηματική κυκλοφορία.</li>
+    <li class="option-item" onclick="checkAnswer(this, 94, false)">D) Η βιοσυμβατότητα εξαρτάται αποκλειστικά από το χρώμα του υλικού και όχι από τη σύνθεση.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η βιοσυμβατότητα αφορά την απουσία τοξικότητας, ερεθισμού ή βλάβης στους ιστούς. Συστατικά των υλικών μπορούν να μεταφερθούν στον πολφό ή συστηματικά, άρα η αξιολόγηση είναι ουσιώδης.
+    <span class="page-citation">Παραπομπή: Σελίδα 164</span>
+  </div>
+</div>
+
+<div class="question-block" id="q95">
+  <div class="question-number">Ερώτηση 95</div>
+  <div class="question-text">Ποια δήλωση για την αντιμικροβιακή δράση των εμφρακτικών υλικών είναι ακριβέστερη;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 95, false)">A) Η αντιμικροβιακή δράση είναι υποχρεωτική ιδιότητα όλων των εμφρακτικών υλικών.</li>
+    <li class="option-item" onclick="checkAnswer(this, 95, true)">B) Δεν είναι απαραίτητη ιδιότητα, αλλά θεωρείται πλεονέκτημα εφόσον δεν συνοδεύεται από τοξικότητα ή υποβάθμιση άλλων χαρακτηριστικών.</li>
+    <li class="option-item" onclick="checkAnswer(this, 95, false)">C) Όταν υπάρχει αντιμικροβιακή δράση, δεν απαιτείται πλέον καμία μηχανική απομάκρυνση τερηδόνας.</li>
+    <li class="option-item" onclick="checkAnswer(this, 95, false)">D) Η αντιμικροβιακή δράση αφορά αποκλειστικά τα μεταλλικά υλικά λόγω ηλεκτροχημικής διάβρωσης.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η αντιμικροβιακή δράση μπορεί να είναι πλεονέκτημα, ιδίως έναντι επανατερηδονισμού, αλλά δεν πρέπει να επιτυγχάνεται εις βάρος της βιοσυμβατότητας ή άλλων βασικών ιδιοτήτων.
+    <span class="page-citation">Παραπομπή: Σελίδα 164</span>
+  </div>
+</div>
+
+<div class="question-block" id="q96">
+  <div class="question-number">Ερώτηση 96</div>
+  <div class="question-text">Ποια επιλογή αποδίδει σωστά την ανάγκη ακτινοσκιερότητας των εμφρακτικών υλικών;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 96, false)">A) Η ακτινοσκιερότητα είναι ανεπιθύμητη γιατί δυσχεραίνει πάντα τη διάγνωση τερηδόνας.</li>
+    <li class="option-item" onclick="checkAnswer(this, 96, true)">B) Ακτινοσκιερότητα ίση προς την οδοντίνη και ακόμη περισσότερο προς την αδαμαντίνη διευκολύνει την ακτινογραφική διάγνωση τερηδόνων ορίων και δευτερογενούς τερηδόνας.</li>
+    <li class="option-item" onclick="checkAnswer(this, 96, false)">C) Μόνο τα μεταλλικά υλικά μπορούν να είναι ακτινοσκιερά, ενώ πολυμερή και κονίες δεν τροποποιούνται προς αυτή την κατεύθυνση.</li>
+    <li class="option-item" onclick="checkAnswer(this, 96, false)">D) Η ακτινοσκιερότητα σχετίζεται αποκλειστικά με την επιφανειακή στιλπνότητα και όχι με τη σύνθεση του υλικού.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η επαρκής ακτινοσκιερότητα επιτρέπει την αναγνώριση ορίων αποκατάστασης και δευτερογενούς τερηδόνας. Σε πολυμερή και κονίες προστίθενται βαρέα μέταλλα, όπως Ba, La ή Sr, για ακτινοσκιερότητα.
+    <span class="page-citation">Παραπομπή: Σελίδα 164</span>
+  </div>
+</div>
+
+<div class="question-block" id="q97">
+  <div class="question-number">Ερώτηση 97</div>
+  <div class="question-text">Ποια δήλωση για τη συγκολλητική ικανότητα εμφρακτικού υλικού είναι ορθή;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 97, false)">A) Η συγκόλληση είναι αδιάφορη, επειδή όλα τα υλικά συγκρατούνται αποκλειστικά με μηχανική υποσκαφή.</li>
+    <li class="option-item" onclick="checkAnswer(this, 97, true)">B) Η συγκολλητική ικανότητα αφορά την ικανότητα του υλικού ή ενός ενδιάμεσου συστήματος να σχηματίζει δεσμούς με τους οδοντικούς ιστούς, βελτιώνοντας την πρόσφυση και τη συγκράτηση στην κοιλότητα.</li>
+    <li class="option-item" onclick="checkAnswer(this, 97, false)">C) Η συγκόλληση επιτυγχάνεται μόνο στα κεραμικά και ποτέ στις σύνθετες ρητίνες ή στις κονίες.</li>
+    <li class="option-item" onclick="checkAnswer(this, 97, false)">D) Όσο δυσκολότερη είναι η διαδικασία συγκόλλησης τόσο μικρότερη είναι η τεχνική ευαισθησία.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η συγκολλητική ικανότητα βελτιώνει την πρόσφυση και τη συγκράτηση. Μπορεί να είναι ιδιότητα του ίδιου υλικού ή να επιτυγχάνεται μέσω συγκολλητικών παραγόντων ή τεχνικών επεξεργασίας.
+    <span class="page-citation">Παραπομπή: Σελίδα 164</span>
+  </div>
+</div>
+
+<div class="question-block" id="q98">
+  <div class="question-number">Ερώτηση 98</div>
+  <div class="question-text">Ποιο στοιχείο σύνθεσης του γυαλιού των υαλοϊονομερών κονιών προστίθεται για την ακτινοσκιερότητα χωρίς να επηρεάζει τις άλλες ιδιότητες;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 98, false)">A) Αργίλιο.</li>
+    <li class="option-item" onclick="checkAnswer(this, 98, false)">B) Ασβέστιο.</li>
+    <li class="option-item" onclick="checkAnswer(this, 98, true)">C) Στρόντιο.</li>
+    <li class="option-item" onclick="checkAnswer(this, 98, false)">D) Τρυγικό οξύ.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Στον πίνακα σύνθεσης του γυαλιού των υαλοϊονομερών κονιών, το στρόντιο αναφέρεται ότι προστίθεται για ακτινοσκιερότητα χωρίς να επηρεάζει τις άλλες ιδιότητες.
+    <span class="page-citation">Παραπομπή: Σελίδα 181</span>
+  </div>
+</div>
+
+<div class="question-block" id="q99">
+  <div class="question-number">Ερώτηση 99</div>
+  <div class="question-text">Ποια δήλωση αποδίδει σωστά τον ρόλο του φθορίου στη σύνθεση του γυαλιού των υαλοϊονομερών κονιών;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 99, false)">A) Μειώνει τη διαφάνεια και την αντοχή και γι’ αυτό χρησιμοποιείται μόνο σε προσωρινές κονίες.</li>
+    <li class="option-item" onclick="checkAnswer(this, 99, true)">B) Αυξάνει τη διαφάνεια, την αντοχή και τον χρόνο εργασίας και προσδίδει στην κονία αντιτερηδονογόνες ιδιότητες.</li>
+    <li class="option-item" onclick="checkAnswer(this, 99, false)">C) Υποκαθιστά πλήρως το πολυκαρβοξυλικό οξύ στην αντίδραση πήξης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 99, false)">D) Χρησιμοποιείται αποκλειστικά ως χρωστική ουσία για να αυξήσει την αδιαφάνεια.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Το φθόριο στη σύσταση του γυαλιού αυξάνει τη διαφάνεια, την αντοχή και τον χρόνο εργασίας, ενώ παράλληλα προσδίδει αντιτερηδονογόνες ιδιότητες.
+    <span class="page-citation">Παραπομπή: Σελίδα 181</span>
+  </div>
+</div>
+
+<div class="question-block" id="q100">
+  <div class="question-number">Ερώτηση 100</div>
+  <div class="question-text">Ποια αντιστοίχιση τύπων υαλοϊονομερών κονιών είναι ακριβέστερη;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 100, true)">A) Τύπος I για συγκόλληση στεφανών/γεφυρών, ενθέτων και ορθοδοντικών αγκυλίων· Τύπος II για έμφραξη κοιλοτήτων· Τύπος III για προστασία πολφού και κάλυψη οπών/σχισμών.</li>
+    <li class="option-item" onclick="checkAnswer(this, 100, false)">B) Τύπος I για προστασία πολφού, Τύπος II για ορθοδοντική συγκόλληση και Τύπος III για στεφάνες.</li>
+    <li class="option-item" onclick="checkAnswer(this, 100, false)">C) Τύπος I μόνο για κεραμικές όψεις, Τύπος II μόνο για CAD/CAM αποκαταστάσεις και Τύπος III για σύνθετες ρητίνες.</li>
+    <li class="option-item" onclick="checkAnswer(this, 100, false)">D) Όλοι οι τύποι έχουν ακριβώς την ίδια κλινική ένδειξη και διαφέρουν μόνο στο χρώμα.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Οι υαλοϊονομερείς κονίες διακρίνονται σε τρεις τύπους ανάλογα με την κλινική χρήση: τύπος I για συγκολλήσεις, τύπος II για εμφράξεις και τύπος III για προστασία πολφού και κάλυψη οπών/σχισμών.
+    <span class="page-citation">Παραπομπή: Σελίδα 180</span>
+  </div>
+</div>
+  </div>
+  <script>
+    let score = 0;
+    const answered = new Set();
+    const total = 10;
+
+    document.getElementById("total").textContent = total;
+
+    function checkAnswer(element, questionNumber, isCorrect) {
+      if (answered.has(questionNumber)) return;
+
+      answered.add(questionNumber);
+
+      const questionBlock = document.getElementById("q" + questionNumber);
+      const options = questionBlock.querySelectorAll(".option-item");
+      const comment = questionBlock.querySelector(".academic-comment");
+
+      options.forEach(option => {
+        option.classList.add("disabled");
+      });
+
+      if (isCorrect) {
+        element.classList.add("correct");
+        score++;
+      } else {
+        element.classList.add("incorrect");
+        options.forEach(option => {
+          if (option.getAttribute("onclick").includes("true")) {
+            option.classList.add("correct");
+          }
+        });
+      }
+
+      comment.style.display = "block";
+      document.getElementById("score").textContent = score;
+    }
+
+    function resetQuiz() {
+      score = 0;
+      answered.clear();
+      document.getElementById("score").textContent = score;
+
+      document.querySelectorAll(".option-item").forEach(option => {
+        option.classList.remove("correct", "incorrect", "disabled");
+      });
+
+      document.querySelectorAll(".academic-comment").forEach(comment => {
+        comment.style.display = "none";
+      });
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  </script>
+</body>
+</html>
