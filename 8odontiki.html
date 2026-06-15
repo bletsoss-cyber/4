@@ -5,17 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Κουίζ Οδοντιατρικής - Πολλαπλής Επιλογής 1-10</title>
   <style>
-    :root {
-      --primary: #7b1f2a;
-      --primary-dark: #54131c;
-      --bg: #f6f2ed;
-      --card: #ffffff;
-      --text: #242424;
-      --muted: #666;
-      --border: #ddd;
-      --correct: #1f8f4d;
-      --wrong: #b3261e;
-      --comment-bg: #fff7e6;
+   :root {
+  --primary: #8fb7d9;
+  --primary-dark: #5f8fb8;
+  --bg: #1f2933;
+  --card: #263442;
+  --text: #e8edf2;
+  --muted: #b6c2cf;
+  --border: #4b6075;
+  --correct: #4ade80;
+  --wrong: #f87171;
+  --comment-bg: #2f3f4f;
     }
 
     * {
@@ -23,173 +23,306 @@
     }
 
     body {
-      margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.55;
-    }
 
-    header {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: white;
-      padding: 28px 18px;
-      text-align: center;
-      border-bottom: 5px solid #c8a46a;
-    }
+    margin: 0;
 
-    header h1 {
-      margin: 0;
-      font-size: 2rem;
-      letter-spacing: 0.4px;
-    }
+    font-family: Georgia, "Times New Roman", serif;
 
-    header p {
-      margin: 8px 0 0;
-      font-size: 1rem;
-      opacity: 0.95;
-    }
+    background: var(--bg);
 
-    .container {
-      width: min(980px, 94%);
-      margin: 26px auto 60px;
-    }
+    color: var(--text);
 
-    .score-panel {
-      position: static;
-      top: 0;
-      z-index: 10;
-      background: #fff;
-      border: 1px solid var(--border);
-      border-left: 6px solid var(--primary);
-      padding: 14px 18px;
-      margin-bottom: 22px;
-      border-radius: 10px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
+    line-height: 1.55;
 
-    .score-panel strong {
-      color: var(--primary);
-    }
+  }
 
-    button {
-      border: none;
-      background: var(--primary);
-      color: white;
-      padding: 10px 14px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-    }
+  header {
 
-    button:hover {
-      background: var(--primary-dark);
-    }
+    background: linear-gradient(135deg, #263442, #1a232d);
 
-    .question-block {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 22px;
-      margin: 20px 0;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.05);
-    }
+    color: #f1f5f9;
 
-    .question-number {
-      color: var(--primary);
-      font-weight: bold;
-      font-size: 1.1rem;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-    }
+    padding: 28px 18px;
 
-    .question-text {
-      font-size: 1.08rem;
-      font-weight: bold;
-      margin-bottom: 16px;
-    }
+    text-align: center;
 
-    .options-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
+    border-bottom: 5px solid var(--primary);
 
-    .option-item {
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 12px 14px;
-      margin: 10px 0;
-      cursor: pointer;
-      transition: 0.18s ease;
-      background: #fafafa;
-    }
+  }
 
-    .option-item:hover {
-      transform: translateX(4px);
-      border-color: var(--primary);
-      background: #fff;
-    }
+  header h1 {
 
-    .option-item.correct {
-      background: #eaf7ef;
-      border-color: var(--correct);
-      color: var(--correct);
-      font-weight: bold;
-    }
+    margin: 0;
 
-    .option-item.wrong {
-      background: #fdecea;
-      border-color: var(--wrong);
-      color: var(--wrong);
-      font-weight: bold;
-    }
+    font-size: 2rem;
 
-    .option-item.locked {
-      cursor: default;
-      transform: none;
-    }
+    letter-spacing: 0.4px;
 
-    .academic-comment {
-      display: none;
-      margin-top: 16px;
-      padding: 15px 16px;
-      border-left: 5px solid #c8a46a;
-      background: var(--comment-bg);
-      border-radius: 8px;
-      color: #2b2b2b;
-    }
+  }
 
-    .academic-comment strong {
-      color: var(--primary);
-    }
+  header p {
 
-    .page-citation {
-      display: block;
-      margin-top: 8px;
-      color: var(--muted);
-      font-style: italic;
-      font-size: 0.95rem;
-    }
+    margin: 8px 0 0;
 
-    .result {
-      font-size: 1.1rem;
-      font-weight: bold;
-    }
+    font-size: 1rem;
 
-    footer {
-      text-align: center;
-      color: var(--muted);
-      font-size: 0.9rem;
-      margin-top: 34px;
-    }
-  </style>
+    opacity: 0.95;
+
+    color: #dbe7f1;
+
+  }
+
+  .container {
+
+    width: min(980px, 94%);
+
+    margin: 26px auto 60px;
+
+  }
+
+  .score-panel {
+
+    position: static;
+
+    background: var(--card);
+
+    color: var(--text);
+
+    border: 1px solid var(--border);
+
+    border-left: 6px solid var(--primary);
+
+    padding: 14px 18px;
+
+    margin-bottom: 22px;
+
+    border-radius: 10px;
+
+    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 12px;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+  }
+
+  .score-panel strong {
+
+    color: var(--primary);
+
+  }
+
+  button {
+
+    border: none;
+
+    background: var(--primary-dark);
+
+    color: #ffffff;
+
+    padding: 10px 14px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+  }
+
+  button:hover {
+
+    background: var(--primary);
+
+    color: #10202e;
+
+  }
+
+  .question-block {
+
+    background: var(--card);
+
+    color: var(--text);
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    padding: 22px;
+
+    margin: 20px 0;
+
+    box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+
+  }
+
+  .question-number {
+
+    color: var(--primary);
+
+    font-weight: bold;
+
+    font-size: 1.1rem;
+
+    margin-bottom: 8px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.3px;
+
+  }
+
+  .question-text {
+
+    color: #f1f5f9;
+
+    font-size: 1.08rem;
+
+    font-weight: bold;
+
+    margin-bottom: 16px;
+
+  }
+
+  .options-list {
+
+    list-style: none;
+
+    padding: 0;
+
+    margin: 0;
+
+  }
+
+  .option-item {
+
+    background: #324558;
+
+    color: #f1f5f9;
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    padding: 12px 14px;
+
+    margin: 10px 0;
+
+    cursor: pointer;
+
+    transition: 0.18s ease;
+
+  }
+
+  .option-item:hover {
+
+    transform: translateX(4px);
+
+    background: #3b5066;
+
+    border-color: var(--primary);
+
+  }
+
+  .option-item.correct {
+
+    background: #1f5f3b;
+
+    border-color: var(--correct);
+
+    color: #eafff0;
+
+    font-weight: bold;
+
+  }
+
+  .option-item.wrong {
+
+    background: #6b2b2b;
+
+    border-color: var(--wrong);
+
+    color: #fff1f1;
+
+    font-weight: bold;
+
+  }
+
+  .option-item.locked {
+
+    cursor: default;
+
+    transform: none;
+
+  }
+
+  .academic-comment {
+
+    display: none;
+
+    margin-top: 16px;
+
+    padding: 15px 16px;
+
+    background: var(--comment-bg);
+
+    color: #f3f4f6;
+
+    border-left: 5px solid #d4a017;
+
+    border-radius: 8px;
+
+  }
+
+  .academic-comment strong {
+
+    color: #f5d98b;
+
+  }
+
+  .page-citation {
+
+    display: block;
+
+    margin-top: 8px;
+
+    color: var(--muted);
+
+    font-style: italic;
+
+    font-size: 0.95rem;
+
+  }
+
+  .result {
+
+    color: var(--text);
+
+    font-size: 1.1rem;
+
+    font-weight: bold;
+
+  }
+
+  footer {
+
+    text-align: center;
+
+    color: var(--muted);
+
+    font-size: 0.9rem;
+
+    margin-top: 34px;
+
+  }
+
+</style>
 </head>
 
 <body>
