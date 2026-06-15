@@ -1,0 +1,1734 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Κουίζ Οδοντιατρικής - Πολλαπλής Επιλογής 1-10</title>
+  <style>
+    :root {
+      --primary: #7b1f2a;
+      --primary-dark: #54131c;
+      --bg: #f6f2ed;
+      --card: #ffffff;
+      --text: #242424;
+      --muted: #666;
+      --border: #ddd;
+      --correct: #1f8f4d;
+      --wrong: #b3261e;
+      --comment-bg: #fff7e6;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      padding: 28px 18px;
+      text-align: center;
+      border-bottom: 5px solid #c8a46a;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+      letter-spacing: 0.4px;
+    }
+
+    header p {
+      margin: 8px 0 0;
+      font-size: 1rem;
+      opacity: 0.95;
+    }
+
+    .container {
+      width: min(980px, 94%);
+      margin: 26px auto 60px;
+    }
+
+    .score-panel {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-left: 6px solid var(--primary);
+      padding: 14px 18px;
+      margin-bottom: 22px;
+      border-radius: 10px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .score-panel strong {
+      color: var(--primary);
+    }
+
+    button {
+      border: none;
+      background: var(--primary);
+      color: white;
+      padding: 10px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background: var(--primary-dark);
+    }
+
+    .question-block {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px;
+      margin: 20px 0;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+    }
+
+    .question-number {
+      color: var(--primary);
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .question-text {
+      font-size: 1.08rem;
+      font-weight: bold;
+      margin-bottom: 16px;
+    }
+
+    .options-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .option-item {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin: 10px 0;
+      cursor: pointer;
+      transition: 0.18s ease;
+      background: #fafafa;
+    }
+
+    .option-item:hover {
+      transform: translateX(4px);
+      border-color: var(--primary);
+      background: #fff;
+    }
+
+    .option-item.correct {
+      background: #eaf7ef;
+      border-color: var(--correct);
+      color: var(--correct);
+      font-weight: bold;
+    }
+
+    .option-item.wrong {
+      background: #fdecea;
+      border-color: var(--wrong);
+      color: var(--wrong);
+      font-weight: bold;
+    }
+
+    .option-item.locked {
+      cursor: default;
+      transform: none;
+    }
+
+    .academic-comment {
+      display: none;
+      margin-top: 16px;
+      padding: 15px 16px;
+      border-left: 5px solid #c8a46a;
+      background: var(--comment-bg);
+      border-radius: 8px;
+      color: #2b2b2b;
+    }
+
+    .academic-comment strong {
+      color: var(--primary);
+    }
+
+    .page-citation {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    .result {
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-top: 34px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Κουίζ Οδοντιατρικής</h1>
+    <p>Πολφός και Αποκαταστάσεις — Ερωτήσεις Πολλαπλής Επιλογής 1-50</p>
+  </header>
+
+  <main class="container">
+    <div class="score-panel">
+      <div class="result">
+        Σκορ: <strong id="score">0</strong> / <strong id="answered">0</strong>
+        <span id="total">σε 10 ερωτήσεις</span>
+      </div>
+      <button onclick="resetQuiz()">Επαναφορά κουίζ</button>
+    </div>
+
+    <div class="question-block" id="q1">
+      <div class="question-number">Ερώτηση 1</div>
+      <div class="question-text">
+        Ποιος συνδυασμός ιδιοτήτων περιγράφει ορθότερα ένα υλικό κατάλληλο για άμεση κάλυψη πολφού;
+      </div>
+      <ul class="options-list">
+        <li class="option-item" onclick="checkAnswer(this, 1, false)">A) Να είναι ελαφρώς τοξικό ώστε να διεγείρει έντονη φλεγμονώδη αντίδραση και ταχεία οδοντινογένεση.</li>
+        <li class="option-item" onclick="checkAnswer(this, 1, true)">B) Να μην είναι τοξικό, να προάγει επούλωση χωρίς έντονη φλεγμονή, να ευνοεί γέφυρα οδοντίνης ικανού πάχους και να διαθέτει αντιμικροβιακές ιδιότητες.</li>
+        <li class="option-item" onclick="checkAnswer(this, 1, false)">C) Να διαλύεται στα ιστικά υγρά ώστε να αντικαθίσταται γρήγορα από νεοσχηματισμένη οδοντίνη.</li>
+        <li class="option-item" onclick="checkAnswer(this, 1, false)">D) Να παρεμποδίζει τον πολυμερισμό των σύνθετων ρητινών ώστε να προστατεύεται ο πολφός από συστολή πολυμερισμού.</li>
+      </ul>
+      <div class="academic-comment">
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Για άμεση κάλυψη πολφού απαιτούνται βιοσυμβατότητα, ήπια επουλωτική απόκριση, σχηματισμός συμπαγούς γέφυρας οδοντίνης, αντιμικροβιακή δράση, δυνατότητα συγκόλλησης, αδιαλυτότητα και εύκολος χειρισμός με μικρό χρόνο πήξης.
+        <span class="page-citation">Παραπομπή: Σελίδα 276</span>
+      </div>
+    </div>
+
+    <div class="question-block" id="q2">
+      <div class="question-number">Ερώτηση 2</div>
+      <div class="question-text">
+        Στα χημικώς σκληρυνόμενα σκευάσματα υδροξειδίου του ασβεστίου, ποια περιγραφή της σύστασης βάσης-καταλύτη είναι η ακριβέστερη;
+      </div>
+      <ul class="options-list">
+        <li class="option-item" onclick="checkAnswer(this, 2, true)">A) Η βάση περιέχει περίπου 50% κ.β. Ca(OH)<sub>2</sub> και 10% κ.β. ZnO, ενώ ο καταλύτης περιέχει περίπου 40% κ.β. γλυκοσαλικυλικό νάτριο και 10% κ.β. TiO<sub>2</sub>.</li>
+        <li class="option-item" onclick="checkAnswer(this, 2, false)">B) Η βάση περιέχει κυρίως οξείδιο βισμουθίου, ενώ ο καταλύτης περιέχει τριασβέστιο πυριτικό.</li>
+        <li class="option-item" onclick="checkAnswer(this, 2, false)">C) Η βάση περιέχει HEMA και φωτοκαταλύτη, ενώ ο καταλύτης είναι υδατικό διάλυμα πολυακρυλικού οξέος.</li>
+        <li class="option-item" onclick="checkAnswer(this, 2, false)">D) Η βάση και ο καταλύτης περιέχουν κυρίως ζιρκόνιο, χλωριούχο ασβέστιο και υδατοδιαλυτό πολυμερές.</li>
+      </ul>
+      <div class="academic-comment">
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Τα χημικώς σκληρυνόμενα σκευάσματα Ca(OH)<sub>2</sub> φέρονται σε δύο σωληνάρια, βάση και καταλύτη, τα οποία αναμειγνύονται σε ίσες ποσότητες. Η σύσταση αυτή δεν πρέπει να συγχέεται με MTA, Biodentine ή υαλοϊονομερείς κονίες.
+        <span class="page-citation">Παραπομπή: Σελίδα 276</span>
+      </div>
+    </div>
+
+    <div class="question-block" id="q3">
+      <div class="question-number">Ερώτηση 3</div>
+      <div class="question-text">
+        Ποια πρόταση εξηγεί γιατί το υδροξείδιο του ασβεστίου χρειάζεται συχνά κάλυψη με κονία πριν από το εμφρακτικό υλικό;
+      </div>
+      <ul class="options-list">
+        <li class="option-item" onclick="checkAnswer(this, 3, false)">A) Επειδή έχει υψηλή αντοχή σε θλίψη και απαιτείται η κονία μόνο για αισθητική προσαρμογή.</li>
+        <li class="option-item" onclick="checkAnswer(this, 3, false)">B) Επειδή συγκολλάται ισχυρά στην οδοντίνη και χρειάζεται διαχωριστικό για να μη δεσμευτεί μόνιμα.</li>
+        <li class="option-item" onclick="checkAnswer(this, 3, true)">C) Επειδή έχει φτωχές φυσικομηχανικές ιδιότητες, διαλύεται στο νερό και σε ασθενή οξέα και δεν συγκολλάται στην οδοντίνη.</li>
+        <li class="option-item" onclick="checkAnswer(this, 3, false)">D) Επειδή αναστέλλει πλήρως την αλκαλική φωσφατάση και συνεπώς πρέπει να απομονωθεί από τον πολφό.</li>
+      </ul>
+      <div class="academic-comment">
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Η αδυναμία του Ca(OH)<sub>2</sub> δεν είναι η βιολογική του δράση αλλά η μηχανική του συμπεριφορά: χαμηλή αντοχή, διαλυτότητα και απουσία συγκόλλησης. Γι’ αυτό απαιτείται προστασία με κονία πριν από την τελική αποκατάσταση.
+        <span class="page-citation">Παραπομπή: Σελίδα 277</span>
+      </div>
+    </div>
+
+    <div class="question-block" id="q4">
+      <div class="question-number">Ερώτηση 4</div>
+      <div class="question-text">
+        Ποια βιολογική επίδραση του υδροξειδίου του ασβεστίου είναι ορθή;
+      </div>
+      <ul class="options-list">
+        <li class="option-item" onclick="checkAnswer(this, 4, false)">A) Προκαλεί όξινο περιβάλλον pH 5-6, το οποίο ενεργοποιεί άμεσα την παραγωγή πρωτογενούς οδοντίνης.</li>
+        <li class="option-item" onclick="checkAnswer(this, 4, true)">B) Λόγω έντονα αλκαλικού pH μπορεί να προκαλέσει επιφανειακή νέκρωση περίπου 2 mm, ενώ η αντιμικροβιακή του δράση μειώνεται με τον χρόνο.</li>
+        <li class="option-item" onclick="checkAnswer(this, 4, false)">C) Δημιουργεί πάντοτε ομοιόμορφη και συμπαγή γέφυρα οδοντίνης χωρίς πόρους.</li>
+        <li class="option-item" onclick="checkAnswer(this, 4, false)">D) Η αντιμικροβιακή του δράση οφείλεται κυρίως στο φθόριο που απελευθερώνει.</li>
+      </ul>
+      <div class="academic-comment">
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Το Ca(OH)<sub>2</sub> έχει pH περίπου 11-12. Η αρχική νέκρωση συνοδεύεται από φλεγμονώδεις μεσολαβητές και προσέλκυση προγονικών κυττάρων, αλλά η παραγόμενη γέφυρα μπορεί να είναι ατελής και πορώδης.
+        <span class="page-citation">Παραπομπή: Σελίδες 277-278</span>
+      </div>
+    </div>
+
+    <div class="question-block" id="q5">
+      <div class="question-number">Ερώτηση 5</div>
+      <div class="question-text">
+        Ποια δήλωση για το MTA είναι ακριβής;
+      </div>
+      <ul class="options-list">
+        <li class="option-item" onclick="checkAnswer(this, 5, false)">A) Είναι φωτοπολυμεριζόμενη ρητίνη που πήζει με ελεύθερες ρίζες και περιέχει HEMA.</li>
+        <li class="option-item" onclick="checkAnswer(this, 5, false)">B) Είναι υλικό με βάση το υδροξείδιο του ασβεστίου και κύριο μειονέκτημα τον χρόνο πήξης 2-3 λεπτών.</li>
+        <li class="option-item" onclick="checkAnswer(this, 5, false)">C) Είναι υαλοϊονομερής κονία με βασική αντίδραση οξέος-βάσης μεταξύ πολυακρυλικού οξέος και αργιλοπυριτικής υάλου.</li>
+        <li class="option-item" onclick="checkAnswer(this, 5, true)">D) Είναι βιοενεργή κονία τύπου σκόνης-υγρού, με βάση κονία Portland και οξείδιο βισμουθίου για ακτινοσκιερότητα.</li>
+      </ul>
+      <div class="academic-comment">
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Το MTA φέρεται ως σκόνη-υγρό. Η σκόνη είναι κυρίως κονία Portland με οξείδιο βισμουθίου, ενώ η αντίδραση πήξης περιλαμβάνει ενυδάτωση πυριτικών ενώσεων και παραγωγή Ca(OH)<sub>2</sub>.
+        <span class="page-citation">Παραπομπή: Σελίδα 278</span>
+      </div>
+    </div>
+
+    <div class="question-block" id="q6">
+      <div class="question-number">Ερώτηση 6</div>
+      <div class="question-text">
+        Σε σύγκριση με το υδροξείδιο του ασβεστίου, ποιο προφίλ χαρακτηρίζει το MTA στην άμεση κάλυψη πολφού;
+      </div>
+      <ul class="options-list">
+        <li class="option-item" onclick="checkAnswer(this, 6, false)">A) Μικρότερη και πιο πορώδης γέφυρα οδοντίνης, αλλά σημαντικά μικρότερος χρόνος πήξης.</li>
+        <li class="option-item" onclick="checkAnswer(this, 6, false)">B) Μεγαλύτερη ακτινοδιαφάνεια, χαμηλότερο κόστος και πλήρης απουσία αποχρωματισμού.</li>
+        <li class="option-item" onclick="checkAnswer(this, 6, true)">C) Μεγαλύτερη και πιο ομοιόμορφη γέφυρα οδοντίνης, συχνότερα χωρίς πόρους, αλλά με μειονεκτήματα όπως δύσκολη τοποθέτηση, κόστος, μεγάλο χρόνο πήξης και πιθανό αποχρωματισμό.</li>
+        <li class="option-item" onclick="checkAnswer(this, 6, false)">D) Υψηλή κυτταροτοξικότητα και ισχυρότερη φλεγμονή από το Ca(OH)<sub>2</sub>, αλλά καλύτερη συγκόλληση.</li>
+      </ul>
+      <div class="academic-comment">
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Το MTA υπερτερεί βιολογικά ως προς τη γέφυρα οδοντίνης, η οποία αναφέρεται μεγαλύτερη και πιο ομοιόμορφη. Δεν είναι όμως «εύκολο» υλικό: η αμμώδης πάστα, το κόστος, ο χρόνος πήξης και ο αποχρωματισμός είναι κρίσιμα μειονεκτήματα.
+        <span class="page-citation">Παραπομπή: Σελίδες 278-279</span>
+      </div>
+    </div>
+
+    <div class="question-block" id="q7">
+      <div class="question-number">Ερώτηση 7</div>
+      <div class="question-text">
+        Ποια επιλογή περιγράφει ορθά τη σύσταση και κλινική πήξη του Biodentine;
+      </div>
+      <ul class="options-list">
+        <li class="option-item" onclick="checkAnswer(this, 7, true)">A) Φέρεται ως σκόνη-υγρό· η σκόνη βασίζεται κυρίως σε Ca<sub>3</sub>(SiO<sub>2</sub>), ενώ το υγρό περιέχει νερό, CaCl<sub>2</sub> και υδρόφιλο πολυμερές· ο κλινικός χρόνος πήξης είναι περίπου 9-12 λεπτά.</li>
+        <li class="option-item" onclick="checkAnswer(this, 7, false)">B) Φέρεται ως δύο πάστες βάσης-καταλύτη με κύρια συστατικά Ca(OH)<sub>2</sub> και γλυκοσαλικυλικό νάτριο· πήζει σε 2-3 λεπτά.</li>
+        <li class="option-item" onclick="checkAnswer(this, 7, false)">C) Φέρεται ως υαλοϊονομερής κονία, με υγρό πολυακρυλικού οξέος και κύρια βιολογική δράση το φθόριο.</li>
+        <li class="option-item" onclick="checkAnswer(this, 7, false)">D) Φέρεται ως φωτοπολυμεριζόμενη ρητίνη με Bis-GMA, TEGDMA και HEMA.</li>
+      </ul>
+      <div class="academic-comment">
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Το Biodentine είναι βιοενεργή κονία που δημιουργήθηκε ως απάντηση στα μειονεκτήματα του MTA. Έχει κλινικά μεγάλο χρόνο πήξης 9-12 λεπτών, όχι όμως τις τρεις ώρες του MTA.
+        <span class="page-citation">Παραπομπή: Σελίδα 279</span>
+      </div>
+    </div>
+
+    <div class="question-block" id="q8">
+      <div class="question-number">Ερώτηση 8</div>
+      <div class="question-text">
+        Ποια δήλωση αποδίδει σωστά τη βιολογική δράση και τα μειονεκτήματα του Biodentine;
+      </div>
+      <ul class="options-list">
+        <li class="option-item" onclick="checkAnswer(this, 8, false)">A) Δεν απελευθερώνει ιόντα ασβεστίου και γι’ αυτό δεν σχετίζεται με σχηματισμό υδροξυαπατίτη.</li>
+        <li class="option-item" onclick="checkAnswer(this, 8, false)">B) Έχει μεγαλύτερη ακτινοσκιερότητα από το MTA και χαμηλότερο κόστος από το Ca(OH)<sub>2</sub>.</li>
+        <li class="option-item" onclick="checkAnswer(this, 8, false)">C) Προκαλεί εντονότερη φλεγμονώδη αντίδραση από το Ca(OH)<sub>2</sub>, αλλά σχηματίζει γέφυρα οδοντίνης μόνο σε μικρό ποσοστό περιπτώσεων.</li>
+        <li class="option-item" onclick="checkAnswer(this, 8, true)">D) Απελευθερώνει ιόντα ασβεστίου, προάγει σχηματισμό υδροξυαπατίτη και τριτογενούς οδοντίνης, ενώ μειονεκτεί κυρίως ως προς τη μικρότερη ακτινοσκιερότητα από το MTA και το αυξημένο κόστος σε σχέση με το Ca(OH)<sub>2</sub>.</li>
+      </ul>
+      <div class="academic-comment">
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Το Biodentine έχει χαμηλή κυτταροτοξικότητα, μικρότερη φλεγμονώδη αντίδραση από το Ca(OH)<sub>2</sub> και σχηματίζει γέφυρα οδοντίνης σε υψηλό ποσοστό, συχνά 70-90%. Δεν είναι όμως ιδανικό σε ακτινοσκιερότητα και κόστος.
+        <span class="page-citation">Παραπομπή: Σελίδες 279-280</span>
+      </div>
+    </div>
+
+    <div class="question-block" id="q9">
+      <div class="question-number">Ερώτηση 9</div>
+      <div class="question-text">
+        Ποια πρόταση για τις χημικώς σκληρυνόμενες υαλοϊονομερείς κονίες είναι ορθή;
+      </div>
+      <ul class="options-list">
+        <li class="option-item" onclick="checkAnswer(this, 9, false)">A) Η πήξη τους βασίζεται αποκλειστικά σε φωτοπολυμερισμό ελευθέρων ριζών και ολοκληρώνεται σε περίπου 1 λεπτό.</li>
+        <li class="option-item" onclick="checkAnswer(this, 9, true)">B) Η πήξη τους βασίζεται σε αντίδραση οξέος-βάσης μεταξύ σκόνης υάλου και υγρού πολυακρυλικού οξέος, με χρόνο πήξης περίπου 3-4 λεπτά και ευαισθησία στην υγρασία κατά την πήξη.</li>
+        <li class="option-item" onclick="checkAnswer(this, 9, false)">C) Δεν συγκολλώνται στους οδοντικούς ιστούς και γι’ αυτό δεν χρησιμοποιούνται ως ουδέτερα στρώματα.</li>
+        <li class="option-item" onclick="checkAnswer(this, 9, false)">D) Δεν παρουσιάζουν καμία ερεθιστική ή κυτταροτοξική δράση στα κύτταρα του πολφού.</li>
+      </ul>
+      <div class="academic-comment">
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Οι υαλοϊονομερείς κονίες συνδέονται με αντίδραση οξέος-βάσης, έχουν χημική πρόσφυση στους οδοντικούς ιστούς και απελευθερώνουν φθόριο, αλλά είναι ευαίσθητες στην υγρασία κατά την πήξη και μπορεί να αποδομηθούν από παρατεταμένη εφαρμογή οξέος.
+        <span class="page-citation">Παραπομπή: Σελίδες 280-281</span>
+      </div>
+    </div>
+
+    <div class="question-block" id="q10">
+      <div class="question-number">Ερώτηση 10</div>
+      <div class="question-text">
+        Γιατί τα συγκολλητικά συστήματα δεν θεωρούνται κατάλληλα ως υλικά άμεσης κάλυψης πολφού;
+      </div>
+      <ul class="options-list">
+        <li class="option-item" onclick="checkAnswer(this, 10, true)">A) Διότι όταν τοποθετηθούν σε άμεσα εκτεθειμένο πολφό ή σε πολύ μικρό πάχος οδοντίνης είναι κυτταροτοξικά, με ατελή πολυμερισμό, διάχυση μονομερών και πιθανή εκτεταμένη φλεγμονή ή ατελή γέφυρα οδοντίνης.</li>
+        <li class="option-item" onclick="checkAnswer(this, 10, false)">B) Διότι το 37% ορθοφωσφορικό οξύ μειώνει τη διαπερατότητα της οδοντίνης και άρα παρεμποδίζει τη δράση των μονομερών.</li>
+        <li class="option-item" onclick="checkAnswer(this, 10, false)">C) Διότι τα μονομερή Bis-GMA, TEGDMA και HEMA διεγείρουν πάντοτε την κυτταρική διαφοροποίηση προς κύτταρα που παράγουν οδοντίνη.</li>
+        <li class="option-item" onclick="checkAnswer(this, 10, false)">D) Διότι η πλήρης αφαίρεση της ζώνης οδοντικών ξεσμάτων μειώνει την κυτταροτοξικότητα των συγκολλητικών παραγόντων.</li>
+      </ul>
+      <div class="academic-comment">
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Η άμεση εφαρμογή συγκολλητικών στον πολφό είναι προβληματική λόγω κυτταροτοξικότητας, ατελούς πολυμερισμού και διάχυσης μονομερών. Η εφαρμογή ορθοφωσφορικού οξέος 35-37% μπορεί να αυξήσει τη διαπερατότητα της οδοντίνης και τη διάχυση μονομερών.
+        <span class="page-citation">Παραπομπή: Σελίδα 282</span>
+      </div>
+    </div>
+
+    <div class="question-block" id="q11">
+
+      <div class="question-number">Ερώτηση 11</div>
+
+      <div class="question-text">
+
+        Κατά την τοποθέτηση αποκατάστασης, ποιοι ερεθισμοί μπορούν δυνητικά να φθάσουν στον πολφό;
+
+      </div>
+
+      <ul class="options-list">
+
+        <li class="option-item" onclick="checkAnswer(this, 11, false)">A) Μόνο θερμικά ερεθίσματα από την αποκοπή των οδοντικών ιστών.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 11, true)">B) Μηχανικές δυνάμεις, θερμότητα, χημικά και μικροβιακά στοιχεία, τόσο κατά τα κλινικά στάδια όσο και κατά τη λειτουργία της αποκατάστασης.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 11, false)">C) Μόνο μικροβιακοί παράγοντες μετά την τελική συγκόλληση.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 11, false)">D) Μόνο ηλεκτρικά ερεθίσματα από μεταλλικές αποκαταστάσεις.</li>
+
+      </ul>
+
+      <div class="academic-comment">
+
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Ο πολφός δέχεται ερεθίσματα τόσο κατά την παρασκευή και τοποθέτηση του εμφρακτικού υλικού όσο και κατά τη λειτουργία της αποκατάστασης. Η μεταφορά γίνεται μέσω της οδοντίνης και μπορεί να αφορά μηχανικές, θερμικές, χημικές και μικροβιακές επιδράσεις.
+
+        <span class="page-citation">Παραπομπή: Σελίδα 263</span>
+
+      </div>
+
+    </div>
+
+    <div class="question-block" id="q12">
+
+      <div class="question-number">Ερώτηση 12</div>
+
+      <div class="question-text">
+
+        Ποια είναι τα βασικά ανατομικά στοιχεία του πολφού όπως περιγράφονται στο σύμπλεγμα πολφού-οδοντίνης;
+
+      </div>
+
+      <ul class="options-list">
+
+        <li class="option-item" onclick="checkAnswer(this, 12, true)">A) Η οδοντινοβλαστική στιβάδα, η ακύτταρη ζώνη του Weil και η ζώνη ινοβλαστών με τα αμυντικά κύτταρα.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 12, false)">B) Η αδαμαντίνη, η οστεΐνη και ο περιοδοντικός σύνδεσμος.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 12, false)">C) Η προ-οδοντίνη, η ώριμη οδοντίνη και η πρωτογενής οδοντίνη.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 12, false)">D) Οι οδοντινοσωληνίσκοι, η μεσοσωληναριακή οδοντίνη και η περισωληναριακή οδοντίνη.</li>
+
+      </ul>
+
+      <div class="academic-comment">
+
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Η διάκριση αυτή είναι κρίσιμη. Δεν περιγράφει την οδοντίνη ως σκληρό ιστό, αλλά τα βασικά ιστολογικά στοιχεία του πολφού που συμμετέχουν στη θρέψη, την άμυνα και την παραγωγή οδοντίνης.
+
+        <span class="page-citation">Παραπομπή: Σελίδα 264</span>
+
+      </div>
+
+    </div>
+
+    <div class="question-block" id="q13">
+
+      <div class="question-number">Ερώτηση 13</div>
+
+      <div class="question-text">
+
+        Ποια δήλωση για τους οδοντινοβλάστες είναι ακριβής;
+
+      </div>
+
+      <ul class="options-list">
+
+        <li class="option-item" onclick="checkAnswer(this, 13, false)">A) Είναι κύτταρα υψηλής αναγεννητικής ικανότητας και πολλαπλασιάζονται εύκολα μετά από κάθε βλάβη.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 13, true)">B) Τα κυτταρικά τους σώματα βρίσκονται στην περιφέρεια του πολφού και οι αποφυάδες τους εκτείνονται στους οδοντινοσωληνίσκους, ενώ κύρια λειτουργία τους είναι η συνεχής παραγωγή οδοντίνης.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 13, false)">C) Βρίσκονται αποκλειστικά στη ζώνη ινοβλαστών και δεν σχετίζονται με τη διαπερατότητα της οδοντίνης.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 13, false)">D) Παράγουν κυρίως αδαμαντίνη και όχι οδοντίνη.</li>
+
+      </ul>
+
+      <div class="academic-comment">
+
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Οι οδοντινοβλάστες είναι μετα-μιτωτικά κύτταρα. Δεν πρέπει να θεωρείται ότι αναγεννώνται εύκολα. Με την ηλικία και τα βλαπτικά ερεθίσματα μειώνονται, με συνέπεια μείωση της παραγωγής οδοντίνης.
+
+        <span class="page-citation">Παραπομπή: Σελίδα 264</span>
+
+      </div>
+
+    </div>
+
+    <div class="question-block" id="q14">
+
+      <div class="question-number">Ερώτηση 14</div>
+
+      <div class="question-text">
+
+        Ποια μεταβολή του πολφού με την ηλικία είναι ορθή;
+
+      </div>
+
+      <ul class="options-list">
+
+        <li class="option-item" onclick="checkAnswer(this, 14, false)">A) Το μέγεθος του πολφού και ο κυτταρικός αριθμός αυξάνονται, ενώ οι ίνες μειώνονται.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 14, false)">B) Τα πολφικά κέρατα γίνονται εντονότερα και αυξάνεται η ευαισθησία σε όλα τα ερεθίσματα.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 14, true)">C) Το μέγεθος του πολφού και ο κυτταρικός αριθμός μειώνονται, οι ίνες αυξάνονται και η απόκριση επηρεάζεται από τον σχηματισμό σκληρωτικής οδοντίνης και νεκρών ζωνών.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 14, false)">D) Η παραγωγή οδοντίνης παραμένει σταθερή ανεξάρτητα από την ηλικία και τα ερεθίσματα.</li>
+
+      </ul>
+
+      <div class="academic-comment">
+
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Με την ηλικία μειώνεται ο όγκος του πολφού και η κυτταρικότητά του, ενώ αυξάνεται το ινώδες στοιχείο. Αυτό έχει άμεση σημασία στην αμυντική και επανορθωτική ικανότητα του πολφού.
+
+        <span class="page-citation">Παραπομπή: Σελίδα 265</span>
+
+      </div>
+
+    </div>
+
+    <div class="question-block" id="q15">
+
+      <div class="question-number">Ερώτηση 15</div>
+
+      <div class="question-text">
+
+        Ποια περιγραφή της ακύτταρης ζώνης του Weil είναι ορθότερη;
+
+      </div>
+
+      <ul class="options-list">
+
+        <li class="option-item" onclick="checkAnswer(this, 15, true)">A) Βρίσκεται αμέσως κάτω από την οδοντινοβλαστική στιβάδα και περιέχει νευρικές απολήξεις, τριχοειδή αγγεία, δενδριτικά κύτταρα και θεμέλια ουσία.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 15, false)">B) Αποτελεί την κύρια περιοχή παραγωγής πρωτογενούς οδοντίνης από ινοβλάστες.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 15, false)">C) Δεν περιέχει αγγεία ή νευρικές απολήξεις και γι’ αυτό δεν συμμετέχει στην πολφική διέγερση.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 15, false)">D) Είναι η περιοχή όπου εντοπίζεται αποκλειστικά η οστεΐνη του δοντιού.</li>
+
+      </ul>
+
+      <div class="academic-comment">
+
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Η ονομασία «ακύτταρη» δεν πρέπει να οδηγήσει στο λάθος συμπέρασμα ότι η περιοχή είναι βιολογικά αδρανής. Περιέχει κρίσιμα στοιχεία για θρέψη, νεύρωση και άμυνα.
+
+        <span class="page-citation">Παραπομπή: Σελίδα 264</span>
+
+      </div>
+
+    </div>
+
+    <div class="question-block" id="q16">
+
+      <div class="question-number">Ερώτηση 16</div>
+
+      <div class="question-text">
+
+        Ποια πρόταση για την προ-οδοντίνη είναι σωστή;
+
+      </div>
+
+      <ul class="options-list">
+
+        <li class="option-item" onclick="checkAnswer(this, 16, false)">A) Είναι πλήρως μεταλλικοποιημένη και αποτελεί το μεγαλύτερο τμήμα της αδαμαντίνης.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 16, true)">B) Είναι αρχικά μη μεταλλικοποιημένο κολλαγονώδες στρώμα μεταξύ ώριμης οδοντίνης και οδοντινοβλαστικής στιβάδας, το οποίο στη συνέχεια μεταλλικοποιείται σε ώριμη οδοντίνη.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 16, false)">C) Παράγεται αποκλειστικά από αμυντικά κύτταρα του πολφού μετά από μικροβιακή διείσδυση.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 16, false)">D) Είναι παθολογικός ιστός που εμφανίζεται μόνο σε νεκρωμένο πολφό.</li>
+
+      </ul>
+
+      <div class="academic-comment">
+
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Η οδοντίνη παράγεται από τους οδοντινοβλάστες αρχικά ως προ-οδοντίνη. Η προ-οδοντίνη είναι τοπογραφικά μεταξύ ώριμης οδοντίνης και οδοντινοβλαστικής στιβάδας.
+
+        <span class="page-citation">Παραπομπή: Σελίδα 266</span>
+
+      </div>
+
+    </div>
+
+    <div class="question-block" id="q17">
+
+      <div class="question-number">Ερώτηση 17</div>
+
+      <div class="question-text">
+
+        Ποια αντιστοίχιση τύπου οδοντίνης και χρόνου/αιτίας σχηματισμού είναι σωστή;
+
+      </div>
+
+      <ul class="options-list">
+
+        <li class="option-item" onclick="checkAnswer(this, 17, true)">A) Πρωτογενής πριν από την ανατολή, δευτερογενής μετά την ανατολή ως φυσιολογική διαδικασία, τριτογενής ως απόκριση σε ερεθίσματα.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 17, false)">B) Πρωτογενής μετά από τερηδόνα, δευτερογενής πριν από την ανατολή, τριτογενής μόνο κατά την εμβρυϊκή ανάπτυξη.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 17, false)">C) Πρωτογενής μόνο στους γομφίους, δευτερογενής μόνο στους τομείς, τριτογενής μόνο σε νεκρά δόντια.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 17, false)">D) Όλοι οι τύποι οδοντίνης σχηματίζονται αποκλειστικά πριν από την ανατολή.</li>
+
+      </ul>
+
+      <div class="academic-comment">
+
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Η διάκριση πρωτογενούς, δευτερογενούς και τριτογενούς οδοντίνης βασίζεται στον χρόνο σχηματισμού και στο είδος του ερεθίσματος που προκαλεί την παραγωγή της.
+
+        <span class="page-citation">Παραπομπή: Σελίδα 266</span>
+
+      </div>
+
+    </div>
+
+    <div class="question-block" id="q18">
+
+      <div class="question-number">Ερώτηση 18</div>
+
+      <div class="question-text">
+
+        Ποια πρόταση για τη δευτερογενή οδοντίνη είναι ακριβής;
+
+      </div>
+
+      <ul class="options-list">
+
+        <li class="option-item" onclick="checkAnswer(this, 18, false)">A) Ο ρυθμός έκκρισής της αυξάνεται με την ηλικία και είναι μικρότερος στους γομφίους.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 18, false)">B) Παράγεται μόνο όταν υπάρχει τερηδόνα ή τραυματική αποκάλυψη πολφού.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 18, true)">C) Ο ρυθμός έκκρισής της μειώνεται με την ηλικία, είναι μεγαλύτερος στους γομφίους και η παραγωγή της είναι μεγαλύτερη στην περιοχή διχασμού των ριζών από ό,τι στις μασητικές επιφάνειες.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 18, false)">D) Δεν έχει καμία επίδραση στο μέγεθος του μυλικού θαλάμου.</li>
+
+      </ul>
+
+      <div class="academic-comment">
+
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Η δευτερογενής οδοντίνη είναι φυσιολογική και σχηματίζεται μετά την ανατολή. Ανατομικά δεν παράγεται ομοιόμορφα σε όλα τα σημεία του θαλάμου.
+
+        <span class="page-citation">Παραπομπή: Σελίδα 266</span>
+
+      </div>
+
+    </div>
+
+    <div class="question-block" id="q19">
+
+      <div class="question-number">Ερώτηση 19</div>
+
+      <div class="question-text">
+
+        Ποια είναι η ουσιαστική διαφορά μεταξύ αντιδραστικής και επανορθωτικής οδοντίνης;
+
+      </div>
+
+      <ul class="options-list">
+
+        <li class="option-item" onclick="checkAnswer(this, 19, false)">A) Η αντιδραστική παράγεται από κύτταρα όμοια με οδοντινοβλάστες, ενώ η επανορθωτική από επιζώντες ώριμους οδοντινοβλάστες.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 19, true)">B) Η αντιδραστική παράγεται συνήθως μετά από ήπιο και χρόνιο ερέθισμα από ώριμους οδοντινοβλάστες, ενώ η επανορθωτική μετά από ισχυρό ερέθισμα από διαφοροποιημένα κύτταρα που μοιάζουν με οδοντινοβλάστες.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 19, false)">C) Η αντιδραστική εμφανίζεται μόνο σε νεκρό πολφό, ενώ η επανορθωτική μόνο σε άθικτο δόντι χωρίς ερέθισμα.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 19, false)">D) Και οι δύο σχηματίζονται αποκλειστικά πριν από την ανατολή του δοντιού.</li>
+
+      </ul>
+
+      <div class="academic-comment">
+
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Το κλειδί είναι ο τύπος του κυττάρου που παράγει την οδοντίνη. Ήπια ερεθίσματα επιτρέπουν στους υπάρχοντες οδοντινοβλάστες να αντιδράσουν. Ισχυρότερα ερεθίσματα απαιτούν διαφοροποίηση προγονικών κυττάρων του πολφού.
+
+        <span class="page-citation">Παραπομπή: Σελίδες 266-268</span>
+
+      </div>
+
+    </div>
+
+    <div class="question-block" id="q20">
+
+      <div class="question-number">Ερώτηση 20</div>
+
+      <div class="question-text">
+
+        Ποια δομή εξηγεί κυρίως τη διαπερατότητα της οδοντίνης και τη δυνατότητα μεταφοράς ερεθισμάτων προς τον πολφό;
+
+      </div>
+
+      <ul class="options-list">
+
+        <li class="option-item" onclick="checkAnswer(this, 20, false)">A) Η πλήρης απουσία υγρού μέσα στην οδοντίνη.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 20, true)">B) Οι οδοντινοσωληνίσκοι με υγρό, οδοντινοβλαστικές αποφυάδες και νευρικές απολήξεις.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 20, false)">C) Η αδαμαντίνη, επειδή περιέχει μεγάλο αριθμό αιμοφόρων αγγείων.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 20, false)">D) Η οστεΐνη, επειδή καλύπτει πλήρως τον μυλικό πολφό.</li>
+
+      </ul>
+
+      <div class="academic-comment">
+
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Η διαπερατότητα της οδοντίνης δεν είναι αφηρημένη ιδιότητα. Προκύπτει από την ανατομική ύπαρξη οδοντινοσωληνίσκων που περιέχουν υγρό και βιολογικά στοιχεία.
+
+        <span class="page-citation">Παραπομπή: Σελίδες 267-270</span>
+
+      </div>
+
+    </div>
+
+    <div class="question-block" id="q21">
+
+      <div class="question-number">Ερώτηση 21</div>
+
+      <div class="question-text">
+
+        Ποια ποσοτική περιγραφή των οδοντινοσωληνίσκων είναι σωστή;
+
+      </div>
+
+      <ul class="options-list">
+
+        <li class="option-item" onclick="checkAnswer(this, 21, false)">A) Έχουν διάμετρο περίπου 20-40 μm και πυκνότητα 100-200/mm².</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 21, true)">B) Έχουν διάμετρο περίπου 2,6-4 μm και πυκνότητα περίπου 18.000-21.000 οδοντινοσωληνίσκων/mm², με αύξηση διαμέτρου και πυκνότητας προς τον πολφό.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 21, false)">C) Είναι περισσότεροι κοντά στην αδαμαντινοοδοντινική ένωση και λιγότεροι κοντά στον πολφό.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 21, false)">D) Δεν παρουσιάζουν μεταβολή διαμέτρου ή πυκνότητας σε διαφορετικές περιοχές της οδοντίνης.</li>
+
+      </ul>
+
+      <div class="academic-comment">
+
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Η αύξηση της διαμέτρου και της πυκνότητας προς τον πολφό εξηγεί γιατί η βαθύτερη οδοντίνη είναι περισσότερο διαπερατή και κλινικά πιο επικίνδυνη για πολφική διέγερση.
+
+        <span class="page-citation">Παραπομπή: Σελίδα 269</span>
+
+      </div>
+
+    </div>
+
+    <div class="question-block" id="q22">
+
+      <div class="question-number">Ερώτηση 22</div>
+
+      <div class="question-text">
+
+        Σύμφωνα με τον νόμο Poiseuille-Hagen και τη διαπερατότητα της οδοντίνης, ποιος παράγοντας επηρεάζει δυσανάλογα τη ροή του υγρού στους οδοντινοσωληνίσκους;
+
+      </div>
+
+      <ul class="options-list">
+
+        <li class="option-item" onclick="checkAnswer(this, 22, true)">A) Η ακτίνα του αυλού των οδοντινοσωληνίσκων, επειδή η ροή είναι ανάλογη της τέταρτης δύναμής της.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 22, false)">B) Το χρώμα της οδοντίνης, επειδή ρυθμίζει την υδροστατική πίεση.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 22, false)">C) Μόνο το μήκος των οδοντινοσωληνίσκων, επειδή η ακτίνα δεν συμμετέχει στην εξίσωση.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 22, false)">D) Μόνο η συγκέντρωση φθορίου στην επιφάνεια των σωληνίσκων.</li>
+
+      </ul>
+
+      <div class="academic-comment">
+
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Η υδροδυναμική θεωρία δεν είναι θεωρητική λεπτομέρεια. Μικρή αύξηση της ακτίνας αυξάνει πολύ τη ροή υγρού, άρα και τη δυνατότητα διέγερσης νευρικών ινών.
+
+        <span class="page-citation">Παραπομπή: Σελίδα 270</span>
+
+      </div>
+
+    </div>
+
+    <div class="question-block" id="q23">
+
+      <div class="question-number">Ερώτηση 23</div>
+
+      <div class="question-text">
+
+        Ποιο είδος ερεθίσματος θεωρείται το κυριότερο αίτιο πρόκλησης σοβαρής και ενδεχομένως μη αναστρέψιμης πολφικής βλάβης;
+
+      </div>
+
+      <ul class="options-list">
+
+        <li class="option-item" onclick="checkAnswer(this, 23, false)">A) Τα ηλεκτρικά ερεθίσματα μικρής διάρκειας.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 23, false)">B) Τα μηχανικά ερεθίσματα από την πίεση κατά την τοποθέτηση εμφρακτικού υλικού.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 23, false)">C) Τα οσμωτικά ερεθίσματα από παροδική μεταβολή συγκέντρωσης υγρών.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 23, true)">D) Τα βακτηριακά προϊόντα και οι τοξίνες των μικροβίων.</li>
+
+      </ul>
+
+      <div class="academic-comment">
+
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Τα ηλεκτρικά, θερμικά, οσμωτικά, μηχανικά και χημικά ερεθίσματα συνήθως προκαλούν παροδική ή μικρής διάρκειας αντίδραση. Το μικροβιακό ερέθισμα είναι εκείνο που μπορεί να οδηγήσει σε μη αναστρέψιμη βλάβη.
+
+        <span class="page-citation">Παραπομπή: Σελίδα 271</span>
+
+      </div>
+
+    </div>
+
+    <div class="question-block" id="q24">
+
+      <div class="question-number">Ερώτηση 24</div>
+
+      <div class="question-text">
+
+        Η παρουσία μικροβίων στη διεπιφάνεια υλικού αποκατάστασης-πολφικού τοιχώματος σημαίνει πάντα απώλεια ζωτικότητας του πολφού;
+
+      </div>
+
+      <ul class="options-list">
+
+        <li class="option-item" onclick="checkAnswer(this, 24, false)">A) Ναι, ακόμη και ελάχιστη παρουσία μικροβίων προκαλεί άμεσα νέκρωση πολφού.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 24, true)">B) Όχι, επειδή η επίδραση εξαρτάται από την αμυντική λειτουργία του συμπλέγματος οδοντίνης-πολφού, το πάχος και τη διαπερατότητα της οδοντίνης, καθώς και την ένταση και χρονιότητα του μικροβιακού ερεθίσματος.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 24, false)">C) Όχι, επειδή τα μικρόβια δεν μπορούν ποτέ να μετακινηθούν μέσω οδοντινοσωληνίσκων.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 24, false)">D) Ναι, αλλά μόνο όταν το ερέθισμα είναι ηλεκτρικό.</li>
+
+      </ul>
+
+      <div class="academic-comment">
+
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Η κλινική κρίση δεν βασίζεται απλώς στην ύπαρξη μικροβίων. Βασίζεται στο αν ο πολφός μπορεί να ανταποκριθεί και στο πόση οδοντίνη παραμένει ως βιολογικός φραγμός.
+
+        <span class="page-citation">Παραπομπή: Σελίδα 271</span>
+
+      </div>
+
+    </div>
+
+    <div class="question-block" id="q25">
+
+      <div class="question-number">Ερώτηση 25</div>
+
+      <div class="question-text">
+
+        Ποια σχέση φλεγμονώδους αντίδρασης και αμυντικής οδοντινογένεσης είναι σωστή;
+
+      </div>
+
+      <ul class="options-list">
+
+        <li class="option-item" onclick="checkAnswer(this, 25, false)">A) Κάθε φλεγμονώδης αντίδραση είναι αποκλειστικά καταστροφική και αποκλείει την παραγωγή οδοντίνης.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 25, true)">B) Η ήπια και ελεγχόμενη φλεγμονώδης αντίδραση αποτελεί προϋπόθεση για την ενεργοποίηση του μηχανισμού οδοντινογένεσης, ενώ η έντονη φλεγμονή οδηγεί σε ιστικές αντιδράσεις που εμποδίζουν την αποκατάσταση.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 25, false)">C) Η παραγωγή επανορθωτικής οδοντίνης συμβαίνει μόνο όταν έχει ολοκληρωθεί η νέκρωση του πολφού.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 25, false)">D) Η φλεγμονή δεν σχετίζεται με κυτοκίνες ή αυξητικούς παράγοντες.</li>
+
+      </ul>
+
+      <div class="academic-comment">
+
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Εδώ βρίσκεται μια κλασική παγίδα. Η φλεγμονή δεν είναι πάντα εχθρός. Η ελεγχόμενη φλεγμονή ενεργοποιεί επουλωτικούς μηχανισμούς, ενώ η έντονη και παρατεταμένη φλεγμονή τους ακυρώνει.
+
+        <span class="page-citation">Παραπομπή: Σελίδα 272</span>
+
+      </div>
+
+    </div>
+
+    <div class="question-block" id="q26">
+
+      <div class="question-number">Ερώτηση 26</div>
+
+      <div class="question-text">
+
+        Σε μια αποκατάσταση, από ποιους δύο κύριους παράγοντες καθορίζεται ο βαθμός κινδύνου για τον πολφό;
+
+      </div>
+
+      <ul class="options-list">
+
+        <li class="option-item" onclick="checkAnswer(this, 26, false)">A) Από το χρώμα της αδαμαντίνης και το είδος του αποτυπωτικού υλικού.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 26, true)">B) Από το πάχος και την ποιότητα της οδοντίνης που παραμένει πάνω από τον πολφό και από τη ζωτικότητα του πολφού.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 26, false)">C) Από το είδος του ελαστικού απομονωτήρα και μόνο.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 26, false)">D) Από το αν η κοιλότητα βρίσκεται αποκλειστικά σε πρόσθιο ή οπίσθιο δόντι.</li>
+
+      </ul>
+
+      <div class="academic-comment">
+
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Η θεραπευτική απόφαση δεν βασίζεται απλώς στο βάθος της κοιλότητας. Απαιτεί εκτίμηση τόσο της εναπομένουσας οδοντίνης όσο και της βιολογικής κατάστασης του πολφού.
+
+        <span class="page-citation">Παραπομπή: Σελίδα 272</span>
+
+      </div>
+
+    </div>
+
+    <div class="question-block" id="q27">
+
+      <div class="question-number">Ερώτηση 27</div>
+
+      <div class="question-text">
+
+        Ποια κλίμακα πάχους παραμένουσας οδοντίνης χρησιμοποιείται για την κλινική απόφαση προστασίας του πολφού;
+
+      </div>
+
+      <ul class="options-list">
+
+        <li class="option-item" onclick="checkAnswer(this, 27, true)">A) Πάχος &ge;1,5 mm συνήθως δεν απαιτεί πρόσθετο υλικό προστασίας, πάχος &lt;1,5 mm εκτιμάται κατά περίπτωση, ενώ κλινικά ορατή έκθεση του πολφού χαρακτηρίζεται ως αποκάλυψη πολφού.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 27, false)">B) Πάχος &ge;5 mm απαιτεί πάντα άμεση κάλυψη πολφού.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 27, false)">C) Πάχος &lt;1,5 mm αποκλείει κάθε μορφή αποκατάστασης.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 27, false)">D) Η κλινική έκθεση του πολφού θεωρείται πάντα φυσιολογική παραλλαγή χωρίς θεραπευτική σημασία.</li>
+
+      </ul>
+
+      <div class="academic-comment">
+
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Το 1,5 mm είναι καθοριστικό όριο κλινικής εκτίμησης, αλλά όχι απόλυτη μηχανική μέτρηση. Η απόφαση απαιτεί συνεκτίμηση ηλικίας, ιστορικού βλάβης, ποιότητας οδοντίνης και ζωτικότητας.
+
+        <span class="page-citation">Παραπομπή: Σελίδα 273</span>
+
+      </div>
+
+    </div>
+
+    <div class="question-block" id="q28">
+
+      <div class="question-number">Ερώτηση 28</div>
+
+      <div class="question-text">
+
+        Πότε ενδείκνυται η έμμεση κάλυψη οδοντίνης;
+
+      </div>
+
+      <ul class="options-list">
+
+        <li class="option-item" onclick="checkAnswer(this, 28, false)">A) Όταν υπάρχει κλινικά εκτεθειμένος πολφός στο εξωτερικό περιβάλλον.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 28, false)">B) Όταν υπάρχουν σαφή συμπτώματα προχωρημένης φλεγμονής, όπως αυτόματος πόνος και συρίγγιο.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 28, true)">C) Όταν η τερηδόνα είναι αρκετά βαθιά κοντά στον πολφό, χωρίς όμως κλινικά σημεία και συμπτώματα προχωρημένης φλεγμονής, και παραμένει λεπτό στρώμα οδοντίνης.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 28, false)">D) Όταν η αποκατάσταση δεν χρειάζεται συγκόλληση με οδοντικούς ιστούς.</li>
+
+      </ul>
+
+      <div class="academic-comment">
+
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Η έμμεση κάλυψη αφορά βαθιά αλλά μη εκτεθειμένη βλάβη. Αν ο πολφός είναι κλινικά εκτεθειμένος στο εξωτερικό περιβάλλον, η διαδικασία είναι άμεση κάλυψη πολφού.
+
+        <span class="page-citation">Παραπομπή: Σελίδα 274</span>
+
+      </div>
+
+    </div>
+
+    <div class="question-block" id="q29">
+
+      <div class="question-number">Ερώτηση 29</div>
+
+      <div class="question-text">
+
+        Ποια συνθήκη ανήκει στις αναγκαίες κλινικές προϋποθέσεις για άμεση κάλυψη πολφού;
+
+      </div>
+
+      <ul class="options-list">
+
+        <li class="option-item" onclick="checkAnswer(this, 29, false)">A) Παρουσία αυτόματου πόνου μεγάλης διάρκειας και συριγγίου.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 29, false)">B) Ακτινογραφικά εμφανής περιακρορριζική αλλοίωση.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 29, true)">C) Μικρή αποκάλυψη πολφού, συγκεκριμένα όχι μεγαλύτερη από 1 mm σε διάμετρο, με ελεγχόμενη αιμορραγία πριν την τοποθέτηση υλικού προστασίας.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 29, false)">D) Αδυναμία ελέγχου αιμορραγίας στο σημείο αποκάλυψης.</li>
+
+      </ul>
+
+      <div class="academic-comment">
+
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Η άμεση κάλυψη πολφού απαιτεί αυστηρές συνθήκες: απουσία συμπτωμάτων προχωρημένης φλεγμονής, φυσιολογικά ακτινογραφικά/περιοδοντικά ευρήματα, μικρή αποκάλυψη και έλεγχο της αιμορραγίας.
+
+        <span class="page-citation">Παραπομπή: Σελίδα 275</span>
+
+      </div>
+
+    </div>
+
+    <div class="question-block" id="q30">
+
+      <div class="question-number">Ερώτηση 30</div>
+
+      <div class="question-text">
+
+        Ποιο χαρακτηριστικό είναι ειδικά σημαντικό για υλικό έμμεσης κάλυψης πολφού όταν πρόκειται να ακολουθήσει αποκατάσταση με σύνθετη ρητίνη;
+
+      </div>
+
+      <ul class="options-list">
+
+        <li class="option-item" onclick="checkAnswer(this, 30, false)">A) Να παρεμποδίζει τον πολυμερισμό των σύνθετων ρητινών ώστε να απορροφά τη συστολή.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 30, true)">B) Να μην εμποδίζει τον πολυμερισμό των σύνθετων ρητινών και να μη διαλύεται κατά τους χειρισμούς και την τοποθέτηση του εμφρακτικού υλικού.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 30, false)">C) Να διαλύεται από τα ιστικά υγρά ώστε να δημιουργεί χώρο για το εμφρακτικό υλικό.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 30, false)">D) Να είναι τοξικό για τα κύτταρα του πολφού ώστε να προκαλεί άμεση σκλήρυνση.</li>
+
+      </ul>
+
+      <div class="academic-comment">
+
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Τα υλικά έμμεσης κάλυψης πρέπει να είναι συμβατά με την τελική αποκατάσταση. Ειδικά με σύνθετες ρητίνες, δεν πρέπει να παρεμποδίζουν τον πολυμερισμό ούτε να αποδομούνται κατά την τοποθέτηση.
+
+        <span class="page-citation">Παραπομπή: Σελίδα 280</span>
+
+      </div>
+
+    </div>
+
+    <div class="question-block" id="q31">
+
+      <div class="question-number">Ερώτηση 31</div>
+
+      <div class="question-text">
+
+        Ποιο χαρακτηριστικό ΔΕΝ είναι αποδεκτό για υλικό άμεσης κάλυψης πολφού;
+
+      </div>
+
+      <ul class="options-list">
+
+        <li class="option-item" onclick="checkAnswer(this, 31, false)">A) Να προάγει επούλωση χωρίς έντονη φλεγμονώδη αντίδραση.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 31, false)">B) Να διαθέτει αντιμικροβιακές ιδιότητες.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 31, false)">C) Να είναι αδιάλυτο από τα ιστικά υγρά.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 31, true)">D) Να είναι τοξικό για τα κύτταρα του πολφού ώστε να προκαλεί έντονη διέγερση.</li>
+
+      </ul>
+
+      <div class="academic-comment">
+
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Υλικό άμεσης κάλυψης πολφού πρέπει να είναι μη τοξικό, να προάγει επούλωση, να συμβάλλει σε γέφυρα οδοντίνης επαρκούς πάχους, να έχει αντιμικροβιακές ιδιότητες, να συγκολλάται ή να παραμένει σταθερό και να είναι αδιάλυτο.
+
+        <span class="page-citation">Παραπομπή: Σελίδα 276</span>
+
+      </div>
+
+    </div>
+
+    <div class="question-block" id="q32">
+
+      <div class="question-number">Ερώτηση 32</div>
+
+      <div class="question-text">
+
+        Ποιο επιπλέον χαρακτηριστικό απαιτείται ειδικά για υλικό έμμεσης κάλυψης όταν θα τοποθετηθεί σύνθετη ρητίνη ως τελικό εμφρακτικό υλικό;
+
+      </div>
+
+      <ul class="options-list">
+
+        <li class="option-item" onclick="checkAnswer(this, 32, true)">A) Να μην εμποδίζει τον πολυμερισμό των σύνθετων ρητινών.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 32, false)">B) Να προκαλεί έντονη φλεγμονώδη αντίδραση για ταχεία σκλήρυνση.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 32, false)">C) Να διαλύεται κατά την τοποθέτηση του εμφρακτικού υλικού.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 32, false)">D) Να μην μπορεί να συγκολληθεί με τους οδοντικούς ιστούς.</li>
+
+      </ul>
+
+      <div class="academic-comment">
+
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Τα υλικά έμμεσης κάλυψης πρέπει όχι μόνο να είναι βιοσυμβατά, αλλά και να συνεργάζονται μηχανικά και χημικά με την τελική αποκατάσταση. Για σύνθετες ρητίνες, η παρεμπόδιση πολυμερισμού είναι μη αποδεκτή.
+
+        <span class="page-citation">Παραπομπή: Σελίδα 280</span>
+
+      </div>
+
+    </div>
+
+    <div class="question-block" id="q33">
+
+      <div class="question-number">Ερώτηση 33</div>
+
+      <div class="question-text">
+
+        Γιατί τα ταχύπηκτα σκευάσματα υδροξειδίου του ασβεστίου είναι αυτά που χρησιμοποιούνται κλινικά στις αποκαταστάσεις;
+
+      </div>
+
+      <ul class="options-list">
+
+        <li class="option-item" onclick="checkAnswer(this, 33, false)">A) Επειδή είναι τα μόνα που συγκολλώνται χημικά στην οδοντίνη.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 33, true)">B) Επειδή έχουν κλινικά διαχειρίσιμο χρόνο πήξης περίπου 2-3 λεπτά.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 33, false)">C) Επειδή δεν χρειάζονται κάλυψη από άλλο υλικό πριν από την αποκατάσταση.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 33, false)">D) Επειδή έχουν υψηλότερη αντοχή από το MTA και το Biodentine.</li>
+
+      </ul>
+
+      <div class="academic-comment">
+
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Το υδροξείδιο του ασβεστίου έχει χρησιμοποιηθεί ως χημικά καθαρό φύραμα και ως ταχύπηκτο σκεύασμα. Κλινικά χρησιμοποιείται το ταχύπηκτο επειδή προσφέρει διαχειρίσιμο χρόνο πήξης 2-3 λεπτών.
+
+        <span class="page-citation">Παραπομπή: Σελίδα 276</span>
+
+      </div>
+
+    </div>
+
+    <div class="question-block" id="q34">
+
+      <div class="question-number">Ερώτηση 34</div>
+
+      <div class="question-text">
+
+        Ποια περιγραφή αφορά τα φωτοπολυμεριζόμενα σκευάσματα υδροξειδίου του ασβεστίου;
+
+      </div>
+
+      <ul class="options-list">
+
+        <li class="option-item" onclick="checkAnswer(this, 34, false)">A) Φέρονται αποκλειστικά σε δύο σωληνάρια βάσης-καταλύτη και πήζουν με αντίδραση οξέος-βάσης.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 34, true)">B) Φέρονται σε ένα σωληνάριο, περιέχουν υδροξείδιο του ασβεστίου και θειικό βάριο σε ρητινώδη μήτρα διμεθακρυλικής ουρεθάνης και πήζουν με φωτοπολυμερισμό.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 34, false)">C) Είναι βιοενεργές κονίες Portland με οξείδιο βισμουθίου.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 34, false)">D) Περιέχουν κυρίως πολυακρυλικό οξύ και φθοριοαλουμινοπυριτική ύαλο.</li>
+
+      </ul>
+
+      <div class="academic-comment">
+
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Τα φωτοπολυμεριζόμενα σκευάσματα Ca(OH)<sub>2</sub> δεν πρέπει να συγχέονται με τα χημικώς σκληρυνόμενα. Η χρήση τους είναι περιορισμένη και η πήξη τους βασίζεται στον φωτοπολυμερισμό.
+
+        <span class="page-citation">Παραπομπή: Σελίδα 276</span>
+
+      </div>
+
+    </div>
+
+    <div class="question-block" id="q35">
+
+      <div class="question-number">Ερώτηση 35</div>
+
+      <div class="question-text">
+
+        Ποια είναι η σημαντικότερη φυσικομηχανική αδυναμία του υδροξειδίου του ασβεστίου ως υλικού κάλυψης;
+
+      </div>
+
+      <ul class="options-list">
+
+        <li class="option-item" onclick="checkAnswer(this, 35, false)">A) Η υπερβολικά υψηλή αντοχή του σε θλίψη.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 35, false)">B) Η αδυναμία του να προκαλέσει αλκαλικό περιβάλλον.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 35, true)">C) Η χαμηλή μηχανική αντοχή, η διαλυτότητα σε νερό και ασθενή οξέα και η απουσία συγκόλλησης με την οδοντίνη.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 35, false)">D) Η υψηλή ακτινοσκιερότητα που εμποδίζει την ακτινογραφική διάγνωση.</li>
+
+      </ul>
+
+      <div class="academic-comment">
+
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Το Ca(OH)<sub>2</sub> έχει βιολογική αξία αλλά φτωχές φυσικομηχανικές ιδιότητες. Για αυτό χρειάζεται προστασία με κονία πριν από την τοποθέτηση του εμφρακτικού υλικού.
+
+        <span class="page-citation">Παραπομπή: Σελίδα 277</span>
+
+      </div>
+
+    </div>
+
+    <div class="question-block" id="q36">
+
+      <div class="question-number">Ερώτηση 36</div>
+
+      <div class="question-text">
+
+        Ποια πρόταση για τη γέφυρα οδοντίνης μετά από εφαρμογή υδροξειδίου του ασβεστίου είναι ορθή;
+
+      </div>
+
+      <ul class="options-list">
+
+        <li class="option-item" onclick="checkAnswer(this, 36, false)">A) Είναι πάντοτε πλήρης, συμπαγής και χωρίς πόρους.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 36, false)">B) Σχηματίζεται στο σύνολο των περιπτώσεων άμεσης κάλυψης.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 36, true)">C) Παρατηρείται κατά μέσο όρο περίπου στο 50% των περιπτώσεων, συχνά ανομοιόμορφη, με πόρους και ατελείς περιοχές.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 36, false)">D) Δεν σχετίζεται με αλκαλικό pH ή με ενεργοποίηση της αλκαλικής φωσφατάσης.</li>
+
+      </ul>
+
+      <div class="academic-comment">
+
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Το υδροξείδιο του ασβεστίου θεωρείται κλασικό υλικό, αλλά η γέφυρα που προκαλεί δεν είναι προβλέψιμα ιδανική. Η ύπαρξη πόρων μπορεί να επιτρέψει μικροβιακή διείσδυση και φλεγμονή.
+
+        <span class="page-citation">Παραπομπή: Σελίδες 277-278</span>
+
+      </div>
+
+    </div>
+
+    <div class="question-block" id="q37">
+
+      <div class="question-number">Ερώτηση 37</div>
+
+      <div class="question-text">
+
+        Ποια δήλωση για τη χημική σύσταση και πήξη του MTA είναι ακριβής;
+
+      </div>
+
+      <ul class="options-list">
+
+        <li class="option-item" onclick="checkAnswer(this, 37, true)">A) Είναι σκόνη-υγρό με βάση κονία Portland και οξείδιο βισμουθίου, ενώ η πήξη περιλαμβάνει ενυδάτωση πυριτικών ενώσεων και σχηματισμό CaO, SiO<sub>2</sub> και Ca(OH)<sub>2</sub>.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 37, false)">B) Είναι δύο πάστες Ca(OH)<sub>2</sub> και γλυκοσαλικυλικού νατρίου.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 37, false)">C) Είναι ρητινώδες συγκολλητικό σύστημα με Bis-GMA, TEGDMA και HEMA.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 37, false)">D) Είναι υαλοϊονομερής κονία που πήζει αποκλειστικά με φωτοπολυμερισμό.</li>
+
+      </ul>
+
+      <div class="academic-comment">
+
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Το MTA είναι βιοενεργή κονία και όχι ρητινώδες ή υαλοϊονομερές υλικό. Η παρουσία οξειδίου βισμουθίου προσδίδει ακτινοσκιερότητα.
+
+        <span class="page-citation">Παραπομπή: Σελίδα 278</span>
+
+      </div>
+
+    </div>
+
+    <div class="question-block" id="q38">
+
+      <div class="question-number">Ερώτηση 38</div>
+
+      <div class="question-text">
+
+        Ποιο χαρακτηριστικό του MTA συμβάλλει στην ερμητική απόφραξη κοντά στα τοιχώματα οδοντίνης;
+
+      </div>
+
+      <ul class="options-list">
+
+        <li class="option-item" onclick="checkAnswer(this, 38, false)">A) Η συστολή του μετά την πήξη, που δημιουργεί περιεμφρακτικό χώρο.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 38, true)">B) Η απελευθέρωση ιόντων ασβεστίου και ο σχηματισμός κρυστάλλων υδροξυαπατίτη, σε συνδυασμό με τη διαστολή του κατά την πήξη.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 38, false)">C) Η πλήρης διάλυσή του στα ιστικά υγρά μετά την τοποθέτηση.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 38, false)">D) Η απουσία ακτινοσκιερότητας.</li>
+
+      </ul>
+
+      <div class="academic-comment">
+
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Το MTA μετά την πήξη απελευθερώνει ασβέστιο και ευνοεί σχηματισμό κρυστάλλων υδροξυαπατίτη, βελτιώνοντας την προσαρμογή στην οδοντίνη. Σε αντίθεση με τη συρρίκνωση, η διαστολή του περιορίζει τον περιεμφρακτικό χώρο.
+
+        <span class="page-citation">Παραπομπή: Σελίδα 278</span>
+
+      </div>
+
+    </div>
+
+    <div class="question-block" id="q39">
+
+      <div class="question-number">Ερώτηση 39</div>
+
+      <div class="question-text">
+
+        Ποια βιολογική διαφορά του MTA έναντι του υδροξειδίου του ασβεστίου αναφέρεται ως πλεονέκτημα;
+
+      </div>
+
+      <ul class="options-list">
+
+        <li class="option-item" onclick="checkAnswer(this, 39, false)">A) Προκαλεί μεγαλύτερη φλεγμονώδη αντίδραση και μικρότερη διαφοροποίηση προγονικών κυττάρων.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 39, false)">B) Δεν απελευθερώνει ασβέστιο και επομένως δεν επηρεάζει τη μεταλλικοποίηση.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 39, true)">C) Προκαλεί μικρότερη φλεγμονώδη αντίδραση και προάγει διαφοροποίηση προγονικών κυττάρων προς κύτταρα δίκην-οδοντινοβλαστών.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 39, false)">D) Έχει υψηλή κυτταροτοξικότητα, αλλά αντισταθμίζεται από τη μεγάλη ακτινοσκιερότητά του.</li>
+
+      </ul>
+
+      <div class="academic-comment">
+
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Το MTA εμφανίζει χαμηλή κυτταροτοξικότητα και ευνοϊκή βιολογική απόκριση, με αποτέλεσμα μεγαλύτερη και πιο ομοιόμορφη γέφυρα οδοντίνης συγκριτικά με το Ca(OH)<sub>2</sub>.
+
+        <span class="page-citation">Παραπομπή: Σελίδες 278-279</span>
+
+      </div>
+
+    </div>
+
+    <div class="question-block" id="q40">
+
+      <div class="question-number">Ερώτηση 40</div>
+
+      <div class="question-text">
+
+        Ποιο από τα παρακάτω αποτελεί αναφερόμενο μειονέκτημα του MTA;
+
+      </div>
+
+      <ul class="options-list">
+
+        <li class="option-item" onclick="checkAnswer(this, 40, false)">A) Η πλήρης αδυναμία σχηματισμού γέφυρας οδοντίνης.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 40, false)">B) Η εξαιρετικά μικρή τιμή κόστους σε σχέση με όλα τα άλλα υλικά.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 40, true)">C) Η δυσκολία τοποθέτησης λόγω αμμώδους πάστας, το υψηλό κόστος, ο χρόνος πήξης που φθάνει περίπου τις τρεις ώρες και ο πιθανός αποχρωματισμός του δοντιού.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 40, false)">D) Η διαλυτότητά του στο νερό μετά την πήξη.</li>
+
+      </ul>
+
+      <div class="academic-comment">
+
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Παρά την ευνοϊκή του βιολογική συμπεριφορά, το MTA δεν είναι τεχνικά απλό. Ο χειρισμός, ο χρόνος πήξης, το κόστος και ο αποχρωματισμός είναι ουσιώδη κλινικά μειονεκτήματα.
+
+        <span class="page-citation">Παραπομπή: Σελίδα 279</span>
+
+      </div>
+
+    </div>
+
+    <div class="question-block" id="q41">
+
+      <div class="question-number">Ερώτηση 41</div>
+
+      <div class="question-text">
+
+        Ποια περιγραφή της σύστασης του Biodentine είναι ορθότερη;
+
+      </div>
+
+      <ul class="options-list">
+
+        <li class="option-item" onclick="checkAnswer(this, 41, false)">A) Δύο πάστες βάσης-καταλύτη με Ca(OH)<sub>2</sub> και οξείδιο ψευδαργύρου.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 41, true)">B) Σκόνη-υγρό, με κύριο συστατικό της σκόνης πυριτικό ασβέστιο, επιπλέον ανθρακικό ασβέστιο, οξείδιο ζιρκονίου και οξείδια σιδήρου, ενώ το υγρό περιέχει νερό, CaCl<sub>2</sub> και υδρόφιλο πολυμερές.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 41, false)">C) Σκόνη φθοριοαλουμινοπυριτικής υάλου και υγρό πολυακρυλικού οξέος.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 41, false)">D) Ρητινώδες υλικό με Bis-GMA, TEGDMA και HEMA.</li>
+
+      </ul>
+
+      <div class="academic-comment">
+
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Το Biodentine είναι βιοενεργή κονία σκόνης-υγρού. Δεν είναι υαλοϊονομερής κονία ούτε συγκολλητικό σύστημα. Η παρουσία CaCl<sub>2</sub> σχετίζεται με τον έλεγχο της πήξης.
+
+        <span class="page-citation">Παραπομπή: Σελίδα 279</span>
+
+      </div>
+
+    </div>
+
+    <div class="question-block" id="q42">
+
+      <div class="question-number">Ερώτηση 42</div>
+
+      <div class="question-text">
+
+        Ποια ιδιότητα του Biodentine το διαφοροποιεί ευνοϊκά σε σχέση με το MTA ως προς τον κλινικό χρόνο εργασίας;
+
+      </div>
+
+      <ul class="options-list">
+
+        <li class="option-item" onclick="checkAnswer(this, 42, true)">A) Κλινικός χρόνος πήξης περίπου 9-12 λεπτά.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 42, false)">B) Χρόνος πήξης περίπου τρεις ώρες.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 42, false)">C) Άμεση φωτοσκλήρυνση σε λιγότερο από 10 δευτερόλεπτα.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 42, false)">D) Πήξη αποκλειστικά με αντίδραση οξέος-βάσης σε 3-4 λεπτά.</li>
+
+      </ul>
+
+      <div class="academic-comment">
+
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Το Biodentine εισήχθη ως απάντηση σε μειονεκτήματα του MTA. Ένα από τα πρακτικά του πλεονεκτήματα είναι ο μικρότερος κλινικός χρόνος πήξης, περίπου 9-12 λεπτά.
+
+        <span class="page-citation">Παραπομπή: Σελίδα 279</span>
+
+      </div>
+
+    </div>
+
+    <div class="question-block" id="q43">
+
+      <div class="question-number">Ερώτηση 43</div>
+
+      <div class="question-text">
+
+        Ποια δήλωση αποδίδει σωστά τη βιολογική δράση του Biodentine;
+
+      </div>
+
+      <ul class="options-list">
+
+        <li class="option-item" onclick="checkAnswer(this, 43, false)">A) Η δράση του οφείλεται αποκλειστικά στην απελευθέρωση φθορίου.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 43, false)">B) Προκαλεί μεγαλύτερη φλεγμονώδη αντίδραση από το Ca(OH)<sub>2</sub> και σχηματίζει γέφυρα οδοντίνης σε λιγότερες περιπτώσεις.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 43, true)">C) Απελευθερώνει ιόντα ασβεστίου, συμβάλλει στον σχηματισμό υδροξυαπατίτη και τριτογενούς οδοντίνης, ενώ η γέφυρα οδοντίνης σχηματίζεται σε υψηλό ποσοστό περιπτώσεων.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 43, false)">D) Είναι κυρίως κυτταροτοξικό και δεν επιτρέπει διαφοροποίηση κυττάρων δίκην-οδοντινοβλαστών.</li>
+
+      </ul>
+
+      <div class="academic-comment">
+
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Το Biodentine εμφανίζει χαμηλή κυτταροτοξικότητα, μικρότερη φλεγμονώδη αντίδραση από το Ca(OH)<sub>2</sub> και σχηματισμό γέφυρας οδοντίνης σε ποσοστά περίπου 70-90%.
+
+        <span class="page-citation">Παραπομπή: Σελίδες 279-280</span>
+
+      </div>
+
+    </div>
+
+    <div class="question-block" id="q44">
+
+      <div class="question-number">Ερώτηση 44</div>
+
+      <div class="question-text">
+
+        Ποια υλικά ανήκουν σήμερα στην κύρια κατηγορία υλικών έμμεσης κάλυψης πολφού, σύμφωνα με το κείμενο;
+
+      </div>
+
+      <ul class="options-list">
+
+        <li class="option-item" onclick="checkAnswer(this, 44, false)">A) Μόνο οι κονίες οξειδίου του ψευδαργύρου-ευγενόλης.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 44, false)">B) Μόνο οι κονίες φωσφορικού ψευδαργύρου.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 44, true)">C) Οι υαλοϊονομερείς κονίες, κυρίως χημικά σκληρυνόμενες και ρητινώδεις τροποποιημένες.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 44, false)">D) Μόνο τα συγκολλητικά συστήματα σύνθετων ρητινών.</li>
+
+      </ul>
+
+      <div class="academic-comment">
+
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Αν και στο παρελθόν χρησιμοποιήθηκαν διάφορα υλικά ως ουδέτερα στρώματα, σήμερα στην κατηγορία των υλικών έμμεσης κάλυψης εντάσσονται οι υαλοϊονομερείς κονίες.
+
+        <span class="page-citation">Παραπομπή: Σελίδα 280</span>
+
+      </div>
+
+    </div>
+
+    <div class="question-block" id="q45">
+
+      <div class="question-number">Ερώτηση 45</div>
+
+      <div class="question-text">
+
+        Ποια περιγραφή αφορά τις χημικά σκληρυνόμενες υαλοϊονομερείς κονίες;
+
+      </div>
+
+      <ul class="options-list">
+
+        <li class="option-item" onclick="checkAnswer(this, 45, true)">A) Φέρονται σε δύο φιαλίδια, ένα με σκόνη και ένα με υγρό, αναμειγνύονται σε προκαθορισμένες αναλογίες και πήζουν με αντίδραση οξέος-βάσης.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 45, false)">B) Φέρονται ως δύο πάστες υδροξειδίου του ασβεστίου και πήζουν με γλυκοσαλικυλικό νάτριο.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 45, false)">C) Περιέχουν κυρίως Portland cement και οξείδιο βισμουθίου.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 45, false)">D) Πήζουν μόνο με φωτοπολυμερισμό ελευθέρων ριζών.</li>
+
+      </ul>
+
+      <div class="academic-comment">
+
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Η κλασική υαλοϊονομερής κονία βασίζεται σε αντίδραση οξέος-βάσης μεταξύ σκόνης υάλου και υγρού πολυακρυλικού οξέος, όχι σε ρητινώδη πολυμερισμό.
+
+        <span class="page-citation">Παραπομπή: Σελίδα 280</span>
+
+      </div>
+
+    </div>
+
+    <div class="question-block" id="q46">
+
+      <div class="question-number">Ερώτηση 46</div>
+
+      <div class="question-text">
+
+        Ποια πρόταση για τις χημικά σκληρυνόμενες υαλοϊονομερείς κονίες είναι ορθή;
+
+      </div>
+
+      <ul class="options-list">
+
+        <li class="option-item" onclick="checkAnswer(this, 46, false)">A) Δεν συγκολλώνται στους οδοντικούς ιστούς και δεν απελευθερώνουν φθόριο.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 46, false)">B) Έχουν ανώτερες φυσικομηχανικές ιδιότητες από κάθε τύπο εμφρακτικού υλικού.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 46, true)">C) Παρουσιάζουν χημική πρόσφυση στους οδοντικούς ιστούς, απελευθερώνουν φθόριο, αλλά είναι ευαίσθητες στην υγρασία κατά την πήξη και μπορεί να αποδομηθούν από παρατεταμένη εφαρμογή οξέος.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 46, false)">D) Είναι ιδανικά υλικά άμεσης κάλυψης πολφού επειδή προάγουν συστηματικά γέφυρα οδοντίνης.</li>
+
+      </ul>
+
+      <div class="academic-comment">
+
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Η χημική πρόσφυση και το φθόριο είναι σημαντικά πλεονεκτήματα. Όμως η υγρασία κατά την πήξη και η παρατεταμένη δράση οξέος μπορούν να υποβαθμίσουν την κονία.
+
+        <span class="page-citation">Παραπομπή: Σελίδες 280-281</span>
+
+      </div>
+
+    </div>
+
+    <div class="question-block" id="q47">
+
+      <div class="question-number">Ερώτηση 47</div>
+
+      <div class="question-text">
+
+        Τι διαφοροποιεί τις ρητινώδεις τροποποιημένες υαλοϊονομερείς κονίες από τις χημικά σκληρυνόμενες;
+
+      </div>
+
+      <ul class="options-list">
+
+        <li class="option-item" onclick="checkAnswer(this, 47, false)">A) Δεν περιέχουν πολυακρυλικό οξύ και πήζουν μόνο με ενυδάτωση Portland cement.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 47, true)">B) Περιέχουν επιπλέον φωτοκαταλύτη και υδρόφιλα μονομερή, όπως HEMA, και η πήξη τους περιλαμβάνει τόσο αντίδραση οξέος-βάσης όσο και φωτοπολυμερισμό.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 47, false)">C) Δεν εμφανίζουν καμία συστολή πολυμερισμού.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 47, false)">D) Είναι λιγότερο ερεθιστικές λόγω πλήρους απουσίας ρητινωδών μονομερών.</li>
+
+      </ul>
+
+      <div class="academic-comment">
+
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Οι ρητινώδεις τροποποιημένες υαλοϊονομερείς συνδυάζουν τον μηχανισμό των συμβατικών υαλοϊονομερών με φωτοπολυμεριζόμενο ρητινώδες στοιχείο. Αυτό βελτιώνει χειρισμό και ιδιότητες, αλλά εισάγει κινδύνους από μονομερή.
+
+        <span class="page-citation">Παραπομπή: Σελίδα 281</span>
+
+      </div>
+
+    </div>
+
+    <div class="question-block" id="q48">
+
+      <div class="question-number">Ερώτηση 48</div>
+
+      <div class="question-text">
+
+        Ποιο μειονέκτημα συνδέεται ειδικά με τις ρητινώδεις τροποποιημένες υαλοϊονομερείς κονίες;
+
+      </div>
+
+      <ul class="options-list">
+
+        <li class="option-item" onclick="checkAnswer(this, 48, false)">A) Η παντελής αδυναμία φωτοπολυμερισμού.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 48, false)">B) Η απουσία συγκόλλησης στους ιστούς της κοιλότητας.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 48, true)">C) Η συστολή πολυμερισμού και η εντονότερη ερεθιστική και κυτταροτοξική δράση λόγω ρητινωδών μονομερών.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 48, false)">D) Η ανάγκη χρόνου πήξης τριών ωρών πριν από την αποκατάσταση.</li>
+
+      </ul>
+
+      <div class="academic-comment">
+
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Οι ρητινώδεις τροποποιημένες υαλοϊονομερείς έχουν καλύτερες φωτομηχανικές ιδιότητες, αλλά φέρουν μειονεκτήματα που σχετίζονται με τον ρητινώδη χαρακτήρα τους, όπως συστολή πολυμερισμού και πιθανή κυτταροτοξικότητα.
+
+        <span class="page-citation">Παραπομπή: Σελίδα 281</span>
+
+      </div>
+
+    </div>
+
+    <div class="question-block" id="q49">
+
+      <div class="question-number">Ερώτηση 49</div>
+
+      <div class="question-text">
+
+        Ποια κλινική παρατήρηση για τις υαλοϊονομερείς κονίες ως υλικά κάλυψης είναι σωστή;
+
+      </div>
+
+      <ul class="options-list">
+
+        <li class="option-item" onclick="checkAnswer(this, 49, false)">A) Χρησιμοποιούνται ως υλικά άμεσης κάλυψης επειδή προάγουν αξιόπιστα γέφυρα οδοντίνης.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 49, true)">B) Δεν ανταποκρίνονται στα χαρακτηριστικά άμεσης κάλυψης, διότι δεν προάγουν γέφυρα οδοντίνης, αλλά οι φωτομηχανικές ιδιότητες ορισμένων ρητινωδών τροποποιημένων σκευασμάτων τα καθιστούν κατάλληλα για έμμεση κάλυψη.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 49, false)">C) Πρέπει να εφαρμόζονται απευθείας σε εκτεθειμένο πολφό χωρίς έλεγχο αιμορραγίας.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 49, false)">D) Τοποθετούνται μόνο σε πάχος μεγαλύτερο από 5 mm.</li>
+
+      </ul>
+
+      <div class="academic-comment">
+
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Η διάκριση άμεσης και έμμεσης κάλυψης είναι ουσιώδης. Υλικό έμμεσης κάλυψης δεν σημαίνει αυτομάτως υλικό άμεσης κάλυψης. Η παραγωγή γέφυρας οδοντίνης είναι κρίσιμο κριτήριο.
+
+        <span class="page-citation">Παραπομπή: Σελίδες 281-282</span>
+
+      </div>
+
+    </div>
+
+    <div class="question-block" id="q50">
+
+      <div class="question-number">Ερώτηση 50</div>
+
+      <div class="question-text">
+
+        Γιατί τα συγκολλητικά συστήματα σύνθετων ρητινών δεν πρέπει να θεωρούνται ασφαλή για άμεση κάλυψη πολφού;
+
+      </div>
+
+      <ul class="options-list">
+
+        <li class="option-item" onclick="checkAnswer(this, 50, true)">A) Επειδή σε άμεσα εκτεθειμένο πολφό ή σε πολύ μικρό πάχος οδοντίνης είναι κυτταροτοξικά, λόγω ατελούς πολυμερισμού, διάχυσης μονομερών και αυξημένης διαπερατότητας μετά την αδροποίηση.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 50, false)">B) Επειδή η αδροποίηση με ορθοφωσφορικό οξύ 35-37% μειώνει πλήρως τη διαπερατότητα της οδοντίνης.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 50, false)">C) Επειδή τα μονομερή Bis-GMA, TEGDMA και HEMA προάγουν πάντοτε ώριμη γέφυρα οδοντίνης χωρίς φλεγμονή.</li>
+
+        <li class="option-item" onclick="checkAnswer(this, 50, false)">D) Επειδή η ζώνη οδοντικών ξεσμάτων πρέπει πάντα να διατηρείται για να ενεργοποιηθούν τα συγκολλητικά.</li>
+
+      </ul>
+
+      <div class="academic-comment">
+
+        <strong>Ακαδημαϊκό Σχόλιο:</strong> Τα συγκολλητικά συστήματα δημιουργούν υβριδική ζώνη και ρητινώδεις προσεκβολές, αλλά σε άμεση έκθεση πολφού ή λεπτή παραμένουσα οδοντίνη τα μονομερή και η αυξημένη διαπερατότητα μπορούν να προκαλέσουν πολφική βλάβη.
+
+        <span class="page-citation">Παραπομπή: Σελίδες 282-283</span>
+
+      </div>
+
+    </div>
+
+    <footer>
+      Αυστηρή λειτουργία αξιολόγησης: κάθε ερώτηση κλειδώνει μετά την πρώτη απάντηση.
+    </footer>
+  </main>
+
+  <script>
+    let score = 0;
+    let answered = 0;
+    const totalQuestions = 50;
+    const answeredQuestions = new Set();
+
+    function checkAnswer(element, questionNumber, isCorrect) {
+      const block = document.getElementById("q" + questionNumber);
+
+      if (answeredQuestions.has(questionNumber)) {
+        return;
+      }
+
+      answeredQuestions.add(questionNumber);
+      answered++;
+
+      const options = block.querySelectorAll(".option-item");
+      options.forEach(option => {
+        option.classList.add("locked");
+        option.style.pointerEvents = "none";
+      });
+
+      if (isCorrect) {
+        element.classList.add("correct");
+        score++;
+      } else {
+        element.classList.add("wrong");
+        options.forEach(option => {
+          if (option.getAttribute("onclick").includes("true")) {
+            option.classList.add("correct");
+          }
+        });
+      }
+
+      const comment = block.querySelector(".academic-comment");
+      comment.style.display = "block";
+
+      document.getElementById("score").textContent = score;
+      document.getElementById("answered").textContent = answered;
+
+      if (answered === totalQuestions) {
+        setTimeout(() => {
+          const percentage = Math.round((score / totalQuestions) * 100);
+          alert("Τελικό σκορ: " + score + "/" + totalQuestions + " (" + percentage + "%)");
+        }, 300);
+      }
+    }
+
+    function resetQuiz() {
+      score = 0;
+      answered = 0;
+      answeredQuestions.clear();
+
+      document.getElementById("score").textContent = "0";
+      document.getElementById("answered").textContent = "0";
+
+      document.querySelectorAll(".option-item").forEach(option => {
+        option.classList.remove("correct", "wrong", "locked");
+        option.style.pointerEvents = "auto";
+      });
+
+      document.querySelectorAll(".academic-comment").forEach(comment => {
+        comment.style.display = "none";
+      });
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  </script>
+</body>
+</html>
