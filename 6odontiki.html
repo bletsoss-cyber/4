@@ -4,133 +4,154 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Quiz Οδοντιατρικών Υλικών — Ερωτήσεις Πολλαπλής</title>
-  <style>
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #f4f6f8;
-      color: #1f2933;
-      margin: 0;
-      padding: 24px;
-      line-height: 1.5;
-    }
-.quiz-container {
-  max-width: 980px;
-  margin: 0 auto;
-  background: #ffffff;
-  padding: 28px;
-  border-radius: 14px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-}
+ <style>
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #1f2933;
+    color: #e8edf2;
+    margin: 0;
+    padding: 24px;
+    line-height: 1.5;
+  }
 
-h1 {
-  margin-top: 0;
-  text-align: center;
-  color: #7a1f2b;
-  font-size: 28px;
-}
+  .quiz-container {
+    max-width: 980px;
+    margin: 0 auto;
+    background: #263442;
+    padding: 28px;
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.22);
+  }
 
-.score-box {
-  position: static;
-  top: 0;
-  z-index: 10;
-  background: #7a1f2b;
-  color: white;
-  padding: 14px 18px;
-  border-radius: 10px;
-  margin-bottom: 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-weight: bold;
-}
+  h1 {
+    margin-top: 0;
+    text-align: center;
+    color: #8fb7d9;
+    font-size: 28px;
+  }
 
-.reset-btn {
-  border: none;
-  background: #ffffff;
-  color: #7a1f2b;
-  font-weight: bold;
-  padding: 8px 14px;
-  border-radius: 8px;
-  cursor: pointer;
-}
+  .score-box {
+    position: static;
+    background: #324558;
+    color: #f1f5f9;
+    padding: 14px 18px;
+    border-radius: 10px;
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    border: 1px solid #4b6075;
+  }
 
-.question-block {
-  border: 1px solid #d8dee6;
-  border-left: 6px solid #7a1f2b;
-  border-radius: 10px;
-  padding: 18px;
-  margin-bottom: 22px;
-  background: #fbfcfd;
-}
+  .reset-btn {
+    border: none;
+    background: #5f8fb8;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
 
-.question-number {
-  font-weight: bold;
-  color: #7a1f2b;
-  margin-bottom: 8px;
-  font-size: 18px;
-}
+  .reset-btn:hover {
+    background: #8fb7d9;
+    color: #10202e;
+  }
 
-.question-text {
-  font-weight: 600;
-  margin-bottom: 14px;
-}
+  .question-block {
+    border: 1px solid #4b6075;
+    border-left: 6px solid #8fb7d9;
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 22px;
+    background: #263442;
+    color: #e8edf2;
+  }
 
-.options-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
+  .question-number {
+    font-weight: bold;
+    color: #8fb7d9;
+    margin-bottom: 8px;
+    font-size: 18px;
+  }
 
-.option-item {
-  background: #ffffff;
-  border: 1px solid #cfd7df;
-  padding: 11px 13px;
-  margin-bottom: 9px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
+  .question-text {
+    color: #f1f5f9;
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
 
-.option-item:hover {
-  background: #f0f3f6;
-}
+  .options-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
 
-.option-item.correct {
-  background: #d8f3dc;
-  border-color: #2d8a4d;
-  color: #14532d;
-  font-weight: bold;
-}
+  .option-item {
+    background: #324558;
+    color: #f1f5f9;
+    border: 1px solid #4b6075;
+    padding: 11px 13px;
+    margin-bottom: 9px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
 
-.option-item.incorrect {
-  background: #fde2e1;
-  border-color: #c0392b;
-  color: #7f1d1d;
-  font-weight: bold;
-}
+  .option-item:hover {
+    background: #3b5066;
+    border-color: #8fb7d9;
+  }
 
-.option-item.disabled {
-  pointer-events: none;
-  opacity: 0.95;
-}
+  .option-item.correct {
+    background: #1f5f3b;
+    border-color: #4ade80;
+    color: #eafff0;
+    font-weight: bold;
+  }
 
-.academic-comment {
-  display: none;
-  margin-top: 14px;
-  padding: 13px 14px;
-  background: #fff7ed;
-  border-left: 4px solid #f59e0b;
-  border-radius: 8px;
-  font-size: 15px;
-}
+  .option-item.incorrect {
+    background: #6b2b2b;
+    border-color: #f87171;
+    color: #fff1f1;
+    font-weight: bold;
+  }
 
-.page-citation {
-  display: block;
-  margin-top: 8px;
-  color: #6b7280;
-  font-style: italic;
-}
-  </style>
+  .option-item.wrong {
+    background: #6b2b2b;
+    border-color: #f87171;
+    color: #fff1f1;
+    font-weight: bold;
+  }
+
+  .option-item.disabled {
+    pointer-events: none;
+    opacity: 0.95;
+  }
+
+  .academic-comment {
+    display: none;
+    margin-top: 14px;
+    padding: 13px 14px;
+    background: #2f3f4f;
+    color: #f3f4f6;
+    border-left: 4px solid #d4a017;
+    border-radius: 8px;
+    font-size: 15px;
+  }
+
+  .academic-comment strong {
+    color: #f5d98b;
+  }
+
+  .page-citation {
+    display: block;
+    margin-top: 8px;
+    color: #b6c2cf;
+    font-style: italic;
+  }
+</style>
 </head>
 <body>
   <div class="quiz-container">
