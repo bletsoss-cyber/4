@@ -1980,33 +1980,43 @@
     document.getElementById("total").textContent = total;
 
     function checkAnswer(element, questionNumber, isCorrect) {
-      if (answered.has(questionNumber)) return;
+  const questionBlock = element.closest(".question-block");
 
-      answered.add(questionNumber);
+  if (!questionBlock) return;
 
-      const questionBlock = document.getElementById("q" + questionNumber);
-      const options = questionBlock.querySelectorAll(".option-item");
-      const comment = questionBlock.querySelector(".academic-comment");
+  const realQuestionId = questionBlock.id;
 
-      options.forEach(option => {
-        option.classList.add("disabled");
-      });
+  if (answered.has(realQuestionId)) return;
 
-      if (isCorrect) {
-        element.classList.add("correct");
-        score++;
-      } else {
-        element.classList.add("incorrect");
-        options.forEach(option => {
-          if (option.getAttribute("onclick").includes("true")) {
-            option.classList.add("correct");
-          }
-        });
+  answered.add(realQuestionId);
+
+  const options = questionBlock.querySelectorAll(".option-item");
+  const comment = questionBlock.querySelector(".academic-comment");
+
+  options.forEach(option => {
+    option.classList.add("disabled");
+  });
+
+  if (isCorrect) {
+    element.classList.add("correct");
+    score++;
+  } else {
+    element.classList.add("incorrect");
+
+    options.forEach(option => {
+      const onclickValue = option.getAttribute("onclick");
+      if (onclickValue && onclickValue.includes("true")) {
+        option.classList.add("correct");
       }
+    });
+  }
 
-      comment.style.display = "block";
-      document.getElementById("score").textContent = score;
-    }
+  if (comment) {
+    comment.style.display = "block";
+  }
+
+  document.getElementById("score").textContent = score;
+}
 
     function resetQuiz() {
       score = 0;
