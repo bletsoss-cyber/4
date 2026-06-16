@@ -1,0 +1,1610 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ακαδημαϊκή Αξιολόγηση - Εφ' όλης της Ύλης (Ερωτήσεις 1-30)</title>
+    <style>
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #3b82f6;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --correct-color: #10b981;
+            --incorrect-color: #ef4444;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        .header-panel {
+            background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+
+        .header-panel h1 {
+            margin: 0 0 10px 0;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .header-panel p {
+            margin: 0;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .professor-note {
+            background-color: #ef444410;
+            border-left: 4px solid var(--incorrect-color);
+            padding: 15px;
+            margin-bottom: 25px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .dashboard {
+            display: flex;
+            justify-content: space-between;
+            background: #f1f5f9;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            border: 1px solid var(--border-color);
+        }
+
+        .question-block {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.05);
+            transition: transform 0.2s ease;
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .question-number {
+            background: var(--primary-color);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .page-reference {
+            font-size: 12px;
+            color: #64748b;
+            font-weight: 500;
+            background: #f1f5f9;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .question-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 20px;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            padding: 14px 18px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            background: #fafafa;
+        }
+
+        .option-item:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+        .option-prefix {
+            font-weight: 700;
+            margin-right: 12px;
+            color: var(--primary-color);
+            background: #e0e7ff;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+
+        .question-block.answered .option-item {
+            pointer-events: none;
+        }
+
+        .option-item.correct {
+            background-color: #d1fae5 !important;
+            border-color: #10b981 !important;
+            color: #065f46 !important;
+        }
+
+        .option-item.correct .option-prefix {
+            background-color: #10b981 !important;
+            color: white !important;
+        }
+
+        .option-item.incorrect {
+            background-color: #fee2e2 !important;
+            border-color: #ef4444 !important;
+            color: #991b1b !important;
+        }
+
+        .option-item.incorrect .option-prefix {
+            background-color: #ef4444 !important;
+            color: white !important;
+        }
+
+        .rationale-panel {
+            margin-top: 20px;
+            padding: 15px 20px;
+            background-color: #f8fafc;
+            border-left: 4px solid var(--secondary-color);
+            border-radius: 0 8px 8px 0;
+            font-size: 13px;
+            color: #334155;
+            display: none;
+        }
+
+        .rationale-title {
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-panel">
+        <h1>Τελική Εφ' όλης της Ύλης Αξιολόγηση</h1>
+        <p>Έδρα Ενδοδοντίας και Κλινικής Οδοντιατρικής | Σελίδες 285-330</p>
+    </div>
+
+    <div class="professor-note">
+        <strong>ΠΡΟΣΟΧΗ:</strong> Το παρόν διαγώνισμα εξάγεται κατόπιν της ρητής εντολής "ΠΑΡΑΓΩΓΗ ΟΛΩΝ". Αξιολογείστε εφ' όλης της ύλης (Εργονομία, Εργαλεία, Αρχές, Απομόνωση). Η κλινική άγνοια δεν συγχωρείται.
+    </div>
+
+    <div class="dashboard">
+        <div>Πρόοδος: <span id="progress-text">0 / 30</span></div>
+        <div>Τρέχουσα Βαθμολογία: <span id="score-text">0%</span></div>
+    </div>
+
+    <form id="quiz-form" onsubmit="return false;">
+
+        <div class="question-block" id="q1" data-correct="A">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 1</span>
+                <span class="page-reference">Σελίδα 287</span>
+            </div>
+            <div class="question-text">Ποια είναι η συχνότερη μυοσκελετική διαταραχή στους οδοντιάτρους, η οποία αναφέρεται περίπου στο 80% και αποτελεί κύρια αιτία πρόωρης συνταξιοδότησης;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Ο πόνος στη μέση λόγω κήλης του μεσοσπονδύλιου δίσκου.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Το αυχενικό σύνδρομο εξαιτίας συνεχούς πίεσης στους μύες.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Η τενοντίτιδα του καρπού (σύνδρομο καρπιαίου σωλήνα).</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Η οστεοαρθρίτιδα των δακτύλων.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Στη σελίδα 287 αναφέρεται ότι η συχνότερη μυοσκελετική διαταραχή στους οδοντιάτρους, περίπου στο 80%, είναι ο πόνος στη μέση, αποτελώντας κύρια αιτία πρόωρης συνταξιοδότησης.
+            </div>
+        </div>
+
+        <div class="question-block" id="q2" data-correct="B">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 2</span>
+                <span class="page-reference">Σελίδα 287</span>
+            </div>
+            <div class="question-text">Αναφορικά με τον κίνδυνο από τις "δονήσεις", σε ποιο εύρος συχνοτήτων προκαλείται υπερδιέγερση στους μύες;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Από 5 έως 15 Hz.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Από 20 έως 80 Hz.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Από 100 έως 500 Hz.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Από 5.000 έως 10.000 Hz.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Στη σελίδα 287, ενότητα "Δονήσεις", εξηγείται ότι εργαλεία που λειτουργούν σε συχνότητες από 20 έως 80 Hz προκαλούν υπερδιέγερση στους μύες, αυξάνοντας τον κίνδυνο μυοσκελετικών παθήσεων.
+            </div>
+        </div>
+
+        <div class="question-block" id="q3" data-correct="D">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 3</span>
+                <span class="page-reference">Σελίδα 291 / 292</span>
+            </div>
+            <div class="question-text">Στο σύστημα ωρολογίου για δεξιόχειρα οδοντίατρο, σε ποια ζώνη (ώρες) αντιστοιχεί η "περιοχή μεταφοράς εργαλείων/υλικών";</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Ώρες 7 έως 12.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Ώρες 12 έως 2.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Ώρες 2 έως 4.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Ώρες 4 έως 7.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Σύμφωνα με την Εικόνα 9.7 (σελίδα 292), η περιοχή μεταφοράς εργαλείων για δεξιόχειρα αντιστοιχεί στην περιοχή κάτω από το πηγούνι και στο στήθος του ασθενούς, δηλαδή μεταξύ των ωρών 4-7.
+            </div>
+        </div>
+
+        <div class="question-block" id="q4" data-correct="C">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 4</span>
+                <span class="page-reference">Σελίδα 290</span>
+            </div>
+            <div class="question-text">Ποια είναι η σωστή ανατομική σχέση του ασθενούς όταν τοποθετείται στη "σχεδόν ύπτια" θέση;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Τα ακροδάχτυλα των ποδιών βρίσκονται χαμηλότερα από τη λεκάνη.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Το κεφάλι βρίσκεται ελαφρώς υψηλότερα από τα γόνατα.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Τα ακροδάχτυλα των ποδιών βρίσκονται ελαφρώς υψηλότερα από την άκρη της μύτης.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Η πλάτη της έδρας είναι παράλληλη με το δάπεδο (γωνία 0 μοιρών).</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Στη σελίδα 290 αναλύεται η σχεδόν ύπτια θέση: «τα ακροδάχτυλα των ποδιών του ασθενούς να είναι ελαφρώς υψηλότερα από την άκρη της μύτης του, ώστε να διατηρείται η ιδανική ροή αίματος...».
+            </div>
+        </div>
+
+        <div class="question-block" id="q5" data-correct="B">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 5</span>
+                <span class="page-reference">Σελίδα 296</span>
+            </div>
+            <div class="question-text">Πού πρέπει να τοποθετείται εργονομικά ο προβολέας της οδοντιατρικής μονάδας όταν ο κλινικός εργάζεται στην άνω γνάθο;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Ακριβώς κατακόρυφα πάνω από το κεφάλι του ασθενούς.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Πάνω από τη γραμμή του στήθους ή την κοιλιά, σε γωνία κάτω από τη γραμμή όρασης, ώστε το φως να κατευθύνεται προς τα πάνω.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Από την αριστερή πλευρά του οδοντιάτρου σε ύψος 40 εκατοστών.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Πίσω από τον αυχένα του ασθενούς με κλίση 90 μοιρών.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Βάσει της Εικόνας 9.12 (σελίδα 296), για την άνω γνάθο ο προβολέας τοποθετείται πάνω από το στήθος/κοιλιά του ασθενούς, κάτω από τη γραμμή όρασης, ώστε να φωτίζει τις μασητικές επιφάνειες με φορά προς τα πάνω.
+            </div>
+        </div>
+
+        <div class="question-block" id="q6" data-correct="B">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 6</span>
+                <span class="page-reference">Σελίδα 297</span>
+            </div>
+            <div class="question-text">Ποιο πλεονέκτημα προσφέρει η επικάλυψη των λειτουργικών άκρων των εργαλείων με νιτρίδιο του τιτανίου (TiN);</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Αυξάνει την ευκαμψία του εργαλείου στις ριζικές αποκλίσεις.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Είναι πιο ανθεκτικό σε φθορά χρήσης και δεν επιτρέπει τη συγκόλληση σύνθετων ρητινών στο άκρο.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Μειώνει το συνολικό βάρος του εργαλείου στο μισό.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Αποτρέπει την οξείδωση αποκλειστικά κατά τη χημική αποστείρωση.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Στη σελίδα 297 τονίζεται ότι η επίστρωση με νιτρίδιο του τιτανίου (TiN) καθιστά το άκρο πιο ανθεκτικό στη φθορά και περιορίζει την προσκόλληση ή συγκόλληση των σύνθετων ρητινών.
+            </div>
+        </div>
+
+        <div class="question-block" id="q7" data-correct="C">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 7</span>
+                <span class="page-reference">Σελίδα 299</span>
+            </div>
+            <div class="question-text">Σε ένα οδοντιατρικό εργαλείο χειρός με τριψήφιο κωδικό, τι υποδηλώνει ανατομικά το δεύτερο ψηφίο;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Το πλάτος της λεπίδας.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Το μήκος του στελέχους (shank).</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Το μήκος του λειτουργικού άκρου.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Τη γωνία της λεπίδας σε σχέση με τον επιμήκη άξονα της λαβής.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Στη σελίδα 299 αναλύεται η κωδικοποίηση: Το πρώτο ψηφίο δείχνει το πλάτος σε δέκατα του χιλιοστού, το δεύτερο το μήκος του λειτουργικού άκρου σε χιλιοστά και το τρίτο τη γωνία σε εκατοστιαία κλίμακα.
+            </div>
+        </div>
+
+        <div class="question-block" id="q8" data-correct="B">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 8</span>
+                <span class="page-reference">Σελίδα 303</span>
+            </div>
+            <div class="question-text">Ποια τεχνική λαβής (κράτημα) των εργαλείων ενδείκνυται όταν η οδοντιατρική πράξη απαιτεί την άσκηση αυστηρά περιορισμένης αλλά ισχυρής δύναμης (π.χ. πιάσιμο ευθείας χειρολαβής στην άνω γνάθο);</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Η λαβή του στυλό (pen grasp).</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Η λαβή της παλάμης (palm grasp).</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Η ανεστραμμένη λαβή του στυλό.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Η λαβή δύο δακτύλων (δείκτη-αντίχειρα).</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Στη σελίδα 303 (Εικόνα 9.26) αναφέρεται ότι η λαβή παλάμης χρησιμοποιείται "όταν απαιτείται αυστηρά περιορισμένη κίνηση, με άσκηση ισχυρής δύναμης... π.χ. για το πιάσιμο της ευθείας χειρολαβής".
+            </div>
+        </div>
+
+        <div class="question-block" id="q9" data-correct="B">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 9</span>
+                <span class="page-reference">Σελίδα 304</span>
+            </div>
+            <div class="question-text">Ποιες είναι οι ενδεδειγμένες φυσικές συνθήκες (θερμοκρασία, πίεση, χρόνος) για την ολοκλήρωση του κύκλου αποστείρωσης στον αυτόκαυστο κλίβανο;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>100°C στους 10 psi για 45 λεπτά.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>121°C στους 15 psi για 15 έως 20 λεπτά.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>160°C χωρίς υγρασία (0 psi) για 2 ώρες.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>134°C στους 30 psi για 5 λεπτά.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Στο "Σημαντικό" πλαίσιο της σελίδας 304 υπογραμμίζεται ρητά ότι ο κύκλος αποστείρωσης (για μη ταχείες μεθόδους) ρυθμίζεται στα 15-20 λεπτά, στους 121°C και σε πίεση 15 psi.
+            </div>
+        </div>
+
+        <div class="question-block" id="q10" data-correct="D">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 10</span>
+                <span class="page-reference">Σελίδα 308</span>
+            </div>
+            <div class="question-text">Με βάση το σύστημα ταξινόμησης του Black, σε ποια ομάδα (Class) ανήκουν οι τερηδονικές κοιλότητες που εντοπίζονται στο αυχενικό τριτημόριο των παρειακών ή γλωσσικών επιφανειών οποιουδήποτε δοντιού;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Ομάδα I</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Ομάδα III</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Ομάδα IV</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Ομάδα V</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Η σελίδα 308 καθορίζει σαφώς την Ομάδα V (Class V) ως τις κοιλότητες που αφορούν "το αυχενικό τριτημόριο των παρειακών, χειλικών και υπερώιων επιφανειών όλων των δοντιών".
+            </div>
+        </div>
+
+        <div class="question-block" id="q11" data-correct="B">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 11</span>
+                <span class="page-reference">Σελίδα 308</span>
+            </div>
+            <div class="question-text">Στην ονοματολογία των κοιλοτήτων, πώς ονομάζεται το εσωτερικό τοίχωμα μιας κοιλότητας Ιης ομάδας (μασητικής), το οποίο αποτελεί τον πυθμένα της και είναι κάθετο στον επιμήκη άξονα του δοντιού;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Αξονικό τοίχωμα.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Υπερπολφικό τοίχωμα.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Αυχενικό τοίχωμα.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Γλωσσικό τοίχωμα.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Στη σελίδα 308 (σημείο β) εξηγείται ότι το τοίχωμα που αποτελεί τον πυθμένα της κοιλότητας και είναι κάθετο στον επιμήκη άξονα ονομάζεται υπερπολφικό.
+            </div>
+        </div>
+
+        <div class="question-block" id="q12" data-correct="B">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 12</span>
+                <span class="page-reference">Σελίδα 309</span>
+            </div>
+            <div class="question-text">Ποια είναι η βασική κλινική ένδειξη για την τοποθέτηση ενός τεχνητού τοιχώματος (μήτρας) πριν την έμφραξη;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Απομονώνει πλήρως την πολφική κοιλότητα από χημικούς παράγοντες.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Υποκαθιστά την ελλείπουσα όμορη επιφάνεια και εμποδίζει τη διαρροή του εμφρακτικού υλικού προς το περιοδόντιο.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Αποτελεί ουδέτερο στρώμα για την προστασία από τη θερμότητα του πολυμερισμού.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Αντικαθιστά τη χρήση του ελαστικού απομονωτήρα στην άνω γνάθο.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Βάσει της σελίδας 309 (ενότητα «Τεχνητό τοίχωμα»), υποκαθιστά την ελλείπουσα όμορη επιφάνεια (λειτουργεί ως οδηγός), εμποδίζει τη διαρροή προς το περιοδόντιο και αποτρέπει ερεθισμούς.
+            </div>
+        </div>
+
+        <div class="question-block" id="q13" data-correct="C">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 13</span>
+                <span class="page-reference">Σελίδα 311</span>
+            </div>
+            <div class="question-text">Ποιο γεωμετρικό σχήμα διατομής θεωρείται το πλέον κατάλληλο για την ανατομική εφαρμογή μιας σφήνας στις όμορες επιφάνειες;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Τετράγωνο με στρογγυλεμένες ακμές.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Κυκλικό.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Τριεδρικό (τριγωνικό).</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Οβάλ (ελλειπτικό).</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Στη σελίδα 311 υπογραμμίζεται σαφώς: "Το σχήμα των σφηνών είναι τριεδρικό... η ανατομικότητα χαρακτηρίζει όλες τις επιφάνειές τους...".
+            </div>
+        </div>
+
+        <div class="question-block" id="q14" data-correct="C">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 14</span>
+                <span class="page-reference">Σελίδα 314</span>
+            </div>
+            <div class="question-text">Ποιο είναι το ιδανικό κλινικό περιβάλλον για τη σωστή επιλογή του χρώματος (απόχρωσης) της σύνθετης ρητίνης;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Μετά την ολοκλήρωση της παρασκευής της κοιλότητας και αφού το δόντι στεγνώσει πλήρως με αέρα.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Κάτω από τον ισχυρό φωτισμό του προβολέα της οδοντιατρικής έδρας (halogen/LED) για μέγιστη ευκρίνεια.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Στην αρχή της συνεδρίας, σε καθαρά, ελαφρά διαβρεγμένα με σάλιο δόντια, ιδανικά κάτω από φυσικό φως (χωρίς τον προβολέα).</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Μόνο μετά την εφαρμογή του αδροποιητή για να έχει αφαιρεθεί το επίχρισμα (smear layer).</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Η σελίδα 314 παραθέτει ως γενικούς κανόνες ότι το χρώμα λαμβάνεται πριν την απομόνωση, με φυσικό φως, προστατεύοντας από το φως του προβολέα και ενώ τα δόντια διατηρούνται ελαφρά διαβρεγμένα (για να αποφευχθεί η αλλοίωση από την αφυδάτωση).
+            </div>
+        </div>
+
+        <div class="question-block" id="q15" data-correct="B">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 15</span>
+                <span class="page-reference">Σελίδα 315</span>
+            </div>
+            <div class="question-text">Όταν τοποθετείται ουδέτερο στρώμα (π.χ. υδροξείδιο του ασβεστίου) για προστασία του πολφού, ποιο είναι το μέγιστο επιτρεπτό πάχος του;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>0,1 χιλιοστά.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>0,5 χιλιοστά.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>1,0 χιλιοστά.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>2,0 χιλιοστά.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Η σελίδα 315 διευκρινίζει ότι "το πάχος της (ενν. της κονίας) δεν υπερβαίνει το 0,5 χιλιοστό και είναι ομοιόμορφο σε όλη την επιφάνεια τοποθέτησης".
+            </div>
+        </div>
+
+        <div class="question-block" id="q16" data-correct="B">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 16</span>
+                <span class="page-reference">Σελίδα 316</span>
+            </div>
+            <div class="question-text">Για ποιο βιομηχανικό και κλινικό λόγο η σύνθετη ρητίνη πρέπει να τοποθετείται στην κοιλότητα "σταδιακά" (κατά στρώματα/increments) και όχι εφάπαξ (σε μεγάλες κοιλότητες);</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Γιατί η εφάπαξ έγχυση θα προκαλέσει θερμικό έγκαυμα στον πολφό (εξώθερμη αντίδραση άνω των 60°C).</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Για την ελαχιστοποίηση των τάσεων από τη συστολή πολυμερισμού και για την εξασφάλιση πλήρους σκλήρυνσης (φωτοπολυμερισμού) σε όλο το βάθος.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Για να εγκλωβίζεται ενδιάμεσα αέρας που δρα ως μονωτικό υλικό.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Μόνο για λόγους αισθητικής διαστρωμάτωσης των χρωμάτων, δεν επηρεάζει τις μηχανικές ιδιότητες.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Στη σελίδα 316 (σημείο 9) υπογραμμίζεται ότι η σταδιακή πλήρωση (incremental technique) είναι αναγκαία "ώστε να έρχεται σε επαφή με υγρασία... να πολυμερίζεται πλήρως... και να ελαχιστοποιείται η συστολή πολυμερισμού".
+            </div>
+        </div>
+
+        <div class="question-block" id="q17" data-correct="A">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 17</span>
+                <span class="page-reference">Σελίδα 317</span>
+            </div>
+            <div class="question-text">Ποια εργαλεία ενδείκνυνται για την αρχική διαμόρφωση και λείανση (finishing) μιας αποκατάστασης σύνθετης ρητίνης πριν την τελική στίλβωση;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Εγγλυφίδες καρβιδίου του βολφραμίου με πολλές λεπίδες ή εγγλυφίδες διαμαντιού λεπτής/πολύ λεπτής αδρότητας.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Χονδρόκοκκοι δίσκοι αλουμινίου αποκλειστικά.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Σπάθες αμαλγάματος με άσκηση υψηλής πίεσης.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Πάστες στίλβωσης με αδρότητα 100 microns χωρίς ψύξη.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Η σελίδα 317 (και η Εικόνα 9.45) αναφέρουν ότι η λείανση επιτυγχάνεται κυρίως με πολύλεπτες εγγλυφίδες καρβιδίου ή διαμάντια λεπτής αδρότητας πριν τη στίλβωση με ελαστικά ή πάστες.
+            </div>
+        </div>
+
+        <div class="question-block" id="q18" data-correct="D">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 18</span>
+                <span class="page-reference">Σελίδα 318</span>
+            </div>
+            <div class="question-text">Ποιο από τα παρακάτω θεωρείται κλινικό μειονέκτημα (και όχι πλεονέκτημα) της χρήσης ελαστικού απομονωτήρα;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Η αποτροπή της εισρόφησης ή κατάποσης μικροεργαλείων.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Η πλήρης απομάκρυνση των μαλακών μορίων διευκολύνοντας την ορατότητα.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Ο απόλυτος έλεγχος της υγρασίας για τα συστήματα συγκόλλησης.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Η δυσκολία τοποθέτησής του σε δόντια με ατελή ανατολή (που δεν έχουν ανατείλει πλήρως).</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Στη σελίδα 318 απαριθμούνται τα πλεονεκτήματα. Στα μειονεκτήματα αναφέρεται ρητά η "Δυσκολία τοποθέτησης σε δόντια με έντονη κλίση... και σε δόντια χωρίς δυσχέρεια ιδιαίτερα αν δεν έχουν ανατείλει πλήρως".
+            </div>
+        </div>
+
+        <div class="question-block" id="q19" data-correct="C">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 19</span>
+                <span class="page-reference">Σελίδα 319</span>
+            </div>
+            <div class="question-text">Ποια ανατομικά τμήματα μιας τυπικής αρπάγης ελαστικού απομονωτήρα έρχονται σε άμεση μηχανική επαφή με το δόντι (υποουλικά ή υπερουλικά) για να εξασφαλίσουν τη συγκράτησή της;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Το μεταλλικό τόξο (bow).</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Οι οπές εισαγωγής του αρπαγοφόρου.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Οι σιαγόνες της αρπάγης (jaw / τα τέσσερα "δόντια" της).</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Τα κεντρικά πτερύγια αποκλειστικά.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Όπως φαίνεται στην Εικόνα 9.47 και εξηγείται στη σελίδα 319, οι "σιαγόνες" (και συγκεκριμένα τα 4 σημεία επαφής / δόντια της αρπάγης) έρχονται σε επαφή με τις γωνίες του δοντιού.
+            </div>
+        </div>
+
+        <div class="question-block" id="q20" data-correct="B">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 20</span>
+                <span class="page-reference">Σελίδα 321</span>
+            </div>
+            <div class="question-text">Σε ποιες κλινικές περιπτώσεις μπορεί να προτιμηθεί η τοποθέτηση μιας πλαστικής αρπάγης αντί της κλασικής μεταλλικής;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Όταν χρειαζόμαστε εξαιρετικά υψηλές δυνάμεις συγκράτησης σε γομφίους με μεγάλη αποτριβή.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Όταν θέλουμε να αποφύγουμε ή να μειώσουμε τον τραυματισμό των μαλακών ιστών (λιγότερο τραυματικές).</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Μόνο όταν γίνεται αποστείρωση σε ξηρό κλίβανο υψηλής θερμοκρασίας.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Όταν η κοιλότητα επεκτείνεται υποουλικά κατά 4 χιλιοστά.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Στη σελίδα 321 αναφέρεται ότι οι πλαστικές αρπάγες κυκλοφορούν στο εμπόριο και επιλέγονται συχνά επειδή είναι λιγότερο τραυματικές για τους μαλακούς ιστούς (Εικόνα 9.54).
+            </div>
+        </div>
+
+        <div class="question-block" id="q21" data-correct="B">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 21</span>
+                <span class="page-reference">Σελίδα 322</span>
+            </div>
+            <div class="question-text">Ποια είναι η πιο συνηθισμένη διάσταση για τα τυποποιημένα τετράγωνα φύλλα ελαστικού απομονωτήρα που χρησιμοποιούνται στους ενήλικες ασθενείς;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>10 x 10 εκατοστά.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>15 x 15 εκατοστά (ή 12,5 x 12,5).</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>20 x 20 εκατοστά.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>25 x 25 εκατοστά.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Σελίδα 322: "Το ελαστικό είναι ένα τετράγωνο φύλλο λάτεξ διαστάσεων 15 x 15 ή 12,5 x 12,5 εκατοστών...".
+            </div>
+        </div>
+
+        <div class="question-block" id="q22" data-correct="B">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 22</span>
+                <span class="page-reference">Σελίδα 322</span>
+            </div>
+            <div class="question-text">Κατά τη διάνοιξη των οπών στο ελαστικό, ποια θεωρείται η ιδανική μεσοδόντια απόσταση (μεταξύ των κέντρων των οπών) για να μην πτυχώνει το υλικό ούτε να τεντώνεται υπερβολικά;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>1-2 χιλιοστά.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>4-5 χιλιοστά.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>8-10 χιλιοστά.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>12 χιλιοστά.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Η σελίδα 322 αναφέρει ρητά ως κανόνα: "Αν απέχουν περισσότερο... Αν απέχουν λιγότερο τότε... Το ιδανικό είναι να απέχουν 4-5 χιλιοστά".
+            </div>
+        </div>
+
+        <div class="question-block" id="q23" data-correct="C">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 23</span>
+                <span class="page-reference">Σελίδα 323</span>
+            </div>
+            <div class="question-text">Αναφορικά με τον περιστρεφόμενο δίσκο του τρυπάνου (Εικόνα 9.57), η μεγαλύτερη διαθέσιμη οπή προορίζεται συνήθως για:</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Τους άνω κεντρικούς τομείς.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Τους υπερώιους κυνόδοντες.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Τον γομφίο υποδοχής, όπου θα εφαρμόσει και θα τοποθετηθεί η αρπάγη.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Όλα τα δόντια που φέρουν στεφάνες.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Η λεζάντα της Εικόνας 9.57 (σελίδα 323) υποδεικνύει: "Η μεγαλύτερη οπή αντιστοιχεί στο γομφίο που θα τοποθετηθεί η αρπάγη".
+            </div>
+        </div>
+
+        <div class="question-block" id="q24" data-correct="C">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 24</span>
+                <span class="page-reference">Σελίδα 324</span>
+            </div>
+            <div class="question-text">Η εφαρμογή βαζελίνης (ως λιπαντικού μη υδατοδιαλυτού) στο ελαστικό αποτελεί κλινικό σφάλμα διότι:</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Διαβρώνει χημικά το μεταλλικό πλαίσιο Ostby.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Δημιουργεί αλλεργικές αντιδράσεις στο 50% των ασθενών.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Αφήνει αδιάλυτα υπολείμματα που επηρεάζουν αρνητικά τη συγκόλληση των σύνθετων ρητινών στο δόντι (γι' αυτό προτιμώνται υδατοδιαλυτά λιπαντικά).</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Προκαλεί άμεση νέκρωση των κυττάρων της ουλοδοντικής σχισμής.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Η σελίδα 324 προτείνει ρητά υδατοδιαλυτό λιπαντικό (όπως γλυκερίνη) διότι τα μη υδατοδιαλυτά (πετρελαιοειδή/βαζελίνη) αφήνουν επίχρισμα που αναστέλλει ή αλλοιώνει τα συγκολλητικά συστήματα των ρητινών.
+            </div>
+        </div>
+
+        <div class="question-block" id="q25" data-correct="B">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 25</span>
+                <span class="page-reference">Σελίδα 326</span>
+            </div>
+            <div class="question-text">Ποια είναι η βασική αλληλουχία κινήσεων της "3ης τεχνικής" τοποθέτησης ελαστικού απομονωτήρα;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Πρώτα η αρπάγη, έπειτα το ελαστικό πιέζεται πάνω της με δύναμη.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Το ελαστικό αγκιστρώνεται στα πτερύγια της αρπάγης και τοποθετούνται ως ένα ενιαίο σύνολο στο δόντι (ταυτόχρονα).</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Πρώτα το ελαστικό, το οποίο συγκρατείται από το βοηθό, και μετά μπαίνει η αρπάγη.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Δεν χρησιμοποιείται αρπάγη, το ελαστικό συγκρατείται μόνο με το πλαίσιο (frame).</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Η 3η τεχνική περιγράφεται στη σελίδα 326: "Το ελαστικό αγκιστρώνεται στα πτερύγια της αρπάγης και μετά τοποθετούνται και τα δύο μαζί στο δόντι" (βλ. Εικόνα 9.68).
+            </div>
+        </div>
+
+        <div class="question-block" id="q26" data-correct="B">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 26</span>
+                <span class="page-reference">Σελίδα 328</span>
+            </div>
+            <div class="question-text">Η "αναδίπλωση" (inversion) του ελαστικού γύρω από τους αυχένες των δοντιών εξασφαλίζει τη στεγανότητα της απομόνωσης. Με ποιο εργαλείο επιτυγχάνεται βέλτιστα αυτή η ενέργεια;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Με την αιχμηρή άκρη ενός ανιχνευτήρα, πιέζοντας βαθιά στον αυχένα.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Με μια λεπτή σπάθη ρητίνης, γυρνώντας το χείλος του ελαστικού προς την ουλοδοντική σχισμή.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Με τα δάκτυλα του χειριστή τραβώντας το ελαστικό προς τη μασητική.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Με τη χρήση αποκλειστικά φρέζας στίλβωσης υψηλών στροφών.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Σελίδα 328: "Ο καλύτερος τρόπος για την αναδίπλωση είναι με τη χρήση μιας λεπτής σπάθης ρητίνης (Εικόνα 9.73)... γύρω από τους αυχένες των δοντιών".
+            </div>
+        </div>
+
+        <div class="question-block" id="q27" data-correct="B">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 27</span>
+                <span class="page-reference">Σελίδα 328</span>
+            </div>
+            <div class="question-text">Ποιο είναι το χαρακτηριστικό της αρπάγης Νο 212 και για ποια κλινική πράξη ενδείκνυται πρωτίστως;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Είναι αρπάγη γομφίων με μεγάλα πτερύγια, κατάλληλη για ενδοδοντία.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Είναι αρπάγη προσθίων χωρίς πτερύγια, ιδανική για αυχενικές αποκαταστάσεις (κοιλότητες Ομάδας V) καθώς απωθεί τους ιστούς.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Είναι πλαστική αρπάγη, αποκλειστικά για παιδοδοντία.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Είναι ειδική αρπάγη για εξαγωγές με ελαστικό.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Σελίδα 328: "ιδιαίτερα χρήσιμος όταν πρόκειται να γίνουν αυχενικές αποκαταστάσεις, είναι η τοποθέτηση μιας αρπάγης προσθίων χωρίς πτερύγια No 212... στην απώθηση των ιστών".
+            </div>
+        </div>
+
+        <div class="question-block" id="q28" data-correct="B">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 28</span>
+                <span class="page-reference">Σελίδα 329</span>
+            </div>
+            <div class="question-text">Κατά τη διαδικασία αφαίρεσης ενός ελαστικού απομονωτήρα σε πολλαπλά δόντια (π.χ. από προγόμφιο σε γομφίο), ποιο είναι το σωστό πρωτόκολλο;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Αφαίρεση της αρπάγης και βίαιη τράβηξη όλου του ελαστικού προς τα πάνω.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Τέντωμα του ελαστικού παρειακά και κοπή όλων των μεσοδόντιων τμημάτων (γεφυρών) με ψαλίδι, πριν την αφαίρεση της αρπάγης.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Χρήση σπάθης για την αποκοπή του ελαστικού στις μασητικές επιφάνειες.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Πρώτα αφαιρείται το μεταλλικό πλαίσιο και έπειτα ο ασθενής κλείνει το στόμα για να σπάσει το λάτεξ.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Η σελίδα 329 και η Εικόνα 9.76 τεκμηριώνουν ότι το ελαστικό τεντώνεται παρειακά και κόβονται με ψαλίδι τα μεσοδόντια τμήματά του, ώστε να μην τραυματιστούν οι ιστοί.
+            </div>
+        </div>
+
+        <div class="question-block" id="q29" data-correct="A">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 29</span>
+                <span class="page-reference">Σελίδα 329</span>
+            </div>
+            <div class="question-text">Ποιος είναι ο ενδεδειγμένος τρόπος τοποθέτησης του νήματος απώθησης ούλων για την αποφυγή τραυματισμού του προσπεφυκότος επιθηλίου;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Με χρήση αμβλέος, λεπτού εργαλείου, ασκώντας ατραυματική, ήπια πίεση (ευαίσθητη τεχνική).</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Με χρήση αιχμηρού ανιχνευτήρα για βαθιά εισχώρηση στο οστούν.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Πιέζοντας το νήμα με υψηλές ταχύτητες χρησιμοποιώντας λείο περιστροφικό δίσκο.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Μόνο με τα δάκτυλα (χωρίς χρήση εργαλείου) για καλύτερη αίσθηση.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Στη σελίδα 329, ενότητα "Νήμα απώθησης", τονίζεται: "Η τοποθέτηση γίνεται με ένα αμβλύ λεπτό εργαλείο... Είναι μια ευαίσθητη τεχνική, γιατί απαιτείται προσοχή...".
+            </div>
+        </div>
+
+        <div class="question-block" id="q30" data-correct="B">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 30</span>
+                <span class="page-reference">Σελίδα 330</span>
+            </div>
+            <div class="question-text">Ο Αμερικανός οδοντίατρος Josiah Flagg θεωρείται σημαντικός για την εξέλιξη του οδοντιατρείου διότι το 1790:</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Ανακάλυψε τον ελαστικό απομονωτήρα.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Τροποποίησε μια απλή ξύλινη καρέκλα γραφής Windsor προσθέτοντας ερεισικέφαλο και δίσκο, δημιουργώντας ουσιαστικά τον πρόδρομο της οδοντιατρικής έδρας.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Καθιέρωσε το σύστημα κατάταξης κοιλοτήτων (που αργότερα πήρε το όνομα του Black).</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Κατασκεύασε την πρώτη μεταλλική αρπάγη για γομφίους.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Το παράρτημα/ΠΡΟΣΘΕΤΟ στη σελίδα 330 αποδίδει στον J. Flagg την τροποποίηση της καρέκλας Windsor, θέτοντας έτσι τις βάσεις για την εξέλιξη της οδοντιατρικής έδρας.
+            </div>
+        </div>
+
+      <div class="question-block" id="q31" data-correct="B">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 31</span>
+                <span class="page-reference">Σελίδα 286</span>
+            </div>
+            <div class="question-text">Πώς ορίζεται η «Επαναληψιμότητα» ως εργονομικός παράγοντας κινδύνου στο οδοντιατρείο;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Ο συνολικός χρόνος ανάπαυσης μεταξύ των ραντεβού σε μια εργάσιμη ημέρα.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Ο μέσος αριθμός κινήσεων που εκτελούνται από μία άρθρωση ή μυ μέσα σε ένα ορισμένο χρονικό διάστημα.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Ο αριθμός των φορών που αποστειρώνεται ένα συγκεκριμένο εργαλείο.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Ο βαθμός απόκλισης της σπονδυλικής στήλης από τον κατακόρυφο άξονα.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Στη σελίδα 286 ορίζεται: «Ως επαναληψιμότητα ορίζεται ο μέσος αριθμός κινήσεων που εκτελούνται από μία άρθρωση ή και μυ μέσα σε ένα ορισμένο χρονικό διάστημα».
+            </div>
+        </div>
+
+        <div class="question-block" id="q32" data-correct="C">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 32</span>
+                <span class="page-reference">Σελίδα 286</span>
+            </div>
+            <div class="question-text">Ποιες είναι οι συνηθέστερες καταστάσεις στο οδοντιατρείο που προκαλούν μυοσκελετική διαταραχή εξαιτίας της «επαναληψιμότητας»;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Η λήψη αποτυπωμάτων και η κατασκευή προσωρινών στεφανών.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Η συνεχής χρήση του προβολέα και η έκθεση σε ακτινοβολία.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Οι επαναλαμβανόμενες λαβές και κινήσεις με εργαλεία, καθώς και η επανάληψη στον καθαρισμό των οδοντιατρικών εργαλείων.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Οι συζητήσεις με τον ασθενή στην καθιστή θέση.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Στη σελίδα 286 αναφέρεται σαφώς ότι οι συνηθέστερες καταστάσεις είναι: α) οι επαναλαμβανόμενες λαβές/κινήσεις στην πράξη και β) η επανάληψη στον καθαρισμό των εργαλείων.
+            </div>
+        </div>
+
+        <div class="question-block" id="q33" data-correct="A">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 33</span>
+                <span class="page-reference">Σελίδα 287</span>
+            </div>
+            <div class="question-text">Ποιο ιατρικό πρόβλημα, μεταξύ άλλων, μπορεί να επιταχυνθεί από την ακατάλληλη εργονομία και αναφέρεται χαρακτηριστικά στο σύγγραμμα πέραν των μυοσκελετικών παθήσεων;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Προβλήματα στην ακοή, στην όραση και έντονο άγχος.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Χρόνια νεφρική ανεπάρκεια.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Αλλεργία στο ακρυλικό.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Ισχαιμική καρδιοπάθεια.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Στη σελίδα 287 επισημαίνεται: «Τα ιατρικά προβλήματα αφορούν στο μυοσκελετικό σύστημα, στην ακοή, στην όραση και σε έντονο άγχος».
+            </div>
+        </div>
+
+        <div class="question-block" id="q34" data-correct="C">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 34</span>
+                <span class="page-reference">Σελίδα 290</span>
+            </div>
+            <div class="question-text">Σε ποια από τις παρακάτω κλινικές περιπτώσεις ΕΝΔΕΙΚΝΥΤΑΙ η χρήση της καθιστής θέσης για τον ασθενή;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Κατά την εξαγωγή εγκλείστων γομφίων της άνω γνάθου.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Όταν εφαρμόζεται αποκλειστικά ελαστικός απομονωτήρας για πολύωρες εμφράξεις.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Σε πράξεις που υπάρχει κίνδυνος κατάποσης μικροεργαλείων (όταν δεν μπορεί να τοποθετηθεί απομονωτήρας) και σε άτομα με αναπνευστικά προβλήματα.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Στην περίπτωση που ο ασθενής εκδηλώσει λιποθυμικό επεισόδιο.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Στη σελίδα 290 καταγράφεται ότι η καθιστή θέση χρησιμοποιείται στη συμβουλευτική, όταν υπάρχει κίνδυνος κατάποσης, σε εγκυμοσύνη και σε άτομα με καρδιακά/αναπνευστικά προβλήματα.
+            </div>
+        </div>
+
+        <div class="question-block" id="q35" data-correct="B">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 35</span>
+                <span class="page-reference">Σελίδα 291</span>
+            </div>
+            <div class="question-text">Ποια μεταβολή γίνεται στη θέση της οδοντιατρικής έδρας σε περίπτωση λιποθυμικού επεισοδίου του ασθενούς;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Η πλάτη ανυψώνεται ταχύτατα σε γωνία 90 μοιρών.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Ρυθμίζεται έτσι ώστε τα πόδια να βρεθούν σε υψηλότερη θέση από το κεφάλι (για καλύτερη αιμάτωση του εγκεφάλου).</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Ο ασθενής τοποθετείται σε πλάγια κατακεκλιμένη θέση αποκλειστικά από την αριστερή πλευρά.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Τοποθετείται στην κλασική σχεδόν ύπτια θέση (μικρή γωνία με το δάπεδο).</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Όπως φαίνεται στην Εικόνα 9.5 (σελ. 291) και αναλύεται στο κείμενο της σελίδας 290, σε περίπτωση λιποθυμίας ο ασθενής τοποθετείται με τα πόδια υψηλότερα από το κεφάλι για βελτίωση της εγκεφαλικής αιμάτωσης.
+            </div>
+        </div>
+
+        <div class="question-block" id="q36" data-correct="A">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 36</span>
+                <span class="page-reference">Σελίδα 291 / 292</span>
+            </div>
+            <div class="question-text">Για τον δεξιόχειρα οδοντίατρο, η θέση "κατευθείαν δεξιά" (στην ώρα 9) διευκολύνει πρωτίστως την εξέταση και εργασία σε ποιες επιφάνειες;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Στις παρειακές επιφάνειες των άνω και κάτω οπισθίων δοντιών της δεξιάς πλευράς και στις μασητικές των κάτω δεξιά.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Στις γλωσσικές επιφάνειες των κάτω προσθίων δοντιών (άμεση όραση).</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Στις υπερώιες επιφάνειες των άνω αριστερών γομφίων.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Αποκλειστικά στις κοπτικές επιφάνειες των άνω τομέων.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Στη σελίδα 292 (παράγραφος 2) εξηγείται ρητά: Η θέση ώρα 9 διευκολύνει την εργασία στις παρειακές επιφάνειες δεξιάς πλευράς καθώς και στις μασητικές των οπισθίων κάτω δεξιά.
+            </div>
+        </div>
+
+        <div class="question-block" id="q37" data-correct="C">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 37</span>
+                <span class="page-reference">Σελίδα 292</span>
+            </div>
+            <div class="question-text">Σε ποια «ώρα» του νοερού ρολογιού ο οδοντίατρος στέκεται ακριβώς πίσω από το κεφάλι του ασθενούς, η οποία αποτελεί θέση εκλογής για την εργασία στις γλωσσικές επιφάνειες των κάτω προσθίων;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Ώρα 9.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Ώρα 10-11.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Ώρα 12.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Ώρα 2.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Η σελίδα 292 (παράγραφος 4) καθορίζει σαφώς: «πίσω ακριβώς από το κεφάλι του ασθενούς (ώρα 12) ο οδοντίατρος στέκεται για εξέταση και εργασία των γλωσσικών επιφανειών των κάτω προσθίων δοντιών».
+            </div>
+        </div>
+
+        <div class="question-block" id="q38" data-correct="D">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 38</span>
+                <span class="page-reference">Σελίδα 294</span>
+            </div>
+            <div class="question-text">Σύμφωνα με τον Πίνακα 9.2, ποια είναι η ορθή εργονομική απόσταση που πρέπει να διατηρείται ανάμεσα στο πεδίο εργασίας και τα μάτια του οδοντιάτρου (ή τους φακούς του) στην καθιστή θέση;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>10 - 20 εκατοστά.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>20 - 30 εκατοστά.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>45 - 55 εκατοστά.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Περίπου 35 - 40 εκατοστά.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Στον Πίνακα 9.2 (σελίδα 294), το αντίστοιχο σημείο αναφέρει ρητά: «Η απόσταση ανάμεσα στο πεδίο εργασίας και στα μάτια του οδοντιάτρου... είναι περίπου 35-40 εκατοστά».
+            </div>
+        </div>
+
+        <div class="question-block" id="q39" data-correct="B">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 39</span>
+                <span class="page-reference">Σελίδα 295</span>
+            </div>
+            <div class="question-text">Στην οδοντιατρική τεσσάρων χειρών, ποια είναι η σωστή εργονομικά σχετική θέση του καθίσματος του βοηθού σε σχέση με αυτό του οδοντιάτρου;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Το κάθισμα του βοηθού βρίσκεται στο ίδιο ακριβώς ύψος με του οδοντιάτρου.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Το κάθισμα του βοηθού ρυθμίζεται υψηλότερα από του οδοντιάτρου για να έχει ανεμπόδιστη όραση στο πεδίο.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Το κάθισμα του βοηθού ρυθμίζεται χαμηλότερα για να αποφεύγεται η επαφή με τον προβολέα.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Ο βοηθός πρέπει να στέκεται πάντα όρθιος κατά τη μεταφορά των εργαλείων.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Στη σελίδα 295 αναφέρεται ότι «η θέση του βοηθού βρίσκεται... υψηλότερα από τον οδοντίατρο για να μπορεί να βλέπει τη στοματική κοιλότητα καθαρά και να βοηθά χωρίς να ενοχλεί».
+            </div>
+        </div>
+
+        <div class="question-block" id="q40" data-correct="C">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 40</span>
+                <span class="page-reference">Σελίδα 296</span>
+            </div>
+            <div class="question-text">Ποια είναι η ενδεδειγμένη θέση του προβολέα της οδοντιατρικής μονάδας όταν εργάζεστε στα δόντια της κάτω γνάθου;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Τοποθετείται πάνω από το στήθος του ασθενούς σε γωνία 45 μοιρών προς τα πάνω.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Πίσω ακριβώς από το κεφάλι του οδοντιάτρου (ώστε να πέφτει πάνω από τον ώμο του).</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Τοποθετείται ακριβώς κάθετα πάνω από το κεφάλι του ασθενούς, φωτίζοντας κατακόρυφα τη στοματική κοιλότητα.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Σε απόσταση μικρότερη των 20 εκατοστών από το στόμα για μέγιστη ένταση.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Όπως αναπαριστάται ξεκάθαρα στο σχηματικό διάγραμμα της Εικόνας 9.12 (σελίδα 296), για την κάτω γνάθο η πηγή φωτός τοποθετείται ακριβώς από πάνω, σε σχεδόν κάθετη διεύθυνση προς το στόμα.
+            </div>
+        </div>
+
+        <div class="question-block" id="q41" data-correct="A">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 41</span>
+                <span class="page-reference">Σελίδα 297</span>
+            </div>
+            <div class="question-text">Το κράμα ανοξείδωτου χάλυβα που χρησιμοποιείται στα οδοντιατρικά εργαλεία περιέχει 15-25% χρώμιο. Ποιος είναι ο κύριος ρόλος του χρωμίου στο κράμα;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Προφυλάσσει το μέταλλο από τη διάβρωση (οξείδωση).</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Προσδίδει εξαιρετική σκληρότητα στο οξύαιχμο λειτουργικό άκρο.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Μειώνει το βάρος του εργαλείου διευκολύνοντας την εργονομία.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Αποτρέπει την προσκόλληση των σύνθετων ρητινών στο άκρο.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Στη σελίδα 297 τονίζεται: «Το χρώμιο προφυλάσσει από τη διάβρωση, το νικέλιο ενισχύει την αντοχή και ο άνθρακας τη σκληρότητα και το οξύαιχμο των άκρων του».
+            </div>
+        </div>
+
+        <div class="question-block" id="q42" data-correct="B">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 42</span>
+                <span class="page-reference">Σελίδα 298</span>
+            </div>
+            <div class="question-text">Από εργονομικής άποψης, ποιο βάρος θεωρείται καταλληλότερο για τα χειροκίνητα οδοντιατρικά εργαλεία, ώστε να περιορίζεται η μυϊκή κόπωση;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Περίπου 30-40 γραμμάρια, για καλύτερη αίσθηση του βάρους στο χέρι.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Βάρος 15 γραμμαρίων ή ελαφρύτερα (όσο πιο ελαφριά τόσο καταλληλότερα).</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Τουλάχιστον 25 γραμμάρια για την πρόληψη του τρόμου των χεριών.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Το βάρος δεν παίζει κανένα ρόλο αν η λαβή είναι αδρή (knurled).</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Η σελίδα 298, στην παράγραφο για το βάρος των εργαλείων, είναι κατηγορηματική: «Συνήθως βάρος 15 γραμμαρίων ή ελαφρύτερα είναι πιο κατάλληλα».
+            </div>
+        </div>
+
+        <div class="question-block" id="q43" data-correct="C">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 43</span>
+                <span class="page-reference">Σελίδα 298</span>
+            </div>
+            <div class="question-text">Πώς η αυξημένη διάμετρος (μέγεθος) της λαβής ενός εργαλείου (π.χ. στα 11,5 χιλιοστά) επηρεάζει την κλινική πράξη;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Αυξάνει δραματικά το βάρος του εργαλείου, καθιστώντας το ακατάλληλο για λεπτομερείς εργασίες.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Μειώνει την ικανότητα αφής (tactile sensitivity) του κλινικού.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Μειώνει την απαιτούμενη δύναμη εφαρμογής από τα χέρια, περιορίζοντας τη μυϊκή φόρτιση.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Κάνει το εργαλείο πιο επιρρεπές στη διάβρωση από τα απολυμαντικά.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Στη σελίδα 298 (και 299) εξηγείται: «Λαβές μεγαλύτερης διαμέτρου μειώνουν την απαιτούμενη δύναμη εφαρμογής από τα χέρια... μειώνουν τη μυϊκή φόρτιση σε σύγκριση με την εξαγωνική».
+            </div>
+        </div>
+
+        <div class="question-block" id="q44" data-correct="D">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 44</span>
+                <span class="page-reference">Σελίδα 300</span>
+            </div>
+            <div class="question-text">Ποιο είναι το κύριο πλεονέκτημα του κατόπτρου «εμπρόσθιας επιφάνειας» (front-surface mirror) έναντι των κατόπτρων με την ανακλαστική επιφάνεια πίσω από το γυαλί;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Αντέχει πολύ περισσότερο στις γρατσουνιές (είναι άφθαρτο).</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Δεν θολώνει ποτέ από την αναπνοή του ασθενούς.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Προσφέρει σημαντική μεγέθυνση του πεδίου εργασίας (παράγει είδωλο x2).</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Δεν παράγει παραμόρφωση ή "διπλό είδωλο" (ghost image) κατά την αντανάκλαση, αν και φθείρεται ευκολότερα.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Στη σελίδα 300 (ενότητα Κάτοπτρο) αναφέρεται: «Η επίστρωση του καθρέφτη και συνεπώς και η ανακλαστική του επιφάνεια, είναι στην εμπρόσθια... ώστε να μην δημιουργείται διπλό είδωλο, έστω κι αν έτσι φθείρεται ευκολότερα».
+            </div>
+        </div>
+
+        <div class="question-block" id="q45" data-correct="B">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 45</span>
+                <span class="page-reference">Σελίδα 301</span>
+            </div>
+            <div class="question-text">Ποιο είναι το πλέον χαρακτηριστικό γνώρισμα των εργαλείων τοποθέτησης και διαμόρφωσης σύνθετων ρητινών (π.χ. σπάθες ρητίνης);</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Κατασκευάζονται αποκλειστικά από ανθρακούχο χάλυβα για μέγιστη σκληρότητα.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Έχουν επικάλυψη από Teflon ή νιτρίδιο του τιτανίου (TiN) που αποτρέπει την προσκόλληση της σύνθετης ρητίνης πάνω στο εργαλείο.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Έχουν ένα ενεργό άκρο με μορφή λεπίδας κοπής για την αφαίρεση της τερηδόνας.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Δεν αποστειρώνονται σε αυτόκαυστο λόγω της πλαστικής τους φύσης.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Η σελίδα 301 εξηγεί αναλυτικά: «Είναι εργαλεία από Teflon ή μεταλλικά επικαλυμμένα... που αποτρέπουν την προσκόλληση της σύνθετης ρητίνης σε αυτά... Το συνηθέστερο υλικό επικάλυψης είναι το νιτρίδιο του τιτανίου».
+            </div>
+        </div>
+
+        <div class="question-block" id="q46" data-correct="C">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 46</span>
+                <span class="page-reference">Σελίδα 303</span>
+            </div>
+            <div class="question-text">Πώς περιγράφεται η «ανεστραμμένη λαβή στυλό» (inverted pen grasp);</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Το εργαλείο κρατιέται με την παλάμη και τον αντίχειρα μόνο.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Η λαβή του εργαλείου υποστηρίζεται στο μικρό δάκτυλο για εργασία στην κάτω γνάθο.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Αποτελεί παραλλαγή της λαβής του στυλό, όπου η παλάμη του χειριστή "κοιτάζει" προς τα πάνω (συχνά για προσπέλαση στις υπερώιες/γλωσσικές επιφάνειες των άνω δοντιών).</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Είναι τεχνική λαβής αποκλειστικά για τον χειρισμό των ανιχνευτήρων.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Η σελίδα 302/303 εξηγεί τις λαβές: Η ανεστραμμένη λαβή στυλό (αν και υπονοείται λειτουργικά στο κείμενο ως προσαρμογή για τις άνω/υπερώιες περιοχές, η βασική λαβή στυλό και οι παραλλαγές της στρέφουν την παλάμη του οδοντιάτρου ανάλογα με την κατεύθυνση εργασίας).
+            </div>
+        </div>
+
+        <div class="question-block" id="q47" data-correct="C">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 47</span>
+                <span class="page-reference">Σελίδα 304</span>
+            </div>
+            <div class="question-text">Γιατί τα μάτια του χειριστή πρέπει να προστατεύονται με ειδικά φίλτρα (πορτοκαλί) κατά τη χρήση της λυχνίας φωτοπολυμερισμού;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Γιατί η συσκευή εκπέμπει ισχυρή υπεριώδη (UV) ακτινοβολία που προκαλεί καταρράκτη.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Γιατί παράγει ακτίνες Laser κατηγορίας 4.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Γιατί η έντονη πηγή ορατού μπλε φωτός (μήκος κύματος ~450-490 nm) ενέχει κίνδυνο φωτοχημικής βλάβης στον αμφιβληστροειδή.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Για να μην "τυφλώνεται" ο οδοντίατρος και χάνει την αντίληψη του χρώματος της ρητίνης.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Το κείμενο της σελίδας 304/305 για τις λυχνίες φωτοπολυμερισμού αναφέρει την ενέργεια του φωτός (εντός ορατού φάσματος, μπλε φως για καμφοροκινόνη) που απαιτεί προστασία (συχνά ενσωματωμένη με πορτοκαλί ασπίδες).
+            </div>
+        </div>
+
+        <div class="question-block" id="q48" data-correct="B">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 48</span>
+                <span class="page-reference">Σελίδα 305</span>
+            </div>
+            <div class="question-text">Σύμφωνα με τον Πίνακα 9.3 «Τα κλινικά στάδια των άμεσων αποκαταστάσεων», ποιο από τα παρακάτω βήματα ΠΡΟΗΓΕΙΤΑΙ της αφαίρεσης των τερηδονισμένων ιστών;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Η τοποθέτηση του τεχνητού τοιχώματος.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Η επιλογή του χρώματος (προαιρετικά πριν καν την απομόνωση) και η τοποθέτηση του ελαστικού απομονωτήρα.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Η τοποθέτηση του ουδέτερου στρώματος.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Η διαμόρφωση του συγκολλητικού δεσμού (αδροποίηση).</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Στον Πίνακα 9.3 (σελ. 305), το πρώτο βήμα είναι "Τοποθέτηση ελαστικού απομονωτήρα", και ακολουθεί η "Αφαίρεση αποδομημένων οδοντικών ιστών...". (Η επιλογή χρώματος επίσης σημειώνεται ότι "μπορεί να προηγηθεί και της αφαίρεσης").
+            </div>
+        </div>
+
+        <div class="question-block" id="q49" data-correct="C">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 49</span>
+                <span class="page-reference">Σελίδα 306</span>
+            </div>
+            <div class="question-text">Κατά τη διάρκεια της αφαίρεσης της τερηδόνας, ποιος είναι ο επικουρικός ρόλος του «ανιχνευτήρα τερηδόνας» (caries detector dye) σύμφωνα με το σύγγραμμα;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Χρωματίζει τα υγιή τμήματα της αδαμαντίνης αποκλειστικά.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Χρωματίζει μόνο τα μικρόβια της μολυσμένης οδοντίνης αποτρέποντας την αφαίρεση υγιών ιστών.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Χρησιμοποιείται για την ανίχνευση περαιτέρω διεύρυνσης των ορίων της κοιλότητας και ως κριτήριο ελέγχου αφαίρεσης, αν και συχνά μπορεί να εισχωρήσει και σε υποκείμενα στρώματα.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Αδρανοποιεί τα βακτήρια λειτουργώντας ως απολυμαντικό μέσο της κοιλότητας.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Στη σελίδα 306 διευκρινίζεται: «Η χρήση του ανιχνευτήρα για την αποκάλυψη της τερηδόνας συνιστάται ως κριτήριο ελέγχου... αν και σε πολλές περιπτώσεις, το υλικό μπορεί να εισχωρήσει και σε κάποιους πόρους».
+            </div>
+        </div>
+
+        <div class="question-block" id="q50" data-correct="D">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 50</span>
+                <span class="page-reference">Σελίδα 306/307</span>
+            </div>
+            <div class="question-text">Αποτελεί το χρωματικό κριτήριο (το χρώμα της παραμένουσας οδοντίνης) απόλυτο και ασφαλές κριτήριο για το αν έχει παραμείνει ή αφαιρεθεί πλήρως η τερηδόνα;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Ναι, η σκουρόχρωμη (καφέ/μαύρη) οδοντίνη είναι πάντα μολυσμένη τερηδονική βλάβη.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Ναι, μόνο η κιτρινωπή οδοντίνη εγγυάται την απουσία μικροβίων.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Όχι, διότι τα μικρόβια είναι ορατά μόνο με μικροσκόπιο.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Όχι, το χρώμα δεν αποτελεί ασφαλές κριτήριο, καθώς σκληρή αλλά δυσχρωμική οδοντίνη μπορεί να είναι υγιής (π.χ. αντιδραστική).</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Στη σελίδα 306 καταγράφεται εμφατικά: «Το χρώμα της παραμένουσας οδοντίνης δεν αποτελεί ασφαλές κριτήριο για το αν έχει παραμείνει ή όχι τερηδόνα».
+            </div>
+        </div>
+
+        <div class="question-block" id="q51" data-correct="B">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 51</span>
+                <span class="page-reference">Σελίδα 308</span>
+            </div>
+            <div class="question-text">Στο σύστημα κατάταξης κοιλοτήτων του Black, οι κοιλότητες που αφορούν τις όμορες επιφάνειες των προγομφίων και γομφίων σε ποια ομάδα κατατάσσονται;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Ομάδα I</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Ομάδα II</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Ομάδα III</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Ομάδα IV</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Σύμφωνα με τη σελίδα 308, ενότητα Κατάταξη Black: «στην ομάδα ΙΙ περιλαμβάνονται οι κοιλότητες των όμορων επιφανειών των γομφίων και προγομφίων, οι οποίες επεκτείνονται και στη μασητική επιφάνεια».
+            </div>
+        </div>
+
+        <div class="question-block" id="q52" data-correct="B">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 52</span>
+                <span class="page-reference">Σελίδα 308</span>
+            </div>
+            <div class="question-text">Στην ανατομία μιας παρασκευασμένης κοιλότητας, πώς ονομάζεται το εσωτερικό τοίχωμα που είναι ΠΑΡΑΛΛΗΛΟ με τον επιμήκη άξονα του δοντιού;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Υπερπολφικό τοίχωμα.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Αξονικό τοίχωμα.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Αυχενικό τοίχωμα (ή αυχενικό όριο).</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Ουλικό τοίχωμα.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Στη σελίδα 308 (παράγραφος γ) ορίζεται: «Στις κοιλότητες Vης ομάδας, καθώς και στα όμορα κιβώτια κοιλοτήτων ΙΙης ομάδας, το τοίχωμα που από κάτω του βρίσκεται ο πολφός καλείται αξονικό» (δηλαδή παράλληλο στον άξονα).
+            </div>
+        </div>
+
+        <div class="question-block" id="q53" data-correct="D">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 53</span>
+                <span class="page-reference">Σελίδα 309</span>
+            </div>
+            <div class="question-text">Ποιος είναι ο κύριος σκοπός της χρήσης ενός τεχνητού τοιχώματος (μήτρας) κατά την αποκατάσταση μιας κοιλότητας ΙΙης Ομάδας;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Για να αποτραπεί ο εγκλωβισμός φυσαλίδων αέρα εντός της ρητίνης.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Για να δημιουργηθεί χημικός δεσμός μεταξύ δοντιού και μήτρας.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Αποκλειστικά για την προστασία του παρακείμενου δοντιού από τα οξέα της αδροποίησης.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Υποκαθιστά την ελλείπουσα όμορη επιφάνεια, παρέχει ανατομικό οδηγό, εμποδίζει τη διαρροή του υλικού και αποτρέπει ερεθισμούς από περίσσειες.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Στη σελίδα 309 επισημαίνεται ότι το τεχνητό τοίχωμα: α) υποκαθιστά την ελλείπουσα όμορη επιφάνεια, β) λειτουργεί ως ανατομικός οδηγός, γ) εμποδίζει τη διαρροή, και δ) αποτρέπει την άμεση επαφή με το όμορο δόντι.
+            </div>
+        </div>
+
+        <div class="question-block" id="q54" data-correct="C">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 54</span>
+                <span class="page-reference">Σελίδα 310</span>
+            </div>
+            <div class="question-text">Ποιος τύπος τεχνητού τοιχώματος "αγκαλιάζει" το δόντι περιμετρικά σε όλη του την περίμετρο (π.χ. σύστημα Tofflemire) και όχι μόνο στη μία όμορη επιφάνεια;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Οι διαφανείς πλαστικές ταινίες.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Τα τμηματικά τεχνητά τοιχώματα (sectional matrices).</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Τα περιφερικά τεχνητά τοιχώματα (βρόγχος).</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Οι ξύλινες σφήνες.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Ο Πίνακας 9.4 και το κείμενο (σελίδα 310) διαχωρίζουν τα τοιχώματα σε περιφερικά (που δημιουργούν βρόγχο και περιβάλλουν όλο το δόντι, βλ. Εικόνα 9.35 Β) και τμηματικά (που καλύπτουν μόνο ένα μέρος).
+            </div>
+        </div>
+
+        <div class="question-block" id="q55" data-correct="A">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 55</span>
+                <span class="page-reference">Σελίδα 311</span>
+            </div>
+            <div class="question-text">Για ποιο λόγο η σφήνα είναι αναπόσπαστο μέρος της χρήσης τεχνητού τοιχώματος στις όμορες κοιλότητες;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Ασφαλίζει το τοίχωμα στα αυχενικά όρια (αποτρέποντας περιθωριακή διαρροή/περίσσεια) και προκαλεί ελαφρό διαχωρισμό των δοντιών, ώστε να αντισταθμιστεί το πάχος της μήτρας.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Λειτουργεί ως αιμοστατικό μέσο διαλύοντας χημικά το αίμα της ουλοδοντικής σχισμής.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Αντικαθιστά πλήρως την ανάγκη για συγκολλητικό παράγοντα.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Μεταδίδει το φως του πολυμερισμού καλύτερα (φωτοαγωγός σφήνα) στις μεταλλικές μήτρες.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Στη σελίδα 311 παρατίθενται οι σκοποί: α) ασφαλής συγκράτηση τοιχώματος, β) αποφυγή διαρροής (περίσσειες), γ) στενή επαφή με τα όρια, δ) ελαφρός διαχωρισμός δοντιών.
+            </div>
+        </div>
+
+        <div class="question-block" id="q56" data-correct="B">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 56</span>
+                <span class="page-reference">Σελίδα 312</span>
+            </div>
+            <div class="question-text">Κατά την τοποθέτηση της (τριγωνικής) σφήνας στο μεσοδόντιο διάστημα, ποιος είναι ο σωστός προσανατολισμός της;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Η οξεία γωνία (η "μύτη" του τριγώνου) πρέπει να ακουμπά στα ούλα.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Η βάση του τριγώνου (η πλατιά πλευρά) πρέπει να κοιτάζει προς τα ούλα και η γωνία προς το σημείο επαφής.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Η σφήνα πρέπει να τοποθετείται κατακόρυφα, παράλληλα με τον επιμήκη άξονα του δοντιού.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Η βάση του τριγώνου πρέπει να κοιτάζει προς τη μασητική επιφάνεια (ανεστραμμένη τοποθέτηση).</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Η Εικόνα 9.38 (σελίδα 312) παρουσιάζει σαφώς τον "Σωστό (Α) και λάθος (Β) τρόπο τοποθέτησης". Ο σωστός τρόπος απαιτεί η πλατιά βάση του τριγώνου της σφήνας να ακουμπά στην ουλοδοντική θηλή.
+            </div>
+        </div>
+
+        <div class="question-block" id="q57" data-correct="D">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 57</span>
+                <span class="page-reference">Σελίδα 314</span>
+            </div>
+            <div class="question-text">Ποιος είναι ο βέλτιστος φωτισμός για την ακριβή επιλογή χρώματος των σύνθετων ρητινών, προκειμένου να αποφευχθεί η "μεταμέρεια" ή η εσφαλμένη εκτίμηση της απόχρωσης;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Ο δυνατός φωτισμός αλογόνου του οδοντιατρικού προβολέα σε απόσταση 10 cm.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Οι λάμπες φθορισμού του δωματίου με ένταση 10.000 Lux.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Το φως της συσκευής φωτοπολυμερισμού σε απόσταση ασφαλείας.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Το φυσικό φως (ιδανικά ημέρας/μεσημβρινές ώρες) ή, εναλλακτικά, ειδικές λάμπες προσομοίωσης φυσικού φωτός.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Στη σελίδα 314 (παράγραφος 1) αναφέρεται: «ιδανικά με το φυσικό φως ημέρας, και μάλιστα τις μεσημβρινές ώρες, κρίνεται ως το ιδανικότερο. Επειδή όμως... προσομοιάζει τεχνητό φως...».
+            </div>
+        </div>
+
+        <div class="question-block" id="q58" data-correct="C">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 58</span>
+                <span class="page-reference">Σελίδα 315</span>
+            </div>
+            <div class="question-text">Ποιο υλικό χρησιμοποιείται παραδοσιακά ως "λεπτόρρευστο σύστημα" (liner) για την προστασία του πολφού σε πολύ βαθιές κοιλότητες (π.χ. Dycal);</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Το υαλοϊονομερές τροποποιημένο με ρητίνη (RMGIC) σε παχύ στρώμα.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Το φωσφορικό ψευδάργυρο.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Το υδροξείδιο του ασβεστίου.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Ο συγκολλητικός παράγοντας 4ης γενιάς απευθείας στον πολφό.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Η σελίδα 314/315 εξηγεί για το "ουδέτερο στρώμα": "Το υδροξείδιο του ασβεστίου: α) χρησιμοποιείται σε λεπτόρρευστη σύσταση... μεταφορά με το ειδικό εργαλείο Dycal...".
+            </div>
+        </div>
+
+        <div class="question-block" id="q59" data-correct="B">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 59</span>
+                <span class="page-reference">Σελίδα 316</span>
+            </div>
+            <div class="question-text">Πώς εφαρμόζεται η τεχνική "σταδιακής τοποθέτησης" (incremental placement) της σύνθετης ρητίνης σε μια μεγάλη κοιλότητα;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Γεμίζουμε όλη την κοιλότητα με μία κίνηση και πολυμερίζουμε για 60 δευτερόλεπτα.</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Η ρητίνη τοποθετείται σε μικρά στρώματα, τα οποία φωτοπολυμερίζονται ξεχωριστά, για τον έλεγχο της συστολής και την εξασφάλιση βαθύτερου πολυμερισμού.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Αναμειγνύουμε τη ρητίνη με υδροξείδιο ασβεστίου σε ίσα μέρη πριν τον πολυμερισμό.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Τοποθετούμε μόνο το παρειακό τοίχωμα, αφήνοντας την κοιλότητα κούφια εσωτερικά.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Στη σελίδα 316 (ενότητα 9 και Εικόνα 9.44) αναφέρεται σαφώς: "Μετά τη σταδιακή πλήρωση της κοιλότητας... πολυμερίζεται... ελαχιστοποιείται η συστολή πολυμερισμού".
+            </div>
+        </div>
+
+        <div class="question-block" id="q60" data-correct="A">
+            <div class="question-header">
+                <span class="question-number">Ερώτηση 60</span>
+                <span class="page-reference">Σελίδα 317</span>
+            </div>
+            <div class="question-text">Ποια είναι η διαφορά μεταξύ "διαμόρφωσης-λείανσης" και "στίλβωσης" μιας αποκατάστασης ρητίνης;</div>
+            <div class="options-list">
+                <div class="option-item" data-option="A"><span class="option-prefix">A</span>Η λείανση αφορά την αφαίρεση περισσειών και τη διόρθωση της ανατομίας (π.χ. με εγγλυφίδες καρβιδίου), ενώ η στίλβωση στοχεύει στην τελική επεξεργασία της επιφάνειας για την επίτευξη στιλπνότητας (με ελαστικά και πάστες).</div>
+                <div class="option-item" data-option="B"><span class="option-prefix">B</span>Είναι ακριβώς η ίδια διαδικασία, απλώς χρησιμοποιούνται διαφορετικά ονόματα στην Αμερική και την Ευρώπη.</div>
+                <div class="option-item" data-option="C"><span class="option-prefix">C</span>Η στίλβωση γίνεται πριν από τον πολυμερισμό της ρητίνης, ενώ η λείανση μετά.</div>
+                <div class="option-item" data-option="D"><span class="option-prefix">D</span>Η λείανση χρησιμοποιεί χημικά μέσα (οξέα), ενώ η στίλβωση χρησιμοποιεί αποκλειστικά θερμότητα.</div>
+            </div>
+            <div class="rationale-panel">
+                <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+                Στη σελίδα 317 εξηγείται η διάκριση: "Η λείανση, εξομαλύνεται το αδρό ανάγλυφο... και δίνεται το τελικό ανατομικό σχήμα. Κατά τη στίλβωση γίνεται η τελική επεξεργασία και στιλπνό της επιφάνειας, χωρίς όμως, να διαταράσσονται τα μορφολογικά...".
+            </div>
+        </div>
+      <div class="question-block" id="q61" data-correct="B">
+    <div class="question-header">
+        <span class="question-number">Ερώτηση 61</span>
+        <span class="page-reference">Σελίδα 286</span>
+    </div>
+    <div class="question-text">Στους εργονομικούς παράγοντες κινδύνου, πώς καθορίζεται η έννοια της «Διάρκειας»;</div>
+    <div class="options-list">
+        <div class="option-item" data-option="A"><span class="option-prefix">A</span>Αποκλειστικά ως ο χρόνος που διαρκεί ένα ραντεβού από την είσοδο έως την έξοδο του ασθενούς.</div>
+        <div class="option-item" data-option="B"><span class="option-prefix">B</span>Ως το χρονικό διάστημα στο οποίο το σώμα βρίσκεται σε άκαμπτη στάση ή εκτελεί μια πράξη, σε συνδυασμό με το συνολικό ημερήσιο χρόνο εργασίας και τον χρόνο ανάκαμψης.</div>
+        <div class="option-item" data-option="C"><span class="option-prefix">C</span>Ως η ημιζωή του εργαλείου πριν την επόμενη αποστείρωση.</div>
+        <div class="option-item" data-option="D"><span class="option-prefix">D</span>Ως ο χρόνος έκθεσης της ρητίνης στη λυχνία φωτοπολυμερισμού.</div>
+    </div>
+    <div class="rationale-panel">
+        <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+        Στη σελίδα 286, η «Διάρκεια» αναφέρεται «στο χρονικό διάστημα εκτέλεσης μιας πράξης... πόση ώρα το σώμα βρίσκεται σε άκαμπτη στάση... και ο συνολικός ημερήσιος χρόνος. Σημασία έχει και ο χρόνος ανάκαμψης».
+    </div>
+</div>
+
+<div class="question-block" id="q62" data-correct="C">
+    <div class="question-header">
+        <span class="question-number">Ερώτηση 62</span>
+        <span class="page-reference">Σελίδα 288</span>
+    </div>
+    <div class="question-text">Ποιο από τα παρακάτω θεωρείται βασικό χαρακτηριστικό μιας σύγχρονης, εργονομικής οδοντιατρικής έδρας για τον ασθενή;</div>
+    <div class="options-list">
+        <div class="option-item" data-option="A"><span class="option-prefix">A</span>Πλήρως επίπεδη και άκαμπτη πλάτη για τη διατήρηση της σπονδυλικής στήλης.</div>
+        <div class="option-item" data-option="B"><span class="option-prefix">B</span>Σταθερό ερεισικέφαλο σε έναν μόνο άξονα.</div>
+        <div class="option-item" data-option="C"><span class="option-prefix">C</span>Ρυθμιζόμενη οσφυϊκή υποστήριξη και ρύθμιση του ερεισικέφαλου σε δύο άξονες για τη στήριξη κεφαλιού και αυχένα.</div>
+        <div class="option-item" data-option="D"><span class="option-prefix">D</span>Απουσία στηριγμάτων για τα χέρια, ώστε να διευκολύνεται η κίνηση του οδοντιάτρου.</div>
+    </div>
+    <div class="rationale-panel">
+        <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+        Η σελίδα 288 παραθέτει τα στοιχεία της σύγχρονης έδρας, στα οποία ρητά περιλαμβάνονται η «ρυθμιζόμενη οσφυϊκή υποστήριξη» και η «ρύθμιση του ερεισικέφαλου σε δύο άξονες τόσο για τη στήριξη του κεφαλιού όσο και του αυχένα».
+    </div>
+</div>
+
+<div class="question-block" id="q63" data-correct="B">
+    <div class="question-header">
+        <span class="question-number">Ερώτηση 63</span>
+        <span class="page-reference">Σελίδα 293</span>
+    </div>
+    <div class="question-text">Σύμφωνα με τον Πίνακα 9.1 (Θέσεις εργασίας δεξιόχειρα), σε ποια θέση πρέπει να βρίσκεται ο οδοντίατρος (ώρα) όταν παρεμβαίνει στις γλωσσικές επιφάνειες των άνω προσθίων δοντιών;</div>
+    <div class="options-list">
+        <div class="option-item" data-option="A"><span class="option-prefix">A</span>Ώρα 9, με άμεση όραση.</div>
+        <div class="option-item" data-option="B"><span class="option-prefix">B</span>Ώρα 11, με έμμεση όραση.</div>
+        <div class="option-item" data-option="C"><span class="option-prefix">C</span>Ώρα 12, με άμεση όραση.</div>
+        <div class="option-item" data-option="D"><span class="option-prefix">D</span>Ώρα 8, με έμμεση όραση.</div>
+    </div>
+    <div class="rationale-panel">
+        <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+        Βάσει του Πίνακα 9.1 (σελ. 293), για τις «Γλωσσικές επιφανειών άνω προσθίων δοντιών», η ενδεδειγμένη θέση είναι η ώρα 11 και χρησιμοποιείται «Έμμεση» όραση (με κάτοπτρο).
+    </div>
+</div>
+
+<div class="question-block" id="q64" data-correct="B">
+    <div class="question-header">
+        <span class="question-number">Ερώτηση 64</span>
+        <span class="page-reference">Σελίδα 300</span>
+    </div>
+    <div class="question-text">Πέραν της έμμεσης όρασης και της αντανάκλασης φωτός, ποια άλλη βασική χρήση εξυπηρετεί το οδοντιατρικό κάτοπτρο κατά την κλινική πράξη;</div>
+    <div class="options-list">
+        <div class="option-item" data-option="A"><span class="option-prefix">A</span>Τη διάγνωση τερηδόνας μέσω φθορισμού.</div>
+        <div class="option-item" data-option="B"><span class="option-prefix">B</span>Την απώθηση και συγκράτηση μαλακών μορίων (παρειάς, χειλέων, γλώσσας) για ανεμπόδιστη ορατότητα.</div>
+        <div class="option-item" data-option="C"><span class="option-prefix">C</span>Την ανάμειξη των κονιών πάνω στην επιφάνειά του.</div>
+        <div class="option-item" data-option="D"><span class="option-prefix">D</span>Το ξύσιμο της μολυσμένης οδοντίνης.</div>
+    </div>
+    <div class="rationale-panel">
+        <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+        Η σελίδα 300 (ενότητα Κάτοπτρο / Χρήση) αναφέρει σαφώς: «...απώθηση και συγκράτηση μαλακών μορίων (παρειάς, χειλέων, γλώσσας) για ανεμπόδιστη ορατότητα...».
+    </div>
+</div>
+
+<div class="question-block" id="q65" data-correct="B">
+    <div class="question-header">
+        <span class="question-number">Ερώτηση 65</span>
+        <span class="page-reference">Σελίδα 300 / 301</span>
+    </div>
+    <div class="question-text">Ποιο είναι το σχήμα του λειτουργικού άκρου του εργαλείου που ονομάζεται «Κοχλιάριο οδοντίνης» και ποια η χρήση του;</div>
+    <div class="options-list">
+        <div class="option-item" data-option="A"><span class="option-prefix">A</span>Αιχμηρό με γωνιώσεις, χρησιμοποιείται για την ανίχνευση του αναγλύφου των δοντιών.</div>
+        <div class="option-item" data-option="B"><span class="option-prefix">B</span>Έχει σχήμα κουταλιού ή ονυχοειδούς, και χρησιμοποιείται για την αφαίρεση της τερηδονισμένης οδοντίνης.</div>
+        <div class="option-item" data-option="C"><span class="option-prefix">C</span>Επίπεδο παραλληλόγραμμο, χρησιμοποιείται για τη συμπύκνωση αμαλγάματος.</div>
+        <div class="option-item" data-option="D"><span class="option-prefix">D</span>Κωνικό, για την τοποθέτηση νημάτων απώθησης.</div>
+    </div>
+    <div class="rationale-panel">
+        <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+        Στη σελίδα 300, το «Κοχλιάριο οδοντίνης» περιγράφεται ως έχον σχήμα κουταλιού ή ονυχοειδούς (Εικόνα 9.21) και χρησιμοποιείται για την αφαίρεση τερηδονισμένης οδοντίνης (σελ. 301).
+    </div>
+</div>
+
+<div class="question-block" id="q66" data-correct="C">
+    <div class="question-header">
+        <span class="question-number">Ερώτηση 66</span>
+        <span class="page-reference">Σελίδα 304</span>
+    </div>
+    <div class="question-text">Η διαδικασία καθαρισμού των οδοντιατρικών εργαλείων σε λουτρό υπερήχων βασίζεται σε ποιο φυσικό φαινόμενο για την απομάκρυνση των μικροοργανισμών;</div>
+    <div class="options-list">
+        <div class="option-item" data-option="A"><span class="option-prefix">A</span>Στη θερμική πήξη των πρωτεϊνών λόγω ακτινοβολίας.</div>
+        <div class="option-item" data-option="B"><span class="option-prefix">B</span>Στην αποστείρωση μέσω ξηρής θερμότητας.</div>
+        <div class="option-item" data-option="C"><span class="option-prefix">C</span>Στη διαδικασία της «σπηλαίωσης», που περιλαμβάνει τη δημιουργία και κατάρρευση μικροσκοπικών φυσαλίδων αέρα.</div>
+        <div class="option-item" data-option="D"><span class="option-prefix">D</span>Στη χημική διάβρωση του ανοξείδωτου χάλυβα.</div>
+    </div>
+    <div class="rationale-panel">
+        <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+        Στη σελίδα 304 (ενότητα 2) περιγράφεται ο καθαρισμός σε λουτρό υπερήχων, ο οποίος αναφέρεται ιστορικά και κλινικά ότι λειτουργεί μέσω της σπηλαίωσης (cavitation), διασπώντας τα κυτταρικά τοιχώματα.
+    </div>
+</div>
+
+<div class="question-block" id="q67" data-correct="B">
+    <div class="question-header">
+        <span class="question-number">Ερώτηση 67</span>
+        <span class="page-reference">Σελίδα 305</span>
+    </div>
+    <div class="question-text">Ποια είναι η λειτουργία του «δονητή αμαλγάματος»;</div>
+    <div class="options-list">
+        <div class="option-item" data-option="A"><span class="option-prefix">A</span>Ενεργοποιεί τον φωτοπολυμερισμό των σύνθετων ρητινών μέσω μικροδονήσεων.</div>
+        <div class="option-item" data-option="B"><span class="option-prefix">B</span>Χρησιμοποιείται για την ανάμειξη των συστατικών (του κράματος και του υδραργύρου) που βρίσκονται διαχωρισμένα σε κάψουλα, δημιουργώντας το μίγμα με παλμική κίνηση.</div>
+        <div class="option-item" data-option="C"><span class="option-prefix">C</span>Συμπυκνώνει το υλικό μέσα στην κοιλότητα ΙΙης Ομάδας.</div>
+        <div class="option-item" data-option="D"><span class="option-prefix">D</span>Αφαιρεί τον ενδοδοντικό πολφό.</div>
+    </div>
+    <div class="rationale-panel">
+        <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+        Στη σελίδα 305 εξηγείται: «Η συσκευή δόνησης αμαλγάματος χρησιμοποιείται για την ανάμειξη του υλικού που τα συστατικά του βρίσκονται μέσα σε κάψουλα διαχωρισμένα... λειτουργεί με παλμική κίνηση».
+    </div>
+</div>
+
+<div class="question-block" id="q68" data-correct="A">
+    <div class="question-header">
+        <span class="question-number">Ερώτηση 68</span>
+        <span class="page-reference">Σελίδα 308</span>
+    </div>
+    <div class="question-text">Με βάση το σύστημα Black, οι κοιλότητες που εντοπίζονται στις οπές και σχισμές των μασητικών επιφανειών των προγομφίων και γομφίων ανήκουν στην:</div>
+    <div class="options-list">
+        <div class="option-item" data-option="A"><span class="option-prefix">A</span>Ομάδα I.</div>
+        <div class="option-item" data-option="B"><span class="option-prefix">B</span>Ομάδα II.</div>
+        <div class="option-item" data-option="C"><span class="option-prefix">C</span>Ομάδα III.</div>
+        <div class="option-item" data-option="D"><span class="option-prefix">D</span>Ομάδα V.</div>
+    </div>
+    <div class="rationale-panel">
+        <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+        Η σελίδα 308 αναφέρει κατηγορηματικά: «στην ομάδα I ανήκουν οι κοιλότητες που εντοπίζονται στις οπές και σχισμές των μασητικών επιφανειών των προγομφίων και γομφίων...».
+    </div>
+</div>
+
+<div class="question-block" id="q69" data-correct="D">
+    <div class="question-header">
+        <span class="question-number">Ερώτηση 69</span>
+        <span class="page-reference">Σελίδα 308</span>
+    </div>
+    <div class="question-text">Πώς ταξινομούνται κατά Black οι κοιλότητες των όμορων επιφανειών των προσθίων δοντιών (τομέων και κυνοδόντων) ΟΤΑΝ συμπεριλαμβάνουν και το κοπτικό χείλος;</div>
+    <div class="options-list">
+        <div class="option-item" data-option="A"><span class="option-prefix">A</span>Ομάδα I.</div>
+        <div class="option-item" data-option="B"><span class="option-prefix">B</span>Ομάδα II.</div>
+        <div class="option-item" data-option="C"><span class="option-prefix">C</span>Ομάδα III.</div>
+        <div class="option-item" data-option="D"><span class="option-prefix">D</span>Ομάδα IV.</div>
+    </div>
+    <div class="rationale-panel">
+        <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+        Βάσει της σελίδας 308: «στην ομάδα IV ανήκουν κοιλότητες των όμορων επιφανειών των τομέων και κυνοδόντων που περιλαμβάνουν και το κοπτικό χείλος».
+    </div>
+</div>
+
+<div class="question-block" id="q70" data-correct="B">
+    <div class="question-header">
+        <span class="question-number">Ερώτηση 70</span>
+        <span class="page-reference">Σελίδα 308</span>
+    </div>
+    <div class="question-text">Στην ονοματολογία των κοιλοτήτων, πώς καλείται η γωνία που σχηματίζεται από τη συνένωση δύο (2) επιμέρους τοιχωμάτων της κοιλότητας;</div>
+    <div class="options-list">
+        <div class="option-item" data-option="A"><span class="option-prefix">A</span>Τρίεδρη γωνία.</div>
+        <div class="option-item" data-option="B"><span class="option-prefix">B</span>Δίεδρη γωνία.</div>
+        <div class="option-item" data-option="C"><span class="option-prefix">C</span>Εξωτερική γωνία.</div>
+        <div class="option-item" data-option="D"><span class="option-prefix">D</span>Αξονικό όριο.</div>
+    </div>
+    <div class="rationale-panel">
+        <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+        Η σελίδα 308 (σημείο δ) διευκρινίζει: «Με τη συνένωση δύο ή τριών τοιχωμάτων μιας κοιλότητας δημιουργούνται δίεδρες και τρίεδρες γωνίες...». Δύο τοιχώματα σχηματίζουν δίεδρη γωνία.
+    </div>
+</div>
+
+<div class="question-block" id="q71" data-correct="B">
+    <div class="question-header">
+        <span class="question-number">Ερώτηση 71</span>
+        <span class="page-reference">Σελίδα 310</span>
+    </div>
+    <div class="question-text">Ποια ανατομικά όρια μιας παρασκευασμένης όμορης κοιλότητας προστατεύονται και σφραγίζονται πρωτίστως με την τοποθέτηση της (ξύλινης ή πλαστικής) σφήνας;</div>
+    <div class="options-list">
+        <div class="option-item" data-option="A"><span class="option-prefix">A</span>Τα μασητικά όρια.</div>
+        <div class="option-item" data-option="B"><span class="option-prefix">B</span>Το αυχενικό όριο, αποτρέποντας τη διαρροή του υλικού και τη δημιουργία περισσείας.</div>
+        <div class="option-item" data-option="C"><span class="option-prefix">C</span>Το υπερπολφικό τοίχωμα.</div>
+        <div class="option-item" data-option="D"><span class="option-prefix">D</span>Τα χειλικά όρια των προσθίων δοντιών.</div>
+    </div>
+    <div class="rationale-panel">
+        <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+        Στη σελίδα 311 επισημαίνεται: «Μαζί με το τεχνητό τοίχωμα είναι απαραίτητη και η τοποθέτηση σφήνας στην αυχενική περιοχή... την αποφυγή διαρροής υλικού στο μεσοδόντιο χώρο (περίσσειες)».
+    </div>
+</div>
+
+<div class="question-block" id="q72" data-correct="D">
+    <div class="question-header">
+        <span class="question-number">Ερώτηση 72</span>
+        <span class="page-reference">Σελίδα 314</span>
+    </div>
+    <div class="question-text">Ποιο χρωματολόγιο αναφέρεται ρητά ως το πλέον συνιστώμενο / παραδοσιακό από την πλειονότητα των κατασκευαστών σύνθετων ρητινών για την επιλογή απόχρωσης;</div>
+    <div class="options-list">
+        <div class="option-item" data-option="A"><span class="option-prefix">A</span>Το χρωματολόγιο VITA 3D-Master.</div>
+        <div class="option-item" data-option="B"><span class="option-prefix">B</span>Το ειδικό χρωματολόγιο λεύκανσης (Bleach guide).</div>
+        <div class="option-item" data-option="C"><span class="option-prefix">C</span>Το χρωματολόγιο της εταιρείας 3M αποκλειστικά.</div>
+        <div class="option-item" data-option="D"><span class="option-prefix">D</span>Το χρωματολόγιο Vita Classical (Εικόνα 9.41).</div>
+    </div>
+    <div class="rationale-panel">
+        <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+        Η σελίδα 314 (σημείο 6) καθιστά σαφές: «Για την καταγραφή του χρώματος διατίθενται από τις κατασκευάστριες εταιρείες ειδικά χρωματολόγια... συστήνονται τα εμπορικά χρωματολόγια όπως το Vita Classical».
+    </div>
+</div>
+
+<div class="question-block" id="q73" data-correct="C">
+    <div class="question-header">
+        <span class="question-number">Ερώτηση 73</span>
+        <span class="page-reference">Σελίδα 316</span>
+    </div>
+    <div class="question-text">Τα εργαλεία τοποθέτησης σύνθετων ρητινών χρησιμοποιούνται για την έγχυση και μορφοποίηση του υλικού. Πώς εισάγεται αρχικά το υλικό στην κοιλότητα;</div>
+    <div class="options-list">
+        <div class="option-item" data-option="A"><span class="option-prefix">A</span>Με αμαλγαματοφορέα.</div>
+        <div class="option-item" data-option="B"><span class="option-prefix">B</span>Με τα δάκτυλα του χειριστή για καλύτερη προσαρμογή.</div>
+        <div class="option-item" data-option="C"><span class="option-prefix">C</span>Είτε απευθείας από την ειδική σύριγγα, είτε μέσω προωθητή (πιστόλι) αν είναι σε μορφή κάψουλας (Εικόνα 9.43).</div>
+        <div class="option-item" data-option="D"><span class="option-prefix">D</span>Αναμειγνύεται σε γυάλινη πλάκα και ρέει μόνο του.</div>
+    </div>
+    <div class="rationale-panel">
+        <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+        Στη λεζάντα της Εικόνας 9.43 (σελ. 316) εξηγείται: «Η κάψουλα της σύνθετης ρητίνης τοποθετείται στο πιστόλι-προωθητή και το υλικό εγχύεται κατευθείαν στην κοιλότητα... Από τη σύριγγα η σύνθετη ρητίνη μεταφέρεται...».
+    </div>
+</div>
+
+<div class="question-block" id="q74" data-correct="B">
+    <div class="question-header">
+        <span class="question-number">Ερώτηση 74</span>
+        <span class="page-reference">Σελίδα 319 / 320</span>
+    </div>
+    <div class="question-text">Στη συλλογή των αρπαγών ελαστικού απομονωτήρα, τι υποδηλώνει συνήθως το γράμμα «W» δίπλα από τον αριθμό της αρπάγης (π.χ. W14A, W8A);</div>
+    <div class="options-list">
+        <div class="option-item" data-option="A"><span class="option-prefix">A</span>Wide (Ευρεία αρπάγη για υπερμεγέθεις γομφίους).</div>
+        <div class="option-item" data-option="B"><span class="option-prefix">B</span>Wingless (Αρπάγη χωρίς πτερύγια).</div>
+        <div class="option-item" data-option="C"><span class="option-prefix">C</span>White (Αρπάγη πλαστικού, λευκού χρώματος).</div>
+        <div class="option-item" data-option="D"><span class="option-prefix">D</span>Wire (Αρπάγη ειδικού ελάσματος).</div>
+    </div>
+    <div class="rationale-panel">
+        <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+        Η Εικόνα 9.51 (σελίδα 320) και το κείμενο εξηγούν ότι οι αρπάγες προσθίων και οπισθίων διακρίνονται σε «με πτερύγιο» και «χωρίς πτερύγιο» (το W προέρχεται από το wingless, όπως επισημαίνεται διεθνώς και αντιστοιχεί στην απεικόνιση των W14A κ.λπ. χωρίς τα πλευρικά προεξέχοντα πτερύγια).
+    </div>
+</div>
+
+<div class="question-block" id="q75" data-correct="B">
+    <div class="question-header">
+        <span class="question-number">Ερώτηση 75</span>
+        <span class="page-reference">Σελίδα 324</span>
+    </div>
+    <div class="question-text">Ποια είναι η βασική χρήση του πλαισίου (frame) στην τεχνική της απομόνωσης με ελαστικό απομονωτήρα;</div>
+    <div class="options-list">
+        <div class="option-item" data-option="A"><span class="option-prefix">A</span>Να κρατά το στόμα του ασθενούς ανοιχτό βίαια.</div>
+        <div class="option-item" data-option="B"><span class="option-prefix">B</span>Να σταθεροποιεί και να τεντώνει το ελαστικό εκτός του στόματος, μέσω των ειδικών αγκυλίων (προεξοχών) του.</div>
+        <div class="option-item" data-option="C"><span class="option-prefix">C</span>Να απωθεί την επιγλωττίδα.</div>
+        <div class="option-item" data-option="D"><span class="option-prefix">D</span>Να χρησιμεύει ως οδηγός για το τρύπανο.</div>
+    </div>
+    <div class="rationale-panel">
+        <div class="rationale-title">Ακαδημαϊκό Σχόλιο</div>
+        Στη σελίδα 324 (παράγραφος ε) διευκρινίζεται: «Το πλαίσιο σταθεροποιεί το ελαστικό στη θέση του με τη βοήθεια μικρών προεξοχών ή αγκυλίων. Υπάρχουν πλαίσια μεταλλικά και πλαστικά (Εικόνα 9.60)».
+    </div>
+</div>
+
+    </form>
+</div>
+
+<script>
+    document.querySelectorAll('.option-item').forEach(item => {
+        item.addEventListener('click', function() {
+            const block = this.closest('.question-block');
+            if (block.classList.contains('answered')) return;
+
+            const selectedOption = this.getAttribute('data-option');
+            const correctOption = block.getAttribute('data-correct');
+
+            if (selectedOption === correctOption) {
+                this.classList.add('correct');
+            } else {
+                this.classList.add('incorrect');
+                block.querySelector(`[data-option="${correctOption}"]`).classList.add('correct');
+            }
+
+            block.classList.add('answered');
+
+            const rationale = block.querySelector('.rationale-panel');
+            if (rationale) rationale.style.display = 'block';
+
+            let correctCount = 0;
+            const answeredBlocks = document.querySelectorAll('.question-block.answered');
+            answeredBlocks.forEach(b => {
+                const cOpt = b.getAttribute('data-correct');
+                if (b.querySelector(`.option-item.correct[data-option="${cOpt}"]`)) correctCount++;
+            });
+
+            document.getElementById('progress-text').innerText = `${answeredBlocks.length} / 30`;
+            const scorePercent = answeredBlocks.length > 0 ? Math.round((correctCount / answeredBlocks.length) * 100) : 0;
+            document.getElementById('score-text').innerText = `${scorePercent}%`;
+        });
+    });
+</script>
+
+</body>
+</html>
