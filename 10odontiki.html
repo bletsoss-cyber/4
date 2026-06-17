@@ -6,141 +6,144 @@
   <title>Quiz Οδοντιατρικής — Αισθητική και Αποκαταστάσεις</title>
 
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #3b3b3b;
-      color: #26312c;
-      margin: 0;
-      padding: 24px;
-      line-height: 1.55;
-    }
+  body {
+    font-family: Arial, sans-serif;
+    background: #121816;
+    color: #e4ebe6;
+    margin: 0;
+    padding: 24px;
+    line-height: 1.55;
+  }
 
-    .quiz-container {
-      max-width: 980px;
-      margin: 0 auto;
-      background: #fbfcfa;
-      padding: 28px;
-      border-radius: 14px;
-      box-shadow: 0 4px 18px rgba(42, 56, 48, 0.08);
-    }
+  .quiz-container {
+    max-width: 980px;
+    margin: 0 auto;
+    background: #1b2420;
+    padding: 28px;
+    border-radius: 14px;
+    box-shadow: 0 4px 22px rgba(0,0,0,0.35);
+  }
 
-    h1 {
-      margin-top: 0;
-      color: #3f5f52;
-      font-size: 28px;
-    }
+  h1 {
+    margin-top: 0;
+    color: #b9d8c7;
+    font-size: 28px;
+  }
 
-    .score-panel {
-      position: static;
-      top: 0;
-      background: #fbfcfa;
-      border: 1px solid #d8e1dc;
-      padding: 14px 18px;
-      border-radius: 10px;
-      margin-bottom: 24px;
-      z-index: 5;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-    }
+  .score-panel {
+    position: sticky;
+    top: 0;
+    background: #1f2a25;
+    border: 1px solid #35443d;
+    padding: 14px 18px;
+    border-radius: 10px;
+    margin-bottom: 24px;
+    z-index: 5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
 
-    .score-text {
-      font-weight: bold;
-      color: #2f3b35;
-    }
+  .score-text {
+    font-weight: bold;
+    color: #e1e8e3;
+  }
 
-    .reset-btn {
-      background: #4f6f62;
-      color: #ffffff;
-      border: none;
-      padding: 9px 14px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-    }
+  .reset-btn {
+    background: #6f9a86;
+    color: #101613;
+    border: none;
+    padding: 9px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+  }
 
-    .reset-btn:hover {
-      background: #5f8072;
-    }
+  .reset-btn:hover {
+    background: #86b39d;
+  }
 
-    .question-block {
-      border: 1px solid #dce5df;
-      border-left: 6px solid #6f9a86;
-      padding: 20px;
-      border-radius: 10px;
-      margin-bottom: 24px;
-      background: #fcfdfb;
-    }
+  .question-block {
+    border: 1px solid #33433b;
+    border-left: 6px solid #7fb39a;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 24px;
+    background: #202b26;
+  }
 
-    .question-number {
-      font-weight: bold;
-      color: #4f6f62;
-      margin-bottom: 8px;
-      font-size: 18px;
-    }
+  .question-number {
+    font-weight: bold;
+    color: #a9d5bf;
+    margin-bottom: 8px;
+    font-size: 18px;
+  }
 
-    .question-text {
-      font-weight: bold;
-      margin-bottom: 14px;
-    }
+  .question-text {
+    font-weight: bold;
+    margin-bottom: 14px;
+    color: #f0f4f1;
+  }
 
-    .options-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
+  .options-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
 
-    .option-item {
-      padding: 11px 14px;
-      border: 1px solid #d8ddd9;
-      border-radius: 8px;
-      margin-bottom: 9px;
-      cursor: pointer;
-      background: #f7f9f6;
-      transition: 0.15s;
-    }
+  .option-item {
+    padding: 11px 14px;
+    border: 1px solid #3d4c45;
+    border-radius: 8px;
+    margin-bottom: 9px;
+    cursor: pointer;
+    background: #26322d;
+    color: #e5ece7;
+    transition: 0.15s;
+  }
 
-    .option-item:hover {
-      background: #eef4ef;
-    }
+  .option-item:hover {
+    background: #304039;
+  }
 
-    .option-item.correct {
-      background: #dcefe3;
-      border-color: #5f9673;
-      color: #24513a;
-      font-weight: bold;
-    }
+  .option-item.correct {
+    background: #214a36;
+    border-color: #79c99d;
+    color: #d9f7e7;
+    font-weight: bold;
+  }
 
-    .option-item.wrong {
-      background: #f3dddd;
-      border-color: #b66a6a;
-      color: #7a2f2f;
-      font-weight: bold;
-    }
+  .option-item.wrong {
+    background: #4a2528;
+    border-color: #d08a8a;
+    color: #f7dddd;
+    font-weight: bold;
+  }
 
-    .option-item.disabled {
-      pointer-events: none;
-      opacity: 0.92;
-    }
+  .option-item.disabled {
+    pointer-events: none;
+    opacity: 0.95;
+  }
 
-    .academic-comment {
-      display: none;
-      margin-top: 14px;
-      padding: 13px 15px;
-      background: #f1f5f2;
-      border-left: 4px solid #6f9a86;
-      border-radius: 8px;
-      font-size: 15px;
-    }
+  .academic-comment {
+    display: none;
+    margin-top: 14px;
+    padding: 13px 15px;
+    background: #18211d;
+    border-left: 4px solid #7fb39a;
+    border-radius: 8px;
+    font-size: 15px;
+    color: #dfe8e2;
+  }
 
-    .page-citation {
-      display: block;
-      margin-top: 8px;
-      font-weight: bold;
-      color: #4f6f62;
-    }
-  </style>
+  .page-citation {
+    display: block;
+    margin-top: 8px;
+    font-weight: bold;
+    color: #a9d5bf;
+  }
+</style>
 </head>
 
 <body>
