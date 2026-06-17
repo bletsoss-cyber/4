@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quiz Οδοντιατρικής — Αισθητική και Αποκαταστάσεις</title>
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -13,143 +14,145 @@
       padding: 24px;
       line-height: 1.55;
     }
+
+    .quiz-container {
+      max-width: 980px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 28px;
+      border-radius: 14px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      margin-top: 0;
+      color: #6b1839;
+      font-size: 28px;
+    }
+
+    .score-panel {
+      position: sticky;
+      top: 0;
+      background: #ffffff;
+      border: 1px solid #ddd;
+      padding: 14px 18px;
+      border-radius: 10px;
+      margin-bottom: 24px;
+      z-index: 5;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .score-text {
+      font-weight: bold;
+      color: #333;
+    }
+
+    .reset-btn {
+      background: #6b1839;
+      color: white;
+      border: none;
+      padding: 9px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .reset-btn:hover {
+      background: #8a2450;
+    }
+
+    .question-block {
+      border: 1px solid #e1d6dc;
+      border-left: 6px solid #6b1839;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 24px;
+      background: #fffdfd;
+    }
+
+    .question-number {
+      font-weight: bold;
+      color: #6b1839;
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+
+    .question-text {
+      font-weight: bold;
+      margin-bottom: 14px;
+    }
+
+    .options-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .option-item {
+      padding: 11px 14px;
+      border: 1px solid #d6d6d6;
+      border-radius: 8px;
+      margin-bottom: 9px;
+      cursor: pointer;
+      background: #fafafa;
+      transition: 0.15s;
+    }
+
+    .option-item:hover {
+      background: #f0eef2;
+    }
+
+    .option-item.correct {
+      background: #d8f2df;
+      border-color: #2e8b57;
+      color: #155f36;
+      font-weight: bold;
+    }
+
+    .option-item.wrong {
+      background: #f8d7da;
+      border-color: #b00020;
+      color: #7a0016;
+      font-weight: bold;
+    }
+
+    .option-item.disabled {
+      pointer-events: none;
+      opacity: 0.92;
+    }
+
+    .academic-comment {
+      display: none;
+      margin-top: 14px;
+      padding: 13px 15px;
+      background: #f7f1f4;
+      border-left: 4px solid #6b1839;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+
+    .page-citation {
+      display: block;
+      margin-top: 8px;
+      font-weight: bold;
+      color: #6b1839;
+    }
   </style>
 </head>
+
 <body>
+  <div class="quiz-container">
+    <h1>Quiz Οδοντιατρικής — Αισθητική και Αποκαταστάσεις</h1>
 
-</body>
-</html>
-
-.quiz-container {
-  max-width: 980px;
-  margin: 0 auto;
-  background: #ffffff;
-  padding: 28px;
-  border-radius: 14px;
-  box-shadow: 0 4px 18px rgba(0,0,0,0.08);
-}
-
-h1 {
-  margin-top: 0;
-  color: #6b1839;
-  font-size: 28px;
-}
-
-.score-panel {
-  position: sticky;
-  top: 0;
-  background: #ffffff;
-  border: 1px solid #ddd;
-  padding: 14px 18px;
-  border-radius: 10px;
-  margin-bottom: 24px;
-  z-index: 5;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-}
-
-.score-text {
-  font-weight: bold;
-  color: #333;
-}
-
-.reset-btn {
-  background: #6b1839;
-  color: white;
-  border: none;
-  padding: 9px 14px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.reset-btn:hover {
-  background: #8a2450;
-}
-
-.question-block {
-  border: 1px solid #e1d6dc;
-  border-left: 6px solid #6b1839;
-  padding: 20px;
-  border-radius: 10px;
-  margin-bottom: 24px;
-  background: #fffdfd;
-}
-
-.question-number {
-  font-weight: bold;
-  color: #6b1839;
-  margin-bottom: 8px;
-  font-size: 18px;
-}
-
-.question-text {
-  font-weight: bold;
-  margin-bottom: 14px;
-}
-
-.options-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.option-item {
-  padding: 11px 14px;
-  border: 1px solid #d6d6d6;
-  border-radius: 8px;
-  margin-bottom: 9px;
-  cursor: pointer;
-  background: #fafafa;
-  transition: 0.15s;
-}
-
-.option-item:hover {
-  background: #f0eef2;
-}
-
-.option-item.correct {
-  background: #d8f2df;
-  border-color: #2e8b57;
-  color: #155f36;
-  font-weight: bold;
-}
-
-.option-item.wrong {
-  background: #f8d7da;
-  border-color: #b00020;
-  color: #7a0016;
-  font-weight: bold;
-}
-
-.option-item.disabled {
-  pointer-events: none;
-  opacity: 0.92;
-}
-
-.academic-comment {
-  display: none;
-  margin-top: 14px;
-  padding: 13px 15px;
-  background: #f7f1f4;
-  border-left: 4px solid #6b1839;
-  border-radius: 8px;
-  font-size: 15px;
-}
-
-.page-citation {
-  display: block;
-  margin-top: 8px;
-  font-weight: bold;
-  color: #6b1839;
-}
-
-<div class="score-panel">
-  <div class="score-text">Σκορ: <span id="score">0</span>/<span id="answered">0</span> απαντημένες</div>
-  <button class="reset-btn" onclick="resetQuiz()">Reset</button>
-</div>
+    <div class="score-panel">
+      <div class="score-text">
+        Σκορ: <span id="score">0</span>/<span id="answered">0</span> απαντημένες
+      </div>
+      <button class="reset-btn" onclick="resetQuiz()">Reset</button>
+    </div>
 
 <div class="question-block" id="q1">
   <div class="question-number">Ερώτηση 1</div>
@@ -1141,66 +1144,65 @@ h1 {
   </div>
 </div>
 
-</div>
+ </div>
 
-<script>
-  let score = 0;
-  let answered = 0;
-  const answeredQuestions = new Set();
+  <script>
+    let score = 0;
+    let answered = 0;
+    const answeredQuestions = new Set();
 
-  function checkAnswer(element, questionNumber, isCorrect) {
-    if (answeredQuestions.has(questionNumber)) return;
+    function checkAnswer(element, questionNumber, isCorrect) {
+      if (answeredQuestions.has(questionNumber)) return;
 
-    answeredQuestions.add(questionNumber);
-    answered++;
+      answeredQuestions.add(questionNumber);
+      answered++;
 
-    const block = document.getElementById("q" + questionNumber);
-    const options = block.querySelectorAll(".option-item");
-    const comment = block.querySelector(".academic-comment");
+      const block = document.getElementById("q" + questionNumber);
+      const options = block.querySelectorAll(".option-item");
+      const comment = block.querySelector(".academic-comment");
 
-    options.forEach(option => {
-      option.classList.add("disabled");
+      options.forEach(option => {
+        option.classList.add("disabled");
 
-      const onclickText = option.getAttribute("onclick");
-      if (onclickText && onclickText.includes("true")) {
-        option.classList.add("correct");
+        const onclickText = option.getAttribute("onclick");
+        if (onclickText && onclickText.includes("true")) {
+          option.classList.add("correct");
+        }
+      });
+
+      if (isCorrect) {
+        score++;
+        element.classList.add("correct");
+      } else {
+        element.classList.add("wrong");
       }
-    });
 
-    if (isCorrect) {
-      score++;
-      element.classList.add("correct");
-    } else {
-      element.classList.add("wrong");
+      comment.style.display = "block";
+      document.getElementById("score").textContent = score;
+      document.getElementById("answered").textContent = answered;
     }
 
-    comment.style.display = "block";
-    document.getElementById("score").textContent = score;
-    document.getElementById("answered").textContent = answered;
-  }
+    function resetQuiz() {
+      score = 0;
+      answered = 0;
+      answeredQuestions.clear();
 
-  function resetQuiz() {
-    score = 0;
-    answered = 0;
-    answeredQuestions.clear();
+      document.getElementById("score").textContent = "0";
+      document.getElementById("answered").textContent = "0";
 
-    document.getElementById("score").textContent = "0";
-    document.getElementById("answered").textContent = "0";
+      document.querySelectorAll(".option-item").forEach(option => {
+        option.classList.remove("correct", "wrong", "disabled");
+      });
 
-    document.querySelectorAll(".option-item").forEach(option => {
-      option.classList.remove("correct", "wrong", "disabled");
-    });
+      document.querySelectorAll(".academic-comment").forEach(comment => {
+        comment.style.display = "none";
+      });
 
-    document.querySelectorAll(".academic-comment").forEach(comment => {
-      comment.style.display = "none";
-    });
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-  }
-</script>
-
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+  </script>
 </body>
 </html>
