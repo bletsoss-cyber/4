@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Οδοντιατρικής — Αισθητική και Αποκαταστάσεις</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f6;
+      color: #222;
+      margin: 0;
+      padding: 24px;
+      line-height: 1.55;
+    }
+  </style>
+</head>
+<body>
+
+</body>
+</html>
+
+.quiz-container {
+  max-width: 980px;
+  margin: 0 auto;
+  background: #ffffff;
+  padding: 28px;
+  border-radius: 14px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+}
+
+h1 {
+  margin-top: 0;
+  color: #6b1839;
+  font-size: 28px;
+}
+
+.score-panel {
+  position: sticky;
+  top: 0;
+  background: #ffffff;
+  border: 1px solid #ddd;
+  padding: 14px 18px;
+  border-radius: 10px;
+  margin-bottom: 24px;
+  z-index: 5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.score-text {
+  font-weight: bold;
+  color: #333;
+}
+
+.reset-btn {
+  background: #6b1839;
+  color: white;
+  border: none;
+  padding: 9px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.reset-btn:hover {
+  background: #8a2450;
+}
+
+.question-block {
+  border: 1px solid #e1d6dc;
+  border-left: 6px solid #6b1839;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 24px;
+  background: #fffdfd;
+}
+
+.question-number {
+  font-weight: bold;
+  color: #6b1839;
+  margin-bottom: 8px;
+  font-size: 18px;
+}
+
+.question-text {
+  font-weight: bold;
+  margin-bottom: 14px;
+}
+
+.options-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.option-item {
+  padding: 11px 14px;
+  border: 1px solid #d6d6d6;
+  border-radius: 8px;
+  margin-bottom: 9px;
+  cursor: pointer;
+  background: #fafafa;
+  transition: 0.15s;
+}
+
+.option-item:hover {
+  background: #f0eef2;
+}
+
+.option-item.correct {
+  background: #d8f2df;
+  border-color: #2e8b57;
+  color: #155f36;
+  font-weight: bold;
+}
+
+.option-item.wrong {
+  background: #f8d7da;
+  border-color: #b00020;
+  color: #7a0016;
+  font-weight: bold;
+}
+
+.option-item.disabled {
+  pointer-events: none;
+  opacity: 0.92;
+}
+
+.academic-comment {
+  display: none;
+  margin-top: 14px;
+  padding: 13px 15px;
+  background: #f7f1f4;
+  border-left: 4px solid #6b1839;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+.page-citation {
+  display: block;
+  margin-top: 8px;
+  font-weight: bold;
+  color: #6b1839;
+}
+
+<div class="score-panel">
+  <div class="score-text">Σκορ: <span id="score">0</span>/<span id="answered">0</span> απαντημένες</div>
+  <button class="reset-btn" onclick="resetQuiz()">Reset</button>
+</div>
+
+<div class="question-block" id="q1">
+  <div class="question-number">Ερώτηση 1</div>
+  <div class="question-text">Ποια δήλωση αποδίδει ακριβέστερα τον ρόλο της αισθητικής στην επιτυχία μιας πρόσθιας αποκατάστασης;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 1, false)">A) Η αισθητική επιτυχία εξαρτάται σχεδόν αποκλειστικά από τις οπτικές ιδιότητες του αποκαταστατικού υλικού.</li>
+    <li class="option-item" onclick="checkAnswer(this, 1, true)">B) Η αισθητική απόδοση καθορίζεται από τις οπτικές ιδιότητες του υλικού, αλλά και από τον σχεδιασμό, την τεχνική και τις αναλογίες του προσώπου και του στοματοπροσωπικού συνόλου.</li>
+    <li class="option-item" onclick="checkAnswer(this, 1, false)">C) Η λειτουργικότητα και η αισθητική είναι ανεξάρτητες παράμετροι και πρέπει να αξιολογούνται χωριστά.</li>
+    <li class="option-item" onclick="checkAnswer(this, 1, false)">D) Στις πρόσθιες αποκαταστάσεις η αισθητική υπερισχύει της λειτουργικότητας και μπορεί να καθορίζει αποκλειστικά το θεραπευτικό σχέδιο.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η αισθητική επιτυχία δεν περιορίζεται στο υλικό· επηρεάζεται από τον σχεδιασμό της αποκατάστασης, την τεχνική, τις αναλογίες του προσώπου και τη συνολική εναρμόνιση της αισθητικής ζώνης.
+    <span class="page-citation">Παραπομπή: Σελίδα 333</span>
+  </div>
+</div>
+
+<div class="question-block" id="q2">
+  <div class="question-number">Ερώτηση 2</div>
+  <div class="question-text">Σε ασθενή που ζητά πρόσθιες αισθητικές αποκαταστάσεις, ποια προσέγγιση είναι επιστημονικά ορθότερη σύμφωνα με την ανάλυση του χαμόγελου;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 2, false)">A) Αξιολόγηση μόνο του χρώματος και του σχήματος των δοντιών, επειδή τα χείλη λειτουργούν απλώς ως παθητικό πλαίσιο.</li>
+    <li class="option-item" onclick="checkAnswer(this, 2, false)">B) Αποκλειστική αξιολόγηση της οδοντικής μέσης γραμμής, διότι αποτελεί τον μοναδικό δείκτη αρμονίας.</li>
+    <li class="option-item" onclick="checkAnswer(this, 2, true)">C) Συνεκτίμηση δοντιών, περιοδοντικών ιστών, χειλέων και προσώπου, με στόχο αρμονία και φυσικότητα στην εμφάνιση.</li>
+    <li class="option-item" onclick="checkAnswer(this, 2, false)">D) Αποφυγή αξιολόγησης των μαλακών ιστών, επειδή οι κοινωνικές αντιλήψεις για το χαμόγελο είναι πλήρως υποκειμενικές.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η ανάλυση του χαμόγελου ξεκινά από την εξέταση προσώπου και στόματος και καταλήγει στα δόντια και στους περιοδοντικούς ιστούς, με στόχο όχι μόνο συμμετρία αλλά και φυσικότητα.
+    <span class="page-citation">Παραπομπή: Σελίδα 334</span>
+  </div>
+</div>
+
+<div class="question-block" id="q3">
+  <div class="question-number">Ερώτηση 3</div>
+  <div class="question-text">Ποια τετράδα αντιστοιχεί σωστά στις κατευθύνσεις ανάλυσης που χρησιμοποιούνται για τη μελέτη της αισθητικής του χαμόγελου;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 3, true)">A) Οδοντοπροσωπική, οδοντοχειλική, οδοντοουλική και οδοντική ανάλυση.</li>
+    <li class="option-item" onclick="checkAnswer(this, 3, false)">B) Οδοντοπροσωπική, κεφαλομετρική, λειτουργική και φωνητική ανάλυση.</li>
+    <li class="option-item" onclick="checkAnswer(this, 3, false)">C) Οδοντοχειλική, μυοσκελετική, ακτινογραφική και περιοδοντική ανάλυση.</li>
+    <li class="option-item" onclick="checkAnswer(this, 3, false)">D) Οδοντική, φασματοφωτομετρική, χρωματική και φωτογραφική ανάλυση.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Για συστηματική μελέτη του χαμόγελου αναφέρονται τέσσερις κατευθύνσεις: οδοντοπροσωπική, οδοντοχειλική, οδοντοουλική και οδοντική ανάλυση.
+    <span class="page-citation">Παραπομπή: Σελίδα 334</span>
+  </div>
+</div>
+
+<div class="question-block" id="q4">
+  <div class="question-number">Ερώτηση 4</div>
+  <div class="question-text">Ποιο στοιχείο ανήκει στην οδοντοπροσωπική και όχι στην οδοντοουλική ή στην οδοντική ανάλυση;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 4, false)">A) Μεσοδόντιες θηλές.</li>
+    <li class="option-item" onclick="checkAnswer(this, 4, false)">B) Μεσοδόντιο τρίγωνο.</li>
+    <li class="option-item" onclick="checkAnswer(this, 4, true)">C) Κλίση μασητικού επιπέδου.</li>
+    <li class="option-item" onclick="checkAnswer(this, 4, false)">D) Σχέση κοπτικού χείλους κεντρικού-πλάγιου τομέα.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Στον πίνακα ανάλυσης, η κλίση του μασητικού επιπέδου εντάσσεται στην οδοντοπροσωπική ανάλυση, ενώ οι θηλές και η ουλική παρυφή ανήκουν στην οδοντοουλική και τα μεσοδόντια στοιχεία στην οδοντική ανάλυση.
+    <span class="page-citation">Παραπομπή: Σελίδα 335</span>
+  </div>
+</div>
+
+<div class="question-block" id="q5">
+  <div class="question-number">Ερώτηση 5</div>
+  <div class="question-text">Κατά την αξιολόγηση της μέσης γραμμής, ποια επιλογή αποδίδει σωστά το όριο αντίληψης και το μη αποδεκτό όριο απόκλισης;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 5, false)">A) Αντίληψη στα 1 mm και μη αποδεκτό όριο στα 2 mm.</li>
+    <li class="option-item" onclick="checkAnswer(this, 5, true)">B) Αντίληψη όταν η απόσταση υπερβεί τα 2,5 mm και μη αποδεκτό όριο όταν φτάσει τα 4 mm.</li>
+    <li class="option-item" onclick="checkAnswer(this, 5, false)">C) Αντίληψη μόνο όταν υπερβεί τα 4 mm και μη αποδεκτό όριο στα 6 mm.</li>
+    <li class="option-item" onclick="checkAnswer(this, 5, false)">D) Η απόκλιση γίνεται μη αποδεκτή μόνο όταν συνοδεύεται από κλίση του μασητικού επιπέδου.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η απόκλιση της μέσης γραμμής γίνεται αντιληπτή όταν ξεπερνά τα 2,5 mm και θεωρείται μη αποδεκτή όταν φτάνει τα 4 mm.
+    <span class="page-citation">Παραπομπή: Σελίδα 336</span>
+  </div>
+</div>
+
+<div class="question-block" id="q6">
+  <div class="question-number">Ερώτηση 6</div>
+  <div class="question-text">Ποια δήλωση είναι ακριβέστερη για τη διακορική γραμμή και την κλίση των δοντιών στο κάθετο επίπεδο;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 6, false)">A) Η διακορική γραμμή χρησιμοποιείται μόνο για την αξιολόγηση των χειλέων και όχι των κοπτικών χειλέων.</li>
+    <li class="option-item" onclick="checkAnswer(this, 6, false)">B) Κλίσεις μικρότερες από 5° στο κάθετο επίπεδο δεν γίνονται αντιληπτές αισθητικά.</li>
+    <li class="option-item" onclick="checkAnswer(this, 6, true)">C) Η διακορική γραμμή αποτελεί σημαντικό οδηγό για τον προσανατολισμό των κοπτικών χειλέων και αποκλίσεις κλίσης περίπου 3° μπορούν να γίνουν αρνητικά αντιληπτές.</li>
+    <li class="option-item" onclick="checkAnswer(this, 6, false)">D) Σε έντονη ασυμμετρία προσώπου τα δόντια πρέπει υποχρεωτικά να προσανατολίζονται μόνο στη μέση γραμμή του προσώπου.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η διακορική γραμμή, μαζί με άλλα στοιχεία του προσώπου, καθοδηγεί τον προσανατολισμό των κοπτικών χειλέων· ακόμη και κλίση περίπου 3° στο κάθετο επίπεδο μπορεί να γίνει αισθητικά αρνητικά αντιληπτή.
+    <span class="page-citation">Παραπομπή: Σελίδα 336</span>
+  </div>
+</div>
+
+<div class="question-block" id="q7">
+  <div class="question-number">Ερώτηση 7</div>
+  <div class="question-text">Σε ασθενή με ήπια ασυμμετρία προσώπου, ποια κλινική απόφαση είναι συμβατή με την αισθητική προσέγγιση που περιγράφεται;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 7, false)">A) Επιβάλλεται απόλυτη ταύτιση όλων των οδοντικών και προσωπικών γραμμών, ακόμη και εις βάρος της συνολικής αρμονίας.</li>
+    <li class="option-item" onclick="checkAnswer(this, 7, true)">B) Το χαμόγελο μπορεί να ακολουθεί καμπύλη μέση γραμμή όταν αυτό υπηρετεί τη φυσικότητα και την αρμονία του προσώπου.</li>
+    <li class="option-item" onclick="checkAnswer(this, 7, false)">C) Η μέση γραμμή των άνω κεντρικών τομέων πρέπει να αγνοείται όταν υπάρχει ασυμμετρία ματιών.</li>
+    <li class="option-item" onclick="checkAnswer(this, 7, false)">D) Η απόδοση συμμετρίας έχει προτεραιότητα έναντι της φυσικής εμφάνισης σε όλες τις περιπτώσεις.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Σε ασυμμετρίες, το ζητούμενο δεν είναι η απόλυτη συμμετρία αλλά η αρμονία· το χαμόγελο μπορεί να ακολουθεί καμπύλη μέση γραμμή που εναρμονίζεται με το πρόσωπο.
+    <span class="page-citation">Παραπομπή: Σελίδα 336</span>
+  </div>
+</div>
+
+<div class="question-block" id="q8">
+  <div class="question-number">Ερώτηση 8</div>
+  <div class="question-text">Ποιο σενάριο σχετικά με την κλίση του μασητικού επιπέδου είναι αισθητικά πιο προβληματικό;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 8, false)">A) Κλίση 1°, επειδή κάθε απόκλιση του μασητικού επιπέδου είναι άμεσα αντιληπτή.</li>
+    <li class="option-item" onclick="checkAnswer(this, 8, false)">B) Κλίση 2°, επειδή αυτό είναι ήδη μη αποδεκτό όριο.</li>
+    <li class="option-item" onclick="checkAnswer(this, 8, true)">C) Κλίση μεγαλύτερη από 4°, επειδή η αισθητική απόδοση του χαμόγελου υποβαθμίζεται σημαντικά.</li>
+    <li class="option-item" onclick="checkAnswer(this, 8, false)">D) Κλίση μικρότερη από 2°, επειδή επηρεάζει περισσότερο την αισθητική από τη μέση γραμμή.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Κλίση του μασητικού επιπέδου έως περίπου 2° δεν φαίνεται να επηρεάζει την αισθητική, ενώ κλίση μεγαλύτερη των 4° την υποβαθμίζει σημαντικά.
+    <span class="page-citation">Παραπομπή: Σελίδα 337</span>
+  </div>
+</div>
+
+<div class="question-block" id="q9">
+  <div class="question-number">Ερώτηση 9</div>
+  <div class="question-text">Αν ο λόγος ύψους προσώπου Na-Me προς πλάτος Zy-Zy είναι 0,83, ποια ταξινόμηση είναι σωστή;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 9, false)">A) Ευρυπρόσωπος, επειδή ο λόγος είναι μικρότερος από 0,84.</li>
+    <li class="option-item" onclick="checkAnswer(this, 9, false)">B) Μεσοπρόσωπος, επειδή όλες οι τιμές κάτω από 0,88 εντάσσονται σε αυτήν την ομάδα.</li>
+    <li class="option-item" onclick="checkAnswer(this, 9, true)">C) Λεπτοπρόσωπος, επειδή ο λόγος είναι μικρότερος από 0,84.</li>
+    <li class="option-item" onclick="checkAnswer(this, 9, false)">D) Στρογγυλός τύπος προσώπου, επειδή υπερισχύει το ύψος έναντι του πλάτους.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Τα πρόσωπα ταξινομούνται ως ευρυπρόσωπα όταν Na-Me/Zy-Zy &gt; 0,88, μεσοπρόσωπα όταν είναι 0,84-0,88 και λεπτοπρόσωπα όταν είναι &lt; 0,84.
+    <span class="page-citation">Παραπομπή: Σελίδα 337</span>
+  </div>
+</div>
+
+<div class="question-block" id="q10">
+  <div class="question-number">Ερώτηση 10</div>
+  <div class="question-text">Ποια δήλωση αποδίδει σωστά την κλινική σημασία του κατώτερου τριτημορίου του προσώπου;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 10, false)">A) Είναι λιγότερο σημαντικό από τα άνω τριτημόρια, επειδή δεν περιλαμβάνει το χαμόγελο.</li>
+    <li class="option-item" onclick="checkAnswer(this, 10, true)">B) Είναι καθοριστικό για την αισθητική του προσώπου, και η μείωση της κάθετης διάστασης μπορεί να μειώσει σημαντικά το ύψος του.</li>
+    <li class="option-item" onclick="checkAnswer(this, 10, false)">C) Η αύξηση της κάθετης διάστασης υποβαθμίζει πάντοτε την αισθητική του προσώπου.</li>
+    <li class="option-item" onclick="checkAnswer(this, 10, false)">D) Το κατώτερο τριτημόριο πρέπει να καταλαμβάνει το 60% του ύψους του προσώπου.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Το κατώτερο τριτημόριο, που περιλαμβάνει και το χαμόγελο, είναι κρίσιμο αισθητικά· η μειωμένη κάθετη διάσταση μπορεί να το μειώσει, ενώ η αύξησή της μπορεί να βελτιώσει την αισθητική.
+    <span class="page-citation">Παραπομπή: Σελίδα 337</span>
+  </div>
+</div>
+
+<div class="question-block" id="q11">
+  <div class="question-number">Ερώτηση 11</div>
+  <div class="question-text">Ποια τιμή αντιστοιχεί στο φυσιολογικό μήκος του άνω χείλους όπως αναφέρεται για άνδρες και γυναίκες;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 11, false)">A) 19,6 mm στους άνδρες και 21,8 mm στις γυναίκες.</li>
+    <li class="option-item" onclick="checkAnswer(this, 11, true)">B) 21,8 mm στους άνδρες και 19,6 mm στις γυναίκες.</li>
+    <li class="option-item" onclick="checkAnswer(this, 11, false)">C) 18,5 mm στους άνδρες και 18,5 mm στις γυναίκες.</li>
+    <li class="option-item" onclick="checkAnswer(this, 11, false)">D) 23,5 mm στους άνδρες και 20,5 mm στις γυναίκες.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Το φυσιολογικό μήκος του άνω χείλους αναφέρεται ως 21,8 mm για τους άνδρες και 19,6 mm για τις γυναίκες.
+    <span class="page-citation">Παραπομπή: Σελίδα 339</span>
+  </div>
+</div>
+
+<div class="question-block" id="q12">
+  <div class="question-number">Ερώτηση 12</div>
+  <div class="question-text">Ποια σχέση μεταξύ κάτω χείλους και κοπτικών χειλέων των άνω κεντρικών τομέων θεωρείται αισθητικά αποδεκτή;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 12, false)">A) Αρνητική απόσταση, ώστε τα κοπτικά χείλη να καλύπτονται πλήρως από το κάτω χείλος.</li>
+    <li class="option-item" onclick="checkAnswer(this, 12, true)">B) Απόσταση περίπου 0 έως 2,67 mm.</li>
+    <li class="option-item" onclick="checkAnswer(this, 12, false)">C) Απόσταση 4 έως 6 mm, ώστε να αυξάνεται η προβολή των κεντρικών τομέων.</li>
+    <li class="option-item" onclick="checkAnswer(this, 12, false)">D) Απουσία συσχέτισης, επειδή η θέση του κάτω χείλους δεν επηρεάζει την αισθητική του χαμόγελου.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η ιδανική αισθητική απόσταση μεταξύ κάτω χείλους και κοπτικών χειλέων των άνω κεντρικών τομέων αναφέρεται ότι κυμαίνεται μεταξύ 0 και 2,67 mm.
+    <span class="page-citation">Παραπομπή: Σελίδα 339</span>
+  </div>
+</div>
+
+<div class="question-block" id="q13">
+  <div class="question-number">Ερώτηση 13</div>
+  <div class="question-text">Κατά την αξιολόγηση του προφίλ, ποια αντιστοίχιση γωνίας και τύπου προφίλ είναι σωστή;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 13, false)">A) Κανονικό προφίλ περίπου 160°, κυρτό μεγαλύτερο από 180° και κοίλο περίπου 170°.</li>
+    <li class="option-item" onclick="checkAnswer(this, 13, true)">B) Κανονικό προφίλ περίπου 170°, κυρτό μικρότερο από 160° και κοίλο μεγαλύτερο από 180°.</li>
+    <li class="option-item" onclick="checkAnswer(this, 13, false)">C) Κανονικό προφίλ περίπου 180°, κυρτό 170° και κοίλο μικρότερο από 160°.</li>
+    <li class="option-item" onclick="checkAnswer(this, 13, false)">D) Η γωνία προφίλ δεν χρησιμοποιείται για τη διάκριση κανονικού, κυρτού και κοίλου προφίλ.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Στο κανονικό προφίλ η γωνία είναι περίπου 170°, στο κυρτό είναι μικρότερη από 160° και στο κοίλο μεγαλύτερη από 180°.
+    <span class="page-citation">Παραπομπή: Σελίδα 340</span>
+  </div>
+</div>
+
+<div class="question-block" id="q14">
+  <div class="question-number">Ερώτηση 14</div>
+  <div class="question-text">Ποιο εύρος ρινοχειλικής γωνίας είναι σωστό για κανονικό προφίλ;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 14, true)">A) 90-95° για τους άνδρες και 100-115° για τις γυναίκες.</li>
+    <li class="option-item" onclick="checkAnswer(this, 14, false)">B) 100-115° για τους άνδρες και 90-95° για τις γυναίκες.</li>
+    <li class="option-item" onclick="checkAnswer(this, 14, false)">C) 80-85° για τους άνδρες και 85-90° για τις γυναίκες.</li>
+    <li class="option-item" onclick="checkAnswer(this, 14, false)">D) 110-120° για όλους τους ασθενείς ανεξαρτήτως φύλου.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η ρινοχειλική γωνία σε κανονικό προφίλ κυμαίνεται περίπου στις 90-95° για άνδρες και 100-115° για γυναίκες.
+    <span class="page-citation">Παραπομπή: Σελίδα 340</span>
+  </div>
+</div>
+
+<div class="question-block" id="q15">
+  <div class="question-number">Ερώτηση 15</div>
+  <div class="question-text">Ποια ταξινόμηση της γραμμής χαμόγελου είναι σωστή;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 15, false)">A) Χαμηλή γραμμή: αποκαλύπτεται όλο το ύψος των πρόσθιων δοντιών και οι μαλακοί ιστοί άνω του αυχένα.</li>
+    <li class="option-item" onclick="checkAnswer(this, 15, true)">B) Μέση γραμμή: αποκαλύπτεται το 75-100% των πρόσθιων δοντιών και πιθανότατα οι μεσοδόντιες θηλές.</li>
+    <li class="option-item" onclick="checkAnswer(this, 15, false)">C) Υψηλή γραμμή: αποκαλύπτεται λιγότερο από το 75% του ύψους των πρόσθιων δοντιών.</li>
+    <li class="option-item" onclick="checkAnswer(this, 15, false)">D) Η κατηγοριοποίηση γίνεται με βάση το πάχος του άνω χείλους και όχι την αποκάλυψη δοντιών και ιστών.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η μέση γραμμή χαμόγελου αποκαλύπτει 75-100% των πρόσθιων δοντιών και πιθανώς τις μεσοδόντιες θηλές· η χαμηλή λιγότερο από 75%, ενώ η υψηλή αποκαλύπτει όλο το ύψος των δοντιών και μαλακούς ιστούς.
+    <span class="page-citation">Παραπομπή: Σελίδα 341</span>
+  </div>
+</div>
+
+<div class="question-block" id="q16">
+  <div class="question-number">Ερώτηση 16</div>
+  <div class="question-text">Σε ασθενή με έκθεση μαλακών ιστών κατά το χαμόγελο, ποια κλινική εκτίμηση είναι ακριβέστερη;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 16, false)">A) Οποιαδήποτε έκθεση μαλακών ιστών θεωρείται αισθητικά μη αποδεκτή.</li>
+    <li class="option-item" onclick="checkAnswer(this, 16, true)">B) Έκθεση μαλακών ιστών έως 2-3 mm μπορεί να είναι ανεκτή, ενώ πάνω από αυτή την τιμή αυξάνεται η έκθεση ούλων και υποβαθμίζεται η αισθητική.</li>
+    <li class="option-item" onclick="checkAnswer(this, 16, false)">C) Η κάλυψη των δοντιών από το άνω χείλος πάνω από 3 mm θεωρείται αισθητικά ιδανική.</li>
+    <li class="option-item" onclick="checkAnswer(this, 16, false)">D) Το ουλικό χαμόγελο αξιολογείται πάντα θετικά τόσο από τους οδοντιάτρους όσο και από την κοινωνία.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η έκθεση μαλακών ιστών μέχρι 2-3 mm μπορεί να γίνει ανεκτή, αλλά πέρα από αυτό αυξάνεται η ουλική έκθεση και μειώνεται η αισθητική του χαμόγελου.
+    <span class="page-citation">Παραπομπή: Σελίδα 342</span>
+  </div>
+</div>
+
+<div class="question-block" id="q17">
+  <div class="question-number">Ερώτηση 17</div>
+  <div class="question-text">Ποια διατύπωση είναι σωστή για την καμπύλη του οδοντικού τόξου σε σχέση με το κάτω χείλος;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 17, false)">A) Το επίπεδο ή ανεστραμμένο οδοντικό τόξο βελτιώνει την αισθητική, επειδή μειώνει την έκθεση των δοντιών.</li>
+    <li class="option-item" onclick="checkAnswer(this, 17, true)">B) Ιδανικά, το κατώτερο αποδεκτό όριο κυρτότητας του οδοντικού τόξου είναι η καμπύλη του κάτω χείλους.</li>
+    <li class="option-item" onclick="checkAnswer(this, 17, false)">C) Η αυξημένη παραβολικότητα του οδοντικού τόξου γίνεται πάντα λιγότερο ανεκτή όταν υπάρχει ουλικό χαμόγελο.</li>
+    <li class="option-item" onclick="checkAnswer(this, 17, false)">D) Η γραμμή του κάτω χείλους δεν σχετίζεται με την αξιολόγηση του οδοντικού τόξου.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Το επίπεδο ή ανεστραμμένο οδοντικό τόξο υποβαθμίζει την αισθητική. Ιδανικά, το κατώτερο αποδεκτό όριο της κυρτότητας είναι η καμπύλη του κάτω χείλους.
+    <span class="page-citation">Παραπομπή: Σελίδα 342</span>
+  </div>
+</div>
+
+<div class="question-block" id="q18">
+  <div class="question-number">Ερώτηση 18</div>
+  <div class="question-text">Ποιο εύρος θεωρείται ιδανικό για την αναλογία επέκτασης των παρειακών διαδρόμων στο χαμόγελο;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 18, false)">A) 0-5%.</li>
+    <li class="option-item" onclick="checkAnswer(this, 18, true)">B) 5-20%.</li>
+    <li class="option-item" onclick="checkAnswer(this, 18, false)">C) 20-35%.</li>
+    <li class="option-item" onclick="checkAnswer(this, 18, false)">D) 35-50%.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Το ιδανικό ποσοστό επέκτασης των παρειακών διαδρόμων στο χαμόγελο αναφέρεται ότι κυμαίνεται από 5% έως 20%.
+    <span class="page-citation">Παραπομπή: Σελίδα 342</span>
+  </div>
+</div>
+
+<div class="question-block" id="q19">
+  <div class="question-number">Ερώτηση 19</div>
+  <div class="question-text">Ποια δήλωση για τον δείκτη χαμόγελου είναι σωστή;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 19, false)">A) Υπολογίζεται ως μέγιστο ύψος προς μέγιστο εύρος του χαμόγελου.</li>
+    <li class="option-item" onclick="checkAnswer(this, 19, false)">B) Τα πιο αισθητικά χαμόγελα έχουν δείκτη κοντά στο 3,5.</li>
+    <li class="option-item" onclick="checkAnswer(this, 19, true)">C) Υπολογίζεται ως μέγιστο εύρος προς μέγιστο ύψος και τα πιο αισθητικά χαμόγελα έχουν δείκτη μεταξύ 5,3 και 9, με ιδανική τιμή περίπου 7,2.</li>
+    <li class="option-item" onclick="checkAnswer(this, 19, false)">D) Δεν σχετίζεται με τον αριθμό των ορατών δοντιών ή την εμφάνιση των μαλακών ιστών.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Ο δείκτης χαμόγελου προκύπτει από τη σχέση μέγιστου εύρους προς μέγιστο ύψος. Αισθητικά χαμόγελα έχουν δείκτη 5,3-9, με ιδανική τιμή 7,2.
+    <span class="page-citation">Παραπομπή: Σελίδα 343</span>
+  </div>
+</div>
+
+<div class="question-block" id="q20">
+  <div class="question-number">Ερώτηση 20</div>
+  <div class="question-text">Ποια από τις ακόλουθες μεσοδόντιες αποστάσεις βρίσκεται εντός του άνω ορίου που δεν προκαλεί ιδιαίτερες αρνητικές συνέπειες;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 20, true)">A) 1 mm μεταξύ των δύο κεντρικών τομέων.</li>
+    <li class="option-item" onclick="checkAnswer(this, 20, false)">B) 0,8 mm μεταξύ κεντρικού και πλάγιου τομέα.</li>
+    <li class="option-item" onclick="checkAnswer(this, 20, false)">C) 1,4 mm μεταξύ πλάγιου τομέα και κυνόδοντα.</li>
+    <li class="option-item" onclick="checkAnswer(this, 20, false)">D) 1,5 mm μεταξύ κεντρικού και πλάγιου τομέα, εφόσον υπάρχει συμμετρία.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Τα άνω όρια που δεν προκαλούν ιδιαίτερες αρνητικές συνέπειες είναι περίπου 1 mm μεταξύ κεντρικών τομέων, 0,5 mm μεταξύ κεντρικού-πλάγιου και 1 mm μεταξύ πλάγιου-κυνόδοντα.
+    <span class="page-citation">Παραπομπή: Σελίδα 344</span>
+  </div>
+</div>
+
+<div class="question-block" id="q21">
+  <div class="question-number">Ερώτηση 21</div>
+  <div class="question-text">Ποια μεσοδόντια απόσταση μεταξύ των κεντρικών τομέων αρχίζει να υποβαθμίζει σημαντικά την αισθητική του χαμόγελου;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 21, false)">A) Κάθε διάστημα μεγαλύτερο από 0,5 mm.</li>
+    <li class="option-item" onclick="checkAnswer(this, 21, true)">B) Διάστημα μεταξύ 1 και 2 mm.</li>
+    <li class="option-item" onclick="checkAnswer(this, 21, false)">C) Διάστημα μόνο όταν υπερβαίνει τα 3 mm.</li>
+    <li class="option-item" onclick="checkAnswer(this, 21, false)">D) Μόνο όταν συνυπάρχει ασυμμετρία ουλικής παρυφής.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η αντίληψη του μεσοδόντιου τριγώνου των κεντρικών τομέων είναι αυξημένη και διάστημα 1-2 mm επιβαρύνει σημαντικά την αισθητική του χαμόγελου.
+    <span class="page-citation">Παραπομπή: Σελίδα 345</span>
+  </div>
+</div>
+
+<div class="question-block" id="q22">
+  <div class="question-number">Ερώτηση 22</div>
+  <div class="question-text">Ποιο όριο ασυμμετρίας μήκους γίνεται αντιληπτό στους κεντρικούς τομείς και στους πλάγιους τομείς αντίστοιχα;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 22, false)">A) 1 mm στους κεντρικούς και 2 mm στους πλάγιους τομείς.</li>
+    <li class="option-item" onclick="checkAnswer(this, 22, true)">B) 0,5 mm στους κεντρικούς και 1 mm στους πλάγιους τομείς.</li>
+    <li class="option-item" onclick="checkAnswer(this, 22, false)">C) 1,5 mm στους κεντρικούς και 0,5 mm στους πλάγιους τομείς.</li>
+    <li class="option-item" onclick="checkAnswer(this, 22, false)">D) 2 mm στους κεντρικούς και 2 mm στους πλάγιους τομείς.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η ασυμμετρία των κοπτικών χειλέων γίνεται ιδιαίτερα αντιληπτή όταν υπερβαίνει τα 0,5 mm στους κεντρικούς τομείς και το 1 mm στους πλάγιους τομείς.
+    <span class="page-citation">Παραπομπή: Σελίδα 345</span>
+  </div>
+</div>
+
+<div class="question-block" id="q23">
+  <div class="question-number">Ερώτηση 23</div>
+  <div class="question-text">Ποια αναλογία πλάτους προς μήκος του κεντρικού τομέα θεωρείται ιδανική και ποιο εύρος παραμένει αισθητικά αποδεκτό;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 23, false)">A) Ιδανικά 62%, αποδεκτό 50-70%.</li>
+    <li class="option-item" onclick="checkAnswer(this, 23, true)">B) Ιδανικά 80%, αποδεκτό 66-85%.</li>
+    <li class="option-item" onclick="checkAnswer(this, 23, false)">C) Ιδανικά 75%, αποδεκτό 60-80%.</li>
+    <li class="option-item" onclick="checkAnswer(this, 23, false)">D) Ιδανικά 85%, αποδεκτό 80-95%.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Το πλάτος του κεντρικού τομέα ιδανικά αντιστοιχεί στο 80% του μήκους του, ενώ σε αισθητικά αποδεκτό χαμόγελο μπορεί να κυμαίνεται από 66% έως 85%.
+    <span class="page-citation">Παραπομπή: Σελίδα 345</span>
+  </div>
+</div>
+
+<div class="question-block" id="q24">
+  <div class="question-number">Ερώτηση 24</div>
+  <div class="question-text">Ποια δήλωση περιγράφει ορθά τη «χρυσή αναλογία» και την κριτική της εφαρμογής της στο χαμόγελο;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 24, false)">A) Το οπτικό πλάτος των πλάγιων τομέων είναι 80% της εγγύς-άπω διάστασης των κεντρικών τομέων και θεωρείται σταθερά εφαρμόσιμο σε όλα τα χαμόγελα.</li>
+    <li class="option-item" onclick="checkAnswer(this, 24, true)">B) Το οπτικό πλάτος των πλάγιων τομέων είναι περίπου 62% της εγγύς-άπω διάστασης των κεντρικών, αλλά τα ελκυστικά χαμόγελα συχνά δεν ακολουθούν αυστηρά αυτή την αναλογία.</li>
+    <li class="option-item" onclick="checkAnswer(this, 24, false)">C) Η χρυσή αναλογία αφορά μόνο τη σχέση κεντρικού τομέα προς κυνόδοντα και όχι προς πλάγιο τομέα.</li>
+    <li class="option-item" onclick="checkAnswer(this, 24, false)">D) Η χρυσή αναλογία προτείνει ίσο οπτικό πλάτος κεντρικών, πλάγιων και κυνοδόντων.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Στη χρυσή αναλογία το οπτικό πλάτος των πλάγιων τομέων είναι 62% της εγγύς-άπω διάστασης των κεντρικών, όμως πολλά ελκυστικά χαμόγελα δεν συμμορφώνονται με αυτή.
+    <span class="page-citation">Παραπομπή: Σελίδα 346</span>
+  </div>
+</div>
+
+<div class="question-block" id="q25">
+  <div class="question-number">Ερώτηση 25</div>
+  <div class="question-text">Ποια αναλογία μεσοδόντιου συνδετικού χώρου θεωρείται ιδανική από κεντρικά προς περιφερικά;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 25, true)">A) 50% μεταξύ κεντρικών, 40% μεταξύ κεντρικού και πλάγιου, 30% μεταξύ πλάγιου και κυνόδοντα.</li>
+    <li class="option-item" onclick="checkAnswer(this, 25, false)">B) 30% μεταξύ κεντρικών, 40% μεταξύ κεντρικού και πλάγιου, 50% μεταξύ πλάγιου και κυνόδοντα.</li>
+    <li class="option-item" onclick="checkAnswer(this, 25, false)">C) 50% μεταξύ όλων των πρόσθιων δοντιών.</li>
+    <li class="option-item" onclick="checkAnswer(this, 25, false)">D) 40% μεταξύ κεντρικών, 30% μεταξύ κεντρικού και πλάγιου, 20% μεταξύ πλάγιου και κυνόδοντα.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η ιδανική αισθητική αναλογία του μεσοδόντιου συνδετικού χώρου αναφέρεται ως 50%, 40% και 30% του μήκους του κεντρικού τομέα στις αντίστοιχες μεσοδόντιες περιοχές.
+    <span class="page-citation">Παραπομπή: Σελίδα 346</span>
+  </div>
+</div>
+
+<div class="question-block" id="q26">
+  <div class="question-number">Ερώτηση 26</div>
+  <div class="question-text">Ποια δήλωση είναι ακριβής για το σχήμα των άνω πρόσθιων δοντιών;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 26, false)">A) Το σχήμα των δοντιών έχει αποδειχθεί ότι συσχετίζεται στατιστικά με το φύλο.</li>
+    <li class="option-item" onclick="checkAnswer(this, 26, false)">B) Το σχήμα των δοντιών πρέπει πάντοτε να αντιγράφει το περίγραμμα του προσώπου.</li>
+    <li class="option-item" onclick="checkAnswer(this, 26, true)">C) Δεν έχει αποδειχθεί στατιστικά σημαντική συσχέτιση του σχήματος των δοντιών με το σχήμα του προσώπου ή το φύλο.</li>
+    <li class="option-item" onclick="checkAnswer(this, 26, false)">D) Τα τριγωνικά δόντια θεωρούνται αισθητικά αποδεκτά μόνο σε ευρυπρόσωπους ασθενείς.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Περιγράφονται τέσσερα βασικά σχήματα δοντιών, αλλά δεν έχει αποδειχθεί στατιστικά σημαντική συσχέτιση με το σχήμα του προσώπου ή το φύλο.
+    <span class="page-citation">Παραπομπή: Σελίδα 347</span>
+  </div>
+</div>
+
+<div class="question-block" id="q27">
+  <div class="question-number">Ερώτηση 27</div>
+  <div class="question-text">Ποια απόσταση «βήματος» μεταξύ κοπτικού χείλους κεντρικού και πλάγιου τομέα θεωρείται προτιμότερη σε παρουσία ουλικού χαμόγελου;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 27, false)">A) 0 mm, επειδή η απόλυτη ευθυγράμμιση μειώνει την ουλική έκθεση.</li>
+    <li class="option-item" onclick="checkAnswer(this, 27, false)">B) 0,5 mm, επειδή είναι η πλέον διαδεδομένη απόσταση και είναι ιδανική σε ουλικό χαμόγελο.</li>
+    <li class="option-item" onclick="checkAnswer(this, 27, true)">C) 1-1,5 mm, επειδή θεωρείται ιδανική γενικά και προτιμότερη όταν συνυπάρχει ουλικό χαμόγελο.</li>
+    <li class="option-item" onclick="checkAnswer(this, 27, false)">D) 3 mm, επειδή αυξάνει την αντιληπτή θηλυκότητα του χαμόγελου.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Το βήμα μεταξύ κοπτικού χείλους κεντρικού και πλάγιου τομέα κυμαίνεται ιδανικά μεταξύ 1 και 1,5 mm και προτείνεται ιδιαίτερα όταν υπάρχει ουλικό χαμόγελο.
+    <span class="page-citation">Παραπομπή: Σελίδα 347</span>
+  </div>
+</div>
+
+<div class="question-block" id="q28">
+  <div class="question-number">Ερώτηση 28</div>
+  <div class="question-text">Ποια περιγραφή της φυσιολογικής κλίσης των επιμήκων αξόνων των πρόσθιων δοντιών είναι σωστή;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 28, false)">A) Το αυχενικό τμήμα έχει ελαφρά κλίση προς τα εγγύς και το κοπτικό προς τα άπω.</li>
+    <li class="option-item" onclick="checkAnswer(this, 28, true)">B) Το αυχενικό τμήμα έχει ελαφρά κλίση προς τα άπω και το κοπτικό προς τα εγγύς, με αύξηση της έντασης από τους κεντρικούς τομείς προς τους κυνόδοντες.</li>
+    <li class="option-item" onclick="checkAnswer(this, 28, false)">C) Όλοι οι πρόσθιοι επιμήκεις άξονες πρέπει να είναι απολύτως παράλληλοι μεταξύ τους.</li>
+    <li class="option-item" onclick="checkAnswer(this, 28, false)">D) Η κλίση των επιμήκων αξόνων δεν επηρεάζει τη συμμετρία του χαμόγελου.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Φυσιολογικά, ο επιμήκης άξονας των πρόσθιων δοντιών έχει ελαφρά άπω κλίση αυχενικά και εγγύς κλίση κοπτικά, η οποία αυξάνεται από τους κεντρικούς προς τους κυνόδοντες.
+    <span class="page-citation">Παραπομπή: Σελίδα 348</span>
+  </div>
+</div>
+
+<div class="question-block" id="q29">
+  <div class="question-number">Ερώτηση 29</div>
+  <div class="question-text">Ποια παρειογλωσσική απόκλιση είναι περισσότερο ανεκτή αισθητικά σύμφωνα με το κείμενο;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 29, false)">A) Γλωσσική απόκλιση των κεντρικών τομέων έως 10°, επειδή οι κεντρικοί είναι λιγότερο ορατοί.</li>
+    <li class="option-item" onclick="checkAnswer(this, 29, true)">B) Κλίση έως 10° των δύο πλάγιων τομέων, προστομιακά ή υπερώια, χωρίς να γίνεται αντιληπτή.</li>
+    <li class="option-item" onclick="checkAnswer(this, 29, false)">C) Προστομιακή κλίση κυνοδόντων έως 10°, επειδή οι κυνόδοντες βρίσκονται εκτός αισθητικής ζώνης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 29, false)">D) Υπερώια κλίση προγομφίων έως 3°, επειδή μεγαλύτερες τιμές γίνονται άμεσα αντιληπτές.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η γλωσσική απόκλιση των πλάγιων τομέων είναι πιο ανεκτή από αντίστοιχη των κεντρικών. Κλίση έως 10° των δύο πλάγιων τομέων, προστομιακά ή υπερώια, δεν φαίνεται να γίνεται αντιληπτή.
+    <span class="page-citation">Παραπομπή: Σελίδα 348</span>
+  </div>
+</div>
+
+<div class="question-block" id="q30">
+  <div class="question-number">Ερώτηση 30</div>
+  <div class="question-text">Ποιος συνδυασμός πρόταξης αναφέρεται ως ιδανικός ή φυσιολογικός για τα πρόσθια δόντια;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 30, true)">A) Οριζόντια πρόταξη 2-3 mm και κατακόρυφη πρόταξη 2-4 mm.</li>
+    <li class="option-item" onclick="checkAnswer(this, 30, false)">B) Οριζόντια πρόταξη 0-1 mm και κατακόρυφη πρόταξη 4-6 mm.</li>
+    <li class="option-item" onclick="checkAnswer(this, 30, false)">C) Οριζόντια πρόταξη 4-5,5 mm και κατακόρυφη πρόταξη 0-1 mm.</li>
+    <li class="option-item" onclick="checkAnswer(this, 30, false)">D) Οριζόντια και κατακόρυφη πρόταξη ίση με 0 mm.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η ιδανική οριζόντια πρόταξη αναφέρεται μεταξύ 2 και 3 mm, ενώ η κατακόρυφη πρόταξη κυμαίνεται μεταξύ 2 και 4 mm.
+    <span class="page-citation">Παραπομπή: Σελίδα 348</span>
+  </div>
+</div>
+
+<div class="question-block" id="q31">
+  <div class="question-number">Ερώτηση 31</div>
+  <div class="question-text">Ποια επιλογή περιλαμβάνει ορθά μέσα καταγραφής που μπορούν να χρησιμοποιηθούν πριν από την κλινική εφαρμογή του αισθητικού σχεδίου θεραπείας;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 31, false)">A) Μόνο φωτογραφίες και χρωματολόγιο, επειδή τα εκμαγεία δεν συμβάλλουν στον σχεδιασμό.</li>
+    <li class="option-item" onclick="checkAnswer(this, 31, true)">B) Στοιχεία κλινικής εξέτασης, φωτογραφίες, βίντεο, ενδοστοματικά αποτυπώματα και τρισδιάστατη αποτύπωση του προσώπου.</li>
+    <li class="option-item" onclick="checkAnswer(this, 31, false)">C) Μόνο ψηφιακός σχεδιασμός, επειδή αντικαθιστά την αισθητική ανάλυση του οδοντιάτρου.</li>
+    <li class="option-item" onclick="checkAnswer(this, 31, false)">D) Αποκλειστικά κεφαλομετρική ακτινογραφία και φασματοφωτομετρία.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η καταγραφή μπορεί να περιλαμβάνει στοιχεία κλινικής εξέτασης, φωτογραφίες, βίντεο, ενδοστοματικά αποτυπώματα και τρισδιάστατη αποτύπωση του προσώπου, ώστε να καθοδηγείται ο διαγνωστικός και αποκαταστατικός σχεδιασμός.
+    <span class="page-citation">Παραπομπή: Σελίδα 349</span>
+  </div>
+</div>
+
+<div class="question-block" id="q32">
+  <div class="question-number">Ερώτηση 32</div>
+  <div class="question-text">Ποια δήλωση για το χρώμα είναι επιστημονικά ορθότερη σύμφωνα με την ενότητα «Γενικά για το χρώμα»;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 32, false)">A) Το χρώμα είναι σταθερή ιδιότητα του αντικειμένου και δεν εξαρτάται από τον παρατηρητή.</li>
+    <li class="option-item" onclick="checkAnswer(this, 32, false)">B) Το χρώμα παράγεται αποκλειστικά από τη φωτεινή πηγή, ανεξάρτητα από το αντικείμενο.</li>
+    <li class="option-item" onclick="checkAnswer(this, 32, true)">C) Το χρώμα είναι αποτέλεσμα συνδυασμού μεταβολών του φωτός όταν προσπίπτει σε αντικείμενο και της αντίληψης από τον παρατηρητή.</li>
+    <li class="option-item" onclick="checkAnswer(this, 32, false)">D) Η ύπαρξη παρατηρητή δεν είναι απαραίτητη για την υπόσταση του χρώματος.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Το χρώμα δεν αποτελεί ιδιότητα ενός αντικειμένου, αλλά σύνθετο φυσικό φαινόμενο που προϋποθέτει φωτεινή πηγή, αντικείμενο και παρατηρητή.
+    <span class="page-citation">Παραπομπή: Σελίδα 349</span>
+  </div>
+</div>
+
+<div class="question-block" id="q33">
+  <div class="question-number">Ερώτηση 33</div>
+  <div class="question-text">Ποια περιοχή μήκους κύματος αντιστοιχεί στο ορατό φως όπως αναφέρεται στο κείμενο;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 33, false)">A) 100-380 nm.</li>
+    <li class="option-item" onclick="checkAnswer(this, 33, true)">B) 380-760 nm.</li>
+    <li class="option-item" onclick="checkAnswer(this, 33, false)">C) 760-1200 nm.</li>
+    <li class="option-item" onclick="checkAnswer(this, 33, false)">D) 10-100 nm.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Το ορατό φως αποτελεί περιορισμένη περιοχή του ηλεκτρομαγνητικού φάσματος με μήκος κύματος περίπου από 380 nm έως 760 nm.
+    <span class="page-citation">Παραπομπή: Σελίδα 350</span>
+  </div>
+</div>
+
+<div class="question-block" id="q34">
+  <div class="question-number">Ερώτηση 34</div>
+  <div class="question-text">Ποια δήλωση αποδίδει σωστά τη διαφορά φυσικών και τεχνητών πηγών φωτός;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 34, false)">A) Οι φυσικές πηγές φωτός παράγουν φως μόνο από θέρμανση αγώγιμων υλικών σε κενό.</li>
+    <li class="option-item" onclick="checkAnswer(this, 34, false)">B) Οι τεχνητές πηγές εκπέμπουν πάντοτε μόνο ένα μήκος κύματος και είναι μονοχρωματικές.</li>
+    <li class="option-item" onclick="checkAnswer(this, 34, true)">C) Το φυσικό φως μπορεί να φθάνει άμεσα ή έμμεσα και μεταβάλλεται σε ένταση και χρώμα, ενώ οι τεχνητές πηγές παράγουν φως μέσω θέρμανσης αγώγιμων υλικών χωρίς καύση.</li>
+    <li class="option-item" onclick="checkAnswer(this, 34, false)">D) Το φυσικό φως δεν περιέχει όλα τα μήκη κύματος του ορατού φάσματος.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Το φυσικό φως, κυρίως από τον ήλιο, περιέχει ακτινοβολίες όλων των μηκών κύματος του ορατού φάσματος και ποικίλλει σε ένταση και χρώμα. Οι τεχνητές πηγές παράγουν φως με θέρμανση αγώγιμων υλικών σε συνθήκες χωρίς καύση.
+    <span class="page-citation">Παραπομπή: Σελίδα 350</span>
+  </div>
+</div>
+
+<div class="question-block" id="q35">
+  <div class="question-number">Ερώτηση 35</div>
+  <div class="question-text">Ένα αντικείμενο πίσω από ένα υλικό διακρίνεται, αλλά όχι καθαρά. Ποιος ορισμός αντιστοιχεί σε αυτό το υλικό;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 35, false)">A) Διαφανές, επειδή επιτρέπει πλήρη διέλευση χωρίς εκτροπή.</li>
+    <li class="option-item" onclick="checkAnswer(this, 35, true)">B) Ημιδιαφανές, επειδή επιτρέπει τη διέλευση της ακτίνας αλλά την εκτρέπει προς διάφορες διευθύνσεις.</li>
+    <li class="option-item" onclick="checkAnswer(this, 35, false)">C) Αδιαφανές, επειδή επιτρέπει μερική διάκριση του αντικειμένου.</li>
+    <li class="option-item" onclick="checkAnswer(this, 35, false)">D) Κατοπτρικό, επειδή η προσπίπτουσα ακτινοβολία ανακλάται ολικά.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Το ημιδιαφανές υλικό επιτρέπει μεν τη διέλευση του φωτός, αλλά εκτρέπει την ακτίνα σε διάφορες κατευθύνσεις, με αποτέλεσμα το αντικείμενο πίσω του να μη διακρίνεται καθαρά.
+    <span class="page-citation">Παραπομπή: Σελίδα 351</span>
+  </div>
+</div>
+
+<div class="question-block" id="q36">
+  <div class="question-number">Ερώτηση 36</div>
+  <div class="question-text">Ποια εξήγηση για τη σκέδαση του φωτός είναι σωστή;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 36, false)">A) Η σκέδαση αυξάνεται όσο αυξάνεται το μήκος κύματος της προσπίπτουσας ακτινοβολίας.</li>
+    <li class="option-item" onclick="checkAnswer(this, 36, true)">B) Οι ακτίνες μικρότερου μήκους κύματος, όπως το μπλε, σκεδάζονται περισσότερο από τις μεγαλύτερου μήκους κύματος, όπως το κόκκινο.</li>
+    <li class="option-item" onclick="checkAnswer(this, 36, false)">C) Η σκέδαση είναι ανεξάρτητη από το μέγεθος των μορίων του υλικού.</li>
+    <li class="option-item" onclick="checkAnswer(this, 36, false)">D) Η σκέδαση συμβαίνει μόνο σε αδιαφανή σώματα.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Το ποσό του σκεδαζόμενου φωτός εξαρτάται από το μέγεθος των μορίων και από το μήκος κύματος. Όσο μικρότερο είναι το μήκος κύματος τόσο μεγαλύτερη είναι η σκέδαση, γι’ αυτό το μπλε σκεδάζεται περισσότερο από το κόκκινο.
+    <span class="page-citation">Παραπομπή: Σελίδα 352</span>
+  </div>
+</div>
+
+<div class="question-block" id="q37">
+  <div class="question-number">Ερώτηση 37</div>
+  <div class="question-text">Ποια δήλωση για την αντίληψη του χρώματος από τον παρατηρητή είναι ακριβής;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 37, false)">A) Τα ραβδία είναι υπεύθυνα για τη βασική διάκριση μπλε, πράσινου και κόκκινου χρώματος.</li>
+    <li class="option-item" onclick="checkAnswer(this, 37, true)">B) Υπάρχουν τρεις τύποι κωνίων, καθένας από τους οποίους απορροφά καλύτερα μπλε, πράσινο ή κόκκινο μήκος κύματος.</li>
+    <li class="option-item" onclick="checkAnswer(this, 37, false)">C) Η αχρωματοψία αφορά σχεδόν αποκλειστικά τις γυναίκες.</li>
+    <li class="option-item" onclick="checkAnswer(this, 37, false)">D) Η αντίληψη του χρώματος εξαρτάται μόνο από τα κύτταρα του αμφιβληστροειδούς και όχι από επεξεργασία στον εγκέφαλο.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Τα κωνία ενεργοποιούνται έντονα από φως και υπάρχουν τρεις τύποι, που σχετίζονται με απορρόφηση μπλε, πράσινου και κόκκινου μήκους κύματος. Η τελική αντίληψη προκύπτει μετά από επεξεργασία των δεδομένων στον εγκέφαλο.
+    <span class="page-citation">Παραπομπή: Σελίδα 353</span>
+  </div>
+</div>
+
+<div class="question-block" id="q38">
+  <div class="question-number">Ερώτηση 38</div>
+  <div class="question-text">Ποια τριάδα αποδίδει σωστά τις διαστάσεις του χρώματος στο σύστημα Munsell;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 38, true)">A) Χροιά, ένταση και τόνος ή φωτεινότητα.</li>
+    <li class="option-item" onclick="checkAnswer(this, 38, false)">B) Μήκος κύματος, δείκτης διάθλασης και απορρόφηση.</li>
+    <li class="option-item" onclick="checkAnswer(this, 38, false)">C) Διαφάνεια, σκέδαση και φθορισμός.</li>
+    <li class="option-item" onclick="checkAnswer(this, 38, false)">D) Κόκκινο, πράσινο και μπλε ως βασικά αριθμητικά μεγέθη.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Το σύστημα Munsell βασίζεται σε τρεις διαστάσεις του χρώματος: χροιά, ένταση και τόνο ή φωτεινότητα.
+    <span class="page-citation">Παραπομπή: Σελίδα 354</span>
+  </div>
+</div>
+
+<div class="question-block" id="q39">
+  <div class="question-number">Ερώτηση 39</div>
+  <div class="question-text">Στο σύστημα CIE Lab, ποια αντιστοίχιση παραμέτρων είναι σωστή;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 39, false)">A) L: άξονας κόκκινο-πράσινο, a: φωτεινότητα, b: άξονας κίτρινο-μπλε.</li>
+    <li class="option-item" onclick="checkAnswer(this, 39, true)">B) L: φωτεινότητα, a: άξονας πράσινο-κόκκινο, b: άξονας κίτρινο-μπλε.</li>
+    <li class="option-item" onclick="checkAnswer(this, 39, false)">C) L: κορεσμός, a: τόνος, b: διαφάνεια.</li>
+    <li class="option-item" onclick="checkAnswer(this, 39, false)">D) L: μήκος κύματος, a: δείκτης διάθλασης, b: απορρόφηση.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Στο CIE Lab, η παράμετρος L εκφράζει τη φωτεινότητα, η a τη θέση στον άξονα πράσινο-κόκκινο και η b τη θέση στον άξονα κίτρινο-μπλε.
+    <span class="page-citation">Παραπομπή: Σελίδα 354</span>
+  </div>
+</div>
+
+<div class="question-block" id="q40">
+  <div class="question-number">Ερώτηση 40</div>
+  <div class="question-text">Ποια δήλωση είναι σωστή για τις μεθόδους μέτρησης του χρώματος;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 40, false)">A) Η οπτική παρατήρηση είναι πλήρως αντικειμενική και δεν επηρεάζεται από τον παρατηρητή.</li>
+    <li class="option-item" onclick="checkAnswer(this, 40, false)">B) Οι εξειδικευμένες συσκευές δεν έχουν πλεονέκτημα έναντι της οπτικής παρατήρησης, επειδή όλες οι παράμετροι είναι μη ελεγχόμενες.</li>
+    <li class="option-item" onclick="checkAnswer(this, 40, true)">C) Η μέτρηση πρέπει να γίνεται υπό σταθερές και επαναλαμβανόμενες συνθήκες ως προς δείγμα-πρότυπο, φωτεινή πηγή, παρατηρητή και σταθερές αναφοράς.</li>
+    <li class="option-item" onclick="checkAnswer(this, 40, false)">D) Ο μεταμερισμός αφορά μόνο τα εξειδικευμένα όργανα και όχι την οπτική παρατήρηση.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Ανεξάρτητα από τη μέθοδο, απαιτούνται σταθερές και επαναλαμβανόμενες συνθήκες σύγκρισης, φωτεινής πηγής, παρατηρητή και αναφοράς. Η οπτική παρατήρηση είναι η συχνότερη αλλά και η πλέον διαδεδομένη υποκειμενική μέθοδος.
+    <span class="page-citation">Παραπομπή: Σελίδα 354</span>
+  </div>
+</div>
+
+<div class="question-block" id="q41">
+  <div class="question-number">Ερώτηση 41</div>
+  <div class="question-text">Ποιοι παράγοντες καθιστούν την οπτική παρατήρηση του χρώματος υποκειμενική μέθοδο;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 41, false)">A) Μόνο το υλικό του χρωματολογίου και η θερμοκρασία του δοντιού.</li>
+    <li class="option-item" onclick="checkAnswer(this, 41, true)">B) Οι συνθήκες φωτισμού, η χρωματική αντίληψη του παρατηρητή, το χρωματολόγιο, η εκπαίδευση, η ηλικία, η εμπειρία και το περιβάλλον χρώμα.</li>
+    <li class="option-item" onclick="checkAnswer(this, 41, false)">C) Μόνο η ηλικία του ασθενούς και η παρουσία ή απουσία αφυδάτωσης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 41, false)">D) Αποκλειστικά η διαφορά ανάμεσα σε φυσικό και τεχνητό φωτισμό.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η οπτική παρατήρηση επηρεάζεται από πολλούς παράγοντες: φωτισμό, παρατηρητή, χρωματικούς οδηγούς, εκπαίδευση, ηλικία, εμπειρία και μεταμερισμό από το περιβάλλον χρώμα.
+    <span class="page-citation">Παραπομπή: Σελίδα 355</span>
+  </div>
+</div>
+
+<div class="question-block" id="q42">
+  <div class="question-number">Ερώτηση 42</div>
+  <div class="question-text">Ποια πρόταση αποδίδει ακριβέστερα τη σχέση οπτικής παρατήρησης και εξειδικευμένων οργάνων στη μέτρηση του χρώματος;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 42, false)">A) Η οπτική παρατήρηση είναι αντικειμενικότερη, επειδή ενσωματώνει την κλινική εμπειρία.</li>
+    <li class="option-item" onclick="checkAnswer(this, 42, false)">B) Τα εξειδικευμένα όργανα καταργούν πλήρως την ανάγκη κλινικής κρίσης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 42, true)">C) Η οπτική παρατήρηση είναι η συχνότερη αλλά υποκειμενική μέθοδος, ενώ τα εξειδικευμένα όργανα επιτρέπουν πιο αντικειμενική, ακριβή και γρήγορη μέτρηση.</li>
+    <li class="option-item" onclick="checkAnswer(this, 42, false)">D) Οι δύο μέθοδοι είναι ισοδύναμες μόνο όταν χρησιμοποιείται φυσικό φως.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η οπτική παρατήρηση χρησιμοποιείται συχνότερα, αλλά είναι υποκειμενική. Τα εξειδικευμένα όργανα δημιουργήθηκαν για να ξεπεράσουν αυτά τα προβλήματα και να δώσουν πιο αξιόπιστη καταγραφή.
+    <span class="page-citation">Παραπομπή: Σελίδα 355</span>
+  </div>
+</div>
+
+<div class="question-block" id="q43">
+  <div class="question-number">Ερώτηση 43</div>
+  <div class="question-text">Ποια τετράδα περιλαμβάνει σωστά τα οπτικά φαινόμενα που παρατηρούνται όταν το φως προσπίπτει στο δόντι;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 43, true)">A) Διάδοση διαμέσου των οδοντικών ιστών, κατοπτρική ανάκλαση, διάχυτη ανάκλαση, απορρόφηση και σκέδαση.</li>
+    <li class="option-item" onclick="checkAnswer(this, 43, false)">B) Φθορισμός, μεταμερισμός, χρωματική σταθερότητα και πολυμερισμός.</li>
+    <li class="option-item" onclick="checkAnswer(this, 43, false)">C) Μόνο διάθλαση, απορρόφηση, μεταμερισμός και υπέρυθρη εκπομπή.</li>
+    <li class="option-item" onclick="checkAnswer(this, 43, false)">D) Ανάκλαση, θερμική αγωγιμότητα, φθορισμός και ουλική διάχυση.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Στους οδοντικούς ιστούς το φως μπορεί να διαδίδεται, να ανακλάται κατοπτρικά ή διάχυτα στην επιφάνεια και να απορροφάται ή να σκεδάζεται μέσα στους ιστούς.
+    <span class="page-citation">Παραπομπή: Σελίδα 356</span>
+  </div>
+</div>
+
+<div class="question-block" id="q44">
+  <div class="question-number">Ερώτηση 44</div>
+  <div class="question-text">Ποιος παράγοντας ΔΕΝ αναφέρεται ως άμεσος παράγοντας που επηρεάζει την πορεία του φωτός όταν προσπίπτει στους οδοντικούς ιστούς;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 44, false)">A) Το σχήμα και το πάχος των οδοντικών ιστών.</li>
+    <li class="option-item" onclick="checkAnswer(this, 44, false)">B) Η στιλπνότητα της επιφάνειας της αδαμαντίνης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 44, true)">C) Το είδος της κόλλας που χρησιμοποιείται για τη συγκόλληση της αποκατάστασης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 44, false)">D) Η εσωτερική μικροδομή και οι συντελεστές σκέδασης και απορρόφησης των οδοντικών ιστών.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η πορεία του φωτός επηρεάζεται από το σχήμα, το πάχος, τη θέση των δοντιών, την κυρτότητα, τη στιλπνότητα, την εσωτερική μικροδομή και τους συντελεστές σκέδασης και απορρόφησης.
+    <span class="page-citation">Παραπομπή: Σελίδα 356</span>
+  </div>
+</div>
+
+<div class="question-block" id="q45">
+  <div class="question-number">Ερώτηση 45</div>
+  <div class="question-text">Ποια δήλωση για τον φθορισμό και τον οπαλισμό των δοντιών είναι σωστή;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 45, false)">A) Ο φθορισμός κάνει την αδαμαντίνη πορτοκαλί στο ανακλώμενο φως και μπλε στο διερχόμενο.</li>
+    <li class="option-item" onclick="checkAnswer(this, 45, true)">B) Ο φθορισμός αφορά απορρόφηση ακτινοβολίας μικρού μήκους κύματος και εκπομπή μεγαλύτερου, ενώ ο οπαλισμός κάνει την αδαμαντίνη μπλε σε ανακλώμενο και πορτοκαλί σε διερχόμενο φως.</li>
+    <li class="option-item" onclick="checkAnswer(this, 45, false)">C) Ο οπαλισμός επηρεάζει τη μέτρηση του χρώματος με χρωματόμετρα περισσότερο από τον φθορισμό.</li>
+    <li class="option-item" onclick="checkAnswer(this, 45, false)">D) Ο φθορισμός οφείλεται αποκλειστικά στη διάχυτη ανάκλαση από την επιφάνεια της αδαμαντίνης.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Ο φθορισμός είναι απορρόφηση μικρού μήκους κύματος και εκπομπή μεγαλύτερου ορατού μήκους. Ο οπαλισμός κάνει την αδαμαντίνη να φαίνεται μπλε στο ανακλώμενο φως και πορτοκαλί στο διερχόμενο.
+    <span class="page-citation">Παραπομπή: Σελίδα 356</span>
+  </div>
+</div>
+
+<div class="question-block" id="q46">
+  <div class="question-number">Ερώτηση 46</div>
+  <div class="question-text">Ποια σύσταση της αδαμαντίνης αναφέρεται σωστά;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 46, false)">A) 75% ανόργανα συστατικά, 20% οργανικά και 5% νερό.</li>
+    <li class="option-item" onclick="checkAnswer(this, 46, true)">B) 90-92% ανόργανος κρυστάλλινος υδροξυαπατίτης και περίπου 6% κατ’ όγκο νερό και οργανική συστατική ουσία.</li>
+    <li class="option-item" onclick="checkAnswer(this, 46, false)">C) Κυρίως κολλαγόνο με μικρό ποσοστό υδροξυαπατίτη.</li>
+    <li class="option-item" onclick="checkAnswer(this, 46, false)">D) Ίση αναλογία ανόργανης, οργανικής φάσης και νερού.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η αδαμαντίνη αποτελείται κυρίως από ανόργανο κρυστάλλινο υδροξυαπατίτη σε ποσοστό 90-92%, ενώ περιέχει νερό και οργανική συστατική ουσία περίπου 6% κατ’ όγκο.
+    <span class="page-citation">Παραπομπή: Σελίδα 357</span>
+  </div>
+</div>
+
+<div class="question-block" id="q47">
+  <div class="question-number">Ερώτηση 47</div>
+  <div class="question-text">Ποια δήλωση για το πάχος της αδαμαντίνης είναι ακριβής;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 47, false)">A) Είναι μέγιστο στον αυχένα και μειώνεται προς το κοπτικό άκρο.</li>
+    <li class="option-item" onclick="checkAnswer(this, 47, true)">B) Είναι μέγιστο στο κοπτικό ή μασητικό άκρο και μειώνεται προς τον αυχένα.</li>
+    <li class="option-item" onclick="checkAnswer(this, 47, false)">C) Παραμένει σταθερό σε όλο το μήκος της μύλης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 47, false)">D) Δεν διαφοροποιείται μεταξύ τομέων, προγομφίων και γομφίων.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Το μέγιστο πάχος της αδαμαντίνης εντοπίζεται στο κοπτικό ή μασητικό άκρο και μειώνεται προοδευτικά προς τον αυχένα.
+    <span class="page-citation">Παραπομπή: Σελίδα 357</span>
+  </div>
+</div>
+
+<div class="question-block" id="q48">
+  <div class="question-number">Ερώτηση 48</div>
+  <div class="question-text">Πώς μεταβάλλεται η διαφάνεια της αδαμαντίνης με την ηλικία;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 48, false)">A) Η αδαμαντίνη γίνεται λιγότερο διαφανής με την ηλικία λόγω αύξησης του πάχους της.</li>
+    <li class="option-item" onclick="checkAnswer(this, 48, false)">B) Η διαφάνεια παραμένει σταθερή, επειδή το πάχος της αδαμαντίνης δεν αλλάζει.</li>
+    <li class="option-item" onclick="checkAnswer(this, 48, true)">C) Το πάχος της αδαμαντίνης μειώνεται με την ηλικία, με αποτέλεσμα μεγαλύτερη διαφάνεια στα ηλικιωμένα άτομα.</li>
+    <li class="option-item" onclick="checkAnswer(this, 48, false)">D) Η αδαμαντίνη των νεαρών ατόμων έχει πάντοτε μεγαλύτερη διαφάνεια από των ενηλίκων.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Με την ηλικία το πάχος της αδαμαντίνης ελαττώνεται. Έτσι, στα νεαρά άτομα είναι λιγότερο διαφανής, στους ενήλικες μέσης διαφάνειας και στους ηλικιωμένους περισσότερο διαφανής.
+    <span class="page-citation">Παραπομπή: Σελίδα 357</span>
+  </div>
+</div>
+
+<div class="question-block" id="q49">
+  <div class="question-number">Ερώτηση 49</div>
+  <div class="question-text">Ποια κλινική συνέπεια έχει η αφυδάτωση των δοντιών στην εκτίμηση του χρώματος;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 49, false)">A) Τα δόντια γίνονται πιο διαφανή και φαίνονται πιο σκούρα.</li>
+    <li class="option-item" onclick="checkAnswer(this, 49, true)">B) Τα δόντια γίνονται πιο αδιαφανή και λευκότερα, γεγονός που δημιουργεί πρόβλημα στη σωστή εκτίμηση του χρώματος.</li>
+    <li class="option-item" onclick="checkAnswer(this, 49, false)">C) Δεν επηρεάζεται η οπτική συμπεριφορά της αδαμαντίνης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 49, false)">D) Η αφυδάτωση αυξάνει αποκλειστικά την ερυθρότητα της οδοντίνης.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Το στέγνωμα των δοντιών τα καθιστά πιο αδιαφανή. Μετά από διαδικασίες όπως αποτύπωμα ή ελαστική απομόνωση μπορεί να φαίνονται πιο λευκά, δυσχεραίνοντας τη χρωματοληψία.
+    <span class="page-citation">Παραπομπή: Σελίδα 358</span>
+  </div>
+</div>
+
+<div class="question-block" id="q50">
+  <div class="question-number">Ερώτηση 50</div>
+  <div class="question-text">Ποια σύσταση της οδοντίνης αναφέρεται σωστά;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 50, false)">A) 90-92% ανόργανα, 6% νερό και οργανική ουσία.</li>
+    <li class="option-item" onclick="checkAnswer(this, 50, true)">B) 75% ανόργανα συστατικά, 20% οργανικά και 5% νερό.</li>
+    <li class="option-item" onclick="checkAnswer(this, 50, false)">C) 50% ανόργανα, 40% οργανικά και 10% νερό.</li>
+    <li class="option-item" onclick="checkAnswer(this, 50, false)">D) Κυρίως νερό και κολλαγόνο, με αμελητέο ποσοστό υδροξυαπατίτη.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η οδοντίνη είναι λιγότερο μεταλλικοποιημένη από την αδαμαντίνη και αποτελείται από περίπου 75% ανόργανα συστατικά, 20% οργανικά και 5% νερό.
+    <span class="page-citation">Παραπομπή: Σελίδα 358</span>
+  </div>
+</div>
+
+<div class="question-block" id="q51">
+  <div class="question-number">Ερώτηση 51</div>
+  <div class="question-text">Ποια δομή αποτελεί την κύρια αιτία σκέδασης του φωτός στην οδοντίνη;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 51, false)">A) Το κολλαγόνο της οργανικής μήτρας.</li>
+    <li class="option-item" onclick="checkAnswer(this, 51, true)">B) Τα οδοντινοσωληνάρια.</li>
+    <li class="option-item" onclick="checkAnswer(this, 51, false)">C) Τα πρίσματα της αδαμαντίνης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 51, false)">D) Η ουλική παρυφή.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Στην οδοντίνη η απορρόφηση του φωτός γίνεται κυρίως από το κολλαγόνο, ενώ η κύρια αιτία σκέδασης είναι τα οδοντινοσωληνάρια.
+    <span class="page-citation">Παραπομπή: Σελίδα 358</span>
+  </div>
+</div>
+
+<div class="question-block" id="q52">
+  <div class="question-number">Ερώτηση 52</div>
+  <div class="question-text">Ποια από τις ακόλουθες γενικές παραδοχές για το φυσικό χρώμα των δοντιών είναι σωστή;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 52, false)">A) Το φύλο έχει αποδεδειγμένη σημαντική επίδραση στο χρώμα των δοντιών.</li>
+    <li class="option-item" onclick="checkAnswer(this, 52, false)">B) Παρατηρούνται σταθερές διαφορές χρώματος μεταξύ των δύο ημιμορίων.</li>
+    <li class="option-item" onclick="checkAnswer(this, 52, true)">C) Οι κυνόδοντες έχουν μικρότερη φωτεινότητα και μεγαλύτερη ένταση χρώματος από τους κεντρικούς τομείς.</li>
+    <li class="option-item" onclick="checkAnswer(this, 52, false)">D) Η διαφορά χρώματος μεταξύ κεντρικών και πλάγιων τομέων είναι συνήθως σημαντική.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Δεν έχει αποδειχθεί επίδραση φύλου ούτε διαφορές μεταξύ ημιμορίων. Οι κυνόδοντες αναφέρονται με μικρότερη φωτεινότητα και μεγαλύτερη ένταση χρώματος σε σχέση με τους κεντρικούς τομείς.
+    <span class="page-citation">Παραπομπή: Σελίδα 359</span>
+  </div>
+</div>
+
+<div class="question-block" id="q53">
+  <div class="question-number">Ερώτηση 53</div>
+  <div class="question-text">Ποια δήλωση για τη χρωματική διαφοροποίηση των τριτημορίων του δοντιού είναι ακριβής;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 53, false)">A) Στο αυχενικό τριτημόριο υπερισχύει η αδαμαντίνη και το χρώμα φαίνεται πιο μπλε.</li>
+    <li class="option-item" onclick="checkAnswer(this, 53, true)">B) Στο αυχενικό τριτημόριο η αδαμαντίνη είναι λεπτή και το χρώμα επηρεάζεται κυρίως από την οδοντίνη, με αποτέλεσμα πιο κόκκινη απόχρωση.</li>
+    <li class="option-item" onclick="checkAnswer(this, 53, false)">C) Το μέσο τριτημόριο δεν είναι αντιπροσωπευτικό του χρώματος του δοντιού.</li>
+    <li class="option-item" onclick="checkAnswer(this, 53, false)">D) Το κοπτικό τριτημόριο στα νεαρά άτομα εξαρτάται κυρίως από την οδοντίνη.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Στο αυχενικό τριτημόριο το πάχος της αδαμαντίνης είναι μικρό και το χρώμα προέρχεται κυρίως από την υποκείμενη οδοντίνη, με αποτέλεσμα πιο κόκκινη εμφάνιση.
+    <span class="page-citation">Παραπομπή: Σελίδα 359</span>
+  </div>
+</div>
+
+<div class="question-block" id="q54">
+  <div class="question-number">Ερώτηση 54</div>
+  <div class="question-text">Πώς μεταβάλλεται συνήθως το χρώμα των δοντιών με την πάροδο της ηλικίας;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 54, false)">A) Γίνεται φωτεινότερο, λιγότερο κίτρινο και λιγότερο κορεσμένο.</li>
+    <li class="option-item" onclick="checkAnswer(this, 54, true)">B) Γίνεται λιγότερο φωτεινό, περισσότερο κίτρινο και πιο κορεσμένο.</li>
+    <li class="option-item" onclick="checkAnswer(this, 54, false)">C) Δεν μεταβάλλεται, εκτός εάν υπάρχει τερηδόνα.</li>
+    <li class="option-item" onclick="checkAnswer(this, 54, false)">D) Γίνεται περισσότερο μπλε λόγω αύξησης του πάχους της αδαμαντίνης.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η ηλικία επηρεάζει το χρώμα των δοντιών: γίνονται λιγότερο φωτεινά, πιο κίτρινα και περισσότερο κορεσμένα, λόγω δευτερογενούς οδοντίνης, αυξημένου χρώματος οδοντίνης και μείωσης πάχους αδαμαντίνης από αποτριβή.
+    <span class="page-citation">Παραπομπή: Σελίδα 359</span>
+  </div>
+</div>
+
+<div class="question-block" id="q55">
+  <div class="question-number">Ερώτηση 55</div>
+  <div class="question-text">Ποια εξωγενής ή παθολογική αιτία χρωματικής μεταβολής των δοντιών αναφέρεται σωστά;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 55, false)">A) Οι τετρακυκλίνες προκαλούν αποκλειστικά λευκή αδιαφάνεια της αδαμαντίνης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 55, true)">B) Οι τετρακυκλίνες μπορούν να μεταβάλουν το χρώμα των δοντιών σε κίτρινο, καφέ, γκρι ή μαύρο, δεσμευόμενες από άλατα ασβεστίου κατά την ενασβεστίωση.</li>
+    <li class="option-item" onclick="checkAnswer(this, 55, false)">C) Η νέκρωση ή αιμορραγία του πολφού δεν επηρεάζει το χρώμα των δοντιών.</li>
+    <li class="option-item" onclick="checkAnswer(this, 55, false)">D) Το κάπνισμα δεν περιλαμβάνεται στους εξωγενείς παράγοντες μεταβολής χρώματος.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Διαταραχές όπως νέκρωση ή αιμορραγία πολφού επηρεάζουν το χρώμα. Οι τετρακυκλίνες δεσμεύονται από άλατα ασβεστίου κατά την ενασβεστίωση και μπορούν να δώσουν κίτρινη, καφέ, γκρι ή μαύρη απόχρωση.
+    <span class="page-citation">Παραπομπή: Σελίδα 360</span>
+  </div>
+</div>
+
+<div class="question-block" id="q56">
+  <div class="question-number">Ερώτηση 56</div>
+  <div class="question-text">Ποια περιγραφή του χρωματολογίου Vita Classical είναι σωστή;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 56, false)">A) Περιλαμβάνει 26 δείκτες σε 5 ομάδες φωτεινότητας.</li>
+    <li class="option-item" onclick="checkAnswer(this, 56, true)">B) Περιλαμβάνει 16 χρωματικούς δείκτες σε τέσσερις ομάδες A, B, C και D, όπου ο αριθμός δηλώνει αύξηση της έντασης της χροιάς.</li>
+    <li class="option-item" onclick="checkAnswer(this, 56, false)">C) Η ομάδα A χαρακτηρίζεται ως κίτρινη με ελαφρά κοκκινωπή χροιά.</li>
+    <li class="option-item" onclick="checkAnswer(this, 56, false)">D) Η ομάδα D χαρακτηρίζεται ως καθαρά γκρι χροιά χωρίς ερυθρή απόχρωση.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Το Vita Classical αποτελείται από 16 δείκτες σε τέσσερις ομάδες A-D. Η ομάδα A είναι καφέ-κοκκινωπή, η B κίτρινη-κοκκινωπή, η C γκρι και η D γκρι-κόκκινη. Ο αριθμός αυξάνει με την ένταση της χροιάς.
+    <span class="page-citation">Παραπομπή: Σελίδα 360</span>
+  </div>
+</div>
+
+<div class="question-block" id="q57">
+  <div class="question-number">Ερώτηση 57</div>
+  <div class="question-text">Ποια δήλωση για το Vita 3D-Master είναι ακριβής;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 57, false)">A) Διατηρεί την ίδια ταξινόμηση A-D με το Vita Classical.</li>
+    <li class="option-item" onclick="checkAnswer(this, 57, true)">B) Περιλαμβάνει 26 δείκτες σε 5 ομάδες φωτεινότητας, με υποομάδες M, L και R στις ομάδες 2, 3 και 4.</li>
+    <li class="option-item" onclick="checkAnswer(this, 57, false)">C) Οι ομάδες 1 και 5 έχουν υποομάδες L, M και R.</li>
+    <li class="option-item" onclick="checkAnswer(this, 57, false)">D) Δεν σχεδιάστηκε για να αντιμετωπίσει τα προβλήματα του Vita Classical.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Το Vita 3D-Master αποτελείται από 26 δείκτες ταξινομημένους σε 5 ομάδες ανάλογα με τη φωτεινότητα. Οι ομάδες 2, 3 και 4 έχουν υποομάδες M, L και R, ενώ οι ομάδες 1 και 5 μόνο M.
+    <span class="page-citation">Παραπομπή: Σελίδα 360</span>
+  </div>
+</div>
+
+<div class="question-block" id="q58">
+  <div class="question-number">Ερώτηση 58</div>
+  <div class="question-text">Ποια συνθήκη φωτισμού προτείνεται ως ιδανική για κλινική καταγραφή χρώματος, αν και πρακτικά δύσκολη;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 58, false)">A) Άμεσο ηλιακό φως το απόγευμα.</li>
+    <li class="option-item" onclick="checkAnswer(this, 58, true)">B) Φυσικό φως ελαφρά συννεφιασμένης ημέρας, στο μεσημέρι, με πλήρες χρωματικό φάσμα.</li>
+    <li class="option-item" onclick="checkAnswer(this, 58, false)">C) Φωτισμός πυρακτώσεως με θερμή κίτρινη απόχρωση.</li>
+    <li class="option-item" onclick="checkAnswer(this, 58, false)">D) Χαμηλός φωτισμός ώστε να μειώνεται η αντανάκλαση.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Ιδανική πηγή θεωρείται το φυσικό φως ελαφρά συννεφιασμένης ημέρας, στο μεσημέρι, επειδή περιέχει όλο το χρωματικό φάσμα, αν και πρακτικά δεν μπορεί πάντα να χρησιμοποιηθεί.
+    <span class="page-citation">Παραπομπή: Σελίδα 361</span>
+  </div>
+</div>
+
+<div class="question-block" id="q59">
+  <div class="question-number">Ερώτηση 59</div>
+  <div class="question-text">Ποια οδηγία είναι σωστή για τη χρήση χρωματικών δεικτών κατά τη χρωματοληψία;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 59, false)">A) Οι δείκτες πρέπει να τοποθετούνται όσο το δυνατόν πιο μακριά από το δόντι για να αποφεύγεται ο μεταμερισμός.</li>
+    <li class="option-item" onclick="checkAnswer(this, 59, false)">B) Οι δείκτες πρέπει να έχουν κάθετη κλίση σε σχέση με το δόντι ώστε να διαχωρίζονται καθαρά.</li>
+    <li class="option-item" onclick="checkAnswer(this, 59, true)">C) Οι δείκτες πρέπει να τοποθετούνται όσο το δυνατόν πλησιέστερα στο δόντι και με κλίση όσο γίνεται παράλληλη με αυτό.</li>
+    <li class="option-item" onclick="checkAnswer(this, 59, false)">D) Η θέση και η κλίση των δεικτών δεν επηρεάζουν την καταγραφή του χρώματος.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Κατά τη χρωματοληψία οι δείκτες πρέπει να τοποθετούνται όσο το δυνατόν πλησιέστερα στο δόντι ή στα δόντια που εξετάζονται και με κλίση όσο το δυνατόν παράλληλη προς αυτά.
+    <span class="page-citation">Παραπομπή: Σελίδα 362</span>
+  </div>
+</div>
+
+<div class="question-block" id="q60">
+  <div class="question-number">Ερώτηση 60</div>
+  <div class="question-text">Ποια δήλωση για τις οπτικές ιδιότητες των σύνθετων ρητινών είναι σωστή;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 60, false)">A) Το χρώμα και η διαφάνεια καθορίζονται αποκλειστικά από το πάχος και όχι από τη σύσταση του υλικού.</li>
+    <li class="option-item" onclick="checkAnswer(this, 60, true)">B) Το χρώμα και η διαφάνεια επηρεάζονται από την απόχρωση, τον βαθμό διαφάνειας, το πάχος, το σχήμα, το μέγεθος και την περιεκτικότητα σε ενισχυτικές ουσίες.</li>
+    <li class="option-item" onclick="checkAnswer(this, 60, false)">C) Όσο μεγαλύτερη είναι η διαφορά δείκτη διάθλασης ρητινώδους μήτρας και ενισχυτικών ουσιών τόσο πιο διαφανές γίνεται το υλικό.</li>
+    <li class="option-item" onclick="checkAnswer(this, 60, false)">D) Η χρωστική των σύνθετων ρητινών βρίσκεται αποκλειστικά στις ενισχυτικές ουσίες και όχι στη ρητινώδη μήτρα.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Οι οπτικές ιδιότητες των σύνθετων ρητινών εξαρτώνται από απόχρωση, διαφάνεια, πάχος, σχήμα, μέγεθος και περιεκτικότητα σε ενισχυτικές ουσίες. Μεγαλύτερη διαφορά στους δείκτες διάθλασης μήτρας-ενισχυτικών ουσιών οδηγεί σε μεγαλύτερη αδιαφάνεια.
+    <span class="page-citation">Παραπομπή: Σελίδα 362</span>
+  </div>
+</div>
+
+<div class="question-block" id="q61">
+  <div class="question-number">Ερώτηση 61</div>
+  <div class="question-text">Ποια δήλωση αποδίδει ορθότερα τη φιλοσοφία της τεχνικής διαστρωμάτωσης με σύνθετες ρητίνες;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 61, false)">A) Η αδαμαντίνη αποδίδεται με αδιαφανείς ρητίνες και η οδοντίνη με ρητίνες μεγάλης ημιδιαφάνειας, ώστε να ενισχυθεί η φωτεινότητα.</li>
+    <li class="option-item" onclick="checkAnswer(this, 61, true)">B) Η αδαμαντίνη αποδίδεται με ρητίνες μεγάλης ημιδιαφάνειας, ενώ η οδοντίνη με περισσότερο αδιαφανείς σύνθετες ρητίνες.</li>
+    <li class="option-item" onclick="checkAnswer(this, 61, false)">C) Η τεχνική διαστρωμάτωσης βασίζεται αποκλειστικά στην επιλογή μίας ενιαίας απόχρωσης, ανεξάρτητα από το πάχος των στρωμάτων.</li>
+    <li class="option-item" onclick="checkAnswer(this, 61, false)">D) Η χρήση ημιδιαφανών ρητινών είναι απαραίτητη κυρίως για την κάλυψη δυσχρωμικού υποστρώματος.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η διαστρωμάτωση αποσκοπεί στη μίμηση των οπτικών ιδιοτήτων αδαμαντίνης και οδοντίνης. Η αδαμαντίνη αντικαθίσταται με ρητίνες μεγάλης ημιδιαφάνειας, ενώ η οδοντίνη με πιο αδιαφανείς ρητίνες.
+    <span class="page-citation">Παραπομπή: Σελίδα 363</span>
+  </div>
+</div>
+
+<div class="question-block" id="q62">
+  <div class="question-number">Ερώτηση 62</div>
+  <div class="question-text">Σε αποκατάσταση με σύνθετη ρητίνη πάνω από δυσχρωμικό υπόστρωμα, ποια επιλογή είναι κλινικά ορθότερη;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 62, false)">A) Επιλογή όσο το δυνατόν πιο ημιδιαφανούς ρητίνης, ώστε να ενισχυθεί η φυσικότητα της αποκατάστασης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 62, true)">B) Επιλογή περισσότερο αδιαφανούς ρητίνης, ώστε να ελαχιστοποιηθεί η επίδραση του υποστρώματος στο τελικό χρώμα.</li>
+    <li class="option-item" onclick="checkAnswer(this, 62, false)">C) Αποφυγή της διαστρωμάτωσης, επειδή το χρώμα του υποστρώματος δεν επηρεάζει το τελικό αποτέλεσμα.</li>
+    <li class="option-item" onclick="checkAnswer(this, 62, false)">D) Επιλογή οποιασδήποτε ρητίνης ίδιας απόχρωσης, επειδή όλες οι ρητίνες έχουν την ίδια καλυπτική ικανότητα.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Όταν υπάρχει δυσχρωμικό υπόστρωμα, η σύνθετη ρητίνη πρέπει να είναι περισσότερο αδιαφανής ώστε να μειωθεί η επίδρασή του. Δεν διαθέτουν όλες οι ρητίνες την ίδια δυνατότητα κάλυψης.
+    <span class="page-citation">Παραπομπή: Σελίδα 363</span>
+  </div>
+</div>
+
+<div class="question-block" id="q63">
+  <div class="question-number">Ερώτηση 63</div>
+  <div class="question-text">Ποια δήλωση για τις ρητίνες ίδιας απόχρωσης αλλά διαφορετικών κατασκευαστών είναι σωστή;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 63, false)">A) Παρουσιάζουν πάντοτε ταυτόσημο χρώμα, εφόσον φέρουν την ίδια ένδειξη απόχρωσης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 63, false)">B) Διαφέρουν μόνο ως προς τη μηχανική αντοχή και όχι ως προς την οπτική συμπεριφορά.</li>
+    <li class="option-item" onclick="checkAnswer(this, 63, true)">C) Μπορεί να παρουσιάζουν αισθητές χρωματικές διαφορές, ακόμη και όταν δηλώνονται ως ίδιας απόχρωσης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 63, false)">D) Οι χρωματικοί οδηγοί τους αντιστοιχούν πάντα με ακρίβεια στις σύνθετες ρητίνες που εκπροσωπούν.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Αναφέρεται ότι συχνά υπάρχουν διαφορές χρώματος μεταξύ σύνθετων ρητινών ίδιας απόχρωσης αλλά διαφορετικών κατασκευαστών, ενώ και οι χρωματικοί οδηγοί μπορεί να διαφέρουν από τις ρητίνες που υποτίθεται ότι αντιπροσωπεύουν.
+    <span class="page-citation">Παραπομπή: Σελίδα 363</span>
+  </div>
+</div>
+
+<div class="question-block" id="q64">
+  <div class="question-number">Ερώτηση 64</div>
+  <div class="question-text">Ποια μεταβολή συμβαίνει κατά τον φωτοπολυμερισμό λόγω της καμφοροκινόνης;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 64, false)">A) Η σύνθετη ρητίνη απορροφά περισσότερο κόκκινο φως και γίνεται πιο κυανή μετά τον πολυμερισμό.</li>
+    <li class="option-item" onclick="checkAnswer(this, 64, true)">B) Πριν από τον πολυμερισμό η καμφοροκινόνη απορροφά μπλε φως και η πάστα φαίνεται πιο κίτρινη, ενώ μετά τον πολυμερισμό η ρητίνη απορροφά λιγότερο μπλε και φαίνεται λιγότερο κίτρινη.</li>
+    <li class="option-item" onclick="checkAnswer(this, 64, false)">C) Η καμφοροκινόνη αυξάνει τη διαφάνεια των ενισχυτικών κόκκων χωρίς να επηρεάζει τη χροιά της ρητίνης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 64, false)">D) Μετά τον πολυμερισμό η καμφοροκινόνη παραμένει ενεργή και προκαλεί προοδευτική αύξηση της κίτρινης απόχρωσης.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Πριν από τον φωτοπολυμερισμό η καμφοροκινόνη απορροφά μπλε φως και η πάστα φαίνεται πιο κίτρινη. Μετά τον πολυμερισμό μετατρέπεται σε ανενεργά παράγωγα, οπότε η ρητίνη απορροφά λιγότερο μπλε και φαίνεται λιγότερο κίτρινη.
+    <span class="page-citation">Παραπομπή: Σελίδα 364</span>
+  </div>
+</div>
+
+<div class="question-block" id="q65">
+  <div class="question-number">Ερώτηση 65</div>
+  <div class="question-text">Ποια είναι η κύρια αιτία μεταβολής της ημιδιαφάνειας μιας σύνθετης ρητίνης κατά τον φωτοπολυμερισμό;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 65, false)">A) Η μεταβολή του δείκτη διάθλασης των ενισχυτικών ουσιών, ενώ η πολυμερής μήτρα παραμένει αμετάβλητη.</li>
+    <li class="option-item" onclick="checkAnswer(this, 65, true)">B) Η μεταβολή του δείκτη διάθλασης της πολυμερούς μήτρας, ενώ ο δείκτης διάθλασης των ενισχυτικών ουσιών δεν μεταβάλλεται.</li>
+    <li class="option-item" onclick="checkAnswer(this, 65, false)">C) Η πλήρης απορρόφηση του φωτός από την επιφανειακή στιλπνότητα της αποκατάστασης.</li>
+    <li class="option-item" onclick="checkAnswer(this, 65, false)">D) Η απομάκρυνση των χρωστικών από τη ρητινώδη μήτρα κατά τον πολυμερισμό.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Η μεταβολή της ημιδιαφάνειας αποδίδεται στη μεταβολή του δείκτη διάθλασης της πολυμερούς μήτρας κατά τον φωτοπολυμερισμό, ενώ ο δείκτης διάθλασης των ενισχυτικών ουσιών παραμένει αμετάβλητος.
+    <span class="page-citation">Παραπομπή: Σελίδα 364</span>
+  </div>
+</div>
+
+<div class="question-block" id="q66">
+  <div class="question-number">Ερώτηση 66</div>
+  <div class="question-text">Ποια τριάδα περιγράφει σωστά τις μορφές μεταβολής χρώματος που παρατηρούνται στις σύνθετες ρητίνες;</div>
+  <ul class="options-list">
+    <li class="option-item" onclick="checkAnswer(this, 66, true)">A) Εξωτερική μεταβολή από οδοντική πλάκα και επιφανειακές χρωστικές, επιφανειακή ή υποεπιφανειακή μεταβολή από αποδόμηση ή προσρόφηση χρωστικών, και μεταβολή της κύριας μάζας του υλικού από φυσικοχημικές αντιδράσεις.</li>
+    <li class="option-item" onclick="checkAnswer(this, 66, false)">B) Μεταβολή μόνο λόγω αφυδάτωσης, λόγω φθορισμού και λόγω οπαλισμού.</li>
+    <li class="option-item" onclick="checkAnswer(this, 66, false)">C) Επιφανειακή μεταβολή μόνο από τερηδόνα, υποεπιφανειακή μεταβολή μόνο από φως και μεταβολή μάζας μόνο από μηχανική λείανση.</li>
+    <li class="option-item" onclick="checkAnswer(this, 66, false)">D) Εξωτερική μεταβολή μόνο από κάπνισμα, εσωτερική μεταβολή μόνο από καφέ και μεταβολή μάζας μόνο από πολφική αιμορραγία.</li>
+  </ul>
+  <div class="academic-comment">
+    <strong>Ακαδημαϊκό Σχόλιο:</strong> Περιγράφονται τρεις μορφές μεταβολής χρώματος στις σύνθετες ρητίνες: εξωτερική από πλάκα και χρωστικές, επιφανειακή ή υποεπιφανειακή από αποδόμηση ή προσρόφηση χρωστικών, και μεταβολή της κύριας μάζας από φυσικοχημικές αντιδράσεις στα βαθύτερα στρώματα.
+    <span class="page-citation">Παραπομπή: Σελίδα 365</span>
+  </div>
+</div>
+
+</div>
+
+<script>
+  let score = 0;
+  let answered = 0;
+  const answeredQuestions = new Set();
+
+  function checkAnswer(element, questionNumber, isCorrect) {
+    if (answeredQuestions.has(questionNumber)) return;
+
+    answeredQuestions.add(questionNumber);
+    answered++;
+
+    const block = document.getElementById("q" + questionNumber);
+    const options = block.querySelectorAll(".option-item");
+    const comment = block.querySelector(".academic-comment");
+
+    options.forEach(option => {
+      option.classList.add("disabled");
+
+      const onclickText = option.getAttribute("onclick");
+      if (onclickText && onclickText.includes("true")) {
+        option.classList.add("correct");
+      }
+    });
+
+    if (isCorrect) {
+      score++;
+      element.classList.add("correct");
+    } else {
+      element.classList.add("wrong");
+    }
+
+    comment.style.display = "block";
+    document.getElementById("score").textContent = score;
+    document.getElementById("answered").textContent = answered;
+  }
+
+  function resetQuiz() {
+    score = 0;
+    answered = 0;
+    answeredQuestions.clear();
+
+    document.getElementById("score").textContent = "0";
+    document.getElementById("answered").textContent = "0";
+
+    document.querySelectorAll(".option-item").forEach(option => {
+      option.classList.remove("correct", "wrong", "disabled");
+    });
+
+    document.querySelectorAll(".academic-comment").forEach(comment => {
+      comment.style.display = "none";
+    });
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
+</script>
+
+</body>
+</html>
