@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Κλινικής Οδοντιατρικής - Νόσος Τερηδόνας </title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #34495e;
+            --accent: #3498db;
+            --success: #27ae60;
+            --danger: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: var(--dark);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: var(--primary);
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        .question-card {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            background-color: #fafafa;
+        }
+        .question-text {
+            font-size: 1.15em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .option {
+            padding: 15px 20px;
+            background: var(--light);
+            border: 2px solid transparent;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.05em;
+            display: flex;
+            align-items: center;
+        }
+        .option:hover {
+            background: #e2e8f0;
+            border-color: #cbd5e1;
+        }
+        .option.correct {
+            background: #d4edda;
+            border-color: var(--success);
+            color: #155724;
+        }
+        .option.wrong {
+            background: #f8d7da;
+            border-color: var(--danger);
+            color: #721c24;
+        }
+        .option.disabled {
+            pointer-events: none;
+            opacity: 0.8;
+        }
+        .option-label {
+            font-weight: bold;
+            margin-right: 15px;
+            background: var(--primary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .rationale {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background: #e1f5fe;
+            border-left: 5px solid var(--accent);
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+        .rationale.visible {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Αξιολόγηση: Σύγχρονη Αντιμετώπιση Τερηδόνας </h1>
+
+    <!-- Q1 -->
+    <div class="question-card">
+        <div class="question-text">1. Η μετάβαση από τη "συμπτωματική αντιμετώπιση" στην "αιτιολογική θεραπεία" (ΕΠΑ) ποια βασική αλλαγή φιλοσοφίας υποδηλώνει[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Την αποκλειστική αφαίρεση του προσβεβλημένου οδοντικού ιστού.</div>
+            <div class="option" data-correct="false"><span class="option-label">B</span> Την άμεση αντικατάσταση της οδοντικής βλάβης με νέα βιοϋλικά.</div>
+            <div class="option" data-correct="true"><span class="option-label">C</span> Την παράλληλη μείωση επιβαρυντικών και ενίσχυση αμυντικών.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Την αύξηση συχνότητας εξαγωγών σε μεγάλες οδοντικές καταστροφές.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Το Εξατομικευμένο Πρόγραμμα Αντιμετώπισης (Ε.Π.Α.) σηματοδοτεί τη στροφή από τη μηχανική θεραπεία του συμπτώματος (έμφραξη/εξαγωγή) στην αιτιολογική θεραπεία[cite: 1].** Η σωστή απάντηση είναι η C, καθώς η σύγχρονη προσέγγιση απαιτεί μείωση της επιβάρυνσης και ενίσχυση της άμυνας[cite: 1]. Οι επιλογές A, B και D περιγράφουν την ξεπερασμένη λογική (πριν το 2005) της απλής αντικατάστασης του τερηδονισμένου ιστού[cite: 1].
+        </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="question-card">
+        <div class="question-text">2. Κατά την αιτιοπαθογένεια, ποια μεμονωμένη συνθήκη ΔΕΝ επαρκεί από μόνη της για την εκκίνηση της τερηδονικής βλάβης[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Η αδιάλειπτη κυριαρχία των οξεάντοχων βακτηριακών στελεχών.</div>
+            <div class="option" data-correct="true"><span class="option-label">B</span> Η απομόνωση ενός παράγοντα χωρίς την ταυτόχρονη συνύπαρξη.</div>
+            <div class="option" data-correct="false"><span class="option-label">C</span> Η συχνή και παρατεταμένη κατανάλωση ζυμώσιμων υδατανθράκων.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Η ευπάθεια των οδοντικών ιστών σε παρατεταμένα όξινα ερεθίσματα.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Η τερηδόνα είναι πολυπαραγοντική νόσος και απαιτεί την ΑΠΑΡΑΙΤΗΤΗ ΣΥΝΥΠΑΡΞΗ δοντιού, μικροβίων και τροφής στο πέρασμα του χρόνου[cite: 1].** Η επιλογή B είναι η σωστή, διότι κανένας παράγοντας (ούτε τα μικρόβια, ούτε οι υδατάνθρακες από μόνοι τους) δεν προκαλεί βλάβη χωρίς τους υπόλοιπους. Τα A, C και D αποτελούν παγίδες, καθώς είναι μεν κρίσιμοι παράγοντες, αλλά αδυνατούν να δράσουν σε συνθήκες «απομόνωσης».
+        </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="question-card">
+        <div class="question-text">3. Κατά τον μεταβολισμό των υδατανθράκων στην οδοντική πλάκα, ποιο είναι το άμεσο αίτιο που προκαλεί την απασβεστίωση[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Η αύξηση του βαθμού κορεσμού των ανόργανων ιόντων στο σάλιο.</div>
+            <div class="option" data-correct="false"><span class="option-label">B</span> Η εξουδετέρωση των οξέων λόγω της αυξημένης ρυθμιστικής ικανότητας.</div>
+            <div class="option" data-correct="true"><span class="option-label">C</span> Η πτώση του pH και η δημιουργία ενός έντονα ακόρεστου περιβάλλοντος.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Η δραστική καταστολή της ενζυμικής δραστηριότητας των οξεάντοχων.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Η έξοδος γαλακτικού οξέος οδηγεί σε πτώση του pH, απουσία ιόντων και δημιουργία ΑΚΟΡΕΣΤΟΥ περιβάλλοντος, που προκαλεί αφαλάτωση[cite: 1].** Η επιλογή C περιγράφει σωστά τον μηχανισμό[cite: 1]. Η επιλογή A είναι λάθος, διότι ο κορεσμός των ιόντων αποτρέπει την αφαλάτωση. Η επιλογή B είναι αμυντικός μηχανισμός, όχι αιτιολογικός. Η επιλογή D αντιβαίνει στη λειτουργία των οξεάντοχων μικροβίων.
+        </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="question-card">
+        <div class="question-text">4. Σύμφωνα με τη διαλυτότητα του υδροξυαπατίτη, τι συμβαίνει φυσικοχημικά όταν το pH πέσει κάτω από το κρίσιμο όριο (~5,5)[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Το σάλιο καθίσταται υπερκορεσμένο σε ιόντα ασβεστίου και φωσφόρου.</div>
+            <div class="option" data-correct="false"><span class="option-label">B</span> Παρατηρείται ταχεία και αυθόρμητη κατακρήμνιση νέου υδροξυαπατίτη.</div>
+            <div class="option" data-correct="false"><span class="option-label">C</span> Η διαλυτότητα των κρυστάλλων μειώνεται γραμμικά με την πτώση του pH.</div>
+            <div class="option" data-correct="true"><span class="option-label">D</span> Η διαλυτότητά του αυξάνεται εκθετικά λόγω μη κορεσμού του σάλιου.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Το διάγραμμα ιοντικής ισορροπίας δείχνει ότι κάτω από το pH 5,5 (κρίσιμο pH), το σάλιο παύει να είναι κορεσμένο σε ιόντα υδροξυαπατίτη και η διαλυτότητά του (g/l) αυξάνεται απότομα/εκθετικά[cite: 1].** Άρα το D είναι σωστό. Οι επιλογές A και B συμβαίνουν σε pH πάνω από το κρίσιμο (κατά την επανασβεστίωση)[cite: 1]. Το C είναι λάθος, διότι η διαλυτότητα αυξάνεται, δεν μειώνεται, όταν πέφτει το pH[cite: 1].
+        </div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="question-card">
+        <div class="question-text">5. Βάσει της καμπύλης Stephan, μετά από έκθεση σε ζάχαρη, ο μέσος χρόνος για την επιστροφή του pH σε επίπεδα ηρεμίας (επανασβεστίωση) είναι[cite: 1]:</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Περίπου μεταξύ πέντε και δεκαπέντε λεπτών μετά την αρχική λήψη.</div>
+            <div class="option" data-correct="true"><span class="option-label">B</span> Περίπου μεταξύ τριάντα και σαράντα λεπτών μετά την αρχική λήψη.</div>
+            <div class="option" data-correct="false"><span class="option-label">C</span> Απολύτως ανεξάρτητος από τη συγκέντρωση και ρυθμιστική του σάλιου.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Πάντοτε μικρότερος των δέκα λεπτών σε ένα υγιές στοματικό περιβάλλον.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Στο διάγραμμα της νόσου τερηδόνας (καμπύλη Stephan), η απασβεστίωση ξεκινά άμεσα και διαρκεί έως το 15ο-25ο λεπτό, ενώ η πλήρης επανασβεστίωση ολοκληρώνεται στα 35-40 λεπτά[cite: 1].** Το B αποδίδει σωστά αυτό το χρονικό "παράθυρο"[cite: 1]. Τα A και D υποεκτιμούν τον χρόνο της όξινης προσβολής. Το C είναι λάθος, καθώς το σάλιο είναι ο κύριος ρυθμιστής του χρόνου επαναφοράς.
+        </div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="question-card">
+        <div class="question-text">6. Σε ένα άτομο με συχνά ενδιάμεσα γεύματα (snacking) κατά τη διάρκεια της ημέρας, ποιο φαινόμενο παρατηρείται διαγραμματικά[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Η σταθερή παραμονή του pH διαρκώς πάνω από το κρίσιμο όριο του 5,5.</div>
+            <div class="option" data-correct="true"><span class="option-label">B</span> Η αδυναμία του σάλιου να επαναφέρει το pH σε ασφαλή επίπεδα ηρεμίας.</div>
+            <div class="option" data-correct="false"><span class="option-label">C</span> Η ταχύτερη επανασβεστίωση λόγω συχνής και έντονης σιαλικής διέγερσης.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Ο αυστηρός περιορισμός των φάσεων απασβεστίωσης σε σύντομα διαστήματα.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Όταν αυξάνεται η συχνότητα λήψης τροφής, οι καμπύλες πτώσης του pH αλληλεπικαλύπτονται, οδηγώντας σε συνεχή παραμονή κάτω από το κρίσιμο pH[cite: 1].** Η σωστή επιλογή είναι το B, καθώς η "υγιής" φάση επαναλάτωσης (επανασβεστίωσης) δεν προλαβαίνει να ολοκληρωθεί[cite: 1]. Τα A, C και D αποτελούν λανθασμένες ερμηνείες που θα οδηγούσαν σε προστασία, όχι σε τερηδόνα.
+        </div>
+    </div>
+
+    <!-- Q7 -->
+    <div class="question-card">
+        <div class="question-text">7. Σύμφωνα με την οικολογική θεωρία (P.D. Marsh, 1994), ποιος είναι ο πρωταρχικός μηχανισμός που προκαλεί την εμφάνιση της νόσου[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Η απευθείας μετάδοση των παθογόνων μικροοργανισμών μέσω του σάλιου.</div>
+            <div class="option" data-correct="false"><span class="option-label">B</span> Η μεταβολή της κρυσταλλικής δομής της αδαμαντίνης από γενετικά αίτια.</div>
+            <div class="option" data-correct="true"><span class="option-label">C</span> Η περιβαλλοντική αλλαγή που ευνοεί αποκλειστικά τα οξεάντοχα μικρόβια.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Η ανεπαρκής συγκέντρωση φθορίου κατά τη διάρκεια της οδοντογένεσης.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Ο Marsh (1994) απέδειξε ότι η τερηδόνα δεν είναι απλή λοίμωξη, αλλά αποτέλεσμα ΟΙΚΟΛΟΓΙΚΗΣ καταστροφής[cite: 1].** Η συχνή λήψη σακχάρων (εξωγενής παράγοντας) οδηγεί σε χαμηλό pH (περιβαλλοντική αλλαγή), ευνοώντας την αύξηση των οξεόφιλων/οξεάντοχων βακτηρίων έναντι της φυσιολογικής χλωρίδας (C)[cite: 1]. Οι άλλες επιλογές αφορούν κλασικές λοιμώδεις ή συστηματικές θεωρίες, όχι την οικολογική μεταβολή.
+        </div>
+    </div>
+
+    <!-- Q8 -->
+    <div class="question-card">
+        <div class="question-text">8. Βάσει των κλινικών δεικτών, πώς ταξινομείται ένας ασθενής που εμφανίζει ακριβώς 3 νέες τερηδονικές βλάβες κατά το τελευταίο έτος[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Ως εξεταζόμενος με φυσιολογική ή σχεδόν μηδενική τερηδονική δραστηριότητα.</div>
+            <div class="option" data-correct="false"><span class="option-label">B</span> Ως εξεταζόμενος με τυπικά χαμηλή και ελεγχόμενη τερηδονική δραστηριότητα.</div>
+            <div class="option" data-correct="true"><span class="option-label">C</span> Ως εξεταζόμενος με μέτρια αλλά κλινικά υπολογίσιμη τερηδονική δραστηριότητα.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Ως εξεταζόμενος με επικίνδυνα υψηλή και επιθετική τερηδονική δραστηριότητα.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Σύμφωνα με τον πίνακα διάγνωσης τερηδονικής δραστηριότητας, ο αριθμός των βλαβών/έτος καθορίζει την κατηγορία[cite: 1].** 1-2 βλάβες υποδηλώνουν Χαμηλή, 3-4 βλάβες Μέτρια, και >4 βλάβες Υψηλή δραστηριότητα[cite: 1]. Επομένως, ο ασθενής με 3 βλάβες κατατάσσεται ξεκάθαρα στη Μέτρια δραστηριότητα (C)[cite: 1]. Τα A, B και D είναι λάθος βάσει των ορίων.
+        </div>
+    </div>
+
+    <!-- Q9 -->
+    <div class="question-card">
+        <div class="question-text">9. Στην ακτινογραφική διάγνωση των όμορων βλαβών, ποιο κλινικό εύρημα χαρακτηρίζει ακριβώς το στάδιο επέκτασης D3[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Η βλάβη περιορίζεται αποκλειστικά στο εξωτερικό μισό στρώμα της αδαμαντίνης.</div>
+            <div class="option" data-correct="false"><span class="option-label">B</span> Η βλάβη έχει επεκταθεί ακριβώς μέχρι την αδαμαντινοδοντινική ένωση (όριο).</div>
+            <div class="option" data-correct="true"><span class="option-label">C</span> Η βλάβη εκτείνεται στην οδοντίνη παρουσιάζοντας βάθος μικρότερο από 1 mm.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Η βλάβη προχωρά βαθιά στην οδοντίνη ξεπερνώντας σε βάθος το 1 χιλιοστό.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Η ταξινόμηση D (1-4) περιγράφει το βάθος της βλάβης για την επιλογή θεραπείας[cite: 1].** D1=Εξωτερικό μισό αδαμαντίνης, D2=Εσωτερικό μισό αδαμαντίνης, D3=Οδοντίνη <1 mm, D4=Οδοντίνη >1 mm[cite: 1]. Το C αποδίδει με ακρίβεια το στάδιο D3[cite: 1]. Τα A και B αφορούν πρώιμες αδαμαντινικές βλάβες, ενώ το D αφορά το στάδιο D4[cite: 1].
+        </div>
+    </div>
+
+    <!-- Q10 -->
+    <div class="question-card">
+        <div class="question-text">10. Γιατί η χρήση του οδοντιατρικού ανιχνευτήρα θεωρείται πλέον "αναξιόπιστη" έως και αντενδεικνυόμενη στις μασητικές τερηδονικές βλάβες[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="true"><span class="option-label">A</span> Προκαλεί ιατρογενή θραύση και διάνοιξη επιφανειών με άθικτη επανασβεστίωση.</div>
+            <div class="option" data-correct="false"><span class="option-label">B</span> Εντοπίζει μόνο τις βλάβες που έχουν προχωρήσει βαθιά στην πολφική κοιλότητα.</div>
+            <div class="option" data-correct="false"><span class="option-label">C</span> Απαιτεί εφαρμογή υπερβολικής πίεσης που δημιουργεί δυσανεξία στους ασθενείς.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Αλλοιώνει μόνιμα το κρυσταλλικό πλέγμα του υποκείμενου κυψελιδικού οστού.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Ο αιχμηρός ανιχνευτήρας δεν συστήνεται στη σύγχρονη διάγνωση μασητικών βλαβών διότι προκαλεί ιατρογενή βλάβη[cite: 1].** Μπορεί να σπάσει την εξωτερική απασβεστιωμένη αλλά ακέραιη επιφάνεια μιας αρχόμενης βλάβης, μετατρέποντάς την σε μη αναστρέψιμη κοιλότητα[cite: 1] (επιλογή A). Τα B, C και D αποτελούν λανθασμένες αντιλήψεις και δεν αποτελούν τον επιστημονικό λόγο αντένδειξης.
+        </div>
+    </div>
+
+    <!-- Q11 -->
+    <div class="question-card">
+        <div class="question-text">11. Ποια ακτινογραφική τεχνική θεωρείται η πλέον ενδεδειγμένη και αξιόπιστη για την πρώιμη ανίχνευση όμορων τερηδονικών βλαβών[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Η κλασική περιακρορριζική ακτινογραφία εφαρμόζοντας τεχνική της διχοτόμου.</div>
+            <div class="option" data-correct="true"><span class="option-label">B</span> Η ακτινογραφία μυλικής σύγκλισης (bite-wing) για τον έλεγχο των οπισθίων.</div>
+            <div class="option" data-correct="false"><span class="option-label">C</span> Η εξωστοματική πανοραμική ακτινογραφία για γενική επισκόπηση των φραγμών.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Η εξωστοματική κεφαλομετρική ακτινογραφία κατά την πλάγια λήψη του κρανίου.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Οι ακτινογραφίες μυλικής σύγκλισης (bite-wing) είναι το standard για τη διάγνωση όμορων τερηδονικών βλαβών[cite: 1].** Ο σχεδιασμός τους αποτρέπει την αλληλεπικάλυψη των όμορων επιφανειών προγομφίων-γομφίων[cite: 1] (B). Η πανοραμική (C) υστερεί σε ανάλυση[cite: 1], ενώ η περιακρορριζική (A) συχνά παραμορφώνει τις μύλες ανάλογα με την τεχνική[cite: 1].
+        </div>
+    </div>
+
+    <!-- Q12 -->
+    <div class="question-card">
+        <div class="question-text">12. Η σύγχρονη διαγνωστική συσκευή DIAGNOdent βασίζεται σε ποια συγκεκριμένη φυσική μέθοδο για την ανίχνευση της τερηδόνας[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Στην καταγραφή της ηλεκτρικής αντίστασης κατά μήκος των οδοντικών ιστών.</div>
+            <div class="option" data-correct="true"><span class="option-label">B</span> Στη μέτρηση του φθορισμού των οδοντικών ιστών έπειτα από διέγερση με λέιζερ.</div>
+            <div class="option" data-correct="false"><span class="option-label">C</span> Στη διαφανοσκόπηση μέσω ορατού φωτός υψηλής έντασης (αρχή της DiaLUX).</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Στην εκπομπή υπέρυθρης ακτινοβολίας για την παραγωγή θερμικής τομογραφίας.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Το DIAGNOdent (KaVo) λειτουργεί με την αρχή του φθορισμού (Laser fluorescence)[cite: 1].** Εκπέμπει φως συγκεκριμένου μήκους κύματος, και οι βακτηριακές πορφυρίνες στην τερηδονική βλάβη φθορίζουν, δίνοντας ψηφιακή ένδειξη[cite: 1] (B). Η μέθοδος διερχόμενου ορατού φωτός αντιστοιχεί στη συσκευή DiaLUX[cite: 1] (C), ενώ η ηλεκτρική αγωγιμότητα είναι διαφορετική διαγνωστική κατηγορία[cite: 1].
+        </div>
+    </div>
+
+    <!-- Q13 -->
+    <div class="question-card">
+        <div class="question-text">13. Ο κλινικός δείκτης DMFT (Decayed, Missing, Filled Teeth) αποτελεί βασικό εργαλείο στην εκτίμηση του τερηδονικού κινδύνου. Τι ακριβώς καταγράφει[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Μόνο τον ρυθμό εμφάνισης νέων τερηδονικών αλλοιώσεων κατά το τρέχον έτος.</div>
+            <div class="option" data-correct="true"><span class="option-label">B</span> Τη συνολική, αθροιστική παρελθούσα τερηδονική εμπειρία του κάθε εξεταζόμενου.</div>
+            <div class="option" data-correct="false"><span class="option-label">C</span> Τον αριθμό των επιφανειών που χρήζουν άμεσης τοποθέτησης προληπτικών οπών.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Τις τρέχουσες τιμές ροής και τη ρυθμιστική ικανότητα του εκκρινόμενου σάλιου.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Ο δείκτης DMFT μετρά τα τερηδονισμένα (D), απολεσθέντα (M) και εμφραγμένα (F) δόντια (T), αποτυπώνοντας την ΠΑΡΕΛΘΟΥΣΑ τερηδονική εμπειρία[cite: 1].** Συνεπώς, η B είναι η σωστή[cite: 1]. Η επιλογή A περιγράφει την τερηδονική *δραστηριότητα* (νέες βλάβες)[cite: 1]. Οι C και D αφορούν διαφορετικά στοιχεία του σχεδίου θεραπείας και ιδιότητες του σάλιου αντίστοιχα[cite: 1].
+        </div>
+    </div>
+
+    <!-- Q14 -->
+    <div class="question-card">
+        <div class="question-text">14. Κατά τη διάγνωση της σιαλικής λειτουργίας, ποια τιμή ροής σάλιου (μετά από διέγερση) θεωρείται εργαστηριακό εύρημα υποσιαλίας[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Όταν η ταχύτητα ροής μετράται αυστηρά κάτω από 0,1 ml/min.</div>
+            <div class="option" data-correct="true"><span class="option-label">B</span> Όταν η ταχύτητα ροής μετράται και βρίσκεται κάτω από 0,7 ml/min.</div>
+            <div class="option" data-correct="false"><span class="option-label">C</span> Όταν η ταχύτητα ροής κυμαίνεται στο εύρος μεταξύ 1,0 και 3,0 ml/min.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Όταν η ταχύτητα ροής καταγράφεται σταθερά υψηλότερη από 3,0 ml/min.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Πρέπει να διακρίνουμε το σάλιο "Ηρεμίας" από το σάλιο "Διέγερσης"[cite: 1].** Για το σάλιο διέγερσης, τα φυσιολογικά όρια είναι 1-3 ml/min[cite: 1]. Τιμή <0,7 ml/min υποδηλώνει υποσιαλία[cite: 1] (B). Η επιλογή A (<0,1 ml/min) είναι το όριο υποσιαλίας για το σάλιο *ηρεμίας*[cite: 1]. Η C είναι φυσιολογική τιμή[cite: 1], ενώ η D υποδηλώνει υπερσιαλία[cite: 1].
+        </div>
+    </div>
+
+    <!-- Q15 -->
+    <div class="question-card">
+        <div class="question-text">15. Ποια είναι η εννοιολογική διαφορά μεταξύ της κλινικής "υποσιαλίας" και του όρου "ξηροστομία" σύμφωνα με την εκτίμηση κινδύνου[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Η ξηροστομία ταυτίζεται απόλυτα και μετριέται με τα κριτήρια της υποσιαλίας.</div>
+            <div class="option" data-correct="false"><span class="option-label">B</span> Η υποσιαλία αποτελεί ένα προσωρινό και εναλλασσόμενο υποκειμενικό σύμπτωμα.</div>
+            <div class="option" data-correct="true"><span class="option-label">C</span> Η ξηροστομία συνιστά αποκλειστικά το υποκειμενικό σύμπτωμα, όχι αντικειμενικό.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Η υποσιαλία αναφέρεται αποκλειστικά σε ασθενείς χωρίς κανένα ενεργό σιαλογόνο.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Στη βιβλιογραφία, η ξηροστομία (Xerostomia) αποτελεί το ΥΠΟΚΕΙΜΕΝΙΚΟ αίσθημα ξηρότητας του ασθενούς, ενώ η υποσιαλία αποτελεί αντικειμενικό κλινικό/εργαστηριακό εύρημα (μειωμένη ροή)[cite: 1].** Η επιλογή C εκφράζει αυτή τη θεμελιώδη διάκριση[cite: 1]. Ασθενείς μπορεί να νιώθουν ξηροστομία χωρίς εργαστηριακή υποσιαλία, και το αντίστροφο[cite: 1].
+        </div>
+    </div>
+
+    <!-- Q16 -->
+    <div class="question-card">
+        <div class="question-text">16. Στη δοκιμασία οξύνισης ad modum Ericsson για τη ρυθμιστική ικανότητα του σάλιου, ποια τιμή υποδεικνύει "κακή" (ανεπαρκή) ικανότητα[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="true"><span class="option-label">A</span> Τιμή τελικού pH μικρότερη από το κρίσιμο όριο του 4,5.</div>
+            <div class="option" data-correct="false"><span class="option-label">B</span> Τιμή τελικού pH που κυμαίνεται εντός των ορίων 4,5 - 5,5.</div>
+            <div class="option" data-correct="false"><span class="option-label">C</span> Τιμή τελικού pH η οποία ισούται απόλυτα και σταθερά με 5,5.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Τιμή τελικού pH η οποία βρίσκεται σε επίπεδα μεγαλύτερα από 5,5.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Στη μέθοδο ad modum Ericsson, μετράται το τελικό pH[cite: 1].** Αν το τελικό pH είναι < 4,5, η ρυθμιστική ικανότητα θεωρείται «Κακή»[cite: 1] (A). Αν κυμαίνεται από 4,5 έως 5,5 θεωρείται «Μέτρια»[cite: 1] (B, C), και αν είναι > 5,5 θεωρείται «Καλή»[cite: 1] (D). Η αδυναμία εξουδετέρωσης του οξέος συνεπάγεται υψηλό τερηδονικό κίνδυνο.
+        </div>
+    </div>
+
+    <!-- Q17 -->
+    <div class="question-card">
+        <div class="question-text">17. Κατά την αξιολόγηση των διαιτητικών συνηθειών ενός ασθενούς, πότε ο τερηδονικός κίνδυνος (επίπεδο επιβάρυνσης) χαρακτηρίζεται ως "Υψηλός"[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Όταν τα γεύματα περιορίζονται αυστηρά σε 2 ημερησίως, ανεξαρτήτως της σύστασης.</div>
+            <div class="option" data-correct="false"><span class="option-label">B</span> Όταν ο ημερήσιος αριθμός των γευμάτων με άφθονους υδατάνθρακες φτάνει τα 3-4.</div>
+            <div class="option" data-correct="true"><span class="option-label">C</span> Όταν ο αριθμός των γευμάτων με μεταβολίσιμους υδατάνθρακες ισούται ή υπερβαίνει τα 5.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Όταν η λήψη σακχάρων λαμβάνει χώρα αποκλειστικά κατά τη διάρκεια κύριων γευμάτων.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Ο αριθμός των γευμάτων που είναι πλούσια σε μεταβολίσιμους υδατάνθρακες καθορίζει την επιβάρυνση[cite: 1].** ≤2 γεύματα=Χαμηλή επιβάρυνση, 3-4 γεύματα=Μέτρια επιβάρυνση, ≥5 γεύματα=Υψηλή επιβάρυνση[cite: 1]. Επομένως, το C είναι το σωστό όριο για τον υψηλό κίνδυνο[cite: 1]. Επιπλέον, το D (στα κύρια γεύματα) είναι η επιθυμητή, ασφαλής πρακτική, όχι κίνδυνος.
+        </div>
+    </div>
+
+    <!-- Q18 -->
+    <div class="question-card">
+        <div class="question-text">18. Ένας ασθενής παρουσιάζει δείκτη οδοντικής πλάκας 35%. Με βάση τον πίνακα κινδύνου, πώς αξιολογείται το επίπεδο επιβάρυνσης της στοματικής του υγιεινής[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Ως χαμηλή, διότι βρίσκεται αρκετά κάτω από το στατιστικό όριο ασφαλείας του 50%.</div>
+            <div class="option" data-correct="true"><span class="option-label">B</span> Ως μέτρια, καθώς το 35% εμπίπτει με ακρίβεια στο κλινικό ενδιάμεσο εύρος 10% έως 40%.</div>
+            <div class="option" data-correct="false"><span class="option-label">C</span> Ως υψηλή, εφόσον υπερβαίνει σταθερά το αποδεκτό και αυστηρό κλινικό όριο του 10%.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Ως μηδενική, επειδή ο κίνδυνος καθορίζεται αποκλειστικά και μόνο από τη διατροφή του.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Ο Δείκτης Πλάκας (% επιφανειών με πλάκα) κατατάσσει την επιβάρυνση ως εξής: <10% (Χαμηλή), 10-40% (Μέτρια), >40% (Υψηλή)[cite: 1].** Το ποσοστό 35% τοποθετεί τον ασθενή σαφώς στη Μέτρια επιβάρυνση[cite: 1] (επιλογή B). Τα A και C χρησιμοποιούν αυθαίρετα όρια που δεν ανταποκρίνονται στα κλινικά πρωτόκολλα διάγνωσης του Ε.Π.Α[cite: 1].
+        </div>
+    </div>
+
+    <!-- Q19 -->
+    <div class="question-card">
+        <div class="question-text">19. Τι αποτελεί "ικανοποιητικό επίπεδο έκθεσης" των δοντιών στο φθόριο, βάσει των σύγχρονων κατευθυντήριων γραμμών για τη στοματική υγιεινή[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Η τοπική εφαρμογή φθοριούχου βερνικιού στο ιατρείο αποκλειστικά κάθε έξι μήνες.</div>
+            <div class="option" data-correct="false"><span class="option-label">B</span> Το καθημερινό βούρτσισμα των δοντιών μία φορά το βράδυ πριν από τον βραδινό ύπνο.</div>
+            <div class="option" data-correct="true"><span class="option-label">C</span> Το τυπικό βούρτσισμα των δοντιών δύο φορές ημερησίως με μία φθοριούχο οδοντόκρεμα.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Η αποκλειστική λήψη συμπληρωμάτων συστημικού φθορίου (χάπια) καθόλη τη διάρκεια της ζωής.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Στην εκτίμηση κινδύνου, το «ικανοποιητικό επίπεδο έκθεσης» ορίζεται ξεκάθαρα ως το βούρτσισμα 2 φορές ημερησίως με φθοριούχο οδοντόκρεμα[cite: 1].** Αυτό διασφαλίζει διαρκή παρουσία φθορίου στο σάλιο (C)[cite: 1]. Οι εφαρμογές στο ιατρείο (A) λειτουργούν ενισχυτικά σε ασθενείς υψηλού κινδύνου. Το μια φορά βούρτσισμα (B) είναι ανεπαρκές. Τα συστημικά χάπια (D) αφορούν το παρελθόν.
+        </div>
+    </div>
+
+    <!-- Q20 -->
+    <div class="question-card">
+        <div class="question-text">20. Σε έναν ασθενή με "Υψηλό τερηδονικό κίνδυνο" (σύμφωνα με το τερηδονόγραμμα), ποιο πακέτο προληπτικών μέτρων ενδείκνυται πρωταρχικά[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Η άμεση δημιουργία εκτεταμένων προσθετικών αποκαταστάσεων σε όλα τα ευπαθή δόντια.</div>
+            <div class="option" data-correct="true"><span class="option-label">B</span> Η συστηματική εφαρμογή πυκνών φθοριούχων σκευασμάτων και χρήσης στοματοπλυμάτων.</div>
+            <div class="option" data-correct="false"><span class="option-label">C</span> Η αποκλειστική και άμεση αντικατάσταση όλων των παλαιών εμφράξεων του φραγμού.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Η οριστική αποχή από τις τακτικές ανακλήσεις μέχρι να αποκατασταθεί μόνο του το pΗ.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Σύμφωνα με τον πίνακα αντιμετώπισης, ο ασθενής υψηλού κινδύνου απαιτεί "Βούρτσισμα, Αλλαγή δίαιτας, Φθοριούχα στοματοπλύματα και Πυκνά φθοριούχα"[cite: 1].** Συνεπώς, η B είναι η ορθή προσέγγιση[cite: 1]. Οι προσθετικές και εμφρακτικές θεραπείες (A, C) αποτελούν θεραπεία των συμπτωμάτων (βλαβών), όχι "πρόληψη" του κινδύνου[cite: 1]. Η απουσία παρακολούθησης (D) αντενδείκνυται πλήρως[cite: 1].
+        </div>
+    </div>
+    <div class="question-card">
+        <div class="question-text">21. Πώς διαχωρίζεται κλινικά η παραδοσιακή "θεραπεία" από τη σύγχρονη "πρόληψη" στο πλαίσιο του Εξατομικευμένου Προγράμματος Αντιμετώπισης[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Η θεραπεία εστιάζει στη χορήγηση φθορίου, ενώ η πρόληψη αφορά μόνο τις εμφράξεις.</div>
+            <div class="option" data-correct="true"><span class="option-label">B</span> Η πρόληψη αφορά τον τερηδονικό κίνδυνο, ενώ η θεραπεία την ενεργή δραστηριότητα.</div>
+            <div class="option" data-correct="false"><span class="option-label">C</span> Η θεραπεία ταυτίζεται αποκλειστικά με τις εξαγωγές δοντιών λόγω μη αναστρέψιμης βλάβης.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Η πρόληψη περιλαμβάνει μόνο οδηγίες στοματικής υγιεινής χωρίς κλινικές παρεμβάσεις.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Στο διάγραμμα της αντιμετώπισης, η "Θεραπεία" συνδέεται άμεσα με την υπάρχουσα τερηδονική δραστηριότητα (ενεργές βλάβες), ενώ η "Πρόληψη" στοχεύει στον μελλοντικό τερηδονικό κίνδυνο[cite: 1].** Η σωστή απάντηση είναι η B[cite: 1]. Η φθορίωση και οι οδηγίες ανήκουν και στα δύο, ανάλογα με τη χρήση τους, ενώ οι εξαγωγές είναι ξεπερασμένο μοντέλο ως αποκλειστική λύση[cite: 1].
+        </div>
+    </div>
+
+    <!-- Q22 -->
+    <div class="question-card">
+        <div class="question-text">22. Ασθενής παραπονιέται για έντονη αίσθηση ξηροστομίας. Κατά τη μέτρηση του σάλιου διέγερσης, η ταχύτητα ροής καταγράφεται στα 1.5 ml/min. Ποιο είναι το ορθό συμπέρασμα[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Ο ασθενής πάσχει από σοβαρή κλινική υποσιαλία που χρήζει άμεσης φαρμακευτικής αγωγής.</div>
+            <div class="option" data-correct="false"><span class="option-label">B</span> Η καταγραφή υποδεικνύει οριακή υποσιαλία, επηρεάζοντας ελαφρώς τη ρυθμιστική ικανότητα.</div>
+            <div class="option" data-correct="true"><span class="option-label">C</span> Η λειτουργία των σιελογόνων είναι φυσιολογική, επομένως το σύμπτωμα είναι υποκειμενικό.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Ο ασθενής εμφανίζει ξεκάθαρη υπερσιαλία, άρα ο κίνδυνος τερηδόνας είναι απολύτως μηδενικός.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Οι φυσιολογικές τιμές ταχύτητας ροής σάλιου διέγερσης κυμαίνονται από 1 έως 3 ml/min[cite: 1].** Το 1.5 ml/min είναι απολύτως φυσιολογικό (C)[cite: 1]. Εφόσον υπάρχει αίσθημα ξηρότητας (ξηροστομία = υποκειμενικό σύμπτωμα[cite: 1]), αυτό δεν οφείλεται σε μειωμένη παραγωγή (υποσιαλία), αλλά ενδεχομένως σε αυξημένη απώλεια (π.χ. εξάτμιση, αναπνοή από το στόμα)[cite: 1].
+        </div>
+    </div>
+
+    <!-- Q23 -->
+    <div class="question-card">
+        <div class="question-text">23. Σύμφωνα με την κλίμακα βάθους της βλάβης, μια όμορη βλάβη επιπέδου D2 διακρίνεται ακτινογραφικά διότι[cite: 1]:</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Εκτείνεται σε όλο το πάχος της οδοντίνης, προσεγγίζοντας τον πολφικό θάλαμο.</div>
+            <div class="option" data-correct="false"><span class="option-label">B</span> Παραμένει περιορισμένη αυστηρά στο εξωτερικό μισό του στρώματος της αδαμαντίνης.</div>
+            <div class="option" data-correct="false"><span class="option-label">C</span> Έχει διαπεράσει την αδαμαντινοδοντινική ένωση, φτάνοντας σε βάθος έως 1 mm.</div>
+            <div class="option" data-correct="true"><span class="option-label">D</span> Καταλαμβάνει το εσωτερικό μισό της αδαμαντίνης, χωρίς να έχει εισχωρήσει στην οδοντίνη.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Η κατηγοριοποίηση D (1-4) αφορά το ακτινογραφικό βάθος[cite: 1].** Το D1 είναι το εξωτερικό μισό της αδαμαντίνης, ενώ το D2 αφορά την επέκταση στο εσωτερικό μισό της αδαμαντίνης (έως την αδαμαντινοδοντινική ένωση, χωρίς να την ξεπερνά)[cite: 1]. Άρα η σωστή είναι η D[cite: 1]. Το C περιγράφει τη βλάβη D3[cite: 1], ενώ το B περιγράφει τη βλάβη D1[cite: 1].
+        </div>
+    </div>
+
+    <!-- Q24 -->
+    <div class="question-card">
+        <div class="question-text">24. Ποιος από τους παρακάτω παράγοντες, βάσει της εξίσωσης του σάλιου στο κείμενο, οδηγεί σε απώλεια του εκκρινόμενου σάλιου συμβάλλοντας στην ξηροστομία[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="true"><span class="option-label">A</span> Η απώλεια υγρών μέσω της εξάτμισης, της φυσιολογικής απορρόφησης και της κατάποσης.</div>
+            <div class="option" data-correct="false"><span class="option-label">B</span> Η ελαττωμένη παραγωγή γαλακτικού οξέος από την τοπική μικροβιακή χλωρίδα της πλάκας.</div>
+            <div class="option" data-correct="false"><span class="option-label">C</span> Η δραστική αύξηση της ρυθμιστικής ικανότητας του σάλιου λόγω συχνής μάσησης.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Ο υπερκορεσμός του σάλιου σε ανόργανα ιόντα ασβεστίου και φωσφορικών αλάτων.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Ορίζεται ρητά η εξίσωση: Παραγωγή σάλιου – Απώλεια (Εξάτμιση + Απορρόφηση + Κατάποση) = Ξηροστομία[cite: 1].** Συνεπώς, η επιλογή A είναι η ακριβής αναφορά στους μηχανισμούς απώλειας που αναφέρονται στο έγγραφο[cite: 1]. Οι υπόλοιπες επιλογές αφορούν χημικές και μικροβιακές διεργασίες της νόσου, οι οποίες δεν προκαλούν απώλεια σιελογόνων υγρών.
+        </div>
+    </div>
+
+    <!-- Q25 -->
+    <div class="question-card">
+        <div class="question-text">25. Κατά την εκτίμηση της τερηδονικής εμπειρίας, ποιες εξωτερικές παράμετροι αναφέρεται ότι σχετίζονται άμεσα με τον δείκτη DMFT/DMFS[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Αποκλειστικά η κληρονομική προδιάθεση και το μικροβιακό φορτίο του ασθενούς.</div>
+            <div class="option" data-correct="true"><span class="option-label">B</span> Η ηλικία του ατόμου, ο συγκεκριμένος τόπος διαμονής και η χρονική περίοδος.</div>
+            <div class="option" data-correct="false"><span class="option-label">C</span> Ο ρυθμός έκκρισης του σάλιου ηρεμίας σε συνδυασμό με την αρτηριακή πίεση.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Ο ημερήσιος αριθμός γευμάτων πλούσιων σε μεταβολίσιμους υδατάνθρακες.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Ο δείκτης DMFT/DMFS, ο οποίος καταγράφει την παρελθούσα τερηδονική εμπειρία, σχετίζεται (σύμφωνα με τη διαφάνεια "Εκτίμηση τερηδονικού κινδύνου") με την ηλικία του ατόμου, τον τόπο διαμονής και την χρονική περίοδο[cite: 1].** Η σωστή είναι η B[cite: 1]. Οι άλλοι παράγοντες, αν και συνδέονται με τον κίνδυνο γενικά, δεν αποτελούν τις παραμέτρους της συγκεκριμένης συσχέτισης του δείκτη.
+        </div>
+    </div>
+
+    <!-- Q26 -->
+    <div class="question-card">
+        <div class="question-text">26. Ένας ασθενής διαγιγνώσκεται με "φυσιολογική" ταχύτητα ροής σάλιου ηρεμίας. Ποιες τιμές επιβεβαιώνουν εργαστηριακά αυτή τη διάγνωση[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Οποιαδήποτε σταθερή τιμή ταχύτητας ροής κυμαίνεται αυστηρά κάτω από 0,1 ml/min.</div>
+            <div class="option" data-correct="true"><span class="option-label">B</span> Η τιμή ταχύτητας ροής σάλιου που μετράται μεταξύ των ορίων 0,1 και 0,25 ml/min.</div>
+            <div class="option" data-correct="false"><span class="option-label">C</span> Η τιμή ταχύτητας ροής σάλιου που υπολογίζεται ακριβώς μεταξύ 0,7 και 1,0 ml/min.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Οποιαδήποτε σταθερή τιμή ταχύτητας ροής κυμαίνεται αποκλειστικά άνω του 1,0 ml/min.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Βάσει του πίνακα διάγνωσης σιαλικής λειτουργίας, η φυσιολογική ροή για το σάλιο ΗΡΕΜΙΑΣ είναι 0,1-0,25 ml/min[cite: 1].** Η απάντηση B είναι η σωστή[cite: 1]. Το όριο <0,1 αφορά την υποσιαλία ηρεμίας[cite: 1] (A). Οι τιμές 0,7-1,0 (C) αποτελούν όρια χαμηλής ροής για το σάλιο ΔΙΕΓΕΡΣΗΣ[cite: 1], ενώ οι τιμές >1,0 είναι φυσιολογικές αλλά για διέγερση[cite: 1], όχι ηρεμία.
+        </div>
+    </div>
+
+    <!-- Q27 -->
+    <div class="question-card">
+        <div class="question-text">27. Η συσκευή ανίχνευσης "DiaLUX Probe" διαφοροποιείται από τις μεθόδους φθορισμού διότι χρησιμοποιεί ως αρχή λειτουργίας[cite: 1]:</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Την αξιολόγηση της ταχύτητας μεταβολισμού των μικροβίων της οδοντικής πλάκας.</div>
+            <div class="option" data-correct="true"><span class="option-label">B</span> Τη διαφανοσκόπηση των οδοντικών ιστών μέσω εφαρμογής διερχόμενου ορατού φωτός.</div>
+            <div class="option" data-correct="false"><span class="option-label">C</span> Τη μέτρηση της αγωγιμότητας του ηλεκτρικού ρεύματος διαμέσου της αδαμαντίνης.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Την ψηφιακή τομογραφική ανασύνθεση των δομών βάσει της δέσμης ακτίνων Χ.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Σύμφωνα με την παρουσίαση των νέων διαγνωστικών μέσων, η συσκευή DiaLUX Probe βασίζεται στη μέθοδο του "Διερχόμενου ορατού φωτός" (διαφανοσκόπηση)[cite: 1].** Άρα το B είναι σωστό[cite: 1]. Ο φθορισμός αφορά το DIAGNOdent, η ηλεκτρική αγωγιμότητα είναι άλλη κατηγορία, και η τομογραφία (ακτίνες Χ) αποτελεί κλασική/ξεχωριστή ακτινολογική προσέγγιση[cite: 1].
+        </div>
+    </div>
+
+    <!-- Q28 -->
+    <div class="question-card">
+        <div class="question-text">28. Ποιος είναι ο ακριβής ορισμός μιας τερηδονικής βλάβης σύμφωνα με την αλληλουχία της οικολογικής καταστροφής[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="true"><span class="option-label">A</span> Αποτελεί την αφαλάτωση που προκαλείται απευθείας από την οδοντική μικροβιακή πλάκα.</div>
+            <div class="option" data-correct="false"><span class="option-label">B</span> Αποτελεί την οξεία φλεγμονώδη αντίδραση του πολφικού ιστού στις τοξίνες των βακτηρίων.</div>
+            <div class="option" data-correct="false"><span class="option-label">C</span> Αποτελεί τη φυσική και αναμενόμενη φθορά των ιστών λόγω μασητικών καταπονήσεων.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Αποτελεί την επιφανειακή εναπόθεση αλάτων η οποία παρεμποδίζει την επανασβεστίωση.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Η παρουσίαση αναφέρει χαρακτηριστικά στο διάγραμμα "Νόσος-Υγεία" ότι η Τερηδονική Βλάβη είναι η "Αφαλάτωση που προκαλείται από την οδοντική μικροβιακή πλάκα"[cite: 1].** Η απάντηση A αποδίδει πιστά αυτόν τον ορισμό[cite: 1]. Η φλεγμονή του πολφού (B) είναι μεταγενέστερη επιπλοκή, η φθορά λόγω μάσησης (C) είναι αποτριβή, και η εναπόθεση αλάτων (D) αναφέρεται στην τρυγία.
+        </div>
+    </div>
+
+    <!-- Q29 -->
+    <div class="question-card">
+        <div class="question-text">29. Σε ποιες περιπτώσεις η χρήση των "φθοριούχων στοματοπλυμάτων" εντάσσεται στα συνιστώμενα μέσα αντιμετώπισης[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Μόνο στους ασθενείς που εμφανίζουν αυστηρά "χαμηλή" τερηδονική δραστηριότητα.</div>
+            <div class="option" data-correct="true"><span class="option-label">B</span> Στους ασθενείς που παρουσιάζουν "μέτρια" ή "υψηλή" βαθμίδα τερηδονικού κινδύνου.</div>
+            <div class="option" data-correct="false"><span class="option-label">C</span> Αποκλειστικά σε αυτούς που έχουν ολική αδυναμία μηχανικού βουρτσίσματος δοντιών.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Σε όλα τα περιστατικά ανεξαιρέτως, αντικαθιστώντας πλήρως την αλλαγή της δίαιτας.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Βάσει των κλινικών πινάκων αντιμετώπισης (σχέση κινδύνου-δραστηριότητας), το βούρτσισμα και η αλλαγή δίαιτας αφορούν τη "Χαμηλή" βαθμίδα[cite: 1].** Όταν ο κίνδυνος/δραστηριότητα γίνεται "Μέτριος" ή "Υψηλός", προστίθενται τα "Φθοριούχα στοματοπλύματα"[cite: 1] (B). Η βαθμίδα χαμηλού κινδύνου συνήθως δεν απαιτεί στοματοπλύματα[cite: 1].
+        </div>
+    </div>
+
+    <!-- Q30 -->
+    <div class="question-card">
+        <div class="question-text">30. Στην ιστορική αναδρομή (1950 vs 2005), η απλή αντικατάσταση του τερηδονισμένου ιστού με εμφράξεις θεωρούνταν επαρκής επειδή η τερηδόνα αντιμετωπιζόταν ως[cite: 1]:</div>
+        <div class="options">
+            <div class="option" data-correct="true"><span class="option-label">A</span> Μη «επουλώσιμη» βλάβη που απαιτούσε αποκλειστικά συμπτωματική και μηχανική προσέγγιση.</div>
+            <div class="option" data-correct="false"><span class="option-label">B</span> Αναστρέψιμη λοίμωξη της οποίας τα συμπτώματα υποχωρούσαν από μόνα τους στο χρόνο.</div>
+            <div class="option" data-correct="false"><span class="option-label">C</span> Νόσος που οφειλόταν αποκλειστικά σε γενετικούς και συνεπώς μη ελέγξιμους παράγοντες.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Μία κατάσταση προσωρινής ανισορροπίας η οποία ρυθμιζόταν μέσω φαρμακευτικών σκευασμάτων.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Πριν την εφαρμογή του Ε.Π.Α. (π.χ. το 1950), η τερηδόνα νοούνταν ως "Μη επουλώσιμη βλάβη" και η έμφραξη/εξαγωγή αποτελούσε τη "Συμπτωματική αντιμετώπιση"[cite: 1].** Η ορθή επιλογή είναι το A[cite: 1]. Η σύγχρονη προσέγγιση (2005+) αναγνωρίζει τη δυνατότητα "επούλωσης" (επανασβεστίωσης) με την ενίσχυση της άμυνας[cite: 1].
+        </div>
+    </div>
+
+    <!-- Q31 -->
+    <div class="question-card">
+        <div class="question-text">31. Η μέθοδος αξιολόγησης του "Δείκτη Πλάκας" σε έναν ασθενή παρέχει μια άμεση ποσοτική εκτίμηση[cite: 1]:</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Του συνολικού βάρους των μικροοργανισμών που επικάθονται στη στοματική κοιλότητα.</div>
+            <div class="option" data-correct="false"><span class="option-label">B</span> Του ακριβούς ρυθμού με τον οποίο αναπτύσσονται τα οξεάντοχα βακτηριακά στελέχη.</div>
+            <div class="option" data-correct="true"><span class="option-label">C</span> Του ποσοστού των οδοντικών επιφανειών που εμφανίζουν κατακράτηση οδοντικής πλάκας.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Της παλαιότητας της πλάκας, διαχωρίζοντας την πρόσφατη από την πλήρως ενασβεστιωμένη.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Ο τύπος που δίνεται είναι: (Αριθμός οδοντικών επιφανειών με πλάκα / Συνολικός αριθμός οδοντικών επιφανειών) X 100[cite: 1].** Αυτό εκφράζει καθαρά το *ποσοστό* των επιφανειών με πλάκα (C)[cite: 1]. Δεν μετράει βάρος (A), ρυθμό ανάπτυξης μικροβίων (B) ή χρονική παλαιότητα (D), τα οποία αποτελούν αυθαίρετα συμπεράσματα.
+        </div>
+    </div>
+
+    <!-- Q32 -->
+    <div class="question-card">
+        <div class="question-text">32. Στο πλαίσιο των επιβαρυντικών ανατομικών παραγόντων, ποιος κλινικός σκοπός εξυπηρετείται μέσω της παρέμβασης "Λείανση - Στίλβωση"[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Η αύξηση της διεισδυτικότητας των φθοριούχων ιόντων στον βαθύτερο οδοντικό ιστό.</div>
+            <div class="option" data-correct="true"><span class="option-label">B</span> Η οριστική μείωση και εξομάλυνση των σημείων που προκαλούν κατακράτηση πλάκας.</div>
+            <div class="option" data-correct="false"><span class="option-label">C</span> Η αναχαίτιση της εξέλιξης των βλαβών που έχουν ήδη επεκταθεί στο πάχος της οδοντίνης.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Η χημική εξουδετέρωση του παραγόμενου γαλακτικού οξέος στην εξωτερική αδαμαντίνη.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Στην τελική διαφάνεια ("Κατάλληλη αντιμετώπιση..."), η λείανση και η στίλβωση στοχεύουν στην "Μείωση των σημείων κατακράτησης πλάκας"[cite: 1].** Άρα το B είναι σωστό[cite: 1]. Τραχείες επιφάνειες παγιδεύουν πλάκα[cite: 1]. Η διείσδυση φθορίου (A) ή η εξουδετέρωση οξέων (D) είναι χημικοί μηχανισμοί, όχι μηχανικοί. Η αντιμετώπιση βλαβών οδοντίνης (C) απαιτεί έμφραξη, όχι απλή λείανση.
+        </div>
+    </div>
+
+    <!-- Q33 -->
+    <div class="question-card">
+        <div class="question-text">33. Ποια είναι η ακριβής διάγνωση τερηδονικής δραστηριότητας εάν καταγραφούν 2 νέες και 1 ήδη υπάρχουσα βλάβη που εμφανίζει περαιτέρω εξέλιξη (Σύνολο = 3)[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Η δραστηριότητα κατατάσσεται ως χαμηλή επειδή οι νέες βλάβες δεν ξεπερνούν τις 2.</div>
+            <div class="option" data-correct="true"><span class="option-label">B</span> Η δραστηριότητα κατατάσσεται ως μέτρια διότι το άθροισμα των ενεργών βλαβών είναι 3.</div>
+            <div class="option" data-correct="false"><span class="option-label">C</span> Η δραστηριότητα κατατάσσεται ως υψηλή επειδή η εξέλιξη υπαρχουσών βλαβών μετράει διπλά.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Η δραστηριότητα θεωρείται μηδενική μέχρι να ολοκληρωθεί η ακτινογραφική αξιολόγηση.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Σύμφωνα με τον ορισμό (Αστερίσκος: "Νέες τερηδονικές βλάβες ή εξέλιξη υπαρχουσών"), αθροίζουμε όλες τις ενεργές βλάβες[cite: 1].** Το σύνολο εδώ είναι 3 βλάβες. Βάσει του πίνακα, 1-2 = Χαμηλή, 3-4 = Μέτρια, >4 = Υψηλή[cite: 1]. Επομένως, το άθροισμα των 3 βλαβών συνεπάγεται Μέτρια δραστηριότητα (B)[cite: 1]. Η επιλογή A αγνοεί την εξελισσόμενη βλάβη, ενώ το C αποτελεί ανύπαρκτο κανόνα.
+        </div>
+    </div>
+
+    <!-- Q34 -->
+    <div class="question-card">
+        <div class="question-text">34. Ο υπολογισμός του τερηδονικού κινδύνου (Τερηδονόγραμμα) αποτελεί μια πολυπαραγοντική διαδικασία. Ποιο από τα παρακάτω ΔΕΝ ανήκει στα συστατικά του[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Ο προσδιορισμός των ιδιοτήτων του σάλιου, όπως η ρυθμιστική ικανότητα.</div>
+            <div class="option" data-correct="false"><span class="option-label">B</span> Η καταγραφή της διατροφής, της στοματικής υγιεινής και της έκθεσης σε φθόριο.</div>
+            <div class="option" data-correct="true"><span class="option-label">C</span> Ο ακριβής υπολογισμός του κόστους της μελλοντικής προσθετικής αποκατάστασης.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Η αξιολόγηση της παρελθούσας τερηδονικής εμπειρίας και του μικροβιακού φορτίου.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Στη διαφάνεια "Τερηδονόγραμμα", αναφέρονται ρητά ως παράγοντες: Διατροφή, Στοματική υγιεινή, Μικροβιακό φορτίο, Έκθεση σε φθόριο, Τερηδονική εμπειρία, Ιδιότητες σάλιου, Άλλα νοσήματα[cite: 1].** Το οικονομικό κόστος (C) δεν αποτελεί επιστημονική, ιατρική παράμετρο για τον κλινικό υπολογισμό του κινδύνου νόσου, επομένως είναι η σωστή απάντηση (το στοιχείο που ΔΕΝ ανήκει).
+        </div>
+    </div>
+
+    <!-- Q35 -->
+    <div class="question-card">
+        <div class="question-text">35. Σε ασθενείς με υψηλή τερηδονική δραστηριότητα, ποια επιπλέον θεραπευτικά μέσα χρησιμοποιούνται σε σύγκριση με τη χαμηλή δραστηριότητα[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Μόνο η παροχή εντατικών οδηγιών για το σωστό καθημερινό βούρτσισμα των δοντιών.</div>
+            <div class="option" data-correct="false"><span class="option-label">B</span> Μόνο η συμβουλευτική για την πλήρη εξάλειψη των υδατανθράκων από τη διατροφή.</div>
+            <div class="option" data-correct="true"><span class="option-label">C</span> Η χορήγηση πυκνών φθοριούχων σκευασμάτων, στοματοπλυμάτων και επεμβατικών εμφράξεων.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Η αποκλειστική διενέργεια εξαγωγών σε όλα τα δόντια που παρουσιάζουν αρχόμενη αφαλάτωση.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Σύμφωνα με τον πίνακα "Μέτρα αντιμετώπισης" και την κλίμακα, η υψηλή δραστηριότητα απαιτεί όλα τα μέτρα: βούρτσισμα, δίαιτα, στοματοπλύματα, ΠΥΚΝΑ φθοριούχα, καθώς και θεραπευτικές ΕΜΦΡΑΞΕΙΣ των βλαβών[cite: 1].** Το C καλύπτει ορθά αυτή τη συνολική προσέγγιση[cite: 1]. Τα A και B αφορούν τη βάση αντιμετώπισης της χαμηλής δραστηριότητας, ενώ το D επιστρέφει στη φιλοσοφία του 1950.
+        </div>
+    </div>
+
+    <!-- Q36 -->
+    <div class="question-card">
+        <div class="question-text">36. Σε τι αποσκοπεί η χρήση των ακτινογραφιών στην οδοντιατρική παρακολούθηση (Ε.Π.Α.) πέραν της αρχικής επιλογής θεραπείας[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Στην άμεση ακύρωση όλων των προληπτικών μέτρων εάν διαπιστωθεί σταθερότητα της βλάβης.</div>
+            <div class="option" data-correct="true"><span class="option-label">B</span> Στη διαρκή και αξιόπιστη παρακολούθηση της κλινικής εξέλιξης της τερηδονικής νόσου.</div>
+            <div class="option" data-correct="false"><span class="option-label">C</span> Στη μέτρηση του δείκτη πλάκας μέσω ψηφιακής σκιαγράφησης των μικροβιακών μεμβρανών.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Στον ακριβή υπολογισμό της ταχύτητας παραγωγής του σάλιου ηρεμίας των υπογνάθιων αδένων.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Στη διαφάνεια "Διάγνωση του βάθους της βλάβης", ορίζονται δύο κύριοι σκοποί: "Για επιλογή κατάλληλου τρόπου αντιμετώπισης" και "Για παρακολούθηση της εξέλιξης της νόσου"[cite: 1].** Το B εκφράζει τον δεύτερο κρίσιμο ρόλο[cite: 1]. Η ακτινογραφία δεν μπορεί να μετρήσει πλάκα (C) ή σάλιο (D). Η σταθερότητα (απουσία εξέλιξης) είναι επιθυμητή και επιβεβαιώνει την επιτυχία της πρόληψης, δεν την ακυρώνει (A).
+        </div>
+    </div>
+
+    <!-- Q37 -->
+    <div class="question-card">
+        <div class="question-text">37. Στην αλυσίδα της αιτιοπαθογένειας, τι ακριβώς συμβαίνει όταν παρατηρείται "Απουσία ιόντων" στο οδοντικό περιβάλλον[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Το σάλιο εισέρχεται σε κατάσταση απόλυτου κορεσμού ευνοώντας την αδαμαντίνη.</div>
+            <div class="option" data-correct="false"><span class="option-label">B</span> Το υγρό περιβάλλον διατηρείται σταθερό αποτρέποντας κάθε μορφή μικροβιακής δράσης.</div>
+            <div class="option" data-correct="false"><span class="option-label">C</span> Ενεργοποιείται η άμεση εναπόθεση κρυστάλλων υδροξυαπατίτη στους προσβεβλημένους ιστούς.</div>
+            <div class="option" data-correct="true"><span class="option-label">D</span> Δημιουργείται ακόρεστο περιβάλλον το οποίο οδηγεί με μαθηματική ακρίβεια στην αφαλάτωση.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Το διάγραμμα "Αιτιοπαθογένεια της νόσου τερηδόνας" δείχνει ότι η Πτώση του pH προκαλεί "Απουσία ιόντων" στο σάλιο[cite: 1].** Αυτό με τη σειρά του δημιουργεί ένα "Ακόρεστο περιβάλλον", το οποίο έχει ως τελικό αποτέλεσμα την "Αφαλάτωση οδοντικών ιστών"[cite: 1]. Επομένως, το D είναι η ακριβής συνέπεια[cite: 1]. Οι άλλες επιλογές περιγράφουν την αντίθετη διαδικασία (προστασία/κορεσμός).
+        </div>
+    </div>
+
+    <!-- Q38 -->
+    <div class="question-card">
+        <div class="question-text">38. Η παρουσία του 'Σάλιου' αποτελεί κεντρικό παράγοντα στην αιτιοπαθογένεια της νόσου διότι εξασφαλίζει την[cite: 1]:</div>
+        <div class="options">
+            <div class="option" data-correct="true"><span class="option-label">A</span> Παροχή των απαραίτητων ανόργανων ιόντων για τη διατήρηση του φαινομένου της επανασβεστίωσης.</div>
+            <div class="option" data-correct="false"><span class="option-label">B</span> Αποκλειστική μεταφορά των ζυμώσιμων υδατανθράκων στους εσωτερικούς ιστούς της οδοντίνης.</div>
+            <div class="option" data-correct="false"><span class="option-label">C</span> Αύξηση της ικανότητας προσκόλλησης των τερηδονογόνων μικροβίων στην οδοντική επιφάνεια.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Απρόσκοπτη μετατροπή της ζάχαρης σε γαλακτικό οξύ απουσία του μικροβιακού παράγοντα.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Στο διάγραμμα "Σάλιο χωρίς ανόργανα ιόντα", φαίνεται ότι η έλλειψη ιόντων οδηγεί σε ακόρεστο περιβάλλον[cite: 1].** Συνεπώς, ο ρόλος του υγιούς σάλιου είναι η διαρκής παροχή των ανόργανων ιόντων (ασβέστιο, φώσφορος) που απαιτούνται για την επανασβεστίωση/κορεσμό[cite: 1] (επιλογή A). Τα μικρόβια (και όχι το σάλιο) μετατρέπουν τη ζάχαρη σε οξύ, οπότε οι άλλες επιλογές είναι παγίδες.
+        </div>
+    </div>
+
+    <!-- Q39 -->
+    <div class="question-card">
+        <div class="question-text">39. Σύμφωνα με την κλίμακα αξιολόγησης του "Δείκτη Πλάκας", ένας ασθενής με αποτέλεσμα κάτω του 10% θεωρείται[cite: 1]:</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Ασθενής που χρειάζεται επειγόντως αντιμικροβιακή αγωγή λόγω υψηλής ευπάθειας της στοματικής χλωρίδας.</div>
+            <div class="option" data-correct="true"><span class="option-label">B</span> Ασθενής με εξαιρετικά χαμηλή επιβάρυνση, εμφανίζοντας δείγματα εξαιρετικής στοματικής υγιεινής.</div>
+            <div class="option" data-correct="false"><span class="option-label">C</span> Ασθενής που εμπίπτει στη μεσαία (μέτρια) κατηγορία κινδύνου, απαιτώντας αυξημένη επιτήρηση.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Ασθενής με μηδενική ικανότητα άμυνας, καθιστώντας τον ευάλωτο σε περιοδοντικές αλλοιώσεις.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Βάσει του πίνακα "Καταγραφή συνηθειών στοματικής υγιεινής", όταν ο δείκτης πλάκας είναι < 10%, η επιβάρυνση χαρακτηρίζεται ως "Χαμηλή"[cite: 1].** Αυτό υποδηλώνει άριστο έλεγχο της πλάκας και άρα χαμηλό τερηδονικό κίνδυνο[cite: 1] (επιλογή B). Η μέτρια κατηγορία αφορά ποσοστά 10-40% (C). Τα A και D αντιφάσκουν πλήρως με την εξαιρετική κλινική εικόνα που προσδίδει ένας τόσο χαμηλός δείκτης.
+        </div>
+    </div>
+
+    <!-- Q40 -->
+    <div class="question-card">
+        <div class="question-text">40. Η εφαρμογή του "Διαφανοσκοπίου" (π.χ. συσκευή DiaLUX Probe) θεωρείται ιδιαίτερα χρήσιμη σε ποιες περιπτώσεις[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Στη μέτρηση του βάθους των περιοδοντικών θυλάκων κατά την κλινική περιοδοντολογική αξιολόγηση.</div>
+            <div class="option" data-correct="false"><span class="option-label">B</span> Στον ακριβή ποσοτικό υπολογισμό της παραγόμενης ποσότητας του μικροβιακού γαλακτικού οξέος.</div>
+            <div class="option" data-correct="true"><span class="option-label">C</span> Στην οπτική ανίχνευση αρχόμενων τερηδονικών αλλοιώσεων μέσω της μετάδοσης του φωτός στους ιστούς.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Στον εντοπισμό αποκλειστικά των βλαβών που έχουν φτάσει μέχρι τον πολφό προκαλώντας πολφίτιδα.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Το DiaLUX Probe χρησιμοποιεί "Διερχόμενο ορατό φως"[cite: 1].** Κατά τη διαφανοσκόπηση, μια πηγή έντονου φωτός τοποθετείται στον ιστό, και οι τερηδονισμένες (απασβεστιωμένες) περιοχές εμφανίζονται σκοτεινές λόγω αλλαγής του δείκτη διάθλασης[cite: 1]. Αυτό επιτρέπει την οπτική ανίχνευση βλαβών (C). Η μέθοδος δεν μετράει θύλακες (A), οξέα (B) και αποσκοπεί σε αρχόμενες βλάβες, όχι σε εκτεταμένες πολφίτιδες (D).
+        </div>
+    </div>  
+<div class="question-card">
+        <div class="question-text">41. Σύμφωνα με την ανάλυση της καμπύλης Stephan, όταν ένα άτομο καταναλώνει υδατάνθρακες ανά πολύ τακτά χρονικά διαστήματα, το pH του σάλιου[cite: 1]:</div>
+        <div class="options">
+            <div class="option" data-correct="true"><span class="option-label">A</span> Παραμένει διαρκώς σε επίπεδα κάτω από το κρίσιμο όριο αποτρέποντας την επανασβεστίωση.</div>
+            <div class="option" data-correct="false"><span class="option-label">B</span> Ανακάμπτει αμέσως στα φυσιολογικά επίπεδα λόγω υπερπαραγωγής αμυντικών ενζύμων.</div>
+            <div class="option" data-correct="false"><span class="option-label">C</span> Διατηρείται αυστηρά πάνω από το 5,5 εξαιτίας της συνεχούς μηχανικής τριβής της τροφής.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Ανεβαίνει απότομα προκαλώντας την ανεπιθύμητη κατακρήμνιση τρυγίας στα δόντια.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Όπως φαίνεται στο διάγραμμα της "συχνότητας λήψης τροφής", οι επαναλαμβανόμενες λήψεις σακχάρων δεν επιτρέπουν στο pH να ανακάμψει[cite: 1].** Οι καμπύλες πτώσης αλληλεπικαλύπτονται, οδηγώντας σε συνεχή παραμονή κάτω από το κρίσιμο όριο (5,5), οπότε επικρατεί η αφαλάτωση έναντι της επανασβεστίωσης[cite: 1] (επιλογή A). Τα μηχανικά ή ενζυμικά αίτια (B, C) δεν επαρκούν για να αντισταθμίσουν τη συνεχή οξύτητα.
+        </div>
+    </div>
+
+    <!-- Q42 -->
+    <div class="question-card">
+        <div class="question-text">42. Στην οικολογική θεωρία του P.D. Marsh, ποια μεταβολή θεωρείται ως ο καθοριστικός "εξωγενής παράγοντας" που πυροδοτεί τη νόσο[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Η απευθείας εισαγωγή ενός εντελώς νέου παθογόνου μικροοργανισμού στο στόμα.</div>
+            <div class="option" data-correct="false"><span class="option-label">B</span> Η φυσιολογική γήρανση και η επιταχυνόμενη απόπτωση των κυττάρων του βλεννογόνου.</div>
+            <div class="option" data-correct="false"><span class="option-label">C</span> Η ύπαρξη κάποιας κληρονομικής ανωμαλίας στην κρυσταλλική διάταξη της αδαμαντίνης.</div>
+            <div class="option" data-correct="true"><span class="option-label">D</span> Η συχνή παρουσία μεταβολίσιμου σακχάρου η οποία οδηγεί στην περιβαλλοντική αλλαγή.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Σύμφωνα με το διάγραμμα της οικολογικής θεωρίας (Marsh 1994), το "Μεταβολίσιμο σάκχαρο" αποτελεί τον εξωγενή παράγοντα[cite: 1].** Η κατανάλωσή του προκαλεί παραγωγή οξέος, δημιουργώντας την "Περιβαλλοντική αλλαγή" (χαμηλό pH), που επιλέγει τα οξεάντοχα μικρόβια[cite: 1] (D). Η νόσος δεν είναι απλή λοίμωξη (A) ούτε αμιγώς γενετική (C).
+        </div>
+    </div>
+
+    <!-- Q43 -->
+    <div class="question-card">
+        <div class="question-text">43. Ποια κλινική κατάσταση αποτελεί το "σύμπτωμα" και ποια το "αίτιο" της νόσου σύμφωνα με την ολιστική σύγχρονη προσέγγιση[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Η τερηδονική βλάβη είναι το αίτιο και η απώλεια οδοντικού ιστού αποτελεί το σύμπτωμα.</div>
+            <div class="option" data-correct="false"><span class="option-label">B</span> Ο πόνος είναι το κύριο αίτιο και η δημιουργία της κοιλότητας συνιστά το σύμπτωμα.</div>
+            <div class="option" data-correct="true"><span class="option-label">C</span> Ο συνδυασμός μικροβίων/τροφής είναι το αίτιο και η τερηδονική βλάβη το σύμπτωμα.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Η αφαλάτωση αποτελεί το βασικό αίτιο και το μικροβιακό φορτίο είναι το σύμπτωμα.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Στα διαγράμματα "Αιτιοπαθογένειας", διαχωρίζεται ξεκάθαρα το "Αίτιο" από το "Σύμπτωμα"[cite: 1].** Το σύμπτωμα είναι η ίδια η Τερηδονική Βλάβη (η κοιλότητα/αφαλάτωση), ενώ το αίτιο περιλαμβάνει το οικοσύστημα μικροβίων, τροφής, πλακάς και σάλιου[cite: 1] (C). Η παλαιότερη αντίληψη ταύτιζε λανθασμένα τη βλάβη με την ίδια τη νόσο.
+        </div>
+    </div>
+
+    <!-- Q44 -->
+    <div class="question-card">
+        <div class="question-text">44. Ποιος είναι ο κύριος λόγος για τον οποίο η τεχνική ακτινογραφίας μυλικής σύγκλισης (bite-wing) επιλέγεται για τις όμορες βλάβες[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Επειδή αποκαλύπτει αποκλειστικά το ανατομικό πάχος της υποκείμενης φατνιακής ακρολοφίας.</div>
+            <div class="option" data-correct="true"><span class="option-label">B</span> Διότι αποτρέπει την τεχνική αλληλεπικάλυψη των όμορων επιφανειών προγομφίων και γομφίων.</div>
+            <div class="option" data-correct="false"><span class="option-label">C</span> Καθώς απαιτεί ελάχιστη έως μηδενική δόση ιοντίζουσας ακτινοβολίας σε σχέση με την πανοραμική.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Επειδή παρέχει άριστη και λεπτομερή εικόνα του ακρορριζίου του δοντιού και των ιστών του.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Οι ακτινογραφίες μυλικής σύγκλισης καταγράφουν καθαρά τις όμορες επιφάνειες των οπισθίων δοντιών χωρίς αλληλεπικάλυψη, καθιστώντας τες ιδανικές για διάγνωση αρχόμενων όμορων βλαβών[cite: 1] (B).** Οι πανοραμικές παρουσιάζουν αλληλεπικάλυψη (C), και οι περιακρορριζικές επικεντρώνονται στο ακρορρίζιο, όχι στις όμορες μύλες[cite: 1] (D).
+        </div>
+    </div>
+
+    <!-- Q45 -->
+    <div class="question-card">
+        <div class="question-text">45. Όταν μια τερηδονική αλλοίωση καταγράφεται ως στάδιο D4 στον ακτινογραφικό έλεγχο, αυτό υποδεικνύει πρακτικά ότι η βλάβη[cite: 1]:</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Παραμένει περιορισμένη στο εξωτερικό μισό του στρώματος της οδοντικής αδαμαντίνης.</div>
+            <div class="option" data-correct="false"><span class="option-label">B</span> Έχει σταματήσει ακριβώς επάνω στο ανατομικό όριο της αδαμαντινοδοντινικής ένωσης.</div>
+            <div class="option" data-correct="false"><span class="option-label">C</span> Έχει εισχωρήσει στην οδοντίνη, αλλά το συνολικό της βάθος είναι μικρότερο από 1 mm.</div>
+            <div class="option" data-correct="true"><span class="option-label">D</span> Έχει επεκταθεί βαθιά μέσα στην οδοντίνη, ξεπερνώντας το 1 mm από την ένωση των ιστών.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Στην ταξινόμηση D (1-4), το D4 αντιπροσωπεύει τη βαθύτερη μορφή βλάβης[cite: 1].** Συγκεκριμένα, αφορά αλλοιώσεις που εκτείνονται στην οδοντίνη σε βάθος >1 mm[cite: 1] (D). Το D1 αφορά το εξωτερικό της αδαμαντίνης (A), το D2 το εσωτερικό της (B), και το D3 την οδοντίνη σε βάθος <1 mm (C)[cite: 1].
+        </div>
+    </div>
+
+    <!-- Q46 -->
+    <div class="question-card">
+        <div class="question-text">46. Κατά την εκτίμηση της ρυθμιστικής ικανότητας του σάλιου ad modum Ericsson, τι υποδηλώνει μια τιμή τελικού pH που ισούται με 5,0[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Εξαιρετική ικανότητα, παρέχοντας απόλυτη κλινική προστασία έναντι της τερηδόνας.</div>
+            <div class="option" data-correct="true"><span class="option-label">B</span> Μέτρια ικανότητα, καθώς η τιμή βρίσκεται μέσα στο θεωρητικό κλινικό εύρος 4,5 έως 5,5.</div>
+            <div class="option" data-correct="false"><span class="option-label">C</span> Κακή ικανότητα, υποδεικνύοντας σοβαρή δυσλειτουργία στους μείζονες σιελογόνους αδένες.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Αδύνατη τη μέτρηση, καθώς η κλίμακα Ericsson καταγράφει αποκλειστικά τιμές άνω του 6.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Σύμφωνα με τον πίνακα "Ρυθμιστική ικανότητα σάλιου", η κλίμακα είναι: Κακή (<4,5), Μέτρια (4,5-5,5), Καλή (>5,5)[cite: 1].** Η τιμή 5,0 εμπίπτει στα όρια της "Μέτριας" ρυθμιστικής ικανότητας[cite: 1] (επιλογή B). Η επιλογή A αφορά τιμές άνω του 5,5. Η επιλογή C αφορά τιμές κάτω του 4,5.
+        </div>
+    </div>
+
+    <!-- Q47 -->
+    <div class="question-card">
+        <div class="question-text">47. Κατά τον υπολογισμό του δείκτη οδοντικής πλάκας (%), η μαθηματική μέθοδος αξιολόγησης βασίζεται σταθερά[cite: 1]:</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Στη συσχέτιση των επιφανειών με πλάκα προς τις επιφάνειες με ενεργή τερηδονική βλάβη.</div>
+            <div class="option" data-correct="true"><span class="option-label">B</span> Στο πηλίκο των οδοντικών επιφανειών με πλάκα προς τον συνολικό αριθμό των επιφανειών.</div>
+            <div class="option" data-correct="false"><span class="option-label">C</span> Στο συνολικό βάρος της συλλεχθείσας πλάκας σε σχέση με τον όγκο του ημερήσιου σάλιου.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Στον ακριβή αριθμό των βακτηρίων ανά τετραγωνικό χιλιοστό μιας συγκεκριμένης επιφάνειας.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Ο τύπος του δείκτη είναι αυστηρά: (Αριθμός οδοντικών επιφανειών με πλάκα / Συνολικός αριθμός οδοντικών επιφανειών) X 100[cite: 1].** Αυτό εκφράζεται ως το πηλίκο των προσβεβλημένων επιφανειών προς το σύνολο των υπαρχουσών επιφανειών στο στόμα (B)[cite: 1]. Δεν λαμβάνονται υπόψη το βάρος της πλάκας, ο αριθμός των βακτηρίων ή οι υπάρχουσες βλάβες για αυτόν τον συγκεκριμένο δείκτη.
+        </div>
+    </div>
+
+    <!-- Q48 -->
+    <div class="question-card">
+        <div class="question-text">48. Σύμφωνα με το Εξατομικευμένο Πρόγραμμα Αντιμετώπισης (Ε.Π.Α.), η τοποθέτηση εμφράξεων σε ένα δόντι θεωρείται κυρίως[cite: 1]:</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Το μοναδικό και αποκλειστικό μέσο προληπτικής κάλυψης για ασθενείς χαμηλού κινδύνου.</div>
+            <div class="option" data-correct="false"><span class="option-label">B</span> Ένα προληπτικό μέτρο που εφαρμόζεται γενικευμένα για τη δραστική μείωση του μικροβιακού φορτίου.</div>
+            <div class="option" data-correct="true"><span class="option-label">C</span> Μια συμπτωματική μέθοδος θεραπείας που αντιμετωπίζει τη βλάβη και όχι την αιτία της νόσου.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Ο πρωταρχικός τρόπος για να αναστραφεί αποτελεσματικά η διαδικασία της αρχικής αφαλάτωσης.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Στις πρώτες διαφάνειες τονίζεται ότι η τοποθέτηση εμφράξεων αποτελεί "Συμπτωματική αντιμετώπιση" (θεραπεία της "μη επουλώσιμης" βλάβης), η οποία δεν αντιμετωπίζει τα αίτια της νόσου (μικρόβια, δίαιτα, σάλιο)[cite: 1].** Η ορθή απάντηση είναι η C[cite: 1]. Η αναστροφή της αφαλάτωσης γίνεται με το φθόριο και τη δίαιτα (D), ενώ για πρόληψη χρησιμοποιούνται οι καλύψεις, όχι οι εμφράξεις (B).
+        </div>
+    </div>
+
+    <!-- Q49 -->
+    <div class="question-card">
+        <div class="question-text">49. Στο εννοιολογικό μοντέλο της νόσου τερηδόνας (ζυγός νόσος-υγεία), η ιδανική κατάσταση της "υγείας" επικρατεί κλινικά όταν[cite: 1]:</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Η διαδικασία της αφαλάτωσης υπερβαίνει συστηματικά τη διαδικασία της επαναλάτωσης.</div>
+            <div class="option" data-correct="true"><span class="option-label">B</span> Η διαδικασία της επαναλάτωσης εξισορροπεί ή υπερισχύει σταθερά έναντι της αφαλάτωσης.</div>
+            <div class="option" data-correct="false"><span class="option-label">C</span> Σταματήσει πλήρως και δια παντός οποιαδήποτε οξεοβασική διακύμανση του pH στο σάλιο.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Αφαιρεθεί εντελώς και ανεπιστρεπτί η φυσιολογική μικροχλωρίδα από τη στοματική κοιλότητα.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Ο ζυγός "Νόσος - Υγεία" δείχνει ότι η ισορροπία εξαρτάται από τον κύκλο αφαλάτωσης και επαναλάτωσης[cite: 1].** Η υγεία επικρατεί όταν η επαναλάτωση βαρύνει περισσότερο ή είναι ίση, αποτρέποντας τη μόνιμη απώλεια ιστού (B)[cite: 1]. Οι διακυμάνσεις του pH και τα μικρόβια (C, D) είναι αδύνατον να εξαλειφθούν, καθώς αποτελούν μέρος της φυσιολογικής στοματικής χλωρίδας.
+        </div>
+    </div>
+
+    <!-- Q50 -->
+    <div class="question-card">
+        <div class="question-text">50. Σε ποια κατηγορία τερηδονικού κινδύνου ή δραστηριότητας ενδείκνυται πρωταρχικά η προληπτική εφαρμογή των καλύψεων (sealants)[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Αποκλειστικά στους ασθενείς που εμφανίζουν σταθερά τη χαμηλότερη δυνατή δραστηριότητα.</div>
+            <div class="option" data-correct="true"><span class="option-label">B</span> Σε ασθενείς που εμφανίζουν μέτρια έως υψηλή δραστηριότητα, ως μέτρο φυσικού φραγμού.</div>
+            <div class="option" data-correct="false"><span class="option-label">C</span> Σε άτομα όπου έχει ήδη επέλθει εκτεταμένη και επώδυνη καταστροφή του πολφικού ιστού.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Σε περιστατικά όπου έχει εντοπιστεί εργαστηριακά υπερβολική και συνεχής έκκριση σάλιου.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Σύμφωνα με τον πίνακα "Κατάλληλη αντιμετώπιση... / Μέσα αντιμετώπισης", οι "Καλύψεις" προστίθενται ως προληπτικό μέτρο στις κατηγορίες "Μέτρια" και "Υψηλή" δραστηριότητα / κίνδυνο[cite: 1].** Στη χαμηλή (A) συνήθως αρκεί η δίαιτα και το βούρτσισμα. Αν υπάρχει καταστροφή πολφού (C), απαιτείται ενδοδοντική θεραπεία, όχι κάλυψη οπών/σχισμών.
+        </div>
+    </div>
+
+    <!-- Q51 -->
+    <div class="question-card">
+        <div class="question-text">51. Εάν ένας ασθενής δεν παρουσιάσει καμία απολύτως νέα τερηδονική βλάβη κατά τη διάρκεια ενός έτους, πώς ταξινομείται κλινικά[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Ως ασθενής με χαμηλή τερηδονική δραστηριότητα επειδή βρίσκεται εντός του ορίου των 1-2.</div>
+            <div class="option" data-correct="false"><span class="option-label">B</span> Ως ασθενής με αποδεδειγμένα μηδενικό τερηδονικό κίνδυνο για την επόμενη κλινική τριετία.</div>
+            <div class="option" data-correct="true"><span class="option-label">C</span> Ως ασθενής με μηδενική τερηδονική δραστηριότητα, ανεξαρτήτως του θεωρητικού κινδύνου του.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Ως άτομο που δεν χρειάζεται απολύτως καμία περαιτέρω παρακολούθηση στο οδοντιατρείο.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Η απουσία νέων βλαβών (0 βλάβες) συνεπάγεται Μηδενική τερηδονική δραστηριότητα[cite: 1].** Ωστόσο, ο τερηδονικός "κίνδυνος" (που προκύπτει από δίαιτα, σάλιο, κ.λπ.) μπορεί να παραμένει υψηλός, γι' αυτό και απαιτείται "Πρόληψη" (C)[cite: 1]. Δεν υπάρχει κατηγορία ασθενούς που δεν χρειάζεται παρακολούθηση (D). Το όριο 1-2 αφορά τη "Χαμηλή" (A).
+        </div>
+    </div>
+
+    <!-- Q52 -->
+    <div class="question-card">
+        <div class="question-text">52. Οι ανατομικές ιδιαιτερότητες ενός δοντιού, όπως οι βαθιές οπές και σχισμές, δρουν παθογενετικά επειδή κυρίως[cite: 1]:</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Απελευθερώνουν τοξικά υποπροϊόντα που αποδομούν χημικά τη δομή του υδροξυαπατίτη.</div>
+            <div class="option" data-correct="true"><span class="option-label">B</span> Αποτελούν περιοχές που ευνοούν σημαντικά την τοπική κατακράτηση της οδοντικής πλάκας.</div>
+            <div class="option" data-correct="false"><span class="option-label">C</span> Μειώνουν δραστικά την παραγωγή του σάλιου καταστέλλοντας τη λειτουργία των αδένων.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Αντιστρέφουν την κανονική φορά της ιοντικής ανταλλαγής στην επιφάνεια όλου του δοντιού.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Στη διαφάνεια "Ανατομικές και λοιπές ιδιαιτερότητες", υποδεικνύεται ξεκάθαρα ότι οι βαθιές οπές αποτελούν σημεία "Κατακράτησης πλάκας"[cite: 1].** Επειδή ο καθαρισμός τους είναι δύσκολος, διευκολύνουν τη συσσώρευση μικροβίων (B)[cite: 1]. Δεν παράγουν τοξίνες από μόνες τους (A) και προφανώς δεν επηρεάζουν τη ροή των σιελογόνων αδένων (C).
+        </div>
+    </div>
+
+    <!-- Q53 -->
+    <div class="question-card">
+        <div class="question-text">53. Στο διάγραμμα της αιτιοπαθογένειας, ποιοι παράγοντες χαρακτηρίζονται ρητά ως "Επίκτητοι" και λειτουργούν επιβαρυντικά[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Τα ανατομικά χαρακτηριστικά των δοντιών που κληρονομήθηκαν κατευθείαν από τους γονείς.</div>
+            <div class="option" data-correct="false"><span class="option-label">B</span> Η φυσιολογική ηλικιακή φθορά και η προδιάθεση του σώματος για ανεπαρκή σιελόρροια.</div>
+            <div class="option" data-correct="true"><span class="option-label">C</span> Η επιμόλυνση με τερηδονογόνα μικρόβια κατά τη διάρκεια της ζωής του συγκεκριμένου ατόμου.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Οι μόνιμες δομικές ανωμαλίες της αδαμαντίνης που προκύπτουν στη φάση της διάπλασης.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Στο διάγραμμα "Επιβαρυντικοί και αμυντικοί παράγοντες", γίνεται σαφής διαχωρισμός[cite: 1].** Κάτω από τους "Επίκτητους παράγοντες", το βελάκι οδηγεί στην "Επιμόλυνση" (επιλογή C)[cite: 1]. Η κληρονομικότητα, τα ανατομικά και οι δομικές ανωμαλίες αφορούν τους "Κληρονομικούς" ή αναπτυξιακούς παράγοντες, που αποτελούν ξεχωριστή κατηγορία στο ίδιο διάγραμμα.
+        </div>
+    </div>
+
+    <!-- Q54 -->
+    <div class="question-card">
+        <div class="question-text">54. Σύμφωνα με την παρουσίαση, ποιο θεωρούνταν το βασικό χαρακτηριστικό της νόσου τερηδόνας τη δεκαετία του 1950[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Ότι αποτελούσε μια εντελώς δυναμική κατάσταση που αναστρεφόταν επιτυχώς με φθορίωση.</div>
+            <div class="option" data-correct="false"><span class="option-label">B</span> Ότι η νόσος προέκυπτε αποκλειστικά από την παντελή απουσία μικροβιακού ανταγωνισμού.</div>
+            <div class="option" data-correct="true"><span class="option-label">C</span> Ότι αντιπροσώπευε μια στατική, "μη επουλώσιμη" βλάβη των σκληρών οδοντικών ιστών.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Ότι ήταν αποκλειστικά ένα παροδικό υποκειμενικό σύμπτωμα χωρίς ιδιαίτερη κλινική σημασία.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Στη σύγκριση των ετών 1950 με 2005, αναφέρεται ότι παλαιότερα η τερηδόνα θεωρούνταν "Μη επουλώσιμη βλάβη" και αντιμετωπιζόταν αποκλειστικά μηχανικά με αντικατάσταση ιστού (εμφράξεις, εξαγωγές)[cite: 1].** Άρα το C είναι σωστό[cite: 1]. Η αντίληψη της "επούλωσης" (επανασβεστίωσης) (A) και της οικολογικής/μικροβιακής δυναμικής εδραιώθηκαν αρκετά αργότερα.
+        </div>
+    </div>
+
+    <!-- Q55 -->
+    <div class="question-card">
+        <div class="question-text">55. Ποιος είναι ο τελικός στόχος ενός επιτυχημένου Εξατομικευμένου Προγράμματος Αντιμετώπισης (Ε.Π.Α.) σε έναν ασθενή[cite: 1];</div>
+        <div class="options">
+            <div class="option" data-correct="false"><span class="option-label">A</span> Η διασφάλιση ότι ο ασθενής δεν θα χρειαστεί να ξαναβουρτσίσει τα δόντια του στο μέλλον.</div>
+            <div class="option" data-correct="false"><span class="option-label">B</span> Η πλήρης αντικατάσταση ολόκληρου του φραγμού του με νέα, βιοσυμβατά προσθετικά υλικά.</div>
+            <div class="option" data-correct="true"><span class="option-label">C</span> Η εξάλειψη του αιτίου μέσω της μείωσης επιβαρυντικών και ενίσχυσης αμυντικών παραγόντων.</div>
+            <div class="option" data-correct="false"><span class="option-label">D</span> Η συστηματική χορήγηση ισχυρών αντιβιοτικών σε τακτική βάση για τη συνεχή αποστείρωση.</div>
+        </div>
+        <div class="rationale">
+            **ΣΟΣ: Στο διάγραμμα της "Αιτιολογικής θεραπείας - Ε.Π.Α.", η ολοκληρωμένη αντιμετώπιση επιτυγχάνεται μέσω της "Ενίσχυσης άμυνας" και της "Μείωσης επιβάρυνσης"[cite: 1].** Αυτό συνιστά αιτιολογική θεραπεία (C)[cite: 1]. Η προσθετική αντικατάσταση (B) είναι συμπτωματική. Η αντιβίωση (D) δεν χρησιμοποιείται συστηματικά για τερηδόνα, και η κατάργηση του βουρτσίσματος (A) είναι φυσικά εκτός πραγματικότητας.
+        </div>
+    </div>
+
+</div>
+
+<script>
+    document.querySelectorAll('.question-card').forEach(card => {
+        const options = card.querySelectorAll('.option');
+        const rationale = card.querySelector('.rationale');
+
+        options.forEach(option => {
+            option.addEventListener('click', function() {
+                // Prevent multiple clicks
+                if (card.classList.contains('answered')) return;
+                card.classList.add('answered');
+
+                const isCorrect = this.getAttribute('data-correct') === 'true';
+
+                // Highlight options
+                options.forEach(opt => {
+                    opt.classList.add('disabled');
+                    if (opt.getAttribute('data-correct') === 'true') {
+                        opt.classList.add('correct');
+                    } else if (opt === this && !isCorrect) {
+                        opt.classList.add('wrong');
+                    }
+                });
+
+                // Show rationale
+                rationale.classList.add('visible');
+            });
+        });
+    });
+</script>
+</body>
+</html>
