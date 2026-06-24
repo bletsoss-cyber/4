@@ -1,0 +1,741 @@
+<!doctype html>
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Βασικά Γάγγλια - Θάλαμοι | Interactive MCQ Quiz</title>
+<style>
+:root {
+  color-scheme: light;
+  --bg: #f6f7f4;
+  --paper: #ffffff;
+  --ink: #1c2530;
+  --muted: #66717f;
+  --line: #d9dfd6;
+  --soft: #eef2ec;
+  --accent: #0f766e;
+  --accent-dark: #115e59;
+  --accent-soft: #d9f4ef;
+  --warn: #b45309;
+  --bad: #b42318;
+  --bad-soft: #fde8e5;
+  --good: #157347;
+  --good-soft: #e3f5e9;
+  --focus: #264e70;
+  --shadow: 0 18px 40px rgba(28, 37, 48, 0.08);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+  color: var(--ink);
+  background:
+    linear-gradient(180deg, #eef3f1 0, var(--bg) 360px),
+    var(--bg);
+  line-height: 1.5;
+}
+button, input, select { font: inherit; }
+button {
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 10px 14px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .15s ease, background .15s ease, border-color .15s ease, opacity .15s ease;
+}
+button:hover:not(:disabled) { background: var(--accent-dark); transform: translateY(-1px); }
+button:disabled { cursor: not-allowed; opacity: .45; }
+button.secondary { background: #fff; color: var(--accent-dark); border-color: #a8c9c3; }
+button.secondary:hover:not(:disabled) { background: var(--accent-soft); }
+button.ghost { background: transparent; color: var(--accent-dark); border-color: transparent; }
+button.ghost:hover:not(:disabled) { background: #eaf0ed; }
+.app-header {
+  padding: 30px 18px 18px;
+  border-bottom: 1px solid var(--line);
+}
+.container {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+}
+.header-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: end;
+}
+h1 {
+  margin: 0;
+  font-size: clamp(1.55rem, 3vw, 2.45rem);
+  line-height: 1.12;
+  letter-spacing: 0;
+}
+.subtitle {
+  margin: 8px 0 0;
+  color: var(--muted);
+  max-width: 760px;
+}
+.header-stat {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 8px;
+}
+.stat-pill {
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,.7);
+  border-radius: 6px;
+  padding: 9px 11px;
+  min-width: 96px;
+}
+.stat-pill strong { display: block; font-size: 1.25rem; line-height: 1; }
+.stat-pill span { display: block; margin-top: 4px; color: var(--muted); font-size: .82rem; }
+main { padding: 18px 0 38px; }
+.control-panel {
+  background: rgba(255,255,255,.82);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 14px;
+  box-shadow: 0 12px 28px rgba(28,37,48,.05);
+  margin-bottom: 14px;
+}
+.controls-grid {
+  display: grid;
+  grid-template-columns: minmax(190px, 1fr) minmax(220px, 1.35fr) auto auto;
+  gap: 12px;
+  align-items: end;
+}
+.field label, .toggle span, .mini-label {
+  display: block;
+  color: #30404f;
+  font-size: .86rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.field input, .field select {
+  width: 100%;
+  min-height: 42px;
+  border: 1px solid #cbd5cf;
+  border-radius: 6px;
+  padding: 9px 11px;
+  color: var(--ink);
+  background: #fff;
+}
+.field input:focus, .field select:focus, button:focus-visible, .option-button:focus-visible {
+  outline: 3px solid rgba(38,78,112,.22);
+  outline-offset: 2px;
+}
+.toggles {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 8px 10px;
+  border: 1px solid #cbd5cf;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+  user-select: none;
+}
+.toggle input { width: 18px; height: 18px; accent-color: var(--accent); }
+.toggle span { margin: 0; white-space: nowrap; }
+.control-actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+.filtered-count {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: .9rem;
+}
+.hud {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(120px, 1fr));
+  gap: 10px;
+  margin: 14px 0;
+}
+.hud-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+}
+.hud-card strong { display: block; font-size: 1.2rem; color: var(--ink); }
+.hud-card span { display: block; color: var(--muted); font-size: .83rem; margin-top: 3px; }
+.progress-track {
+  height: 9px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: #dfe6df;
+  margin: 2px 0 16px;
+}
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent), #2f9e44);
+  transition: width .25s ease;
+}
+.quiz-card, .results-card, .empty-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  padding: clamp(16px, 3vw, 26px);
+}
+.question-topline {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+  color: var(--muted);
+  font-size: .9rem;
+}
+.badge-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  border-radius: 999px;
+  border: 1px solid #cbd5cf;
+  padding: 4px 9px;
+  background: #f8faf8;
+  color: #30404f;
+  font-weight: 700;
+  font-size: .8rem;
+}
+.question-title {
+  margin: 0 0 18px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.18rem, 2.2vw, 1.62rem);
+  line-height: 1.32;
+  letter-spacing: 0;
+}
+.options-list {
+  display: grid;
+  gap: 10px;
+}
+.option-button {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  text-align: left;
+  border: 1px solid #cfd8d1;
+  border-radius: 8px;
+  padding: 13px;
+  background: #fff;
+  color: var(--ink);
+  cursor: pointer;
+  transition: border-color .15s ease, background .15s ease, transform .15s ease;
+}
+.option-button:hover:not(:disabled) { border-color: var(--accent); background: #f7fcfa; transform: translateY(-1px); }
+.option-button:disabled { cursor: default; opacity: 1; }
+.option-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #eef2ec;
+  color: var(--accent-dark);
+  font-weight: 800;
+}
+.option-text { padding-top: 3px; }
+.option-button.correct {
+  border-color: #6abf83;
+  background: var(--good-soft);
+}
+.option-button.correct .option-label { background: var(--good); color: #fff; }
+.option-button.incorrect {
+  border-color: #e19a91;
+  background: var(--bad-soft);
+}
+.option-button.incorrect .option-label { background: var(--bad); color: #fff; }
+.feedback {
+  margin-top: 16px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  padding: 14px;
+  background: #fbfcfb;
+}
+.feedback.good { border-color: #9bc9a8; background: #edf8f0; }
+.feedback.bad { border-color: #e4aaa4; background: #fff0ee; }
+.feedback h3 { margin: 0 0 6px; font-size: 1rem; }
+.feedback p { margin: 0; }
+.navigation-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  margin-top: 18px;
+}
+.next-note { color: var(--muted); font-size: .9rem; }
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(120px, 1fr));
+  gap: 10px;
+  margin: 16px 0;
+}
+.result-tile {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 14px;
+  background: #fbfcfb;
+}
+.result-tile strong { display: block; font-size: 1.55rem; line-height: 1; }
+.result-tile span { display: block; margin-top: 6px; color: var(--muted); }
+.result-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+.wrong-list {
+  margin-top: 16px;
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+}
+.wrong-list h3 { margin: 0 0 10px; font-size: 1rem; }
+.wrong-items {
+  display: grid;
+  gap: 8px;
+  max-height: 280px;
+  overflow: auto;
+}
+.wrong-item {
+  border: 1px solid #ead6d2;
+  border-radius: 6px;
+  padding: 9px 10px;
+  background: #fff8f6;
+  font-size: .92rem;
+}
+.wrong-item strong { color: var(--bad); }
+.hidden { display: none !important; }
+.tables-panel {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(220px, .7fr);
+  gap: 14px;
+}
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.info-table th, .info-table td {
+  border-bottom: 1px solid var(--line);
+  padding: 9px 10px;
+  text-align: left;
+}
+.info-table tr:last-child td { border-bottom: 0; }
+.info-table th { background: var(--soft); color: #30404f; font-size: .9rem; }
+@media (max-width: 900px) {
+  .header-grid { grid-template-columns: 1fr; }
+  .header-stat { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .controls-grid { grid-template-columns: 1fr; }
+  .control-actions { justify-content: flex-start; }
+  .hud, .results-grid, .tables-panel { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 620px) {
+  .container { width: min(100% - 20px, 1120px); }
+  .app-header { padding-top: 22px; }
+  .header-stat, .hud, .results-grid, .tables-panel { grid-template-columns: 1fr; }
+  .toggles, .control-actions, .navigation-row, .result-actions { flex-direction: column; align-items: stretch; }
+  .toggle { justify-content: flex-start; }
+  .option-button { grid-template-columns: 36px minmax(0, 1fr); padding: 12px; }
+  .option-label { width: 30px; height: 30px; }
+  .question-topline { display: block; }
+  .badge-row { margin-top: 8px; }
+}
+@media print {
+  body { background: #fff; color: #000; }
+  .control-panel, .navigation-row, .results-card, .empty-card { display: none !important; }
+  .app-header { border-bottom: 1px solid #888; padding: 0 0 12px; }
+  .quiz-card { box-shadow: none; border: 1px solid #888; }
+}
+</style>
+</head>
+<body>
+<header class="app-header">
+  <div class="container header-grid">
+    <div>
+      <h1>Βασικά Γάγγλια - Θάλαμοι</h1>
+      <p class="subtitle">Διαδραστικό quiz Νευροανατομίας με άμεση διόρθωση, αιτιολόγηση, φίλτρα και επανάληψη λαθών.</p>
+    </div>
+    <div class="header-stat" aria-label="Σύνοψη quiz">
+      <div class="stat-pill"><strong>72</strong><span>ερωτήσεις</span></div>
+      <div class="stat-pill"><strong>7</strong><span>κατηγορίες</span></div>
+    </div>
+  </div>
+</header>
+<main>
+  <div class="container">
+    <section class="control-panel" aria-label="Ρυθμίσεις quiz">
+      <div class="controls-grid">
+        <div class="field">
+          <label for="categoryFilter">Κατηγορία</label>
+          <select id="categoryFilter"></select>
+        </div>
+        <div class="field">
+          <label for="searchInput">Αναζήτηση</label>
+          <input id="searchInput" type="search" autocomplete="off" placeholder="π.χ. έσω κάψα, θάλαμος, αμυγδαλοειδής">
+        </div>
+        <div>
+          <span class="mini-label">Ανακάτεμα</span>
+          <div class="toggles">
+            <label class="toggle"><input id="shuffleQuestions" type="checkbox" checked><span>Ερωτήσεις</span></label>
+            <label class="toggle"><input id="shuffleAnswers" type="checkbox"><span>Απαντήσεις</span></label>
+          </div>
+        </div>
+        <div class="control-actions">
+          <button id="applyFilters" type="button">Εφαρμογή</button>
+          <button id="restartQuiz" type="button" class="secondary">Επανεκκίνηση</button>
+          <button id="repeatWrongTop" type="button" class="secondary" disabled>Λανθασμένες</button>
+        </div>
+      </div>
+      <div id="filteredCount" class="filtered-count" aria-live="polite"></div>
+    </section>
+
+    <section class="hud" aria-label="Πρόοδος και σκορ">
+      <div class="hud-card"><strong id="progressText">0 / 0</strong><span>Πρόοδος</span></div>
+      <div class="hud-card"><strong id="scoreText">0 / 0</strong><span>Σκορ</span></div>
+      <div class="hud-card"><strong id="answeredText">0</strong><span>Απαντημένες</span></div>
+      <div class="hud-card"><strong id="remainingText">0</strong><span>Υπόλοιπες</span></div>
+    </section>
+    <div class="progress-track" aria-hidden="true"><div id="progressFill" class="progress-fill"></div></div>
+
+    <section id="quizView" class="quiz-card" aria-live="polite">
+      <div class="question-topline">
+        <div id="questionNumber">Ερώτηση</div>
+        <div class="badge-row">
+          <span id="questionCategory" class="badge"></span>
+          <span id="questionSlides" class="badge"></span>
+        </div>
+      </div>
+      <h2 id="questionPrompt" class="question-title"></h2>
+      <div id="optionsList" class="options-list"></div>
+      <div id="feedback" class="feedback hidden"></div>
+      <div class="navigation-row">
+        <span id="nextNote" class="next-note"></span>
+        <button id="nextQuestion" type="button" disabled>Επόμενη ερώτηση</button>
+      </div>
+    </section>
+
+    <section id="emptyView" class="empty-card hidden">
+      <h2>Δεν βρέθηκαν ερωτήσεις</h2>
+      <p>Άλλαξε κατηγορία ή όρο αναζήτησης και πάτησε «Εφαρμογή».</p>
+    </section>
+
+    <section id="resultsView" class="results-card hidden" aria-live="polite">
+      <h2>Αποτελέσματα</h2>
+      <div class="results-grid">
+        <div class="result-tile"><strong id="resultScore">0 / 0</strong><span>Τελικό σκορ</span></div>
+        <div class="result-tile"><strong id="resultPercent">0%</strong><span>Ποσοστό</span></div>
+        <div class="result-tile"><strong id="resultCorrect">0</strong><span>Σωστές</span></div>
+        <div class="result-tile"><strong id="resultWrong">0</strong><span>Λανθασμένες</span></div>
+      </div>
+      <div class="badge-row">
+        <span class="badge">Σύνολο: <span id="resultTotal">0</span></span>
+        <span class="badge">Λειτουργία: <span id="resultMode">Τρέχον φίλτρο</span></span>
+      </div>
+      <div class="result-actions">
+        <button id="restartFromResults" type="button">Επανεκκίνηση</button>
+        <button id="repeatWrong" type="button" class="secondary" disabled>Επανάληψη λανθασμένων</button>
+      </div>
+      <div id="wrongList" class="wrong-list hidden">
+        <h3>Λανθασμένες ερωτήσεις</h3>
+        <div id="wrongItems" class="wrong-items"></div>
+      </div>
+    </section>
+
+    <section class="tables-panel" aria-label="Κατανομή quiz">
+      <table class="info-table">
+        <thead><tr><th>Κατηγορία</th><th>Ερωτήσεις</th></tr></thead>
+        <tbody><tr><td>Γενική οργάνωση βασικών γαγγλίων και ραβδωτού σώματος</td><td>9</td></tr>
+<tr><td>Κερκοφόρος πυρήνας</td><td>8</td></tr>
+<tr><td>Φακοειδής πυρήνας και κάψες</td><td>8</td></tr>
+<tr><td>Ταινιοειδής πυρήνας ή προτείχισμα</td><td>5</td></tr>
+<tr><td>Αμυγδαλοειδής πυρήνας</td><td>10</td></tr>
+<tr><td>Θάλαμος: μορφολογία, επιφάνειες και σχέσεις</td><td>16</td></tr>
+<tr><td>Θαλαμικοί πυρήνες, συνδέσεις και λειτουργική σημασία</td><td>16</td></tr></tbody>
+      </table>
+      <table class="info-table">
+        <thead><tr><th>Σωστή επιλογή</th><th>Πλήθος</th></tr></thead>
+        <tbody><tr><td>α)</td><td>18</td></tr>
+<tr><td>β)</td><td>18</td></tr>
+<tr><td>γ)</td><td>18</td></tr>
+<tr><td>δ)</td><td>18</td></tr></tbody>
+      </table>
+    </section>
+  </div>
+</main>
+<script id="quiz-data" type="application/json">[{"id":1,"prompt":"Σχετικά με τη γενική τοπογραφία των βασικών γαγγλίων, τι δεν ισχύει;","slides":"2","options":[{"label":"α","text":"Αποτελούν ευμέγεθες σύμπλεγμα φαιάς ουσίας μέσα στη λευκή ουσία της βάσης των ημισφαιρίων.","correct":false},{"label":"β","text":"Βρίσκονται κάτω από το έδαφος της πλάγιας κοιλίας, μεταξύ πλάγιας σχισμής και νήσου του Reil.","correct":false},{"label":"γ","text":"Εντοπίζονται κυρίως μέσα στον φλοιό της νήσου και προβάλλουν προς την επιφάνεια του ημισφαιρίου.","correct":true},{"label":"δ","text":"Στα βασικά γάγγλια υπάγονται το ραβδωτό σώμα, το προτείχισμα και ο αμυγδαλοειδής πυρήνας.","correct":false}],"answer":"γ","rationale":"Αιτιολόγηση: Η γ είναι λανθασμένη: οι διαφάνειες τοποθετούν τα βασικά γάγγλια μέσα στη λευκή ουσία της βάσης των ημισφαιρίων, όχι μέσα στον φλοιό της νήσου (διαφ. 2).","category":"Γενική οργάνωση βασικών γαγγλίων και ραβδωτού σώματος"},{"id":2,"prompt":"Ποια από τις παρακάτω αντιστοιχίες είναι σωστή;","slides":"3","options":[{"label":"α","text":"Ραβδωτό σώμα - κερκοφόρος και φακοειδής πυρήνας.","correct":true},{"label":"β","text":"Προτείχισμα - κερκοφόρος πυρήνας και κέλυφος.","correct":false},{"label":"γ","text":"Αμυγδαλοειδής πυρήνας - έσω μοίρα φακοειδούς πυρήνα.","correct":false},{"label":"δ","text":"Φακοειδής πυρήνας - κερκοφόρος και αμυγδαλοειδής πυρήνας.","correct":false}],"answer":"α","rationale":"Αιτιολόγηση: Η α είναι η ορθή αντιστοιχία: το ραβδωτό σώμα υποδιαιρείται στον κερκοφόρο και τον φακοειδή πυρήνα (διαφ. 3).","category":"Γενική οργάνωση βασικών γαγγλίων και ραβδωτού σώματος"},{"id":3,"prompt":"Σχετικά με την ονομασία του ραβδωτού σώματος, τι δεν ισχύει;","slides":"3","options":[{"label":"α","text":"Σε τομές εμφανίζει ραβδωτή όψη λόγω εμμύελων ταινιών που το διασχίζουν.","correct":false},{"label":"β","text":"Η ραβδωτή όψη σχετίζεται και με φαιά πετάλια στο πρόσθιο σκέλος της έσω κάψας.","correct":false},{"label":"γ","text":"Τα φαιά πετάλια συνδέουν τον κερκοφόρο με τον φακοειδή πυρήνα.","correct":false},{"label":"δ","text":"Η ραβδωτή όψη οφείλεται σε ίνες που συνδέουν το προτείχισμα με τον αμυγδαλοειδή πυρήνα.","correct":true}],"answer":"δ","rationale":"Αιτιολόγηση: Η δ αλλάζει τη σχέση: η ραβδωτή όψη αποδίδεται σε εμμύελες ταινίες και φαιά πετάλια που συνδέουν κερκοφόρο και φακοειδή, όχι προτείχισμα και αμυγδαλή (διαφ. 3).","category":"Γενική οργάνωση βασικών γαγγλίων και ραβδωτού σώματος"},{"id":4,"prompt":"Σχετικά με την κλινική ανατομική χρήση του όρου ραβδωτό σώμα, τι δεν ισχύει;","slides":"4","options":[{"label":"α","text":"Συχνά περιλαμβάνει τον κερκοφόρο πυρήνα και το κέλυφος του φακοειδούς πυρήνα.","correct":false},{"label":"β","text":"Η ωχρή σφαίρα περιγράφεται ως τμήμα του νεοραβδωτού σώματος μαζί με τον κερκοφόρο.","correct":true},{"label":"γ","text":"Η ωχρή σφαίρα αποτελεί την έσω μοίρα του φακοειδούς πυρήνα.","correct":false},{"label":"δ","text":"Ο αμυγδαλοειδής πυρήνας υπάγεται από μερικούς στο αρχιραβδωτό σώμα.","correct":false}],"answer":"β","rationale":"Αιτιολόγηση: Η β είναι λανθασμένη: νεοραβδωτό θεωρούνται ο κερκοφόρος και το κέλυφος, ενώ η ωχρή σφαίρα αποκαλείται παλαιοραβδωτό σώμα (διαφ. 4).","category":"Γενική οργάνωση βασικών γαγγλίων και ραβδωτού σώματος"},{"id":5,"prompt":"Ποιο από τα παρακάτω ισχύει για την οντογένεση των τμημάτων του ραβδωτού;","slides":"4","options":[{"label":"α","text":"Η ωχρή σφαίρα και το κέλυφος προέρχονται από ενιαία μάζα του διάμεσου εγκεφάλου.","correct":false},{"label":"β","text":"Ο κερκοφόρος πυρήνας και το κέλυφος προέρχονται από ενιαία πυρηνική μάζα του τελικού εγκεφάλου.","correct":true},{"label":"γ","text":"Ο αμυγδαλοειδής πυρήνας και η ωχρή σφαίρα αποτελούν το νεότερο τμήμα του ραβδωτού.","correct":false},{"label":"δ","text":"Το κέλυφος και το προτείχισμα σχηματίζουν μαζί την έσω μοίρα του φακοειδούς πυρήνα.","correct":false}],"answer":"β","rationale":"Αιτιολόγηση: Η β είναι σωστή: κερκοφόρος και κέλυφος έχουν κοινή τελεγκεφαλική προέλευση, ενώ η ωχρή σφαίρα προέρχεται κυρίως από τον διάμεσο εγκέφαλο (διαφ. 4).","category":"Γενική οργάνωση βασικών γαγγλίων και ραβδωτού σώματος"},{"id":6,"prompt":"Ποια από τις παρακάτω αντιστοιχίες είναι λανθασμένη;","slides":"4","options":[{"label":"α","text":"Κερκοφόρος και κέλυφος - νεοραβδωτό σώμα.","correct":false},{"label":"β","text":"Προτείχισμα και ωχρή σφαίρα - νεοραβδωτό σώμα.","correct":true},{"label":"γ","text":"Αμυγδαλοειδής πυρήνας - αρχιραβδωτό σώμα.","correct":false},{"label":"δ","text":"Ωχρή σφαίρα - παλαιοραβδωτό σώμα.","correct":false}],"answer":"β","rationale":"Αιτιολόγηση: Η β είναι λανθασμένη: το νεοραβδωτό αντιστοιχεί στον κερκοφόρο και το κέλυφος, όχι στο προτείχισμα με την ωχρή σφαίρα (διαφ. 4).","category":"Γενική οργάνωση βασικών γαγγλίων και ραβδωτού σώματος"},{"id":7,"prompt":"Σχετικά με τη λειτουργική οργάνωση των βασικών γαγγλίων, τι είναι λάθος;","slides":"19","options":[{"label":"α","text":"Ελέγχουν την κινητικότητα των γραμμωτών μυών με άμεσες φυγόκεντρες ίνες προς τον νωτιαίο μυελό.","correct":true},{"label":"β","text":"Δέχονται προσαγωγές από τον εγκεφαλικό φλοιό, τον θάλαμο, την υποθαλάμια χώρα και το στέλεχος.","correct":false},{"label":"γ","text":"Οι προσαγωγές πληροφορίες καταλήγουν τελικά στην ωχρή σφαίρα ως κεντρικό ρυθμιστικό όργανο.","correct":false},{"label":"δ","text":"Η ρύθμιση της κίνησης γίνεται κυρίως μέσω κινητικού και προκινητικού φλοιού και κέντρων στελέχους.","correct":false}],"answer":"α","rationale":"Αιτιολόγηση: Η α είναι λάθος: η διαφάνεια τονίζει έμμεσο έλεγχο μέσω φλοιού και όχι άμεσες φυγόκεντρες ίνες προς στέλεχος και νωτιαίο μυελό (διαφ. 19).","category":"Γενική οργάνωση βασικών γαγγλίων και ραβδωτού σώματος"},{"id":8,"prompt":"Ποια πρόταση αποδίδει σωστά τον κινητικό ρόλο των βασικών γαγγλίων;","slides":"20","options":[{"label":"α","text":"Καταργούν κυρίως τις αδρές κινήσεις των σύστοιχων άκρων μετά από βλάβη του κινητικού φλοιού.","correct":false},{"label":"β","text":"Αντικαθιστούν τον κινητικό φλοιό στην εκτέλεση των λεπτών κινήσεων των άνω άκρων.","correct":false},{"label":"γ","text":"Ρυθμίζουν και ελέγχουν τις αδρές κινήσεις των αντίθετων άκρων.","correct":true},{"label":"δ","text":"Αναστέλλουν τις περιστροφικές κινήσεις του σώματος κατά την έναρξη της κίνησης.","correct":false}],"answer":"γ","rationale":"Αιτιολόγηση: Η γ είναι σωστή: τα βασικά γάγγλια συνδέονται με τη ρύθμιση των αδρών κινήσεων των αντίθετων άκρων (διαφ. 20).","category":"Γενική οργάνωση βασικών γαγγλίων και ραβδωτού σώματος"},{"id":9,"prompt":"Σχετικά με την προετοιμασία μιας κίνησης από τα βασικά γάγγλια, τι δεν ισχύει;","slides":"20","options":[{"label":"α","text":"Μετά από βλάβη του κινητικού φλοιού διατηρούνται οι λεπτές κινήσεις και χάνονται οι αδρές κινήσεις.","correct":true},{"label":"β","text":"Αποστέλλονται κινητικές ώσεις που ρυθμίζουν τον τόνο των μυϊκών ομάδων που θα συνεργαστούν.","correct":false},{"label":"γ","text":"Ελέγχεται η θέση των κεντρικών τμημάτων των άκρων κατά την κινητική οργάνωση.","correct":false},{"label":"δ","text":"Ρυθμίζονται και περιστροφικές κινήσεις του σώματος στο πλαίσιο της κινητικότητας.","correct":false}],"answer":"α","rationale":"Αιτιολόγηση: Η α αντιστρέφει τη διαφάνεια: σε βλάβη κινητικού φλοιού χάνονται οι λεπτές κινήσεις, ενώ η δυνατότητα αδρών κινήσεων μπορεί να διατηρείται (διαφ. 20).","category":"Γενική οργάνωση βασικών γαγγλίων και ραβδωτού σώματος"},{"id":10,"prompt":"Σχετικά με το σχήμα και την πορεία του κερκοφόρου πυρήνα, τι δεν ισχύει;","slides":"5","options":[{"label":"α","text":"Έχει σχήμα αγκύλης με άνοιγμα στραμμένο προς τα εμπρός και κάτω.","correct":false},{"label":"β","text":"Φέρεται οβελιαία και εφάπτεται με το έξω τοίχωμα της πλάγιας κοιλίας.","correct":false},{"label":"γ","text":"Κείται παράλληλα και επί τα εκτός του θαλάμου σε όλη τη διαδρομή του.","correct":false},{"label":"δ","text":"Το πλάτος του αυξάνεται βαθμιαία από εμπρός προς τα πίσω.","correct":true}],"answer":"δ","rationale":"Αιτιολόγηση: Η δ είναι λάθος: το πλάτος του κερκοφόρου μειώνεται βαθμιαία από εμπρός προς τα πίσω (διαφ. 5).","category":"Κερκοφόρος πυρήνας"},{"id":11,"prompt":"Ποια είναι η σωστή διαίρεση του κερκοφόρου πυρήνα;","slides":"5","options":[{"label":"α","text":"Κέλυφος, ωχρή σφαίρα και προτείχισμα.","correct":false},{"label":"β","text":"Κεφαλή, σώμα και ουρά ή κέρκος.","correct":true},{"label":"γ","text":"Πρόσθιο, έσω και οπίσθιο φύμα.","correct":false},{"label":"δ","text":"Έξω, έσω και επικουρικό βασικό τμήμα.","correct":false}],"answer":"β","rationale":"Αιτιολόγηση: Η β είναι σωστή: ο κερκοφόρος αποτελείται από κεφαλή, σώμα και ουρά ή κέρκο (διαφ. 5).","category":"Κερκοφόρος πυρήνας"},{"id":12,"prompt":"Σχετικά με την κεφαλή του κερκοφόρου πυρήνα, τι δεν ισχύει;","slides":"6","options":[{"label":"α","text":"Αποτελεί το κάτω και έξω τοίχωμα του μετωπιαίου κέρατος της πλάγιας κοιλίας.","correct":false},{"label":"β","text":"Προς τα έξω χωρίζεται ραχιαία από τον φακοειδή με το πρόσθιο σκέλος της έσω κάψας.","correct":false},{"label":"γ","text":"Προς τα έξω χωρίζεται κοιλιακά από τον φακοειδή με το οπίσθιο σκέλος της έσω κάψας.","correct":true},{"label":"δ","text":"Προς τα κάτω συνάπτεται με την πρόσθια διάτρητη ουσία.","correct":false}],"answer":"γ","rationale":"Αιτιολόγηση: Η γ είναι λανθασμένη: κοιλιακά η κεφαλή συνδέεται με τον φακοειδή πυρήνα, ενώ ραχιαία χωρίζεται με το πρόσθιο σκέλος της έσω κάψας (διαφ. 6).","category":"Κερκοφόρος πυρήνας"},{"id":13,"prompt":"Σχετικά με το σώμα του κερκοφόρου πυρήνα, τι δεν ισχύει;","slides":"7","options":[{"label":"α","text":"Αποτελεί το κάτω τοίχωμα της κεντρικής μοίρας της πλάγιας κοιλίας.","correct":false},{"label":"β","text":"Προς τα μέσα χωρίζεται από τον θάλαμο με τη μεθόρια ταινία και φλέβα.","correct":false},{"label":"γ","text":"Προς τα έξω επικοινωνεί με τον ακτινωτό στέφανο.","correct":false},{"label":"δ","text":"Προς τα κάτω επικοινωνεί κυρίως με την έξω κάψα.","correct":true}],"answer":"δ","rationale":"Αιτιολόγηση: Η δ αλλάζει την κάψα: προς τα κάτω το σώμα του κερκοφόρου επικοινωνεί με την έσω κάψα, όχι με την έξω κάψα (διαφ. 7).","category":"Κερκοφόρος πυρήνας"},{"id":14,"prompt":"Ποια σχέση του σώματος του κερκοφόρου πυρήνα είναι σωστή;","slides":"7","options":[{"label":"α","text":"Προς τα μέσα χωρίζεται από τον θάλαμο με τη μεθόρια ταινία και φλέβα.","correct":true},{"label":"β","text":"Προς τα έξω χωρίζεται από τον θάλαμο με την υποθαλάμια αύλακα.","correct":false},{"label":"γ","text":"Προς τα κάτω σχηματίζει το άνω τοίχωμα του κροταφικού κέρατος.","correct":false},{"label":"δ","text":"Προς τα μέσα εφάπτεται στο προτείχισμα μέσω της έξω κάψας.","correct":false}],"answer":"α","rationale":"Αιτιολόγηση: Η α είναι η σωστή λεπτομέρεια: το σώμα χωρίζεται από τον θάλαμο με τη μεθόρια ταινία και φλέβα (διαφ. 7).","category":"Κερκοφόρος πυρήνας"},{"id":15,"prompt":"Σχετικά με την ουρά του κερκοφόρου πυρήνα, τι δεν ισχύει;","slides":"9","options":[{"label":"α","text":"Αποτελεί το άνω τοίχωμα του κροταφικού κέρατος της πλάγιας κοιλίας.","correct":false},{"label":"β","text":"Προς τα εμπρός συνάπτεται με τον αμυγδαλοειδή πυρήνα.","correct":false},{"label":"γ","text":"Αποτελεί το κάτω τοίχωμα του κροταφικού κέρατος της πλάγιας κοιλίας.","correct":true},{"label":"δ","text":"Ραχιαία επικοινωνεί με τον φακοειδή πυρήνα.","correct":false}],"answer":"γ","rationale":"Αιτιολόγηση: Η γ είναι λάθος: η ουρά σχηματίζει το άνω, όχι το κάτω, τοίχωμα του κροταφικού κέρατος (διαφ. 9).","category":"Κερκοφόρος πυρήνας"},{"id":16,"prompt":"Ποια από τις παρακάτω αντιστοιχίες δεν αποδίδεται σωστά;","slides":"6-9","options":[{"label":"α","text":"Κεφαλή κερκοφόρου - κάτω και έξω τοίχωμα μετωπιαίου κέρατος.","correct":false},{"label":"β","text":"Σώμα κερκοφόρου - κάτω τοίχωμα κεντρικής μοίρας πλάγιας κοιλίας.","correct":false},{"label":"γ","text":"Ουρά κερκοφόρου - άνω τοίχωμα κροταφικού κέρατος.","correct":false},{"label":"δ","text":"Ουρά κερκοφόρου - κάτω τοίχωμα κεντρικής μοίρας πλάγιας κοιλίας.","correct":true}],"answer":"δ","rationale":"Αιτιολόγηση: Η δ είναι λανθασμένη: το κάτω τοίχωμα της κεντρικής μοίρας αφορά το σώμα του κερκοφόρου, όχι την ουρά (διαφ. 7, 9).","category":"Κερκοφόρος πυρήνας"},{"id":17,"prompt":"Σχετικά με την τοπογραφία του κερκοφόρου πυρήνα, τι είναι λάθος;","slides":"5-7","options":[{"label":"α","text":"Εφάπτεται σε όλη τη διαδρομή του με το έξω τοίχωμα της πλάγιας κοιλίας.","correct":false},{"label":"β","text":"Φέρεται επί τα εντός του θαλάμου, χωρίς παρεμβολή ινών της έσω κάψας.","correct":true},{"label":"γ","text":"Η κεφαλή του σχετίζεται με το μετωπιαίο κέρας της πλάγιας κοιλίας.","correct":false},{"label":"δ","text":"Το σώμα του σχετίζεται προς τα κάτω με την έσω κάψα.","correct":false}],"answer":"β","rationale":"Αιτιολόγηση: Η β αντιστρέφει τη θέση: ο κερκοφόρος κείται επί τα εκτός του θαλάμου και σχετίζεται με την έσω κάψα (διαφ. 5, 7).","category":"Κερκοφόρος πυρήνας"},{"id":18,"prompt":"Σχετικά με το σχήμα και τη θέση του φακοειδούς πυρήνα, τι δεν ισχύει;","slides":"10","options":[{"label":"α","text":"Σε εγκάρσια και μετωπιαία διατομή έχει τριγωνικό σχήμα με βάση προς τα έξω.","correct":false},{"label":"β","text":"Σε οβελιαία διατομή έχει σχήμα αμφίκυρτου φακού.","correct":false},{"label":"γ","text":"Η βάση του σε εγκάρσια διατομή στρέφεται προς τα έσω.","correct":true},{"label":"δ","text":"Βρίσκεται κάτω και επί τα εκτός του κερκοφόρου πυρήνα.","correct":false}],"answer":"γ","rationale":"Αιτιολόγηση: Η γ είναι λανθασμένη: η βάση του τριγωνικού φακοειδούς πυρήνα στρέφεται προς τα έξω (διαφ. 10).","category":"Φακοειδής πυρήνας και κάψες"},{"id":19,"prompt":"Ποια από τις παρακάτω σχέσεις του φακοειδούς πυρήνα είναι σωστή;","slides":"10-11","options":[{"label":"α","text":"Προς τα έξω χωρίζεται από τον ταινιοειδή πυρήνα με την έξω κάψα.","correct":true},{"label":"β","text":"Προς τα μέσα χωρίζεται από τη νήσο του Reil με την εξώτατη κάψα.","correct":false},{"label":"γ","text":"Προς τα κάτω χωρίζεται από την κεφαλή του κερκοφόρου σε όλο το μήκος του.","correct":false},{"label":"δ","text":"Βρίσκεται μεταξύ προτειχίσματος και νήσου του Reil.","correct":false}],"answer":"α","rationale":"Αιτιολόγηση: Η α είναι σωστή: προς τα έξω ο φακοειδής χωρίζεται από το προτείχισμα με την έξω κάψα (διαφ. 11).","category":"Φακοειδής πυρήνας και κάψες"},{"id":20,"prompt":"Σχετικά με την έσω κάψα και τον φακοειδή πυρήνα, τι δεν ισχύει;","slides":"11","options":[{"label":"α","text":"Το πρόσθιο σκέλος της χωρίζει τον φακοειδή από την κεφαλή του κερκοφόρου.","correct":false},{"label":"β","text":"Η έξω κάψα χωρίζει τον φακοειδή από τον θάλαμο.","correct":true},{"label":"γ","text":"Η έσω κάψα μεσολαβεί στην έσω σχέση του φακοειδούς πυρήνα.","correct":false},{"label":"δ","text":"Το οπίσθιο σκέλος της χωρίζει τον φακοειδή από τον θάλαμο.","correct":false}],"answer":"β","rationale":"Αιτιολόγηση: Η β είναι λάθος: ο φακοειδής χωρίζεται από τον θάλαμο με το οπίσθιο σκέλος της έσω κάψας, όχι με την έξω κάψα (διαφ. 11).","category":"Φακοειδής πυρήνας και κάψες"},{"id":21,"prompt":"Σχετικά με τις κάτω σχέσεις του φακοειδούς πυρήνα, τι είναι λάθος;","slides":"11","options":[{"label":"α","text":"Μπροστά συνάπτεται με την κεφαλή του κερκοφόρου πυρήνα.","correct":false},{"label":"β","text":"Πίσω χωρίζεται από το άνω τοίχωμα του κροταφικού κέρατος.","correct":false},{"label":"γ","text":"Η οπίσθια σχέση με το κροταφικό κέρας γίνεται κυρίως μέσω της ουράς του κερκοφόρου.","correct":false},{"label":"δ","text":"Πίσω συνάπτεται άμεσα με τον αμυγδαλοειδή πυρήνα κατά μήκος του κροταφικού κέρατος.","correct":true}],"answer":"δ","rationale":"Αιτιολόγηση: Η δ είναι λανθασμένη: πίσω ο φακοειδής χωρίζεται από το άνω τοίχωμα του κροταφικού κέρατος κυρίως με την ουρά του κερκοφόρου (διαφ. 11).","category":"Φακοειδής πυρήνας και κάψες"},{"id":22,"prompt":"Ποια περιγραφή των μερών του φακοειδούς πυρήνα είναι σωστή;","slides":"12","options":[{"label":"α","text":"Το έσω μυελώδες πέταλο χωρίζει εξαρχής τον φακοειδή σε κέλυφος και προτείχισμα.","correct":false},{"label":"β","text":"Το έξω μυελώδες πέταλο χωρίζει τον φακοειδή σε κέλυφος έξω και ωχρή σφαίρα έσω.","correct":true},{"label":"γ","text":"Το κέλυφος βρίσκεται επί τα εντός και είναι ανοιχτόχρωμο σε σχέση με την ωχρή σφαίρα.","correct":false},{"label":"δ","text":"Η ωχρή σφαίρα βρίσκεται επί τα εκτός και αντιστοιχεί στην έξω κάψα.","correct":false}],"answer":"β","rationale":"Αιτιολόγηση: Η β είναι σωστή: με το έξω μυελώδες πέταλο ο φακοειδής διαιρείται σε έξω κέλυφος και έσω ωχρή σφαίρα (διαφ. 12).","category":"Φακοειδής πυρήνας και κάψες"},{"id":23,"prompt":"Σχετικά με τα μυελώδη πέταλα του φακοειδούς, τι δεν ισχύει;","slides":"12","options":[{"label":"α","text":"Το έξω μυελώδες πέταλο είναι δεσμίδα λευκής ουσίας.","correct":false},{"label":"β","text":"Το έσω μυελώδες πέταλο υποδιαιρεί την ωχρή σφαίρα σε έξω και έσω τμήμα.","correct":false},{"label":"γ","text":"Το έσω τμήμα της ωχρής σφαίρας είναι μικρότερο και αντιστοιχεί στο γόνατο της έσω κάψας.","correct":false},{"label":"δ","text":"Το έξω μυελώδες πέταλο υποδιαιρεί την ωχρή σφαίρα σε δύο μικρότερα τμήματα.","correct":true}],"answer":"δ","rationale":"Αιτιολόγηση: Η δ συγχέει τα πέταλα: την ωχρή σφαίρα σε έξω και έσω τμήμα τη διαιρεί το έσω μυελώδες πέταλο (διαφ. 12).","category":"Φακοειδής πυρήνας και κάψες"},{"id":24,"prompt":"Ποια από τις παρακάτω αντιστοιχίες δεν είναι σωστή;","slides":"12","options":[{"label":"α","text":"Κέλυφος - έσω, μικρότερη και ανοιχτόχρωμη μοίρα του φακοειδούς.","correct":true},{"label":"β","text":"Ωχρή σφαίρα - έσω, μικρότερη και περισσότερο ανοιχτόχρωμη μοίρα.","correct":false},{"label":"γ","text":"Έσω μυελώδες πέταλο - διαίρεση της ωχρής σφαίρας σε δύο τμήματα.","correct":false},{"label":"δ","text":"Έσω τμήμα ωχρής σφαίρας - αντιστοιχία με το γόνατο της έσω κάψας.","correct":false}],"answer":"α","rationale":"Αιτιολόγηση: Η α είναι λάθος: το κέλυφος βρίσκεται επί τα εκτός και είναι σκουρόχρωμο, ενώ η ωχρή σφαίρα είναι έσω και πιο ανοιχτόχρωμη (διαφ. 12).","category":"Φακοειδής πυρήνας και κάψες"},{"id":25,"prompt":"Σχετικά με την τοπογραφία του φακοειδούς πυρήνα, τι δεν ισχύει;","slides":"10-11","options":[{"label":"α","text":"Βρίσκεται κάτω και επί τα εκτός του κερκοφόρου πυρήνα.","correct":false},{"label":"β","text":"Παρεμβάλλεται μεταξύ θαλάμου και ταινιοειδούς πυρήνα.","correct":false},{"label":"γ","text":"Προς τα μέσα σχετίζεται με την έσω κάψα.","correct":false},{"label":"δ","text":"Κείται επί τα έσω του θαλάμου και χωρίζεται από αυτόν με την εξώτατη κάψα.","correct":true}],"answer":"δ","rationale":"Αιτιολόγηση: Η δ αντιστρέφει τις σχέσεις: ο φακοειδής είναι μεταξύ θαλάμου και προτειχίσματος, ενώ από τον θάλαμο τον χωρίζει το οπίσθιο σκέλος της έσω κάψας (διαφ. 10-11).","category":"Φακοειδής πυρήνας και κάψες"},{"id":26,"prompt":"Σχετικά με τη μορφολογία του προτειχίσματος, τι δεν ισχύει;","slides":"13","options":[{"label":"α","text":"Αποτελεί λεπτό υπόκοιλο φαιό πέταλο.","correct":false},{"label":"β","text":"Φέρεται οβελιαία ανάμεσα στη νήσο του Reil και το κέλυφος.","correct":false},{"label":"γ","text":"Φέρεται εγκάρσια ανάμεσα στον θάλαμο και την ωχρή σφαίρα.","correct":true},{"label":"δ","text":"Η εξωτερική και η εσωτερική του επιφάνεια περιγράφονται με ήπια κύρτωση και κοιλότητα.","correct":false}],"answer":"γ","rationale":"Αιτιολόγηση: Η γ είναι λανθασμένη: το προτείχισμα φέρεται οβελιαία μεταξύ νήσου του Reil και κελύφους, όχι εγκάρσια μεταξύ θαλάμου και ωχρής σφαίρας (διαφ. 13).","category":"Ταινιοειδής πυρήνας ή προτείχισμα"},{"id":27,"prompt":"Ποια τοπογραφική σχέση του προτειχίσματος είναι σωστή;","slides":"13","options":[{"label":"α","text":"Χωρίζεται από τη νήσο του Reil με την εξώτατη κάψα και από το κέλυφος με την έξω κάψα.","correct":true},{"label":"β","text":"Χωρίζεται από τη νήσο του Reil με την έσω κάψα και από το κέλυφος με τη ζωνιαία στιβάδα.","correct":false},{"label":"γ","text":"Χωρίζεται από το κέλυφος με την εξώτατη κάψα και από τον θάλαμο με την έξω κάψα.","correct":false},{"label":"δ","text":"Χωρίζεται από τον κερκοφόρο με την έξω κάψα και από τη νήσο με το οπίσθιο σκέλος της έσω κάψας.","correct":false}],"answer":"α","rationale":"Αιτιολόγηση: Η α είναι σωστή: εξώτατη κάψα προς τη νήσο του Reil και έξω κάψα προς το κέλυφος (διαφ. 13).","category":"Ταινιοειδής πυρήνας ή προτείχισμα"},{"id":28,"prompt":"Σχετικά με τις περιγραφές του προτειχίσματος, τι δεν ισχύει;","slides":"14","options":[{"label":"α","text":"Άλλοι το περιγράφουν ως τμήμα των βασικών γαγγλίων.","correct":false},{"label":"β","text":"Περιγράφεται και ως πρόσθετη φλοιώδης στιβάδα της νήσου του Reil.","correct":false},{"label":"γ","text":"Μπορεί να θεωρηθεί ξεχωριστός πυρήνας σχετικός με λειτουργίες του ρινικού εγκεφάλου.","correct":false},{"label":"δ","text":"Περιγράφεται ως ο κύριος πυρήνας της έξω ομάδας του θαλάμου.","correct":true}],"answer":"δ","rationale":"Αιτιολόγηση: Η δ είναι λάθος: η διαφάνεια το συνδέει με βασικά γάγγλια, νήσο ή ρινικό εγκέφαλο, όχι με ομάδα θαλαμικών πυρήνων (διαφ. 14).","category":"Ταινιοειδής πυρήνας ή προτείχισμα"},{"id":29,"prompt":"Ποια από τις παρακάτω σχέσεις του προτειχίσματος είναι σωστή;","slides":"14","options":[{"label":"α","text":"Με την κορυφή του συνάπτεται με το έσω γονατώδες σώμα.","correct":false},{"label":"β","text":"Με την πλατιά του βάση συνάπτεται με τον προαπιοειδή φλοιό και τον έξω πυρήνα της αμυγδαλής.","correct":true},{"label":"γ","text":"Με την έσω επιφάνειά του σχηματίζει τη διάμεση μάζα του θαλάμου.","correct":false},{"label":"δ","text":"Με το πρόσθιο άκρο του αφορίζει το μεσοκοιλιακό τρήμα.","correct":false}],"answer":"β","rationale":"Αιτιολόγηση: Η β είναι σωστή: η πλατιά βάση του προτειχίσματος συνάπτεται με τον προαπιοειδή φλοιό και τον έξω αμυγδαλικό πυρήνα (διαφ. 14).","category":"Ταινιοειδής πυρήνας ή προτείχισμα"},{"id":30,"prompt":"Ποια από τις παρακάτω σχέσεις είναι λανθασμένη;","slides":"13-14","options":[{"label":"α","text":"Προτείχισμα - ανάμεσα στη νήσο του Reil και το κέλυφος.","correct":false},{"label":"β","text":"Προτείχισμα - κατάγεται από τον φλοιό της νήσου του Reil.","correct":false},{"label":"γ","text":"Προτείχισμα - λειτουργική αποστολή όχι πλήρως αποσαφηνισμένη.","correct":false},{"label":"δ","text":"Προτείχισμα - χωρίζεται από τη νήσο του Reil με την έσω κάψα.","correct":true}],"answer":"δ","rationale":"Αιτιολόγηση: Η δ αλλάζει την κάψα: από τη νήσο του Reil το προτείχισμα χωρίζεται με την εξώτατη, όχι με την έσω, κάψα (διαφ. 13-14).","category":"Ταινιοειδής πυρήνας ή προτείχισμα"},{"id":31,"prompt":"Σχετικά με τη θέση του αμυγδαλοειδούς πυρήνα, τι δεν ισχύει;","slides":"15","options":[{"label":"α","text":"Βρίσκεται στο πρόσθιο άκρο του άνω τοιχώματος του κροταφικού κέρατος.","correct":false},{"label":"β","text":"Συγχωνεύεται με την ουρά του κερκοφόρου πυρήνα στην περιοχή αυτή.","correct":false},{"label":"γ","text":"Βρίσκεται στο οπίσθιο άκρο του κάτω τοιχώματος του κροταφικού κέρατος.","correct":true},{"label":"δ","text":"Έχει μέγεθος και σχήμα που παραπέμπουν σε αμύγδαλο.","correct":false}],"answer":"γ","rationale":"Αιτιολόγηση: Η γ είναι λάθος: ο αμυγδαλοειδής βρίσκεται πρόσθια στο άνω τοίχωμα του κροταφικού κέρατος, όπου συγχωνεύεται με την ουρά του κερκοφόρου (διαφ. 15).","category":"Αμυγδαλοειδής πυρήνας"},{"id":32,"prompt":"Ποια σχέση του αμυγδαλοειδούς πυρήνα είναι σωστή;","slides":"15","options":[{"label":"α","text":"Προς τα επάνω εφάπτεται στον φλοιό του αγκίστρου της ιπποκάμπειας έλικας.","correct":true},{"label":"β","text":"Προς τα εμπρός συνάπτεται με το οπίσθιο σκέλος της έσω κάψας.","correct":false},{"label":"γ","text":"Προς τα πίσω εφάπτεται με το πρόσθιο φύμα του θαλάμου.","correct":false},{"label":"δ","text":"Προς τα επάνω και έσω σχετίζεται κυρίως με το έξω γονατώδες σώμα.","correct":false}],"answer":"α","rationale":"Αιτιολόγηση: Η α είναι σωστή: η διαφάνεια αναφέρει άνω σχέση με τον φλοιό του αγκίστρου της ιπποκάμπειας έλικας (διαφ. 15).","category":"Αμυγδαλοειδής πυρήνας"},{"id":33,"prompt":"Σχετικά με τη φυλογενετική θέση του αμυγδαλοειδούς πυρήνα, τι δεν ισχύει;","slides":"4, 15","options":[{"label":"α","text":"Υπάγεται στο νεοραβδωτό σώμα μαζί με τον κερκοφόρο και το κέλυφος.","correct":true},{"label":"β","text":"Υπάγεται από μερικούς στο αρχιραβδωτό σώμα.","correct":false},{"label":"γ","text":"Αποτελεί μεταβατικό σχηματισμό μεταξύ φλοιού και πυρήνα.","correct":false},{"label":"δ","text":"Δεν ταυτίζεται με την ωχρή σφαίρα του φακοειδούς πυρήνα.","correct":false}],"answer":"α","rationale":"Αιτιολόγηση: Η α είναι λανθασμένη: νεοραβδωτό είναι κερκοφόρος και κέλυφος, ενώ ο αμυγδαλοειδής υπάγεται στο αρχιραβδωτό σώμα (διαφ. 4, 15).","category":"Αμυγδαλοειδής πυρήνας"},{"id":34,"prompt":"Σχετικά με τις ομάδες πυρήνων του αμυγδαλοειδούς, τι δεν ισχύει;","slides":"16","options":[{"label":"α","text":"Η φλοιική-έσω ομάδα είναι φυλογενετικά παλαιότερη.","correct":false},{"label":"β","text":"Στη φλοιική-έσω ομάδα καταλήγουν ίνες από τον οσφρητικό βολβό.","correct":false},{"label":"γ","text":"Η βασική-έξω ομάδα εκπορεύει τις ίνες της τελικής ή μεθόριας ταινίας.","correct":true},{"label":"δ","text":"Η βασική-έξω ομάδα συνδέεται με τον προαπιοειδή και τον μεταβατικό ρινικό φλοιό.","correct":false}],"answer":"γ","rationale":"Αιτιολόγηση: Η γ μεταφέρει λειτουργία σε λάθος ομάδα: οι ίνες της τελικής ή μεθόριας ταινίας εκπορεύονται από τη φλοιική-έσω ομάδα (διαφ. 16).","category":"Αμυγδαλοειδής πυρήνας"},{"id":35,"prompt":"Ποια πρόταση για τη φλοιική-έσω ομάδα του αμυγδαλοειδούς είναι σωστή;","slides":"16","options":[{"label":"α","text":"Δέχεται οπτικές και ακουστικές διεγέρσεις και συγκροτείται από έξω, βασικό και επικουρικό-βασικό πυρήνα.","correct":false},{"label":"β","text":"Δέχεται οσφρητικές διεγέρσεις και περιλαμβάνει τον φλοιικό, τον έσω και τον κεντρικό πυρήνα.","correct":true},{"label":"γ","text":"Συνδέεται κυρίως με τον κινητικό, προκινητικό και αισθητικό φλοιό μέσω άνω μίσχου.","correct":false},{"label":"δ","text":"Αποτελεί την έσω μοίρα του φακοειδούς πυρήνα και διαιρείται με το έσω μυελώδες πέταλο.","correct":false}],"answer":"β","rationale":"Αιτιολόγηση: Η β είναι σωστή: η φλοιική-έσω ομάδα δέχεται οσφρητικές διεγέρσεις και περιλαμβάνει φλοιικό, έσω και κεντρικό πυρήνα (διαφ. 16).","category":"Αμυγδαλοειδής πυρήνας"},{"id":36,"prompt":"Σχετικά με τη βασική-έξω ομάδα του αμυγδαλοειδούς, τι δεν ισχύει;","slides":"16","options":[{"label":"α","text":"Συνδέεται με τον προαπιοειδή και τον μεταβατικό ρινικό φλοιό.","correct":false},{"label":"β","text":"Δέχεται οπτικές και ακουστικές διεγέρσεις.","correct":false},{"label":"γ","text":"Συγκροτείται από τον έξω, τον βασικό και τον επικουρικό-βασικό πυρήνα.","correct":false},{"label":"δ","text":"Συγκροτείται από τον φλοιικό, τον έσω και τον κεντρικό αμυγδαλικό πυρήνα.","correct":true}],"answer":"δ","rationale":"Αιτιολόγηση: Η δ περιγράφει τη φλοιική-έσω ομάδα, όχι τη βασική-έξω ομάδα (διαφ. 16).","category":"Αμυγδαλοειδής πυρήνας"},{"id":37,"prompt":"Σχετικά με τη λειτουργική αποστολή του αμυγδαλοειδούς πυρήνα, τι δεν ισχύει;","slides":"17","options":[{"label":"α","text":"Δέχεται πληροφορίες από όλες τις αισθήσεις.","correct":false},{"label":"β","text":"Συμμετέχει σε σωματικές αντιδράσεις συνδεόμενες με συναισθηματική συμπεριφορά.","correct":false},{"label":"γ","text":"Περιορίζεται στην επεξεργασία ακουστικών πληροφοριών χωρίς κινητική συσχέτιση.","correct":true},{"label":"δ","text":"Συνδέεται με την επεξεργασία της μακροπρόθεσμης μνήμης.","correct":false}],"answer":"γ","rationale":"Αιτιολόγηση: Η γ είναι λάθος: η διαφάνεια του αποδίδει πληροφορίες από όλες τις αισθήσεις, κινητική συμπεριφορά και μνήμη, όχι μόνο ακουστική επεξεργασία (διαφ. 17).","category":"Αμυγδαλοειδής πυρήνας"},{"id":38,"prompt":"Ποιο ζεύγος λειτουργικής επίδρασης είναι σωστό;","slides":"17","options":[{"label":"α","text":"Φλοιική-έσω ομάδα - υπερσεξουαλικότητα, επιθετικότητα και αύξηση της όρεξης.","correct":true},{"label":"β","text":"Βασική-έξω ομάδα - κύρια πρόκληση υπερσεξουαλικότητας και αύξησης της όρεξης.","correct":false},{"label":"γ","text":"Φλοιική-έσω ομάδα - αποκλειστικά κατασταλτική δράση.","correct":false},{"label":"δ","text":"Βασική-έξω ομάδα - έναρξη των ινών της τελικής ταινίας.","correct":false}],"answer":"α","rationale":"Αιτιολόγηση: Η α είναι σωστή: η φλοιική-έσω ομάδα θεωρείται ότι προκαλεί υπερσεξουαλικότητα, επιθετικότητα και αύξηση της όρεξης, ενώ η βασική-έξω έχει κατασταλτική δράση (διαφ. 17).","category":"Αμυγδαλοειδής πυρήνας"},{"id":39,"prompt":"Σχετικά με τις κλινικές παρατηρήσεις για τον αμυγδαλοειδή πυρήνα, τι δεν ισχύει;","slides":"18","options":[{"label":"α","text":"Ερεθισμός του αμυγδαλοειδούς προκαλεί ανησυχία και φόβο.","correct":false},{"label":"β","text":"Ο ερεθισμός του έχει αναφερθεί ως προληπτικό μέτρο στη θεραπεία της επιληψίας.","correct":false},{"label":"γ","text":"Αμφοτερόπλευρη εκτομή πρόσθιου κροταφικού λοβού σχετίζεται με σύνδρομο Kluver-Bucy.","correct":false},{"label":"δ","text":"Το σύνδρομο Kluver-Bucy αποδίδεται αποκλειστικά σε βλάβη του οπίσθιου θαλάμου.","correct":true}],"answer":"δ","rationale":"Αιτιολόγηση: Η δ είναι λανθασμένη: η διαφάνεια το συνδέει με αμφοτερόπλευρη εκτομή πρόσθιων κροταφικών λοβών και αφαίρεση ανασταλτικών κέντρων και ιππόκαμπου (διαφ. 18).","category":"Αμυγδαλοειδής πυρήνας"},{"id":40,"prompt":"Σχετικά με το σύνδρομο Kluver-Bucy όπως παρουσιάζεται, τι δεν ισχύει;","slides":"18","options":[{"label":"α","text":"Μπορεί να εμφανιστεί μετά από αμφοτερόπλευρη εκτομή του πρόσθιου τμήματος των κροταφικών λοβών.","correct":false},{"label":"β","text":"Χαρακτηρίζεται από αύξηση της επιθετικότητας και ελάττωση της όρεξης.","correct":true},{"label":"γ","text":"Συνοδεύεται από υπερσεξουαλικότητα και αυξημένη όρεξη.","correct":false},{"label":"δ","text":"Οι διαταραχές μνήμης σχετίζονται και με την αφαίρεση του ιππόκαμπου.","correct":false}],"answer":"β","rationale":"Αιτιολόγηση: Η β αντιστρέφει τα χαρακτηριστικά: στη διαφάνεια αναφέρονται ελάττωση επιθετικότητας, ανησυχία, υπερσεξουαλικότητα και αυξημένη όρεξη (διαφ. 18).","category":"Αμυγδαλοειδής πυρήνας"},{"id":41,"prompt":"Σχετικά με τα γενικά μορφολογικά στοιχεία των θαλάμων, τι δεν ισχύει;","slides":"21","options":[{"label":"α","text":"Παριστάνουν δύο μεγάλα συμπλέγματα πυρήνων ωοειδούς σχήματος.","correct":false},{"label":"β","text":"Βρίσκονται εκατέρωθεν της πλάγιας κοιλίας και όχι της τρίτης κοιλίας.","correct":true},{"label":"γ","text":"Έχουν μήκος περίπου 4 εκ. και πλάτος περίπου 2 εκ.","correct":false},{"label":"δ","text":"Κάθε θάλαμος σχηματίζει γωνία περίπου 30° με τη μέση γραμμή.","correct":false}],"answer":"β","rationale":"Αιτιολόγηση: Η β είναι λάθος: οι θάλαμοι βρίσκονται εκατέρωθεν της τρίτης κοιλίας (διαφ. 21).","category":"Θάλαμος: μορφολογία, επιφάνειες και σχέσεις"},{"id":42,"prompt":"Ποια περιγραφή των άκρων του θαλάμου είναι σωστή;","slides":"22","options":[{"label":"α","text":"Το πρόσθιο άκρο είναι στενότερο και φέρεται προς τα εμπρός και μέσα.","correct":true},{"label":"β","text":"Το πρόσθιο άκρο είναι ογκωδέστερο και αποκαλείται προσκέφαλο.","correct":false},{"label":"γ","text":"Το οπίσθιο άκρο είναι στενότερο και σχηματίζει το τρήμα του Monro.","correct":false},{"label":"δ","text":"Το οπίσθιο άκρο φέρεται προς τα εμπρός και μέσα.","correct":false}],"answer":"α","rationale":"Αιτιολόγηση: Η α είναι σωστή: το πρόσθιο άκρο είναι στενότερο και φέρεται εμπρός και μέσα, ενώ το οπίσθιο είναι ογκωδέστερο και λέγεται προσκέφαλο (διαφ. 22).","category":"Θάλαμος: μορφολογία, επιφάνειες και σχέσεις"},{"id":43,"prompt":"Σχετικά με την άνω επιφάνεια του θαλάμου, τι δεν ισχύει;","slides":"22","options":[{"label":"α","text":"Καλύπτεται από λεπτή στιβάδα λευκής ουσίας, τη ζωνιαία στιβάδα.","correct":false},{"label":"β","text":"Προς τα έξω εκτείνεται μέχρι τη μεθόρια ταινία.","correct":false},{"label":"γ","text":"Προς τα μέσα χωρίζεται από την έσω επιφάνεια με τη θαλαμική ταινία.","correct":false},{"label":"δ","text":"Καλύπτεται από την έξω κάψα και χωρίζεται από το προτείχισμα.","correct":true}],"answer":"δ","rationale":"Αιτιολόγηση: Η δ είναι λανθασμένη: η άνω επιφάνεια καλύπτεται από ζωνιαία στιβάδα και σχετίζεται με μεθόρια/θαλαμική ταινία, όχι με έξω κάψα και προτείχισμα (διαφ. 22).","category":"Θάλαμος: μορφολογία, επιφάνειες και σχέσεις"},{"id":44,"prompt":"Ποια περιγραφή της χοριοειδούς αύλακας της άνω επιφάνειας είναι σωστή;","slides":"22","options":[{"label":"α","text":"Χωρίζει την έσω επιφάνεια από τον υποθάλαμο και έχει υπόθεμα την τελική ταινία.","correct":false},{"label":"β","text":"Συνδέει το οπίσθιο άκρο με τα γονατώδη σώματα και αφορίζει το προσκέφαλο.","correct":false},{"label":"γ","text":"Διαιρεί την άνω επιφάνεια σε πρόσθια-έξω μοίρα με πρόσθιο φύμα και οπίσθια-έσω μοίρα με οπίσθιο φύμα.","correct":true},{"label":"δ","text":"Χωρίζει τον φακοειδή πυρήνα από τον θάλαμο με το οπίσθιο σκέλος της έσω κάψας.","correct":false}],"answer":"γ","rationale":"Αιτιολόγηση: Η γ είναι σωστή: η λοξή χοριοειδής αύλακα διαιρεί την άνω επιφάνεια στις δύο αυτές μοίρες με αντίστοιχα φύματα (διαφ. 22).","category":"Θάλαμος: μορφολογία, επιφάνειες και σχέσεις"},{"id":45,"prompt":"Σχετικά με την κάτω επιφάνεια του θαλάμου, τι δεν ισχύει;","slides":"23-24","options":[{"label":"α","text":"Σχετίζεται προς τα εμπρός με την υποθαλάμια χώρα.","correct":false},{"label":"β","text":"Σχετίζεται προς τα πίσω με την καλύπτρα του μέσου εγκεφάλου.","correct":false},{"label":"γ","text":"Επικάθεται στο γόνυ του μεσολοβίου και στην έσω κάψα.","correct":true},{"label":"δ","text":"Η πρόσθια και οπίσθια σχέση της περιγράφονται διαφορετικά.","correct":false}],"answer":"γ","rationale":"Αιτιολόγηση: Η γ είναι λάθος: η κάτω επιφάνεια επικάθεται στην υποθαλάμια χώρα μπροστά και στην καλύπτρα του μέσου εγκεφάλου πίσω (διαφ. 23-24).","category":"Θάλαμος: μορφολογία, επιφάνειες και σχέσεις"},{"id":46,"prompt":"Σχετικά με την έσω επιφάνεια του θαλάμου, τι δεν ισχύει;","slides":"23","options":[{"label":"α","text":"Εκτείνεται από το μεσοκοιλιακό τρήμα μέχρι τον οπίσθιο σύνδεσμο του εγκεφάλου.","correct":false},{"label":"β","text":"Προς τα επάνω χωρίζεται από την άνω επιφάνεια με την υποθαλάμια αύλακα.","correct":true},{"label":"γ","text":"Προς τα κάτω χωρίζεται από τον υποθάλαμο με την υποθαλάμια αύλακα.","correct":false},{"label":"δ","text":"Είναι ελαφρώς υπόκυρτη σύμφωνα με την περιγραφή της διαφάνειας.","correct":false}],"answer":"β","rationale":"Αιτιολόγηση: Η β αλλάζει το όριο: προς τα επάνω η έσω επιφάνεια χωρίζεται από την άνω με τη μυέλινη ταινία, ενώ προς τα κάτω από τον υποθάλαμο με την υποθαλάμια αύλακα (διαφ. 23).","category":"Θάλαμος: μορφολογία, επιφάνειες και σχέσεις"},{"id":47,"prompt":"Σχετικά με την έξω επιφάνεια του θαλάμου, τι είναι λάθος;","slides":"23-24","options":[{"label":"α","text":"Αφορίζει από τα πλάγια την τρίτη κοιλία και δέχεται τη διάμεση μάζα.","correct":true},{"label":"β","text":"Χωρίζεται από τον φακοειδή πυρήνα με το οπίσθιο σκέλος της έσω κάψας.","correct":false},{"label":"γ","text":"Περιγράφεται ως έντονα υπόκυρτη επιφάνεια.","correct":false},{"label":"δ","text":"Συμμετέχει στις πλάγιες σχέσεις του θαλάμου με την έσω κάψα.","correct":false}],"answer":"α","rationale":"Αιτιολόγηση: Η α περιγράφει την έσω, όχι την έξω, επιφάνεια: η έσω αφορίζει την τρίτη κοιλία και σε αυτή προσφύεται η διάμεση μάζα (διαφ. 24).","category":"Θάλαμος: μορφολογία, επιφάνειες και σχέσεις"},{"id":48,"prompt":"Ποια σχέση του πρόσθιου άκρου του θαλάμου είναι σωστή;","slides":"24","options":[{"label":"α","text":"Σχετίζεται προς τα έξω με το έξω γονατώδες σώμα.","correct":false},{"label":"β","text":"Καλύπτεται προς τα μέσα από το χοριοειδές ιστίο της τρίτης κοιλίας.","correct":false},{"label":"γ","text":"Χωρίζεται από τον φακοειδή με την έξω κάψα.","correct":false},{"label":"δ","text":"Αφορίζει με τα πρόσθια σκέλη της ψαλίδας το τρήμα του Monro.","correct":true}],"answer":"δ","rationale":"Αιτιολόγηση: Η δ είναι σωστή: το πρόσθιο άκρο του θαλάμου αφορίζει με τα πρόσθια σκέλη της ψαλίδας το τρήμα του Monro (διαφ. 24).","category":"Θάλαμος: μορφολογία, επιφάνειες και σχέσεις"},{"id":49,"prompt":"Σχετικά με το οπίσθιο άκρο του θαλάμου, τι δεν ισχύει;","slides":"24","options":[{"label":"α","text":"Αποκαλείται και προσκέφαλο του θαλάμου.","correct":false},{"label":"β","text":"Είναι ογκωδέστερο από το πρόσθιο άκρο.","correct":false},{"label":"γ","text":"Σχετίζεται προς τα έξω με το έξω γονατώδες σώμα.","correct":false},{"label":"δ","text":"Σχετίζεται προς τα έξω με το έσω γονατώδες σώμα και προς τα μέσα με το έξω.","correct":true}],"answer":"δ","rationale":"Αιτιολόγηση: Η δ αντιστρέφει τα γονατώδη σώματα: προς τα έξω σχετίζεται με το έξω γονατώδες και προς τα μέσα με το έσω γονατώδες (διαφ. 24).","category":"Θάλαμος: μορφολογία, επιφάνειες και σχέσεις"},{"id":50,"prompt":"Σχετικά με την άνω επιφάνεια του θαλάμου στις σχέσεις της, τι δεν ισχύει;","slides":"24","options":[{"label":"α","text":"Προς τα έξω σχηματίζει το έδαφος της κεντρικής μοίρας της πλάγιας κοιλίας.","correct":false},{"label":"β","text":"Προς τα μέσα καλύπτεται από το χοριοειδές ιστίο της τρίτης κοιλίας.","correct":false},{"label":"γ","text":"Προς τα έξω σχηματίζει την οροφή της κεντρικής μοίρας της πλάγιας κοιλίας.","correct":true},{"label":"δ","text":"Συνδέεται τοπογραφικά με την περιοχή της πλάγιας και της τρίτης κοιλίας.","correct":false}],"answer":"γ","rationale":"Αιτιολόγηση: Η γ αντιστρέφει το επίπεδο: η άνω επιφάνεια σχηματίζει το έδαφος, όχι την οροφή, της κεντρικής μοίρας της πλάγιας κοιλίας (διαφ. 24).","category":"Θάλαμος: μορφολογία, επιφάνειες και σχέσεις"},{"id":51,"prompt":"Ποια περιγραφή της κάτω επιφάνειας του θαλάμου είναι σωστή;","slides":"24","options":[{"label":"α","text":"Προς τα εμπρός σχετίζεται με το έξω γονατώδες σώμα και πίσω με το προτείχισμα.","correct":false},{"label":"β","text":"Προς τα εμπρός σχετίζεται με την υποθαλάμια χώρα και πίσω με την καλύπτρα του μέσου εγκεφάλου.","correct":true},{"label":"γ","text":"Προς τα εμπρός αφορίζει το τρήμα του Monro και πίσω σχηματίζει το πρόσθιο φύμα.","correct":false},{"label":"δ","text":"Προς τα εμπρός χωρίζεται από τον φακοειδή με την έξω κάψα και πίσω με την εξώτατη κάψα.","correct":false}],"answer":"β","rationale":"Αιτιολόγηση: Η β είναι σωστή και αποδίδει ακριβώς την πρόσθια και οπίσθια σχέση της κάτω επιφάνειας (διαφ. 24).","category":"Θάλαμος: μορφολογία, επιφάνειες και σχέσεις"},{"id":52,"prompt":"Σχετικά με την έσω επιφάνεια του θαλάμου, τι είναι λάθος;","slides":"24","options":[{"label":"α","text":"Χωρίζεται από την τρίτη κοιλία με το οπίσθιο σκέλος της έσω κάψας.","correct":true},{"label":"β","text":"Αφορίζει από τα πλάγια την τρίτη κοιλία.","correct":false},{"label":"γ","text":"Σε αυτήν προσφύεται η διάμεση μάζα.","correct":false},{"label":"δ","text":"Συνδέεται με την έσω οριοθέτηση της τρίτης κοιλίας.","correct":false}],"answer":"α","rationale":"Αιτιολόγηση: Η α είναι λάθος: η έσω επιφάνεια αποτελεί πλάγιο όριο της τρίτης κοιλίας, ενώ η έσω κάψα αφορά κυρίως την έξω επιφάνεια (διαφ. 24).","category":"Θάλαμος: μορφολογία, επιφάνειες και σχέσεις"},{"id":53,"prompt":"Ποια σχέση της έξω επιφάνειας του θαλάμου είναι σωστή;","slides":"24","options":[{"label":"α","text":"Χωρίζεται από τον φακοειδή πυρήνα με το οπίσθιο σκέλος της έσω κάψας.","correct":true},{"label":"β","text":"Αφορίζει με τα πρόσθια σκέλη της ψαλίδας το τρήμα του Monro.","correct":false},{"label":"γ","text":"Καλύπτεται από το χοριοειδές ιστίο της τρίτης κοιλίας προς τα μέσα.","correct":false},{"label":"δ","text":"Χωρίζεται από τον υποθάλαμο με τη θαλαμική ταινία.","correct":false}],"answer":"α","rationale":"Αιτιολόγηση: Η α είναι σωστή: η έξω επιφάνεια χωρίζεται από τον φακοειδή με το οπίσθιο σκέλος της έσω κάψας (διαφ. 24).","category":"Θάλαμος: μορφολογία, επιφάνειες και σχέσεις"},{"id":54,"prompt":"Σχετικά με τη διάμεση μάζα ή μεσοθαλάμια σύνδεση, τι δεν ισχύει;","slides":"29","options":[{"label":"α","text":"Συνδέει τους δύο θαλάμους σε άλλοτε άλλη έκταση.","correct":false},{"label":"β","text":"Απαντά περίπου στο 75-80% σύμφωνα με τη διαφάνεια.","correct":false},{"label":"γ","text":"Υπάρχει σε όλους τους εγκεφάλους και χωρίζει τους θαλάμους μεταξύ τους.","correct":true},{"label":"δ","text":"Μπορεί να έχει κυλινδρικό ή ταινιοειδές σχήμα.","correct":false}],"answer":"γ","rationale":"Αιτιολόγηση: Η γ είναι λανθασμένη: η διάμεση μάζα συνδέει τους θαλάμους και αναφέρεται σε ποσοστό 75-80%, όχι ως καθολική δομή που τους χωρίζει (διαφ. 29).","category":"Θάλαμος: μορφολογία, επιφάνειες και σχέσεις"},{"id":55,"prompt":"Σχετικά με την υποθαλάμια αύλακα, τι δεν ισχύει;","slides":"31","options":[{"label":"α","text":"Χωρίζει τον θάλαμο από την υποθαλάμια χώρα.","correct":false},{"label":"β","text":"Εκτείνεται από τον υδραγωγό του εγκεφάλου μέχρι το μεσοκοιλιακό τρήμα.","correct":false},{"label":"γ","text":"Εκτείνεται από τον πρόσθιο σύνδεσμο μέχρι το έξω γονατώδες σώμα.","correct":true},{"label":"δ","text":"Το μήκος της αναφέρεται περίπου στα 2,3 εκ.","correct":false}],"answer":"γ","rationale":"Αιτιολόγηση: Η γ είναι λάθος: η υποθαλάμια αύλακα εκτείνεται από τον υδραγωγό μέχρι το μεσοκοιλιακό τρήμα και έχει μήκος περίπου 2,3 εκ. (διαφ. 31).","category":"Θάλαμος: μορφολογία, επιφάνειες και σχέσεις"},{"id":56,"prompt":"Ποια περιγραφή της θαλαμικής ταινίας είναι σωστή;","slides":"22-23, 26","options":[{"label":"α","text":"Αντιστοιχεί στο οπίσθιο σκέλος της έσω κάψας ανάμεσα σε θάλαμο και φακοειδή.","correct":false},{"label":"β","text":"Χωρίζει προς τα μέσα την άνω από την έσω επιφάνεια και έχει ως υπόθεμα τη μυέλινη ταινία.","correct":true},{"label":"γ","text":"Σχηματίζει το άνω τοίχωμα του κροταφικού κέρατος μαζί με την ουρά του κερκοφόρου.","correct":false},{"label":"δ","text":"Διαιρεί την ωχρή σφαίρα σε έξω και έσω τμήμα.","correct":false}],"answer":"β","rationale":"Αιτιολόγηση: Η β είναι σωστή: η θαλαμική ταινία, με υπόθεμα τη μυέλινη ταινία, χωρίζει την άνω από την έσω επιφάνεια προς τα μέσα (διαφ. 22-23, 26).","category":"Θάλαμος: μορφολογία, επιφάνειες και σχέσεις"},{"id":57,"prompt":"Σχετικά με τη μορφολογική διαίρεση του θαλάμου, τι δεν ισχύει;","slides":"32","options":[{"label":"α","text":"Γίνεται με τη βοήθεια του έξω και έσω μυελώδους πετάλου.","correct":false},{"label":"β","text":"Γίνεται κυρίως με την έσω κάψα και τη χοριοειδή αύλακα.","correct":true},{"label":"γ","text":"Τα μυελώδη πέταλα είναι πέταλα λευκής ουσίας.","correct":false},{"label":"δ","text":"Προκύπτουν ομάδες πυρήνων όπως πρόσθιοι, έσω και έξω πυρήνες.","correct":false}],"answer":"β","rationale":"Αιτιολόγηση: Η β είναι λάθος: η μορφολογική διαίρεση γίνεται με το έξω και έσω μυελώδες πέταλο, όχι με την έσω κάψα και τη χοριοειδή αύλακα (διαφ. 32).","category":"Θαλαμικοί πυρήνες, συνδέσεις και λειτουργική σημασία"},{"id":58,"prompt":"Ποια πρόταση για τους πρόσθιους πυρήνες του θαλάμου είναι σωστή;","slides":"32","options":[{"label":"α","text":"Περιλαμβάνουν πρόσθιο-κοιλιακό, πρόσθιο-ραχιαίο και πρόσθιο-έσω πυρήνα.","correct":true},{"label":"β","text":"Αποτελούνται από έξω ραχιαίο και οπίσθιο-έξω ραχιαίο πυρήνα.","correct":false},{"label":"γ","text":"Ταυτίζονται με τους πυρήνες του προσκέφαλου.","correct":false},{"label":"δ","text":"Βρίσκονται μεταξύ έξω μυελώδους πετάλου και έσω κάψας.","correct":false}],"answer":"α","rationale":"Αιτιολόγηση: Η α είναι σωστή: η διαφάνεια απαριθμεί τους πρόσθιους πυρήνες ως πρόσθιο-κοιλιακό, πρόσθιο-ραχιαίο και πρόσθιο-έσω (διαφ. 32).","category":"Θαλαμικοί πυρήνες, συνδέσεις και λειτουργική σημασία"},{"id":59,"prompt":"Σχετικά με τους έσω πυρήνες του θαλάμου, τι δεν ισχύει;","slides":"32","options":[{"label":"α","text":"Ο κυριότερος πυρήνας της ομάδας είναι ο ραχιαίος-έσω.","correct":false},{"label":"β","text":"Αποτελούν χωριστή ομάδα στη μορφολογική διαίρεση.","correct":false},{"label":"γ","text":"Κυριότερος πυρήνας τους είναι ο οπίσθιος κοιλιακός.","correct":true},{"label":"δ","text":"Διακρίνονται από τους έξω και τους πρόσθιους πυρήνες.","correct":false}],"answer":"γ","rationale":"Αιτιολόγηση: Η γ είναι λανθασμένη: ο κυριότερος έσω πυρήνας είναι ο ραχιαίος-έσω, όχι ο οπίσθιος κοιλιακός (διαφ. 32).","category":"Θαλαμικοί πυρήνες, συνδέσεις και λειτουργική σημασία"},{"id":60,"prompt":"Ποια αντιστοιχία για τους έξω πυρήνες του θαλάμου είναι λανθασμένη;","slides":"32","options":[{"label":"α","text":"Ραχιαίοι έξω πυρήνες - έξω ραχιαίος και οπίσθιος-έξω ραχιαίος.","correct":false},{"label":"β","text":"Κοιλιακοί έξω πυρήνες - πρόσθιος κοιλιακός, μέσος ή έξω κοιλιακός και οπίσθιος κοιλιακός.","correct":false},{"label":"γ","text":"Έξω πυρήνες - διάκριση σε ραχιαίους και κοιλιακούς πυρήνες.","correct":false},{"label":"δ","text":"Κοιλιακοί έξω πυρήνες - έξω ραχιαίος και οπίσθιος-έξω ραχιαίος.","correct":true}],"answer":"δ","rationale":"Αιτιολόγηση: Η δ μεταφέρει τους ραχιαίους πυρήνες στην κοιλιακή ομάδα: έξω ραχιαίος και οπίσθιος-έξω ραχιαίος είναι ραχιαίοι έξω πυρήνες (διαφ. 32).","category":"Θαλαμικοί πυρήνες, συνδέσεις και λειτουργική σημασία"},{"id":61,"prompt":"Σχετικά με τους πυρήνες του προσκέφαλου, τι δεν ισχύει;","slides":"33","options":[{"label":"α","text":"Περιλαμβάνουν πρόσθιο πυρήνα.","correct":false},{"label":"β","text":"Περιλαμβάνουν έσω και έξω πυρήνα.","correct":false},{"label":"γ","text":"Περιλαμβάνουν κάτω πυρήνα.","correct":false},{"label":"δ","text":"Περιλαμβάνουν αποκλειστικά πρόσθιο και οπίσθιο πυρήνα.","correct":true}],"answer":"δ","rationale":"Αιτιολόγηση: Η δ είναι λάθος: οι πυρήνες του προσκέφαλου αναφέρονται ως πρόσθιος, έσω, έξω και κάτω (διαφ. 33).","category":"Θαλαμικοί πυρήνες, συνδέσεις και λειτουργική σημασία"},{"id":62,"prompt":"Ποια περιγραφή των δικτυωτών πυρήνων του θαλάμου είναι σωστή;","slides":"33","options":[{"label":"α","text":"Βρίσκονται αντίστοιχα προς την έσω επιφάνεια και σχηματίζουν πάντοτε τη διάμεση μάζα.","correct":false},{"label":"β","text":"Βρίσκονται προς την έξω επιφάνεια, μεταξύ έξω μυελώδους πετάλου και έσω κάψας.","correct":true},{"label":"γ","text":"Ανήκουν στους πυρήνες του προσκέφαλου μαζί με τον κάτω πυρήνα.","correct":false},{"label":"δ","text":"Σχηματίζουν τον οπίσθιο σύνδεσμο του εγκεφάλου.","correct":false}],"answer":"β","rationale":"Αιτιολόγηση: Η β είναι σωστή: οι δικτυωτοί πυρήνες βρίσκονται προς την έξω επιφάνεια του θαλάμου, μεταξύ έξω μυελώδους πετάλου και έσω κάψας (διαφ. 33).","category":"Θαλαμικοί πυρήνες, συνδέσεις και λειτουργική σημασία"},{"id":63,"prompt":"Σχετικά με τους παρακοιλιακούς πυρήνες ή πυρήνες της μέσης γραμμής, τι δεν ισχύει;","slides":"33","options":[{"label":"α","text":"Βρίσκονται αντίστοιχα προς την έξω επιφάνεια του θαλάμου.","correct":true},{"label":"β","text":"Σε αυτούς υπάγονται πρόσθιοι και οπίσθιοι παρακοιλιακοί πυρήνες.","correct":false},{"label":"γ","text":"Οι οπίσθιοι παρακοιλιακοί πυρήνες μεταπίπτουν ινιακά στην κεντρική φαιά ουσία.","correct":false},{"label":"δ","text":"Σε αυτούς περιλαμβάνονται ρομβοειδής, ενωτικός και παραταινιακός πυρήνας.","correct":false}],"answer":"α","rationale":"Αιτιολόγηση: Η α είναι λάθος: οι πυρήνες της μέσης γραμμής βρίσκονται αντίστοιχα προς την έσω επιφάνεια του θαλάμου (διαφ. 33).","category":"Θαλαμικοί πυρήνες, συνδέσεις και λειτουργική σημασία"},{"id":64,"prompt":"Ποια αντιστοιχία για πυρήνες της μέσης γραμμής δεν αντιστοιχεί σωστά;","slides":"33","options":[{"label":"α","text":"Ρομβοειδής πυρήνας - συχνά σχηματίζει τη διάμεση μάζα.","correct":false},{"label":"β","text":"Ενωτικός πυρήνας - πιθανώς συμμετέχει στον σχηματισμό της διάμεσης μάζας.","correct":false},{"label":"γ","text":"Ρομβοειδής πυρήνας - κύριος πυρήνας του προσκέφαλου.","correct":true},{"label":"δ","text":"Παραταινιακός πυρήνας - πιθανή επεξεργασία οσφρητικών ερεθισμάτων.","correct":false}],"answer":"γ","rationale":"Αιτιολόγηση: Η γ είναι λανθασμένη: ο ρομβοειδής αναφέρεται στους πυρήνες της μέσης γραμμής και συχνά σχηματίζει τη διάμεση μάζα (διαφ. 33).","category":"Θαλαμικοί πυρήνες, συνδέσεις και λειτουργική σημασία"},{"id":65,"prompt":"Σχετικά με τις θαλαμοφλοιώδεις ίνες, τι δεν ισχύει;","slides":"34","options":[{"label":"α","text":"Αποτελούν τη θαλαμική ακτινοβολία.","correct":false},{"label":"β","text":"Η θαλαμική ακτινοβολία αποτελεί μέρος του ακτινωτού στεφάνου.","correct":false},{"label":"γ","text":"Δεν ανήκουν στο ακτινωτό στέφανο και πορεύονται μόνο μέσα στην έξω κάψα.","correct":true},{"label":"δ","text":"Στη θαλαμική ακτινοβολία διακρίνονται θαλαμικοί μίσχοι.","correct":false}],"answer":"γ","rationale":"Αιτιολόγηση: Η γ είναι λάθος: η θαλαμική ακτινοβολία αποτελεί μέρος του ακτινωτού στεφάνου (διαφ. 34).","category":"Θαλαμικοί πυρήνες, συνδέσεις και λειτουργική σημασία"},{"id":66,"prompt":"Ποια περιγραφή του μετωπιαίου ή πρόσθιου θαλαμικού μίσχου είναι σωστή;","slides":"34","options":[{"label":"α","text":"Συνδέει το έξω γονατώδες σώμα με τον ινιακό φλοιό.","correct":false},{"label":"β","text":"Συνδέει τους πυρήνες του θαλάμου με τον κροταφικό φλοιό.","correct":false},{"label":"γ","text":"Συνδέει τον οπίσθιο κοιλιακό πυρήνα με την κεντρική φαιά ουσία.","correct":false},{"label":"δ","text":"Συνδέει πρόσθιους και έσω θαλαμικούς πυρήνες με τον μετωπιαίο φλοιό.","correct":true}],"answer":"δ","rationale":"Αιτιολόγηση: Η δ είναι σωστή: ο μετωπιαίος ή πρόσθιος μίσχος συνδέει πρόσθιους και έσω πυρήνες με τον μετωπιαίο φλοιό (διαφ. 34).","category":"Θαλαμικοί πυρήνες, συνδέσεις και λειτουργική σημασία"},{"id":67,"prompt":"Ποια αντιστοιχία θαλαμικού μίσχου είναι λανθασμένη;","slides":"34-35","options":[{"label":"α","text":"Βρεγματικός ή άνω μίσχος - κινητικός, προκινητικός και αισθητικός φλοιός.","correct":false},{"label":"β","text":"Βρεγματικός ή άνω μίσχος - πυρήνες προσκέφαλου προς κροταφικό φλοιό.","correct":true},{"label":"γ","text":"Ινιακός ή οπίσθιος μίσχος - προσκέφαλο και έξω γονατώδες προς ινιακό και οπίσθιο βρεγματικό φλοιό.","correct":false},{"label":"δ","text":"Κροταφικός ή κάτω μίσχος - πυρήνες θαλάμου προς κροταφικό φλοιό.","correct":false}],"answer":"β","rationale":"Αιτιολόγηση: Η β είναι λανθασμένη: ο άνω μίσχος συνδέει θαλαμικούς πυρήνες με κινητικό, προκινητικό και αισθητικό φλοιό (διαφ. 34-35).","category":"Θαλαμικοί πυρήνες, συνδέσεις και λειτουργική σημασία"},{"id":68,"prompt":"Ποια περιγραφή του ινιακού ή οπίσθιου μίσχου είναι σωστή;","slides":"35","options":[{"label":"α","text":"Συνδέει πυρήνες του προσκέφαλου και έξω γονατώδες σώμα με ινιακό και οπίσθιο βρεγματικό φλοιό.","correct":true},{"label":"β","text":"Συνδέει πρόσθιους και έσω θαλαμικούς πυρήνες με τον μετωπιαίο φλοιό.","correct":false},{"label":"γ","text":"Συνδέει όλους τους πυρήνες του θαλάμου αποκλειστικά με τον κροταφικό φλοιό.","correct":false},{"label":"δ","text":"Συνδέει τον θάλαμο με τον κερκοφόρο και τον φακοειδή πυρήνα.","correct":false}],"answer":"α","rationale":"Αιτιολόγηση: Η α είναι σωστή: αυτός είναι ο ινιακός ή οπίσθιος μίσχος της θαλαμικής ακτινοβολίας (διαφ. 35).","category":"Θαλαμικοί πυρήνες, συνδέσεις και λειτουργική σημασία"},{"id":69,"prompt":"Σχετικά με τον κροταφικό μίσχο και τις θάλαμοραβδωτές ίνες, τι δεν ισχύει;","slides":"35","options":[{"label":"α","text":"Ο κροταφικός ή κάτω μίσχος συνδέει τους πυρήνες του θαλάμου με τον μετωπιαίο φλοιό.","correct":true},{"label":"β","text":"Οι θάλαμοραβδωτές ίνες συνδέουν πυρήνες του θαλάμου με τον κερκοφόρο πυρήνα.","correct":false},{"label":"γ","text":"Οι θάλαμοραβδωτές ίνες συνδέουν πυρήνες του θαλάμου με τον φακοειδή πυρήνα.","correct":false},{"label":"δ","text":"Ο κροταφικός ή κάτω μίσχος συνδέει θαλαμικούς πυρήνες με τον κροταφικό φλοιό.","correct":false}],"answer":"α","rationale":"Αιτιολόγηση: Η α είναι λανθασμένη: ο κροταφικός ή κάτω μίσχος συνδέει θαλαμικούς πυρήνες με τον κροταφικό, όχι τον μετωπιαίο, φλοιό (διαφ. 35).","category":"Θαλαμικοί πυρήνες, συνδέσεις και λειτουργική σημασία"},{"id":70,"prompt":"Ποια πρόταση για τις φλοιοθαλαμικές ίνες είναι σωστή;","slides":"36","options":[{"label":"α","text":"Καταλήγουν αποκλειστικά στους δικτυωτούς πυρήνες ανεξάρτητα από την περιοχή προέλευσης.","correct":false},{"label":"β","text":"Οι θαλαμικοί πυρήνες που συνδέονται με ειδική φλοιική περιοχή δέχονται ίνες από την ίδια περιοχή.","correct":true},{"label":"γ","text":"Προέρχονται μόνο από τον υποθάλαμο και καταλήγουν στο μέσο κοιλιακό πυρήνα.","correct":false},{"label":"δ","text":"Συνδέουν τον φακοειδή πυρήνα με τη νήσο του Reil μέσω της έξω κάψας.","correct":false}],"answer":"β","rationale":"Αιτιολόγηση: Η β είναι σωστή: η διαφάνεια τονίζει την αντιστοιχία ειδικής φλοιικής περιοχής και θαλαμικού πυρήνα (διαφ. 36).","category":"Θαλαμικοί πυρήνες, συνδέσεις και λειτουργική σημασία"},{"id":71,"prompt":"Ποια αντιστοιχία προσαγωγών ινών προς τον θάλαμο δεν είναι σωστή;","slides":"36-37","options":[{"label":"α","text":"Οδοντωτός πυρήνας παρεγκεφαλίδας - μέσος κοιλιακός πυρήνας θαλάμου.","correct":false},{"label":"β","text":"Ερυθρός πυρήνας - μέσος κοιλιακός πυρήνας θαλάμου.","correct":false},{"label":"γ","text":"Έσω λημνίσκος - οπίσθιος και μέσος κοιλιακός πυρήνας θαλάμου.","correct":false},{"label":"δ","text":"Λημνίσκος τριδύμου - έξω μοίρα του οπίσθιου κοιλιακού πυρήνα.","correct":true}],"answer":"δ","rationale":"Αιτιολόγηση: Η δ είναι λάθος: ο λημνίσκος του τριδύμου καταλήγει στην έσω μοίρα του οπίσθιου κοιλιακού πυρήνα (διαφ. 37).","category":"Θαλαμικοί πυρήνες, συνδέσεις και λειτουργική σημασία"},{"id":72,"prompt":"Σχετικά με τη λειτουργική σημασία και τις συνδέσεις του θαλάμου, τι δεν ισχύει;","slides":"37-39","options":[{"label":"α","text":"Ο θάλαμος είναι ενδιάμεσος σταθμός πολλών ανιόντων και κατιόντων δεματίων.","correct":false},{"label":"β","text":"Ο οπίσθιος κοιλιακός πυρήνας σχετίζεται με επιπολής, εν τω βάθει αισθητικότητα και γεύση.","correct":false},{"label":"γ","text":"Τα γονατώδη σώματα αποτελούν σημαντικό σταθμό της οσφρητικής και γευστικής οδού.","correct":true},{"label":"δ","text":"Ο έξω κοιλιακός πυρήνας σχετίζεται με τη στατική και κινητική ισορροπία του σώματος.","correct":false}],"answer":"γ","rationale":"Αιτιολόγηση: Η γ είναι λανθασμένη: τα γονατώδη σώματα αναφέρονται ως σταθμός της οπτικής και ακουστικής οδού, όχι της οσφρητικής και γευστικής (διαφ. 38-39).","category":"Θαλαμικοί πυρήνες, συνδέσεις και λειτουργική σημασία"}]</script>
+<script>
+const QUESTIONS = JSON.parse(document.getElementById('quiz-data').textContent);
+const LETTERS = ['α', 'β', 'γ', 'δ'];
+const state = {
+  pool: [],
+  index: 0,
+  score: 0,
+  answered: 0,
+  wrong: [],
+  lastWrong: [],
+  locked: false,
+  currentOptions: [],
+  mode: 'all'
+};
+const els = {
+  category: document.getElementById('categoryFilter'),
+  search: document.getElementById('searchInput'),
+  shuffleQuestions: document.getElementById('shuffleQuestions'),
+  shuffleAnswers: document.getElementById('shuffleAnswers'),
+  apply: document.getElementById('applyFilters'),
+  restart: document.getElementById('restartQuiz'),
+  repeatTop: document.getElementById('repeatWrongTop'),
+  filteredCount: document.getElementById('filteredCount'),
+  progressText: document.getElementById('progressText'),
+  scoreText: document.getElementById('scoreText'),
+  answeredText: document.getElementById('answeredText'),
+  remainingText: document.getElementById('remainingText'),
+  progressFill: document.getElementById('progressFill'),
+  quizView: document.getElementById('quizView'),
+  emptyView: document.getElementById('emptyView'),
+  resultsView: document.getElementById('resultsView'),
+  questionNumber: document.getElementById('questionNumber'),
+  questionCategory: document.getElementById('questionCategory'),
+  questionSlides: document.getElementById('questionSlides'),
+  questionPrompt: document.getElementById('questionPrompt'),
+  optionsList: document.getElementById('optionsList'),
+  feedback: document.getElementById('feedback'),
+  next: document.getElementById('nextQuestion'),
+  nextNote: document.getElementById('nextNote'),
+  resultScore: document.getElementById('resultScore'),
+  resultPercent: document.getElementById('resultPercent'),
+  resultCorrect: document.getElementById('resultCorrect'),
+  resultWrong: document.getElementById('resultWrong'),
+  resultTotal: document.getElementById('resultTotal'),
+  resultMode: document.getElementById('resultMode'),
+  restartFromResults: document.getElementById('restartFromResults'),
+  repeatWrong: document.getElementById('repeatWrong'),
+  wrongList: document.getElementById('wrongList'),
+  wrongItems: document.getElementById('wrongItems')
+};
+function normalizeText(value) {
+  return String(value || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLocaleLowerCase('el-GR');
+}
+function shuffle(items) {
+  const copy = items.slice();
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+function filteredQuestions() {
+  const category = els.category.value;
+  const query = normalizeText(els.search.value.trim());
+  return QUESTIONS.filter(q => {
+    const categoryOk = category === 'all' || q.category === category;
+    if (!categoryOk) return false;
+    if (!query) return true;
+    const haystack = normalizeText([
+      q.prompt,
+      q.category,
+      q.slides,
+      q.rationale,
+      ...q.options.map(o => o.text)
+    ].join(' '));
+    return haystack.includes(query);
+  });
+}
+function updateFilteredCount() {
+  const count = filteredQuestions().length;
+  els.filteredCount.textContent = `${count} διαθέσιμες ερωτήσεις με τα τρέχοντα φίλτρα`;
+}
+function populateCategories() {
+  const counts = QUESTIONS.reduce((map, q) => {
+    map.set(q.category, (map.get(q.category) || 0) + 1);
+    return map;
+  }, new Map());
+  els.category.innerHTML = '<option value="all">Όλες οι κατηγορίες</option>';
+  [...counts.entries()].forEach(([category, count]) => {
+    const option = document.createElement('option');
+    option.value = category;
+    option.textContent = `${category} (${count})`;
+    els.category.appendChild(option);
+  });
+}
+function beginQuiz(sourceQuestions, mode = 'all') {
+  let pool = sourceQuestions.slice();
+  if (els.shuffleQuestions.checked) pool = shuffle(pool);
+  state.pool = pool;
+  state.index = 0;
+  state.score = 0;
+  state.answered = 0;
+  state.wrong = [];
+  state.locked = false;
+  state.currentOptions = [];
+  state.mode = mode;
+  els.resultsView.classList.add('hidden');
+  els.emptyView.classList.toggle('hidden', pool.length !== 0);
+  els.quizView.classList.toggle('hidden', pool.length === 0);
+  if (pool.length === 0) {
+    updateHud();
+    return;
+  }
+  renderQuestion();
+}
+function applyFilters() {
+  beginQuiz(filteredQuestions(), 'filtered');
+}
+function restartCurrent() {
+  const source = state.mode === 'wrong' ? state.lastWrong : filteredQuestions();
+  beginQuiz(source, state.mode === 'wrong' ? 'wrong' : 'filtered');
+}
+function repeatWrongOnly() {
+  if (!state.lastWrong.length) return;
+  beginQuiz(state.lastWrong, 'wrong');
+}
+function currentQuestion() {
+  return state.pool[state.index];
+}
+function renderQuestion() {
+  const q = currentQuestion();
+  state.locked = false;
+  state.currentOptions = els.shuffleAnswers.checked ? shuffle(q.options) : q.options.slice();
+  els.questionNumber.textContent = `Ερώτηση ${state.index + 1} / ${state.pool.length}`;
+  els.questionCategory.textContent = q.category;
+  els.questionSlides.textContent = `Διαφ. ${q.slides}`;
+  els.questionPrompt.textContent = q.prompt;
+  els.optionsList.innerHTML = '';
+  els.feedback.className = 'feedback hidden';
+  els.feedback.innerHTML = '';
+  state.currentOptions.forEach(option => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'option-button';
+    button.dataset.label = option.label;
+    button.dataset.correct = option.correct ? 'true' : 'false';
+    const label = document.createElement('span');
+    label.className = 'option-label';
+    label.textContent = `${option.label})`;
+    const text = document.createElement('span');
+    text.className = 'option-text';
+    text.textContent = option.text;
+    button.append(label, text);
+    button.addEventListener('click', () => answerQuestion(option, button));
+    els.optionsList.appendChild(button);
+  });
+  els.next.disabled = true;
+  els.next.textContent = state.index === state.pool.length - 1 ? 'Αποτελέσματα' : 'Επόμενη ερώτηση';
+  els.nextNote.textContent = 'Η αιτιολόγηση εμφανίζεται μετά την επιλογή.';
+  updateHud();
+}
+function answerQuestion(option, selectedButton) {
+  if (state.locked) return;
+  const q = currentQuestion();
+  state.locked = true;
+  state.answered += 1;
+  if (option.correct) {
+    state.score += 1;
+  } else {
+    state.wrong.push(q);
+  }
+  [...els.optionsList.querySelectorAll('.option-button')].forEach(button => {
+    button.disabled = true;
+    if (button.dataset.correct === 'true') button.classList.add('correct');
+  });
+  if (!option.correct) selectedButton.classList.add('incorrect');
+  els.feedback.className = `feedback ${option.correct ? 'good' : 'bad'}`;
+  els.feedback.innerHTML = '';
+  const heading = document.createElement('h3');
+  heading.textContent = option.correct ? 'Σωστή απάντηση' : `Λάθος απάντηση - σωστή: ${q.answer})`;
+  const paragraph = document.createElement('p');
+  paragraph.textContent = q.rationale;
+  els.feedback.append(heading, paragraph);
+  els.next.disabled = false;
+  els.nextNote.textContent = option.correct ? 'Καταχωρήθηκε ως σωστή.' : 'Καταχωρήθηκε για επανάληψη λαθών.';
+  updateHud();
+}
+function goNext() {
+  if (state.index >= state.pool.length - 1) {
+    showResults();
+    return;
+  }
+  state.index += 1;
+  renderQuestion();
+}
+function updateHud() {
+  const total = state.pool.length;
+  const current = total ? Math.min(state.index + 1, total) : 0;
+  const remaining = Math.max(total - state.answered, 0);
+  els.progressText.textContent = `${current} / ${total}`;
+  els.scoreText.textContent = `${state.score} / ${state.answered}`;
+  els.answeredText.textContent = `${state.answered}`;
+  els.remainingText.textContent = `${remaining}`;
+  const pct = total ? Math.round((state.answered / total) * 100) : 0;
+  els.progressFill.style.width = `${pct}%`;
+}
+function showResults() {
+  const total = state.pool.length;
+  const wrong = state.wrong.length;
+  const percent = total ? Math.round((state.score / total) * 100) : 0;
+  state.lastWrong = state.wrong.slice();
+  els.quizView.classList.add('hidden');
+  els.emptyView.classList.add('hidden');
+  els.resultsView.classList.remove('hidden');
+  els.resultScore.textContent = `${state.score} / ${total}`;
+  els.resultPercent.textContent = `${percent}%`;
+  els.resultCorrect.textContent = state.score;
+  els.resultWrong.textContent = wrong;
+  els.resultTotal.textContent = total;
+  els.resultMode.textContent = state.mode === 'wrong' ? 'Επανάληψη λανθασμένων' : 'Τρέχον φίλτρο';
+  els.repeatWrong.disabled = wrong === 0;
+  els.repeatTop.disabled = wrong === 0;
+  renderWrongList();
+  updateHud();
+}
+function renderWrongList() {
+  els.wrongItems.innerHTML = '';
+  els.wrongList.classList.toggle('hidden', state.lastWrong.length === 0);
+  state.lastWrong.forEach(q => {
+    const item = document.createElement('div');
+    item.className = 'wrong-item';
+    const strong = document.createElement('strong');
+    strong.textContent = `#${q.id} `;
+    const text = document.createElement('span');
+    text.textContent = `${q.prompt} (${q.category})`;
+    item.append(strong, text);
+    els.wrongItems.appendChild(item);
+  });
+}
+function bindEvents() {
+  els.apply.addEventListener('click', applyFilters);
+  els.restart.addEventListener('click', restartCurrent);
+  els.restartFromResults.addEventListener('click', restartCurrent);
+  els.repeatWrong.addEventListener('click', repeatWrongOnly);
+  els.repeatTop.addEventListener('click', repeatWrongOnly);
+  els.next.addEventListener('click', goNext);
+  els.category.addEventListener('change', updateFilteredCount);
+  els.search.addEventListener('input', updateFilteredCount);
+  els.search.addEventListener('keydown', event => {
+    if (event.key === 'Enter') applyFilters();
+  });
+  els.shuffleQuestions.addEventListener('change', updateFilteredCount);
+  els.shuffleAnswers.addEventListener('change', updateFilteredCount);
+}
+populateCategories();
+bindEvents();
+updateFilteredCount();
+beginQuiz(QUESTIONS, 'all');
+</script>
+</body>
+</html>
