@@ -1,0 +1,2815 @@
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Αγγεία του Εγκεφάλου - MCQ Quiz</title>
+  <style>
+    :root {
+      --bg: #f4f7f8;
+      --surface: #ffffff;
+      --ink: #17212b;
+      --muted: #5f6d78;
+      --line: #d9e1e6;
+      --teal: #0b7f7a;
+      --teal-dark: #075b58;
+      --gold: #b7831c;
+      --red: #b84242;
+      --green: #247a52;
+      --blue: #2e5f91;
+      --shadow: 0 16px 34px rgba(24, 39, 51, .10);
+      --radius: 8px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+    }
+    header {
+      background: #102934;
+      color: #f7fbfc;
+      border-bottom: 5px solid var(--teal);
+    }
+    .wrap { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
+    .topbar { padding: 24px 0 20px; display: grid; gap: 10px; }
+    h1 { margin: 0; font-size: clamp(1.35rem, 2.6vw, 2.15rem); letter-spacing: 0; }
+    .subtitle { margin: 0; color: #c6d6dc; max-width: 820px; }
+    main { padding: 22px 0 46px; }
+    .panel, .card, .results { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+    .panel { padding: 16px; margin-bottom: 18px; }
+    .controls { display: grid; grid-template-columns: 1fr 1.4fr auto; gap: 12px; align-items: end; }
+    .field { display: grid; gap: 6px; }
+    label { font-weight: 700; font-size: .9rem; color: #263642; }
+    select, input[type="search"] {
+      width: 100%; border: 1px solid var(--line); border-radius: 6px; padding: 10px 11px;
+      font-size: 1rem; background: #fff; color: var(--ink);
+    }
+    .checks { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; margin-top: 12px; }
+    .check { display: inline-flex; align-items: center; gap: 7px; color: var(--muted); font-weight: 600; }
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    button {
+      border: 1px solid transparent; border-radius: 6px; padding: 10px 14px; font-weight: 800;
+      cursor: pointer; background: var(--teal); color: white; font-size: .96rem;
+    }
+    button:hover:not(:disabled) { background: var(--teal-dark); }
+    button.secondary { background: #eef4f5; color: #18313b; border-color: var(--line); }
+    button.secondary:hover:not(:disabled) { background: #e0ebee; }
+    button.warn { background: #f7eddd; color: #6a4610; border-color: #e8d2aa; }
+    button:disabled { opacity: .45; cursor: not-allowed; }
+    .meta-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px; }
+    .metric { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 11px 12px; }
+    .metric span { display: block; color: var(--muted); font-size: .78rem; font-weight: 800; text-transform: uppercase; }
+    .metric strong { display: block; margin-top: 2px; font-size: 1.05rem; }
+    .progress { height: 10px; background: #dce7ea; border-radius: 999px; overflow: hidden; margin-bottom: 18px; }
+    .bar { height: 100%; width: 0%; background: linear-gradient(90deg, var(--teal), var(--blue)); transition: width .2s ease; }
+    .card { padding: 22px; }
+    .q-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; margin-bottom: 14px; }
+    .tag { display: inline-flex; align-items: center; border: 1px solid #c7dfe0; background: #eef8f7; color: var(--teal-dark); border-radius: 999px; padding: 4px 9px; font-size: .82rem; font-weight: 800; }
+    .source { color: var(--muted); font-size: .88rem; font-weight: 700; }
+    .question { font-size: clamp(1.08rem, 2vw, 1.36rem); font-weight: 800; margin: 8px 0 18px; }
+    .options { display: grid; gap: 10px; }
+    .option {
+      width: 100%; text-align: left; color: var(--ink); background: #f9fbfc; border: 1px solid var(--line);
+      padding: 12px 13px; border-radius: 8px; display: grid; grid-template-columns: 34px 1fr; gap: 8px; align-items: start;
+      font-weight: 650;
+    }
+    .option:hover:not(:disabled) { background: #edf6f6; border-color: #a9ced0; }
+    .option .letter { font-weight: 900; color: var(--teal-dark); }
+    .option.correct { background: #e8f5ee; border-color: #7eb99a; color: #123e2a; }
+    .option.wrong { background: #faeaea; border-color: #d79393; color: #581d1d; }
+    .option:disabled { opacity: 1; cursor: default; }
+    .feedback { display: none; margin-top: 16px; border-radius: 8px; border: 1px solid var(--line); padding: 13px 14px; background: #fbfcfd; }
+    .feedback.show { display: block; }
+    .feedback.correct { border-color: #7eb99a; background: #edf8f2; }
+    .feedback.wrong { border-color: #d79393; background: #fff0f0; }
+    .feedback-title { font-weight: 900; margin-bottom: 4px; }
+    .next-row { display: flex; justify-content: flex-end; margin-top: 16px; }
+    .hidden { display: none !important; }
+    .empty { padding: 22px; text-align: center; color: var(--muted); }
+    .results { padding: 22px; }
+    .result-head { display: grid; gap: 6px; margin-bottom: 18px; }
+    .scoreline { font-size: clamp(1.25rem, 2.6vw, 2rem); font-weight: 900; }
+    table { width: 100%; border-collapse: collapse; margin: 12px 0 18px; font-size: .95rem; }
+    th, td { border-bottom: 1px solid var(--line); padding: 9px 8px; text-align: left; vertical-align: top; }
+    th { color: #28414b; background: #f1f6f7; }
+    .wrong-list { display: grid; gap: 10px; margin-top: 10px; }
+    .wrong-item { border: 1px solid var(--line); border-radius: 8px; padding: 11px; background: #fff; }
+    .wrong-item strong { display: block; margin-bottom: 4px; }
+    .print-section { display: none; }
+    @media (max-width: 820px) {
+      .controls { grid-template-columns: 1fr; }
+      .meta-grid { grid-template-columns: repeat(2, 1fr); }
+      .q-head { display: grid; }
+      .actions { width: 100%; }
+      .actions button { flex: 1 1 auto; }
+    }
+    @media (max-width: 520px) {
+      .wrap { width: min(100% - 20px, 1120px); }
+      .panel, .card, .results { border-radius: 6px; }
+      .card, .results { padding: 16px; }
+      .meta-grid { grid-template-columns: 1fr; }
+      .option { grid-template-columns: 28px 1fr; }
+    }
+    @media print {
+      body { background: #fff; color: #000; }
+      header, .panel, #quizArea, #resultsArea { display: none !important; }
+      .print-section { display: block; padding: 0; }
+      .wrap { width: 100%; margin: 0; }
+      .print-section h1 { font-size: 18pt; margin: 0 0 8pt; }
+      .print-q { break-inside: avoid; border-bottom: 1px solid #bbb; padding: 9pt 0; }
+      .print-q h2 { font-size: 11pt; margin: 0 0 4pt; }
+      .print-q ol { margin: 4pt 0 0 18pt; padding: 0; }
+      .print-q li { margin: 2pt 0; }
+      .print-answer { margin-top: 4pt; font-size: 9pt; color: #222; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap topbar">
+      <h1>Αγγεία του Εγκεφάλου - Διαδραστικό MCQ Quiz</h1>
+      <p class="subtitle">Δύσκολες ερωτήσεις Ανατομίας βασισμένες στις διαφάνειες: αρτηρίες, φλέβες, φλεβώδεις κόλποι και τοπογραφικές σχέσεις.</p>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="panel" aria-label="Ρυθμίσεις quiz">
+      <div class="controls">
+        <div class="field">
+          <label for="categoryFilter">Κατηγορία</label>
+          <select id="categoryFilter"></select>
+        </div>
+        <div class="field">
+          <label for="searchBox">Αναζήτηση</label>
+          <input id="searchBox" type="search" placeholder="Αναζήτηση σε εκφωνήσεις, επιλογές, αιτιολογήσεις">
+        </div>
+        <div class="actions">
+          <button id="startBtn">Έναρξη</button>
+          <button id="resumeBtn" class="secondary hidden">Συνέχεια</button>
+          <button id="printBtn" class="secondary">Εκτύπωση</button>
+        </div>
+      </div>
+      <div class="checks">
+        <label class="check"><input id="shuffleQuestions" type="checkbox" checked> Ανακάτεμα ερωτήσεων</label>
+        <label class="check"><input id="shuffleOptions" type="checkbox" checked> Ανακάτεμα απαντήσεων</label>
+        <button id="clearBtn" class="warn" type="button">Καθαρισμός προόδου</button>
+      </div>
+      <table id="distributionTable" aria-label="Κατανομή ερωτήσεων ανά κατηγορία"></table>
+    </section>
+
+    <section id="quizArea">
+      <div id="emptyState" class="panel empty">Διάλεξε ρυθμίσεις και πάτησε «Έναρξη».</div>
+      <div id="quizBox" class="hidden">
+        <div class="meta-grid">
+          <div class="metric"><span>Σκορ</span><strong id="scoreMetric">0</strong></div>
+          <div class="metric"><span>Πρόοδος</span><strong id="progressMetric">0 / 0</strong></div>
+          <div class="metric"><span>Ποσοστό</span><strong id="percentMetric">0%</strong></div>
+          <div class="metric"><span>Κατηγορία</span><strong id="categoryMetric">-</strong></div>
+        </div>
+        <div class="progress" aria-hidden="true"><div id="progressBar" class="bar"></div></div>
+        <article class="card">
+          <div class="q-head">
+            <span id="categoryTag" class="tag"></span>
+            <span id="sourceText" class="source"></span>
+          </div>
+          <div id="questionText" class="question"></div>
+          <div id="optionsBox" class="options"></div>
+          <div id="feedbackBox" class="feedback"></div>
+          <div class="next-row"><button id="nextBtn" class="hidden">Επόμενη ερώτηση</button></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="resultsArea" class="hidden results"></section>
+    <section id="printArea" class="print-section"></section>
+  </main>
+
+  <script>
+    const questions = [
+  {
+    "id": 1,
+    "category": "Έσω καρωτίδα και κύκλος Willis",
+    "source": "Διαφάνειες 5, 15",
+    "question": "Σχετικά με τις μοίρες της έσω καρωτίδας, ποιο από τα παρακάτω δεν ισχύει;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Η τραχηλική μοίρα C1 χορηγεί μικρούς τραχηλικούς κλάδους πριν από τη βάση του κρανίου.",
+        "correct": true,
+        "oid": "1-α"
+      },
+      {
+        "key": "β",
+        "text": "Η λιθοειδής μοίρα αποδίδεται στο τμήμα C2+C3 της έσω καρωτίδας.",
+        "correct": false,
+        "oid": "1-β"
+      },
+      {
+        "key": "γ",
+        "text": "Η σηραγγώδης μοίρα αντιστοιχεί στο τμήμα C4 της έσω καρωτίδας.",
+        "correct": false,
+        "oid": "1-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Η εγκεφαλική μοίρα αποδίδεται στα τμήματα C6+C7 της έσω καρωτίδας.",
+        "correct": false,
+        "oid": "1-δ"
+      }
+    ],
+    "explanation": "Η διαφάνεια 5 σημειώνει ρητά ότι η τραχηλική μοίρα C1 δεν χορηγεί κλάδους."
+  },
+  {
+    "id": 2,
+    "category": "Έσω καρωτίδα και κύκλος Willis",
+    "source": "Διαφάνεια 15",
+    "question": "Στους ενδοσκληρίδιους κλάδους της εγκεφαλικής μοίρας της έσω καρωτίδας, ποιο δεν αντιστοιχεί σωστά;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Οφθαλμική αρτηρία.",
+        "correct": false,
+        "oid": "2-α"
+      },
+      {
+        "key": "β",
+        "text": "Πρόσθια χοριοειδής αρτηρία.",
+        "correct": false,
+        "oid": "2-β"
+      },
+      {
+        "key": "γ",
+        "text": "Κάτω υποφυσιακή αρτηρία.",
+        "correct": true,
+        "oid": "2-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Πρόσθια εγκεφαλική αρτηρία.",
+        "correct": false,
+        "oid": "2-δ"
+      }
+    ],
+    "explanation": "Στη διαφάνεια 15 αναφέρεται η άνω υποφυσιακή, όχι η κάτω υποφυσιακή, στους ενδοσκληρίδιους κλάδους."
+  },
+  {
+    "id": 3,
+    "category": "Έσω καρωτίδα και κύκλος Willis",
+    "source": "Διαφάνειες 12-13",
+    "question": "Ποιο από τα παρακάτω ζεύγη αγγείου-κυκλοφορίας είναι λανθασμένο;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Πρόσθια εγκεφαλική - πρόσθια καρωτιδική κυκλοφορία.",
+        "correct": false,
+        "oid": "3-α"
+      },
+      {
+        "key": "β",
+        "text": "Πρόσθια αναστομωτική - σπονδυλοβασικό σύστημα.",
+        "correct": true,
+        "oid": "3-β"
+      },
+      {
+        "key": "γ",
+        "text": "Οπίσθια εγκεφαλική - οπίσθια κυκλοφορία.",
+        "correct": false,
+        "oid": "3-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Βασική αρτηρία - οπίσθια κυκλοφορία.",
+        "correct": false,
+        "oid": "3-δ"
+      }
+    ],
+    "explanation": "Η πρόσθια αναστομωτική φαίνεται στην πρόσθια/καρωτιδική πλευρά του κύκλου Willis, όχι στο σπονδυλοβασικό σκέλος."
+  },
+  {
+    "id": 4,
+    "category": "Έσω καρωτίδα και κύκλος Willis",
+    "source": "Διαφάνεια 15",
+    "question": "Σχετικά με τον διχασμό της έσω καρωτίδας στην ενδοσκληρίδια μοίρα, τι ισχύει;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Ο διχασμός δίνει την οφθαλμική και την πρόσθια χοριοειδή αρτηρία.",
+        "correct": false,
+        "oid": "4-α"
+      },
+      {
+        "key": "β",
+        "text": "Ο διχασμός δίνει την άνω υποφυσιακή και την οπίσθια αναστομωτική.",
+        "correct": false,
+        "oid": "4-β"
+      },
+      {
+        "key": "γ",
+        "text": "Ο διχασμός δίνει την πρόσθια αναστομωτική και την οπίσθια εγκεφαλική.",
+        "correct": false,
+        "oid": "4-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Ο διχασμός δίνει την πρόσθια και τη μέση εγκεφαλική αρτηρία.",
+        "correct": true,
+        "oid": "4-δ"
+      }
+    ],
+    "explanation": "Στη διαφάνεια 15 ο διχασμός σημειώνεται στο επίπεδο ACA και MCA."
+  },
+  {
+    "id": 5,
+    "category": "Έσω καρωτίδα και κύκλος Willis",
+    "source": "Διαφάνειες 6, 15",
+    "question": "Ποια σχέση της έσω καρωτίδας με κλάδο ή γειτονική δομή αποδίδεται σωστά;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Η οπίσθια αναστομωτική αποδίδεται στο σπονδυλοβασικό σύστημα και όχι στην έσω καρωτίδα.",
+        "correct": false,
+        "oid": "5-α"
+      },
+      {
+        "key": "β",
+        "text": "Η οπίσθια αναστομωτική σημειώνεται μαζί με το κοινό κινητικό νεύρο.",
+        "correct": true,
+        "oid": "5-β"
+      },
+      {
+        "key": "γ",
+        "text": "Η πρόσθια χοριοειδής αναφέρεται μόνο ως κλάδος της βασικής αρτηρίας.",
+        "correct": false,
+        "oid": "5-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Η οφθαλμική αρτηρία σημειώνεται ως κλάδος μετά την πρόσθια εγκεφαλική.",
+        "correct": false,
+        "oid": "5-δ"
+      }
+    ],
+    "explanation": "Στη διαφάνεια 15 η Pcom επισημαίνεται με +CN III, στοιχείο κλασικής τοπογραφικής παγίδας."
+  },
+  {
+    "id": 6,
+    "category": "Έσω καρωτίδα και κύκλος Willis",
+    "source": "Διαφάνειες 5, 15",
+    "question": "Ποια από τις παρακάτω αντιστοιχίες τμήματος-μοίρας της έσω καρωτίδας είναι λανθασμένη;",
+    "options": [
+      {
+        "key": "α",
+        "text": "C4 - εγκεφαλική μοίρα.",
+        "correct": true,
+        "oid": "6-α"
+      },
+      {
+        "key": "β",
+        "text": "C1 - τραχηλική μοίρα.",
+        "correct": false,
+        "oid": "6-β"
+      },
+      {
+        "key": "γ",
+        "text": "C2+C3 - λιθοειδής μοίρα.",
+        "correct": false,
+        "oid": "6-γ"
+      },
+      {
+        "key": "δ",
+        "text": "C4 - σηραγγώδης μοίρα.",
+        "correct": false,
+        "oid": "6-δ"
+      }
+    ],
+    "explanation": "Η εγκεφαλική μοίρα σημειώνεται ως C6+C7, ενώ το C4 αντιστοιχεί στη σηραγγώδη μοίρα."
+  },
+  {
+    "id": 7,
+    "category": "Έσω καρωτίδα και κύκλος Willis",
+    "source": "Διαφάνειες 5, 15",
+    "question": "Σχετικά με την έσω καρωτίδα, όλα τα παρακάτω είναι αληθή εκτός από ένα:",
+    "options": [
+      {
+        "key": "α",
+        "text": "Η αρτηρία του πτερυγοειδή πόρου φαίνεται κοντά στη λιθοειδή μοίρα.",
+        "correct": false,
+        "oid": "7-α"
+      },
+      {
+        "key": "β",
+        "text": "Το πρόσθιο ρηγματώδες τρήμα επισημαίνεται στην πορεία της έσω καρωτίδας.",
+        "correct": false,
+        "oid": "7-β"
+      },
+      {
+        "key": "γ",
+        "text": "Η οφθαλμική αρτηρία απεικονίζεται ως ενδοσκληρίδιος κλάδος.",
+        "correct": false,
+        "oid": "7-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Η κοινή καρωτίδα αποτελεί την τελική απόληξη της έσω καρωτίδας στον κύκλο Willis.",
+        "correct": true,
+        "oid": "7-δ"
+      }
+    ],
+    "explanation": "Στις διαφάνειες 5 και 15 η κοινή καρωτίδα βρίσκεται πριν από τον διαχωρισμό σε έσω και έξω καρωτίδα."
+  },
+  {
+    "id": 8,
+    "category": "Έσω καρωτίδα και κύκλος Willis",
+    "source": "Διαφάνεια 26",
+    "question": "Σχετικά με την οπίσθια αναστομωτική αρτηρία, ποιο από τα παρακάτω ισχύει;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Οι κλάδοι της περιορίζονται σε χοριοειδείς κλάδους των κοιλιών.",
+        "correct": false,
+        "oid": "8-α"
+      },
+      {
+        "key": "β",
+        "text": "Αποτελεί τον κύριο τελικό κλάδο της βασικής αρτηρίας.",
+        "correct": false,
+        "oid": "8-β"
+      },
+      {
+        "key": "γ",
+        "text": "Εμβρυολογικά προέρχεται από την έσω καρωτίδα.",
+        "correct": true,
+        "oid": "8-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Δεν δίνει κλάδο για το κοινό κινητικό νεύρο.",
+        "correct": false,
+        "oid": "8-δ"
+      }
+    ],
+    "explanation": "Η διαφάνεια 26 σημειώνει ότι η οπίσθια αναστομωτική εμβρυολογικά προέρχεται από την έσω καρωτίδα."
+  },
+  {
+    "id": 9,
+    "category": "Έσω καρωτίδα και κύκλος Willis",
+    "source": "Διαφάνειες 12-13",
+    "question": "Ποιο από τα παρακάτω δεν αντιστοιχεί στην απεικόνιση του κύκλου Willis;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Η PICA σχηματίζει το πρόσθιο τμήμα του κύκλου Willis.",
+        "correct": true,
+        "oid": "9-α"
+      },
+      {
+        "key": "β",
+        "text": "Η πρόσθια αναστομωτική συνδέει τις πρόσθιες εγκεφαλικές αρτηρίες.",
+        "correct": false,
+        "oid": "9-β"
+      },
+      {
+        "key": "γ",
+        "text": "Η οπίσθια αναστομωτική βρίσκεται μεταξύ καρωτιδικής και οπίσθιας κυκλοφορίας.",
+        "correct": false,
+        "oid": "9-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Η βασική αρτηρία ανήκει στο οπίσθιο σπονδυλοβασικό σύστημα.",
+        "correct": false,
+        "oid": "9-δ"
+      }
+    ],
+    "explanation": "Η PICA αναφέρεται ως κλάδος της σπονδυλικής, όχι ως τμήμα του κύκλου Willis."
+  },
+  {
+    "id": 10,
+    "category": "Έσω καρωτίδα και κύκλος Willis",
+    "source": "Διαφάνεια 11",
+    "question": "Στην περιοχή της Liliequist membrane, ποια ετικέτα της ενδοσκοπικής εικόνας δεν αντιστοιχεί σε δομή που φαίνεται στη διαφάνεια;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Car. A.",
+        "correct": false,
+        "oid": "10-α"
+      },
+      {
+        "key": "β",
+        "text": "CN II.",
+        "correct": false,
+        "oid": "10-β"
+      },
+      {
+        "key": "γ",
+        "text": "P.Co.A.",
+        "correct": false,
+        "oid": "10-γ"
+      },
+      {
+        "key": "δ",
+        "text": "AICA.",
+        "correct": true,
+        "oid": "10-δ"
+      }
+    ],
+    "explanation": "Στη διαφάνεια 11 φαίνονται Car. A., CN II και P.Co.A., όχι AICA."
+  },
+  {
+    "id": 11,
+    "category": "Σπονδυλοβασικό και παρεγκεφαλιδικές αρτηρίες",
+    "source": "Διαφάνεια 8",
+    "question": "Σχετικά με τους κλάδους της σπονδυλικής αρτηρίας, τι δεν ισχύει;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Περιλαμβάνει πρόσθια και οπίσθια μηνιγγική αρτηρία.",
+        "correct": false,
+        "oid": "11-α"
+      },
+      {
+        "key": "β",
+        "text": "Περιλαμβάνει την πρόσθια κάτω παρεγκεφαλιδική αρτηρία.",
+        "correct": true,
+        "oid": "11-β"
+      },
+      {
+        "key": "γ",
+        "text": "Περιλαμβάνει πρόσθια και οπίσθια νωτιαία αρτηρία.",
+        "correct": false,
+        "oid": "11-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Περιλαμβάνει την οπίσθια κάτω παρεγκεφαλιδική αρτηρία.",
+        "correct": false,
+        "oid": "11-δ"
+      }
+    ],
+    "explanation": "Η AICA δίνεται στη διαφάνεια 9 ως κλάδος της βασικής αρτηρίας, όχι της σπονδυλικής."
+  },
+  {
+    "id": 12,
+    "category": "Σπονδυλοβασικό και παρεγκεφαλιδικές αρτηρίες",
+    "source": "Διαφάνεια 9",
+    "question": "Ποιο από τα παρακάτω αναφέρεται ως κλάδος της βασικής αρτηρίας;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Οπίσθια κάτω παρεγκεφαλιδική αρτηρία.",
+        "correct": false,
+        "oid": "12-α"
+      },
+      {
+        "key": "β",
+        "text": "Πρόσθια νωτιαία αρτηρία.",
+        "correct": false,
+        "oid": "12-β"
+      },
+      {
+        "key": "γ",
+        "text": "Έσω ακουστική ή λαβυρινθική αρτηρία.",
+        "correct": true,
+        "oid": "12-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Οπίσθια μηνιγγική αρτηρία.",
+        "correct": false,
+        "oid": "12-δ"
+      }
+    ],
+    "explanation": "Η έσω ακουστική/λαβυρινθική αρτηρία αναφέρεται στους κλάδους της βασικής στη διαφάνεια 9."
+  },
+  {
+    "id": 13,
+    "category": "Σπονδυλοβασικό και παρεγκεφαλιδικές αρτηρίες",
+    "source": "Διαφάνειες 8-9",
+    "question": "Ποια αντιστοιχία κλάδου-μητρικού αγγείου είναι λανθασμένη;",
+    "options": [
+      {
+        "key": "α",
+        "text": "PICA - σπονδυλική αρτηρία.",
+        "correct": false,
+        "oid": "13-α"
+      },
+      {
+        "key": "β",
+        "text": "AICA - βασική αρτηρία.",
+        "correct": false,
+        "oid": "13-β"
+      },
+      {
+        "key": "γ",
+        "text": "Οπίσθιες εγκεφαλικές - βασική αρτηρία.",
+        "correct": false,
+        "oid": "13-γ"
+      },
+      {
+        "key": "δ",
+        "text": "SCA - σπονδυλική αρτηρία.",
+        "correct": true,
+        "oid": "13-δ"
+      }
+    ],
+    "explanation": "Η άνω παρεγκεφαλιδική (SCA) αναφέρεται ως κλάδος της βασικής αρτηρίας."
+  },
+  {
+    "id": 14,
+    "category": "Σπονδυλοβασικό και παρεγκεφαλιδικές αρτηρίες",
+    "source": "Διαφάνεια 28",
+    "question": "Στις παρεγκεφαλιδικές αρτηρίες, ποια από τις παρακάτω αντιστοιχίες είναι σωστή;",
+    "options": [
+      {
+        "key": "α",
+        "text": "PICA - από τη σπονδυλική αρτηρία.",
+        "correct": true,
+        "oid": "14-α"
+      },
+      {
+        "key": "β",
+        "text": "SCA - από την έσω καρωτίδα.",
+        "correct": false,
+        "oid": "14-β"
+      },
+      {
+        "key": "γ",
+        "text": "AICA - από τη σπονδυλική αρτηρία.",
+        "correct": false,
+        "oid": "14-γ"
+      },
+      {
+        "key": "δ",
+        "text": "PICA - από τη βασική αρτηρία.",
+        "correct": false,
+        "oid": "14-δ"
+      }
+    ],
+    "explanation": "Η διαφάνεια 28 ξεχωρίζει SCA/AICA από τη βασική και PICA από τη σπονδυλική."
+  },
+  {
+    "id": 15,
+    "category": "Σπονδυλοβασικό και παρεγκεφαλιδικές αρτηρίες",
+    "source": "Διαφάνεια 9",
+    "question": "Όλα τα παρακάτω είναι κλάδοι της βασικής αρτηρίας εκτός από ένα:",
+    "options": [
+      {
+        "key": "α",
+        "text": "Γεφυρικές αρτηρίες.",
+        "correct": false,
+        "oid": "15-α"
+      },
+      {
+        "key": "β",
+        "text": "Μεσεγκεφαλικές αρτηρίες.",
+        "correct": false,
+        "oid": "15-β"
+      },
+      {
+        "key": "γ",
+        "text": "Έσω ραβδωτή αρτηρία του Heubner.",
+        "correct": true,
+        "oid": "15-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Οπίσθιες εγκεφαλικές αρτηρίες.",
+        "correct": false,
+        "oid": "15-δ"
+      }
+    ],
+    "explanation": "Η αρτηρία του Heubner αναφέρεται στους κλάδους της πρόσθιας εγκεφαλικής, όχι της βασικής."
+  },
+  {
+    "id": 16,
+    "category": "Σπονδυλοβασικό και παρεγκεφαλιδικές αρτηρίες",
+    "source": "Διαφάνειες 9, 28-29",
+    "question": "Σχετικά με τις παρεγκεφαλιδικές αρτηρίες, τι ισχύει;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Η PICA απεικονίζεται ως τελικός κλάδος της μέσης εγκεφαλικής.",
+        "correct": false,
+        "oid": "16-α"
+      },
+      {
+        "key": "β",
+        "text": "Η AICA και η SCA απεικονίζονται ως κλάδοι της βασικής αρτηρίας.",
+        "correct": true,
+        "oid": "16-β"
+      },
+      {
+        "key": "γ",
+        "text": "Η SCA εκφύεται από τη σπονδυλική πριν από τη βασική.",
+        "correct": false,
+        "oid": "16-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Η AICA δεν σχετίζεται με το σπονδυλοβασικό σύστημα.",
+        "correct": false,
+        "oid": "16-δ"
+      }
+    ],
+    "explanation": "Στις διαφάνειες 9 και 28, AICA και SCA ανήκουν στους κλάδους της βασικής αρτηρίας."
+  },
+  {
+    "id": 17,
+    "category": "Σπονδυλοβασικό και παρεγκεφαλιδικές αρτηρίες",
+    "source": "Διαφάνειες 8-9",
+    "question": "Ποιο από τα παρακάτω δεν είναι ζεύγος κλάδων που εμφανίζεται μαζί στο ίδιο μητρικό αγγείο;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Πρόσθια νωτιαία και οπίσθια νωτιαία.",
+        "correct": false,
+        "oid": "17-α"
+      },
+      {
+        "key": "β",
+        "text": "PICA και μεσεγκεφαλικές αρτηρίες.",
+        "correct": true,
+        "oid": "17-β"
+      },
+      {
+        "key": "γ",
+        "text": "AICA και γεφυρικές αρτηρίες.",
+        "correct": false,
+        "oid": "17-γ"
+      },
+      {
+        "key": "δ",
+        "text": "SCA και οπίσθιες εγκεφαλικές.",
+        "correct": false,
+        "oid": "17-δ"
+      }
+    ],
+    "explanation": "Η PICA ανήκει στη σπονδυλική, ενώ οι μεσεγκεφαλικές αρτηρίες στη βασική."
+  },
+  {
+    "id": 18,
+    "category": "Σπονδυλοβασικό και παρεγκεφαλιδικές αρτηρίες",
+    "source": "Διαφάνειες 8-9",
+    "question": "Ποια διατύπωση είναι λανθασμένη;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Η σπονδυλική χορηγεί μηνιγγικούς κλάδους.",
+        "correct": false,
+        "oid": "18-α"
+      },
+      {
+        "key": "β",
+        "text": "Η σπονδυλική χορηγεί νωτιαίους κλάδους.",
+        "correct": false,
+        "oid": "18-β"
+      },
+      {
+        "key": "γ",
+        "text": "Η βασική χορηγεί λαβυρινθική αρτηρία.",
+        "correct": false,
+        "oid": "18-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Η βασική χορηγεί την οπίσθια κάτω παρεγκεφαλιδική.",
+        "correct": true,
+        "oid": "18-δ"
+      }
+    ],
+    "explanation": "Η οπίσθια κάτω παρεγκεφαλιδική (PICA) δίνεται ως κλάδος της σπονδυλικής."
+  },
+  {
+    "id": 19,
+    "category": "Σπονδυλοβασικό και παρεγκεφαλιδικές αρτηρίες",
+    "source": "Διαφάνεια 29",
+    "question": "Στην εικονογράφηση των παρεγκεφαλιδικών αρτηριών, ποια σχέση αποδίδεται σωστά;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Η superior cerebellar artery βρίσκεται πάνω από την anterior inferior cerebellar artery.",
+        "correct": true,
+        "oid": "19-α"
+      },
+      {
+        "key": "β",
+        "text": "Η posterior inferior cerebellar artery εκφύεται από την οπίσθια εγκεφαλική.",
+        "correct": false,
+        "oid": "19-β"
+      },
+      {
+        "key": "γ",
+        "text": "Η anterior inferior cerebellar artery ονομάζεται PICA στη διαφάνεια.",
+        "correct": false,
+        "oid": "19-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Η vertebral artery σημειώνεται ως κλάδος της superior cerebellar.",
+        "correct": false,
+        "oid": "19-δ"
+      }
+    ],
+    "explanation": "Η διαφάνεια 29 απεικονίζει SCA ανώτερα, AICA πρόσθια-κάτω και PICA οπίσθια-κάτω."
+  },
+  {
+    "id": 20,
+    "category": "Πρόσθια χοριοειδής και διατιτραίνοντες κλάδοι",
+    "source": "Διαφάνεια 18",
+    "question": "Σχετικά με την πρόσθια χοριοειδή αρτηρία, τι δεν ισχύει;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Δίνει χοριοειδείς κλάδους για την πλάγια και την τρίτη κοιλία.",
+        "correct": false,
+        "oid": "20-α"
+      },
+      {
+        "key": "β",
+        "text": "Δίνει κλάδους για το οπτικό χίασμα και την οπτική ταινία.",
+        "correct": false,
+        "oid": "20-β"
+      },
+      {
+        "key": "γ",
+        "text": "Δίνει τον άνω λιθοειδή κόλπο ως φλεβώδη κλάδο.",
+        "correct": true,
+        "oid": "20-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Δίνει κλάδους για την έσω κάψα και την ωχρά σφαίρα.",
+        "correct": false,
+        "oid": "20-δ"
+      }
+    ],
+    "explanation": "Η πρόσθια χοριοειδής είναι αρτηρία και δεν δίνει φλεβώδη κόλπο."
+  },
+  {
+    "id": 21,
+    "category": "Πρόσθια χοριοειδής και διατιτραίνοντες κλάδοι",
+    "source": "Διαφάνεια 18",
+    "question": "Ποια δομή δεν αναφέρεται στους κλάδους/πεδία της πρόσθιας χοριοειδούς;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Έξω γονατώδες σώμα.",
+        "correct": false,
+        "oid": "21-α"
+      },
+      {
+        "key": "β",
+        "text": "Ουρά του κερκοφόρου πυρήνα.",
+        "correct": false,
+        "oid": "21-β"
+      },
+      {
+        "key": "γ",
+        "text": "Άνω οβελιαίος κόλπος.",
+        "correct": true,
+        "oid": "21-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Αμυγδαλοειδές σώμα.",
+        "correct": false,
+        "oid": "21-δ"
+      }
+    ],
+    "explanation": "Ο άνω οβελιαίος κόλπος ανήκει στους φλεβώδεις κόλπους, όχι στους κλάδους της πρόσθιας χοριοειδούς."
+  },
+  {
+    "id": 22,
+    "category": "Πρόσθια χοριοειδής και διατιτραίνοντες κλάδοι",
+    "source": "Διαφάνεια 18",
+    "question": "Όλα τα παρακάτω συσχετίζονται με την πρόσθια χοριοειδή εκτός από ένα:",
+    "options": [
+      {
+        "key": "α",
+        "text": "Κάτω αναστομωτική φλέβα του Labbé.",
+        "correct": true,
+        "oid": "22-α"
+      },
+      {
+        "key": "β",
+        "text": "Ιππόκαμπος και άγκιστρο.",
+        "correct": false,
+        "oid": "22-β"
+      },
+      {
+        "key": "γ",
+        "text": "Φαιό φύμα.",
+        "correct": false,
+        "oid": "22-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Ερυθρός πυρήνας και μέλαινα ουσία.",
+        "correct": false,
+        "oid": "22-δ"
+      }
+    ],
+    "explanation": "Η Labbé είναι φλέβα του επιπολής φλεβικού συστήματος, όχι κλάδος της πρόσθιας χοριοειδούς."
+  },
+  {
+    "id": 23,
+    "category": "Πρόσθια χοριοειδής και διατιτραίνοντες κλάδοι",
+    "source": "Διαφάνεια 18",
+    "question": "Ποιο από τα παρακάτω ισχύει για την πρόσθια χοριοειδή αρτηρία;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Αναφέρεται ως κύριος φλεβώδης κόλπος της βάσης.",
+        "correct": false,
+        "oid": "23-α"
+      },
+      {
+        "key": "β",
+        "text": "Αναφέρεται ως τελική συνέχεια του σιγμοειδούς κόλπου.",
+        "correct": false,
+        "oid": "23-β"
+      },
+      {
+        "key": "γ",
+        "text": "Αναφέρεται ως κλάδος της άνω παρεγκεφαλιδικής.",
+        "correct": false,
+        "oid": "23-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Αναφέρεται με κλάδο για την πρόσθια διάτρητη ουσία.",
+        "correct": true,
+        "oid": "23-δ"
+      }
+    ],
+    "explanation": "Στη διαφάνεια 18 υπάρχει ξεχωριστή αναφορά σε κλάδο για την πρόσθια διάτρητη ουσία."
+  },
+  {
+    "id": 24,
+    "category": "Πρόσθια χοριοειδής και διατιτραίνοντες κλάδοι",
+    "source": "Διαφάνεια 18",
+    "question": "Ποια αντιστοιχία περιοχής-αγγείου είναι λανθασμένη;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Έσω κάψα - πρόσθια χοριοειδής.",
+        "correct": false,
+        "oid": "24-α"
+      },
+      {
+        "key": "β",
+        "text": "Τρήμα Monro - οπίσθια αναστομωτική.",
+        "correct": true,
+        "oid": "24-β"
+      },
+      {
+        "key": "γ",
+        "text": "Ωχρά σφαίρα - πρόσθια χοριοειδής.",
+        "correct": false,
+        "oid": "24-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Οπτική ταινία - πρόσθια χοριοειδής.",
+        "correct": false,
+        "oid": "24-δ"
+      }
+    ],
+    "explanation": "Το τρήμα Monro εμφανίζεται στην ενότητα της έσω εγκεφαλικής φλέβας, όχι ως πεδίο της οπίσθιας αναστομωτικής."
+  },
+  {
+    "id": 25,
+    "category": "Πρόσθια χοριοειδής και διατιτραίνοντες κλάδοι",
+    "source": "Διαφάνειες 18, 26",
+    "question": "Ποιο ζεύγος κλάδου-αρτηρίας δεν αντιστοιχεί σωστά;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Αρτηρία της γωνιώδους έλικας - πρόσθια χοριοειδής.",
+        "correct": true,
+        "oid": "25-α"
+      },
+      {
+        "key": "β",
+        "text": "Χιασματικός κλάδος - οπίσθια αναστομωτική.",
+        "correct": false,
+        "oid": "25-β"
+      },
+      {
+        "key": "γ",
+        "text": "Αρτηρίες των μαστίων - οπίσθια αναστομωτική.",
+        "correct": false,
+        "oid": "25-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Χοριοειδείς κλάδοι πλάγιας και τρίτης κοιλίας - πρόσθια χοριοειδής.",
+        "correct": false,
+        "oid": "25-δ"
+      }
+    ],
+    "explanation": "Η αρτηρία της γωνιώδους έλικας δίνεται στους κλάδους της μέσης εγκεφαλικής."
+  },
+  {
+    "id": 26,
+    "category": "Πρόσθια χοριοειδής και διατιτραίνοντες κλάδοι",
+    "source": "Διαφάνεια 26",
+    "question": "Σχετικά με τους κλάδους της οπίσθιας αναστομωτικής, ποιο είναι λάθος;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Περιλαμβάνει θαλαμοδιατιτραίνουσες αρτηρίες.",
+        "correct": false,
+        "oid": "26-α"
+      },
+      {
+        "key": "β",
+        "text": "Περιλαμβάνει την έσω ραβδωτή του Heubner.",
+        "correct": true,
+        "oid": "26-β"
+      },
+      {
+        "key": "γ",
+        "text": "Περιλαμβάνει υποθαλαμικό κλάδο.",
+        "correct": false,
+        "oid": "26-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Περιλαμβάνει κλάδο για το κοινό κινητικό νεύρο.",
+        "correct": false,
+        "oid": "26-δ"
+      }
+    ],
+    "explanation": "Η έσω ραβδωτή του Heubner ανήκει στην πρόσθια εγκεφαλική αρτηρία."
+  },
+  {
+    "id": 27,
+    "category": "Πρόσθια χοριοειδής και διατιτραίνοντες κλάδοι",
+    "source": "Διαφάνεια 18",
+    "question": "Ποια επιλογή συνδυάζει μόνο δομές που αναφέρονται για την πρόσθια χοριοειδή;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Άνω λιθοειδής κόλπος, βασικό πλέγμα, ινιακός κόλπος.",
+        "correct": false,
+        "oid": "27-α"
+      },
+      {
+        "key": "β",
+        "text": "Σιγμοειδής κόλπος, κάτω οβελιαίος, ευθύς κόλπος.",
+        "correct": false,
+        "oid": "27-β"
+      },
+      {
+        "key": "γ",
+        "text": "Έξω γονατώδες σώμα, έσω κάψα, ουρά κερκοφόρου.",
+        "correct": true,
+        "oid": "27-γ"
+      },
+      {
+        "key": "δ",
+        "text": "AICA, SCA, PICA.",
+        "correct": false,
+        "oid": "27-δ"
+      }
+    ],
+    "explanation": "Όλες οι δομές της επιλογής α αναφέρονται στη διαφάνεια 18."
+  },
+  {
+    "id": 28,
+    "category": "Εγκεφαλικές αρτηρίες",
+    "source": "Διαφάνεια 20",
+    "question": "Σχετικά με την πρόσθια εγκεφαλική αρτηρία, ποιο δεν ισχύει;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Πορεύεται εντός της επιμήκους σχισμής.",
+        "correct": false,
+        "oid": "28-α"
+      },
+      {
+        "key": "β",
+        "text": "Περικάμπτει το μεσολόβιο.",
+        "correct": false,
+        "oid": "28-β"
+      },
+      {
+        "key": "γ",
+        "text": "Αναστομώνεται με την αντίπλευρη μέσω της πρόσθιας αναστομωτικής.",
+        "correct": false,
+        "oid": "28-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Πορεύεται στον πυθμένα της πλάγιας σχισμής.",
+        "correct": true,
+        "oid": "28-δ"
+      }
+    ],
+    "explanation": "Η πορεία στον πυθμένα της πλάγιας σχισμής ανήκει στη μέση εγκεφαλική αρτηρία."
+  },
+  {
+    "id": 29,
+    "category": "Εγκεφαλικές αρτηρίες",
+    "source": "Διαφάνεια 20",
+    "question": "Ποιος κλάδος αναφέρεται στην πρόσθια εγκεφαλική αρτηρία;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Αρτηρία της γωνιώδους έλικας.",
+        "correct": false,
+        "oid": "29-α"
+      },
+      {
+        "key": "β",
+        "text": "Άνω παρεγκεφαλιδική αρτηρία.",
+        "correct": false,
+        "oid": "29-β"
+      },
+      {
+        "key": "γ",
+        "text": "Θαλαμογονατώδης κλάδος.",
+        "correct": false,
+        "oid": "29-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Παράκεντρη αρτηρία του Duret.",
+        "correct": true,
+        "oid": "29-δ"
+      }
+    ],
+    "explanation": "Η παράκεντρη αρτηρία του Duret αναφέρεται στους κλάδους της ACA."
+  },
+  {
+    "id": 30,
+    "category": "Εγκεφαλικές αρτηρίες",
+    "source": "Διαφάνεια 20",
+    "question": "Ποιο από τα παρακάτω δεν είναι κλάδος της πρόσθιας εγκεφαλικής στη διαφάνεια;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Έξω μετωποβασική αρτηρία.",
+        "correct": true,
+        "oid": "30-α"
+      },
+      {
+        "key": "β",
+        "text": "Περιμεσολόβια αρτηρία.",
+        "correct": false,
+        "oid": "30-β"
+      },
+      {
+        "key": "γ",
+        "text": "Υπερμεσολόβια αρτηρία.",
+        "correct": false,
+        "oid": "30-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Έσω μετωποβασική αρτηρία.",
+        "correct": false,
+        "oid": "30-δ"
+      }
+    ],
+    "explanation": "Η έξω μετωποβασική ανήκει στη μέση εγκεφαλική, ενώ η έσω μετωποβασική στην πρόσθια εγκεφαλική."
+  },
+  {
+    "id": 31,
+    "category": "Εγκεφαλικές αρτηρίες",
+    "source": "Διαφάνεια 22",
+    "question": "Σχετικά με την πρόσθια αναστομωτική εγκεφαλική αρτηρία, ποιο ισχύει;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Δίνει ως κλάδο την AICA.",
+        "correct": false,
+        "oid": "31-α"
+      },
+      {
+        "key": "β",
+        "text": "Δίνει υπερχιασματική, μέση μεσολόβιο και μέση συνδεσμική.",
+        "correct": true,
+        "oid": "31-β"
+      },
+      {
+        "key": "γ",
+        "text": "Δίνει ως κλάδο την έσω ακουστική αρτηρία.",
+        "correct": false,
+        "oid": "31-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Δίνει οπίσθιους έσω και έξω χοριοειδείς κλάδους.",
+        "correct": false,
+        "oid": "31-δ"
+      }
+    ],
+    "explanation": "Η διαφάνεια 22 απαριθμεί αυτούς τους τρεις κλάδους της πρόσθιας αναστομωτικής."
+  },
+  {
+    "id": 32,
+    "category": "Εγκεφαλικές αρτηρίες",
+    "source": "Διαφάνεια 23",
+    "question": "Σχετικά με τη μέση εγκεφαλική αρτηρία, ποιο από τα παρακάτω είναι λάθος;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Πορεύεται στον πυθμένα της πλάγιας σχισμής.",
+        "correct": false,
+        "oid": "32-α"
+      },
+      {
+        "key": "β",
+        "text": "Δίνει αρτηρίες της νήσου.",
+        "correct": false,
+        "oid": "32-β"
+      },
+      {
+        "key": "γ",
+        "text": "Πορεύεται εντός της επιμήκους σχισμής περικάμπτοντας το μεσολόβιο.",
+        "correct": true,
+        "oid": "32-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Δίνει κροταφικές αρτηρίες πρόσθια, μέση και οπίσθια.",
+        "correct": false,
+        "oid": "32-δ"
+      }
+    ],
+    "explanation": "Η επιμήκης σχισμή και το μεσολόβιο χαρακτηρίζουν την ACA, όχι τη MCA."
+  },
+  {
+    "id": 33,
+    "category": "Εγκεφαλικές αρτηρίες",
+    "source": "Διαφάνεια 23",
+    "question": "Ποιος κλάδος αντιστοιχεί στη μέση εγκεφαλική αρτηρία;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Έσω ραβδωτή αρτηρία του Heubner.",
+        "correct": false,
+        "oid": "33-α"
+      },
+      {
+        "key": "β",
+        "text": "Αρτηρία της γωνιώδους έλικας.",
+        "correct": true,
+        "oid": "33-β"
+      },
+      {
+        "key": "γ",
+        "text": "Περιμεσολόβια αρτηρία.",
+        "correct": false,
+        "oid": "33-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Μέση συνδεσμική αρτηρία.",
+        "correct": false,
+        "oid": "33-δ"
+      }
+    ],
+    "explanation": "Η αρτηρία της γωνιώδους έλικας αναφέρεται ρητά στους κλάδους της MCA."
+  },
+  {
+    "id": 34,
+    "category": "Εγκεφαλικές αρτηρίες",
+    "source": "Διαφάνειες 20, 23",
+    "question": "Ποια αντιστοιχία αρτηρίας-κλάδου είναι λανθασμένη;",
+    "options": [
+      {
+        "key": "α",
+        "text": "ACA - έσω μετωποβασική.",
+        "correct": false,
+        "oid": "34-α"
+      },
+      {
+        "key": "β",
+        "text": "MCA - έξω μετωποβασική.",
+        "correct": false,
+        "oid": "34-β"
+      },
+      {
+        "key": "γ",
+        "text": "ACA - έσω ραβδωτή του Heubner.",
+        "correct": false,
+        "oid": "34-γ"
+      },
+      {
+        "key": "δ",
+        "text": "MCA - περιμεσολόβια.",
+        "correct": true,
+        "oid": "34-δ"
+      }
+    ],
+    "explanation": "Η περιμεσολόβια αναφέρεται στην ACA, όχι στη MCA."
+  },
+  {
+    "id": 35,
+    "category": "Εγκεφαλικές αρτηρίες",
+    "source": "Διαφάνεια 23",
+    "question": "Όλα τα παρακάτω αναφέρονται στη μέση εγκεφαλική εκτός από ένα:",
+    "options": [
+      {
+        "key": "α",
+        "text": "Θαλαμοδιατιτρώντες κλάδοι.",
+        "correct": true,
+        "oid": "35-α"
+      },
+      {
+        "key": "β",
+        "text": "Κεντρικές αρτηρίες.",
+        "correct": false,
+        "oid": "35-β"
+      },
+      {
+        "key": "γ",
+        "text": "Αρτηρίες της νήσου.",
+        "correct": false,
+        "oid": "35-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Βρεγματικές αρτηρίες πρόσθια και οπίσθια.",
+        "correct": false,
+        "oid": "35-δ"
+      }
+    ],
+    "explanation": "Οι θαλαμοδιατιτρώντες κλάδοι αναφέρονται στην οπίσθια εγκεφαλική."
+  },
+  {
+    "id": 36,
+    "category": "Εγκεφαλικές αρτηρίες",
+    "source": "Διαφάνεια 25",
+    "question": "Ποιο από τα παρακάτω δεν ανήκει στους κλάδους της οπίσθιας εγκεφαλικής;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Θαλαμογονατώδης.",
+        "correct": false,
+        "oid": "36-α"
+      },
+      {
+        "key": "β",
+        "text": "Τετραδυμική αρτηρία.",
+        "correct": false,
+        "oid": "36-β"
+      },
+      {
+        "key": "γ",
+        "text": "Υπερχιασματική αρτηρία.",
+        "correct": true,
+        "oid": "36-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Οπίσθιοι έσω και έξω χοριοειδείς κλάδοι.",
+        "correct": false,
+        "oid": "36-δ"
+      }
+    ],
+    "explanation": "Η υπερχιασματική ανήκει στους κλάδους της πρόσθιας αναστομωτικής."
+  },
+  {
+    "id": 37,
+    "category": "Εγκεφαλικές αρτηρίες",
+    "source": "Διαφάνεια 25",
+    "question": "Σχετικά με την έξω ινιακή αρτηρία της οπίσθιας εγκεφαλικής, τι δεν ισχύει;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Συνδέεται με ραχιαία αρτηρία του μεσολοβίου.",
+        "correct": false,
+        "oid": "37-α"
+      },
+      {
+        "key": "β",
+        "text": "Συνδέεται με βρεγματικούς κλάδους.",
+        "correct": false,
+        "oid": "37-β"
+      },
+      {
+        "key": "γ",
+        "text": "Συνδέεται με την έσω ραβδωτή αρτηρία του Heubner.",
+        "correct": true,
+        "oid": "37-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Συνδέεται με βρεγματοϊνιακούς κλάδους.",
+        "correct": false,
+        "oid": "37-δ"
+      }
+    ],
+    "explanation": "Η Heubner αναφέρεται στην ACA, όχι στην έξω ινιακή της PCA."
+  },
+  {
+    "id": 38,
+    "category": "Εγκεφαλικές αρτηρίες",
+    "source": "Διαφάνεια 25",
+    "question": "Ποια διατύπωση για την οπίσθια εγκεφαλική είναι σωστή;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Η οπίσθια εγκεφαλική δεν δίνει χοριοειδείς κλάδους.",
+        "correct": false,
+        "oid": "38-α"
+      },
+      {
+        "key": "β",
+        "text": "Η έσω ινιακή αρτηρία συνδέεται με κροταφικούς κλάδους.",
+        "correct": true,
+        "oid": "38-β"
+      },
+      {
+        "key": "γ",
+        "text": "Η τετραδυμική αρτηρία ανήκει στη μέση εγκεφαλική.",
+        "correct": false,
+        "oid": "38-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Οι θαλαμοδιατιτρώντες κλάδοι ανήκουν στην ACA.",
+        "correct": false,
+        "oid": "38-δ"
+      }
+    ],
+    "explanation": "Στη διαφάνεια 25 η έσω ινιακή σημειώνεται με κροταφικούς κλάδους."
+  },
+  {
+    "id": 39,
+    "category": "Εγκεφαλικές αρτηρίες",
+    "source": "Διαφάνειες 20, 25",
+    "question": "Ποιο ζεύγος είναι λανθασμένο;",
+    "options": [
+      {
+        "key": "α",
+        "text": "ACA - παράκεντρη αρτηρία του Duret.",
+        "correct": false,
+        "oid": "39-α"
+      },
+      {
+        "key": "β",
+        "text": "PCA - θαλαμογονατώδης κλάδος.",
+        "correct": false,
+        "oid": "39-β"
+      },
+      {
+        "key": "γ",
+        "text": "PCA - σκελιαίοι κλάδοι.",
+        "correct": false,
+        "oid": "39-γ"
+      },
+      {
+        "key": "δ",
+        "text": "ACA - τετραδυμική αρτηρία.",
+        "correct": true,
+        "oid": "39-δ"
+      }
+    ],
+    "explanation": "Η τετραδυμική αρτηρία αναφέρεται στους κλάδους της PCA."
+  },
+  {
+    "id": 40,
+    "category": "Εγκεφαλικές αρτηρίες",
+    "source": "Διαφάνεια 24",
+    "question": "Στην απεικόνιση των κλάδων της MCA, ποια επιλογή δεν εμφανίζεται ως ετικέτα;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Κάτω οβελιαίος κόλπος.",
+        "correct": true,
+        "oid": "40-α"
+      },
+      {
+        "key": "β",
+        "text": "Αρτηρία της κεντρικής αύλακας.",
+        "correct": false,
+        "oid": "40-β"
+      },
+      {
+        "key": "γ",
+        "text": "Αρτηρία της πρόσθιας κεντρικής αύλακας.",
+        "correct": false,
+        "oid": "40-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Αρτηρία για τη γωνιώδη έλικα.",
+        "correct": false,
+        "oid": "40-δ"
+      }
+    ],
+    "explanation": "Ο κάτω οβελιαίος είναι φλεβώδης κόλπος και δεν αποτελεί ετικέτα κλάδου της MCA στη διαφάνεια 24."
+  },
+  {
+    "id": 41,
+    "category": "Εγκεφαλικές αρτηρίες",
+    "source": "Διαφάνειες 20, 23, 25",
+    "question": "Ποια τριάδα περιέχει μόνο κλάδους της ίδιας αρτηρίας;",
+    "options": [
+      {
+        "key": "α",
+        "text": "AICA, λαβυρινθική, Heubner.",
+        "correct": false,
+        "oid": "41-α"
+      },
+      {
+        "key": "β",
+        "text": "Περιμεσολόβια, έσω μετωποβασική, Heubner.",
+        "correct": true,
+        "oid": "41-β"
+      },
+      {
+        "key": "γ",
+        "text": "Γωνιώδης έλικα, τετραδυμική, μετωπιαίοι κλάδοι.",
+        "correct": false,
+        "oid": "41-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Υπερχιασματική, PICA, θαλαμογονατώδης.",
+        "correct": false,
+        "oid": "41-δ"
+      }
+    ],
+    "explanation": "Και οι τρεις κλάδοι της επιλογής α αναφέρονται στην ACA."
+  },
+  {
+    "id": 42,
+    "category": "Εγκεφαλικές αρτηρίες",
+    "source": "Διαφάνειες 20, 23, 25",
+    "question": "Ποια αντιστοιχία πορείας-αρτηρίας είναι λανθασμένη;",
+    "options": [
+      {
+        "key": "α",
+        "text": "PCA - πυθμένας πλάγιας σχισμής.",
+        "correct": true,
+        "oid": "42-α"
+      },
+      {
+        "key": "β",
+        "text": "ACA - επιμήκης σχισμή.",
+        "correct": false,
+        "oid": "42-β"
+      },
+      {
+        "key": "γ",
+        "text": "MCA - πλάγια σχισμή.",
+        "correct": false,
+        "oid": "42-γ"
+      },
+      {
+        "key": "δ",
+        "text": "ACA - περικάμπτει το μεσολόβιο.",
+        "correct": false,
+        "oid": "42-δ"
+      }
+    ],
+    "explanation": "Ο πυθμένας της πλάγιας σχισμής δίνεται για τη MCA, όχι για την PCA."
+  },
+  {
+    "id": 43,
+    "category": "Σκληρά μήνιγγα και αναδιπλώσεις",
+    "source": "Διαφάνεια 33",
+    "question": "Σχετικά με τη σκληρά μήνιγγα, ποιο από τα παρακάτω δεν ισχύει;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Αποτελείται από περιόστεο και έσω πέταλο.",
+        "correct": false,
+        "oid": "43-α"
+      },
+      {
+        "key": "β",
+        "text": "Οι φλεβώδεις κόλποι σχηματίζονται μεταξύ των δύο πετάλων.",
+        "correct": false,
+        "oid": "43-β"
+      },
+      {
+        "key": "γ",
+        "text": "Οι φλεβώδεις κόλποι σχηματίζονται μέσα στην αραχνοειδή μήνιγγα.",
+        "correct": true,
+        "oid": "43-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Το έσω πέταλο σχηματίζει αναδιπλώσεις.",
+        "correct": false,
+        "oid": "43-δ"
+      }
+    ],
+    "explanation": "Η διαφάνεια 33 τοποθετεί τους κόλπους ανάμεσα στα δύο πέταλα της σκληράς μήνιγγας."
+  },
+  {
+    "id": 44,
+    "category": "Σκληρά μήνιγγα και αναδιπλώσεις",
+    "source": "Διαφάνεια 33",
+    "question": "Ποια αναδίπλωση της σκληράς βρίσκεται εντός της επιμήκους σχισμής;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Το σκηνίδιο της παρεγκεφαλίδας.",
+        "correct": false,
+        "oid": "44-α"
+      },
+      {
+        "key": "β",
+        "text": "Το διάφραγμα της υπόφυσης.",
+        "correct": false,
+        "oid": "44-β"
+      },
+      {
+        "key": "γ",
+        "text": "Το δρέπανο της παρεγκεφαλίδας.",
+        "correct": false,
+        "oid": "44-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Το δρέπανο του εγκεφάλου.",
+        "correct": true,
+        "oid": "44-δ"
+      }
+    ],
+    "explanation": "Το δρέπανο του εγκεφάλου αναφέρεται εντός της επιμήκους σχισμής."
+  },
+  {
+    "id": 45,
+    "category": "Σκληρά μήνιγγα και αναδιπλώσεις",
+    "source": "Διαφάνεια 33",
+    "question": "Σχετικά με το σκηνίδιο της παρεγκεφαλίδας, ποια σχέση είναι λανθασμένη;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Βρίσκεται εντός της οπίσθιας εντομής της παρεγκεφαλίδας.",
+        "correct": true,
+        "oid": "45-α"
+      },
+      {
+        "key": "β",
+        "text": "Βρίσκεται εντός της εγκάρσιας σχισμής.",
+        "correct": false,
+        "oid": "45-β"
+      },
+      {
+        "key": "γ",
+        "text": "Προσφύεται στο άνω χείλος του λιθοειδούς.",
+        "correct": false,
+        "oid": "45-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Σχετίζεται με την εγκάρσια αύλακα.",
+        "correct": false,
+        "oid": "45-δ"
+      }
+    ],
+    "explanation": "Η οπίσθια εντομή της παρεγκεφαλίδας αντιστοιχεί στο δρέπανο της παρεγκεφαλίδας."
+  },
+  {
+    "id": 46,
+    "category": "Σκληρά μήνιγγα και αναδιπλώσεις",
+    "source": "Διαφάνειες 33-34",
+    "question": "Ποιο από τα παρακάτω αντιστοιχεί σωστά;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Δρέπανο παρεγκεφαλίδας - επιμήκης σχισμή.",
+        "correct": false,
+        "oid": "46-α"
+      },
+      {
+        "key": "β",
+        "text": "Σκηνίδιο - οπίσθια εντομή παρεγκεφαλίδας.",
+        "correct": false,
+        "oid": "46-β"
+      },
+      {
+        "key": "γ",
+        "text": "Διάφραγμα υπόφυσης - αναδίπλωση της σκληράς.",
+        "correct": true,
+        "oid": "46-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Άνω οβελιαίος κόλπος - κλάδος της βασικής αρτηρίας.",
+        "correct": false,
+        "oid": "46-δ"
+      }
+    ],
+    "explanation": "Το διάφραγμα της υπόφυσης περιλαμβάνεται στις αναδιπλώσεις της σκληράς μήνιγγας."
+  },
+  {
+    "id": 47,
+    "category": "Σκληρά μήνιγγα και αναδιπλώσεις",
+    "source": "Διαφάνεια 33",
+    "question": "Όλα τα παρακάτω είναι αναδιπλώσεις της σκληράς εκτός από ένα:",
+    "options": [
+      {
+        "key": "α",
+        "text": "Δρέπανο του εγκεφάλου.",
+        "correct": false,
+        "oid": "47-α"
+      },
+      {
+        "key": "β",
+        "text": "Φλέβα του Γαληνού.",
+        "correct": true,
+        "oid": "47-β"
+      },
+      {
+        "key": "γ",
+        "text": "Σκηνίδιο της παρεγκεφαλίδας.",
+        "correct": false,
+        "oid": "47-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Δρέπανο της παρεγκεφαλίδας.",
+        "correct": false,
+        "oid": "47-δ"
+      }
+    ],
+    "explanation": "Η φλέβα του Γαληνού ανήκει στο εν τω βάθει φλεβικό σύστημα, όχι στις αναδιπλώσεις."
+  },
+  {
+    "id": 48,
+    "category": "Εγκεφαλικές φλέβες",
+    "source": "Διαφάνειες 35-36",
+    "question": "Στο επιπολής φλεβικό σύστημα, ποιο από τα παρακάτω δεν αντιστοιχεί;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Trolard - άνω παραοβελιαίες φλοιικές φλέβες.",
+        "correct": false,
+        "oid": "48-α"
+      },
+      {
+        "key": "β",
+        "text": "Επιπολής μέση εγκεφαλική - Sylvian.",
+        "correct": false,
+        "oid": "48-β"
+      },
+      {
+        "key": "γ",
+        "text": "Labbé - κάτω φλοιικές φλέβες.",
+        "correct": false,
+        "oid": "48-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Rosenthal - άνω παραοβελιαίες φλοιικές φλέβες.",
+        "correct": true,
+        "oid": "48-δ"
+      }
+    ],
+    "explanation": "Η Rosenthal είναι βασική εν τω βάθει φλέβα, όχι επιπολής παραοβελιαία φλέβα."
+  },
+  {
+    "id": 49,
+    "category": "Εγκεφαλικές φλέβες",
+    "source": "Διαφάνεια 39",
+    "question": "Ποια σύνθεση αποδίδει σωστά τις εν τω βάθει φλέβες του εγκεφάλου;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Trolard x2, Labbé x2, επιπολής μέση εγκεφαλική x1.",
+        "correct": false,
+        "oid": "49-α"
+      },
+      {
+        "key": "β",
+        "text": "Άνω οβελιαίος x2, σιγμοειδής x2, εγκάρσιος x1.",
+        "correct": false,
+        "oid": "49-β"
+      },
+      {
+        "key": "γ",
+        "text": "Βασική Rosenthal x2, έσω εγκεφαλικές x2, φλέβα Γαληνού x1.",
+        "correct": true,
+        "oid": "49-γ"
+      },
+      {
+        "key": "δ",
+        "text": "AICA x2, SCA x2, PICA x1.",
+        "correct": false,
+        "oid": "49-δ"
+      }
+    ],
+    "explanation": "Η διαφάνεια 39 δίνει ακριβώς αυτό το σχήμα για τις εν τω βάθει φλέβες."
+  },
+  {
+    "id": 50,
+    "category": "Εγκεφαλικές φλέβες",
+    "source": "Διαφάνεια 40",
+    "question": "Σχετικά με τη βασική φλέβα του Rosenthal, ποιο είναι λάθος;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Σχηματίζεται από τη χοριοειδή, τη θαλαμοραβδωτή και τη φλέβα του τελικού διαφράγματος.",
+        "correct": true,
+        "oid": "50-α"
+      },
+      {
+        "key": "β",
+        "text": "Προκύπτει από πρόσθια εγκεφαλική φλέβα και εν τω βάθει μέση εγκεφαλική φλέβα.",
+        "correct": false,
+        "oid": "50-β"
+      },
+      {
+        "key": "γ",
+        "text": "Οι δύο βασικές φλέβες αναστομώνονται μεταξύ τους.",
+        "correct": false,
+        "oid": "50-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Εκβάλλει στη μεγάλη φλέβα του Γαληνού.",
+        "correct": false,
+        "oid": "50-δ"
+      }
+    ],
+    "explanation": "Η τελευταία τριάδα σχηματίζει την έσω εγκεφαλική φλέβα, όχι τη Rosenthal."
+  },
+  {
+    "id": 51,
+    "category": "Εγκεφαλικές φλέβες",
+    "source": "Διαφάνεια 40",
+    "question": "Ποια τοπογραφική σχέση των αναστομωτικών φλεβών της Rosenthal είναι σωστή;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Η πρόσθια αναστόμωση βρίσκεται πίσω από την πρόσθια γεφυρική αύλακα.",
+        "correct": false,
+        "oid": "51-α"
+      },
+      {
+        "key": "β",
+        "text": "Η οπίσθια αναστόμωση βρίσκεται μπροστά από το οπτικό χίασμα.",
+        "correct": false,
+        "oid": "51-β"
+      },
+      {
+        "key": "γ",
+        "text": "Η οπίσθια αναστόμωση εκβάλλει απευθείας στον σιγμοειδή κόλπο.",
+        "correct": false,
+        "oid": "51-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Η πρόσθια αναστόμωση βρίσκεται μπροστά από το οπτικό χίασμα.",
+        "correct": true,
+        "oid": "51-δ"
+      }
+    ],
+    "explanation": "Η διαφάνεια 40 τοποθετεί την πρόσθια αναστόμωση μπροστά από το οπτικό χίασμα."
+  },
+  {
+    "id": 52,
+    "category": "Εγκεφαλικές φλέβες",
+    "source": "Διαφάνεια 41",
+    "question": "Η έσω εγκεφαλική φλέβα προκύπτει από τη συμβολή όλων των παρακάτω εκτός από:",
+    "options": [
+      {
+        "key": "α",
+        "text": "Χοριοειδή φλέβα.",
+        "correct": false,
+        "oid": "52-α"
+      },
+      {
+        "key": "β",
+        "text": "Κάτω αναστομωτική φλέβα του Labbé.",
+        "correct": true,
+        "oid": "52-β"
+      },
+      {
+        "key": "γ",
+        "text": "Θαλαμοραβδωτή φλέβα.",
+        "correct": false,
+        "oid": "52-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Φλέβα τελικού διαφράγματος.",
+        "correct": false,
+        "oid": "52-δ"
+      }
+    ],
+    "explanation": "Η Labbé ανήκει στις επιπολής φλέβες και δεν σχηματίζει την έσω εγκεφαλική."
+  },
+  {
+    "id": 53,
+    "category": "Εγκεφαλικές φλέβες",
+    "source": "Διαφάνεια 41",
+    "question": "Σχετικά με την έσω εγκεφαλική φλέβα, τι ισχύει;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Εκβάλλει απευθείας στον άνω βολβό της έσω σφαγίτιδας.",
+        "correct": false,
+        "oid": "53-α"
+      },
+      {
+        "key": "β",
+        "text": "Σχηματίζεται από πρόσθια και εν τω βάθει μέση εγκεφαλική φλέβα.",
+        "correct": false,
+        "oid": "53-β"
+      },
+      {
+        "key": "γ",
+        "text": "Αναδύεται μεταξύ τετράδυμου πετάλου και σπληνίου.",
+        "correct": false,
+        "oid": "53-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Η συμβολή των τριών φλεβών της γίνεται στο ύψος του τρήματος Monro.",
+        "correct": true,
+        "oid": "53-δ"
+      }
+    ],
+    "explanation": "Η διαφάνεια 41 τοποθετεί τον σχηματισμό στο ύψος του τρήματος του Monro."
+  },
+  {
+    "id": 54,
+    "category": "Εγκεφαλικές φλέβες",
+    "source": "Διαφάνεια 43",
+    "question": "Ποιο από τα παρακάτω για τη μεγάλη φλέβα του Γαληνού είναι λανθασμένο;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Αναδύεται μεταξύ τετράδυμου πετάλου και σπληνίου.",
+        "correct": false,
+        "oid": "54-α"
+      },
+      {
+        "key": "β",
+        "text": "Εκβάλλει στον ευθύ κόλπο.",
+        "correct": false,
+        "oid": "54-β"
+      },
+      {
+        "key": "γ",
+        "text": "Μεταπίπτει στον άνω βολβό της έσω σφαγίτιδας.",
+        "correct": true,
+        "oid": "54-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Σχηματίζεται με συμμετοχή των δύο έσω εγκεφαλικών φλεβών.",
+        "correct": false,
+        "oid": "54-δ"
+      }
+    ],
+    "explanation": "Η μετάπτωση στον άνω βολβό της έσω σφαγίτιδας αφορά τον σιγμοειδή κόλπο."
+  },
+  {
+    "id": 55,
+    "category": "Εγκεφαλικές φλέβες",
+    "source": "Διαφάνειες 35, 60-61",
+    "question": "Ποια αντιστοιχία επιπολής φλέβας-εκβολής/περιοχής είναι λανθασμένη;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Έσω εγκεφαλική φλέβα - επιπολής μέση εγκεφαλική φλέβα.",
+        "correct": true,
+        "oid": "55-α"
+      },
+      {
+        "key": "β",
+        "text": "Trolard - άνω οβελιαίος κόλπος.",
+        "correct": false,
+        "oid": "55-β"
+      },
+      {
+        "key": "γ",
+        "text": "Labbé - εγκάρσιος κόλπος.",
+        "correct": false,
+        "oid": "55-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Επιπολής μέση εγκεφαλική - σφηνοβρεγματικός/σηραγγώδης κόλπος.",
+        "correct": false,
+        "oid": "55-δ"
+      }
+    ],
+    "explanation": "Η έσω εγκεφαλική ανήκει στο εν τω βάθει σύστημα, όχι στην επιπολής μέση εγκεφαλική."
+  },
+  {
+    "id": 56,
+    "category": "Εγκεφαλικές φλέβες",
+    "source": "Διαφάνεια 58",
+    "question": "Ποια φλέβα δεν αναφέρεται στις φλέβες του εγκεφαλικού στελέχους;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Γεφυρομεσεγκεφαλική φλέβα.",
+        "correct": false,
+        "oid": "56-α"
+      },
+      {
+        "key": "β",
+        "text": "Φλέβα τελικού διαφράγματος.",
+        "correct": true,
+        "oid": "56-β"
+      },
+      {
+        "key": "γ",
+        "text": "Μεσοδιδύμια φλέβα.",
+        "correct": false,
+        "oid": "56-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Φλέβα του προμήκη.",
+        "correct": false,
+        "oid": "56-δ"
+      }
+    ],
+    "explanation": "Η φλέβα του τελικού διαφράγματος αναφέρεται στον σχηματισμό της έσω εγκεφαλικής."
+  },
+  {
+    "id": 57,
+    "category": "Εγκεφαλικές φλέβες",
+    "source": "Διαφάνεια 59",
+    "question": "Σχετικά με τις φλέβες της παρεγκεφαλίδας, ποιο από τα παρακάτω δεν ισχύει;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Αναφέρονται άνω και κάτω παρεγκεφαλιδικές φλέβες.",
+        "correct": false,
+        "oid": "57-α"
+      },
+      {
+        "key": "β",
+        "text": "Αναφέρεται η έσω ακουστική αρτηρία ως παρεγκεφαλιδική φλέβα.",
+        "correct": true,
+        "oid": "57-β"
+      },
+      {
+        "key": "γ",
+        "text": "Αναφέρονται άνω και κάτω φλέβες του σκώληκα.",
+        "correct": false,
+        "oid": "57-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Αναφέρεται η λιθοειδής φλέβα.",
+        "correct": false,
+        "oid": "57-δ"
+      }
+    ],
+    "explanation": "Η έσω ακουστική είναι αρτηρία στους κλάδους της βασικής, όχι φλέβα της παρεγκεφαλίδας."
+  },
+  {
+    "id": 58,
+    "category": "Εγκεφαλικές φλέβες",
+    "source": "Διαφάνειες 40-43",
+    "question": "Ποια αλληλουχία είναι σωστή για το εν τω βάθει φλεβικό σύστημα;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Trolard και Labbé σχηματίζουν τη μεγάλη φλέβα του Γαληνού, η οποία εκβάλλει στον σιγμοειδή κόλπο.",
+        "correct": false,
+        "oid": "58-α"
+      },
+      {
+        "key": "β",
+        "text": "Η έσω εγκεφαλική φλέβα σχηματίζει απευθείας τον κάτω λιθοειδή κόλπο.",
+        "correct": false,
+        "oid": "58-β"
+      },
+      {
+        "key": "γ",
+        "text": "Η βασική Rosenthal εκβάλλει στην επιπολής μέση εγκεφαλική φλέβα.",
+        "correct": false,
+        "oid": "58-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Έσω εγκεφαλικές και βασικές Rosenthal σχηματίζουν τη μεγάλη φλέβα του Γαληνού, η οποία εκβάλλει στον ευθύ κόλπο.",
+        "correct": true,
+        "oid": "58-δ"
+      }
+    ],
+    "explanation": "Οι διαφάνειες 41 και 43 συνδέουν τις έσω εγκεφαλικές/βασικές με τη φλέβα του Γαληνού και τον ευθύ κόλπο."
+  },
+  {
+    "id": 59,
+    "category": "Φλεβώδεις κόλποι και σηραγγώδης κόλπος",
+    "source": "Διαφάνεια 44",
+    "question": "Ποιος κόλπος κατατάσσεται στους εν τω βάθει φλεβώδεις κόλπους στη διαφάνεια;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Κάτω οβελιαίος κόλπος.",
+        "correct": true,
+        "oid": "59-α"
+      },
+      {
+        "key": "β",
+        "text": "Άνω οβελιαίος κόλπος.",
+        "correct": false,
+        "oid": "59-β"
+      },
+      {
+        "key": "γ",
+        "text": "Ινιακός κόλπος.",
+        "correct": false,
+        "oid": "59-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Σιγμοειδής κόλπος.",
+        "correct": false,
+        "oid": "59-δ"
+      }
+    ],
+    "explanation": "Η διαφάνεια 44 τοποθετεί τον κάτω οβελιαίο στους εν τω βάθει κόλπους."
+  },
+  {
+    "id": 60,
+    "category": "Φλεβώδεις κόλποι και σηραγγώδης κόλπος",
+    "source": "Διαφάνεια 47",
+    "question": "Σχετικά με τον κάτω οβελιαίο κόλπο, ποιο ισχύει;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Υποδέχεται κυρίως φλέβες της παρεγκεφαλίδας και του προμήκη.",
+        "correct": false,
+        "oid": "60-α"
+      },
+      {
+        "key": "β",
+        "text": "Εκβάλλει απευθείας στον άνω βολβό της έσω σφαγίτιδας.",
+        "correct": false,
+        "oid": "60-β"
+      },
+      {
+        "key": "γ",
+        "text": "Υποδέχεται κυρίως φλέβες του μεσολοβίου και του δρεπάνου.",
+        "correct": true,
+        "oid": "60-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Σχηματίζεται από τη συμβολή των εγκάρσιων κόλπων.",
+        "correct": false,
+        "oid": "60-δ"
+      }
+    ],
+    "explanation": "Η διαφάνεια 47 αναφέρει φλέβες του μεσολοβίου και του δρεπάνου."
+  },
+  {
+    "id": 61,
+    "category": "Φλεβώδεις κόλποι και σηραγγώδης κόλπος",
+    "source": "Διαφάνεια 48",
+    "question": "Ο ευθύς κόλπος δέχεται την εκβολή ποιων δομών;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Του άνω οβελιαίου και του σιγμοειδούς κόλπου.",
+        "correct": false,
+        "oid": "61-α"
+      },
+      {
+        "key": "β",
+        "text": "Της Labbé και του άνω λιθοειδούς κόλπου.",
+        "correct": false,
+        "oid": "61-β"
+      },
+      {
+        "key": "γ",
+        "text": "Της οφθαλμικής φλέβας και του σφηνοβρεγματικού κόλπου.",
+        "correct": false,
+        "oid": "61-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Του κάτω οβελιαίου κόλπου και της μεγάλης φλέβας του Γαληνού.",
+        "correct": true,
+        "oid": "61-δ"
+      }
+    ],
+    "explanation": "Η διαφάνεια 48 δίνει ως εκβολές στον ευθύ κόλπο τον κάτω οβελιαίο και τη μεγάλη φλέβα του Γαληνού."
+  },
+  {
+    "id": 62,
+    "category": "Φλεβώδεις κόλποι και σηραγγώδης κόλπος",
+    "source": "Διαφάνεια 49",
+    "question": "Στη συμβολή των κόλπων, ποια τριάδα αναφέρεται;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Κάτω οβελιαίος, σηραγγώδης, σφηνοβρεγματικός.",
+        "correct": false,
+        "oid": "62-α"
+      },
+      {
+        "key": "β",
+        "text": "Άνω οβελιαίος, ευθύς, ινιακός κόλπος.",
+        "correct": true,
+        "oid": "62-β"
+      },
+      {
+        "key": "γ",
+        "text": "Άνω λιθοειδής, κάτω λιθοειδής, βασικό πλέγμα.",
+        "correct": false,
+        "oid": "62-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Σιγμοειδής, κάτω λιθοειδής, άνω βολβός έσω σφαγίτιδας.",
+        "correct": false,
+        "oid": "62-δ"
+      }
+    ],
+    "explanation": "Η διαφάνεια 49 γράφει άνω οβελιαίος + ευθύς + ινιακός κόλπος στη συμβολή."
+  },
+  {
+    "id": 63,
+    "category": "Φλεβώδεις κόλποι και σηραγγώδης κόλπος",
+    "source": "Διαφάνεια 49",
+    "question": "Ποιο από τα παρακάτω δεν ισχύει για τη συμβολή των κόλπων;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Ονομάζεται και ληνός του Ηροφίλου στη διαφάνεια 44.",
+        "correct": false,
+        "oid": "63-α"
+      },
+      {
+        "key": "β",
+        "text": "Σχετίζεται με τους εγκάρσιους κόλπους.",
+        "correct": false,
+        "oid": "63-β"
+      },
+      {
+        "key": "γ",
+        "text": "Δεν εμφανίζει ανατομικές παραλλαγές στη διαφάνεια.",
+        "correct": true,
+        "oid": "63-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Σχηματίζεται από άνω οβελιαίο, ευθύ και ινιακό κόλπο.",
+        "correct": false,
+        "oid": "63-δ"
+      }
+    ],
+    "explanation": "Η διαφάνεια 49 σημειώνει παραλλαγές σε ποσοστό μεγαλύτερο από 60%."
+  },
+  {
+    "id": 64,
+    "category": "Φλεβώδεις κόλποι και σηραγγώδης κόλπος",
+    "source": "Διαφάνεια 51",
+    "question": "Σχετικά με τον εγκάρσιο κόλπο, ποιο είναι λάθος;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Μεταπίπτει στον άνω βολβό της έσω σφαγίτιδας.",
+        "correct": true,
+        "oid": "64-α"
+      },
+      {
+        "key": "β",
+        "text": "Δέχεται τη συμβολή των κόλπων.",
+        "correct": false,
+        "oid": "64-β"
+      },
+      {
+        "key": "γ",
+        "text": "Δέχεται τον άνω λιθοειδή κόλπο.",
+        "correct": false,
+        "oid": "64-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Δέχεται την κάτω αναστομωτική φλέβα του Labbé.",
+        "correct": false,
+        "oid": "64-δ"
+      }
+    ],
+    "explanation": "Η μετάπτωση στον άνω βολβό της έσω σφαγίτιδας αφορά τον σιγμοειδή κόλπο."
+  },
+  {
+    "id": 65,
+    "category": "Φλεβώδεις κόλποι και σηραγγώδης κόλπος",
+    "source": "Διαφάνεια 52",
+    "question": "Σχετικά με τον σιγμοειδή κόλπο, ποιο ισχύει;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Δέχεται κυρίως τον κάτω οβελιαίο κόλπο και τη φλέβα του Γαληνού.",
+        "correct": false,
+        "oid": "65-α"
+      },
+      {
+        "key": "β",
+        "text": "Εκτείνεται από το υπερκόγχιο σχίσμα έως την κορυφή του λιθοειδούς.",
+        "correct": false,
+        "oid": "65-β"
+      },
+      {
+        "key": "γ",
+        "text": "Συμβάλλει με τον κάτω λιθοειδή και μεταπίπτει στον άνω βολβό της έσω σφαγίτιδας.",
+        "correct": true,
+        "oid": "65-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Αποτελεί τον κύριο κλάδο της πρόσθιας χοριοειδούς αρτηρίας.",
+        "correct": false,
+        "oid": "65-δ"
+      }
+    ],
+    "explanation": "Η διαφάνεια 52 περιγράφει ακριβώς αυτή τη σχέση του σιγμοειδούς."
+  },
+  {
+    "id": 66,
+    "category": "Φλεβώδεις κόλποι και σηραγγώδης κόλπος",
+    "source": "Διαφάνεια 55",
+    "question": "Σχετικά με τον σηραγγώδη κόλπο, ποιο δεν ισχύει;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Εκτείνεται από το υπερκόγχιο σχίσμα έως την κορυφή του λιθοειδούς.",
+        "correct": false,
+        "oid": "66-α"
+      },
+      {
+        "key": "β",
+        "text": "Μεταπίπτει σε άνω και κάτω λιθοειδή κόλπο.",
+        "correct": false,
+        "oid": "66-β"
+      },
+      {
+        "key": "γ",
+        "text": "Υποδέχεται την επιπολής μέση εγκεφαλική φλέβα συνήθως μέσω του σφηνοβρεγματικού.",
+        "correct": false,
+        "oid": "66-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Περιλαμβάνει την PICA και την οπίσθια νωτιαία αρτηρία.",
+        "correct": true,
+        "oid": "66-δ"
+      }
+    ],
+    "explanation": "Ο σηραγγώδης κόλπος περιλαμβάνει σηραγγώδη μοίρα καρωτίδας, οφθαλμοκινητικά νεύρα και V1/V2, όχι PICA."
+  },
+  {
+    "id": 67,
+    "category": "Φλεβώδεις κόλποι και σηραγγώδης κόλπος",
+    "source": "Διαφάνεια 55",
+    "question": "Ποιο περιεχόμενο του σηραγγώδους κόλπου αναφέρεται στη διαφάνεια;",
+    "options": [
+      {
+        "key": "α",
+        "text": "PICA, AICA, SCA και οπίσθια εγκεφαλική.",
+        "correct": false,
+        "oid": "67-α"
+      },
+      {
+        "key": "β",
+        "text": "Σηραγγώδης μοίρα της καρωτίδας, οφθαλμοκινητικά νεύρα, V1 και V2.",
+        "correct": true,
+        "oid": "67-β"
+      },
+      {
+        "key": "γ",
+        "text": "Έσω εγκεφαλικές φλέβες, Rosenthal και φλέβα Γαληνού.",
+        "correct": false,
+        "oid": "67-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Άνω και κάτω φλέβες του σκώληκα με λιθοειδή φλέβα.",
+        "correct": false,
+        "oid": "67-δ"
+      }
+    ],
+    "explanation": "Η διαφάνεια 55 απαριθμεί καρωτίδα, οφθαλμοκινητικά νεύρα και πρώτους δύο κλάδους του τριδύμου."
+  },
+  {
+    "id": 68,
+    "category": "Φλεβώδεις κόλποι και σηραγγώδης κόλπος",
+    "source": "Διαφάνειες 55-57",
+    "question": "Ποια αντιστοιχία σηραγγώδους/λιθοειδών κόλπων είναι λανθασμένη;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Ο κάτω λιθοειδής εκβάλλει στον άνω οβελιαίο κόλπο.",
+        "correct": true,
+        "oid": "68-α"
+      },
+      {
+        "key": "β",
+        "text": "Οι σηραγγώδεις κόλποι επικοινωνούν μέσω άνω και κάτω μεσοσηραγγώδους.",
+        "correct": false,
+        "oid": "68-β"
+      },
+      {
+        "key": "γ",
+        "text": "Ο άνω λιθοειδής εκβάλλει στη συμβολή εγκάρσιου-σιγμοειδούς.",
+        "correct": false,
+        "oid": "68-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Ο κάτω λιθοειδής εκβάλλει στην έσω σφαγίτιδα.",
+        "correct": false,
+        "oid": "68-δ"
+      }
+    ],
+    "explanation": "Η διαφάνεια 57 δίνει τον κάτω λιθοειδή προς την έσω σφαγίτιδα."
+  },
+  {
+    "id": 69,
+    "category": "Φλεβώδεις κόλποι και σηραγγώδης κόλπος",
+    "source": "Διαφάνεια 57",
+    "question": "Σχετικά με τους λιθοειδείς κόλπους, τι ισχύει;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Ο κάτω λιθοειδής εκβάλλει στη μεγάλη φλέβα του Γαληνού.",
+        "correct": false,
+        "oid": "69-α"
+      },
+      {
+        "key": "β",
+        "text": "Ο άνω λιθοειδής σχηματίζει την έσω εγκεφαλική φλέβα.",
+        "correct": false,
+        "oid": "69-β"
+      },
+      {
+        "key": "γ",
+        "text": "Ο κάτω λιθοειδής καταλήγει στον άνω οβελιαίο κόλπο.",
+        "correct": false,
+        "oid": "69-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Ο άνω λιθοειδής εκβάλλει στη συμβολή εγκάρσιου-σιγμοειδούς.",
+        "correct": true,
+        "oid": "69-δ"
+      }
+    ],
+    "explanation": "Η διαφάνεια 57 σημειώνει την εκβολή του άνω λιθοειδούς στη συμβολή εγκάρσιου-σιγμοειδούς."
+  },
+  {
+    "id": 70,
+    "category": "Φλεβώδεις κόλποι και σηραγγώδης κόλπος",
+    "source": "Διαφάνειες 51-52",
+    "question": "Ποια εκβολή/υποδοχή δεν αποδίδεται σωστά;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Εγκάρσιος κόλπος - δέχεται την κάτω αναστομωτική φλέβα του Labbé.",
+        "correct": false,
+        "oid": "70-α"
+      },
+      {
+        "key": "β",
+        "text": "Σιγμοειδής κόλπος - δέχεται φλέβες στελέχους και οπίσθιου βόθρου.",
+        "correct": false,
+        "oid": "70-β"
+      },
+      {
+        "key": "γ",
+        "text": "Σιγμοειδής κόλπος - δέχεται τον κάτω οβελιαίο κόλπο ως κύρια εκβολή.",
+        "correct": true,
+        "oid": "70-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Εγκάρσιος κόλπος - δέχεται τον άνω λιθοειδή κόλπο.",
+        "correct": false,
+        "oid": "70-δ"
+      }
+    ],
+    "explanation": "Ο κάτω οβελιαίος εκβάλλει στον ευθύ κόλπο, όχι στον σιγμοειδή."
+  },
+  {
+    "id": 71,
+    "category": "Φλεβώδεις κόλποι και σηραγγώδης κόλπος",
+    "source": "Διαφάνεια 44",
+    "question": "Ποιος από τους παρακάτω αναφέρεται στους επιπολής φλεβώδεις κόλπους;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Άνω οβελιαίος κόλπος.",
+        "correct": true,
+        "oid": "71-α"
+      },
+      {
+        "key": "β",
+        "text": "Σηραγγώδης κόλπος.",
+        "correct": false,
+        "oid": "71-β"
+      },
+      {
+        "key": "γ",
+        "text": "Ευθύς κόλπος.",
+        "correct": false,
+        "oid": "71-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Σφηνοβρεγματικός κόλπος.",
+        "correct": false,
+        "oid": "71-δ"
+      }
+    ],
+    "explanation": "Στη διαφάνεια 44 ο άνω οβελιαίος βρίσκεται στην επιπολής ομάδα."
+  },
+  {
+    "id": 72,
+    "category": "Φλεβώδεις κόλποι και σηραγγώδης κόλπος",
+    "source": "Διαφάνειες 55-56",
+    "question": "Στην περιοχή του σηραγγώδους κόλπου, ποια σχέση είναι λανθασμένη;",
+    "options": [
+      {
+        "key": "α",
+        "text": "Το CN III φαίνεται στην πλάγια περιοχή του σηραγγώδους κόλπου.",
+        "correct": false,
+        "oid": "72-α"
+      },
+      {
+        "key": "β",
+        "text": "Το CN VII αποτελεί έναν από τους πρώτους δύο κλάδους του τριδύμου.",
+        "correct": true,
+        "oid": "72-β"
+      },
+      {
+        "key": "γ",
+        "text": "Το V1 και το V2 επισημαίνονται στην απεικόνιση του σηραγγώδους.",
+        "correct": false,
+        "oid": "72-γ"
+      },
+      {
+        "key": "δ",
+        "text": "Η έσω καρωτίδα σχετίζεται με τη σηραγγώδη μοίρα.",
+        "correct": false,
+        "oid": "72-δ"
+      }
+    ],
+    "explanation": "Οι πρώτοι δύο κλάδοι του τριδύμου είναι V1 και V2· το CN VII δεν είναι κλάδος του τριδύμου."
+  }
+];
+    const STORAGE_KEY = 'neurovascular_mcqs_progress_v1';
+    const letters = ['α', 'β', 'γ', 'δ'];
+    let state = {
+      active: false,
+      mode: 'all',
+      currentIds: [],
+      currentIndex: 0,
+      answers: [],
+      score: 0,
+      optionOrders: {},
+      settings: { category: 'all', search: '', shuffleQuestions: true, shuffleOptions: true }
+    };
+
+    const byId = new Map(questions.map(q => [q.id, q]));
+    const $ = id => document.getElementById(id);
+
+    function shuffle(items) {
+      const arr = items.slice();
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function escapeHTML(str) {
+      return String(str).replace(/[&<>'"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
+    }
+
+    function getSettings() {
+      return {
+        category: $('categoryFilter').value,
+        search: $('searchBox').value.trim(),
+        shuffleQuestions: $('shuffleQuestions').checked,
+        shuffleOptions: $('shuffleOptions').checked
+      };
+    }
+
+    function filteredQuestions(settings = getSettings()) {
+      const needle = settings.search.toLocaleLowerCase('el');
+      return questions.filter(q => {
+        const categoryOk = settings.category === 'all' || q.category === settings.category;
+        if (!categoryOk) return false;
+        if (!needle) return true;
+        const haystack = [q.category, q.source, q.question, q.explanation, ...q.options.map(o => o.text)].join(' ').toLocaleLowerCase('el');
+        return haystack.includes(needle);
+      });
+    }
+
+    function populateCategories() {
+      const categories = [...new Set(questions.map(q => q.category))];
+      $('categoryFilter').innerHTML = '<option value="all">Όλες οι κατηγορίες</option>' + categories.map(c => `<option value="${escapeHTML(c)}">${escapeHTML(c)}</option>`).join('');
+      const counts = categories.map(c => [c, questions.filter(q => q.category === c).length]);
+      $('distributionTable').innerHTML = '<thead><tr><th>Κατηγορία</th><th>Ερωτήσεις</th></tr></thead><tbody>' + counts.map(([c,n]) => `<tr><td>${escapeHTML(c)}</td><td>${n}</td></tr>`).join('') + '</tbody>';
+    }
+
+    function startQuiz(ids = null, mode = 'all') {
+      const settings = getSettings();
+      let pool = ids ? ids.map(id => byId.get(id)).filter(Boolean) : filteredQuestions(settings);
+      if (!pool.length) {
+        $('emptyState').textContent = 'Δεν βρέθηκαν ερωτήσεις με αυτά τα φίλτρα.';
+        $('emptyState').classList.remove('hidden');
+        $('quizBox').classList.add('hidden');
+        $('resultsArea').classList.add('hidden');
+        return;
+      }
+      if (!ids && settings.shuffleQuestions) pool = shuffle(pool);
+      state = { active: true, mode, currentIds: pool.map(q => q.id), currentIndex: 0, answers: [], score: 0, optionOrders: {}, settings };
+      $('emptyState').classList.add('hidden');
+      $('resultsArea').classList.add('hidden');
+      $('quizBox').classList.remove('hidden');
+      saveState();
+      renderQuestion();
+    }
+
+    function getDisplayOptions(q) {
+      if (!state.optionOrders[q.id]) {
+        const ordered = state.settings.shuffleOptions ? shuffle(q.options) : q.options.slice();
+        state.optionOrders[q.id] = ordered.map(o => o.oid);
+      }
+      return state.optionOrders[q.id].map(oid => q.options.find(o => o.oid === oid));
+    }
+
+    function renderQuestion() {
+      const q = byId.get(state.currentIds[state.currentIndex]);
+      const total = state.currentIds.length;
+      const answered = state.answers.find(a => a.id === q.id);
+      $('categoryTag').textContent = q.category;
+      $('sourceText').textContent = q.source || '';
+      $('questionText').textContent = `${state.currentIndex + 1}. ${q.question}`;
+      $('categoryMetric').textContent = q.category;
+      updateMetrics();
+      const opts = getDisplayOptions(q);
+      $('optionsBox').innerHTML = opts.map((o, i) => `<button class="option" data-oid="${o.oid}" type="button"><span class="letter">${letters[i]})</span><span>${escapeHTML(o.text)}</span></button>`).join('');
+      $('feedbackBox').className = 'feedback';
+      $('feedbackBox').innerHTML = '';
+      $('nextBtn').classList.add('hidden');
+      document.querySelectorAll('.option').forEach(btn => btn.addEventListener('click', () => chooseOption(q, btn.dataset.oid)));
+      if (answered) showAnswered(q, answered);
+    }
+
+    function chooseOption(q, oid) {
+      if (state.answers.some(a => a.id === q.id)) return;
+      const selected = q.options.find(o => o.oid === oid);
+      const correct = Boolean(selected && selected.correct);
+      state.answers.push({ id: q.id, selectedOid: oid, correct });
+      if (correct) state.score += 1;
+      showAnswered(q, state.answers[state.answers.length - 1]);
+      saveState();
+    }
+
+    function showAnswered(q, answer) {
+      const selected = q.options.find(o => o.oid === answer.selectedOid);
+      document.querySelectorAll('.option').forEach(btn => {
+        btn.disabled = true;
+        const opt = q.options.find(o => o.oid === btn.dataset.oid);
+        if (opt.correct) btn.classList.add('correct');
+        if (btn.dataset.oid === answer.selectedOid && !opt.correct) btn.classList.add('wrong');
+      });
+      const correctOpt = q.options.find(o => o.correct);
+      $('feedbackBox').className = `feedback show ${answer.correct ? 'correct' : 'wrong'}`;
+      $('feedbackBox').innerHTML = `<div class="feedback-title">${answer.correct ? 'Σωστό.' : 'Λάθος.'}</div><div><strong>Σωστή απάντηση:</strong> ${escapeHTML(correctOpt.text)}</div><div>${escapeHTML(q.explanation)}</div>`;
+      $('nextBtn').textContent = state.currentIndex + 1 >= state.currentIds.length ? 'Αποτελέσματα' : 'Επόμενη ερώτηση';
+      $('nextBtn').classList.remove('hidden');
+      updateMetrics();
+    }
+
+    function updateMetrics() {
+      const total = state.currentIds.length || 0;
+      const answered = state.answers.length;
+      const percent = answered ? Math.round((state.score / answered) * 100) : 0;
+      $('scoreMetric').textContent = String(state.score);
+      $('progressMetric').textContent = `${Math.min(state.currentIndex + 1, total)} / ${total}`;
+      $('percentMetric').textContent = `${percent}%`;
+      $('progressBar').style.width = total ? `${(answered / total) * 100}%` : '0%';
+    }
+
+    function nextQuestion() {
+      if (state.currentIndex + 1 >= state.currentIds.length) {
+        showResults();
+        return;
+      }
+      state.currentIndex += 1;
+      saveState();
+      renderQuestion();
+    }
+
+    function showResults() {
+      state.active = false;
+      saveState();
+      $('quizBox').classList.add('hidden');
+      const total = state.currentIds.length;
+      const wrong = state.answers.filter(a => !a.correct);
+      const percent = total ? Math.round((state.score / total) * 100) : 0;
+      const rows = [...new Set(state.currentIds.map(id => byId.get(id).category))].map(cat => {
+        const ids = state.currentIds.filter(id => byId.get(id).category === cat);
+        const ans = state.answers.filter(a => ids.includes(a.id));
+        const ok = ans.filter(a => a.correct).length;
+        return `<tr><td>${escapeHTML(cat)}</td><td>${ok} / ${ids.length}</td><td>${ids.length ? Math.round(ok / ids.length * 100) : 0}%</td></tr>`;
+      }).join('');
+      const wrongList = wrong.length ? wrong.map(a => {
+        const q = byId.get(a.id);
+        const selected = q.options.find(o => o.oid === a.selectedOid);
+        const correct = q.options.find(o => o.correct);
+        return `<div class="wrong-item"><strong>${q.id}. ${escapeHTML(q.question)}</strong><div><b>Επιλογή σου:</b> ${escapeHTML(selected ? selected.text : '-')}</div><div><b>Σωστό:</b> ${escapeHTML(correct.text)}</div><div>${escapeHTML(q.explanation)}</div></div>`;
+      }).join('') : '<p>Δεν υπάρχουν λανθασμένες απαντήσεις.</p>';
+      $('resultsArea').innerHTML = `
+        <div class="result-head">
+          <div class="scoreline">Τελικό σκορ: ${state.score} / ${total} (${percent}%)</div>
+          <div>Σωστές: ${state.score} · Λανθασμένες: ${wrong.length} · Σύνολο: ${total}</div>
+        </div>
+        <h2>Απόδοση ανά κατηγορία</h2>
+        <table><thead><tr><th>Κατηγορία</th><th>Σκορ</th><th>Ποσοστό</th></tr></thead><tbody>${rows}</tbody></table>
+        <h2>Ανασκόπηση λανθασμένων</h2>
+        <div class="wrong-list">${wrongList}</div>
+        <div class="actions" style="margin-top:18px">
+          <button id="restartBtn">Επανεκκίνηση</button>
+          <button id="retryWrongBtn" class="secondary" ${wrong.length ? '' : 'disabled'}>Επανάληψη λανθασμένων</button>
+        </div>`;
+      $('resultsArea').classList.remove('hidden');
+      $('restartBtn').addEventListener('click', () => startQuiz());
+      $('retryWrongBtn').addEventListener('click', () => { if (wrong.length) startQuiz(wrong.map(a => a.id), 'wrong'); });
+    }
+
+    function saveState() {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); updateResumeButton(); } catch (e) {}
+    }
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return null;
+        const saved = JSON.parse(raw);
+        if (!saved || !Array.isArray(saved.currentIds)) return null;
+        return saved;
+      } catch (e) { return null; }
+    }
+
+    function resumeQuiz() {
+      const saved = loadState();
+      if (!saved) return;
+      state = saved;
+      $('categoryFilter').value = state.settings.category || 'all';
+      $('searchBox').value = state.settings.search || '';
+      $('shuffleQuestions').checked = Boolean(state.settings.shuffleQuestions);
+      $('shuffleOptions').checked = Boolean(state.settings.shuffleOptions);
+      $('emptyState').classList.add('hidden');
+      $('resultsArea').classList.add('hidden');
+      $('quizBox').classList.remove('hidden');
+      renderQuestion();
+    }
+
+    function updateResumeButton() {
+      const saved = loadState();
+      $('resumeBtn').classList.toggle('hidden', !(saved && saved.active && saved.currentIds && saved.currentIds.length));
+    }
+
+    function clearProgress() {
+      try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+      updateResumeButton();
+      $('emptyState').textContent = 'Η πρόοδος καθαρίστηκε. Διάλεξε ρυθμίσεις και πάτησε «Έναρξη».';
+      $('emptyState').classList.remove('hidden');
+      $('quizBox').classList.add('hidden');
+      $('resultsArea').classList.add('hidden');
+    }
+
+    function renderPrintArea() {
+      $('printArea').innerHTML = `<h1>Αγγεία του Εγκεφάλου - MCQs</h1>` + questions.map(q => {
+        const opts = q.options.map(o => `<li>${escapeHTML(o.text)}</li>`).join('');
+        const correct = q.options.find(o => o.correct);
+        return `<div class="print-q"><h2>${q.id}. ${escapeHTML(q.question)} <small>(${escapeHTML(q.category)}, ${escapeHTML(q.source)})</small></h2><ol type="a">${opts}</ol><div class="print-answer"><strong>Απάντηση:</strong> ${escapeHTML(correct.key)}) ${escapeHTML(correct.text)}<br><strong>Αιτιολόγηση:</strong> ${escapeHTML(q.explanation)}</div></div>`;
+      }).join('');
+    }
+
+    $('startBtn').addEventListener('click', () => startQuiz());
+    $('resumeBtn').addEventListener('click', resumeQuiz);
+    $('clearBtn').addEventListener('click', clearProgress);
+    $('printBtn').addEventListener('click', () => { renderPrintArea(); window.print(); });
+    $('nextBtn').addEventListener('click', nextQuestion);
+    $('categoryFilter').addEventListener('change', () => { $('emptyState').textContent = `${filteredQuestions().length} διαθέσιμες ερωτήσεις με τα τρέχοντα φίλτρα.`; });
+    $('searchBox').addEventListener('input', () => { $('emptyState').textContent = `${filteredQuestions().length} διαθέσιμες ερωτήσεις με τα τρέχοντα φίλτρα.`; });
+
+    populateCategories();
+    renderPrintArea();
+    updateResumeButton();
+  </script>
+</body>
+</html>
