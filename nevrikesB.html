@@ -1,0 +1,2260 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Νευρικές Οδοί Β - MCQs Νευροανατομίας</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f3f6f8;
+      --surface: #ffffff;
+      --surface-2: #eaf0f3;
+      --text: #1d2830;
+      --muted: #63717c;
+      --border: #cfd9df;
+      --accent: #0f6f78;
+      --accent-2: #7c5f22;
+      --ok: #177245;
+      --ok-bg: #e4f4ec;
+      --bad: #a83a34;
+      --bad-bg: #f8e7e5;
+      --warn: #835a12;
+      --shadow: 0 16px 40px rgba(35, 55, 70, 0.12);
+      --radius: 8px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(180deg, #edf3f5 0%, var(--bg) 38%, #f7f5ef 100%);
+      color: var(--text);
+    }
+
+    button, input, select {
+      font: inherit;
+    }
+
+    button {
+      border: 1px solid transparent;
+      border-radius: 6px;
+      padding: 0.72rem 0.95rem;
+      cursor: pointer;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
+    }
+
+    button:hover:not(:disabled) { transform: translateY(-1px); background: #0b5962; }
+    button:disabled { opacity: 0.48; cursor: not-allowed; }
+
+    button.secondary {
+      background: #ffffff;
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    button.secondary:hover:not(:disabled) { background: var(--surface-2); }
+
+    .app {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 44px;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: end;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0 0 0.35rem;
+      font-size: clamp(1.55rem, 3vw, 2.55rem);
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      max-width: 760px;
+      line-height: 1.55;
+    }
+
+    .status-strip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin: 18px 0;
+    }
+
+    .stat {
+      background: rgba(255, 255, 255, 0.86);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 13px 14px;
+    }
+
+    .stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.8rem;
+      margin-bottom: 4px;
+    }
+
+    .stat strong {
+      font-size: 1.05rem;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: minmax(180px, 240px) minmax(220px, 1fr) auto auto auto;
+      gap: 10px;
+      align-items: end;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px;
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: grid;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    select, input[type="search"] {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: #fff;
+      color: var(--text);
+      min-height: 42px;
+      padding: 0.62rem 0.7rem;
+    }
+
+    .checkline {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 42px;
+      color: var(--text);
+      font-size: 0.92rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .checkline input { width: 18px; height: 18px; accent-color: var(--accent); }
+
+    .progress {
+      height: 10px;
+      background: #d9e2e7;
+      overflow: hidden;
+      border-radius: 999px;
+      margin: 12px 0 18px;
+    }
+
+    .progress span {
+      display: block;
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), #1d8f6f);
+      transition: width 220ms ease;
+    }
+
+    .quiz-card, .results-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: clamp(18px, 3vw, 30px);
+    }
+
+    .question-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      border-radius: 999px;
+      background: #e7f1f2;
+      color: #124e55;
+      border: 1px solid #c4dde1;
+      padding: 0.25rem 0.66rem;
+      font-size: 0.8rem;
+      font-weight: 800;
+    }
+
+    .pill.source {
+      background: #f3eee1;
+      color: #6b4c13;
+      border-color: #e2d4b7;
+    }
+
+    .question {
+      margin: 0 0 20px;
+      font-size: clamp(1.14rem, 2.3vw, 1.55rem);
+      line-height: 1.38;
+    }
+
+    .options {
+      display: grid;
+      gap: 10px;
+    }
+
+    .option {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 38px 1fr;
+      gap: 12px;
+      align-items: start;
+      text-align: left;
+      color: var(--text);
+      background: #fff;
+      border-color: var(--border);
+      font-weight: 650;
+      line-height: 1.45;
+      padding: 0.85rem 0.95rem;
+      min-height: 58px;
+    }
+
+    .option:hover:not(:disabled) {
+      background: #f0f7f7;
+      border-color: #8bbbc1;
+    }
+
+    .option .key {
+      display: inline-grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--surface-2);
+      color: var(--accent);
+      font-weight: 900;
+    }
+
+    .option.correct {
+      background: var(--ok-bg);
+      border-color: #7fc19b;
+      color: #123b25;
+    }
+
+    .option.wrong {
+      background: var(--bad-bg);
+      border-color: #d69994;
+      color: #611f1b;
+    }
+
+    .feedback {
+      display: none;
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      margin-top: 16px;
+      line-height: 1.5;
+      border: 1px solid var(--border);
+      background: #f9fbfb;
+    }
+
+    .feedback.show { display: block; }
+    .feedback.ok { border-color: #88c8a2; background: var(--ok-bg); }
+    .feedback.bad { border-color: #d69b96; background: var(--bad-bg); }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .distribution {
+      margin-top: 18px;
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px;
+    }
+
+    .distribution h2, .results-card h2 {
+      margin: 0 0 12px;
+      font-size: 1.08rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+    }
+
+    th, td {
+      border-bottom: 1px solid var(--border);
+      padding: 9px 7px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th { color: var(--muted); font-size: 0.78rem; text-transform: uppercase; }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin: 12px 0 18px;
+    }
+
+    .review-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .review-item {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px;
+      background: #fff;
+    }
+
+    .empty {
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      background: #fff;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .print-section { display: none; }
+
+    @media (max-width: 900px) {
+      header, .controls, .status-strip, .results-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .controls label:first-child, .controls label:nth-child(2) {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .app { width: min(100% - 20px, 1120px); padding-top: 16px; }
+      header, .controls, .status-strip, .results-grid {
+        grid-template-columns: 1fr;
+      }
+      .quiz-card, .results-card { padding: 16px; }
+      .option { grid-template-columns: 34px 1fr; padding: 0.78rem; }
+      .actions { display: grid; grid-template-columns: 1fr; }
+      button { width: 100%; }
+    }
+
+    @media print {
+      body { background: #fff; color: #000; }
+      .app { display: none; }
+      .print-section {
+        display: block;
+        padding: 18px;
+        font-family: Arial, sans-serif;
+      }
+      .print-question {
+        break-inside: avoid;
+        margin: 0 0 16px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid #bbb;
+      }
+      .print-question h3 { margin: 0 0 8px; font-size: 14pt; }
+      .print-question p, .print-question li { font-size: 11pt; line-height: 1.38; }
+      .print-answer { display: none; margin-top: 6px; color: #222; }
+      body.show-print-answers .print-answer { display: block; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header>
+      <div>
+        <h1>Νευρικές Οδοί Β - MCQs</h1>
+        <p class="subtitle">Δύσκολες ερωτήσεις πολλαπλής επιλογής βασισμένες στις διαφάνειες, με έμφαση σε τοπογραφικές σχέσεις, πυρήνες, δεμάτια, χιασμούς και λεπτές αντιστοιχίες.</p>
+      </div>
+      <button class="secondary" id="printBtn" type="button">Εκτύπωση</button>
+    </header>
+
+    <section class="controls" aria-label="Ρυθμίσεις quiz">
+      <label>Κατηγορία
+        <select id="categoryFilter"></select>
+      </label>
+      <label>Αναζήτηση
+        <input id="searchInput" type="search" placeholder="Όρος, δομή, πυρήνας, δεμάτιο...">
+      </label>
+      <label class="checkline"><input id="shuffleQuestions" type="checkbox" checked> Ανακάτεμα ερωτήσεων</label>
+      <label class="checkline"><input id="shuffleAnswers" type="checkbox" checked> Ανακάτεμα απαντήσεων</label>
+      <label class="checkline"><input id="printAnswers" type="checkbox"> Απαντήσεις στην εκτύπωση</label>
+      <button id="applyBtn" type="button">Νέο quiz</button>
+      <button class="secondary" id="clearProgressBtn" type="button">Καθαρισμός προόδου</button>
+    </section>
+
+    <section class="status-strip" aria-label="Στατιστικά προόδου">
+      <div class="stat"><span>Σκορ</span><strong id="scoreText">0</strong></div>
+      <div class="stat"><span>Πρόοδος</span><strong id="progressText">0 / 0</strong></div>
+      <div class="stat"><span>Επιτυχία</span><strong id="percentText">0%</strong></div>
+      <div class="stat"><span>Κατηγορία</span><strong id="currentCategoryText">-</strong></div>
+    </section>
+
+    <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+
+    <section id="quizCard" class="quiz-card"></section>
+    <section id="resultsCard" class="results-card" hidden></section>
+    <section id="distribution" class="distribution"></section>
+  </main>
+
+  <section id="printSection" class="print-section"></section>
+
+  <script>
+    const questions = [
+          {
+                "id": 1,
+                "category": "Ακουστική οδός",
+                "source": "Διαφάνεια 7",
+                "question": "Σχετικά με τη διαγραμματική ακουστική οδό, ποιο από τα παρακάτω δεν ισχύει;",
+                "options": [
+                      {
+                            "text": "Ο 2ος αισθητικός νευρώνας εντοπίζεται στο έσω γονατώδες σώμα.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Το υποδεκτικό όργανο είναι το όργανο του Corti.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Ο 1ος αισθητικός νευρώνας βρίσκεται στο ελικοειδές γάγγλιο.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Οι κεντρικές αποφυάδες των δίπολων κυττάρων σχηματίζουν το κοχλιακό νεύρο.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Στη διαφάνεια 7 ο 2ος νευρώνας αντιστοιχεί στους κοχλιακούς πυρήνες· το έσω γονατώδες σώμα είναι ο 3ος νευρώνας."
+          },
+          {
+                "id": 2,
+                "category": "Ακουστική οδός",
+                "source": "Διαφάνεια 7",
+                "question": "Ποιο από τα παρακάτω αντιστοιχεί λανθασμένα στους κοχλιακούς πυρήνες;",
+                "options": [
+                      {
+                            "text": "Ραχιαίος κοχλιακός πυρήνας - βασικό τμήμα κοχλία.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Ραχιαίος κοχλιακός πυρήνας - κορυφαίο τμήμα κοχλία.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Κοιλιακός κοχλιακός πυρήνας - κορυφαίο τμήμα κοχλία.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Κοχλιακοί πυρήνες - 2ος αισθητικός νευρώνας.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Το PDF δίνει ραχιαίο πυρήνα για το βασικό τμήμα και κοιλιακό πυρήνα για ίνες από το κορυφαίο τμήμα."
+          },
+          {
+                "id": 3,
+                "category": "Ακουστική οδός",
+                "source": "Διαφάνεια 7",
+                "question": "Όλα τα παρακάτω παρεμβάλλονται στην ακουστική οδό μετά τους κοχλιακούς πυρήνες, εκτός από ένα:",
+                "options": [
+                      {
+                            "text": "Άνω πυρήνας ελαίας.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Πυρήνας τραπεζοειδούς σώματος.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Οπίσθιος έξω κοιλιακός πυρήνας θαλάμου.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Πυρήνας έξω λημνίσκου.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Στην ακουστική οδό αναφέρεται έσω γονατώδες σώμα· ο οπίσθιος έξω κοιλιακός πυρήνας θαλάμου ανήκει σε άλλη αισθητική οδό."
+          },
+          {
+                "id": 4,
+                "category": "Ακουστική οδός",
+                "source": "Διαφάνεια 7",
+                "question": "Σχετικά με το τελικό φλοιϊκό κέντρο της ακουστικής οδού, ποιο ισχύει;",
+                "options": [
+                      {
+                            "text": "Βρίσκεται στην οπίσθια κεντρική έλικα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Βρίσκεται στην αιθουσαία άλω της οπίσθιας κεντρικής έλικας.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Βρίσκεται στα πρόσθια διδύμια του τετραδύμου.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Βρίσκεται στις εγκάρσιες κροταφικές αύλακες και έλικες του Heschl.",
+                            "correct": true
+                      }
+                ],
+                "explanation": "Η διαφάνεια 7 ορίζει ως κέντρο ακοής τις εγκάρσιες κροταφικές αύλακες και έλικες του Heschl."
+          },
+          {
+                "id": 5,
+                "category": "Ακουστική οδός",
+                "source": "Διαφάνεια 7",
+                "question": "Ποια σχέση στην ακουστική οδό είναι λανθασμένη;",
+                "options": [
+                      {
+                            "text": "Οπίσθιο διδύμιο - κύριο υποδεκτικό όργανο της ακοής.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Βραχίονας οπισθίου διδυμίου - σύνδεση προς έσω γονατώδες σώμα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Ακουστική ακτινοβολία - συνέχεια από το έσω γονατώδες σώμα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Υποφακοειδής μοίρα έσω κάψας - πορεία ακουστικής ακτινοβολίας.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Το υποδεκτικό όργανο είναι το όργανο του Corti· το οπίσθιο διδύμιο συνδέεται με ακουστικές αντανακλάσεις."
+          },
+          {
+                "id": 6,
+                "category": "Ακουστικά αντανακλαστικά",
+                "source": "Διαφάνεια 10",
+                "question": "Σχετικά με το ελαιοκοχλιακό δεμάτιο, τι δεν ισχύει;",
+                "options": [
+                      {
+                            "text": "Λειτουργεί ως ρυθμιστής-τροποποιητής της ευαισθησίας του κοχλία.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Η φυγόκεντρη οδός καταλήγει αποκλειστικά στο σύστοιχο όργανο του Corti.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Η κεντρομόλα οδός έχει αμφω ίνες από κοχλιακούς πυρήνες.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Η φυγόκεντρη οδός περιλαμβάνει χιαστές και αχίαστες ίνες.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η διαφάνεια 10 αναφέρει πορεία μέσω των κοχλιακών νεύρων και προς τα δύο όργανα του Corti."
+          },
+          {
+                "id": 7,
+                "category": "Ακουστικά αντανακλαστικά",
+                "source": "Διαφάνεια 11",
+                "question": "Στο αντανακλαστικό σύγκλεισης της μεσοβλεφάριας σχισμής, ποιο σκέλος είναι λανθασμένο;",
+                "options": [
+                      {
+                            "text": "Κεντρομόλα ίνα από κοχλιακό νεύρο προς κοιλιακούς κοχλιακούς πυρήνες.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Σύνδεση με πυρήνες τραπεζοειδούς σώματος και άνω ελαϊκού συμπλέγματος.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Τελική μετάδοση αποκλειστικά στον πυρήνα του προσωπικού.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Φυγόκεντρη πορεία προς πυρήνες προσθίων διδυμίων.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Το PDF αναφέρει οφθαλμοκινητικούς πυρήνες, προσωπικό και κινητικούς πυρήνες αυχενικής μοίρας ΝΜ."
+          },
+          {
+                "id": 8,
+                "category": "Ακουστικά αντανακλαστικά",
+                "source": "Διαφάνειες 11-12",
+                "question": "Ποια από τις παρακάτω αντιστοιχίες μυός-κινητικού πυρήνα είναι σωστή;",
+                "options": [
+                      {
+                            "text": "Μυς του αναβολέως - κινητικός πυρήνας τριδύμου.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Τείνων το τύμπανο - πυρήνας απαγωγού.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Τείνων το τύμπανο - πυρήνας τροχιλιακού.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Μυς του αναβολέως - κινητικός πυρήνας προσωπικού.",
+                            "correct": true
+                      }
+                ],
+                "explanation": "Η διαφάνεια 12 δίνει φυγόκεντρη πορεία προς κινητικό πυρήνα προσωπικού για τον αναβολέα."
+          },
+          {
+                "id": 9,
+                "category": "Ακουστικά αντανακλαστικά",
+                "source": "Διαφάνεια 12",
+                "question": "Όλα τα παρακάτω για το αντανακλαστικό των ακουστικών οσταρίων είναι αληθή, εκτός από ένα:",
+                "options": [
+                      {
+                            "text": "Η λειτουργικότητα του αναβολέα χαρακτηρίζεται ασαφής στον άνθρωπο.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Ίνες από κοχλιακούς πυρήνες φέρονται προς επικουρικό άνω πυρήνα ελαίας.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Για τον μυ του αναβολέως η φυγόκεντρη οδός φέρεται άμφω.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Για τον τείνοντα το τύμπανο η φυγόκεντρη οδός φέρεται προς κινητικό πυρήνα τριδύμου.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η ασαφής λειτουργικότητα στη διαφάνεια 12 αποδίδεται στον τείνοντα το τύμπανο, όχι στον αναβολέα."
+          },
+          {
+                "id": 10,
+                "category": "Αιθουσαία οδός",
+                "source": "Διαφάνεια 13",
+                "question": "Σχετικά με την αιθουσαία οδό, ποιο από τα παρακάτω δεν ισχύει;",
+                "options": [
+                      {
+                            "text": "Τα υποδεκτικά όργανα περιλαμβάνουν ακουστικές κηλίδες και ακουστικές ακρολοφίες.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Η οδός εμφανίζεται πλήρως αχίαστη στο μεγαλύτερο μέρος της.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Ο 1ος αισθητικός νευρώνας βρίσκεται στο αιθουσαίο γάγγλιο.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Οι κεντρικές αποφυάδες φέρονται με το αιθουσαίο νεύρο.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η διαφάνεια 13 χαρακτηρίζει την αιθουσαία οδό μερικώς χιαστή στο μεγαλύτερο μέρος."
+          },
+          {
+                "id": 11,
+                "category": "Αιθουσαία οδός",
+                "source": "Διαφάνεια 13",
+                "question": "Ποια αντιστοιχία περιφερικής μοίρας-αιθουσαίου πυρήνα είναι λανθασμένη;",
+                "options": [
+                      {
+                            "text": "Ημικύκλιοι σωλήνες - άνω και έσω αιθουσαίος πυρήνας.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Υμενώδης αίθουσα - κάτω αιθουσαίος πυρήνας.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Ελλειπτική κύστη - κάτω αιθουσαίος πυρήνας.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Ελλειπτική κύστη - έξω αιθουσαίος πυρήνας.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Στο PDF η ελλειπτική κύστη συνδέεται με τον έξω αιθουσαίο πυρήνα."
+          },
+          {
+                "id": 12,
+                "category": "Αιθουσαία οδός",
+                "source": "Διαφάνεια 13",
+                "question": "Ποια δήλωση για τους αιθουσαίους πυρήνες ισχύει;",
+                "options": [
+                      {
+                            "text": "Ο κάτω αιθουσαίος πυρήνας αναφέρεται ως ο μεγαλύτερος.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Ο έξω αιθουσαίος πυρήνας δέχεται τις περισσότερες ίνες του αιθουσαίου νεύρου.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Ο άνω αιθουσαίος πυρήνας αποτελεί τον 1ο αισθητικό νευρώνα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Ο έσω αιθουσαίος πυρήνας αναφέρεται ως ο μεγαλύτερος.",
+                            "correct": true
+                      }
+                ],
+                "explanation": "Η διαφάνεια 13 σημειώνει ότι οι περισσότερες ίνες φέρονται στον κάτω πυρήνα, αλλά ο έσω είναι ο μεγαλύτερος."
+          },
+          {
+                "id": 13,
+                "category": "Αιθουσαία οδός",
+                "source": "Διαφάνεια 13",
+                "question": "Ποια από τις παρακάτω καταλήξεις της αιθουσαίας οδού δεν αναφέρεται στη διαφάνεια;",
+                "options": [
+                      {
+                            "text": "Έσω γονατώδες σώμα μέσω βραχίονα οπισθίου διδυμίου.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Πυρήνες των οφθαλμοκινητικών νεύρων III, IV και VI.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Πρόσθια κέρατα του νωτιαίου μυελού.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Παρεγκεφαλίδα μέσω κάτω και μέσων σκελών.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Το έσω γονατώδες σώμα και ο βραχίονας οπισθίου διδυμίου ανήκουν στην ακουστική οδό."
+          },
+          {
+                "id": 14,
+                "category": "Αιθουσαία οδός",
+                "source": "Διαφάνεια 13",
+                "question": "Σχετικά με τις ιδιοδεκτικές διεγέρσεις του λαβυρίνθου, τι δεν ισχύει;",
+                "options": [
+                      {
+                            "text": "Φέρονται στην παρεγκεφαλίδα για ρύθμιση της ισορροπίας.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Φέρονται πρωταρχικά στον φλοιό του Heschl για ακουστική αντίληψη.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Φέρονται στα πρόσθια κέρατα για αντανακλαστικές κινήσεις μυών.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Φέρονται στους κινητικούς πυρήνες του οφθαλμού για αντανακλαστικές κινήσεις.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η διαφάνεια 13 περιγράφει ισορροπία, πρόσθια κέρατα και οφθαλμοκινητικούς πυρήνες, όχι φλοιό Heschl."
+          },
+          {
+                "id": 15,
+                "category": "Αιθουσοοφθαλμικά αντανακλαστικά",
+                "source": "Διαφάνεια 14",
+                "question": "Στο αιθουσοοφθαλμικό αντανακλαστικό, ποιο από τα παρακάτω είναι λάθος;",
+                "options": [
+                      {
+                            "text": "Συμβάλλει στη διατήρηση της προσήλωσης των οφθαλμών σε αντικείμενο.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Ενεργεί καθώς κινείται η κεφαλή.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Ο νυσταγμός ορίζεται ως μονόδρομη βραδεία κίνηση χωρίς διορθωτική φάση.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Βλάβη αιθουσαία, παρεγκεφαλιδική ή στελεχιαία μπορεί να δώσει νυσταγμό.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η διαφάνεια 14 περιγράφει διφασική κίνηση με αργή παθολογική και ταχεία διορθωτική φάση."
+          },
+          {
+                "id": 16,
+                "category": "Αιθουσοοφθαλμικά αντανακλαστικά",
+                "source": "Διαφάνεια 14",
+                "question": "Ποια φράση αποδίδει σωστά τον νυσταγμό όπως δίνεται στο PDF;",
+                "options": [
+                      {
+                            "text": "Μονή ταχεία παθολογική κίνηση χωρίς αργή φάση.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Αμφοτερόπλευρη πάρεση των εξωφθάλμιων μυών.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Αντανακλαστική σύγκλειση βλεφάρων προς ηχητικό σήμα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Διφασική κίνηση με αργή παθολογική και ταχεία διορθωτική φάση.",
+                            "correct": true
+                      }
+                ],
+                "explanation": "Αυτή είναι η ακριβής λειτουργική περιγραφή που δίνει η διαφάνεια 14."
+          },
+          {
+                "id": 17,
+                "category": "Πυραμιδική οδός",
+                "source": "Διαφάνεια 17",
+                "question": "Σχετικά με τον 1ο νευρώνα της πυραμιδικής οδού, τι δεν ισχύει;",
+                "options": [
+                      {
+                            "text": "Περιορίζεται αποκλειστικά στα κύτταρα της πρόσθιας κεντρικής έλικας.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Περιλαμβάνει κύτταρα της κινητικής άλω, πεδίο 4.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Περιλαμβάνει κύτταρα της προκινητικής άλω, πεδίο 6.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Περιλαμβάνει κύτταρα από βρεγματικό λοβό, πεδία 3, 2, 1.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η διαφάνεια 17 αναφέρει πρόσθια και οπίσθια κεντρική έλικα, προκινητική άλω και επιπλέον λοβούς."
+          },
+          {
+                "id": 18,
+                "category": "Πυραμιδική οδός",
+                "source": "Διαφάνεια 17",
+                "question": "Ποια αντιστοιχία πορείας της πυραμιδικής οδού είναι λανθασμένη;",
+                "options": [
+                      {
+                            "text": "Ακτινωτός στέφανος - πριν από την έσω κάψα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Βασική μοίρα γέφυρας - μετά από τις πυραμίδες του προμήκη.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Γόνυ έσω κάψας - φλοιοπρομηκικό δεμάτιο.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Οπίσθιο σκέλος έσω κάψας - φλοιονωτιαίο δεμάτιο.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η πορεία που φαίνεται είναι ακτινωτός στέφανος, έσω κάψα, πόδας εγκεφαλικού σκέλους, γέφυρα, πυραμίδες."
+          },
+          {
+                "id": 19,
+                "category": "Πυραμιδική οδός",
+                "source": "Διαφάνεια 17",
+                "question": "Όλα τα παρακάτω για τη σύσταση των ινών της πυραμιδικής οδού είναι αληθή, εκτός από ένα:",
+                "options": [
+                      {
+                            "text": "Αναφέρονται 2/3 εμμύελες ίνες.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Αναφέρεται 1/3 αμύελες ίνες.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Η οδός χαρακτηρίζεται αποκλειστικά κινητική.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Ίνες από σωματοαισθητικό και άλλους φλοιούς ρυθμίζουν αισθητικές ώσεις.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η διαφάνεια 17 δηλώνει ρητά ότι η πυραμιδική οδός δεν είναι αποκλειστικά κινητική."
+          },
+          {
+                "id": 20,
+                "category": "Πυραμιδική οδός",
+                "source": "Διαφάνεια 17",
+                "question": "Ποια ποσοστιαία σχέση μετά τον χιασμό των πυραμίδων είναι σωστή;",
+                "options": [
+                      {
+                            "text": "10% αντίθετο πλάγιο πυραμιδικό δεμάτιο και 80-90% αχίαστο πρόσθιο.",
+                            "correct": false
+                      },
+                      {
+                            "text": "50% πρόσθιο πυραμιδικό δεμάτιο και 50% σύστοιχο πλάγιο.",
+                            "correct": false
+                      },
+                      {
+                            "text": "100% αχίαστες ίνες προς τα πρόσθια κέρατα του νωτιαίου μυελού.",
+                            "correct": false
+                      },
+                      {
+                            "text": "80-90% αντίθετο πλάγιο πυραμιδικό δεμάτιο και 10% αχίαστο πρόσθιο.",
+                            "correct": true
+                      }
+                ],
+                "explanation": "Η διαφάνεια 17 δίνει 80-90% αντίθετο πλάγιο και 10% αχίαστο πρόσθιο πυραμιδικό δεμάτιο."
+          },
+          {
+                "id": 21,
+                "category": "Πυραμιδική οδός",
+                "source": "Διαφάνεια 18",
+                "question": "Σχετικά με την κατανομή του πλάγιου πυραμιδικού δεματίου, ποιο δεν ισχύει;",
+                "options": [
+                      {
+                            "text": "Περίπου 50% των ινών κατανέμεται στη θωρακική μοίρα.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Περίπου 50% των ινών κατανέμεται στην αυχενική μοίρα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Περίπου 20% των ινών κατανέμεται στη θωρακική μοίρα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Περίπου 30% των ινών κατανέμεται στην οσφυοϊερή μοίρα.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η διαφάνεια 18 δίνει 50% αυχενική, 20% θωρακική και 30% οσφυοϊερή μοίρα."
+          },
+          {
+                "id": 22,
+                "category": "Πυραμιδική οδός",
+                "source": "Διαφάνεια 18",
+                "question": "Για το πρόσθιο πυραμιδικό δεμάτιο, ποια δήλωση είναι λάθος;",
+                "options": [
+                      {
+                            "text": "Πορεύεται αχίαστο στην πρόσθια δέσμη λευκής ουσίας.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Καταλήγει κυρίως στον οπίσθιο έξω κοιλιακό πυρήνα θαλάμου.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Αφορά αυχενική και άνω θωρακική μοίρα του νωτιαίου μυελού.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Τελικά χιάζεται στον πρόσθιο λευκό σύνδεσμο.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Στη διαφάνεια 18 η τελική κατάληξη δίνεται στους πυρήνες των προσθίων κεράτων του ΝΜ."
+          },
+          {
+                "id": 23,
+                "category": "Πυραμιδική οδός",
+                "source": "Διαφάνεια 19",
+                "question": "Ποια κλινική αντιστοιχία είναι λανθασμένη;",
+                "options": [
+                      {
+                            "text": "Παραπληγία - και τα δύο κάτω άκρα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Τετραπληγία - άνω και κάτω άκρα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Μονοπληγία - και τα δύο άνω άκρα.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Ημιπληγία - μία πλευρά κορμού και άκρων.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η διαφάνεια 19 ορίζει μονοπληγία ως προσβολή ενός μόνο άκρου."
+          },
+          {
+                "id": 24,
+                "category": "Πυραμιδική οδός",
+                "source": "Διαφάνεια 19",
+                "question": "Στη σωματοτοπογραφία των πυραμιδικών ογκωμάτων στη γέφυρα, ποιο ισχύει;",
+                "options": [
+                      {
+                            "text": "Κάτω άκρο και κεφαλή φέρονται από επάνω προς τα κάτω.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Η σωματοτοπογραφία καταργείται πλήρως στη γέφυρα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Η κεφαλή φέρεται μόνο μέσω πρόσθιου πυραμιδικού δεματίου.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Κεφαλή και κάτω άκρο φέρονται από επάνω προς τα κάτω.",
+                            "correct": true
+                      }
+                ],
+                "explanation": "Η διαφάνεια 19 σημειώνει τη διάταξη κεφαλή-κάτω άκρο από επάνω προς τα κάτω."
+          },
+          {
+                "id": 25,
+                "category": "Εξωπυραμιδικό σύστημα",
+                "source": "Διαφάνεια 20",
+                "question": "Ποιο από τα παρακάτω δεν περιγράφει λειτουργία του εξωπυραμιδικού συστήματος στο PDF;",
+                "options": [
+                      {
+                            "text": "Μετάδοση ειδικής ακουστικής αντίληψης στον φλοιό Heschl.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Σειρά, βαθμός και χρόνος σύσπασης μυών.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Διατήρηση στατικής και κινητικής ισορροπίας.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Ρύθμιση ακούσιων και υποσυνείδητων κινήσεων.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η ακουστική αντίληψη στον Heschl ανήκει στην ακουστική οδό, όχι στην περιγραφή του εξωπυραμιδικού."
+          },
+          {
+                "id": 26,
+                "category": "Εξωπυραμιδικό σύστημα",
+                "source": "Διαφάνεια 21",
+                "question": "Ποιο από τα παρακάτω δεν ανήκει στα υποφλοιώδη κέντρα του εξωπυραμιδικού συστήματος όπως παρατίθενται;",
+                "options": [
+                      {
+                            "text": "Ραβδωτό σώμα και ωχρή σφαίρα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Ελικοειδές γάγγλιο και όργανο του Corti.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Ερυθρός πυρήνας και μέλαινα ουσία.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Υποθαλάμιο σώμα και παρεγκεφαλίδα.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Το ελικοειδές γάγγλιο και το όργανο του Corti ανήκουν στην ακουστική οδό."
+          },
+          {
+                "id": 27,
+                "category": "Εξωπυραμιδικό σύστημα",
+                "source": "Διαφάνεια 21",
+                "question": "Ποια φλοιώδης περιοχή δεν αναφέρεται στα φλοιώδη κέντρα του εξωπυραμιδικού συστήματος;",
+                "options": [
+                      {
+                            "text": "Προκινητική χώρα, πεδίο 6.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Μετωπιαίες περιοχές, πεδία 8, 9, 24, 44, 45.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Πρωτογενής ακουστική περιοχή, εγκάρσιες έλικες Heschl.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Ινιακή περιοχή, πεδίο 19.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η διαφάνεια 21 αναφέρει συγκεκριμένα προκινητικές, μετωπιαίες, ινιακές, βρεγματικές και κροταφικές περιοχές."
+          },
+          {
+                "id": 28,
+                "category": "Φλοιο-γεφυρο-παρεγκεφαλιδική οδός",
+                "source": "Διαφάνεια 21",
+                "question": "Ποια αντιστοιχία ινών-μοίρας έσω κάψας είναι σωστή;",
+                "options": [
+                      {
+                            "text": "Μετωπογεφυρικές ίνες - υποφακοειδής μοίρα οπίσθιου σκέλους.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Κροταφογεφυρικές ίνες - πρόσθιο σκέλος έσω κάψας.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Βρεγματοϊνιογεφυρικές ίνες - γόνυ έσω κάψας.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Μετωπογεφυρικές ίνες - πρόσθιο σκέλος έσω κάψας.",
+                            "correct": true
+                      }
+                ],
+                "explanation": "Στη διαφάνεια 21 οι μετωπογεφυρικές ίνες περνούν από το πρόσθιο σκέλος της έσω κάψας."
+          },
+          {
+                "id": 29,
+                "category": "Φλοιο-γεφυρο-παρεγκεφαλιδική οδός",
+                "source": "Διαφάνεια 21",
+                "question": "Σχετικά με τις γεφυροπαρεγκεφαλιδικές ίνες, τι δεν ισχύει;",
+                "options": [
+                      {
+                            "text": "Καταλήγουν αποκλειστικά στο σύστοιχο ημισφαίριο παρεγκεφαλίδας.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Αναφέρονται και ως εγκάρσιες γεφυρικές ίνες.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Υφίστανται χιασμό.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Συγκροτούν το αντίθετο μέσο παρεγκεφαλιδικό στέλεχος.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η διαφάνεια 21 δίνει αντίθετο ημισφαίριο και μερικές ίνες αμφοτερόπλευρα στη μεσότητα του σκώληκα."
+          },
+          {
+                "id": 30,
+                "category": "Φλοιο-γεφυρο-παρεγκεφαλιδική οδός",
+                "source": "Διαφάνεια 21",
+                "question": "Ποια δήλωση για τη βάση του εγκεφαλικού σκέλους είναι λανθασμένη;",
+                "options": [
+                      {
+                            "text": "Οι μετωπογεφυρικές ίνες σχετίζονται με το έσω 1/5 της βάσης.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Η υποφακοειδής μοίρα καταλήγει άμεσα στον χιασμό των πυραμίδων.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Οι κροταφογεφυρικές και βρεγματοϊνιογεφυρικές ίνες σχετίζονται με το έξω 1/5.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Τα δύο άκρα της βάσης συμμετέχουν σε φλοιογεφυρική πορεία.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η διαφάνεια 21 συνδέει τις φλοιογεφυρικές ίνες με γεφυρικούς πυρήνες, όχι με άμεση κατάληξη στον χιασμό."
+          },
+          {
+                "id": 31,
+                "category": "Κεντρική καλυπτρική οδός",
+                "source": "Διαφάνεια 22",
+                "question": "Για την κεντρική καλυπτρική οδό, ποιο από τα παρακάτω δεν ισχύει;",
+                "options": [
+                      {
+                            "text": "Είναι αχίαστη.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Αρχίζει από τα βασικά γάγγλια.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Αρχίζει από το αιθουσαίο γάγγλιο και τελειώνει στον κοχλία.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Τελειώνει στον κάτω πυρήνα της ελαίας του προμήκη.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η διαφάνεια 22 δίνει βασικά γάγγλια προς κάτω πυρήνα ελαίας, με αχίαστη πορεία."
+          },
+          {
+                "id": 32,
+                "category": "Κεντρική καλυπτρική οδός",
+                "source": "Διαφάνεια 22",
+                "question": "Ποιο δεμάτιο δεν αναφέρεται ως συστατικό της κεντρικής καλυπτρικής οδού;",
+                "options": [
+                      {
+                            "text": "Ωχροελαϊκό δεμάτιο.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Ερυθροελαϊκό δεμάτιο.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Δικτυοελαϊκό δεμάτιο.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Ισχνό δεμάτιο.",
+                            "correct": true
+                      }
+                ],
+                "explanation": "Το ισχνό δεμάτιο ανήκει στην αισθητική οδό του κινητικού συστήματος, όχι στην κεντρική καλυπτρική οδό."
+          },
+          {
+                "id": 33,
+                "category": "Κεντρική καλυπτρική οδός",
+                "source": "Διαφάνεια 22",
+                "question": "Ποια σχέση είναι σωστή για το ερυθροδικτυωτό δεμάτιο;",
+                "options": [
+                      {
+                            "text": "Συνδέει ερυθρό πυρήνα με πυρήνες δικτυωτού σχηματισμού γέφυρας και προμήκη.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Συνδέει κάτω ελαία με το όργανο του Corti μέσω κοχλιακού νεύρου.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Συνδέει πυρήνα απαγωγού με έσω γονατώδες σώμα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Συνδέει νωτιαία γάγγλια με ακουστικές κηλίδες.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η διαφάνεια 22 αποδίδει το ερυθροδικτυωτό δεμάτιο στον ερυθρό πυρήνα και πυρήνες δικτυωτού σχηματισμού."
+          },
+          {
+                "id": 34,
+                "category": "Κατιόντα δεμάτια",
+                "source": "Διαφάνεια 23",
+                "question": "Σχετικά με το αιθουσονωτιαίο δεμάτιο, τι δεν ισχύει;",
+                "options": [
+                      {
+                            "text": "Ξεκινά από τον έξω αιθουσαίο πυρήνα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Χιάζεται στον προμήκη πριν εισέλθει στην πλάγια δέσμη.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Πορεύεται αχίαστο στην πρόσθια δέσμη του νωτιαίου μυελού.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Καταλήγει στα πρόσθια κέρατα της φαιάς ουσίας.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η χιαστή πορεία στον προμήκη αφορά το πλάγιο δικτυονωτιαίο δεμάτιο στη διαφάνεια 24."
+          },
+          {
+                "id": 35,
+                "category": "Κατιόντα δεμάτια",
+                "source": "Διαφάνεια 23",
+                "question": "Ποια λειτουργική σχέση αποδίδεται στο αιθουσονωτιαίο δεμάτιο;",
+                "options": [
+                      {
+                            "text": "Ειδική ακοή μέσω έσω γονατώδους σώματος.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Αντίληψη πόνου ως κύρια φλοιϊκή οδός.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Τόνος εκτεινόντων μυών και διατήρηση όρθιας στάσης.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Σύσπαση μυών ακουστικών οσταρίων.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η διαφάνεια 23 συνδέει το αιθουσονωτιαίο δεμάτιο με τόνο εκτεινόντων, αντανακλαστικά και όρθια στάση."
+          },
+          {
+                "id": 36,
+                "category": "Κατιόντα δεμάτια",
+                "source": "Διαφάνεια 24",
+                "question": "Για τα δικτυονωτιαία δεμάτια, ποια αντιστοιχία είναι λανθασμένη;",
+                "options": [
+                      {
+                            "text": "Πρόσθιο - από γέφυρα και προμήκη.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Πρόσθιο - κατάληξη στην πρόσθια δέσμη νωτιαίου μυελού.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Πλάγιο - πυρήνες δικτυωτού σχηματισμού γέφυρας.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Πλάγιο - αχίαστη πορεία αποκλειστικά στην πρόσθια δέσμη.",
+                            "correct": true
+                      }
+                ],
+                "explanation": "Η διαφάνεια 24 αναφέρει ότι το πλάγιο χιάζεται στον προμήκη και πορεύεται στην πλάγια δέσμη."
+          },
+          {
+                "id": 37,
+                "category": "Κατιόντα δεμάτια",
+                "source": "Διαφάνεια 24",
+                "question": "Ποια λειτουργία δεν αποδίδεται στο πλάγιο δικτυονωτιαίο δεμάτιο στη διαφάνεια;",
+                "options": [
+                      {
+                            "text": "Ακουστική ακτινοβολία προς φλοιό Heschl.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Μύες κορμού και άκρων.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Έλεγχος αντίληψης πόνου.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Κινητικότητα σπλάγχνων.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η ακουστική ακτινοβολία δεν ανήκει στα δικτυονωτιαία δεμάτια."
+          },
+          {
+                "id": 38,
+                "category": "Κατιόντα δεμάτια",
+                "source": "Διαφάνεια 25",
+                "question": "Σχετικά με το πρόσθιο τετραδυμονωτιαίο δεμάτιο, τι είναι λάθος;",
+                "options": [
+                      {
+                            "text": "Ξεκινά από τα πρόσθια διδύμια.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Καταλήγει στα πρόσθια κέρατα της οσφυοϊερής μοίρας.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Υφίσταται χιασμό.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Φέρεται στην πρόσθια δέσμη του νωτιαίου μυελού.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η διαφάνεια 25 αναφέρει πρόσθια κέρατα αυχενικής μοίρας και τα 4 άνω νευροτόμια."
+          },
+          {
+                "id": 39,
+                "category": "Κατιόντα δεμάτια",
+                "source": "Διαφάνεια 25",
+                "question": "Ποια περιγραφή ταιριάζει στο πρόσθιο τετραδυμονωτιαίο δεμάτιο;",
+                "options": [
+                      {
+                            "text": "Κύρια ανιούσα οδός από μυϊκές ατράκτους προς θάλαμο.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Κύρια ακουστική οδός από έσω γονατώδες σώμα προς Heschl.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Κύρια κατιούσα οδός από τετράδυμο προς νωτιαίο μυελό.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Κύρια παρασυμπαθητική οδός από υποθάλαμο προς προμήκη.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η διαφάνεια 25 το χαρακτηρίζει κύρια κατιούσα οδό από τετράδυμο προς ΝΜ."
+          },
+          {
+                "id": 40,
+                "category": "Κατιόντα δεμάτια",
+                "source": "Διαφάνεια 25",
+                "question": "Ποια λειτουργία συνδέεται με το πρόσθιο τετραδυμονωτιαίο δεμάτιο στο PDF;",
+                "options": [
+                      {
+                            "text": "Ρύθμιση ευαισθησίας κοχλία μέσω άνω ελαϊκού συμπλέγματος.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Εκούσια κίνηση μέσω χιασμού των πυραμίδων.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Έκκριση σιέλου και γαστρικού υγρού μέσω υποθαλάμου.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Αντανακλαστικές κινήσεις κεφαλής, λαιμού και άνω άκρων σε οπτικά ερεθίσματα.",
+                            "correct": true
+                      }
+                ],
+                "explanation": "Η διαφάνεια 25 συνδέει το δεμάτιο με αντανακλαστικές κινήσεις προς οπτικά ερεθίσματα."
+          },
+          {
+                "id": 41,
+                "category": "Έσω επιμήκης δεσμίδα",
+                "source": "Διαφάνεια 26",
+                "question": "Σχετικά με την έσω επιμήκη δεσμίδα, τι δεν ισχύει;",
+                "options": [
+                      {
+                            "text": "Συνδέει το ελικοειδές γάγγλιο με το έσω γονατώδες σώμα.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Εκφράζει διαδραστική σχέση οφθαλμοκινητικών πυρήνων και αιθουσαίου συστήματος.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Εκτείνεται από την προτετραδυμική χώρα έως τον νωτιαίο μυελό.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Πορεύεται κοιλιακά του υδραγωγού, της τέταρτης κοιλίας και του κεντρικού σωλήνα.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η έσω επιμήκης δεσμίδα αφορά αιθουσαίους και οφθαλμοκινητικούς πυρήνες, όχι την ακουστική αλυσίδα."
+          },
+          {
+                "id": 42,
+                "category": "Έσω επιμήκης δεσμίδα",
+                "source": "Διαφάνεια 26",
+                "question": "Ποια ομάδα πυρήνων δεν αναφέρεται στις συνδέσεις της έσω επιμήκους δεσμίδας;",
+                "options": [
+                      {
+                            "text": "Πυρήνες κοινού κινητικού, τροχιλιακού και απαγωγού.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Κοχλιακοί πυρήνες ως 2ος νευρώνας της ακουστικής οδού.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Νωτιαίος πυρήνας παραπληρωματικού.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Πυρήνες δικτυωτού σχηματισμού.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η διαφάνεια 26 απαριθμεί αιθουσαίους, III, IV, VI, νωτιαίο παραπληρωματικό και δικτυωτό σχηματισμό."
+          },
+          {
+                "id": 43,
+                "category": "Έσω επιμήκης δεσμίδα",
+                "source": "Διαφάνεια 26",
+                "question": "Οι ίνες από τους αιθουσαίους πυρήνες εισέρχονται στην έσω επιμήκη δεσμίδα σε ποια περιοχή;",
+                "options": [
+                      {
+                            "text": "Στην περιοχή του έσω γονατώδους σώματος.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Στην περιοχή του ελικοειδούς γαγγλίου.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Στην περιοχή του πυρήνα του απαγωγού νεύρου.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Στην περιοχή του οπισθίου έξω κοιλιακού πυρήνα θαλάμου.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η διαφάνεια 26 το αναφέρει ρητά: είσοδος στην περιοχή του πυρήνα του απαγωγού."
+          },
+          {
+                "id": 44,
+                "category": "Αισθητικότητα κινητικού συστήματος",
+                "source": "Διαφάνεια 27",
+                "question": "Στην οδό της αισθητικότητας του κινητικού συστήματος, ποιο από τα παρακάτω δεν είναι υποδεκτικό όργανο;",
+                "options": [
+                      {
+                            "text": "Μυϊκές άτρακτοι.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Τενόντιοι άτρακτοι.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Ελεύθερες νευρικές απολήψεις αρθρώσεων και τενόντων.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Ακουστικές ακρολοφίες.",
+                            "correct": true
+                      }
+                ],
+                "explanation": "Οι ακουστικές ακρολοφίες εμφανίζονται στην αιθουσαία οδό, όχι στην οδό αισθητικότητας του κινητικού συστήματος."
+          },
+          {
+                "id": 45,
+                "category": "Αισθητικότητα κινητικού συστήματος",
+                "source": "Διαφάνεια 27",
+                "question": "Ποια αντιστοιχία νευρώνα-θέσης είναι λανθασμένη;",
+                "options": [
+                      {
+                            "text": "3ος αισθητικός νευρώνας - πυρήνας τραπεζοειδούς σώματος.",
+                            "correct": true
+                      },
+                      {
+                            "text": "1ος αισθητικός νευρώνας - ψευδομονόπολα κύτταρα νωτιαίων γαγγλίων.",
+                            "correct": false
+                      },
+                      {
+                            "text": "2ος αισθητικός νευρώνας - ισχνός και σφηνοειδής πυρήνας προμήκη.",
+                            "correct": false
+                      },
+                      {
+                            "text": "3ος αισθητικός νευρώνας - οπίσθιος έξω κοιλιακός πυρήνας θαλάμου.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Ο πυρήνας τραπεζοειδούς σώματος ανήκει στην ακουστική οδό, όχι στον 3ο αισθητικό νευρώνα αυτής της οδού."
+          },
+          {
+                "id": 46,
+                "category": "Αισθητικότητα κινητικού συστήματος",
+                "source": "Διαφάνεια 27",
+                "question": "Ποια σειρά στην οδό της αισθητικότητας του κινητικού συστήματος είναι σωστή;",
+                "options": [
+                      {
+                            "text": "Έσω λημνίσκος - ισχνό δεμάτιο - αιθουσαίο γάγγλιο - πρόσθια κέρατα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Ισχνό/σφηνοειδές δεμάτιο - πυρήνες προμήκη - έσω τοξοειδείς ίνες - έσω λημνίσκος.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Κοχλιακό νεύρο - τραπεζοειδές σώμα - έξω λημνίσκος - οπίσθια κεντρική έλικα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Πρόσθιο πυραμιδικό δεμάτιο - πρόσθιος λευκός σύνδεσμος - ισχνός πυρήνας.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η διαφάνεια 27 δίνει την ακολουθία δεμάτια, πυρήνες προμήκη, έσω τοξοειδείς ίνες, χιασμός και έσω λημνίσκος."
+          },
+          {
+                "id": 47,
+                "category": "Αισθητικότητα κινητικού συστήματος",
+                "source": "Διαφάνεια 27",
+                "question": "Μετά τον οπίσθιο έξω κοιλιακό πυρήνα του θαλάμου, ποια πορεία δεν αντιστοιχεί στην οδό;",
+                "options": [
+                      {
+                            "text": "Θαλαμοφλοιώδεις ίνες.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Οπίσθιο σκέλος έσω κάψας.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Υποφακοειδής μοίρα έσω κάψας προς φλοιό Heschl.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Ακτινωτός στέφανος.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η υποφακοειδής μοίρα προς Heschl αφορά την ακουστική ακτινοβολία, όχι την ιδιοδεκτική αισθητική οδό."
+          },
+          {
+                "id": 48,
+                "category": "Αισθητικότητα κινητικού συστήματος",
+                "source": "Διαφάνεια 27",
+                "question": "Ποια δήλωση για την οδό της αισθητικότητας του κινητικού συστήματος είναι λάθος;",
+                "options": [
+                      {
+                            "text": "Είναι χιαστή.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Εκπέμπει παράπλευρα κλωνία κατά την πορεία της.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Επηρεάζει κύτταρα προσθίων κεράτων και δικτυωτό σύστημα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Δεν συνδέεται με αντανακλάσεις ή εγρήγορση του φλοιού.",
+                            "correct": true
+                      }
+                ],
+                "explanation": "Η διαφάνεια 27 αναφέρει αντανακλάσεις και κατάσταση εγρήγορσης του φλοιού."
+          },
+          {
+                "id": 49,
+                "category": "Αισθητικότητα κινητικού συστήματος",
+                "source": "Διαφάνεια 27",
+                "question": "Το φλοιϊκό κέντρο της αισθητικότητας του κινητικού συστήματος εντοπίζεται:",
+                "options": [
+                      {
+                            "text": "Στον φλοιό της οπίσθιας κεντρικής έλικας.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Στις εγκάρσιες κροταφικές έλικες του Heschl.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Στους πυρήνες των προσθίων διδυμίων.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Στον κάτω πυρήνα της ελαίας του προμήκη.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η διαφάνεια 27 δίνει ως κέντρο τον φλοιό της οπίσθιας κεντρικής έλικας."
+          },
+          {
+                "id": 50,
+                "category": "Ραχιαία επιμήκης δεσμίδα",
+                "source": "Διαφάνεια 28",
+                "question": "Σχετικά με τη ραχιαία επιμήκη δεσμίδα, τι δεν ισχύει;",
+                "options": [
+                      {
+                            "text": "Αποτελεί σύνολο ανιουσών και κατιουσών νευρικών ινών.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Αποτελεί κύρια σωματική οδό από ισχνό δεμάτιο προς θάλαμο.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Συνδέει τον υποθάλαμο με κινητικούς και παρασυμπαθητικούς πυρήνες στελέχους.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Περιγράφεται ως φυτική απαγωγός οδός του υποθαλάμου.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η διαφάνεια 28 τη χαρακτηρίζει φυτική/παρασυμπαθητική οδό, όχι σωματική αισθητική οδό."
+          },
+          {
+                "id": 51,
+                "category": "Ραχιαία επιμήκης δεσμίδα",
+                "source": "Διαφάνεια 28",
+                "question": "Ποια κατάληξη αποδίδεται στη ραχιαία επιμήκη δεσμίδα;",
+                "options": [
+                      {
+                            "text": "Έσω γονατώδες σώμα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Οπίσθιο σκέλος έσω κάψας.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Κάτω μοίρα του προμήκη μυελού.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Ελικοειδές γάγγλιο.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η διαφάνεια 28 αναφέρει ότι η φυτική απαγωγός οδός του υποθαλάμου τελειώνει στην κάτω μοίρα του προμήκη."
+          },
+          {
+                "id": 52,
+                "category": "Ραχιαία επιμήκης δεσμίδα",
+                "source": "Διαφάνεια 28",
+                "question": "Ποιο αντανακλαστικό συνδέεται με τη ραχιαία επιμήκη δεσμίδα στο PDF;",
+                "options": [
+                      {
+                            "text": "Σύσπαση μυός αναβολέα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Χιασμός έσω λημνίσκων.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Οπτικά αντανακλαστικά μέσω προσθίων διδυμίων.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Έκκριση σιέλου και γαστρικού υγρού.",
+                            "correct": true
+                      }
+                ],
+                "explanation": "Η διαφάνεια 28 αναφέρει παρασυμπαθητική αντανακλαστική οδό για έκκριση σιέλου και γαστρικού υγρού."
+          },
+          {
+                "id": 53,
+                "category": "Ακουστική οδός",
+                "source": "Διαφάνεια 7",
+                "question": "Ποια σχέση στη μετάβαση προς τον φλοιό της ακοής είναι λανθασμένη;",
+                "options": [
+                      {
+                            "text": "Έξω λημνίσκος - τελική φλοιϊκή προβολή στις έλικες Heschl.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Έσω γονατώδες σώμα - 3ος αισθητικός νευρώνας.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Ακουστική ακτινοβολία - υποφακοειδής μοίρα έσω κάψας.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Οπίσθιο διδύμιο - βραχίονας οπισθίου διδυμίου.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Ο έξω λημνίσκος παρεμβάλλεται πριν από το οπίσθιο διδύμιο· η φλοιϊκή προβολή γίνεται μέσω γονατώδους και ακτινοβολίας."
+          },
+          {
+                "id": 54,
+                "category": "Αιθουσαία οδός",
+                "source": "Διαφάνεια 13",
+                "question": "Ποια από τις παρακάτω οδούς/δεμάτια δεν εμφανίζεται ως έξοδος από αιθουσαίους πυρήνες στη διαφάνεια 13;",
+                "options": [
+                      {
+                            "text": "Έσω επιμήκης δεσμίδα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Κεντρική καλυπτρική οδός προς κάτω ελαία.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Αιθουσονωτιαίο δεμάτιο.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Αιθουσοπαρεγκεφαλιδικό δεμάτιο.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η κεντρική καλυπτρική οδός αναφέρεται αργότερα στο εξωπυραμιδικό σύστημα, όχι ως έξοδος της αιθουσαίας οδού."
+          },
+          {
+                "id": 55,
+                "category": "Εξωπυραμιδικό σύστημα",
+                "source": "Διαφάνεια 21",
+                "question": "Ποιο από τα παρακάτω δεν αναφέρεται στα φυγόκεντρα δεμάτια και οδούς του εξωπυραμιδικού πίνακα;",
+                "options": [
+                      {
+                            "text": "Αιθουσονωτιαίο δεμάτιο.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Δικτυονωτιαίο δεμάτιο.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Ισχνό και σφηνοειδές δεμάτιο.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Ερυθρονωτιαίο δεμάτιο.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Τα ισχνό και σφηνοειδές δεμάτια ανήκουν στην ανιούσα αισθητική οδό της διαφάνειας 27."
+          },
+          {
+                "id": 56,
+                "category": "Ακουστικά αντανακλαστικά",
+                "source": "Διαφάνεια 11",
+                "question": "Ποια σύνδεση αναφέρεται ως επιπλέον εξυπηρέτηση του αντανακλαστικού σύγκλεισης/στροφής;",
+                "options": [
+                      {
+                            "text": "Ελικοειδές γάγγλιο με οπίσθιο σκέλος έσω κάψας.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Ισχνός πυρήνας με πρόσθιο τετραδυμονωτιαίο δεμάτιο.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Κάτω ελαία με ακουστική ακτινοβολία.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Πυρήνες τραπεζοειδούς σώματος και έξω λημνίσκου με έσω επιμήκη δεσμίδα.",
+                            "correct": true
+                      }
+                ],
+                "explanation": "Η διαφάνεια 11 αναφέρει συνδέσεις πυρήνων τραπεζοειδούς σώματος και έξω λημνίσκου με την έσω επιμήκη δεσμίδα."
+          },
+          {
+                "id": 57,
+                "category": "Πυραμιδική οδός",
+                "source": "Διαφάνεια 17",
+                "question": "Ποιο από τα παρακάτω για τον 2ο νευρώνα της πυραμιδικής οδού δεν ισχύει;",
+                "options": [
+                      {
+                            "text": "Τα κύτταρα του 2ου νευρώνα βρίσκονται αποκλειστικά στο έσω γονατώδες σώμα.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Μπορεί να είναι κύτταρα κινητικών πυρήνων εγκεφαλικών νεύρων.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Μπορεί να είναι κύτταρα πυρήνων των προσθίων κεράτων του ΝΜ.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Οι διεγέρσεις μεταβιβάζονται μέσω νωτιαίων νεύρων στους γραμμωτούς μύες.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Το έσω γονατώδες σώμα είναι σταθμός της ακουστικής οδού· ο 2ος νευρώνας εδώ αφορά κινητικούς πυρήνες και πρόσθια κέρατα."
+          },
+          {
+                "id": 58,
+                "category": "Κατιόντα δεμάτια",
+                "source": "Διαφάνειες 23-25",
+                "question": "Ποια σύγκριση των κατιόντων δεματίων είναι λανθασμένη;",
+                "options": [
+                      {
+                            "text": "Αιθουσονωτιαίο - αχίαστο στην πρόσθια δέσμη.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Πρόσθιο πυραμιδικό - μόνιμη αχίαστη κατάληξη χωρίς πρόσθιο λευκό σύνδεσμο.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Πλάγιο δικτυονωτιαίο - χιασμός στον προμήκη.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Πρόσθιο τετραδυμονωτιαίο - χιασμός και πρόσθια δέσμη.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Το πρόσθιο πυραμιδικό τελικά χιάζεται στον πρόσθιο λευκό σύνδεσμο, σύμφωνα με τη διαφάνεια 18."
+          },
+          {
+                "id": 59,
+                "category": "Αισθητικότητα κινητικού συστήματος",
+                "source": "Διαφάνεια 27",
+                "question": "Ποια δομή εμφανίζεται στην οδό μετά τον χιασμό των έσω λημνίσκων;",
+                "options": [
+                      {
+                            "text": "Κοχλιακό νεύρο.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Τραπεζοειδές σώμα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Έσω λημνίσκος.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Αιθουσονωτιαίο δεμάτιο.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η σειρά στη διαφάνεια 27 είναι έσω τοξοειδείς ίνες, χιασμός των έσω λημνίσκων, έσω λημνίσκος."
+          },
+          {
+                "id": 60,
+                "category": "Έσω επιμήκης δεσμίδα",
+                "source": "Διαφάνειες 11, 13, 26",
+                "question": "Ποια σχέση με την έσω επιμήκη δεσμίδα είναι λανθασμένη;",
+                "options": [
+                      {
+                            "text": "Συμμετέχει σε συνδέσεις ακουστικού αντανακλαστικού με οφθαλμοκινητικούς πυρήνες.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Διασυνδέει αιθουσαίους πυρήνες με πυρήνες III, IV και VI.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Συντονίζει κινήσεις βολβών με κινήσεις κεφαλής και λαιμού.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Αποτελεί την τελική ακουστική ακτινοβολία της υποφακοειδούς μοίρας.",
+                            "correct": true
+                      }
+                ],
+                "explanation": "Η τελική ακουστική ακτινοβολία ανήκει στην ακουστική οδό· η έσω επιμήκης δεσμίδα είναι συνδετική οδός οφθαλμοκινητικού-αιθουσαίου συστήματος."
+          }
+    ];
+
+    const keys = ["α", "β", "γ", "δ"];
+    const storageKey = "neuroanatomy_mcqs_progress_v1";
+    const state = {
+      activeIds: [],
+      current: 0,
+      answers: {},
+      optionOrders: {},
+      score: 0,
+      settings: {
+        category: "Όλες",
+        search: "",
+        shuffleQuestions: true,
+        shuffleAnswers: true
+      },
+      mode: "all"
+    };
+
+    const $ = (id) => document.getElementById(id);
+    const byId = new Map(questions.map((q) => [q.id, q]));
+
+    function shuffle(array) {
+      const copy = [...array];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function normalize(text) {
+      return String(text).toLocaleLowerCase("el-GR").normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
+
+    function filteredQuestions() {
+      const category = $("categoryFilter").value;
+      const query = normalize($("searchInput").value.trim());
+      return questions.filter((q) => {
+        const categoryOk = category === "Όλες" || q.category === category;
+        const haystack = normalize([
+          q.category,
+          q.source,
+          q.question,
+          q.explanation,
+          ...q.options.map((o) => o.text)
+        ].join(" "));
+        return categoryOk && (!query || haystack.includes(query));
+      });
+    }
+
+    function populateCategories() {
+      const categories = ["Όλες", ...Array.from(new Set(questions.map((q) => q.category))).sort((a, b) => a.localeCompare(b, "el"))];
+      $("categoryFilter").innerHTML = categories.map((c) => `<option value="${c}">${c}</option>`).join("");
+    }
+
+    function buildOptionOrders() {
+      state.optionOrders = {};
+      state.activeIds.forEach((id) => {
+        const base = [0, 1, 2, 3];
+        state.optionOrders[id] = state.settings.shuffleAnswers ? shuffle(base) : base;
+      });
+    }
+
+    function startQuiz(ids = null, mode = "all") {
+      state.settings = {
+        category: $("categoryFilter").value,
+        search: $("searchInput").value.trim(),
+        shuffleQuestions: $("shuffleQuestions").checked,
+        shuffleAnswers: $("shuffleAnswers").checked
+      };
+      const selected = ids ? ids.map((id) => byId.get(id)).filter(Boolean) : filteredQuestions();
+      let active = selected.map((q) => q.id);
+      if (state.settings.shuffleQuestions) active = shuffle(active);
+      state.activeIds = active;
+      state.current = 0;
+      state.answers = {};
+      state.score = 0;
+      state.mode = mode;
+      buildOptionOrders();
+      saveProgress();
+      render();
+      renderDistribution();
+      renderPrintSection();
+    }
+
+    function answerCurrent(optionIndex) {
+      const q = byId.get(state.activeIds[state.current]);
+      if (!q || state.answers[q.id]) return;
+      const option = q.options[optionIndex];
+      state.answers[q.id] = { selected: optionIndex, correct: option.correct };
+      if (option.correct) state.score += 1;
+      saveProgress();
+      render();
+    }
+
+    function nextQuestion() {
+      if (state.current < state.activeIds.length - 1) {
+        state.current += 1;
+        saveProgress();
+        render();
+      } else {
+        showResults();
+      }
+    }
+
+    function restartSame() {
+      startQuiz(state.mode === "wrong" ? state.activeIds : null, state.mode);
+    }
+
+    function wrongIds() {
+      return Object.entries(state.answers)
+        .filter(([, a]) => !a.correct)
+        .map(([id]) => Number(id));
+    }
+
+    function updateStats() {
+      const answered = Object.keys(state.answers).length;
+      const total = state.activeIds.length;
+      const percent = answered ? Math.round((state.score / answered) * 100) : 0;
+      const currentQuestion = byId.get(state.activeIds[state.current]);
+      $("scoreText").textContent = `${state.score} / ${answered}`;
+      $("progressText").textContent = `${Math.min(answered + 1, total)} / ${total}`;
+      $("percentText").textContent = `${percent}%`;
+      $("currentCategoryText").textContent = currentQuestion ? currentQuestion.category : "-";
+      $("progressBar").style.width = total ? `${Math.round((answered / total) * 100)}%` : "0%";
+    }
+
+    function render() {
+      $("resultsCard").hidden = true;
+      $("quizCard").hidden = false;
+      updateStats();
+      const card = $("quizCard");
+      if (!state.activeIds.length) {
+        card.innerHTML = `<div class="empty">Δεν βρέθηκαν ερωτήσεις με τα τρέχοντα φίλτρα.</div>`;
+        return;
+      }
+      const q = byId.get(state.activeIds[state.current]);
+      const saved = state.answers[q.id];
+      const order = state.optionOrders[q.id] || [0, 1, 2, 3];
+      const optionsHtml = order.map((optionIndex, displayIndex) => {
+        const option = q.options[optionIndex];
+        const isSelected = saved && saved.selected === optionIndex;
+        const cls = saved
+          ? option.correct ? " correct" : isSelected ? " wrong" : ""
+          : "";
+        return `
+          <button class="option${cls}" type="button" ${saved ? "disabled" : ""} data-option-index="${optionIndex}">
+            <span class="key">${keys[displayIndex]})</span>
+            <span>${option.text}</span>
+          </button>
+        `;
+      }).join("");
+      const feedbackClass = saved ? (saved.correct ? "ok" : "bad") : "";
+      const feedbackTitle = saved ? (saved.correct ? "Σωστό." : "Λάθος.") : "";
+      card.innerHTML = `
+        <div class="question-meta">
+          <span class="pill">${q.category}</span>
+          <span class="pill source">${q.source}</span>
+          <span class="pill">ID ${q.id}</span>
+        </div>
+        <h2 class="question">${q.question}</h2>
+        <div class="options">${optionsHtml}</div>
+        <div class="feedback ${saved ? "show" : ""} ${feedbackClass}">
+          <strong>${feedbackTitle}</strong> ${saved ? q.explanation : ""}
+        </div>
+        <div class="actions">
+          <button class="secondary" type="button" id="restartBtn">Επανεκκίνηση</button>
+          <button type="button" id="nextBtn" ${saved ? "" : "disabled"}>${state.current === state.activeIds.length - 1 ? "Αποτελέσματα" : "Επόμενη ερώτηση"}</button>
+        </div>
+      `;
+      card.querySelectorAll(".option").forEach((button) => {
+        button.addEventListener("click", () => answerCurrent(Number(button.dataset.optionIndex)));
+      });
+      $("nextBtn").addEventListener("click", nextQuestion);
+      $("restartBtn").addEventListener("click", restartSame);
+    }
+
+    function showResults() {
+      $("quizCard").hidden = true;
+      $("resultsCard").hidden = false;
+      const total = state.activeIds.length;
+      const answered = Object.keys(state.answers).length;
+      const wrong = wrongIds();
+      const percent = total ? Math.round((state.score / total) * 100) : 0;
+      $("progressBar").style.width = "100%";
+      $("progressText").textContent = `${total} / ${total}`;
+      $("scoreText").textContent = `${state.score} / ${total}`;
+      $("percentText").textContent = `${percent}%`;
+      $("currentCategoryText").textContent = "Τελικό";
+
+      const perCategory = {};
+      state.activeIds.forEach((id) => {
+        const q = byId.get(id);
+        perCategory[q.category] ??= { total: 0, correct: 0 };
+        perCategory[q.category].total += 1;
+        if (state.answers[id]?.correct) perCategory[q.category].correct += 1;
+      });
+      const categoryRows = Object.entries(perCategory)
+        .sort(([a], [b]) => a.localeCompare(b, "el"))
+        .map(([category, s]) => `<tr><td>${category}</td><td>${s.correct} / ${s.total}</td><td>${Math.round((s.correct / s.total) * 100)}%</td></tr>`)
+        .join("");
+      const review = wrong.length
+        ? wrong.map((id) => {
+            const q = byId.get(id);
+            const answer = state.answers[id];
+            const correct = q.options.find((o) => o.correct);
+            const selected = q.options[answer.selected];
+            return `<article class="review-item">
+              <strong>ID ${q.id} · ${q.category}</strong>
+              <p>${q.question}</p>
+              <p><strong>Επέλεξες:</strong> ${selected.text}</p>
+              <p><strong>Σωστό:</strong> ${correct.text}</p>
+              <p>${q.explanation}</p>
+            </article>`;
+          }).join("")
+        : `<div class="empty">Δεν υπάρχουν λανθασμένες απαντήσεις.</div>`;
+
+      $("resultsCard").innerHTML = `
+        <h2>Τελική επίδοση</h2>
+        <div class="results-grid">
+          <div class="stat"><span>Συνολικό σκορ</span><strong>${state.score} / ${total}</strong></div>
+          <div class="stat"><span>Ποσοστό</span><strong>${percent}%</strong></div>
+          <div class="stat"><span>Σωστές</span><strong>${state.score}</strong></div>
+          <div class="stat"><span>Λανθασμένες</span><strong>${Math.max(0, answered - state.score)}</strong></div>
+        </div>
+        <h2>Απόδοση ανά κατηγορία</h2>
+        <table>
+          <thead><tr><th>Κατηγορία</th><th>Σκορ</th><th>Ποσοστό</th></tr></thead>
+          <tbody>${categoryRows}</tbody>
+        </table>
+        <div class="actions">
+          <button type="button" id="restartResultsBtn">Επανεκκίνηση</button>
+          <button type="button" id="wrongOnlyBtn" ${wrong.length ? "" : "disabled"}>Επανάληψη λανθασμένων</button>
+        </div>
+        <h2>Ανασκόπηση λανθασμένων</h2>
+        <div class="review-list">${review}</div>
+      `;
+      $("restartResultsBtn").addEventListener("click", () => startQuiz(null, "all"));
+      $("wrongOnlyBtn").addEventListener("click", () => {
+        if (wrong.length) startQuiz(wrong, "wrong");
+      });
+      saveProgress();
+    }
+
+    function renderDistribution() {
+      const counts = questions.reduce((acc, q) => {
+        acc[q.category] = (acc[q.category] || 0) + 1;
+        return acc;
+      }, {});
+      const rows = Object.entries(counts)
+        .sort(([a], [b]) => a.localeCompare(b, "el"))
+        .map(([category, count]) => `<tr><td>${category}</td><td>${count}</td></tr>`)
+        .join("");
+      $("distribution").innerHTML = `
+        <h2>Κατανομή ερωτήσεων ανά κατηγορία</h2>
+        <table>
+          <thead><tr><th>Κατηγορία</th><th>Αριθμός ερωτήσεων</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      `;
+    }
+
+    function renderPrintSection() {
+      const items = questions.map((q, idx) => {
+        const answer = q.options.find((o) => o.correct);
+        return `
+          <article class="print-question">
+            <h3>${idx + 1}. ${q.question}</h3>
+            <p><strong>${q.category}</strong> · ${q.source}</p>
+            <ol type="a">
+              ${q.options.map((o) => `<li>${o.text}</li>`).join("")}
+            </ol>
+            <p class="print-answer"><strong>Απάντηση:</strong> ${answer.text}<br><strong>Αιτιολόγηση:</strong> ${q.explanation}</p>
+          </article>
+        `;
+      }).join("");
+      $("printSection").innerHTML = `<h1>Νευρικές Οδοί Β - MCQs</h1>${items}`;
+    }
+
+    function saveProgress() {
+      const payload = {
+        activeIds: state.activeIds,
+        current: state.current,
+        answers: state.answers,
+        optionOrders: state.optionOrders,
+        score: state.score,
+        settings: state.settings,
+        mode: state.mode
+      };
+      localStorage.setItem(storageKey, JSON.stringify(payload));
+    }
+
+    function loadProgress() {
+      try {
+        const raw = localStorage.getItem(storageKey);
+        if (!raw) return false;
+        const saved = JSON.parse(raw);
+        if (!Array.isArray(saved.activeIds) || !saved.activeIds.length) return false;
+        if (!saved.activeIds.every((id) => byId.has(id))) return false;
+        Object.assign(state, saved);
+        $("categoryFilter").value = saved.settings?.category || "Όλες";
+        $("searchInput").value = saved.settings?.search || "";
+        $("shuffleQuestions").checked = Boolean(saved.settings?.shuffleQuestions);
+        $("shuffleAnswers").checked = Boolean(saved.settings?.shuffleAnswers);
+        return true;
+      } catch {
+        return false;
+      }
+    }
+
+    $("applyBtn").addEventListener("click", () => startQuiz(null, "all"));
+    $("clearProgressBtn").addEventListener("click", () => {
+      localStorage.removeItem(storageKey);
+      startQuiz(null, "all");
+    });
+    $("printBtn").addEventListener("click", () => window.print());
+    $("printAnswers").addEventListener("change", (event) => {
+      document.body.classList.toggle("show-print-answers", event.target.checked);
+    });
+
+    populateCategories();
+    renderDistribution();
+    renderPrintSection();
+    if (!loadProgress()) {
+      startQuiz(null, "all");
+    } else {
+      render();
+    }
+  </script>
+</body>
+</html>
