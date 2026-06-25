@@ -1,0 +1,2900 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Νευροανατομία - Μήνιγγες, ΕΝΥ και κοιλιακό σύστημα</title>
+  <style>
+    :root {
+      --bg: #f4f7f8;
+      --surface: #ffffff;
+      --text: #162126;
+      --muted: #5c6b73;
+      --line: #d8e0e4;
+      --primary: #0f6b6e;
+      --primary-2: #0a4e55;
+      --accent: #c58a1b;
+      --good: #146c43;
+      --good-bg: #dff3e7;
+      --bad: #a52828;
+      --bad-bg: #f7dddd;
+      --warn-bg: #fff4d8;
+      --shadow: 0 16px 44px rgba(23, 44, 51, 0.10);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    header {
+      background: #10282d;
+      color: #f7fbfc;
+      padding: 22px 18px;
+      border-bottom: 4px solid var(--accent);
+    }
+
+    .wrap {
+      width: min(1120px, calc(100% - 28px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.35rem, 2.2vw, 2rem);
+      letter-spacing: 0;
+      font-weight: 760;
+    }
+
+    .subtitle {
+      margin: 6px 0 0;
+      color: #c9d8dc;
+      max-width: 760px;
+      font-size: 0.98rem;
+    }
+
+    main { padding: 18px 0 34px; }
+
+    .panel, .card, .results {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      border-radius: 8px;
+    }
+
+    .panel {
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: 1.2fr 1.5fr repeat(2, minmax(155px, 0.8fr));
+      gap: 12px;
+      align-items: end;
+    }
+
+    label {
+      display: block;
+      color: var(--muted);
+      font-size: 0.84rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    select, input[type="search"] {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: #fbfdfd;
+      color: var(--text);
+      padding: 9px 11px;
+      font: inherit;
+    }
+
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 0 4px;
+      color: var(--text);
+      font-weight: 650;
+    }
+
+    input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--primary);
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    button {
+      border: 1px solid transparent;
+      border-radius: 7px;
+      min-height: 40px;
+      padding: 9px 13px;
+      font: inherit;
+      font-weight: 760;
+      cursor: pointer;
+      background: var(--primary);
+      color: white;
+    }
+
+    button.secondary {
+      color: var(--primary-2);
+      background: #edf6f6;
+      border-color: #b9d7d9;
+    }
+
+    button.ghost {
+      color: #314449;
+      background: #f7fafb;
+      border-color: var(--line);
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.52;
+    }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .stat {
+      background: #fbfdfd;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      padding: 10px 12px;
+      min-height: 72px;
+    }
+
+    .stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 750;
+    }
+
+    .stat strong {
+      display: block;
+      margin-top: 4px;
+      font-size: 1.15rem;
+    }
+
+    .progress {
+      height: 10px;
+      background: #dce6e8;
+      overflow: hidden;
+      border-radius: 99px;
+      margin-bottom: 16px;
+    }
+
+    .progress > div {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transition: width 0.25s ease;
+    }
+
+    .card {
+      padding: clamp(16px, 2.6vw, 26px);
+    }
+
+    .q-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      color: var(--muted);
+      font-weight: 750;
+      font-size: 0.86rem;
+      margin-bottom: 12px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 3px 9px;
+      border-radius: 99px;
+      background: #eef4f5;
+      color: #29484e;
+      border: 1px solid #d5e2e4;
+    }
+
+    .question {
+      font-size: clamp(1.08rem, 1.5vw, 1.32rem);
+      font-weight: 780;
+      margin: 0 0 16px;
+    }
+
+    .options {
+      display: grid;
+      gap: 10px;
+    }
+
+    .option {
+      width: 100%;
+      text-align: left;
+      background: #fbfdfd;
+      color: var(--text);
+      border: 1px solid var(--line);
+      padding: 13px 14px;
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 8px;
+      align-items: start;
+      min-height: 58px;
+      font-weight: 650;
+    }
+
+    .option:hover:not(:disabled) {
+      border-color: #8bbdc1;
+      background: #f1f8f8;
+    }
+
+    .option.correct {
+      border-color: #75b88f;
+      background: var(--good-bg);
+      color: #0c3b25;
+    }
+
+    .option.wrong {
+      border-color: #e0a0a0;
+      background: var(--bad-bg);
+      color: #581c1c;
+    }
+
+    .key {
+      font-weight: 850;
+      color: var(--primary-2);
+    }
+
+    .feedback {
+      margin-top: 16px;
+      padding: 14px 15px;
+      border-radius: 7px;
+      border: 1px solid var(--line);
+      background: #f7fafb;
+      display: none;
+    }
+
+    .feedback.good {
+      display: block;
+      border-color: #9fcfb2;
+      background: var(--good-bg);
+    }
+
+    .feedback.bad {
+      display: block;
+      border-color: #e0a0a0;
+      background: var(--bad-bg);
+    }
+
+    .feedback strong { display: block; margin-bottom: 4px; }
+
+    .nav-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .results {
+      padding: clamp(16px, 2.6vw, 26px);
+      display: none;
+    }
+
+    .results h2, .print-sheet h2 {
+      margin: 0 0 12px;
+      font-size: 1.45rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0;
+      background: white;
+    }
+
+    th, td {
+      border: 1px solid var(--line);
+      padding: 9px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #edf4f5;
+      font-size: 0.88rem;
+    }
+
+    .wrong-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .wrong-item {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      padding: 11px 12px;
+      background: #fbfdfd;
+    }
+
+    .empty {
+      padding: 18px;
+      border: 1px dashed #afc2c7;
+      background: #fbfdfd;
+      border-radius: 8px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .print-sheet { display: none; }
+
+    @media (max-width: 820px) {
+      .topbar, .nav-row { flex-direction: column; align-items: stretch; }
+      .controls, .status-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 560px) {
+      .controls, .status-grid { grid-template-columns: 1fr; }
+      .option { grid-template-columns: 28px 1fr; }
+      .actions button, .nav-row button { width: 100%; }
+    }
+
+    @media print {
+      body { background: white; color: black; }
+      header, .panel, .status-grid, .progress, #quizCard, #results, .actions, .nav-row { display: none !important; }
+      main { padding: 0; }
+      .wrap { width: 100%; }
+      .print-sheet { display: block; }
+      .print-question { break-inside: avoid; margin: 0 0 16px; padding-bottom: 12px; border-bottom: 1px solid #bbb; }
+      .print-question h3 { margin: 0 0 6px; font-size: 12pt; }
+      .print-question p { margin: 4px 0; }
+      .print-answer { margin-top: 6px; font-size: 10.5pt; }
+      @page { margin: 14mm; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap topbar">
+      <div>
+        <h1>Νευροανατομία: Μήνιγγες, ΕΝΥ και κοιλιακό σύστημα</h1>
+        <p class="subtitle">Διαδραστικό quiz υψηλής δυσκολίας, βασισμένο στις διαφάνειες του PDF.</p>
+      </div>
+      <button class="secondary" id="printBtn" type="button">Εκτύπωση</button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="panel">
+      <div class="controls">
+        <div>
+          <label for="categoryFilter">Κατηγορία</label>
+          <select id="categoryFilter"></select>
+        </div>
+        <div>
+          <label for="searchBox">Αναζήτηση</label>
+          <input id="searchBox" type="search" placeholder="Όρος, δομή, τρήμα, κόλπος, αιτιολόγηση">
+        </div>
+        <div class="toggle-row">
+          <input id="shuffleQuestions" type="checkbox" checked>
+          <span>Ανακάτεμα ερωτήσεων</span>
+        </div>
+        <div class="toggle-row">
+          <input id="shuffleAnswers" type="checkbox" checked>
+          <span>Ανακάτεμα απαντήσεων</span>
+        </div>
+      </div>
+      <div class="actions">
+        <button id="applyBtn" type="button">Νέο quiz</button>
+        <button id="restartBtn" class="secondary" type="button">Επανεκκίνηση</button>
+        <button id="clearProgressBtn" class="ghost" type="button">Καθαρισμός προόδου</button>
+      </div>
+    </section>
+
+    <section class="status-grid" aria-live="polite">
+      <div class="stat"><span>Σκορ</span><strong id="scoreStat">0</strong></div>
+      <div class="stat"><span>Πρόοδος</span><strong id="progressStat">0 / 0</strong></div>
+      <div class="stat"><span>Ποσοστό</span><strong id="percentStat">0%</strong></div>
+      <div class="stat"><span>Κατηγορία</span><strong id="categoryStat">-</strong></div>
+    </section>
+
+    <div class="progress" aria-hidden="true"><div id="progressBar"></div></div>
+
+    <section id="quizCard" class="card"></section>
+    <section id="results" class="results"></section>
+    <section id="printSheet" class="print-sheet"></section>
+  </main>
+
+  <script>
+    const questions = [
+      {
+            "id": 1,
+            "category": "Σκληρά μήνιγγα και αναδιπλώσεις",
+            "source": "Διαφάνειες 3-4",
+            "question": "Σχετικά με τη σκληρά μήνιγγα, ποιο από τα παρακάτω δεν ισχύει;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Τα δύο πέταλα σχηματίζουν τον υπαραχνοειδή χώρο.",
+                        "correct": true
+                  },
+                  {
+                        "key": "β",
+                        "text": "Αποτελείται από περιόστεο και έσω πέταλο.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Το έσω πέταλο σχηματίζει αναδιπλώσεις.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Οι φλεβώδεις κόλποι σχηματίζονται ανάμεσα στα δύο πέταλα.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Ο υπαραχνοειδής χώρος βρίσκεται μεταξύ αραχνοειδούς και χοριοειδούς μήνιγγας, όχι μεταξύ των πετάλων της σκληράς."
+      },
+      {
+            "id": 2,
+            "category": "Σκληρά μήνιγγα και αναδιπλώσεις",
+            "source": "Διαφάνεια 3",
+            "question": "Ποια αντιστοιχία αναδίπλωσης και θέσης είναι λανθασμένη;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Δρέπανο παρεγκεφαλίδας - πρόσθια εντομή παρεγκεφαλίδας.",
+                        "correct": true
+                  },
+                  {
+                        "key": "β",
+                        "text": "Δρέπανο εγκεφάλου - επιμήκης σχισμή.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Σκηνίδιο παρεγκεφαλίδας - εγκάρσια σχισμή.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Διάφραγμα υπόφυσης - αναδίπλωση σκληράς μήνιγγας.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Το δρέπανο της παρεγκεφαλίδας αναφέρεται στην οπίσθια εντομή της παρεγκεφαλίδας."
+      },
+      {
+            "id": 3,
+            "category": "Σκληρά μήνιγγα και αναδιπλώσεις",
+            "source": "Διαφάνεια 3",
+            "question": "Σχετικά με το δρέπανο του εγκεφάλου, τι ισχύει;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Προσφύεται στο άνω χείλος του λιθοειδούς.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Βρίσκεται μέσα στην εγκάρσια σχισμή.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Αφορίζει την οπίσθια εντομή της παρεγκεφαλίδας.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Εκτείνεται από το κάλλαιο έως το έσω ινιακό όγκωμα.",
+                        "correct": true
+                  }
+            ],
+            "explanation": "Η διαφάνεια το τοποθετεί στην επιμήκη σχισμή, από το κάλλαιο έως το έσω ινιακό όγκωμα."
+      },
+      {
+            "id": 4,
+            "category": "Σκληρά μήνιγγα και αναδιπλώσεις",
+            "source": "Διαφάνεια 3",
+            "question": "Όλα τα παρακάτω αφορούν το σκηνίδιο της παρεγκεφαλίδας, εκτός από ένα:",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Βρίσκεται εντός της εγκάρσιας σχισμής.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Προσφύεται στις πρόσθιες κλινοειδείς αποφύσεις.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Βρίσκεται εντός της επιμήκους σχισμής.",
+                        "correct": true
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Σχετίζεται με το άνω χείλος του λιθοειδούς.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Η επιμήκης σχισμή αντιστοιχεί στο δρέπανο του εγκεφάλου, όχι στο σκηνίδιο."
+      },
+      {
+            "id": 5,
+            "category": "Σκληρά μήνιγγα και αναδιπλώσεις",
+            "source": "Διαφάνειες 4, 42",
+            "question": "Ποια σχέση κόλπου και αναδίπλωσης προκύπτει από το σχήμα;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Εγκάρσιος κόλπος - διάφραγμα υπόφυσης.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Ευθύς κόλπος - πλάγιο κόλπωμα.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Άνω οβελιαίος κόλπος - δρέπανο.",
+                        "correct": true
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Άνω οβελιαίος κόλπος - έσχατη πτέρυγα.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Στις διαφάνειες ο άνω οβελιαίος κόλπος επισημαίνεται στο δρέπανο."
+      },
+      {
+            "id": 6,
+            "category": "Σκληρά μήνιγγα και αναδιπλώσεις",
+            "source": "Διαφάνεια 43",
+            "question": "Ποιο από τα παρακάτω δεν επισημαίνεται στην έσω επιφάνεια του κρανίου;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Μετωπιαία ακρολοφία.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Πακχιόνεια βοθρία.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Υπομέλας τόπος.",
+                        "correct": true
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Αύλακες της μέσης μηνιγγικής αρτηρίας.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Ο υπομέλας τόπος ανήκει στη ρομβοειδή βόθρο, όχι στην έσω επιφάνεια του κρανίου."
+      },
+      {
+            "id": 7,
+            "category": "Μηνιγγικοί χώροι και αραχνοειδής",
+            "source": "Διαφάνεια 6",
+            "question": "Ποιο από τα παρακάτω δεν ισχύει για τον υπαραχνοειδή χώρο;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Βρίσκεται μεταξύ αραχνοειδούς και χοριοειδούς.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Βρίσκεται μεταξύ αραχνοειδούς και σκληράς.",
+                        "correct": true
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Είναι πλήρης εγκεφαλονωτιαίου υγρού.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Οι διευρύνσεις του ονομάζονται δεξαμενές.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Ο χώρος μεταξύ αραχνοειδούς και σκληράς είναι ο υποσκληρίδιος."
+      },
+      {
+            "id": 8,
+            "category": "Μηνιγγικοί χώροι και αραχνοειδής",
+            "source": "Διαφάνεια 6",
+            "question": "Σχετικά με τον υποσκληρίδιο χώρο, τι ισχύει;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Σχηματίζεται μεταξύ αραχνοειδούς και χοριοειδούς.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Σχηματίζεται μεταξύ αραχνοειδούς και σκληράς μήνιγγας.",
+                        "correct": true
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Αποτελεί διεύρυνση του υπαραχνοειδούς χώρου.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Αντιστοιχεί στα βοθρία του Pacchioni.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Η διαφάνεια ορίζει τον υποσκληρίδιο χώρο μεταξύ αραχνοειδούς και σκληράς."
+      },
+      {
+            "id": 9,
+            "category": "Μηνιγγικοί χώροι και αραχνοειδής",
+            "source": "Διαφάνεια 6",
+            "question": "Ποια θέση αραχνοειδών λαχνών είναι λανθασμένη;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Άνω οβελιαίος κόλπος.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Εγκάρσιος κόλπος.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Υδραγωγός του Sylvius.",
+                        "correct": true
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Βοθρία του Pacchioni βρεγματικά.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Ο υδραγωγός είναι τμήμα του κοιλιακού συστήματος, όχι θέση των αραχνοειδών λαχνών."
+      },
+      {
+            "id": 10,
+            "category": "Μηνιγγικοί χώροι και αραχνοειδής",
+            "source": "Διαφάνεια 6",
+            "question": "Σχετικά με τα σωμάτια του Pacchioni, ποιο από τα παρακάτω ισχύει;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Αποτελούν προσεκβολές της χοριοειδούς μήνιγγας.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Αποτελούν τρήματα της οροφής της τέταρτης κοιλίας.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Αποτελούν αραχνοειδείς λάχνες από όπου αποχετεύεται το ΕΝΥ.",
+                        "correct": true
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Αποτελούν πυρήνες της ρομβοειδούς βόθρου.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Η διαφάνεια τα ονομάζει αραχνοειδείς λάχνες και σημειώνει ότι εκεί αποχετεύεται το ΕΝΥ."
+      },
+      {
+            "id": 11,
+            "category": "Χοριοειδής μήνιγγα και ΕΝΥ",
+            "source": "Διαφάνεια 10",
+            "question": "Σχετικά με τη χοριοειδή μήνιγγα, τι δεν ισχύει;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Καταδύεται εντός των σχισμών του εγκεφάλου.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Λειτουργεί ως όριο μεταξύ νευρικού ιστού και μηνίγγων.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Σχηματίζει τον άνω οβελιαίο κόλπο.",
+                        "correct": true
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Σχηματίζει τα χοριοειδή πλέγματα.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Ο άνω οβελιαίος κόλπος ανήκει στους φλεβώδεις κόλπους της σκληράς μήνιγγας."
+      },
+      {
+            "id": 12,
+            "category": "Χοριοειδής μήνιγγα και ΕΝΥ",
+            "source": "Διαφάνεια 40",
+            "question": "Ποια θέση χοριοειδούς πλέγματος δεν αναφέρεται στο PDF;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Κεντρική μοίρα της πλάγιας κοιλίας.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Κροταφικό κέρας της πλάγιας κοιλίας.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Μετωπιαίο κέρας της πλάγιας κοιλίας.",
+                        "correct": true
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Οροφή της τρίτης κοιλίας.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Η διαφάνεια αναφέρει κεντρική μοίρα και κροταφικό κέρας, όχι μετωπιαίο κέρας."
+      },
+      {
+            "id": 13,
+            "category": "Χοριοειδής μήνιγγα και ΕΝΥ",
+            "source": "Διαφάνεια 40",
+            "question": "Σχετικά με την παραγωγή και αποχέτευση του ΕΝΥ, ποιο δεν ισχύει;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Το ΕΝΥ παράγεται από τα χοριοειδή πλέγματα.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Το ΕΝΥ αποχετεύεται από τα αραχνοειδή σωμάτια.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Τα χοριοειδή πλέγματα σχετίζονται με τη χοριοειδή μήνιγγα.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Τα αραχνοειδή σωμάτια παράγουν το ΕΝΥ.",
+                        "correct": true
+                  }
+            ],
+            "explanation": "Τα αραχνοειδή σωμάτια αποχετεύουν το ΕΝΥ, ενώ η παραγωγή γίνεται από τα χοριοειδή πλέγματα."
+      },
+      {
+            "id": 14,
+            "category": "Χοριοειδής μήνιγγα και ΕΝΥ",
+            "source": "Διαφάνεια 40",
+            "question": "Ποια διατύπωση για τα χοριοειδή πλέγματα είναι λανθασμένη;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Προέρχονται από τη χοριοειδή μήνιγγα.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Συμμετέχει επιθηλιακή στιβάδα κυττάρων του ημισφαιρίου.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Βρίσκονται κυρίως στην άνω εγκάρσια ζώνη της ρομβοειδούς βόθρου.",
+                        "correct": true
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Βρίσκονται στο κάτω ήμισυ της τέταρτης κοιλίας.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Η άνω εγκάρσια ζώνη αφορά μορφώματα της ρομβοειδούς βόθρου, όχι θέση χοριοειδούς πλέγματος."
+      },
+      {
+            "id": 15,
+            "category": "Κυκλοφορία ΕΝΥ και κοιλιακό σύστημα",
+            "source": "Διαφάνεια 14",
+            "question": "Ποια ακολουθία επικοινωνίας του κοιλιακού συστήματος είναι σωστή;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Πλάγιες κοιλίες - Sylvius - τρίτη κοιλία - Monro - τέταρτη κοιλία.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Τρίτη κοιλία - Luschka - πλάγιες κοιλίες - Magendi - τέταρτη κοιλία.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Τέταρτη κοιλία - Monro - τρίτη κοιλία - Sylvius - πλάγιες κοιλίες.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Πλάγιες κοιλίες - Monro - τρίτη κοιλία - υδραγωγός Sylvius - τέταρτη κοιλία.",
+                        "correct": true
+                  }
+            ],
+            "explanation": "Το PDF δίνει Monro από πλάγιες προς τρίτη και υδραγωγό Sylvius από τρίτη προς τέταρτη."
+      },
+      {
+            "id": 16,
+            "category": "Κυκλοφορία ΕΝΥ και κοιλιακό σύστημα",
+            "source": "Διαφάνεια 14",
+            "question": "Όλα τα παρακάτω ισχύουν για το ΕΝΥ, εκτός από ένα:",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Βρίσκεται εντός του κοιλιακού συστήματος.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Βρίσκεται εντός του υπαραχνοειδούς χώρου.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Το κοιλιακό σύστημα επενδύεται από επένδυμα.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Το κοιλιακό σύστημα επικοινωνεί με τον υποσκληρίδιο χώρο.",
+                        "correct": true
+                  }
+            ],
+            "explanation": "Η επικοινωνία γίνεται με τον υπαραχνοειδή χώρο μέσω των τρημάτων της οροφής της τέταρτης κοιλίας."
+      },
+      {
+            "id": 17,
+            "category": "Πλάγιες κοιλίες",
+            "source": "Διαφάνεια 16",
+            "question": "Σχετικά με την πλάγια κοιλία, τι δεν ισχύει;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Είναι ανώμαλη σχισμοειδής κοιλότητα.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Επικοινωνεί άμεσα με την ετερόπλευρη πλάγια κοιλία.",
+                        "correct": true
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Βρίσκεται μέσα στο εγκεφαλικό ημισφαίριο.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Χωρίζεται από την ετερόπλευρη με το διαφανές διάφραγμα.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Η ετερόπλευρη πλάγια κοιλία επικοινωνεί έμμεσα μέσω του μεσοκοιλιακού τρήματος."
+      },
+      {
+            "id": 18,
+            "category": "Πλάγιες κοιλίες",
+            "source": "Διαφάνεια 16",
+            "question": "Ποιο από τα παρακάτω αποτελεί τμήμα κάθε πλάγιας κοιλίας;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Κεντρική μοίρα του Schwalbe.",
+                        "correct": true
+                  },
+                  {
+                        "key": "β",
+                        "text": "Κόλπωμα της χοάνης.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Οπίσθια διάτρητη ουσία.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Διαχωριστική δεσμίδα του Retzious.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Η πλάγια κοιλία αποτελείται από κεντρική μοίρα του Schwalbe και τα κέρατα."
+      },
+      {
+            "id": 19,
+            "category": "Πλάγιες κοιλίες",
+            "source": "Διαφάνεια 16",
+            "question": "Ποιο κέρας δεν αναφέρεται ως κέρας της πλάγιας κοιλίας;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Μετωπιαίο κέρας.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Βρεγματικό κέρας.",
+                        "correct": true
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Κροταφικό κέρας.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Ινιακό κέρας.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Η διαφάνεια αναφέρει μετωπιαίο, κροταφικό και ινιακό κέρας."
+      },
+      {
+            "id": 20,
+            "category": "Πλάγιες κοιλίες",
+            "source": "Διαφάνεια 17",
+            "question": "Στο διανοιχθέν κοιλιακό σύστημα, ποια ένδειξη δεν αντιστοιχεί σε κέρας της πλάγιας κοιλίας;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Μετωπιαίο κέρας.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Κροταφικό κέρας.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Ινιακό κέρας.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Πτηναίο πλήκτρο.",
+                        "correct": true
+                  }
+            ],
+            "explanation": "Το πτηναίο πλήκτρο επισημαίνεται ως μόρφωμα, όχι ως κέρας."
+      },
+      {
+            "id": 21,
+            "category": "Πλάγιες κοιλίες",
+            "source": "Διαφάνειες 16-17",
+            "question": "Ποια αντιστοιχία για την πλάγια κοιλία είναι λανθασμένη;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Υδραγωγός Sylvius - άμεση επικοινωνία με ετερόπλευρη πλάγια κοιλία.",
+                        "correct": true
+                  },
+                  {
+                        "key": "β",
+                        "text": "Διαφανές διάφραγμα - διαχωρίζει τις πλάγιες κοιλίες.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Τρήμα Monro - επικοινωνία με τρίτη κοιλία.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Χοριοειδές πλέγμα - στοιχείο του διανοιχθέντος συστήματος.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Ο υδραγωγός συνδέει τρίτη και τέταρτη κοιλία, όχι τις πλάγιες μεταξύ τους."
+      },
+      {
+            "id": 22,
+            "category": "Τρίτη κοιλία και υδραγωγός",
+            "source": "Διαφάνεια 20",
+            "question": "Ποιο στοιχείο ανήκει στο άνω τοίχωμα της τρίτης κοιλίας;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Επιθηλιακό πέταλο και χοριοειδές ιστίο.",
+                        "correct": true
+                  },
+                  {
+                        "key": "β",
+                        "text": "Υποθάλαμος και οπίσθια διάτρητη ουσία.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Πρόσθια σκέλη της ψαλίδας και τελικό πέταλο.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Επίφυση και οπίσθιος σύνδεσμος.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Το άνω τοίχωμα ορίζεται από επιθηλιακό πέταλο και χοριοειδές ιστίο της τρίτης κοιλίας."
+      },
+      {
+            "id": 23,
+            "category": "Τρίτη κοιλία και υδραγωγός",
+            "source": "Διαφάνεια 20",
+            "question": "Ποια αντιστοιχία τοιχώματος τρίτης κοιλίας είναι λανθασμένη;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Κάτω τοίχωμα - ιδίως υποθάλαμος.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Πλάγια τοιχώματα - θάλαμοι και υποθαλάμιες χώρες.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Οπίσθιο τοίχωμα - επίφυση και οπίσθιος σύνδεσμος.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Πρόσθιο τοίχωμα - επίφυση και οπίσθιος σύνδεσμος.",
+                        "correct": true
+                  }
+            ],
+            "explanation": "Η επίφυση και ο οπίσθιος σύνδεσμος ανήκουν στο οπίσθιο τοίχωμα."
+      },
+      {
+            "id": 24,
+            "category": "Τρίτη κοιλία και υδραγωγός",
+            "source": "Διαφάνεια 20",
+            "question": "Ποιο από τα παρακάτω διελαύνει την τρίτη κοιλία;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Η διαχωριστική δεσμίδα.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Οι ακουστικές χορδές.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Η διάμεση μάζα.",
+                        "correct": true
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Ο μοχλός.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Στη διαφάνεια τονίζεται ότι η τρίτη κοιλία διελαύνεται από τη διάμεση μάζα."
+      },
+      {
+            "id": 25,
+            "category": "Τρίτη κοιλία και υδραγωγός",
+            "source": "Διαφάνεια 22",
+            "question": "Ποιο κόλπωμα της τρίτης κοιλίας είναι λανθασμένα διατυπωμένο;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Υπεροπτικό κόλπωμα.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Κόλπωμα του μοχλού.",
+                        "correct": true
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Κόλπωμα της χοάνης.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Κόλπωμα του κωναρίου.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Ο μοχλός αφορά την οροφή της τέταρτης κοιλίας, όχι κόλπωμα της τρίτης."
+      },
+      {
+            "id": 26,
+            "category": "Τρίτη κοιλία και υδραγωγός",
+            "source": "Διαφάνεια 24",
+            "question": "Σχετικά με τον υδραγωγό του Sylvius, ποιο από τα παρακάτω δεν ισχύει;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Περιβάλλεται από λεπτό στρώμα νευρώνων.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Περιέχει τα αραχνοειδή σωμάτια του Pacchioni.",
+                        "correct": true
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Το στρώμα αυτό συγκροτεί την κεντρική φαιά ουσία.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Σχετίζεται με πυρήνα κοινού κινητικού νεύρου.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Τα σωμάτια του Pacchioni σχετίζονται με αποχέτευση ΕΝΥ σε φλεβώδεις κόλπους, όχι με τον υδραγωγό."
+      },
+      {
+            "id": 27,
+            "category": "Τρίτη κοιλία και υδραγωγός",
+            "source": "Διαφάνεια 24",
+            "question": "Ποιοι πυρήνες αναφέρονται μέσα στην κεντρική φαιά ουσία γύρω από τον υδραγωγό;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Πυρήνας απαγωγού και ραχιαίος πυρήνας πνευμονογαστρικού.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Πυρήνας κοινού κινητικού και πυρήνας τροχιλιακού.",
+                        "correct": true
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Άνω αισθητικός πυρήνας τριδύμου και έσω αιθουσαίος.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Ραχιαίος κοχλιακός και πυρήνας υπογλωσσίου.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Η διαφάνεια αναφέρει τον πυρήνα του κοινού κινητικού και τον πυρήνα του τροχιλιακού."
+      },
+      {
+            "id": 28,
+            "category": "Τέταρτη κοιλία",
+            "source": "Διαφάνεια 25",
+            "question": "Ποιο από τα παρακάτω δεν ισχύει για την τέταρτη κοιλία;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Βρίσκεται μεταξύ εγκεφαλικού στελέχους και παρεγκεφαλίδας.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Προς τα επάνω επικοινωνεί με την τρίτη κοιλία μέσω του υδραγωγού.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Προς τα κάτω μεταπίπτει στον κεντρικό σωλήνα του προμήκη.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Προς τα κάτω μεταπίπτει στο μεσοκοιλιακό τρήμα του Monro.",
+                        "correct": true
+                  }
+            ],
+            "explanation": "Το Monro συνδέει πλάγια με τρίτη κοιλία, όχι την τέταρτη με τον κεντρικό σωλήνα."
+      },
+      {
+            "id": 29,
+            "category": "Τέταρτη κοιλία",
+            "source": "Διαφάνεια 25",
+            "question": "Ποια διατύπωση για την επικοινωνία της τέταρτης κοιλίας είναι λανθασμένη;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Προς τα επάνω επικοινωνεί με την τρίτη κοιλία μέσω του υδραγωγού.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Με την πλάγια κοιλία επικοινωνεί άμεσα μέσω του Monro.",
+                        "correct": true
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Προς τα κάτω μεταπίπτει στον κεντρικό σωλήνα του προμήκη.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Με τον υπαραχνοειδή χώρο επικοινωνεί μέσω τρημάτων της οροφής.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Το Monro συνδέει πλάγια με τρίτη κοιλία, όχι την τέταρτη με την πλάγια κοιλία."
+      },
+      {
+            "id": 30,
+            "category": "Τέταρτη κοιλία",
+            "source": "Διαφάνεια 25",
+            "question": "Ποια τριάδα μορφολογικών στοιχείων της τέταρτης κοιλίας είναι σωστή;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Κεντρική μοίρα, μετωπιαίο κέρας, κροταφικό κέρας.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Πρόσθιο τοίχωμα, διάμεση μάζα, τελικό πέταλο.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Άνω βοθρίο, κάτω βοθρίο, υπομέλας τόπος.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Έδαφος ή ρομβοειδής βόθρος, οροφή, κοιλότητα.",
+                        "correct": true
+                  }
+            ],
+            "explanation": "Η διαφάνεια απαριθμεί έδαφος ή ρομβοειδή βόθρο, οροφή και κοιλότητα."
+      },
+      {
+            "id": 31,
+            "category": "Ρομβοειδής βόθρος",
+            "source": "Διαφάνειες 27-28",
+            "question": "Η ρομβοειδής βόθρος αντιστοιχεί κυρίως σε:",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Κοιλιακή επιφάνεια γέφυρας και κλειστή μοίρα προμήκη.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Ραχιαία επιφάνεια γέφυρας και ανοικτή μοίρα προμήκη.",
+                        "correct": true
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Έσω επιφάνεια κρανίου και πακχιόνεια βοθρία.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Οροφή τρίτης κοιλίας και χοριοειδές ιστίο.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Ο τίτλος της διαφάνειας τη συνδέει με τη ραχιαία επιφάνεια της γέφυρας και την ανοικτή μοίρα του προμήκη."
+      },
+      {
+            "id": 32,
+            "category": "Ρομβοειδής βόθρος",
+            "source": "Διαφάνειες 27-28",
+            "question": "Ποιο από τα παρακάτω δεν επισημαίνεται στη ρομβοειδή βόθρο;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Μετωπιαία ακρολοφία.",
+                        "correct": true
+                  },
+                  {
+                        "key": "β",
+                        "text": "Μέση αύλακα.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Πλάγια αύλακα.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Προσωπικό λοφίδιο.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Η μετωπιαία ακρολοφία επισημαίνεται στην έσω επιφάνεια του κρανίου, όχι στη ρομβοειδή βόθρο."
+      },
+      {
+            "id": 33,
+            "category": "Ρομβοειδής βόθρος",
+            "source": "Διαφάνειες 27-29",
+            "question": "Σχετικά με την άνω εγκάρσια ζώνη, ποιο από τα παρακάτω δεν ισχύει;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Βρίσκεται άνωθεν των ακουστικών χορδών.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Βρίσκεται κάτω από τη φαιή πτέρυγα.",
+                        "correct": true
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Αφορίζεται εκτέρωθεν από τα άνω σκέλη της παρεγκεφαλίδας.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Περιλαμβάνει το προσωπικό λοφίδιο.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Η άνω εγκάρσια ζώνη είναι άνωθεν των ακουστικών χορδών, όχι κάτω από τη φαιή πτέρυγα."
+      },
+      {
+            "id": 34,
+            "category": "Ρομβοειδής βόθρος",
+            "source": "Διαφάνεια 29",
+            "question": "Ποια αντιστοιχία μορφώματος και υποθέματος είναι σωστή;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Προσωπικό λοφίδιο - ραχιαίος πυρήνας πνευμονογαστρικού.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Προσωπικό λοφίδιο - έσω γόνυ προσωπικού και πυρήνας απαγωγού.",
+                        "correct": true
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Άνω βοθρίο - πυρήνας υπογλωσσίου.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Υπομέλας τόπος - ραχιαίος κοχλιακός πυρήνας.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Το προσωπικό λοφίδιο έχει υπόθεμα το έσω γόνυ του προσωπικού και τον πυρήνα του απαγωγού."
+      },
+      {
+            "id": 35,
+            "category": "Ρομβοειδής βόθρος",
+            "source": "Διαφάνεια 29",
+            "question": "Ποιο από τα παρακάτω δεν αντιστοιχεί στην άνω εγκάρσια ζώνη;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Άνω βοθρίο στο άνω άκρο της πλάγιας αύλακας.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Υπόθεμα του άνω βοθρίου ο άνω αισθητικός πυρήνας του τριδύμου.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Υπομέλας τόπος με πυρήνες του υπομέλενος τόπου.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Έσχατη πτέρυγα ως παρακοιλιακό όργανο.",
+                        "correct": true
+                  }
+            ],
+            "explanation": "Η έσχατη πτέρυγα ανήκει στην κάτω εγκάρσια ζώνη."
+      },
+      {
+            "id": 36,
+            "category": "Ρομβοειδής βόθρος",
+            "source": "Διαφάνεια 30",
+            "question": "Σχετικά με τη μέση εγκάρσια ζώνη, ποιο από τα παρακάτω ισχύει;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Βρίσκεται αποκλειστικά κάτω από την έσχατη πτέρυγα.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Αφορίζεται από το τελικό πέταλο.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Βρίσκεται πέριξ των ακουστικών χορδών.",
+                        "correct": true
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Αντιστοιχεί στα βοθρία του Pacchioni.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Η μέση εγκάρσια ζώνη περιγράφεται ως πέριξ των ακουστικών χορδών."
+      },
+      {
+            "id": 37,
+            "category": "Ρομβοειδής βόθρος",
+            "source": "Διαφάνεια 30",
+            "question": "Ποια διατύπωση για τις ακουστικές χορδές είναι λανθασμένη;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Σχηματίζονται κυρίως από εγκάρσιες νευρικές ίνες.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Ίνες τους εκπορεύονται από τοξοειδείς πυρήνες του προμήκη.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Αποτελούν τρήματα της οροφής της τέταρτης κοιλίας.",
+                        "correct": true
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Ορισμένες ίνες ενσωματώνονται στον έξω λημνίσκο.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Οι ακουστικές χορδές είναι νευρικές ίνες της ρομβοειδούς βόθρου, όχι τρήματα."
+      },
+      {
+            "id": 38,
+            "category": "Ρομβοειδής βόθρος",
+            "source": "Διαφάνεια 30",
+            "question": "Το ακουστικό φύμα έχει ως υπόθεμα:",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Τον πυρήνα του υπογλωσσίου.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Τον πυρήνα του τροχιλιακού.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Τον οπίσθιο σύνδεσμο.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Τον ραχιαίο κοχλιακό πυρήνα.",
+                        "correct": true
+                  }
+            ],
+            "explanation": "Η διαφάνεια 30 αναφέρει το ακουστικό φύμα με υπόθεμα τον ραχιαίο κοχλιακό πυρήνα."
+      },
+      {
+            "id": 39,
+            "category": "Ρομβοειδής βόθρος",
+            "source": "Διαφάνεια 32",
+            "question": "Ποια αντιστοιχία της κάτω εγκάρσιας ζώνης είναι λανθασμένη;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Έσω λευκή πτέρυγα - πυρήνας υπογλωσσίου.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Έξω λευκή πτέρυγα - έσω αιθουσαίος πυρήνας.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Φαιά πτέρυγα - ραχιαίος πυρήνας πνευμονογαστρικού.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Κάτω βοθρίο - άνω άκρο της πλάγιας αύλακας.",
+                        "correct": true
+                  }
+            ],
+            "explanation": "Το κάτω βοθρίο βρίσκεται στο κάτω άκρο της πλάγιας αύλακας."
+      },
+      {
+            "id": 40,
+            "category": "Ρομβοειδής βόθρος",
+            "source": "Διαφάνεια 32",
+            "question": "Η έσχατη πτέρυγα του Retzious περιγράφεται ως:",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Λεπτή ταινιοειδής δεσμίδα από επένδυμα.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Μυέλινο πέταλο ανάμεσα στα κορυνοειδή φύματα.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Γραμμή από τον μοχλό ως το πλάγιο κόλπωμα.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Τριγωνική περιοχή κάτω από τη φαιή πτέρυγα.",
+                        "correct": true
+                  }
+            ],
+            "explanation": "Η έσχατη πτέρυγα είναι τριγωνική περιοχή κάτω από τη φαιή πτέρυγα και σημειώνεται ως παρακοιλιακό όργανο."
+      },
+      {
+            "id": 41,
+            "category": "Ρομβοειδής βόθρος",
+            "source": "Διαφάνεια 32",
+            "question": "Ποιο από τα παρακάτω δεν ισχύει για τη διαχωριστική δεσμίδα του Retzious;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Είναι λεπτή ταινιοειδής δεσμίδα.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Αποτελείται από επένδυμα.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Βρίσκεται μεταξύ αραχνοειδούς και σκληράς μήνιγγας.",
+                        "correct": true
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Βρίσκεται μεταξύ φαιάς ουσίας και έσχατης πτέρυγας.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Η τελευταία σχέση αφορά τον υποσκληρίδιο χώρο, όχι τη διαχωριστική δεσμίδα."
+      },
+      {
+            "id": 42,
+            "category": "Οροφή και τρήματα τέταρτης κοιλίας",
+            "source": "Διαφάνεια 33",
+            "question": "Ποια διατύπωση για την οροφή της τέταρτης κοιλίας είναι λανθασμένη;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Η ανώτερη μοίρα σχηματίζεται από πρόσθιο μυέλινο ιστίο.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Η ανώτερη μοίρα σχηματίζεται από οπίσθιο μυέλινο ιστίο και οζίδιο.",
+                        "correct": true
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Η ανώτερη μοίρα περιλαμβάνει τα άνω σκέλη της παρεγκεφαλίδας.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Η κορυφή της οροφής ονομάζεται αέτωμα.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Το οπίσθιο μυέλινο ιστίο και το οζίδιο ανήκουν στην κατώτερη μοίρα της οροφής."
+      },
+      {
+            "id": 43,
+            "category": "Οροφή και τρήματα τέταρτης κοιλίας",
+            "source": "Διαφάνεια 33",
+            "question": "Ποια αντιστοιχία για την οροφή της τέταρτης κοιλίας είναι λανθασμένη;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Κατώτερη μοίρα - πρόσθιο μυέλινο ιστίο και άνω σκέλη.",
+                        "correct": true
+                  },
+                  {
+                        "key": "β",
+                        "text": "Κορυφή οροφής - αέτωμα.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Αέτωμα - οριζόντια αύλακα παρεγκεφαλίδας.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Κατώτερη μοίρα - οπίσθιο μυέλινο ιστίο και οζίδιο.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Το πρόσθιο μυέλινο ιστίο και τα άνω σκέλη σχηματίζουν την ανώτερη μοίρα."
+      },
+      {
+            "id": 44,
+            "category": "Οροφή και τρήματα τέταρτης κοιλίας",
+            "source": "Διαφάνεια 34",
+            "question": "Ο μοχλός της τέταρτης κοιλίας είναι:",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Γραμμή από το μεσοκοιλιακό τρήμα μέχρι το τελικό πέταλο.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Παρακοιλιακό όργανο κάτω από τη φαιή πτέρυγα.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Εγκάρσια ίνα που ενσωματώνεται στον έξω λημνίσκο.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Μυέλινο πέταλο εγκάρσια ανάμεσα στα κορυνοειδή φύματα του προμήκη.",
+                        "correct": true
+                  }
+            ],
+            "explanation": "Η διαφάνεια τον ορίζει ως μυέλινο πέταλο ανάμεσα στα κορυνοειδή φύματα του προμήκη."
+      },
+      {
+            "id": 45,
+            "category": "Οροφή και τρήματα τέταρτης κοιλίας",
+            "source": "Διαφάνεια 34",
+            "question": "Ποιο από τα παρακάτω δεν ισχύει για την ταινία της τέταρτης κοιλίας;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Εκτείνεται από την επίφυση μέχρι τον οπίσθιο σύνδεσμο.",
+                        "correct": true
+                  },
+                  {
+                        "key": "β",
+                        "text": "Εκτείνεται εκατέρωθεν από τον μοχλό.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Φθάνει μέχρι το κάτω τοίχωμα του πλάγιου κολπώματος.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Περιγράφεται ως γραμμή.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Επίφυση και οπίσθιος σύνδεσμος ανήκουν στο οπίσθιο τοίχωμα της τρίτης κοιλίας."
+      },
+      {
+            "id": 46,
+            "category": "Οροφή και τρήματα τέταρτης κοιλίας",
+            "source": "Διαφάνεια 35",
+            "question": "Ποια αντιστοιχία τρήματος της οροφής της τέταρτης κοιλίας είναι λανθασμένη;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Πλάγιο τρήμα - Luschka.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Μέσο τρήμα - Magendi.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Μέσο τρήμα - Monro.",
+                        "correct": true
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Τρήματα οροφής - επικοινωνία με υπαραχνοειδή χώρο.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Το μέσο τρήμα της τέταρτης κοιλίας είναι Magendi, ενώ το Monro είναι μεσοκοιλιακό τρήμα."
+      },
+      {
+            "id": 47,
+            "category": "Οροφή και τρήματα τέταρτης κοιλίας",
+            "source": "Διαφάνεια 35",
+            "question": "Ένα από τα παρακάτω είναι λάθος:",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Το μέσο τρήμα αναφέρεται ως Magendi.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Το πλάγιο τρήμα αναφέρεται ως Luschka.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Τα τρήματα ανήκουν στην οροφή της τέταρτης κοιλίας.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Το τρήμα Monro ανήκει στην οροφή της τέταρτης κοιλίας.",
+                        "correct": true
+                  }
+            ],
+            "explanation": "Το Monro είναι μεσοκοιλιακό τρήμα μεταξύ πλάγιας και τρίτης κοιλίας."
+      },
+      {
+            "id": 48,
+            "category": "Δεξαμενές υπαραχνοειδούς χώρου",
+            "source": "Διαφάνειες 14, 38",
+            "question": "Ποιο από τα παρακάτω δεν αναφέρεται ως δεξαμενή του εγκεφάλου;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Δεξαμενή του διαφανούς διαφράγματος.",
+                        "correct": true
+                  },
+                  {
+                        "key": "β",
+                        "text": "Παρεγκεφαλονωτιαία ή μεγάλη δεξαμενή.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Μεσοσκελιαία δεξαμενή.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Δεξαμενή του οπτικού χιάσματος.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Η λίστα περιλαμβάνει μεταξύ άλλων μεγάλη, γέφυρας, μεσοσκελιαία και οπτικού χιάσματος, όχι του διαφανούς διαφράγματος."
+      },
+      {
+            "id": 49,
+            "category": "Δεξαμενές υπαραχνοειδούς χώρου",
+            "source": "Διαφάνεια 38",
+            "question": "Σχετικά με την αμφιμηνοειδή δεξαμενή, τι δεν ισχύει;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Αναφέρεται στη λίστα των δεξαμενών.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Περιγράφεται πλαγίως της τετραδυμικής.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Ταυτίζεται με τη γεφυροπαρεγκεφαλιδική δεξαμενή Luschka.",
+                        "correct": true
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Ανήκει στις δεξαμενές του εγκεφάλου.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Το Luschka δίνεται για τη γεφυροπαρεγκεφαλιδική δεξαμενή, όχι για την αμφιμηνοειδή."
+      },
+      {
+            "id": 50,
+            "category": "Δεξαμενές υπαραχνοειδούς χώρου",
+            "source": "Διαφάνεια 38",
+            "question": "Ποια αντιστοιχία δεξαμενής και επωνυμίας είναι σωστή;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Παρεγκεφαλονωτιαία δεξαμενή - Monro.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Γεφυροπαρεγκεφαλιδική δεξαμενή - Luschka.",
+                        "correct": true
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Δεξαμενή τελικού πετάλου - Sylvius.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Μεσοσκελιαία δεξαμενή - Pacchioni.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Η λίστα αναφέρει τη γεφυροπαρεγκεφαλιδική δεξαμενή ως Luschka."
+      },
+      {
+            "id": 51,
+            "category": "Δεξαμενές υπαραχνοειδούς χώρου",
+            "source": "Διαφάνεια 38",
+            "question": "Όλα τα παρακάτω είναι δεξαμενές που αναφέρονται, εκτός από μία:",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Δεξαμενή της πλάγιας σχισμής του εγκεφάλου.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Δεξαμενή της μέσης μηνιγγικής αρτηρίας.",
+                        "correct": true
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Δεξαμενή της μεγάλης φλέβας.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Δεξαμενή του τελικού πετάλου.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Η μέση μηνιγγική αρτηρία εμφανίζεται ως αύλακες στο κρανίο, όχι ως δεξαμενή."
+      },
+      {
+            "id": 52,
+            "category": "Κυκλοφορία ΕΝΥ και κοιλιακό σύστημα",
+            "source": "Διαφάνειες 6, 40",
+            "question": "Ποια διατύπωση για παραγωγή και αποχέτευση του ΕΝΥ είναι σωστή;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Παράγεται από αραχνοειδή σωμάτια και αποχετεύεται από χοριοειδή πλέγματα.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Παράγεται στον υποσκληρίδιο χώρο και αποχετεύεται στον υδραγωγό.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Παράγεται από χοριοειδή πλέγματα και αποχετεύεται από αραχνοειδή σωμάτια.",
+                        "correct": true
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Παράγεται στα πακχιόνεια βοθρία και αποχετεύεται στα κέρατα.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Οι διαφάνειες ξεχωρίζουν καθαρά παραγωγή από πλέγματα και αποχέτευση από αραχνοειδή σωμάτια."
+      },
+      {
+            "id": 53,
+            "category": "Μηνιγγικοί χώροι και αραχνοειδής",
+            "source": "Διαφάνειες 5, 8, 12",
+            "question": "Στις κλινικοανατομικές εικόνες, ποια αντιστοιχία αιματώματος και χώρου είναι λανθασμένη;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Epidural hematoma - επισκληρίδιο.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Intracerebral hemorrhage - υποσκληρίδιο.",
+                        "correct": true
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Subdural hematoma - υποσκληρίδιο.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Subarachnoid hemorrhage - υπαραχνοειδές.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Η ενδοεγκεφαλική αιμορραγία επισημαίνεται χωριστά από το υποσκληρίδιο αιμάτωμα."
+      },
+      {
+            "id": 54,
+            "category": "Σκληρά μήνιγγα και αναδιπλώσεις",
+            "source": "Διαφάνειες 3, 43",
+            "question": "Ποια οστική ένδειξη σχετίζεται τοπογραφικά με την πρόσφυση του δρεπάνου προς τα πίσω;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Έσω ινιακό όγκωμα.",
+                        "correct": true
+                  },
+                  {
+                        "key": "β",
+                        "text": "Κάτω τοίχωμα πλάγιου κολπώματος.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Άνω άκρο πλάγιας αύλακας.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Κορυνοειδές φύμα προμήκη.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Το δρέπανο του εγκεφάλου περιγράφεται από το κάλλαιο έως το έσω ινιακό όγκωμα."
+      },
+      {
+            "id": 55,
+            "category": "Τρίτη κοιλία και υδραγωγός",
+            "source": "Διαφάνεια 22",
+            "question": "Ποιο από τα παρακάτω εμφανίζεται στο διάγραμμα της τρίτης κοιλίας;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Υπερκωνάριο κόλπωμα.",
+                        "correct": true
+                  },
+                  {
+                        "key": "β",
+                        "text": "Πλάγιο τρήμα Luschka.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Έξω λευκή πτέρυγα.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Παρεγκεφαλονωτιαία δεξαμενή.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Στη διαφάνεια 22 επισημαίνεται υπερκωνάριο κόλπωμα μαζί με άλλα κολπώματα της τρίτης κοιλίας."
+      },
+      {
+            "id": 56,
+            "category": "Τρίτη κοιλία και υδραγωγός",
+            "source": "Διαφάνεια 20",
+            "question": "Ποιο από τα παρακάτω δεν ανήκει στο κάτω τοίχωμα της τρίτης κοιλίας;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Υποθάλαμος.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Οπίσθια διάτρητη ουσία.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Πρόσθιος σύνδεσμος.",
+                        "correct": true
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Καλύπτρα του μέσου εγκεφάλου.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Ο πρόσθιος σύνδεσμος δίνεται στο πρόσθιο τοίχωμα, όχι στο κάτω."
+      },
+      {
+            "id": 57,
+            "category": "Πλάγιες κοιλίες",
+            "source": "Διαφάνειες 16, 19",
+            "question": "Ποια σχέση του τρήματος Monro είναι σωστή;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Συνδέει τρίτη κοιλία με τέταρτη κοιλία.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Συνδέει τέταρτη κοιλία με υπαραχνοειδή χώρο.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Συνδέει υποσκληρίδιο με υπαραχνοειδή χώρο.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Συνδέει πλάγια κοιλία με τρίτη κοιλία.",
+                        "correct": true
+                  }
+            ],
+            "explanation": "Η πλάγια κοιλία επικοινωνεί με την τρίτη μέσω του μεσοκοιλιακού τρήματος του Monro."
+      },
+      {
+            "id": 58,
+            "category": "Κυκλοφορία ΕΝΥ και κοιλιακό σύστημα",
+            "source": "Διαφάνεια 14",
+            "question": "Ποιο από τα παρακάτω δεν αποτελεί θέση όπου βρίσκεται το ΕΝΥ κατά τη διαφάνεια;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Μεταξύ των δύο πετάλων της σκληράς μήνιγγας.",
+                        "correct": true
+                  },
+                  {
+                        "key": "β",
+                        "text": "Κοιλιακό σύστημα.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Υπαραχνοειδής χώρος.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Δεξαμενές ως διευρύνσεις του υπαραχνοειδούς χώρου.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Μεταξύ των δύο πετάλων της σκληράς σχηματίζονται φλεβώδεις κόλποι, όχι χώρος ΕΝΥ."
+      },
+      {
+            "id": 59,
+            "category": "Ρομβοειδής βόθρος",
+            "source": "Διαφάνειες 27-32",
+            "question": "Ποιο μορφωματικό ζεύγος ανήκει στην κάτω εγκάρσια ζώνη;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Προσωπικό λοφίδιο και άνω βοθρίο.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Ακουστικές χορδές και ακουστικό φύμα.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Έσω λευκή πτέρυγα και φαιά πτέρυγα.",
+                        "correct": true
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Αέτωμα και πρόσθιο μυέλινο ιστίο.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Η κάτω εγκάρσια ζώνη περιλαμβάνει έσω/έξω λευκή πτέρυγα, φαιά πτέρυγα και συναφή μορφώματα."
+      },
+      {
+            "id": 60,
+            "category": "Ρομβοειδής βόθρος",
+            "source": "Διαφάνειες 29-32",
+            "question": "Ποια αντιστοιχία ζώνης και μορφώματος είναι λανθασμένη;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Άνω εγκάρσια ζώνη - προσωπικό λοφίδιο.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Μέση εγκάρσια ζώνη - ακουστικές χορδές.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Άνω εγκάρσια ζώνη - διαχωριστική δεσμίδα.",
+                        "correct": true
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Κάτω εγκάρσια ζώνη - έσχατη πτέρυγα.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Η διαχωριστική δεσμίδα περιγράφεται στην κάτω εγκάρσια ζώνη."
+      },
+      {
+            "id": 61,
+            "category": "Οροφή και τρήματα τέταρτης κοιλίας",
+            "source": "Διαφάνειες 33-35",
+            "question": "Ποια επιλογή συνδέει λανθασμένα οροφή και επικοινωνία της τέταρτης κοιλίας;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Οροφή - περιέχει τρήματα προς τον υπαραχνοειδή χώρο.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Πρόσθιο μυέλινο ιστίο - τρήμα Monro.",
+                        "correct": true
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Μέσο τρήμα - Magendi.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Πλάγιο τρήμα - Luschka.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Το Monro δεν είναι τρήμα της οροφής της τέταρτης κοιλίας."
+      },
+      {
+            "id": 62,
+            "category": "Μηνιγγικοί χώροι και αραχνοειδής",
+            "source": "Διαφάνειες 6, 14",
+            "question": "Ποιο ζεύγος χώρου και περιεχομένου είναι σωστό;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Υπαραχνοειδής χώρος - ΕΝΥ.",
+                        "correct": true
+                  },
+                  {
+                        "key": "β",
+                        "text": "Υποσκληρίδιος χώρος - χοριοειδή πλέγματα.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Φλεβώδεις κόλποι - κεντρική φαιά ουσία.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Κοιλιακό σύστημα - αραχνοειδείς λάχνες.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Το PDF ορίζει τον υπαραχνοειδή χώρο ως πλήρη ΕΝΥ."
+      },
+      {
+            "id": 63,
+            "category": "Χοριοειδής μήνιγγα και ΕΝΥ",
+            "source": "Διαφάνειες 10, 40",
+            "question": "Ποια πρόταση για τη χοριοειδή μήνιγγα και το ΕΝΥ είναι λανθασμένη;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Η χοριοειδής μήνιγγα σχηματίζει χοριοειδή πλέγματα.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Τα χοριοειδή πλέγματα παράγουν ΕΝΥ.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Τα χοριοειδή πλέγματα βρίσκονται και στην οροφή της τρίτης κοιλίας.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Η χοριοειδής μήνιγγα σχηματίζει τα αραχνοειδή σωμάτια.",
+                        "correct": true
+                  }
+            ],
+            "explanation": "Τα αραχνοειδή σωμάτια είναι προσεκβολές της αραχνοειδούς, όχι της χοριοειδούς μήνιγγας."
+      },
+      {
+            "id": 64,
+            "category": "Κυκλοφορία ΕΝΥ και κοιλιακό σύστημα",
+            "source": "Διαφάνειες 14, 25, 35",
+            "question": "Ποιο πέρασμα δεν αντιστοιχεί σωστά στη ροή/επικοινωνία του ΕΝΥ;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Τέταρτη προς τρίτη - πλάγιο τρήμα Luschka.",
+                        "correct": true
+                  },
+                  {
+                        "key": "β",
+                        "text": "Πλάγια κοιλία προς τρίτη - τρήμα Monro.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Τρίτη προς τέταρτη - υδραγωγός Sylvius.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Τέταρτη προς υπαραχνοειδή - τρήματα οροφής.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Το Luschka αφορά επικοινωνία της τέταρτης με τον υπαραχνοειδή χώρο, όχι επιστροφή στην τρίτη."
+      },
+      {
+            "id": 65,
+            "category": "Σκληρά μήνιγγα και αναδιπλώσεις",
+            "source": "Διαφάνειες 3, 9",
+            "question": "Ποιο από τα παρακάτω είναι ακριβής πληροφορία των διαφανειών;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Περίπου το ένα τρίτο των όγκων του ΚΝΣ είναι μηνιγγιώματα.",
+                        "correct": true
+                  },
+                  {
+                        "key": "β",
+                        "text": "Τα μηνιγγιώματα παράγουν το ΕΝΥ στα χοριοειδή πλέγματα.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Τα μηνιγγιώματα είναι τρήματα της οροφής της τέταρτης κοιλίας.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Τα μηνιγγιώματα σχηματίζουν τη διάμεση μάζα.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Η διαφάνεια 9 αναφέρει ότι 1/3 των όγκων του ΚΝΣ είναι μηνιγγιώματα."
+      },
+      {
+            "id": 66,
+            "category": "Πλάγιες κοιλίες",
+            "source": "Διαφάνειες 16-17",
+            "question": "Ποια επιλογή δεν ανήκει στο σχήμα/περιγραφή της πλάγιας κοιλίας;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Οπίσθιος σύνδεσμος.",
+                        "correct": true
+                  },
+                  {
+                        "key": "β",
+                        "text": "Διαφανές διάφραγμα.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Μεσολόβιο.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Παράπλευρο έπαρμα.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Ο οπίσθιος σύνδεσμος αναφέρεται στο οπίσθιο τοίχωμα της τρίτης κοιλίας."
+      },
+      {
+            "id": 67,
+            "category": "Τρίτη κοιλία και υδραγωγός",
+            "source": "Διαφάνεια 20",
+            "question": "Ποια δομή ανήκει στο πρόσθιο τοίχωμα της τρίτης κοιλίας;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Πρόσθια σκέλη της ψαλίδας.",
+                        "correct": true
+                  },
+                  {
+                        "key": "β",
+                        "text": "Οπίσθια διάτρητη ουσία.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Έσω αιθουσαίος πυρήνας.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Οπίσθιο μυέλινο ιστίο.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Το πρόσθιο τοίχωμα περιλαμβάνει πρόσθια σκέλη της ψαλίδας, πρόσθιο σύνδεσμο και τελικό πέταλο."
+      },
+      {
+            "id": 68,
+            "category": "Τέταρτη κοιλία",
+            "source": "Διαφάνειες 25, 27",
+            "question": "Ποια πρόταση είναι λανθασμένη;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Η τέταρτη κοιλία έχει έδαφος που λέγεται ρομβοειδής βόθρος.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Η ρομβοειδής βόθρος σχετίζεται με ραχιαία επιφάνεια γέφυρας.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Η τέταρτη κοιλία βρίσκεται μεταξύ στελέχους και παρεγκεφαλίδας.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Η ρομβοειδής βόθρος αποτελεί την οροφή της τρίτης κοιλίας.",
+                        "correct": true
+                  }
+            ],
+            "explanation": "Η ρομβοειδής βόθρος είναι έδαφος της τέταρτης κοιλίας."
+      },
+      {
+            "id": 69,
+            "category": "Ρομβοειδής βόθρος",
+            "source": "Διαφάνειες 27-32",
+            "question": "Ποιο από τα παρακάτω είναι ζεύγος μορφώματος και σχετικού κρανιακού νεύρου της διαφάνειας;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Έξω λευκή πτέρυγα - III.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Φαιά πτέρυγα - VII.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Προσωπικό λοφίδιο - X.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Έσω λευκή πτέρυγα - XII.",
+                        "correct": true
+                  }
+            ],
+            "explanation": "Στο σχήμα η έσω λευκή πτέρυγα συνδέεται με XII και στο κείμενο με πυρήνα υπογλωσσίου."
+      },
+      {
+            "id": 70,
+            "category": "Ρομβοειδής βόθρος",
+            "source": "Διαφάνειες 27-32",
+            "question": "Ποια αντιστοίχιση λευκής/φαιάς πτέρυγας είναι λανθασμένη;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Έσω λευκή πτέρυγα - πυρήνας υπογλωσσίου.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Έσω λευκή πτέρυγα - ραχιαίος κοχλιακός πυρήνας.",
+                        "correct": true
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Έξω λευκή πτέρυγα - έσω αιθουσαίος πυρήνας.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Φαιά πτέρυγα - ραχιαίος πυρήνας του X.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Ο ραχιαίος κοχλιακός πυρήνας είναι υπόθεμα του ακουστικού φύματος, όχι της έσω λευκής πτέρυγας."
+      },
+      {
+            "id": 71,
+            "category": "Οροφή και τρήματα τέταρτης κοιλίας",
+            "source": "Διαφάνειες 33-34",
+            "question": "Ποια δομή δεν ανήκει στην κατώτερη μοίρα της οροφής της τέταρτης κοιλίας;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Άνω σκέλη της παρεγκεφαλίδας.",
+                        "correct": true
+                  },
+                  {
+                        "key": "β",
+                        "text": "Οπίσθιο μυέλινο ιστίο.",
+                        "correct": false
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Οζίδιο.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Χοριοειδές ιστίο της τέταρτης κοιλίας.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Τα άνω σκέλη της παρεγκεφαλίδας ανήκουν στην ανώτερη μοίρα της οροφής."
+      },
+      {
+            "id": 72,
+            "category": "Δεξαμενές υπαραχνοειδούς χώρου",
+            "source": "Διαφάνειες 14, 38",
+            "question": "Σχετικά με τις δεξαμενές, ποιο από τα παρακάτω ισχύει;",
+            "options": [
+                  {
+                        "key": "α",
+                        "text": "Είναι αναδιπλώσεις του έσω πετάλου της σκληράς.",
+                        "correct": false
+                  },
+                  {
+                        "key": "β",
+                        "text": "Είναι διευρυσμένες θέσεις του υπαραχνοειδούς χώρου.",
+                        "correct": true
+                  },
+                  {
+                        "key": "γ",
+                        "text": "Είναι τμήματα της κεντρικής μοίρας του Schwalbe.",
+                        "correct": false
+                  },
+                  {
+                        "key": "δ",
+                        "text": "Είναι πυρήνες της κεντρικής φαιάς ουσίας.",
+                        "correct": false
+                  }
+            ],
+            "explanation": "Η διαφάνεια 14 ορίζει τις δεξαμενές ως διευρυσμένες θέσεις του υπαραχνοειδούς χώρου."
+      }
+];
+
+    const STORAGE_KEY = "neuroanatomy_mcqs_progress_v1";
+    let state = {
+      pool: [],
+      currentIndex: 0,
+      score: 0,
+      answers: {},
+      wrongIds: [],
+      completed: false,
+      settings: {
+        category: "all",
+        search: "",
+        shuffleQuestions: true,
+        shuffleAnswers: true
+      }
+    };
+
+    const els = {
+      categoryFilter: document.getElementById("categoryFilter"),
+      searchBox: document.getElementById("searchBox"),
+      shuffleQuestions: document.getElementById("shuffleQuestions"),
+      shuffleAnswers: document.getElementById("shuffleAnswers"),
+      applyBtn: document.getElementById("applyBtn"),
+      restartBtn: document.getElementById("restartBtn"),
+      clearProgressBtn: document.getElementById("clearProgressBtn"),
+      printBtn: document.getElementById("printBtn"),
+      scoreStat: document.getElementById("scoreStat"),
+      progressStat: document.getElementById("progressStat"),
+      percentStat: document.getElementById("percentStat"),
+      categoryStat: document.getElementById("categoryStat"),
+      progressBar: document.getElementById("progressBar"),
+      quizCard: document.getElementById("quizCard"),
+      results: document.getElementById("results"),
+      printSheet: document.getElementById("printSheet")
+    };
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function shuffle(items) {
+      const arr = [...items];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function buildCategories() {
+      const categories = [...new Set(questions.map(q => q.category))].sort((a, b) => a.localeCompare(b, "el"));
+      els.categoryFilter.innerHTML = `<option value="all">Όλες οι κατηγορίες</option>` +
+        categories.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join("");
+    }
+
+    function questionMatches(q, settings) {
+      const byCategory = settings.category === "all" || q.category === settings.category;
+      const term = settings.search.trim().toLowerCase();
+      if (!byCategory) return false;
+      if (!term) return true;
+      const haystack = [
+        q.category, q.source, q.question, q.explanation,
+        ...q.options.map(o => o.text)
+      ].join(" ").toLowerCase();
+      return haystack.includes(term);
+    }
+
+    function makePool(settings, explicitIds = null) {
+      let pool = questions.filter(q => explicitIds ? explicitIds.includes(q.id) : questionMatches(q, settings));
+      if (settings.shuffleQuestions) pool = shuffle(pool);
+      return pool.map(q => ({
+        id: q.id,
+        optionOrder: settings.shuffleAnswers ? shuffle(q.options.map((_, i) => i)) : q.options.map((_, i) => i)
+      }));
+    }
+
+    function getQuestion(poolItem) {
+      return questions.find(q => q.id === poolItem.id);
+    }
+
+    function readSettingsFromControls() {
+      return {
+        category: els.categoryFilter.value,
+        search: els.searchBox.value,
+        shuffleQuestions: els.shuffleQuestions.checked,
+        shuffleAnswers: els.shuffleAnswers.checked
+      };
+    }
+
+    function applySettingsToControls(settings) {
+      els.categoryFilter.value = settings.category || "all";
+      els.searchBox.value = settings.search || "";
+      els.shuffleQuestions.checked = Boolean(settings.shuffleQuestions);
+      els.shuffleAnswers.checked = Boolean(settings.shuffleAnswers);
+    }
+
+    function startQuiz(explicitIds = null) {
+      state.settings = readSettingsFromControls();
+      state.pool = makePool(state.settings, explicitIds);
+      state.currentIndex = 0;
+      state.score = 0;
+      state.answers = {};
+      state.wrongIds = [];
+      state.completed = false;
+      els.results.style.display = "none";
+      els.quizCard.style.display = "block";
+      render();
+      saveProgress();
+    }
+
+    function restartCurrentPool() {
+      const ids = state.pool.map(item => item.id);
+      state.pool = makePool(state.settings, ids);
+      state.currentIndex = 0;
+      state.score = 0;
+      state.answers = {};
+      state.wrongIds = [];
+      state.completed = false;
+      els.results.style.display = "none";
+      els.quizCard.style.display = "block";
+      render();
+      saveProgress();
+    }
+
+    function currentAnsweredCount() {
+      return Object.keys(state.answers).length;
+    }
+
+    function renderStats() {
+      const total = state.pool.length;
+      const answered = currentAnsweredCount();
+      const percent = answered ? Math.round((state.score / answered) * 100) : 0;
+      els.scoreStat.textContent = state.score;
+      const currentPosition = state.completed ? total : Math.min(state.currentIndex + 1, total);
+      els.progressStat.textContent = `${currentPosition} / ${total}`;
+      els.percentStat.textContent = `${percent}%`;
+      const q = total && !state.completed ? getQuestion(state.pool[state.currentIndex]) : null;
+      els.categoryStat.textContent = q ? q.category : "-";
+      els.progressBar.style.width = total ? `${Math.round((answered / total) * 100)}%` : "0%";
+    }
+
+    function render() {
+      renderStats();
+      renderPrintSheet();
+
+      if (!state.pool.length) {
+        els.quizCard.innerHTML = `<div class="empty">Δεν βρέθηκαν ερωτήσεις με τα τρέχοντα φίλτρα.</div>`;
+        els.results.style.display = "none";
+        return;
+      }
+
+      if (state.completed || state.currentIndex >= state.pool.length) {
+        showResults();
+        return;
+      }
+
+      const poolItem = state.pool[state.currentIndex];
+      const q = getQuestion(poolItem);
+      const answer = state.answers[q.id];
+      const answered = Boolean(answer);
+      const optionsHtml = poolItem.optionOrder.map(idx => {
+        const opt = q.options[idx];
+        const isSelected = answer && answer.selectedIndex === idx;
+        const cls = answered && opt.correct ? " correct" : answered && isSelected ? " wrong" : "";
+        return `<button type="button" class="option${cls}" data-option-index="${idx}" ${answered ? "disabled" : ""}>
+          <span class="key">${escapeHtml(opt.key)})</span>
+          <span>${escapeHtml(opt.text)}</span>
+        </button>`;
+      }).join("");
+      const feedbackClass = answered ? (answer.correct ? "good" : "bad") : "";
+      const feedbackTitle = answered ? (answer.correct ? "Σωστή απάντηση" : "Λάθος απάντηση") : "";
+      const feedbackHtml = answered ? `<strong>${feedbackTitle}</strong>${escapeHtml(q.explanation)} <span class="hint">(${escapeHtml(q.source)})</span>` : "";
+
+      els.quizCard.innerHTML = `
+        <div class="q-meta">
+          <span class="pill">Ερώτηση ${state.currentIndex + 1} / ${state.pool.length}</span>
+          <span class="pill">${escapeHtml(q.category)}</span>
+          <span class="pill">${escapeHtml(q.source)}</span>
+        </div>
+        <p class="question">${escapeHtml(q.question)}</p>
+        <div class="options">${optionsHtml}</div>
+        <div class="feedback ${feedbackClass}">${feedbackHtml}</div>
+        <div class="nav-row">
+          <span class="hint">${answered ? "Η απάντηση κλειδώθηκε." : "Επίλεξε μία απάντηση για να εμφανιστεί η αιτιολόγηση."}</span>
+          <button id="nextBtn" type="button" ${answered ? "" : "disabled"}>${state.currentIndex === state.pool.length - 1 ? "Αποτελέσματα" : "Επόμενη ερώτηση"}</button>
+        </div>
+      `;
+
+      els.quizCard.querySelectorAll(".option").forEach(btn => {
+        btn.addEventListener("click", () => handleAnswer(Number(btn.dataset.optionIndex)));
+      });
+      document.getElementById("nextBtn").addEventListener("click", nextQuestion);
+    }
+
+    function handleAnswer(optionIndex) {
+      const poolItem = state.pool[state.currentIndex];
+      const q = getQuestion(poolItem);
+      if (state.answers[q.id]) return;
+      const selected = q.options[optionIndex];
+      state.answers[q.id] = { selectedIndex: optionIndex, correct: selected.correct };
+      if (selected.correct) {
+        state.score += 1;
+      } else {
+        state.wrongIds.push(q.id);
+      }
+      saveProgress();
+      render();
+    }
+
+    function nextQuestion() {
+      if (state.currentIndex < state.pool.length - 1) {
+        state.currentIndex += 1;
+      } else {
+        state.completed = true;
+      }
+      saveProgress();
+      render();
+    }
+
+    function categoryStats() {
+      const rows = {};
+      state.pool.forEach(item => {
+        const q = getQuestion(item);
+        if (!rows[q.category]) rows[q.category] = { total: 0, correct: 0, wrong: 0 };
+        rows[q.category].total += 1;
+        const ans = state.answers[q.id];
+        if (ans && ans.correct) rows[q.category].correct += 1;
+        if (ans && !ans.correct) rows[q.category].wrong += 1;
+      });
+      return rows;
+    }
+
+    function allCategoryDistribution() {
+      const rows = {};
+      questions.forEach(q => {
+        rows[q.category] = (rows[q.category] || 0) + 1;
+      });
+      return rows;
+    }
+
+    function showResults() {
+      state.completed = true;
+      els.quizCard.style.display = "none";
+      els.results.style.display = "block";
+      renderStats();
+      const total = state.pool.length;
+      const wrong = state.wrongIds.length;
+      const percent = total ? Math.round((state.score / total) * 100) : 0;
+      const rows = categoryStats();
+      const statsRows = Object.entries(rows).map(([cat, s]) => {
+        const pct = s.total ? Math.round((s.correct / s.total) * 100) : 0;
+        return `<tr><td>${escapeHtml(cat)}</td><td>${s.total}</td><td>${s.correct}</td><td>${s.wrong}</td><td>${pct}%</td></tr>`;
+      }).join("");
+      const wrongHtml = state.wrongIds.length
+        ? state.wrongIds.map(id => {
+            const q = questions.find(item => item.id === id);
+            const correct = q.options.find(o => o.correct);
+            return `<div class="wrong-item">
+              <strong>#${q.id} - ${escapeHtml(q.category)}</strong>
+              <div>${escapeHtml(q.question)}</div>
+              <div class="hint">Σωστό: ${escapeHtml(correct.key)}) ${escapeHtml(correct.text)}</div>
+            </div>`;
+          }).join("")
+        : `<div class="empty">Δεν υπάρχουν λανθασμένες ερωτήσεις για επανάληψη.</div>`;
+
+      els.results.innerHTML = `
+        <h2>Τελικό αποτέλεσμα</h2>
+        <div class="status-grid">
+          <div class="stat"><span>Συνολικό σκορ</span><strong>${state.score} / ${total}</strong></div>
+          <div class="stat"><span>Ποσοστό επιτυχίας</span><strong>${percent}%</strong></div>
+          <div class="stat"><span>Σωστές</span><strong>${state.score}</strong></div>
+          <div class="stat"><span>Λανθασμένες</span><strong>${wrong}</strong></div>
+        </div>
+        <h2>Απόδοση ανά κατηγορία</h2>
+        <table>
+          <thead><tr><th>Κατηγορία</th><th>Σύνολο</th><th>Σωστές</th><th>Λάθος</th><th>Ποσοστό</th></tr></thead>
+          <tbody>${statsRows}</tbody>
+        </table>
+        <h2>Ανασκόπηση λανθασμένων</h2>
+        <div class="wrong-list">${wrongHtml}</div>
+        <div class="actions">
+          <button id="resultRestart" type="button">Επανεκκίνηση</button>
+          <button id="retryWrong" class="secondary" type="button" ${wrong ? "" : "disabled"}>Επανάληψη λανθασμένων</button>
+        </div>
+      `;
+      document.getElementById("resultRestart").addEventListener("click", restartCurrentPool);
+      document.getElementById("retryWrong").addEventListener("click", () => {
+        if (!state.wrongIds.length) return;
+        const wrongIds = [...new Set(state.wrongIds)];
+        state.settings = { ...state.settings, category: "all", search: "" };
+        applySettingsToControls(state.settings);
+        startQuiz(wrongIds);
+      });
+      saveProgress();
+    }
+
+    function renderPrintSheet() {
+      const distribution = allCategoryDistribution();
+      const distRows = Object.entries(distribution)
+        .sort(([a], [b]) => a.localeCompare(b, "el"))
+        .map(([cat, count]) => `<tr><td>${escapeHtml(cat)}</td><td>${count}</td></tr>`).join("");
+      const allQuestions = questions.map(q => {
+        const opts = q.options.map(o => `<p>${escapeHtml(o.key)}) ${escapeHtml(o.text)}</p>`).join("");
+        const correct = q.options.find(o => o.correct);
+        return `<article class="print-question">
+          <h3>${q.id}. ${escapeHtml(q.question)}</h3>
+          <p><strong>${escapeHtml(q.category)}</strong> - ${escapeHtml(q.source)}</p>
+          ${opts}
+          <p class="print-answer"><strong>Απάντηση:</strong> ${escapeHtml(correct.key)}) ${escapeHtml(correct.text)}</p>
+          <p class="print-answer"><strong>Αιτιολόγηση:</strong> ${escapeHtml(q.explanation)}</p>
+        </article>`;
+      }).join("");
+      els.printSheet.innerHTML = `
+        <h2>Νευροανατομία - Εκτυπώσιμη μορφή</h2>
+        <table><thead><tr><th>Κατηγορία</th><th>Αριθμός ερωτήσεων</th></tr></thead><tbody>${distRows}</tbody></table>
+        ${allQuestions}
+      `;
+    }
+
+    function saveProgress() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch (e) {
+        // Η εφαρμογή παραμένει πλήρως λειτουργική χωρίς αποθήκευση.
+      }
+    }
+
+    function loadProgress() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return false;
+        const saved = JSON.parse(raw);
+        if (!saved || !Array.isArray(saved.pool)) return false;
+        const validIds = new Set(questions.map(q => q.id));
+        if (!saved.pool.every(item => validIds.has(item.id) && Array.isArray(item.optionOrder))) return false;
+        state = saved;
+        applySettingsToControls(state.settings);
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }
+
+    function clearProgress() {
+      localStorage.removeItem(STORAGE_KEY);
+      startQuiz();
+    }
+
+    function init() {
+      buildCategories();
+      els.applyBtn.addEventListener("click", () => startQuiz());
+      els.restartBtn.addEventListener("click", restartCurrentPool);
+      els.clearProgressBtn.addEventListener("click", clearProgress);
+      els.printBtn.addEventListener("click", () => window.print());
+      const restored = loadProgress();
+      if (!restored) startQuiz();
+      else render();
+    }
+
+    init();
+  </script>
+</body>
+</html>
