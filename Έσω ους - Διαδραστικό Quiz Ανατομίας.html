@@ -1,0 +1,1663 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Έσω ους - Διαδραστικό Quiz Ανατομίας</title>
+  <style>
+    :root {
+      --bg: #f4f7f8;
+      --panel: #ffffff;
+      --ink: #1e2a32;
+      --muted: #62727d;
+      --line: #d9e2e7;
+      --brand: #0f6b78;
+      --brand-2: #18525d;
+      --accent: #b27a2c;
+      --good: #16784a;
+      --bad: #b43d3d;
+      --good-bg: #e6f5ee;
+      --bad-bg: #f9e8e8;
+      --warn-bg: #fff7e4;
+      --shadow: 0 14px 35px rgba(28, 48, 58, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    header {
+      background: #12343b;
+      color: #fff;
+      padding: 22px 18px;
+      border-bottom: 5px solid var(--accent);
+    }
+
+    .wrap {
+      width: min(1120px, calc(100% - 28px));
+      margin: 0 auto;
+    }
+
+    .topline {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-end;
+      flex-wrap: wrap;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.35rem, 2.6vw, 2.05rem);
+      letter-spacing: 0;
+      line-height: 1.15;
+    }
+
+    .subtitle {
+      color: #cddce1;
+      margin-top: 6px;
+      font-size: 0.98rem;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    main {
+      padding: 22px 0 42px;
+    }
+
+    .panel, .question-card, .results-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel {
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: 1.2fr 1.4fr auto auto auto;
+      gap: 12px;
+      align-items: end;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      font-size: 0.84rem;
+      color: #2e4049;
+      margin-bottom: 5px;
+    }
+
+    select, input[type="search"] {
+      width: 100%;
+      appearance: none;
+      border: 1px solid #c7d5dc;
+      border-radius: 6px;
+      padding: 10px 11px;
+      font: inherit;
+      background: #fff;
+      color: var(--ink);
+    }
+
+    .check-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 42px;
+      padding-top: 20px;
+      color: #344a54;
+      font-weight: 650;
+      white-space: nowrap;
+    }
+
+    input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--brand);
+    }
+
+    button {
+      border: 0;
+      border-radius: 6px;
+      padding: 10px 14px;
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+      background: var(--brand);
+      color: #fff;
+      transition: transform 0.12s ease, background 0.12s ease, opacity 0.12s ease;
+    }
+
+    button:hover:not(:disabled) {
+      background: var(--brand-2);
+      transform: translateY(-1px);
+    }
+
+    button.secondary {
+      background: #e8eef1;
+      color: #20313a;
+      border: 1px solid #c9d5db;
+    }
+
+    button.secondary:hover:not(:disabled) {
+      background: #dce6ea;
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .stat {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+
+    .stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 750;
+      text-transform: uppercase;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.12rem;
+      margin-top: 2px;
+    }
+
+    .progress-shell {
+      height: 10px;
+      background: #dce7eb;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0;
+      background: var(--brand);
+      transition: width 0.2s ease;
+    }
+
+    .question-card {
+      padding: clamp(16px, 3vw, 26px);
+    }
+
+    .meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 4px 10px;
+      background: #e8f2f4;
+      color: #144f5a;
+      font-weight: 800;
+      font-size: 0.82rem;
+    }
+
+    .question-text {
+      font-size: clamp(1.08rem, 2.3vw, 1.38rem);
+      font-weight: 800;
+      margin: 8px 0 18px;
+      letter-spacing: 0;
+    }
+
+    .options {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .option {
+      width: 100%;
+      text-align: left;
+      background: #f8fafb;
+      color: var(--ink);
+      border: 1px solid #d1dde3;
+      display: grid;
+      grid-template-columns: 38px 1fr;
+      align-items: start;
+      gap: 8px;
+      min-height: 52px;
+    }
+
+    .option:hover:not(:disabled) {
+      background: #eef6f8;
+      border-color: #8fb5bf;
+    }
+
+    .option .key {
+      font-weight: 900;
+      color: var(--brand);
+    }
+
+    .option.correct {
+      background: var(--good-bg);
+      border-color: var(--good);
+      color: #113f2c;
+    }
+
+    .option.wrong {
+      background: var(--bad-bg);
+      border-color: var(--bad);
+      color: #5d1f1f;
+    }
+
+    .feedback {
+      display: none;
+      border-radius: 8px;
+      padding: 13px 14px;
+      border: 1px solid var(--line);
+      background: #f7fafb;
+      margin-top: 8px;
+    }
+
+    .feedback.show { display: block; }
+    .feedback.good { border-color: #8bc7a9; background: var(--good-bg); }
+    .feedback.bad { border-color: #dca0a0; background: var(--bad-bg); }
+    .feedback strong { display: block; margin-bottom: 4px; }
+
+    .nav-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .empty {
+      padding: 28px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .results-card {
+      padding: clamp(18px, 3vw, 28px);
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      margin: 16px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+    }
+
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #eaf1f4;
+      font-size: 0.85rem;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+
+    .review-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .review-item {
+      border: 1px solid var(--line);
+      background: #fbfcfd;
+      border-radius: 8px;
+      padding: 12px;
+    }
+
+    .review-item strong { display: block; margin-bottom: 4px; }
+
+    .print-only {
+      display: none;
+    }
+
+    @media (max-width: 880px) {
+      .controls {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .check-row { padding-top: 0; }
+      .stats, .results-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 560px) {
+      .wrap { width: min(100% - 18px, 1120px); }
+      header { padding: 18px 12px; }
+      .controls, .stats, .results-grid { grid-template-columns: 1fr; }
+      .option { grid-template-columns: 30px 1fr; }
+      .header-actions, .nav-row { flex-direction: column; }
+      button { width: 100%; }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+        color: #000;
+        font-size: 11pt;
+      }
+
+      header, .panel, .stats, .progress-shell, .question-card, .results-card, .screen-only {
+        display: none !important;
+      }
+
+      .print-only {
+        display: block;
+      }
+
+      main { padding: 0; }
+      .wrap { width: 100%; }
+
+      .print-question {
+        break-inside: avoid;
+        margin-bottom: 14px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #ccc;
+      }
+
+      .print-question h3 {
+        margin: 0 0 6px;
+        font-size: 12pt;
+      }
+
+      .print-question ol {
+        margin: 4px 0 6px 22px;
+        padding: 0;
+      }
+
+      .answer-key {
+        break-before: page;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="screen-only">
+    <div class="wrap topline">
+      <div>
+        <h1>Έσω ους - MCQs Νευροανατομίας</h1>
+        <div class="subtitle">Δύσκολες ερωτήσεις πολλαπλής επιλογής βασισμένες στις διαφάνειες.</div>
+      </div>
+      <div class="header-actions">
+        <button class="secondary" id="printBtn">Εκτύπωση</button>
+        <button class="secondary" id="clearBtn">Καθαρισμός προόδου</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <section class="panel screen-only" aria-label="Ρυθμίσεις quiz">
+        <div class="controls">
+          <div>
+            <label for="categoryFilter">Κατηγορία</label>
+            <select id="categoryFilter"></select>
+          </div>
+          <div>
+            <label for="searchInput">Αναζήτηση</label>
+            <input id="searchInput" type="search" placeholder="π.χ. ελικοτρήμα, Reissner, υδραγωγός">
+          </div>
+          <label class="check-row"><input id="shuffleQuestions" type="checkbox" checked> Ανακάτεμα ερωτήσεων</label>
+          <label class="check-row"><input id="shuffleOptions" type="checkbox" checked> Ανακάτεμα απαντήσεων</label>
+          <button id="startBtn">Έναρξη</button>
+        </div>
+      </section>
+
+      <section class="stats screen-only" aria-label="Στατιστικά">
+        <div class="stat"><span>Σκορ</span><strong id="scoreStat">0</strong></div>
+        <div class="stat"><span>Πρόοδος</span><strong id="progressStat">0 / 64</strong></div>
+        <div class="stat"><span>Επιτυχία</span><strong id="percentStat">0%</strong></div>
+        <div class="stat"><span>Κατηγορία</span><strong id="categoryStat">-</strong></div>
+      </section>
+
+      <div class="progress-shell screen-only"><div id="progressBar" class="progress-bar"></div></div>
+
+      <section id="quizArea" class="screen-only"></section>
+      <section id="resultsArea" class="screen-only"></section>
+      <section id="printArea" class="print-only"></section>
+    </div>
+  </main>
+
+  <script>
+    const STORAGE_KEY = "innerEarNeuroanatomyQuiz.v1";
+    const LETTERS = ["α", "β", "γ", "δ"];
+
+    const questions = [
+      {
+        id: 1,
+        category: "Οστέινος λαβύρινθος και αίθουσα",
+        source: "Διαφάνειες 2, 4",
+        question: "Σχετικά με τη βασική διάταξη του οστέινου λαβυρίνθου, ποιο δεν ισχύει;",
+        options: [
+          { key: "α", text: "Ο υμενώδης λαβύρινθος περιέχει την έξω λέμφο.", correct: true },
+          { key: "β", text: "Ο οστέινος λαβύρινθος βρίσκεται μέσα στο λιθοειδές.", correct: false },
+          { key: "γ", text: "Η αίθουσα βρίσκεται στη μέση του οστέινου λαβυρίνθου.", correct: false },
+          { key: "δ", text: "Ο κοχλίας βρίσκεται μπροστά και έσω της αίθουσας.", correct: false }
+        ],
+        explanation: "Στις διαφάνειες αναφέρεται ότι ο υμενώδης λαβύρινθος περιέχει την έσω λέμφο, όχι την έξω."
+      },
+      {
+        id: 2,
+        category: "Οστέινος λαβύρινθος και αίθουσα",
+        source: "Διαφάνεια 4",
+        question: "Ποια σχέση αποδίδει σωστά τη θέση των κύριων τμημάτων του οστέινου λαβυρίνθου;",
+        options: [
+          { key: "α", text: "Η αίθουσα πίσω και έξω, ο κοχλίας στη μέση, οι σωλήνες μπροστά.", correct: false },
+          { key: "β", text: "Η αίθουσα στη μέση, ο κοχλίας μπροστά και έσω, οι σωλήνες πίσω και έξω.", correct: true },
+          { key: "γ", text: "Η αίθουσα μπροστά και έσω, ο κοχλίας πίσω, οι σωλήνες στη μέση.", correct: false },
+          { key: "δ", text: "Η αίθουσα στη μέση, ο κοχλίας πίσω και έξω, οι σωλήνες μπροστά και έσω.", correct: false }
+        ],
+        explanation: "Η διαφάνεια 4 δίνει ακριβώς αυτή τη διάταξη: αίθουσα μέση, κοχλίας μπροστά-έσω, ημικύκλιοι πίσω-έξω."
+      },
+      {
+        id: 3,
+        category: "Οστέινος λαβύρινθος και αίθουσα",
+        source: "Διαφάνεια 5",
+        question: "Ένα από τα παρακάτω για την αίθουσα είναι λάθος:",
+        options: [
+          { key: "α", text: "Βρίσκεται μεταξύ του κοίλου του τυμπάνου και του πυθμένα του έσω ακουστικού πόρου.", correct: false },
+          { key: "β", text: "Είναι ωοειδής κοιλότητα, συμπιεσμένη από τα πλάγια.", correct: false },
+          { key: "γ", text: "Έχει μπροστά της τους τρεις ημικύκλιους σωλήνες και πίσω τον κοχλία.", correct: true },
+          { key: "δ", text: "Αποτελεί την κεντρική μοίρα του οστέινου λαβυρίνθου.", correct: false }
+        ],
+        explanation: "Η αίθουσα έχει μπροστά της τον κοχλία και πίσω-επάνω τους ημικύκλιους σωλήνες."
+      },
+      {
+        id: 4,
+        category: "Οστέινος λαβύρινθος και αίθουσα",
+        source: "Διαφάνεια 6",
+        question: "Ποια αντιστοιχία τοιχώματος της αίθουσας και μορφώματος δεν είναι σωστή;",
+        options: [
+          { key: "α", text: "Πρόσθιο τοίχωμα - αιθουσαίο στόμιο του κοχλία.", correct: false },
+          { key: "β", text: "Άνω τοίχωμα - εκβολή του κοινού σκέλους.", correct: false },
+          { key: "γ", text: "Έξω τοίχωμα - ωοειδής και στρογγύλη θυρίδα.", correct: false },
+          { key: "δ", text: "Έσω τοίχωμα - ληκυθαίο στόμιο του οπίσθιου σωλήνα.", correct: true }
+        ],
+        explanation: "Το ληκυθαίο στόμιο του οπίσθιου ημικύκλιου σωλήνα ανήκει στο κάτω τοίχωμα, όχι στο έσω."
+      },
+      {
+        id: 5,
+        category: "Οστέινος λαβύρινθος και αίθουσα",
+        source: "Διαφάνεια 6",
+        question: "Σχετικά με το έξω τοίχωμα της αίθουσας, τι ισχύει;",
+        options: [
+          { key: "α", text: "Αντιστοιχεί στο κοίλον του τυμπάνου και φέρει άνω την ωοειδή θυρίδα.", correct: true },
+          { key: "β", text: "Αντιστοιχεί στον πυθμένα του έσω ακουστικού πόρου και φέρει τις ηθμοειδείς κηλίδες.", correct: false },
+          { key: "γ", text: "Φέρει πίσω από το ελλειπτικό εντύπωμα το έσω στόμιο του υδραγωγού.", correct: false },
+          { key: "δ", text: "Δέχεται την εκβολή του κοινού σκέλους άνω και εμπρός από την ωοειδή θυρίδα.", correct: false }
+        ],
+        explanation: "Το έξω τοίχωμα αντιστοιχεί στο κοίλον του τυμπάνου και έχει άνω την ωοειδή, κάτω τη στρογγύλη θυρίδα."
+      },
+      {
+        id: 6,
+        category: "Οστέινος λαβύρινθος και αίθουσα",
+        source: "Διαφάνεια 6",
+        question: "Ποιο από τα παρακάτω δεν ανήκει στο έσω τοίχωμα της αίθουσας;",
+        options: [
+          { key: "α", text: "Το ελλειπτικό εντύπωμα.", correct: false },
+          { key: "β", text: "Το αιθουσαίο στόμιο του κοχλία.", correct: true },
+          { key: "γ", text: "Η αιθουσαία ακρολοφία.", correct: false },
+          { key: "δ", text: "Οι ηθμοειδείς κηλίδες.", correct: false }
+        ],
+        explanation: "Το αιθουσαίο στόμιο του κοχλία βρίσκεται στο πρόσθιο τοίχωμα της αίθουσας."
+      },
+      {
+        id: 7,
+        category: "Οστέινος λαβύρινθος και αίθουσα",
+        source: "Διαφάνεια 6",
+        question: "Ποια διατύπωση για τις ηθμοειδείς κηλίδες της αίθουσας είναι σωστή;",
+        options: [
+          { key: "α", text: "Βρίσκονται στο έξω τοίχωμα και αντιστοιχούν στη στρογγύλη θυρίδα.", correct: false },
+          { key: "β", text: "Είναι δύο ομάδες τρημάτων για τη δίοδο δεσμίδων του κοχλιακού νεύρου.", correct: false },
+          { key: "γ", text: "Είναι τρεις ομάδες μικρών τρημάτων για δεσμίδες του αιθουσαίου νεύρου.", correct: true },
+          { key: "δ", text: "Αφορίζουν το αιθουσαίο στόμιο που οδηγεί στην τυμπανική κλίμακα.", correct: false }
+        ],
+        explanation: "Στο έσω τοίχωμα αναφέρονται άνω, μέσες και κάτω ηθμοειδείς κηλίδες για το αιθουσαίο νεύρο."
+      },
+      {
+        id: 8,
+        category: "Οστέινος λαβύρινθος και αίθουσα",
+        source: "Διαφάνεια 6",
+        question: "Όλα τα παρακάτω για την αίθουσα είναι αληθή εκτός από ένα:",
+        options: [
+          { key: "α", text: "Το πρόσθιο τοίχωμα άγει προς την κλίμακα της αίθουσας.", correct: false },
+          { key: "β", text: "Το οπίσθιο τοίχωμα σχετίζεται με το οπίσθιο σκέλος του έξω σωλήνα.", correct: false },
+          { key: "γ", text: "Το άνω τοίχωμα δέχεται μπροστά το ληκυθαίο στόμιο του πρόσθιου σωλήνα.", correct: false },
+          { key: "δ", text: "Το κάτω τοίχωμα φέρει το ληκυθαίο στόμιο του έξω ημικύκλιου σωλήνα.", correct: true }
+        ],
+        explanation: "Το κάτω τοίχωμα φέρει το ληκυθαίο στόμιο του οπίσθιου ημικύκλιου σωλήνα."
+      },
+      {
+        id: 9,
+        category: "Οστέινοι ημικύκλιοι σωλήνες",
+        source: "Διαφάνειες 7, 8",
+        question: "Ποια αντιστοιχία οστέινου ημικύκλιου σωλήνα και προσανατολισμού είναι σωστή;",
+        options: [
+          { key: "α", text: "Άνω ή οβελιαίος - κάθετος προς τον επιμήκη άξονα του λιθοειδούς.", correct: true },
+          { key: "β", text: "Οπίσθιος ή μετωπιαίος - σχεδόν οριζόντια πορεία.", correct: false },
+          { key: "γ", text: "Έξω ή οριζόντιος - παράλληλος προς την οπίσθια άνω επιφάνεια.", correct: false },
+          { key: "δ", text: "Πρόσθιος ή οριζόντιος - παράλληλος προς τον επιμήκη άξονα.", correct: false }
+        ],
+        explanation: "Ο άνω/πρόσθιος/οβελιαίος είναι κάθετος προς τον επιμήκη άξονα του λιθοειδούς."
+      },
+      {
+        id: 10,
+        category: "Οστέινοι ημικύκλιοι σωλήνες",
+        source: "Διαφάνεια 7",
+        question: "Σχετικά με τα σκέλη των οστέινων ημικύκλιων σωλήνων, ποιο δεν ισχύει;",
+        options: [
+          { key: "α", text: "Κάθε σωλήνας έχει ληκυθαίο σκέλος και απλό σκέλος.", correct: false },
+          { key: "β", text: "Τα ληκυθαία σκέλη του πρόσθιου και οπίσθιου σωλήνα ενώνονται σε κοινό σκέλος.", correct: true },
+          { key: "γ", text: "Τα απλά σκέλη του πρόσθιου και οπίσθιου σωλήνα ενώνονται μεταξύ τους.", correct: false },
+          { key: "δ", text: "Η κοινή εκβολή εξηγεί γιατί η αίθουσα εμφανίζει πέντε στόμια.", correct: false }
+        ],
+        explanation: "Η ένωση αφορά τα απλά σκέλη του πρόσθιου και οπίσθιου σωλήνα, όχι τα ληκυθαία."
+      },
+      {
+        id: 11,
+        category: "Οστέινοι ημικύκλιοι σωλήνες",
+        source: "Διαφάνειες 6, 7",
+        question: "Ποια από τις παρακάτω σχέσεις είναι λανθασμένη;",
+        options: [
+          { key: "α", text: "Ληκυθαίο σκέλος έξω σωλήνα - επάνω και εμπρός από την ωοειδή θυρίδα.", correct: false },
+          { key: "β", text: "Απλά σκέλη πρόσθιου και οπίσθιου σωλήνα - κοινό σκέλος προς την αίθουσα.", correct: false },
+          { key: "γ", text: "Οπίσθιος ημικύκλιος σωλήνας - σχεδόν οριζόντια πορεία.", correct: true },
+          { key: "δ", text: "Έξω ημικύκλιος σωλήνας - οριζόντιος προσανατολισμός.", correct: false }
+        ],
+        explanation: "Ο οπίσθιος είναι μετωπιαίος και παράλληλος προς την οπίσθια άνω επιφάνεια του λιθοειδούς."
+      },
+      {
+        id: 12,
+        category: "Οστέινοι ημικύκλιοι σωλήνες",
+        source: "Διαφάνεια 7",
+        question: "Η αίθουσα εμφανίζει πέντε στόμια αντί για έξι επειδή:",
+        options: [
+          { key: "α", text: "Ο έξω ημικύκλιος σωλήνας δεν έχει απλό σκέλος.", correct: false },
+          { key: "β", text: "Το ληκυθαίο σκέλος του οπίσθιου εκβάλλει στο κάτω τοίχωμα.", correct: false },
+          { key: "γ", text: "Ο πρόσθιος ημικύκλιος σωλήνας χάνει το ληκυθαίο του άκρο.", correct: false },
+          { key: "δ", text: "Τα απλά σκέλη του πρόσθιου και οπίσθιου ενώνονται και εκβάλλουν μαζί.", correct: true }
+        ],
+        explanation: "Η κοινή εκβολή των απλών σκελών μειώνει τα στόμια της αίθουσας από έξι σε πέντε."
+      },
+      {
+        id: 13,
+        category: "Οστέινοι ημικύκλιοι σωλήνες",
+        source: "Διαφάνειες 6, 7",
+        question: "Σχετικά με τον έξω οστέινο ημικύκλιο σωλήνα, τι ισχύει;",
+        options: [
+          { key: "α", text: "Φέρεται σχεδόν οριζόντια και το ληκυθαίο σκέλος του εκβάλλει κοντά στην ωοειδή θυρίδα.", correct: true },
+          { key: "β", text: "Είναι κάθετος προς τον επιμήκη άξονα του λιθοειδούς και εκβάλλει με κοινό σκέλος.", correct: false },
+          { key: "γ", text: "Είναι μετωπιαίος και παράλληλος προς την οπίσθια άνω επιφάνεια του λιθοειδούς.", correct: false },
+          { key: "δ", text: "Το απλό του σκέλος ενώνεται με το απλό σκέλος του πρόσθιου σωλήνα.", correct: false }
+        ],
+        explanation: "Ο έξω είναι οριζόντιος, ενώ το ληκυθαίο σκέλος του εκβάλλει επάνω και εμπρός από την ωοειδή θυρίδα."
+      },
+      {
+        id: 14,
+        category: "Οστέινοι ημικύκλιοι σωλήνες",
+        source: "Διαφάνεια 7",
+        question: "Ένα από τα παρακάτω δεν αντιστοιχεί σωστά:",
+        options: [
+          { key: "α", text: "Άνω ημικύκλιος σωλήνας - πρόσθιος.", correct: false },
+          { key: "β", text: "Οπίσθιος ημικύκλιος σωλήνας - οριζόντιος.", correct: true },
+          { key: "γ", text: "Έξω ημικύκλιος σωλήνας - οριζόντιος.", correct: false },
+          { key: "δ", text: "Άνω ημικύκλιος σωλήνας - οβελιαίος.", correct: false }
+        ],
+        explanation: "Ο οπίσθιος ονομάζεται μετωπιαίος, ενώ ο έξω είναι ο οριζόντιος."
+      },
+      {
+        id: 15,
+        category: "Οστέινοι ημικύκλιοι σωλήνες",
+        source: "Διαφάνειες 6, 7",
+        question: "Ποιο στόμιο της αίθουσας αντιστοιχεί στο άνω τοίχωμα;",
+        options: [
+          { key: "α", text: "Το οπίσθιο σκέλος του έξω ημικύκλιου σωλήνα.", correct: false },
+          { key: "β", text: "Το αιθουσαίο στόμιο του κοχλία.", correct: false },
+          { key: "γ", text: "Η εκβολή του κοινού σκέλους του άνω και οπίσθιου σωλήνα.", correct: true },
+          { key: "δ", text: "Το έσω στόμιο του υδραγωγού της αίθουσας.", correct: false }
+        ],
+        explanation: "Στο άνω τοίχωμα, πίσω, βρίσκεται η εκβολή του κοινού σκέλους άνω και οπίσθιου σωλήνα."
+      },
+      {
+        id: 16,
+        category: "Οστέινοι ημικύκλιοι σωλήνες",
+        source: "Διαφάνειες 6, 7",
+        question: "Σχετικά με τον πρόσθιο οστέινο ημικύκλιο σωλήνα, ποιο είναι λάθος;",
+        options: [
+          { key: "α", text: "Ονομάζεται και άνω ημικύκλιος σωλήνας.", correct: false },
+          { key: "β", text: "Το ληκυθαίο στόμιό του βρίσκεται μπροστά στο άνω τοίχωμα της αίθουσας.", correct: false },
+          { key: "γ", text: "Το απλό του σκέλος συμμετέχει στο κοινό σκέλος.", correct: false },
+          { key: "δ", text: "Το ληκυθαίο σκέλος του ενώνεται με το ληκυθαίο σκέλος του οπίσθιου.", correct: true }
+        ],
+        explanation: "Η ένωση σε κοινό σκέλος αφορά τα απλά σκέλη, όχι τα ληκυθαία."
+      },
+      {
+        id: 17,
+        category: "Οστέινος κοχλίας και κλίμακες",
+        source: "Διαφάνεια 9",
+        question: "Σχετικά με τον οστέινο κοχλία, τι ισχύει;",
+        options: [
+          { key: "α", text: "Η βάση στρέφεται πίσω και έσω προς τον πυθμένα του έσω ακουστικού πόρου.", correct: true },
+          { key: "β", text: "Η κορυφή στρέφεται πίσω και έσω προς τον έσω ακουστικό πόρο.", correct: false },
+          { key: "γ", text: "Αρχίζει από το οπίσθιο τοίχωμα της αίθουσας.", correct: false },
+          { key: "δ", text: "Μέσα στην άτρακτο πορεύονται δεσμίδες του αιθουσαίου νεύρου.", correct: false }
+        ],
+        explanation: "Η βάση στρέφεται πίσω-έσω προς τον πυθμένα του έσω ακουστικού πόρου, ενώ η κορυφή προς έξω-μπροστά."
+      },
+      {
+        id: 18,
+        category: "Οστέινος κοχλίας και κλίμακες",
+        source: "Διαφάνειες 9, 10",
+        question: "Ποιο από τα παρακάτω δεν αποτελεί τμήμα του οστέινου κοχλία όπως δίνεται στις διαφάνειες;",
+        options: [
+          { key: "α", text: "Η άτρακτος.", correct: false },
+          { key: "β", text: "Η αιθουσαία ακρολοφία.", correct: true },
+          { key: "γ", text: "Οι έλικες.", correct: false },
+          { key: "δ", text: "Το οστέινο ελικοειδές πέταλο.", correct: false }
+        ],
+        explanation: "Ο οστέινος κοχλίας αποτελείται από άτρακτο, έλικες και οστέινο ελικοειδές πέταλο."
+      },
+      {
+        id: 19,
+        category: "Οστέινος κοχλίας και κλίμακες",
+        source: "Διαφάνεια 10",
+        question: "Ποια διατύπωση για την άτρακτο είναι λανθασμένη;",
+        options: [
+          { key: "α", text: "Είναι κωνοειδές μόρφωμα από σπογγώδη οστέινη ουσία.", correct: false },
+          { key: "β", text: "Η βάση της στρέφεται προς τον πυθμένα του έσω ακουστικού πόρου.", correct: false },
+          { key: "γ", text: "Η κορυφή της εκτείνεται μέχρι την πρώτη έλικα του κοχλία.", correct: true },
+          { key: "δ", text: "Η διάμετρός της μικραίνει βαθμιαία προς την κορυφή.", correct: false }
+        ],
+        explanation: "Η κορυφή της ατράκτου εκτείνεται μέχρι τη δεύτερη έλικα, όχι την πρώτη."
+      },
+      {
+        id: 20,
+        category: "Οστέινος κοχλίας και κλίμακες",
+        source: "Διαφάνεια 11",
+        question: "Η ελικοειδής τρηματώδης ταινία αντιστοιχεί:",
+        options: [
+          { key: "α", text: "Σε διευρυμένη μοίρα του περιλεμφικού χώρου της αίθουσας.", correct: false },
+          { key: "β", text: "Στο προσφυτικό χείλος του υμενώδους ελικοειδούς πετάλου.", correct: false },
+          { key: "γ", text: "Στο άνω χείλος της έσω ελικοειδούς αύλακας.", correct: false },
+          { key: "δ", text: "Στο σύνολο των τρημάτων της υπόκοιλης βάσης της ατράκτου.", correct: true }
+        ],
+        explanation: "Η διαφάνεια 11 ορίζει την ταινία ως το σύνολο των τρημάτων της έσω επιφάνειας της βάσης της ατράκτου."
+      },
+      {
+        id: 21,
+        category: "Οστέινος κοχλίας και κλίμακες",
+        source: "Διαφάνεια 12",
+        question: "Σχετικά με τις έλικες του κοχλία, ποιο ισχύει;",
+        options: [
+          { key: "α", text: "Η κορυφαία έλικα αποτελεί τα τρία τέταρτα της έλικας και δεν είναι πλήρης.", correct: true },
+          { key: "β", text: "Η βασική έλικα είναι η δεύτερη και σχηματίζει το ελικότρημα.", correct: false },
+          { key: "γ", text: "Η μέση έλικα είναι η πρώτη και αποτελεί το υπόθεμα του ακρωτηρίου.", correct: false },
+          { key: "δ", text: "Η κορυφαία έλικα είναι πλήρης και αποτελεί το υπόθεμα του ακρωτηρίου.", correct: false }
+        ],
+        explanation: "Η κορυφαία ή τρίτη δεν σχηματίζει πλήρη έλικα, αλλά αποτελεί τα 3/4 της έλικας."
+      },
+      {
+        id: 22,
+        category: "Οστέινος κοχλίας και κλίμακες",
+        source: "Διαφάνεια 13",
+        question: "Σχετικά με το οστέινο ελικοειδές πέταλο, τι δεν ισχύει;",
+        options: [
+          { key: "α", text: "Εκφύεται από τα πλάγια του τοιχώματος της ατράκτου.", correct: false },
+          { key: "β", text: "Φτάνει μέχρι τον θόλο του κοχλία και κλείνει το ελικότρημα.", correct: true },
+          { key: "γ", text: "Συμπληρώνεται προς τα έξω με το υμενώδες ελικοειδές πέταλο.", correct: false },
+          { key: "δ", text: "Χωρίζει τον αυλό σε άνω και κάτω ημιμόριο.", correct: false }
+        ],
+        explanation: "Το οστέινο πέταλο τελειώνει πριν από τον θόλο με το άγκιστρο, αφήνοντας το ελικότρημα."
+      },
+      {
+        id: 23,
+        category: "Οστέινος κοχλίας και κλίμακες",
+        source: "Διαφάνειες 13, 15",
+        question: "Ποια αντιστοιχία κλίμακας και θέσης ως προς το ελικοειδές πέταλο είναι σωστή;",
+        options: [
+          { key: "α", text: "Κλίμακα της αίθουσας - κάτω, κλίμακα του τυμπάνου - άνω.", correct: false },
+          { key: "β", text: "Κλίμακα της αίθουσας - έξω, κλίμακα του τυμπάνου - έσω.", correct: false },
+          { key: "γ", text: "Κλίμακα της αίθουσας - άνω, κλίμακα του τυμπάνου - κάτω.", correct: true },
+          { key: "δ", text: "Κλίμακα της αίθουσας - έσω, κλίμακα του τυμπάνου - έξω.", correct: false }
+        ],
+        explanation: "Οι διαφάνειες τονίζουν: άνω η κλίμακα της αίθουσας, κάτω η κλίμακα του τυμπάνου."
+      },
+      {
+        id: 24,
+        category: "Οστέινος κοχλίας και κλίμακες",
+        source: "Διαφάνειες 15, 16",
+        question: "Ποια σχέση του ελικοειδούς πόρου είναι λανθασμένη;",
+        options: [
+          { key: "α", text: "Βρίσκεται στο προσφυτικό χείλος του ελικοειδούς πετάλου.", correct: false },
+          { key: "β", text: "Περιέχει το ελικοειδές γάγγλιο του κοχλιακού νεύρου.", correct: false },
+          { key: "γ", text: "Συνδέεται με επιμήκη σωληνάρια της ατράκτου.", correct: false },
+          { key: "δ", text: "Περιέχει τις περιφερικές αποφυάδες των διπόλων κυττάρων.", correct: true }
+        ],
+        explanation: "Τα επιμήκη σωληνάρια περιέχουν τις κεντρικές αποφυάδες των διπόλων κυττάρων του ελικοειδούς γαγγλίου."
+      },
+      {
+        id: 25,
+        category: "Υδραγωγοί και λεμφικοί χώροι",
+        source: "Διαφάνεια 17",
+        question: "Σχετικά με τον υδραγωγό της αίθουσας, ποιο ισχύει;",
+        options: [
+          { key: "α", text: "Αρχίζει πίσω από το ελλειπτικό εντύπωμα και περιέχει τον ενδολεμφικό πόρο.", correct: true },
+          { key: "β", text: "Αρχίζει μπροστά από τη στρογγύλη θυρίδα και περιέχει τη φλέβα του κοχλιακού σωληναρίου.", correct: false },
+          { key: "γ", text: "Καταλήγει στην οπίσθια κάτω επιφάνεια του λιθοειδούς.", correct: false },
+          { key: "δ", text: "Έχει μήκος 10-12 mm και ξεκινά από την τυμπανική κλίμακα.", correct: false }
+        ],
+        explanation: "Ο υδραγωγός της αίθουσας αρχίζει πίσω από το ελλειπτικό εντύπωμα και περιέχει ενδολεμφικό πόρο και μικρό φλεβίδιο."
+      },
+      {
+        id: 26,
+        category: "Υδραγωγοί και λεμφικοί χώροι",
+        source: "Διαφάνεια 17",
+        question: "Ποιο από τα παρακάτω για τον υδραγωγό του κοχλία δεν ισχύει;",
+        options: [
+          { key: "α", text: "Ονομάζεται και κοχλιακό σωληνάριο.", correct: false },
+          { key: "β", text: "Αρχίζει από το κάτω τοίχωμα της αρχής της κλίμακας της αίθουσας.", correct: true },
+          { key: "γ", text: "Βρίσκεται μπροστά από τη στρογγύλη θυρίδα στην αρχή του.", correct: false },
+          { key: "δ", text: "Περιέχει τη φλέβα του κοχλιακού σωληναρίου.", correct: false }
+        ],
+        explanation: "Αρχίζει από το κάτω τοίχωμα της αρχής της κλίμακας του τυμπάνου, όχι της αίθουσας."
+      },
+      {
+        id: 27,
+        category: "Υδραγωγοί και λεμφικοί χώροι",
+        source: "Διαφάνεια 29",
+        question: "Σχετικά με τον περιλεμφικό χώρο, ποια διατύπωση είναι λανθασμένη;",
+        options: [
+          { key: "α", text: "Βρίσκεται μεταξύ οστέινου και υμενώδους λαβυρίνθου.", correct: false },
+          { key: "β", text: "Αρχίζει από την αίθουσα με την αιθουσαία δεξαμενή.", correct: false },
+          { key: "γ", text: "Περιέχει έσω λέμφο και βρίσκεται μέσα στον υμενώδη λαβύρινθο.", correct: true },
+          { key: "δ", text: "Επικοινωνεί μπροστά με την κλίμακα της αίθουσας.", correct: false }
+        ],
+        explanation: "Ο περιλεμφικός χώρος είναι έξω λεμφικός χώρος και περιέχει έξω λέμφο."
+      },
+      {
+        id: 28,
+        category: "Υδραγωγοί και λεμφικοί χώροι",
+        source: "Διαφάνεια 29",
+        question: "Η αιθουσαία δεξαμενή επικοινωνεί προς τα πίσω:",
+        options: [
+          { key: "α", text: "Με την κλίμακα του τυμπάνου μέσω της στρογγύλης θυρίδας.", correct: false },
+          { key: "β", text: "Με τον έσω λεμφικό χώρο του κοχλιακού πόρου.", correct: false },
+          { key: "γ", text: "Με τους λεμφώδεις χώρους των μηνίγγων.", correct: false },
+          { key: "δ", text: "Με τον περιλεμφικό χώρο των ημικύκλιων σωλήνων.", correct: true }
+        ],
+        explanation: "Η αιθουσαία δεξαμενή επικοινωνεί πίσω με τον περιλεμφικό χώρο των ημικύκλιων σωλήνων και μπροστά με την κλίμακα της αίθουσας."
+      },
+      {
+        id: 29,
+        category: "Υδραγωγοί και λεμφικοί χώροι",
+        source: "Διαφάνειες 13, 29",
+        question: "Ποια διαδρομή περιγράφει σωστά την επικοινωνία των κλιμάκων του κοχλία;",
+        options: [
+          { key: "α", text: "Η κλίμακα της αίθουσας επικοινωνεί με την κλίμακα του τυμπάνου μέσω του ελικοτρήματος.", correct: true },
+          { key: "β", text: "Η κλίμακα του τυμπάνου επικοινωνεί με την κλίμακα της αίθουσας μέσω της ωοειδούς θυρίδας.", correct: false },
+          { key: "γ", text: "Η κλίμακα της αίθουσας καταλήγει απευθείας στη στρογγύλη θυρίδα.", correct: false },
+          { key: "δ", text: "Οι δύο κλίμακες επικοινωνούν μέσω του ενδολεμφικού θύλακου.", correct: false }
+        ],
+        explanation: "Το ελικότρημα ανάμεσα στο άγκιστρο και το πέταλο της ατράκτου επιτρέπει την επικοινωνία των δύο κλιμάκων."
+      },
+      {
+        id: 30,
+        category: "Υδραγωγοί και λεμφικοί χώροι",
+        source: "Διαφάνειες 4, 29",
+        question: "Όλα τα παρακάτω αναφέρονται ως οδοί επικοινωνίας του περιλεμφικού χώρου με λεμφώδεις χώρους των μηνίγγων εκτός από:",
+        options: [
+          { key: "α", text: "Τον υδραγωγό της αίθουσας.", correct: false },
+          { key: "β", text: "Τον ενδολεμφικό πόρο.", correct: true },
+          { key: "γ", text: "Τον υδραγωγό του κοχλία.", correct: false },
+          { key: "δ", text: "Τα περιαγγειακά και περινευρικά έλυτρα.", correct: false }
+        ],
+        explanation: "Στη διαφάνεια 29 αναφέρονται οι δύο υδραγωγοί και τα περιαγγειακά/περινευρικά έλυτρα, όχι ο ενδολεμφικός πόρος."
+      },
+      {
+        id: 31,
+        category: "Υδραγωγοί και λεμφικοί χώροι",
+        source: "Διαφάνεια 17",
+        question: "Ποια αντιστοιχία υδραγωγού και μήκους είναι σωστή;",
+        options: [
+          { key: "α", text: "Υδραγωγός αίθουσας 3-4 mm, υδραγωγός κοχλία 8-10 mm.", correct: false },
+          { key: "β", text: "Υδραγωγός αίθουσας 10-12 mm, υδραγωγός κοχλία 8-10 mm.", correct: false },
+          { key: "γ", text: "Υδραγωγός αίθουσας 8-10 mm, υδραγωγός κοχλία 10-12 mm.", correct: true },
+          { key: "δ", text: "Υδραγωγός αίθουσας 35 mm, υδραγωγός κοχλία 2 mm.", correct: false }
+        ],
+        explanation: "Η διαφάνεια 17 δίνει 8-10 mm για της αίθουσας και 10-12 mm για του κοχλία."
+      },
+      {
+        id: 32,
+        category: "Υδραγωγοί και λεμφικοί χώροι",
+        source: "Διαφάνεια 29",
+        question: "Ποιο από τα παρακάτω δεν ισχύει για την κλίμακα του τυμπάνου;",
+        options: [
+          { key: "α", text: "Επικοινωνεί με την κλίμακα της αίθουσας μέσω του ελικοτρήματος.", correct: false },
+          { key: "β", text: "Ανήκει στη συνέχεια του περιλεμφικού χώρου.", correct: false },
+          { key: "γ", text: "Σχετίζεται με τη στρογγύλη θυρίδα.", correct: false },
+          { key: "δ", text: "Βρίσκεται άνωθεν του οστέινου ελικοειδούς πετάλου.", correct: true }
+        ],
+        explanation: "Η κλίμακα του τυμπάνου βρίσκεται κάτω από το ελικοειδές πέταλο."
+      },
+      {
+        id: 33,
+        category: "Υμενώδης λαβύρινθος και κυστίδια",
+        source: "Διαφάνεια 18",
+        question: "Σχετικά με τον υμενώδη λαβύρινθο, ποιο ισχύει;",
+        options: [
+          { key: "α", text: "Έχει έκκεντρη θέση μέσα στον οστέινο λαβύρινθο και περιέχει έσω λέμφο.", correct: true },
+          { key: "β", text: "Ταυτίζεται με τον περιλεμφικό χώρο και περιέχει έξω λέμφο.", correct: false },
+          { key: "γ", text: "Δεν επικοινωνούν μεταξύ τους οι αιθουσαία, ημικύκλια και κοχλιακή μοίρα.", correct: false },
+          { key: "δ", text: "Βρίσκεται έξω από τον οστέινο λαβύρινθο, κάτω από τη σκληρή μήνιγγα.", correct: false }
+        ],
+        explanation: "Ο υμενώδης περικλείεται από τον οστέινο, έχει έκκεντρη θέση και οι μοίρες του περιέχουν έσω λέμφο."
+      },
+      {
+        id: 34,
+        category: "Υμενώδης λαβύρινθος και κυστίδια",
+        source: "Διαφάνεια 19",
+        question: "Για το σφαιρικό κυστίδιο, ποιο δεν ισχύει;",
+        options: [
+          { key: "α", text: "Επικάθεται στο σφαιρικό εντύπωμα.", correct: false },
+          { key: "β", text: "Είναι μεγαλύτερο από το ελλειπτικό κυστίδιο.", correct: true },
+          { key: "γ", text: "Στο έσω τοίχωμά του βρίσκεται η ακουστική κηλίδα του σακκιδίου.", correct: false },
+          { key: "δ", text: "Στην άνω μοίρα του εκβάλλει το παχύτερο σκέλος του ενδολεμφικού πόρου.", correct: false }
+        ],
+        explanation: "Το σφαιρικό είναι μικρότερο από το ελλειπτικό και έχει διάμετρο περίπου 2 mm."
+      },
+      {
+        id: 35,
+        category: "Υμενώδης λαβύρινθος και κυστίδια",
+        source: "Διαφάνεια 20",
+        question: "Ποια πρόταση για το ελλειπτικό κυστίδιο είναι λανθασμένη;",
+        options: [
+          { key: "α", text: "Είναι μεγαλύτερο από το σφαιρικό κυστίδιο.", correct: false },
+          { key: "β", text: "Η ακουστική κηλίδα βρίσκεται στο πρόσθιο άκρο της εσωτερικής επιφάνειας.", correct: false },
+          { key: "γ", text: "Δέχεται στην οπίσθια κάτω μοίρα του τις εκβολές των υμενωδών σωλήνων.", correct: true },
+          { key: "δ", text: "Από την ακουστική κηλίδα του αρχίζει δεσμίδα του αιθουσαίου νεύρου.", correct: false }
+        ],
+        explanation: "Το ελλειπτικό δέχεται τις εκβολές των υμενωδών ημικύκλιων σωλήνων στην οπίσθια άνω μοίρα."
+      },
+      {
+        id: 36,
+        category: "Υμενώδης λαβύρινθος και κυστίδια",
+        source: "Διαφάνεια 21",
+        question: "Ο ενδολεμφικός πόρος αρχίζει:",
+        options: [
+          { key: "α", text: "Με ένα κοινό στέλεχος από τον υδραγωγό του κοχλία.", correct: false },
+          { key: "β", text: "Με δύο ισοπαχή σκέλη από τους υμενώδεις ημικύκλιους σωλήνες.", correct: false },
+          { key: "γ", text: "Με ένα λεπτό σφαιρικό και ένα παχύτερο ελλειπτικό σκέλος.", correct: false },
+          { key: "δ", text: "Με λεπτό ελλειπτικό πόρο και παχύτερο σφαιρικό πόρο.", correct: true }
+        ],
+        explanation: "Το λεπτό σκέλος είναι ο ελλειπτικός πόρος και το παχύτερο ο σφαιρικός πόρος."
+      },
+      {
+        id: 37,
+        category: "Υμενώδης λαβύρινθος και κυστίδια",
+        source: "Διαφάνεια 21",
+        question: "Σχετικά με την τελική πορεία του ενδολεμφικού πόρου, τι ισχύει;",
+        options: [
+          { key: "α", text: "Πορεύεται στον υδραγωγό της αίθουσας και καταλήγει στον ενδολεμφικό θύλακο.", correct: true },
+          { key: "β", text: "Πορεύεται στον υδραγωγό του κοχλία και καταλήγει στη στρογγύλη θυρίδα.", correct: false },
+          { key: "γ", text: "Πορεύεται στον έσω ακουστικό πόρο και καταλήγει στο ελικοειδές γάγγλιο.", correct: false },
+          { key: "δ", text: "Πορεύεται στην κλίμακα του τυμπάνου και καταλήγει στον άνω λιθοειδή κόλπο.", correct: false }
+        ],
+        explanation: "Το κοινό στέλεχος πορεύεται μέσα στον υδραγωγό της αίθουσας και τελειώνει ως ενδολεμφικός θύλακος."
+      },
+      {
+        id: 38,
+        category: "Υμενώδης λαβύρινθος και κυστίδια",
+        source: "Διαφάνεια 22",
+        question: "Σχετικά με την ημικύκλια μοίρα του υμενώδους λαβυρίνθου, ποιο είναι λάθος;",
+        options: [
+          { key: "α", text: "Περιλαμβάνει τρεις υμενώδεις ημικύκλιους σωλήνες.", correct: false },
+          { key: "β", text: "Οι υμενώδεις λήκυθοι φέρουν ακουστική κηλίδα στο κυρτό χείλος.", correct: true },
+          { key: "γ", text: "Κάθε λήκυθος εμφανίζει πάχυνση του επιθηλίου στην έσω επιφάνεια.", correct: false },
+          { key: "δ", text: "Από την ακρολοφία αρχίζει ο σύστοιχος ληκυθαίος κλάδος του αιθουσαίου νεύρου.", correct: false }
+        ],
+        explanation: "Στις ληκύθους η πάχυνση λέγεται ακουστική ακρολοφία, όχι ακουστική κηλίδα."
+      },
+      {
+        id: 39,
+        category: "Υμενώδης λαβύρινθος και κυστίδια",
+        source: "Διαφάνεια 23",
+        question: "Ποια διατύπωση για την κοχλιακή μοίρα είναι σωστή;",
+        options: [
+          { key: "α", text: "Ο υμενώδης κοχλίας επικοινωνεί με το ελλειπτικό κυστίδιο μέσω του ελλειπτικού πόρου.", correct: false },
+          { key: "β", text: "Τα δύο άκρα του υμενώδους κοχλία απολήγουν ανοικτά στις δύο κλίμακες.", correct: false },
+          { key: "γ", text: "Ο κοχλιακός πόρος επικοινωνεί με το σφαιρικό κυστίδιο μέσω συνδετικού ή συνενωτικού πόρου.", correct: true },
+          { key: "δ", text: "Το κάτω τυφλό άκρο είναι στενότερο και ονομάζεται κορυφαίο τυφλό.", correct: false }
+        ],
+        explanation: "Η επικοινωνία γίνεται με το σφαιρικό κυστίδιο μέσω του συνδετικού/συνενωτικού πόρου."
+      },
+      {
+        id: 40,
+        category: "Υμενώδης λαβύρινθος και κυστίδια",
+        source: "Διαφάνειες 23, 24",
+        question: "Ποιο δεν ισχύει για τον κοχλιακό πόρο;",
+        options: [
+          { key: "α", text: "Έχει μήκος περίπου 35 mm.", correct: false },
+          { key: "β", text: "Σε εγκάρσια διατομή έχει τριγωνικό σχήμα.", correct: false },
+          { key: "γ", text: "Το άνω τοίχωμά του ονομάζεται υμένας του Reissner.", correct: false },
+          { key: "δ", text: "Το έξω τοίχωμά του φέρει το όργανο του Corti.", correct: true }
+        ],
+        explanation: "Το όργανο του Corti βρίσκεται στο κάτω ή τυμπανικό τοίχωμα."
+      },
+      {
+        id: 41,
+        category: "Ακουστικές κηλίδες και ακρολοφίες",
+        source: "Διαφάνεια 30",
+        question: "Στην περιοχή των ακουστικών κηλίδων και ακρολοφιών, τι ισχύει;",
+        options: [
+          { key: "α", text: "Το συνδετικό υπόστρωμα γίνεται παχύτερο, συνδέεται με το περιόστεο και δεν φέρει ενδοθήλιο.", correct: true },
+          { key: "β", text: "Η έξω επιφάνεια καλύπτεται από εξωδερμικό επιθήλιο και όχι από ενδοθήλιο.", correct: false },
+          { key: "γ", text: "Το τοίχωμα παύει να είναι αγγειοφόρο και μετατρέπεται σε οστέινο πέταλο.", correct: false },
+          { key: "δ", text: "Το επιθήλιο γίνεται πολύστιβο πλακώδες και χάνει τα τριχωτά κύτταρα.", correct: false }
+        ],
+        explanation: "Στις αισθητικές περιοχές το υπόστρωμα παχύνεται, προσφύεται στερεά στο περιόστεο και δεν έχει ενδοθήλιο."
+      },
+      {
+        id: 42,
+        category: "Ακουστικές κηλίδες και ακρολοφίες",
+        source: "Διαφάνειες 31, 34",
+        question: "Ποια αντιστοιχία καλυπτήριου υμένα και αισθητικής περιοχής είναι λανθασμένη;",
+        options: [
+          { key: "α", text: "Ακουστικές κηλίδες - ωτολιθοφόρος υμένας.", correct: false },
+          { key: "β", text: "Ακουστικές ακρολοφίες - ωτολιθοφόρος υμένας.", correct: true },
+          { key: "γ", text: "Ακουστικές ακρολοφίες - τελικό κυπέλιο.", correct: false },
+          { key: "δ", text: "Ακουστικές κηλίδες - υμένας πηκτοειδούς σύστασης.", correct: false }
+        ],
+        explanation: "Στις ακρολοφίες ο καλυπτήριος υμένας λέγεται τελικό κυπέλιο, όχι ωτολιθοφόρος υμένας."
+      },
+      {
+        id: 43,
+        category: "Ακουστικές κηλίδες και ακρολοφίες",
+        source: "Διαφάνεια 32",
+        question: "Σχετικά με το επιθήλιο των ακουστικών κηλίδων, τι δεν ισχύει;",
+        options: [
+          { key: "α", text: "Είναι μονόστιβο κυλινδρικό.", correct: false },
+          { key: "β", text: "Είναι περίπου δέκα φορές παχύτερο από το υπόλοιπο επιθήλιο.", correct: false },
+          { key: "γ", text: "Τα τριχωτά κύτταρα καταλαμβάνουν όλο το πάχος του επιθηλίου.", correct: true },
+          { key: "δ", text: "Τα τριχωτά κύτταρα διακρίνονται σε τύπο I και τύπο II.", correct: false }
+        ],
+        explanation: "Τα στηρικτικά καταλαμβάνουν όλο το πάχος, ενώ τα τριχωτά το επιφανειακό ημιμόριο."
+      },
+      {
+        id: 44,
+        category: "Ακουστικές κηλίδες και ακρολοφίες",
+        source: "Διαφάνειες 32, 33",
+        question: "Ποια πρόταση για τα τριχωτά κύτταρα των κηλίδων και ακρολοφιών είναι σωστή;",
+        options: [
+          { key: "α", text: "Τα τύπου I είναι κυλινδρικά και τα τύπου II απιοειδή.", correct: false },
+          { key: "β", text: "Η ακουστική τρίχα αποτελείται από 50 λεπτούς και κινητούς κροσσούς.", correct: false },
+          { key: "γ", text: "Οι κεντρικές αποφυάδες του αιθουσαίου γαγγλίου καταλήγουν γύρω τους.", correct: false },
+          { key: "δ", text: "Το μήκος των κροσσών είναι διπλάσιο στις ακουστικές ακρολοφίες.", correct: true }
+        ],
+        explanation: "Στη διαφάνεια 33 αναφέρεται ότι οι κροσσοί είναι ακίνητοι και το μήκος τους διπλασιάζεται στις ακρολοφίες."
+      },
+      {
+        id: 45,
+        category: "Ακουστικές κηλίδες και ακρολοφίες",
+        source: "Διαφάνεια 34",
+        question: "Σχετικά με τον ωτολιθοφόρο υμένα, τι ισχύει;",
+        options: [
+          { key: "α", text: "Χωρίζεται από το επιθήλιο των ακουστικών κηλίδων με σχισμή που περιέχει έσω λέμφο.", correct: true },
+          { key: "β", text: "Επικάθεται στις ακουστικές ακρολοφίες και μοιάζει με κώδωνα.", correct: false },
+          { key: "γ", text: "Περιέχει ωτόλιθους σε μία σειρά από άλατα φωσφορικού ασβεστίου.", correct: false },
+          { key: "δ", text: "Αποτελεί τον καλυπτήριο υμένα του οργάνου του Corti.", correct: false }
+        ],
+        explanation: "Ο ωτολιθοφόρος υμένας καλύπτει τις κηλίδες και χωρίζεται από το επιθήλιο με σχισμή έσω λέμφου."
+      },
+      {
+        id: 46,
+        category: "Ακουστικές κηλίδες και ακρολοφίες",
+        source: "Διαφάνειες 34, 35",
+        question: "Ποιο από τα παρακάτω για τους ωτόλιθους είναι λάθος;",
+        options: [
+          { key: "α", text: "Είναι πρισματικά σωμάτια.", correct: false },
+          { key: "β", text: "Αποτελούνται από πρωτεϊνικό υπόστρωμα και άλατα ανθρακικού ασβεστίου.", correct: false },
+          { key: "γ", text: "Βρίσκονται σε τρεις έως έξι σειρές.", correct: false },
+          { key: "δ", text: "Ανήκουν στο τελικό κυπέλιο των ακουστικών ακρολοφιών.", correct: true }
+        ],
+        explanation: "Οι ωτόλιθοι ανήκουν στον ωτολιθοφόρο υμένα των ακουστικών κηλίδων."
+      },
+      {
+        id: 47,
+        category: "Ακουστικές κηλίδες και ακρολοφίες",
+        source: "Διαφάνεια 36",
+        question: "Το τελικό κυπέλιο σχετίζεται κυρίως με:",
+        options: [
+          { key: "α", text: "Τη στατική θέση της κεφαλής μέσω ωτοκονίας.", correct: false },
+          { key: "β", text: "Την παραγωγή και ανανέωση της έσω λέμφου.", correct: false },
+          { key: "γ", text: "Την αντίληψη περιστροφής κατά τις περιστροφικές κινήσεις της κεφαλής.", correct: true },
+          { key: "δ", text: "Τη θρέψη του οργάνου του Corti από την έξω λέμφο.", correct: false }
+        ],
+        explanation: "Κατά τις περιστροφές το τελικό κυπέλιο κάμπτεται και ερεθίζει τις ακουστικές τρίχες."
+      },
+      {
+        id: 48,
+        category: "Ακουστικές κηλίδες και ακρολοφίες",
+        source: "Διαφάνειες 35, 36",
+        question: "Ποια διάκριση λειτουργίας είναι λανθασμένη;",
+        options: [
+          { key: "α", text: "Ωτολιθοφόρος υμένας - αίσθημα κανονικής θέσης της κεφαλής.", correct: false },
+          { key: "β", text: "Αλλαγή θέσης κεφαλής - μεταβολή πίεσης ή έλξης στις ακουστικές τρίχες.", correct: false },
+          { key: "γ", text: "Τελικό κυπέλιο - αντανακλαστικές κινήσεις των οφθαλμών.", correct: false },
+          { key: "δ", text: "Ωτοκονία - αντίληψη περιστροφής μέσα στις ακουστικές ακρολοφίες.", correct: true }
+        ],
+        explanation: "Η ωτοκονία αφορά τις κηλίδες και τη θέση της κεφαλής, ενώ η περιστροφή αφορά το τελικό κυπέλιο."
+      },
+      {
+        id: 49,
+        category: "Κοχλιακός πόρος και όργανο Corti",
+        source: "Διαφάνειες 27, 37",
+        question: "Σχετικά με την ελικοειδή στεφάνη, τι ισχύει;",
+        options: [
+          { key: "α", text: "Η βάση της είναι η έσω ελικοειδής αύλακα.", correct: true },
+          { key: "β", text: "Η κορυφή της στρέφεται προς το έξω τοίχωμα του κοχλία.", correct: false },
+          { key: "γ", text: "Το κάτω χείλος της δέχεται την πρόσφυση του καλυπτήριου υμένα.", correct: false },
+          { key: "δ", text: "Βρίσκεται στο έξω τοίχωμα του κοχλιακού πόρου με μηνοειδές σχήμα.", correct: false }
+        ],
+        explanation: "Η ελικοειδής στεφάνη είναι τριγωνική, με κορυφή προς την άτρακτο και αυλακοειδή βάση."
+      },
+      {
+        id: 50,
+        category: "Κοχλιακός πόρος και όργανο Corti",
+        source: "Διαφάνεια 27",
+        question: "Ποιο δεν ισχύει για την έσω ελικοειδή αύλακα;",
+        options: [
+          { key: "α", text: "Έχει άνω ή αιθουσαίο χείλος.", correct: false },
+          { key: "β", text: "Το άνω χείλος επεκτείνεται περισσότερο και συνέχεται με το υμενώδες ελικοειδές πέταλο.", correct: true },
+          { key: "γ", text: "Το κάτω ή τυμπανικό χείλος εμφανίζει τη διάτρητη ζώνη.", correct: false },
+          { key: "δ", text: "Από τη διάτρητη ζώνη αναδύονται περιφερικές αποφυάδες κυττάρων του ελικοειδούς γαγγλίου.", correct: false }
+        ],
+        explanation: "Το κάτω/τυμπανικό χείλος επεκτείνεται περισσότερο και συνέχεται με το υμενώδες ελικοειδές πέταλο."
+      },
+      {
+        id: 51,
+        category: "Κοχλιακός πόρος και όργανο Corti",
+        source: "Διαφάνεια 28",
+        question: "Ποια διατύπωση για τον ελικοειδή σύνδεσμο είναι λανθασμένη;",
+        options: [
+          { key: "α", text: "Είναι πάχυνση του περιοστέου στο έξω τοίχωμα του κοχλιακού πόρου.", correct: false },
+          { key: "β", text: "Σε εγκάρσια διατομή εμφανίζει μηνοειδές σχήμα.", correct: false },
+          { key: "γ", text: "Η κάτω μοίρα της έσω επιφάνειας λέγεται ελικοειδές έπαρμα.", correct: false },
+          { key: "δ", text: "Χωρίζεται από την ελικοειδή στεφάνη με την έξω ελικοειδή αύλακα.", correct: true }
+        ],
+        explanation: "Η έξω ελικοειδής αύλακα χωρίζει το ελικοειδές έπαρμα από το υμενώδες ελικοειδές πέταλο."
+      },
+      {
+        id: 52,
+        category: "Κοχλιακός πόρος και όργανο Corti",
+        source: "Διαφάνειες 28, 37",
+        question: "Ο αιθουσαίος υμένας του Reissner εκτείνεται:",
+        options: [
+          { key: "α", text: "Ανάμεσα στην ελικοειδή στεφάνη και το άνω άκρο του ελικοειδούς συνδέσμου.", correct: true },
+          { key: "β", text: "Ανάμεσα στο ελικοειδές έπαρμα και το όργανο του Corti.", correct: false },
+          { key: "γ", text: "Ανάμεσα στην τυμπανική κλίμακα και τη στρογγύλη θυρίδα.", correct: false },
+          { key: "δ", text: "Ανάμεσα στο άγκιστρο του ελικοειδούς πετάλου και το πέταλο της ατράκτου.", correct: false }
+        ],
+        explanation: "Η διαφάνεια 28 ορίζει τον Reissner ανάμεσα στην ελικοειδή στεφάνη και το άνω άκρο του ελικοειδούς συνδέσμου."
+      },
+      {
+        id: 53,
+        category: "Κοχλιακός πόρος και όργανο Corti",
+        source: "Διαφάνεια 37",
+        question: "Ποια αντιστοιχία τοιχώματος του κοχλιακού πόρου και δομής δεν είναι σωστή;",
+        options: [
+          { key: "α", text: "Άνω τοίχωμα - αιθουσαίος υμένας.", correct: false },
+          { key: "β", text: "Έξω τοίχωμα - αγγειώδης ταινία και ελικοειδές έπαρμα.", correct: false },
+          { key: "γ", text: "Κάτω τοίχωμα - οστέινο και υμενώδες ελικοειδές πέταλο.", correct: false },
+          { key: "δ", text: "Άνω τοίχωμα - όργανο του Corti.", correct: true }
+        ],
+        explanation: "Το όργανο του Corti επικάθεται στο κάτω/τυμπανικό τοίχωμα."
+      },
+      {
+        id: 54,
+        category: "Κοχλιακός πόρος και όργανο Corti",
+        source: "Διαφάνειες 37, 38",
+        question: "Ποιο από τα παρακάτω είναι λάθος για το όργανο του Corti;",
+        options: [
+          { key: "α", text: "Είναι το υποδεκτικό όργανο της ακοής.", correct: false },
+          { key: "β", text: "Φέρει αγγεία και τρέφεται από την έξω λέμφο.", correct: true },
+          { key: "γ", text: "Περιλαμβάνει στηρικτικά και ακουστικά κύτταρα.", correct: false },
+          { key: "δ", text: "Έχει δικτυωτό και καλυπτήριο υμένα.", correct: false }
+        ],
+        explanation: "Το όργανο του Corti δεν φέρει αγγεία και τρέφεται από την έσω λέμφο."
+      },
+      {
+        id: 55,
+        category: "Κοχλιακός πόρος και όργανο Corti",
+        source: "Διαφάνεια 38",
+        question: "Ποια δομή σχηματίζεται από την ελεύθερη επιφάνεια όλων των στηρικτικών κυττάρων;",
+        options: [
+          { key: "α", text: "Η αγγειώδης ταινία.", correct: false },
+          { key: "β", text: "Ο καλυπτήριος υμένας.", correct: false },
+          { key: "γ", text: "Ο δικτυωτός υμένας.", correct: true },
+          { key: "δ", text: "Η διάτρητη ζώνη.", correct: false }
+        ],
+        explanation: "Ο δικτυωτός υμένας είναι η επιφανειακή στιβάδα του οργάνου και σχηματίζεται από τα στηρικτικά κύτταρα."
+      },
+      {
+        id: 56,
+        category: "Κοχλιακός πόρος και όργανο Corti",
+        source: "Διαφάνεια 40",
+        question: "Σχετικά με τα ακουστικά ή τριχωτά κύτταρα του οργάνου του Corti, τι δεν ισχύει;",
+        options: [
+          { key: "α", text: "Τα έσω τριχωτά είναι σε έναν στοίχο και περίπου 3500.", correct: false },
+          { key: "β", text: "Τα έξω τριχωτά είναι περίπου 12000 ή περισσότερα.", correct: false },
+          { key: "γ", text: "Τα έξω τριχωτά έχουν 3 στοίχους στη βασική, 4 στη μέση και 5 στην κορυφαία έλικα.", correct: false },
+          { key: "δ", text: "Τα έσω τριχωτά έχουν κυλινδρικό σχήμα όπως τα τύπου II κύτταρα.", correct: true }
+        ],
+        explanation: "Τα έσω τριχωτά είναι τύπου I και απιοειδή, ενώ τα έξω είναι κυλινδρικά σαν τύπου II."
+      },
+      {
+        id: 57,
+        category: "Αγγεία, νεύρα και φλεβική αποχέτευση",
+        source: "Διαφάνεια 41",
+        question: "Σχετικά με την έσω ακουστική αρτηρία, τι ισχύει;",
+        options: [
+          { key: "α", text: "Είναι κλάδος της πρόσθιας κάτω παρεγκεφαλιδικής αρτηρίας.", correct: true },
+          { key: "β", text: "Είναι τελικός κλάδος της κοινής κοχλιακής αρτηρίας.", correct: false },
+          { key: "γ", text: "Διαιρείται πρώτα σε ιδίως κοχλιακή και ελικοειδείς αρτηρίες.", correct: false },
+          { key: "δ", text: "Παροχετεύει το ελλειπτικό κυστίδιο στον άνω λιθοειδή κόλπο.", correct: false }
+        ],
+        explanation: "Η έσω ακουστική αρτηρία δίνεται ως κλάδος της πρόσθιας κάτω παρεγκεφαλιδικής."
+      },
+      {
+        id: 58,
+        category: "Αγγεία, νεύρα και φλεβική αποχέτευση",
+        source: "Διαφάνεια 41",
+        question: "Ποια αλληλουχία αρτηριακής διαίρεσης είναι λανθασμένη;",
+        options: [
+          { key: "α", text: "Έσω ακουστική αρτηρία - λαβυρινθική αρτηρία.", correct: false },
+          { key: "β", text: "Λαβυρινθική αρτηρία - αιθουσαία και κοινή κοχλιακή.", correct: false },
+          { key: "γ", text: "Κοινή κοχλιακή - αιθουσοκοχλιακή και ιδίως κοχλιακή.", correct: false },
+          { key: "δ", text: "Ιδίως κοχλιακή - αιθουσαία και φλέβα του κοχλιακού σωληναρίου.", correct: true }
+        ],
+        explanation: "Η ιδίως κοχλιακή δίνει 3-4 κλάδους, από τους οποίους εκφύονται ελικοειδείς αρτηρίες."
+      },
+      {
+        id: 59,
+        category: "Αγγεία, νεύρα και φλεβική αποχέτευση",
+        source: "Διαφάνεια 41",
+        question: "Οι ελικοειδείς αρτηρίες εκφύονται από κλάδους της:",
+        options: [
+          { key: "α", text: "Αιθουσαίας αρτηρίας.", correct: false },
+          { key: "β", text: "Ιδίως κοχλιακής αρτηρίας.", correct: true },
+          { key: "γ", text: "Φλέβας του υδραγωγού του κοχλία.", correct: false },
+          { key: "δ", text: "Πρόσθιας κάτω παρεγκεφαλιδικής αρτηρίας χωρίς ενδιάμεσο κλάδο.", correct: false }
+        ],
+        explanation: "Η ιδίως κοχλιακή διακλαδίζεται σε 3-4 κλάδους, από τους οποίους εκφύονται οι ελικοειδείς αρτηρίες."
+      },
+      {
+        id: 60,
+        category: "Αγγεία, νεύρα και φλεβική αποχέτευση",
+        source: "Διαφάνεια 41",
+        question: "Όλα τα παρακάτω ταιριάζουν με τη διαφάνεια 41 εκτός από:",
+        options: [
+          { key: "α", text: "Τα νεύρα του λαβυρίνθου είναι το αιθουσαίο και το κοχλιακό.", correct: false },
+          { key: "β", text: "Το λεμφοφόρο σύστημα συγκροτείται από περιλεμφικό και έσω λεμφικό χώρο.", correct: false },
+          { key: "γ", text: "Το όργανο του Corti και το κάτω τοίχωμα του κοχλιακού πόρου τρέφονται από έσω λέμφο.", correct: false },
+          { key: "δ", text: "Η κοινή κοχλιακή αρτηρία αποσχίζεται σε άνω και κάτω λιθοειδή κλάδο.", correct: true }
+        ],
+        explanation: "Η κοινή κοχλιακή αποσχίζεται σε αιθουσοκοχλιακή και ιδίως κοχλιακή αρτηρία."
+      },
+      {
+        id: 61,
+        category: "Αγγεία, νεύρα και φλεβική αποχέτευση",
+        source: "Διαφάνεια 42",
+        question: "Ποια φλέβα αποχετεύει από το ελλειπτικό κυστίδιο και τους ημικύκλιους σωλήνες;",
+        options: [
+          { key: "α", text: "Η φλέβα του υδραγωγού της αίθουσας.", correct: true },
+          { key: "β", text: "Η φλέβα του υδραγωγού του κοχλία.", correct: false },
+          { key: "γ", text: "Οι έσω ακουστικές φλέβες.", correct: false },
+          { key: "δ", text: "Η φλέβα του κοχλιακού σωληναρίου.", correct: false }
+        ],
+        explanation: "Η φλέβα του υδραγωγού της αίθουσας δέχεται από ελλειπτικό κυστίδιο και ημικύκλιους σωλήνες."
+      },
+      {
+        id: 62,
+        category: "Αγγεία, νεύρα και φλεβική αποχέτευση",
+        source: "Διαφάνεια 42",
+        question: "Ποια αντιστοιχία φλεβικής αποχέτευσης είναι λανθασμένη;",
+        options: [
+          { key: "α", text: "Φλέβα υδραγωγού αίθουσας - άνω λιθοειδής κόλπος.", correct: false },
+          { key: "β", text: "Φλέβα υδραγωγού κοχλία - κάτω λιθοειδής κόλπος.", correct: true },
+          { key: "γ", text: "Έσω ακουστικές φλέβες - κάτω λιθοειδής ή σιγμοειδής κόλπος.", correct: false },
+          { key: "δ", text: "Φλέβα υδραγωγού κοχλία - άνω βολβός της έσω σφαγίτιδας.", correct: false }
+        ],
+        explanation: "Η φλέβα του υδραγωγού του κοχλία καταλήγει στον άνω βολβό της έσω σφαγίτιδας."
+      },
+      {
+        id: 63,
+        category: "Αγγεία, νεύρα και φλεβική αποχέτευση",
+        source: "Διαφάνεια 42",
+        question: "Οι έσω ακουστικές φλέβες αποχετεύουν από:",
+        options: [
+          { key: "α", text: "Το ελλειπτικό κυστίδιο και τους υμενώδεις ημικύκλιους σωλήνες μόνο.", correct: false },
+          { key: "β", text: "Το σφαιρικό κυστίδιο και τον υδραγωγό της αίθουσας.", correct: false },
+          { key: "γ", text: "Τον οστέινο κοχλία, το ακουστικό νεύρο και τα τοιχώματα του έσω ακουστικού πόρου.", correct: true },
+          { key: "δ", text: "Τον ενδολεμφικό θύλακο και την οπίσθια άνω επιφάνεια του λιθοειδούς.", correct: false }
+        ],
+        explanation: "Αυτή είναι η τριάδα απορροής που αναφέρεται για τις έσω ακουστικές φλέβες."
+      },
+      {
+        id: 64,
+        category: "Αγγεία, νεύρα και φλεβική αποχέτευση",
+        source: "Διαφάνειες 16, 41, 42",
+        question: "Ποια αντιστοιχία δομής και περιεχομένου ή απορροής δεν είναι σωστή;",
+        options: [
+          { key: "α", text: "Ελικοειδής πόρος - ελικοειδές γάγγλιο του κοχλιακού νεύρου.", correct: false },
+          { key: "β", text: "Υδραγωγός αίθουσας - ενδολεμφικός πόρος και μικρό φλεβίδιο.", correct: false },
+          { key: "γ", text: "Φλέβα υδραγωγού αίθουσας - άνω λιθοειδής κόλπος.", correct: false },
+          { key: "δ", text: "Φλέβα υδραγωγού κοχλία - απορροή από ελλειπτικό κυστίδιο και ημικύκλιους σωλήνες.", correct: true }
+        ],
+        explanation: "Η φλέβα του υδραγωγού του κοχλία αποχετεύει από τον κοχλία και το σφαιρικό κυστίδιο."
+      }
+    ];
+
+    let state = {
+      pool: [],
+      current: 0,
+      answers: {},
+      score: 0,
+      completed: false,
+      settings: {
+        category: "all",
+        search: "",
+        shuffleQuestions: true,
+        shuffleOptions: true
+      },
+      wrongIds: []
+    };
+
+    const els = {
+      categoryFilter: document.getElementById("categoryFilter"),
+      searchInput: document.getElementById("searchInput"),
+      shuffleQuestions: document.getElementById("shuffleQuestions"),
+      shuffleOptions: document.getElementById("shuffleOptions"),
+      startBtn: document.getElementById("startBtn"),
+      clearBtn: document.getElementById("clearBtn"),
+      printBtn: document.getElementById("printBtn"),
+      quizArea: document.getElementById("quizArea"),
+      resultsArea: document.getElementById("resultsArea"),
+      scoreStat: document.getElementById("scoreStat"),
+      progressStat: document.getElementById("progressStat"),
+      percentStat: document.getElementById("percentStat"),
+      categoryStat: document.getElementById("categoryStat"),
+      progressBar: document.getElementById("progressBar"),
+      printArea: document.getElementById("printArea")
+    };
+
+    function shuffle(items) {
+      const arr = [...items];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function normalizeText(text) {
+      return String(text).toLocaleLowerCase("el-GR");
+    }
+
+    function questionMatches(q, term) {
+      if (!term) return true;
+      const haystack = [
+        q.question,
+        q.category,
+        q.source,
+        q.explanation,
+        ...q.options.map(o => o.text)
+      ].join(" ");
+      return normalizeText(haystack).includes(normalizeText(term));
+    }
+
+    function buildPool() {
+      const category = els.categoryFilter.value;
+      const term = els.searchInput.value.trim();
+      let pool = questions.filter(q => (category === "all" || q.category === category) && questionMatches(q, term));
+      if (els.shuffleQuestions.checked) pool = shuffle(pool);
+      return pool.map(q => ({
+        ...q,
+        displayOptions: els.shuffleOptions.checked ? shuffle(q.options) : [...q.options]
+      }));
+    }
+
+    function saveState() {
+      const data = {
+        ...state,
+        settings: {
+          category: els.categoryFilter.value,
+          search: els.searchInput.value,
+          shuffleQuestions: els.shuffleQuestions.checked,
+          shuffleOptions: els.shuffleOptions.checked
+        }
+      };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    }
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return false;
+        const saved = JSON.parse(raw);
+        if (!Array.isArray(saved.pool) || !saved.pool.length) return false;
+        state = saved;
+        els.categoryFilter.value = saved.settings?.category || "all";
+        els.searchInput.value = saved.settings?.search || "";
+        els.shuffleQuestions.checked = saved.settings?.shuffleQuestions !== false;
+        els.shuffleOptions.checked = saved.settings?.shuffleOptions !== false;
+        return true;
+      } catch {
+        localStorage.removeItem(STORAGE_KEY);
+        return false;
+      }
+    }
+
+    function resetProgress() {
+      localStorage.removeItem(STORAGE_KEY);
+      state = {
+        pool: [],
+        current: 0,
+        answers: {},
+        score: 0,
+        completed: false,
+        settings: {
+          category: els.categoryFilter.value,
+          search: els.searchInput.value,
+          shuffleQuestions: els.shuffleQuestions.checked,
+          shuffleOptions: els.shuffleOptions.checked
+        },
+        wrongIds: []
+      };
+      renderIntro();
+      updateStats();
+    }
+
+    function startQuiz(customPool) {
+      state.pool = customPool || buildPool();
+      state.current = 0;
+      state.answers = {};
+      state.score = 0;
+      state.completed = false;
+      state.wrongIds = [];
+      els.resultsArea.innerHTML = "";
+      if (!state.pool.length) {
+        els.quizArea.innerHTML = '<div class="question-card empty">Δεν βρέθηκαν ερωτήσεις με τα τρέχοντα φίλτρα.</div>';
+        updateStats();
+        return;
+      }
+      saveState();
+      renderQuestion();
+    }
+
+    function renderIntro() {
+      els.resultsArea.innerHTML = "";
+      els.quizArea.innerHTML = `
+        <div class="question-card">
+          <div class="meta"><span class="pill">64 ερωτήσεις</span><span>Αρχείο: Έσω ους</span></div>
+          <div class="question-text">Επίλεξε φίλτρα και πάτησε «Έναρξη».</div>
+          <p>Το quiz κρατά σκορ, εξηγεί κάθε απάντηση μετά την επιλογή και στο τέλος δίνει ανασκόπηση ανά κατηγορία.</p>
+        </div>
+      `;
+    }
+
+    function renderQuestion() {
+      const q = state.pool[state.current];
+      if (!q) return renderResults();
+
+      const answered = state.answers[q.id];
+      const selectedText = answered?.selectedText;
+
+      els.quizArea.innerHTML = `
+        <article class="question-card">
+          <div class="meta">
+            <span class="pill">${q.category}</span>
+            <span>${q.source} · Ερώτηση ${state.current + 1} / ${state.pool.length}</span>
+          </div>
+          <div class="question-text">${q.question}</div>
+          <div class="options">
+            ${q.displayOptions.map((opt, idx) => {
+              const selected = selectedText === opt.text;
+              const cls = answered ? (opt.correct ? "correct" : selected ? "wrong" : "") : "";
+              const disabled = answered ? "disabled" : "";
+              return `<button class="option ${cls}" ${disabled} data-index="${idx}">
+                <span class="key">${LETTERS[idx]})</span><span>${opt.text}</span>
+              </button>`;
+            }).join("")}
+          </div>
+          <div id="feedback" class="feedback ${answered ? "show " + (answered.correct ? "good" : "bad") : ""}">
+            ${answered ? `<strong>${answered.correct ? "Σωστό." : "Λάθος."}</strong>${q.explanation}` : ""}
+          </div>
+          <div class="nav-row">
+            <button class="secondary" id="restartBtn">Επανεκκίνηση</button>
+            <button id="nextBtn" ${answered ? "" : "disabled"}>${state.current === state.pool.length - 1 ? "Αποτελέσματα" : "Επόμενη ερώτηση"}</button>
+          </div>
+        </article>
+      `;
+
+      document.querySelectorAll(".option").forEach(btn => {
+        btn.addEventListener("click", () => answerQuestion(Number(btn.dataset.index)));
+      });
+      document.getElementById("nextBtn").addEventListener("click", nextQuestion);
+      document.getElementById("restartBtn").addEventListener("click", () => startQuiz());
+      updateStats();
+    }
+
+    function answerQuestion(index) {
+      const q = state.pool[state.current];
+      if (state.answers[q.id]) return;
+      const selected = q.displayOptions[index];
+      state.answers[q.id] = {
+        selectedText: selected.text,
+        correct: selected.correct,
+        category: q.category
+      };
+      if (selected.correct) {
+        state.score += 1;
+      } else {
+        state.wrongIds.push(q.id);
+      }
+      saveState();
+      renderQuestion();
+    }
+
+    function nextQuestion() {
+      if (state.current >= state.pool.length - 1) {
+        renderResults();
+        return;
+      }
+      state.current += 1;
+      saveState();
+      renderQuestion();
+    }
+
+    function categoryStats() {
+      const stats = {};
+      state.pool.forEach(q => {
+        stats[q.category] ||= { total: 0, correct: 0 };
+        stats[q.category].total += 1;
+        if (state.answers[q.id]?.correct) stats[q.category].correct += 1;
+      });
+      return stats;
+    }
+
+    function renderResults() {
+      state.completed = true;
+      saveState();
+      els.quizArea.innerHTML = "";
+      const total = state.pool.length;
+      const wrong = total - state.score;
+      const percent = total ? Math.round((state.score / total) * 100) : 0;
+      const stats = categoryStats();
+      const wrongQuestions = state.pool.filter(q => !state.answers[q.id]?.correct);
+
+      els.resultsArea.innerHTML = `
+        <article class="results-card">
+          <h2>Τελική επίδοση</h2>
+          <div class="results-grid">
+            <div class="stat"><span>Σκορ</span><strong>${state.score} / ${total}</strong></div>
+            <div class="stat"><span>Ποσοστό</span><strong>${percent}%</strong></div>
+            <div class="stat"><span>Σωστές</span><strong>${state.score}</strong></div>
+            <div class="stat"><span>Λάθος</span><strong>${wrong}</strong></div>
+            <div class="stat"><span>Σύνολο</span><strong>${total}</strong></div>
+          </div>
+
+          <h3>Απόδοση ανά κατηγορία</h3>
+          <table>
+            <thead><tr><th>Κατηγορία</th><th>Σωστές</th><th>Σύνολο</th><th>Ποσοστό</th></tr></thead>
+            <tbody>
+              ${Object.entries(stats).map(([cat, s]) => `<tr><td>${cat}</td><td>${s.correct}</td><td>${s.total}</td><td>${Math.round((s.correct / s.total) * 100)}%</td></tr>`).join("")}
+            </tbody>
+          </table>
+
+          <h3>Ανασκόπηση λανθασμένων</h3>
+          <div class="review-list">
+            ${wrongQuestions.length ? wrongQuestions.map(q => {
+              const correct = q.options.find(o => o.correct);
+              const picked = state.answers[q.id]?.selectedText || "Δεν απαντήθηκε";
+              return `<div class="review-item">
+                <strong>${q.id}. ${q.question}</strong>
+                <div>Απάντησες: ${picked}</div>
+                <div>Σωστό: ${correct.text}</div>
+                <div>${q.explanation}</div>
+              </div>`;
+            }).join("") : '<div class="review-item">Δεν υπάρχουν λανθασμένες ερωτήσεις.</div>'}
+          </div>
+
+          <div class="nav-row">
+            <button id="restartFinalBtn">Επανεκκίνηση</button>
+            <button id="retryWrongBtn" ${wrongQuestions.length ? "" : "disabled"}>Επανάληψη λανθασμένων</button>
+          </div>
+        </article>
+      `;
+
+      document.getElementById("restartFinalBtn").addEventListener("click", () => startQuiz());
+      document.getElementById("retryWrongBtn").addEventListener("click", () => {
+        const retry = wrongQuestions.map(q => ({
+          ...q,
+          displayOptions: els.shuffleOptions.checked ? shuffle(q.options) : [...q.options]
+        }));
+        startQuiz(els.shuffleQuestions.checked ? shuffle(retry) : retry);
+      });
+      updateStats();
+    }
+
+    function updateStats() {
+      const total = state.pool.length || questions.length;
+      const answeredCount = Object.keys(state.answers).length;
+      const percent = answeredCount ? Math.round((state.score / answeredCount) * 100) : 0;
+      const q = state.pool[state.current];
+      els.scoreStat.textContent = String(state.score);
+      els.progressStat.textContent = `${Math.min(answeredCount, total)} / ${total}`;
+      els.percentStat.textContent = `${percent}%`;
+      els.categoryStat.textContent = q?.category || "-";
+      els.progressBar.style.width = total ? `${Math.min(100, (answeredCount / total) * 100)}%` : "0%";
+    }
+
+    function populateCategories() {
+      const cats = [...new Set(questions.map(q => q.category))];
+      els.categoryFilter.innerHTML = '<option value="all">Όλες οι κατηγορίες</option>' + cats.map(cat => `<option value="${cat}">${cat}</option>`).join("");
+    }
+
+    function renderPrintView() {
+      const byCategory = {};
+      questions.forEach(q => {
+        byCategory[q.category] = (byCategory[q.category] || 0) + 1;
+      });
+      els.printArea.innerHTML = `
+        <h1>Έσω ους - MCQs Νευροανατομίας</h1>
+        <p>Σύνολο ερωτήσεων: ${questions.length}</p>
+        <table>
+          <thead><tr><th>Κατηγορία</th><th>Αριθμός ερωτήσεων</th></tr></thead>
+          <tbody>${Object.entries(byCategory).map(([cat, count]) => `<tr><td>${cat}</td><td>${count}</td></tr>`).join("")}</tbody>
+        </table>
+        ${questions.map(q => `
+          <div class="print-question">
+            <h3>${q.id}. ${q.question}</h3>
+            <div>${q.category} · ${q.source}</div>
+            <ol type="a">
+              ${q.options.map(o => `<li>${o.text}</li>`).join("")}
+            </ol>
+          </div>
+        `).join("")}
+        <section class="answer-key">
+          <h2>Απαντήσεις και αιτιολογήσεις</h2>
+          ${questions.map(q => {
+            const correct = q.options.find(o => o.correct);
+            return `<div class="print-question"><strong>${q.id}. ${correct.key}) ${correct.text}</strong><br>${q.explanation}</div>`;
+          }).join("")}
+        </section>
+      `;
+    }
+
+    els.startBtn.addEventListener("click", () => startQuiz());
+    els.clearBtn.addEventListener("click", resetProgress);
+    els.printBtn.addEventListener("click", () => {
+      renderPrintView();
+      window.print();
+    });
+
+    populateCategories();
+    renderPrintView();
+    if (loadState()) {
+      if (state.completed) renderResults();
+      else renderQuestion();
+    } else {
+      renderIntro();
+      updateStats();
+    }
+  </script>
+</body>
+</html>
