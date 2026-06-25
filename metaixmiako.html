@@ -1,0 +1,2680 @@
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Νευροανατομία - MCQs Ρινικού και Μεταιχμιακού Συστήματος</title>
+  <style>
+    :root {
+      --bg: #f5f7f8;
+      --panel: #ffffff;
+      --ink: #182027;
+      --muted: #66737f;
+      --line: #d9e0e6;
+      --accent: #295f73;
+      --accent-2: #7b5b2f;
+      --good: #187044;
+      --good-bg: #e7f5ed;
+      --bad: #9b2f2f;
+      --bad-bg: #f9e7e7;
+      --warn: #8a6419;
+      --shadow: 0 18px 45px rgba(27, 39, 48, 0.08);
+      --radius: 8px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+      color: var(--ink);
+      background:
+        linear-gradient(180deg, rgba(41, 95, 115, 0.08), transparent 310px),
+        var(--bg);
+      line-height: 1.55;
+    }
+
+    .shell {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 48px;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: end;
+      margin-bottom: 18px;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      margin-bottom: 6px;
+      font-size: clamp(1.55rem, 2.6vw, 2.4rem);
+      line-height: 1.12;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      max-width: 760px;
+    }
+
+    .top-actions, .controls-grid, .quiz-actions, .result-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    button, select, input[type="search"] {
+      font: inherit;
+    }
+
+    button {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      color: var(--ink);
+      border-radius: 7px;
+      padding: 10px 14px;
+      cursor: pointer;
+      transition: transform 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+    }
+
+    button:hover:not(:disabled) {
+      transform: translateY(-1px);
+      border-color: #9fb0bc;
+    }
+
+    button:disabled {
+      opacity: 0.48;
+      cursor: not-allowed;
+    }
+
+    .primary {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .secondary {
+      background: #eef3f5;
+    }
+
+    .danger {
+      color: #7f2828;
+      border-color: #e0b8b8;
+      background: #fff8f8;
+    }
+
+    .panel {
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(217, 224, 230, 0.9);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .controls {
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    .controls-grid {
+      align-items: end;
+    }
+
+    .field {
+      display: grid;
+      gap: 6px;
+      min-width: 210px;
+      flex: 1 1 210px;
+    }
+
+    .field.compact {
+      min-width: 0;
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-bottom: 10px;
+      color: var(--muted);
+    }
+
+    label {
+      font-size: 0.88rem;
+      color: var(--muted);
+      font-weight: 650;
+    }
+
+    select, input[type="search"] {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      padding: 10px 12px;
+      background: #fff;
+      color: var(--ink);
+    }
+
+    input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--accent);
+    }
+
+    .stats-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin: 16px 0;
+    }
+
+    .stat {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 12px;
+    }
+
+    .stat b {
+      display: block;
+      font-size: 1.18rem;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 0.87rem;
+    }
+
+    .progress-wrap {
+      height: 10px;
+      background: #e5ebef;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+
+    .progress-bar {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), #4f8799);
+      transition: width 0.2s ease;
+    }
+
+    .question-card {
+      padding: clamp(18px, 3vw, 30px);
+    }
+
+    .question-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid #cdd8df;
+      color: #31515e;
+      background: #eef5f7;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .question-text {
+      font-size: clamp(1.08rem, 2vw, 1.38rem);
+      line-height: 1.42;
+      margin-bottom: 18px;
+      font-weight: 760;
+      letter-spacing: 0;
+    }
+
+    .options {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .option {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      text-align: left;
+      align-items: start;
+      gap: 10px;
+      padding: 13px 14px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: #fff;
+      min-height: 58px;
+    }
+
+    .option .key {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: inline-grid;
+      place-items: center;
+      font-weight: 800;
+      background: #edf2f4;
+      color: #38515d;
+    }
+
+    .option.correct {
+      background: var(--good-bg);
+      border-color: #8cc9a8;
+      color: #0f5633;
+    }
+
+    .option.correct .key {
+      background: var(--good);
+      color: #fff;
+    }
+
+    .option.wrong {
+      background: var(--bad-bg);
+      border-color: #e2a0a0;
+      color: #762222;
+    }
+
+    .option.wrong .key {
+      background: var(--bad);
+      color: #fff;
+    }
+
+    .feedback {
+      display: none;
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      background: #fbfcfd;
+      margin-bottom: 16px;
+    }
+
+    .feedback.show { display: block; }
+    .feedback.good { border-color: #8cc9a8; background: var(--good-bg); }
+    .feedback.bad { border-color: #e2a0a0; background: var(--bad-bg); }
+
+    .feedback-title {
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .quiz-actions {
+      justify-content: space-between;
+    }
+
+    .empty {
+      padding: 24px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .results {
+      display: none;
+      padding: clamp(18px, 3vw, 30px);
+    }
+
+    .results.show { display: block; }
+    .quiz.hide { display: none; }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin: 18px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0 20px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+
+    th {
+      background: #eef3f5;
+      font-size: 0.9rem;
+      color: #41525d;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+
+    .wrong-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .wrong-item {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 12px;
+      background: #fff;
+    }
+
+    .wrong-item b { display: block; margin-bottom: 5px; }
+    .muted { color: var(--muted); }
+    .print-bank { display: none; }
+
+    @media (max-width: 760px) {
+      .shell { width: min(100% - 20px, 1120px); padding-top: 18px; }
+      header { grid-template-columns: 1fr; align-items: start; }
+      .stats-strip, .result-grid { grid-template-columns: repeat(2, 1fr); }
+      .option { grid-template-columns: 36px 1fr; padding: 12px; }
+      .top-actions { justify-content: stretch; }
+      .top-actions button { flex: 1 1 auto; }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+        color: #000;
+      }
+
+      .shell > header,
+      .controls,
+      .stats-strip,
+      .quiz,
+      .results,
+      .progress-wrap,
+      .top-actions {
+        display: none !important;
+      }
+
+      .shell {
+        width: 100%;
+        padding: 0;
+      }
+
+      .print-bank {
+        display: block;
+      }
+
+      .print-question {
+        break-inside: avoid;
+        page-break-inside: avoid;
+        margin: 0 0 16px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid #ccc;
+      }
+
+      .print-question h3 {
+        font-size: 12pt;
+        margin-bottom: 5px;
+      }
+
+      .print-question ol {
+        margin-top: 5px;
+      }
+
+      .print-answer {
+        display: none;
+        margin-top: 6px;
+        font-size: 10pt;
+      }
+
+      body.print-answers .print-answer {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header>
+      <div>
+        <h1>Νευροανατομία: Ρινικός Εγκέφαλος και Μεταιχμιακό Σύστημα</h1>
+        <p class="subtitle">Δύσκολο διαδραστικό quiz πολλαπλής επιλογής βασισμένο στις διαφάνειες του PDF. Οι αιτιολογήσεις εμφανίζονται μετά την απάντηση.</p>
+      </div>
+      <div class="top-actions">
+        <button id="printBtn" class="secondary" type="button">Εκτύπωση</button>
+        <button id="clearProgressBtn" class="danger" type="button">Καθαρισμός προόδου</button>
+      </div>
+    </header>
+
+    <section class="controls panel" aria-label="Ρυθμίσεις quiz">
+      <div class="controls-grid">
+        <div class="field">
+          <label for="categoryFilter">Κατηγορία</label>
+          <select id="categoryFilter"></select>
+        </div>
+        <div class="field">
+          <label for="searchInput">Αναζήτηση</label>
+          <input id="searchInput" type="search" placeholder="Όρος, δομή, σχέση, διαφάνεια">
+        </div>
+        <label class="field compact">
+          <input id="shuffleQuestions" type="checkbox" checked>
+          Ανακάτεμα ερωτήσεων
+        </label>
+        <label class="field compact">
+          <input id="shuffleAnswers" type="checkbox" checked>
+          Ανακάτεμα απαντήσεων
+        </label>
+        <label class="field compact">
+          <input id="printAnswers" type="checkbox">
+          Απαντήσεις στην εκτύπωση
+        </label>
+        <button id="startBtn" class="primary" type="button">Έναρξη / Εφαρμογή</button>
+      </div>
+    </section>
+
+    <section class="stats-strip" aria-label="Στατιστικά προόδου">
+      <div class="stat"><b id="scoreStat">0</b><span>Σκορ</span></div>
+      <div class="stat"><b id="progressStat">0 / 0</b><span>Πρόοδος</span></div>
+      <div class="stat"><b id="percentStat">0%</b><span>Επιτυχία</span></div>
+      <div class="stat"><b id="categoryStat">-</b><span>Τρέχουσα κατηγορία</span></div>
+    </section>
+
+    <div class="progress-wrap" aria-hidden="true">
+      <div id="progressBar" class="progress-bar"></div>
+    </div>
+
+    <section id="quiz" class="quiz panel"></section>
+    <section id="results" class="results panel"></section>
+    <section id="printBank" class="print-bank"></section>
+  </main>
+
+  <script>
+    const QUIZ_VERSION = "metaihmiako-2026-06-25-v1";
+    const STORAGE_KEY = "neuroanatomy_mcqs_progress_v1";
+    const LETTERS = ["α", "β", "γ", "δ"];
+
+    const questions = [
+          {
+                "id": 1,
+                "category": "Οσφρητικό σύστημα",
+                "source": "Διαφάνειες 2-4",
+                "question": "Σχετικά με την περιφερική μοίρα του οσφρητικού νευρικού συστήματος, ποιο από τα παρακάτω δεν ισχύει;",
+                "options": [
+                      {
+                            "text": "Περιλαμβάνει τον ιπποκάμπειο σχηματισμό και την ψαλίδα.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Περιλαμβάνει το οσφρητικό επιθήλιο και τα οσφρητικά νεύρα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Περιλαμβάνει τον οσφρητικό βολβό και την οσφρητική ταινία.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Περιλαμβάνει το οσφρητικό τρίγωνο και τις οσφρητικές χορδές.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Ο ιπποκάμπειος σχηματισμός και η ψαλίδα αναφέρονται στην κεντρική μοίρα, όχι στην περιφερική."
+          },
+          {
+                "id": 2,
+                "category": "Οσφρητικό σύστημα",
+                "source": "Διαφάνειες 2, 10",
+                "question": "Ποια αντιστοίχιση δομής και μοίρας του οσφρητικού συστήματος είναι λανθασμένη;",
+                "options": [
+                      {
+                            "text": "Παροσφρητική άλως - περιφερική μοίρα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Αμυγδαλοειδής πυρήνας - περιφερική μοίρα.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Πρόσθια διάτρητη ουσία - περιφερική μοίρα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Γάγγλιο της ηνίας - κεντρική μοίρα.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Ο αμυγδαλοειδής πυρήνας δίνεται στην κεντρική μοίρα του οσφρητικού/ρινικού εγκεφάλου."
+          },
+          {
+                "id": 3,
+                "category": "Οσφρητικό σύστημα",
+                "source": "Διαφάνειες 4-7",
+                "question": "Σχετικά με τις οσφρητικές χορδές, ποιο από τα παρακάτω δεν ισχύει;",
+                "options": [
+                      {
+                            "text": "Η έξω χορδή συνδέεται με τον απιοειδή λοβό.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Η έσω χορδή σχετίζεται με υποθάλαμο και στέλεχος.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Η έσω χορδή απολήγει στον απιοειδή λοβό.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Οι οσφρητικές χορδές εντάσσονται στην περιφερική μοίρα.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η απολήξη προς τον απιοειδή λοβό αφορά την έξω, όχι την έσω, οσφρητική χορδή."
+          },
+          {
+                "id": 4,
+                "category": "Οσφρητικό σύστημα",
+                "source": "Διαφάνειες 6-7",
+                "question": "Ένα από τα παρακάτω είναι λάθος για την πρόσθια διάτρητη ουσία και τις χορδές:",
+                "options": [
+                      {
+                            "text": "Η έξω οσφρητική χορδή σχετίζεται με τον απιοειδή λοβό.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Η έσω οσφρητική χορδή σχετίζεται με τον υποθάλαμο.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Η έσω οσφρητική χορδή σχετίζεται με το στέλεχος.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Η έξω οσφρητική χορδή σχετίζεται με τον πρόσθιο θάλαμο.",
+                            "correct": true
+                      }
+                ],
+                "explanation": "Ο πρόσθιος θάλαμος δεν αναφέρεται ως στόχος της έξω χορδής στο PDF."
+          },
+          {
+                "id": 5,
+                "category": "Οσφρητικό σύστημα",
+                "source": "Διαφάνειες 2-5",
+                "question": "Ποιο από τα παρακάτω δεν ανήκει στη σειρά δομών της περιφερικής οσφρητικής μοίρας όπως παρουσιάζεται στις διαφάνειες;",
+                "options": [
+                      {
+                            "text": "Πυρήνες του μαστίου.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Οσφρητικός βολβός.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Οσφρητική ταινία.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Πρόσθια διάτρητη ουσία.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Οι πυρήνες/μαστία του υποθαλάμου εμφανίζονται στις συνδέσεις και στο κύκλωμα Papez, όχι στην περιφερική μοίρα."
+          },
+          {
+                "id": 6,
+                "category": "Οσφρητικό σύστημα",
+                "source": "Διαφάνεια 9",
+                "question": "Σχετικά με την περιφερική μοίρα του ρινικού εγκεφάλου, ποια σχέση είναι λανθασμένη;",
+                "options": [
+                      {
+                            "text": "Παροσφρητική άλως και υπομεσολόβια έλικα αναφέρονται μαζί.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Παροσφρητική άλως και υπόθεμα αποτελούν το ζεύγος της περιφερικής μοίρας.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Η παροσφρητική άλως εντάσσεται στην περιφερική μοίρα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Η υπομεσολόβια έλικα εντάσσεται στην περιφερική μοίρα.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Το υπόθεμα ανήκει στον ιπποκάμπειο σχηματισμό, όχι στο ζεύγος της περιφερικής μοίρας."
+          },
+          {
+                "id": 7,
+                "category": "Οσφρητικό σύστημα",
+                "source": "Διαφάνειες 2, 10",
+                "question": "Ποιο από τα παρακάτω δεν κατατάσσεται στην κεντρική μοίρα του οσφρητικού νευρικού συστήματος;",
+                "options": [
+                      {
+                            "text": "Απιοειδής λοβός.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Ιπποκάμπειος σχηματισμός.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Οσφρητικό τρίγωνο.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Μυελίνη ταινία.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Το οσφρητικό τρίγωνο δίνεται στην περιφερική μοίρα."
+          },
+          {
+                "id": 8,
+                "category": "Οσφρητικό σύστημα",
+                "source": "Διαφάνειες 2, 10",
+                "question": "Ποια τετράδα περιέχει μόνο στοιχεία που εμφανίζονται στην κεντρική μοίρα;",
+                "options": [
+                      {
+                            "text": "Οσφρητικός βολβός, ψαλίδα, γάγγλιο της ηνίας, αμυγδαλοειδής πυρήνας.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Οσφρητική ταινία, μεθόριος ταινία, μυελίνη ταινία, απιοειδής λοβός.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Πρόσθια διάτρητη ουσία, ιππόκαμπος, ψαλίδα, υπόθεμα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Απιοειδής λοβός, ψαλίδα, γάγγλιο της ηνίας, αμυγδαλοειδής πυρήνας.",
+                            "correct": true
+                      }
+                ],
+                "explanation": "Η πρώτη τετράδα αποτελείται αποκλειστικά από στοιχεία της κεντρικής μοίρας όπως παρατίθενται."
+          },
+          {
+                "id": 9,
+                "category": "Οσφρητικό σύστημα",
+                "source": "Διαφάνειες 3-4",
+                "question": "Ποιο από τα παρακάτω δεν αντιστοιχεί σε στοιχείο της περιφερικής οσφρητικής οδού πριν από την κεντρική μοίρα;",
+                "options": [
+                      {
+                            "text": "Σύνδεσμος των ιπποκάμπων.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Οσφρητικά νεύρα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Οσφρητικός βολβός.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Οσφρητική ταινία.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Ο σύνδεσμος των ιπποκάμπων εμφανίζεται στην κεντρική μοίρα."
+          },
+          {
+                "id": 10,
+                "category": "Οσφρητικό σύστημα",
+                "source": "Διαφάνειες 2, 10",
+                "question": "Όλα τα παρακάτω είναι αληθή εκτός από ένα:",
+                "options": [
+                      {
+                            "text": "Η πρόσθια διάτρητη ουσία αναφέρεται στην περιφερική μοίρα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Η οσφρητική ταινία αναφέρεται στην κεντρική μοίρα.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Η παροσφρητική άλως αναφέρεται στην περιφερική μοίρα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Η μεθόριος ταινία αναφέρεται στην κεντρική μοίρα.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η οσφρητική ταινία ταξινομείται στις διαφάνειες με την περιφερική μοίρα."
+          },
+          {
+                "id": 11,
+                "category": "Απιοειδής λοβός",
+                "source": "Διαφάνεια 11",
+                "question": "Σχετικά με τον ευρύτερο απιοειδή λοβό, ποιο από τα παρακάτω δεν ισχύει;",
+                "options": [
+                      {
+                            "text": "Περιλαμβάνει το άγκιστρο της ιπποκάμπειας έλικας.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Περιλαμβάνει τον περιαμυγδαλοειδή φλοιό.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Περιλαμβάνει την οδοντωτή έλικα ως κύριο φλοιό.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Περιλαμβάνει τον ουδό της νήσου.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η οδοντωτή έλικα ανήκει στον ιπποκάμπειο σχηματισμό, όχι στη λίστα του ευρύτερου απιοειδούς λοβού."
+          },
+          {
+                "id": 12,
+                "category": "Απιοειδής λοβός",
+                "source": "Διαφάνεια 11",
+                "question": "Ποια αντιστοίχιση για τον απιοειδή λοβό είναι λανθασμένη;",
+                "options": [
+                      {
+                            "text": "Προαπιοειδής φλοιός - αμφιμηνοειδής έλικα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Περιαμυγδαλοειδής φλοιός - μηνοειδής έλικα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Ουδός της νήσου - στοιχείο του ευρύτερου απιοειδούς λοβού.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Προαπιοειδής φλοιός - μηνοειδής έλικα.",
+                            "correct": true
+                      }
+                ],
+                "explanation": "Η μηνοειδής έλικα αντιστοιχίζεται στον περιαμυγδαλοειδή, όχι στον προαπιοειδή, φλοιό."
+          },
+          {
+                "id": 13,
+                "category": "Απιοειδής λοβός",
+                "source": "Διαφάνεια 11",
+                "question": "Ποια από τις παρακάτω σχέσεις δεν αντιστοιχεί σωστά στον απιοειδή λοβό;",
+                "options": [
+                      {
+                            "text": "Έσω οσφρητική χορδή - αποκλειστικά οδοντωτή έλικα.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Περιαμυγδαλοειδής φλοιός - μηνοειδής έλικα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Έξω οσφρητική χορδή - απιοειδής λοβός.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Διαγώνια ταινία Broca - απιοειδής λοβός.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η έσω χορδή δίνεται προς υποθάλαμο/στέλεχος και όχι ως αποκλειστική σχέση με την οδοντωτή έλικα."
+          },
+          {
+                "id": 14,
+                "category": "Απιοειδής λοβός",
+                "source": "Διαφάνεια 13",
+                "question": "Σχετικά με τη μικροδομή του απιοειδούς φλοιού, ποιο από τα παρακάτω είναι λάθος;",
+                "options": [
+                      {
+                            "text": "Περιγράφεται ως τριστρωματική δομή.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Περιγράφεται ως εξακολούθως νεοφλοιώδης δομή έξι στιβάδων.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Περιέχει πυραμιδικά κύτταρα με υψηλή διασύνδεση.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Περιέχει ανασταλτικούς GABAεργικούς ενδιάμεσους νευρώνες.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Το PDF τονίζει την ξεχωριστή τριστρωματική δομή, όχι εξα στιβάδες νεοφλοιώδους τύπου."
+          },
+          {
+                "id": 15,
+                "category": "Απιοειδής λοβός",
+                "source": "Διαφάνεια 13",
+                "question": "Ποιο στοιχείο δεν ανήκει στη μικροδομή που περιγράφεται για τον απιοειδή φλοιό;",
+                "options": [
+                      {
+                            "text": "Τριστρωματική οργάνωση.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Πυραμιδικά κύτταρα με υψηλή διασύνδεση.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Κάθετη διάταξη μαστιοθαλαμικών ινών.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Οριζόντια διάταξη προεξοχών ινών.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η διαφάνεια αναφέρει οριζόντια διάταξη προεξοχών ινών, όχι μαστιοθαλαμικές ίνες."
+          },
+          {
+                "id": 16,
+                "category": "Απιοειδής λοβός",
+                "source": "Διαφάνεια 14",
+                "question": "Σχετικά με τον απιοειδή λοβό, τι ισχύει;",
+                "options": [
+                      {
+                            "text": "Ορίζεται ως πρωτογενής κινητικός πυρήνας της νήσου.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Αποτελεί το πέρας της μαστιοθαλαμικής δεσμίδας.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Αποτελεί το κάτω τοίχωμα της τέταρτης κοιλίας.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Συνδέεται με την επιληπτογόνο ζώνη Area Tempestas.",
+                            "correct": true
+                      }
+                ],
+                "explanation": "Η διαφάνεια αναφέρει τον απιοειδή λοβό ως epileptogenic trigger zone, Area Tempestas."
+          },
+          {
+                "id": 17,
+                "category": "Απιοειδής λοβός",
+                "source": "Διαφάνεια 15",
+                "question": "Ποιο από τα παρακάτω δεν εμφανίζεται στο διάγραμμα συνδέσεων του απιοειδούς λοβού;",
+                "options": [
+                      {
+                            "text": "Corticospinal tract.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Orbitofrontal cortex.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Mediodorsal thalamus.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Mammillary bodies.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Στο διάγραμμα συνδέσεων φαίνονται φλοιϊκές, θαλαμικές, αμυγδαλικές και ιπποκαμπικές σχέσεις, όχι πυραμιδική οδός."
+          },
+          {
+                "id": 18,
+                "category": "Απιοειδής λοβός",
+                "source": "Διαφάνεια 15",
+                "question": "Στο σχήμα συνδέσεων του απιοειδούς λοβού, ποιο από τα παρακάτω δεν εμφανίζεται;",
+                "options": [
+                      {
+                            "text": "Orbitofrontal cortex.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Substantia nigra pars reticularis.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Amygdala σε σχέση με hippocampus.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Mammillary bodies.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Το σχήμα συνδέσεων του απιοειδούς λοβού δεν περιλαμβάνει τη substantia nigra pars reticularis."
+          },
+          {
+                "id": 19,
+                "category": "Απιοειδής λοβός",
+                "source": "Διαφάνειες 11-15",
+                "question": "Όλα τα παρακάτω είναι αληθή για τον απιοειδή λοβό εκτός από ένα:",
+                "options": [
+                      {
+                            "text": "Σχετίζεται με την έξω οσφρητική χορδή.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Περιλαμβάνει προαπιοειδή και περιαμυγδαλοειδή φλοιό.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Ταυτίζεται με τον σύνδεσμο των ιπποκάμπων.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Έχει τριστρωματική οργάνωση.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Ο σύνδεσμος των ιπποκάμπων είναι ξεχωριστή δομή της κεντρικής μοίρας."
+          },
+          {
+                "id": 20,
+                "category": "Απιοειδής λοβός",
+                "source": "Διαφάνεια 11",
+                "question": "Ποια ονομασία συνδέεται στη διαφάνεια με την περιαμυγδαλοειδή περιοχή;",
+                "options": [
+                      {
+                            "text": "Αμφιμηνοειδής έλικα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Υπομεσολόβια έλικα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Οδοντωτή έλικα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Μηνοειδής έλικα.",
+                            "correct": true
+                      }
+                ],
+                "explanation": "Ο περιαμυγδαλοειδής φλοιός σημειώνεται ως μηνοειδής έλικα."
+          },
+          {
+                "id": 21,
+                "category": "Ιπποκάμπειος σχηματισμός",
+                "source": "Διαφάνεια 18",
+                "question": "Ποια τριάδα αντιστοιχεί στον ιπποκάμπειο σχηματισμό όπως δίνεται στις διαφάνειες;",
+                "options": [
+                      {
+                            "text": "Ιππόκαμπος, οδοντωτή έλικα, υπόθεμα.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Ιππόκαμπος, μαστία, πρόσθιος θάλαμος.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Οδοντωτή έλικα, ουδός νήσου, απιοειδής φλοιός.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Υπόθεμα, γάγγλιο ηνίας, μεθόριος ταινία.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η διαφάνεια 18 αναγράφει ιππόκαμπο, οδοντωτή έλικα και υπόθεμα."
+          },
+          {
+                "id": 22,
+                "category": "Ιπποκάμπειος σχηματισμός",
+                "source": "Διαφάνεια 19",
+                "question": "Σχετικά με τη μετανάστευση του ιπποκάμπου, ποιο από τα παρακάτω δεν ισχύει;",
+                "options": [
+                      {
+                            "text": "Ξεκινά από θέση άνωθεν του θαλάμου.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Ξεκινά από τον κροταφικό λοβό και ανεβαίνει πάνω από τον θάλαμο.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Κατευθύνεται προς τον κροταφικό λοβό.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Συνδέεται με την ανάπτυξη του ημισφαιρίου δίκην C.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η φορά είναι από θέση άνωθεν του θαλάμου προς τον κροταφικό λοβό, όχι αντίστροφα."
+          },
+          {
+                "id": 23,
+                "category": "Ιπποκάμπειος σχηματισμός",
+                "source": "Διαφάνεια 20",
+                "question": "Ποιο από τα παρακάτω δεν αντιστοιχεί στην αναπτυξιακή εικόνα του ημισφαιρίου;",
+                "options": [
+                      {
+                            "text": "Ανάπτυξη του ημισφαιρίου δίκην C.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Εμβρυϊκός εγκέφαλος 14 εβδομάδων.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Ευθύγραμμη κάθοδος χωρίς καμπύλη C.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Σχέση με πλάγια κοιλία και κροταφικό κέρας.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Το PDF τονίζει την ανάπτυξη δίκην C, όχι ευθύγραμμη πορεία."
+          },
+          {
+                "id": 24,
+                "category": "Ιπποκάμπειος σχηματισμός",
+                "source": "Διαφάνεια 21",
+                "question": "Σχετικά με τον ιππόκαμπο, ποιο από τα παρακάτω είναι λάθος;",
+                "options": [
+                      {
+                            "text": "Είναι έπαρμα φαιάς ουσίας.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Βρίσκεται στο κάτω τοίχωμα του κροταφικού κέρατος.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Έχει μήκος περίπου 5 cm σύμφωνα με τη διαφάνεια.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Βρίσκεται στο άνω τοίχωμα της τέταρτης κοιλίας.",
+                            "correct": true
+                      }
+                ],
+                "explanation": "Η θέση που δίνεται είναι το κάτω τοίχωμα του κροταφικού κέρατος της πλάγιας κοιλίας."
+          },
+          {
+                "id": 25,
+                "category": "Ιπποκάμπειος σχηματισμός",
+                "source": "Διαφάνεια 21",
+                "question": "Ποια λεπτομέρεια αντιστοιχεί στο πρόσθιο άκρο του ιπποκάμπου;",
+                "options": [
+                      {
+                            "text": "Δακτυλιοειδή επάρματα και κροταφικός χαρακτήρας.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Βαθμιαία μετάπτωση στο φαιό ταινίδιο.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Άμεση συνέχεια με το φαιό ένδυμα του μεσολοβίου.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Προσάρτηση της μυελίνης ταινίας της ηνίας.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Τα δακτυλιοειδή επάρματα αναφέρονται για το πρόσθιο άκρο."
+          },
+          {
+                "id": 26,
+                "category": "Ιπποκάμπειος σχηματισμός",
+                "source": "Διαφάνειες 21-23",
+                "question": "Σχετικά με το οπίσθιο άκρο του ιπποκάμπου, τι ισχύει;",
+                "options": [
+                      {
+                            "text": "Διαπλατύνεται απότομα προς την πρόσθια διάτρητη ουσία.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Λεπταίνει βαθμιαία και μεταπίπτει στο φαιό ταινίδιο.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Σχηματίζει τα δακτυλιοειδή επάρματα του κροταφικού άκρου.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Καταλήγει απευθείας στον ουδό της νήσου.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η διαφάνεια αναφέρει ότι το οπίσθιο άκρο λεπταίνει και μεταπίπτει στο φαιό ταινίδιο."
+          },
+          {
+                "id": 27,
+                "category": "Ιπποκάμπειος σχηματισμός",
+                "source": "Διαφάνειες 22-23",
+                "question": "Ποια σχέση για το φαιό ταινίδιο και το φαιό ένδυμα του μεσολοβίου δεν ισχύει;",
+                "options": [
+                      {
+                            "text": "Το φαιό ταινίδιο προς τα εμπρός συνεχίζεται με το φαιό ένδυμα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Το φαιό ένδυμα περιγράφεται ως λεπτή ταινία φαιάς ουσίας.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Το φαιό ταινίδιο αποτελεί λεπτή ταινία λευκής ουσίας.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Το φαιό ένδυμα βρίσκεται στην άνω επιφάνεια του μεσολοβίου.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Το φαιό ταινίδιο/ένδυμα παρουσιάζεται ως φαιά ουσία, όχι ως λευκή ουσία."
+          },
+          {
+                "id": 28,
+                "category": "Ιπποκάμπειος σχηματισμός",
+                "source": "Διαφάνεια 24",
+                "question": "Σχετικά με τη σκάφη του ιπποκάμπου, ποιο από τα παρακάτω ισχύει;",
+                "options": [
+                      {
+                            "text": "Είναι η αύλακα που χωρίζει την οδοντωτή από την ιπποκάμπεια έλικα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Είναι το πρόσθιο δακτυλιοειδές έπαρμα του ιπποκάμπου.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Είναι ο σύνδεσμος που ενώνει τους δύο ιπποκάμπους.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Είναι η λευκή ουσία που καλύπτει την ελεύθερη επιφάνεια.",
+                            "correct": true
+                      }
+                ],
+                "explanation": "Η διαφάνεια ορίζει τη σκάφη ως λευκή ουσία στην ελεύθερη επιφάνεια του ιπποκάμπου."
+          },
+          {
+                "id": 29,
+                "category": "Ιπποκάμπειος σχηματισμός",
+                "source": "Διαφάνεια 25",
+                "question": "Σχετικά με την παρυφή του ιπποκάμπου, ποιο από τα παρακάτω δεν ισχύει;",
+                "options": [
+                      {
+                            "text": "Αντιστοιχεί στη λευκή ουσία της ελεύθερης επιφάνειας.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Βρίσκεται στο έσω χείλος του ιπποκάμπου.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Σχετίζεται με την πρόσφυση του οπίσθιου σκέλους της ψαλίδας.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Απεικονίζεται μαζί με πόδα, ψαλίδα και οδοντωτή έλικα.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η λευκή ουσία της ελεύθερης επιφάνειας είναι η σκάφη, όχι η παρυφή."
+          },
+          {
+                "id": 30,
+                "category": "Ιπποκάμπειος σχηματισμός",
+                "source": "Διαφάνεια 28",
+                "question": "Σχετικά με την οδοντωτή έλικα, ποιο από τα παρακάτω είναι λάθος;",
+                "options": [
+                      {
+                            "text": "Είναι στενή λωρίδα φαιάς ουσίας.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Αποτελεί λωρίδα λευκής ουσίας στην ελεύθερη επιφάνεια του ιπποκάμπου.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Χωρίζεται από την ιπποκάμπεια έλικα με την ιπποκάμπεια αύλακα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Σχετίζεται με χολινεργικούς υποδοχείς και προσαγωγές ίνες.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η οδοντωτή έλικα είναι φαιά ουσία· η λευκή επικάλυψη είναι η σκάφη."
+          },
+          {
+                "id": 31,
+                "category": "Ιπποκάμπειος σχηματισμός",
+                "source": "Διαφάνεια 28",
+                "question": "Ποια σχέση διαχωρισμού είναι σωστή;",
+                "options": [
+                      {
+                            "text": "Οδοντωτή έλικα - ιππόκαμπος: μαστιοθαλαμική δεσμίδα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Υπόθεμα - ψαλίδα: πρόσθια διάτρητη ουσία.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Οδοντωτή έλικα - ιπποκάμπεια έλικα: ιπποκάμπεια αύλακα.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Φαιό ταινίδιο - φαιό ένδυμα: οσφρητικό τρίγωνο.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η οδοντωτή έλικα χωρίζεται από την ιπποκάμπεια έλικα με την ιπποκάμπεια αύλακα."
+          },
+          {
+                "id": 32,
+                "category": "Ιπποκάμπειος σχηματισμός",
+                "source": "Διαφάνεια 29",
+                "question": "Σχετικά με το υπόθεμα του ιπποκάμπου, ποιο από τα παρακάτω δεν ισχύει;",
+                "options": [
+                      {
+                            "text": "Η κάτω επιφάνειά του σχετίζεται με την ιπποκάμπεια έλικα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Αποτελεί κύρια περιοχή κατάληξης απαγωγών ινών του ιδίως ιπποκάμπου.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Δέχεται κυρίως απαγωγές ίνες από το πεδίο CA1.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Αποτελεί την κύρια περιοχή έκφυσης των οσφρητικών νεύρων.",
+                            "correct": true
+                      }
+                ],
+                "explanation": "Το υπόθεμα αφορά απαγωγές ίνες του ιδίως ιπποκάμπου, όχι έκφυση οσφρητικών νεύρων."
+          },
+          {
+                "id": 33,
+                "category": "Ιπποκάμπειος σχηματισμός",
+                "source": "Διαφάνεια 29",
+                "question": "Ποιος στόχος προβολής νευραξόνων του υποθέματος αναφέρεται κυρίως;",
+                "options": [
+                      {
+                            "text": "Ενδορρινικός φλοιός.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Πρωτοταγής κινητικός φλοιός.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Οπίσθια διάτρητη ουσία.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Υπομέλανας τόπος ως κύριος φλοιϊκός στόχος.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η διαφάνεια δηλώνει ότι οι νευράξονες του υποθέματος προβάλλουν κυρίως στον ενδορρινικό φλοιό."
+          },
+          {
+                "id": 34,
+                "category": "Ιπποκάμπειος σχηματισμός",
+                "source": "Διαφάνεια 29",
+                "question": "Όλες οι παρακάτω υποφλοιϊκές δομές αναφέρονται ως προβολές του υποθέματος εκτός από μία:",
+                "options": [
+                      {
+                            "text": "Διάφραγμα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Κερκοφόρος πυρήνας.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Επικλινής πυρήνας.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Πρόσθιος θάλαμος.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Στο PDF αναφέρονται διάφραγμα, επικλινής πυρήνας, πρόσθιος θάλαμος, υποθάλαμος και πυρήνες μαστίου."
+          },
+          {
+                "id": 35,
+                "category": "Ιπποκάμπειος σχηματισμός",
+                "source": "Διαφάνεια 30",
+                "question": "Ποια ακολουθία πεδίων του ιπποκάμπου αντιστοιχεί στη διαφάνεια;",
+                "options": [
+                      {
+                            "text": "CA1, CA2, CA5, (CA6).",
+                            "correct": false
+                      },
+                      {
+                            "text": "CA3, CA4, CA5, (CA6).",
+                            "correct": false
+                      },
+                      {
+                            "text": "CA1, CA2, CA3, (CA4).",
+                            "correct": true
+                      },
+                      {
+                            "text": "CA0, CA1, CA2, (CA5).",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Οι στοιβάδες που εμφανίζονται είναι CA1, CA2, CA3 και σε παρένθεση CA4."
+          },
+          {
+                "id": 36,
+                "category": "Ιπποκάμπειος σχηματισμός",
+                "source": "Διαφάνειες 21, 25, 28",
+                "question": "Ποια αντιστοίχιση δομής και χαρακτηριστικού είναι λανθασμένη;",
+                "options": [
+                      {
+                            "text": "Ιππόκαμπος - έπαρμα φαιάς ουσίας στο κάτω τοίχωμα κροταφικού κέρατος.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Παρυφή - πρόσφυση οπίσθιου σκέλους της ψαλίδας στο έσω χείλος.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Οδοντωτή έλικα - στενή λωρίδα φαιάς ουσίας.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Σκάφη - ιπποκάμπεια αύλακα ανάμεσα σε οδοντωτή και ιπποκάμπεια έλικα.",
+                            "correct": true
+                      }
+                ],
+                "explanation": "Η σκάφη είναι λευκή επικάλυψη της ελεύθερης επιφάνειας· η αύλακα αφορά την οδοντωτή έλικα."
+          },
+          {
+                "id": 37,
+                "category": "Κυκλώματα ιπποκάμπου",
+                "source": "Διαφάνειες 31, 34",
+                "question": "Ποια από τις παρακάτω δεν είναι μία από τις τρεις διεγερτικές οδούς του βασικού κυκλώματος;",
+                "options": [
+                      {
+                            "text": "Μαστιοθαλαμική δεσμίδα.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Διατιτραίνουσα οδός.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Οδός βρυωδών ινών.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Schaffer collaterals από CA3 προς CA1.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η μαστιοθαλαμική δεσμίδα ανήκει στο κύκλωμα Papez, όχι στις τρεις διεγερτικές οδούς."
+          },
+          {
+                "id": 38,
+                "category": "Κυκλώματα ιπποκάμπου",
+                "source": "Διαφάνειες 31, 34",
+                "question": "Ποια αντιστοίχιση στο βασικό κύκλωμα του ιπποκάμπου είναι λανθασμένη;",
+                "options": [
+                      {
+                            "text": "CA3 - CA1: Schaffer collaterals.",
+                            "correct": false
+                      },
+                      {
+                            "text": "CA1 - μαστία: βρυώδεις ίνες.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Διατιτραίνουσα οδός - μία από τις τρεις διεγερτικές οδούς.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Οδός βρυωδών ινών - μία από τις τρεις διεγερτικές οδούς.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Οι βρυώδεις ίνες ανήκουν στο βασικό κύκλωμα, ενώ το CA3 προς CA1 αντιστοιχεί σε Schaffer collaterals."
+          },
+          {
+                "id": 39,
+                "category": "Κυκλώματα ιπποκάμπου",
+                "source": "Διαφάνεια 31",
+                "question": "Ποια νευροχημική προβολή αναφέρεται λανθασμένα;",
+                "options": [
+                      {
+                            "text": "Χολινεργικές ίνες προς το διάφραγμα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Νοραδρενεργικές προς τον υπομέλανα τόπο.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Ντοπαμινεργικές προς τον πρόσθιο θάλαμο.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Σεροτονινεργικές προς το μέσο εγκέφαλο.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η ντοπαμινεργική σχέση δίνεται προς την καλύπτρα, όχι προς τον πρόσθιο θάλαμο."
+          },
+          {
+                "id": 40,
+                "category": "Κυκλώματα ιπποκάμπου",
+                "source": "Διαφάνεια 32",
+                "question": "Στις προσαγωγές ίνες του ιπποκάμπου, ποια αντιστοίχιση δεν ισχύει;",
+                "options": [
+                      {
+                            "text": "Διαφραγματικοί πυρήνες - χολινεργικές ίνες.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Καλύπτρα μέσου εγκεφάλου - ντοπαμινεργικές ίνες.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Υπομέλανας τόπος - νοραδρενεργικές ίνες.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Πυρήνες μέσου εγκεφάλου - χολινεργικές ίνες.",
+                            "correct": true
+                      }
+                ],
+                "explanation": "Οι πυρήνες μέσου εγκεφάλου αναφέρονται με σεροτονινεργικές ίνες."
+          },
+          {
+                "id": 41,
+                "category": "Κυκλώματα ιπποκάμπου",
+                "source": "Διαφάνεια 32",
+                "question": "Ποια προσαγωγή συσχετίζεται στη διαφάνεια με μείωση με την ηλικία;",
+                "options": [
+                      {
+                            "text": "Οι ντοπαμινεργικές ίνες από την καλύπτρα μέσου εγκεφάλου.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Οι χολινεργικές ίνες από τους διαφραγματικούς πυρήνες.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Οι νοραδρενεργικές ίνες από τον υπομέλανα τόπο.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Οι προσαγωγές από τον άλλο ιππόκαμπο.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η σημείωση «μείωση με την ηλικία» συνοδεύει τις ντοπαμινεργικές ίνες της καλύπτρας."
+          },
+          {
+                "id": 42,
+                "category": "Κυκλώματα ιπποκάμπου",
+                "source": "Διαφάνεια 33",
+                "question": "Σχετικά με τη χολινεργική δραστηριότητα του ιπποκάμπου, ποιο από τα παρακάτω δεν ισχύει;",
+                "options": [
+                      {
+                            "text": "Αναφέρονται σκοπολαμίνη και ατροπίνη.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Στη νόσο Alzheimer σημειώνεται αυξημένη χολινεργική δραστηριότητα με υπερμνησία.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Αναφέρεται η φυσοστιγμίνη.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Στη νόσο Alzheimer σημειώνεται μειωμένη χολινεργική δραστηριότητα.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η διαφάνεια συνδέει Alzheimer με μειωμένη χολινεργική δραστηριότητα και αμνησία."
+          },
+          {
+                "id": 43,
+                "category": "Κυκλώματα ιπποκάμπου",
+                "source": "Διαφάνεια 34",
+                "question": "Ποιο στοιχείο αναφέρεται ως ανασταλτικό στο βασικό κύκλωμα;",
+                "options": [
+                      {
+                            "text": "Βρυώδεις ίνες από CA3.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Διατιτραίνουσα οδός προς το μαστίο.",
+                            "correct": false
+                      },
+                      {
+                            "text": "GABA νευρώνες της οδοντωτής έλικας.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Ντοπαμινεργικές ίνες προς τον πρόσθιο θάλαμο.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η διαφάνεια 34 αναφέρει ανασταλτικούς GABA νευρώνες της οδοντωτής έλικας."
+          },
+          {
+                "id": 44,
+                "category": "Κυκλώματα ιπποκάμπου",
+                "source": "Διαφάνειες 35-37",
+                "question": "Ποια από τις παρακάτω δεν αναφέρεται ως προσαγωγός σύνδεση του ιπποκάμπου;",
+                "options": [
+                      {
+                            "text": "Από υπερμεσολόβια έλικα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Από διαφραγματικούς πυρήνες μέσω ψαλίδας.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Από τον άλλο ιππόκαμπο μέσω συνδέσμου της ψαλίδας.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Από το μαστίο του υποθαλάμου μέσω μαστιοθαλαμικής δεσμίδας.",
+                            "correct": true
+                      }
+                ],
+                "explanation": "Το μαστίο εμφανίζεται ως απαγωγός στόχος μέσω της ψαλίδας, όχι ως προσαγωγή."
+          },
+          {
+                "id": 45,
+                "category": "Κυκλώματα ιπποκάμπου",
+                "source": "Διαφάνειες 35-37",
+                "question": "Ποια προσαγωγός σύνδεση του ιπποκάμπου αντιστοιχεί σωστά στο μέσο διέλευσης;",
+                "options": [
+                      {
+                            "text": "Διαφραγματικοί πυρήνες - ψαλίδα.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Άλλος ιππόκαμπος - μυελίνη ταινία.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Φαιό ένδυμα μεσολοβίου - μαστιοθαλαμική δεσμίδα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Συνειρμικός φλοιός - πρόσθιος σύνδεσμος.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η προσαγωγή από διαφραγματικούς πυρήνες δίνεται μέσω ψαλίδας."
+          },
+          {
+                "id": 46,
+                "category": "Κυκλώματα ιπποκάμπου",
+                "source": "Διαφάνειες 35-37",
+                "question": "Σχετικά με τις απαγωγές μέσω της ψαλίδας, ποιο από τα παρακάτω είναι λάθος;",
+                "options": [
+                      {
+                            "text": "Προς το μαστίο του υποθαλάμου.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Προς τον οσφρητικό βολβό ως κύρια απαγωγή.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Προς τους πρόσθιους πυρήνες του θαλάμου.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Προς την καλύπτρα του μέσου εγκεφάλου.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Ο οσφρητικός βολβός δεν αναφέρεται στη λίστα απαγωγών μέσω της ψαλίδας."
+          },
+          {
+                "id": 47,
+                "category": "Κυκλώματα ιπποκάμπου",
+                "source": "Διαφάνειες 35-37",
+                "question": "Ποια απαγωγή τοποθετείται εμπρός από τον πρόσθιο σύνδεσμο;",
+                "options": [
+                      {
+                            "text": "Προς τους πρόσθιους πυρήνες του θαλάμου.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Προς την καλύπτρα του μέσου εγκεφάλου.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Προς τους διαφραγματικούς πυρήνες.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Προς τον πυρήνα της ηνίας μέσω μυελίνης ταινίας.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Στη διαφάνεια οι διαφραγματικοί πυρήνες σημειώνονται εμπρός από τον πρόσθιο σύνδεσμο."
+          },
+          {
+                "id": 48,
+                "category": "Κυκλώματα ιπποκάμπου",
+                "source": "Διαφάνειες 35-37",
+                "question": "Ποια από τις παρακάτω απαγωγές σημειώνεται πίσω από τον πρόσθιο σύνδεσμο;",
+                "options": [
+                      {
+                            "text": "Προς τους διαφραγματικούς πυρήνες.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Προς την έξω προοπτική χώρα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Προς τον πρόσθιο υποθάλαμο.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Προς τους πρόσθιους πυρήνες του θαλάμου.",
+                            "correct": true
+                      }
+                ],
+                "explanation": "Οι πρόσθιοι πυρήνες του θαλάμου αναφέρονται πίσω από τον πρόσθιο σύνδεσμο."
+          },
+          {
+                "id": 49,
+                "category": "Κυκλώματα ιπποκάμπου",
+                "source": "Διαφάνειες 35-37",
+                "question": "Ποια σχέση απαγωγής και οδού είναι σωστή;",
+                "options": [
+                      {
+                            "text": "Προς τον πυρήνα της ηνίας μέσω μυελίνης ταινίας.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Προς τον πυρήνα της ηνίας μέσω μαστιοθαλαμικής δεσμίδας.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Προς το μαστίο μέσω συνδέσμου της ψαλίδας.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Προς την καλύπτρα μέσω διατιτραίνουσας οδού.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η απαγωγή προς τον πυρήνα της ηνίας σημειώνεται μέσω μυελίνης ταινίας."
+          },
+          {
+                "id": 50,
+                "category": "Κυκλώματα ιπποκάμπου",
+                "source": "Διαφάνειες 35-37",
+                "question": "Όλα τα παρακάτω είναι απαγωγές μέσω της ψαλίδας εκτός από ένα:",
+                "options": [
+                      {
+                            "text": "Προς μαστίο του υποθαλάμου.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Προς οσφρητικό επιθήλιο μέσω οσφρητικών νεύρων.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Προς έξω προοπτική χώρα και πρόσθιο υποθάλαμο.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Προς πυρήνα της ηνίας μέσω μυελίνης ταινίας.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Το οσφρητικό επιθήλιο και τα οσφρητικά νεύρα είναι περιφερική οσφρητική μοίρα, όχι απαγωγή ψαλίδας."
+          },
+          {
+                "id": 51,
+                "category": "Κυκλώματα ιπποκάμπου",
+                "source": "Διαφάνειες 31-34",
+                "question": "Ποιο από τα παρακάτω αντιστοιχεί σε διεγερτική και όχι ανασταλτική συνιστώσα;",
+                "options": [
+                      {
+                            "text": "GABA νευρώνες οδοντωτής έλικας.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Αναστολή μέσω GABA ενδιάμεσων νευρώνων.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Οδός βρυωδών ινών.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Μειωμένη χολινεργική δραστηριότητα Alzheimer.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Οι βρυώδεις ίνες δίνονται στις τρεις διεγερτικές οδούς."
+          },
+          {
+                "id": 52,
+                "category": "Κυκλώματα ιπποκάμπου",
+                "source": "Διαφάνειες 31-32",
+                "question": "Ποια αντιστοίχιση νευροδιαβιβαστή και ανατομικής προέλευσης είναι λανθασμένη;",
+                "options": [
+                      {
+                            "text": "Χολινεργικές - διαφραγματικοί πυρήνες.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Ντοπαμινεργικές - καλύπτρα μέσου εγκεφάλου.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Νοραδρενεργικές - υπομέλανας τόπος.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Σεροτονινεργικές - φαιό ένδυμα μεσολοβίου.",
+                            "correct": true
+                      }
+                ],
+                "explanation": "Οι σεροτονινεργικές ίνες αποδίδονται σε πυρήνες του μέσου εγκεφάλου."
+          },
+          {
+                "id": 53,
+                "category": "Λειτουργία, αιμάτωση και φυλογένεση",
+                "source": "Διαφάνεια 38",
+                "question": "Σχετικά με τη λειτουργία του ιπποκάμπου, ποιο από τα παρακάτω δεν αναφέρεται;",
+                "options": [
+                      {
+                            "text": "Πρωτογενής εκτέλεση εκούσιας κίνησης.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Άμεση συναισθηματική αντίδραση.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Πρόσφατη μνήμη με προώθηση προς μόνιμη.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Ρύθμιση stress μέσω υποθαλάμου.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η εκούσια κινητική εκτέλεση δεν ανήκει στη λίστα λειτουργιών που δίνει η διαφάνεια."
+          },
+          {
+                "id": 54,
+                "category": "Λειτουργία, αιμάτωση και φυλογένεση",
+                "source": "Διαφάνεια 38",
+                "question": "Ποια λειτουργική σχέση αναφέρεται ειδικά για τον ιππόκαμπο;",
+                "options": [
+                      {
+                            "text": "Μεταφορά οπτικών ερεθισμάτων προς τον έξω γονατώδη πυρήνα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Δημιουργία νέων νευρώνων και προώθηση προς τον οσφρητικό βολβό και λοιπό ΚΝΣ.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Απαγωγή κινητικών ινών προς πρόσθια κέρατα νωτιαίου μυελού.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Ρύθμιση ακοής μέσω κάτω διδυμίων.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η διαφάνεια αναφέρει rostral migratory stream προς οσφρητικό βολβό και λοιπό ΚΝΣ."
+          },
+          {
+                "id": 55,
+                "category": "Λειτουργία, αιμάτωση και φυλογένεση",
+                "source": "Διαφάνεια 39",
+                "question": "Ποια αντιστοίχιση μνήμης δεν συμφωνεί με τη διαφάνεια;",
+                "options": [
+                      {
+                            "text": "Working memory - prefrontal cortex.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Short-term memory - few hours-days.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Working memory - πρόσθιος πυρήνας θαλάμου.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Long-term memory - χωριστή κατηγορία.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η working memory συνδέεται στη διαφάνεια με τον prefrontal cortex."
+          },
+          {
+                "id": 56,
+                "category": "Λειτουργία, αιμάτωση και φυλογένεση",
+                "source": "Διαφάνεια 40",
+                "question": "Σχετικά με την αιμάτωση του ιπποκάμπου, ποιο από τα παρακάτω είναι λάθος;",
+                "options": [
+                      {
+                            "text": "Συμμετέχει η οπίσθια εγκεφαλική αρτηρία.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Συμμετέχει η πρόσθια χοριοειδής αρτηρία.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Η διαφάνεια αναφέρει δύο κύριες αρτηριακές πηγές.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Συμμετέχουν η πρόσθια εγκεφαλική και η μέση μηνιγγική αρτηρία.",
+                            "correct": true
+                      }
+                ],
+                "explanation": "Η διαφάνεια δίνει οπίσθια εγκεφαλική και πρόσθια χοριοειδή αρτηρία."
+          },
+          {
+                "id": 57,
+                "category": "Λειτουργία, αιμάτωση και φυλογένεση",
+                "source": "Διαφάνεια 41",
+                "question": "Ποια φυλογενετική αντιστοίχιση είναι λανθασμένη;",
+                "options": [
+                      {
+                            "text": "Παλαιοχιτώνιο - πρόσθιοι πυρήνες θαλάμου.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Παλαιοχιτώνιο - οσφρητικός βολβός.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Αρχιχιτώνιο - ιππόκαμπος.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Νεοχιτώνιο - ημισφαίρια.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Το παλαιοχιτώνιο αντιστοιχίζεται στον οσφρητικό βολβό."
+          },
+          {
+                "id": 58,
+                "category": "Λειτουργία, αιμάτωση και φυλογένεση",
+                "source": "Διαφάνειες 38, 41",
+                "question": "Ποια από τις παρακάτω σχέσεις δεν υποστηρίζεται από τις διαφάνειες;",
+                "options": [
+                      {
+                            "text": "Ιππόκαμπος - πρόσφατη μνήμη.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Οσφρητικός βολβός - νεοχιτώνιο.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Ιππόκαμπος - αρχιχιτώνιο.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Οσφρητικός βολβός - παλαιοχιτώνιο.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Ο οσφρητικός βολβός δίνεται ως παλαιοχιτώνιο, ενώ το νεοχιτώνιο αντιστοιχίζεται στα ημισφαίρια."
+          },
+          {
+                "id": 59,
+                "category": "Μεταιχμιακό σύστημα",
+                "source": "Διαφάνεια 42",
+                "question": "Ποια δομή δεν περιλαμβάνεται στη λίστα πρωταρχικών κέντρων φαιάς ουσίας του μεταιχμιακού συστήματος;",
+                "options": [
+                      {
+                            "text": "Ιπποκάμπειος σχηματισμός.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Μαστία υποθαλάμου.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Κάτω παρεγκεφαλιδικός σκώληκας.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Επικλινής πυρήνας.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η διαφάνεια δίνει ιππόκαμπο, έλικες, πυρήνες θαλάμου, μαστία, επικλινή, αμυγδαλή και υποθάλαμο."
+          },
+          {
+                "id": 60,
+                "category": "Μεταιχμιακό σύστημα",
+                "source": "Διαφάνεια 42",
+                "question": "Ποια από τις παρακάτω δομές αναφέρεται ως κέντρο φαιάς ουσίας του μεταιχμιακού συστήματος;",
+                "options": [
+                      {
+                            "text": "Πυραμιδική οδός.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Έξω γονατώδες σώμα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Κάτω ελαία.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Υπερμεσολόβια έλικα.",
+                            "correct": true
+                      }
+                ],
+                "explanation": "Η υπερμεσολόβια έλικα αναφέρεται ρητά στη λίστα των πρωταρχικών κέντρων."
+          },
+          {
+                "id": 61,
+                "category": "Κύκλωμα Papez",
+                "source": "Διαφάνειες 43-44",
+                "question": "Ποια αλληλουχία του κυκλώματος Papez είναι σωστή σύμφωνα με τη διαφάνεια;",
+                "options": [
+                      {
+                            "text": "Ιππόκαμπος > ψαλίδα > μαστία > πρόσθιος πυρήνας θαλάμου > υπερμεσολόβια έλικα.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Ιππόκαμπος > οσφρητική ταινία > πρόσθια διάτρητη ουσία > υπομέλανας τόπος.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Αμυγδαλή > έξω χορδή > οδοντωτή έλικα > κροταφικό κέρας.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Υπόθεμα > οσφρητικός βολβός > πρόσθιος θάλαμος > μαστία.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η διαφάνεια 44 δίνει ακριβώς την ακολουθία μέσω ψαλίδας, μαστίων, πρόσθιου θαλάμου και υπερμεσολόβιας έλικας."
+          },
+          {
+                "id": 62,
+                "category": "Κύκλωμα Papez",
+                "source": "Διαφάνεια 44",
+                "question": "Στο κύκλωμα Papez, ποια δεσμίδα συνδέει τα μαστία με τον πρόσθιο πυρήνα του θαλάμου;",
+                "options": [
+                      {
+                            "text": "Διατιτραίνουσα οδός.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Μαστιοθαλαμική δεσμίδα.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Οδός βρυωδών ινών.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Σύνδεσμος της ψαλίδας.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η διαφάνεια τοποθετεί τον πρόσθιο πυρήνα θαλάμου μετά τα μαστία μέσω μαστιοθαλαμικής δεσμίδας."
+          },
+          {
+                "id": 63,
+                "category": "Κύκλωμα Papez",
+                "source": "Διαφάνειες 44-47",
+                "question": "Ποια από τις παρακάτω σχέσεις του Papez είναι λανθασμένη;",
+                "options": [
+                      {
+                            "text": "Ψαλίδα - μαστία.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Μαστιοθαλαμική δεσμίδα - πρόσθιοι θαλαμικοί πυρήνες.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Οσφρητικά νεύρα - άμεση σύνδεση μαστίων με πρόσθιο θάλαμο.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Υπερμεσολόβια έλικα - ίνες προσαγωγίου προς ιππόκαμπο.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η σύνδεση μαστίων-πρόσθιου θαλάμου γίνεται με μαστιοθαλαμική δεσμίδα, όχι με οσφρητικά νεύρα."
+          },
+          {
+                "id": 64,
+                "category": "Κύκλωμα Papez",
+                "source": "Διαφάνεια 47",
+                "question": "Στο διάγραμμα Papez Circuit (Emotions), ποιο από τα παρακάτω δεν εμφανίζεται;",
+                "options": [
+                      {
+                            "text": "Hippocampal formation.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Mammillary bodies.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Anterior thalamic nuclear group.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Inferior colliculus.",
+                            "correct": true
+                      }
+                ],
+                "explanation": "Το κάτω διδύμιο δεν ανήκει στο διάγραμμα του κυκλώματος Papez."
+          },
+          {
+                "id": 65,
+                "category": "Κύκλωμα Papez",
+                "source": "Διαφάνειες 43-47",
+                "question": "Ποια διατύπωση ταιριάζει καλύτερα στο ιστορικό πλαίσιο του James Papez;",
+                "options": [
+                      {
+                            "text": "Σύνδεσε το μεταιχμιακό σύστημα με σχέση συναισθήματος και μνήμης.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Περιέγραψε την πυραμιδική οδό ως κύριο κύκλωμα οσμής.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Ταύτισε τον ιππόκαμπο με το παλαιοχιτώνιο του οσφρητικού βολβού.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Απέκλεισε τον πρόσθιο θάλαμο από τις μεταιχμιακές συνδέσεις.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η διαφάνεια αναφέρει ότι ο Papez συνέδεσε limbic system με emotion και memory."
+          },
+          {
+                "id": 66,
+                "category": "Κύκλωμα Papez",
+                "source": "Διαφάνεια 47",
+                "question": "Ποιο στοιχείο εμφανίζεται στο διάγραμμα Papez ως Basal nucleus of Meynert;",
+                "options": [
+                      {
+                            "text": "Substantia nigra pars reticularis.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Substantia innominata.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Ventral anterior nucleus.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Medial globus pallidus.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Στο διάγραμμα αναγράφεται Substantia innominata (Basal nucleus of Meynert)."
+          },
+          {
+                "id": 67,
+                "category": "Μεταιχμιακό σύστημα",
+                "source": "Διαφάνεια 48",
+                "question": "Στο σχήμα Limbic System and Basal Nuclei, ποια αντιστοίχιση δεν εμφανίζεται σωστά;",
+                "options": [
+                      {
+                            "text": "Ventral striatum - nucleus accumbens.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Caudate nucleus - head.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Ventral pallidum - hippocampus.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Substantia nigra - pars reticularis.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Το ventral pallidum εμφανίζεται με medial globus pallidus και pars reticularis, όχι ως hippocampus."
+          },
+          {
+                "id": 68,
+                "category": "Μεταιχμιακό σύστημα",
+                "source": "Διαφάνεια 48",
+                "question": "Ποια ομάδα περιοχών φαίνεται στην αριστερή άνω πορτοκαλί ομάδα του σχήματος βασικών πυρήνων;",
+                "options": [
+                      {
+                            "text": "Ventral anterior nucleus και dorsomedial nucleus.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Ventral pallidum και medial globus pallidus.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Caudate head και substantia nigra pars reticularis.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Anterior cingulate gyrus και orbitofrontal areas 10, 11.",
+                            "correct": true
+                      }
+                ],
+                "explanation": "Η άνω πορτοκαλί ομάδα περιέχει anterior cingulate gyrus και orbitofrontal areas (10, 11)."
+          },
+          {
+                "id": 69,
+                "category": "Μεταιχμιακό σύστημα",
+                "source": "Διαφάνεια 48",
+                "question": "Ποια δομή εμφανίζεται στην ομάδα του ventral striatum;",
+                "options": [
+                      {
+                            "text": "Nucleus accumbens.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Mammillary body.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Fornix.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Dentate gyrus.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Στο διάγραμμα το ventral striatum επισημαίνεται με nucleus accumbens."
+          },
+          {
+                "id": 70,
+                "category": "Μεταιχμιακό σύστημα",
+                "source": "Διαφάνειες 42, 48",
+                "question": "Όλα τα παρακάτω εμφανίζονται ως μεταιχμιακές/σχετικές δομές εκτός από ένα:",
+                "options": [
+                      {
+                            "text": "Αμυγδαλοειδής πυρήνας.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Πρόσθια νωτιαία αρτηρία.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Παραϊπποκάμπεια έλικα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Ενδορρινικός φλοιός.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η πρόσθια νωτιαία αρτηρία δεν εμφανίζεται στις μεταιχμιακές λίστες/διαγράμματα του PDF."
+          },
+          {
+                "id": 71,
+                "category": "Κύκλωμα Papez",
+                "source": "Διαφάνειες 44-47",
+                "question": "Ποιο από τα παρακάτω δεν αντιστοιχεί στη διαδρομή επιστροφής προς τον ιππόκαμπο στο κύκλωμα Papez;",
+                "options": [
+                      {
+                            "text": "Υπερμεσολόβια έλικα.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Ίνες του προσαγωγίου.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Οδός βρυωδών ινών.",
+                            "correct": true
+                      },
+                      {
+                            "text": "Ιππόκαμπος.",
+                            "correct": false
+                      }
+                ],
+                "explanation": "Η επιστροφή στη διαφάνεια γίνεται δια ινών του προσαγωγίου, όχι μέσω βρυωδών ινών."
+          },
+          {
+                "id": 72,
+                "category": "Μεταιχμιακό σύστημα",
+                "source": "Διαφάνειες 42, 48",
+                "question": "Ποια αντιστοίχιση περιοχής και ευρύτερης ομάδας είναι σωστή;",
+                "options": [
+                      {
+                            "text": "Ventral anterior nucleus - nucleus accumbens και caudate head.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Ventral pallidum - anterior cingulate gyrus και orbitofrontal areas.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Caudate nucleus head - mammillary bodies και fornix.",
+                            "correct": false
+                      },
+                      {
+                            "text": "Medial and lateral temporal lobe - hippocampus, amygdala, entorhinal cortex.",
+                            "correct": true
+                      }
+                ],
+                "explanation": "Το διάγραμμα ομαδοποιεί medial/lateral temporal lobe με hippocampus, amygdala και entorhinal cortex."
+          }
+    ];
+
+    let state = {
+      version: QUIZ_VERSION,
+      activeIds: [],
+      index: 0,
+      answers: {},
+      optionOrders: {},
+      settings: {
+        category: "all",
+        search: "",
+        shuffleQuestions: true,
+        shuffleAnswers: true
+      },
+      completed: false,
+      lastWrongIds: []
+    };
+
+    const els = {
+      categoryFilter: document.getElementById("categoryFilter"),
+      searchInput: document.getElementById("searchInput"),
+      shuffleQuestions: document.getElementById("shuffleQuestions"),
+      shuffleAnswers: document.getElementById("shuffleAnswers"),
+      printAnswers: document.getElementById("printAnswers"),
+      startBtn: document.getElementById("startBtn"),
+      printBtn: document.getElementById("printBtn"),
+      clearProgressBtn: document.getElementById("clearProgressBtn"),
+      quiz: document.getElementById("quiz"),
+      results: document.getElementById("results"),
+      printBank: document.getElementById("printBank"),
+      scoreStat: document.getElementById("scoreStat"),
+      progressStat: document.getElementById("progressStat"),
+      percentStat: document.getElementById("percentStat"),
+      categoryStat: document.getElementById("categoryStat"),
+      progressBar: document.getElementById("progressBar")
+    };
+
+    function shuffleArray(items) {
+      const arr = [...items];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function getQuestion(id) {
+      return questions.find(q => q.id === id);
+    }
+
+    function normalize(text) {
+      return String(text || "").toLocaleLowerCase("el-GR").normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
+
+    function questionMatches(q, category, search) {
+      const categoryOk = category === "all" || q.category === category;
+      if (!categoryOk) return false;
+      const s = normalize(search).trim();
+      if (!s) return true;
+      const haystack = normalize([
+        q.category,
+        q.source,
+        q.question,
+        q.explanation,
+        ...q.options.map(o => o.text)
+      ].join(" "));
+      return haystack.includes(s);
+    }
+
+    function getFilteredIds() {
+      return questions
+        .filter(q => questionMatches(q, els.categoryFilter.value, els.searchInput.value))
+        .map(q => q.id);
+    }
+
+    function ensureOptionOrder(q) {
+      if (!state.optionOrders[q.id]) {
+        const indices = q.options.map((_, i) => i);
+        state.optionOrders[q.id] = state.settings.shuffleAnswers ? shuffleArray(indices) : indices;
+      }
+      return state.optionOrders[q.id];
+    }
+
+    function score() {
+      return Object.values(state.answers).filter(a => a.correct).length;
+    }
+
+    function answeredCount() {
+      return Object.keys(state.answers).length;
+    }
+
+    function percent(correct, total) {
+      return total ? Math.round((correct / total) * 100) : 0;
+    }
+
+    function saveProgress() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function loadProgress() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return false;
+        const parsed = JSON.parse(raw);
+        if (parsed.version !== QUIZ_VERSION || !Array.isArray(parsed.activeIds)) return false;
+        state = parsed;
+        els.categoryFilter.value = state.settings.category || "all";
+        els.searchInput.value = state.settings.search || "";
+        els.shuffleQuestions.checked = Boolean(state.settings.shuffleQuestions);
+        els.shuffleAnswers.checked = Boolean(state.settings.shuffleAnswers);
+        return true;
+      } catch {
+        return false;
+      }
+    }
+
+    function clearProgress() {
+      localStorage.removeItem(STORAGE_KEY);
+      state = {
+        version: QUIZ_VERSION,
+        activeIds: [],
+        index: 0,
+        answers: {},
+        optionOrders: {},
+        settings: {
+          category: els.categoryFilter.value,
+          search: els.searchInput.value,
+          shuffleQuestions: els.shuffleQuestions.checked,
+          shuffleAnswers: els.shuffleAnswers.checked
+        },
+        completed: false,
+        lastWrongIds: []
+      };
+      startQuiz();
+    }
+
+    function updateStats() {
+      const total = state.activeIds.length;
+      const done = answeredCount();
+      const correct = score();
+      const current = getQuestion(state.activeIds[state.index]);
+      els.scoreStat.textContent = String(correct);
+      els.progressStat.textContent = `${Math.min(done + (state.completed ? 0 : 1), total)} / ${total}`;
+      els.percentStat.textContent = `${percent(correct, done)}%`;
+      els.categoryStat.textContent = current ? current.category : "-";
+      els.progressBar.style.width = total ? `${Math.round((done / total) * 100)}%` : "0%";
+    }
+
+    function renderQuestion() {
+      els.results.classList.remove("show");
+      els.quiz.classList.remove("hide");
+      const total = state.activeIds.length;
+      if (!total) {
+        els.quiz.innerHTML = `<div class="empty">Δεν βρέθηκαν ερωτήσεις για το τρέχον φίλτρο ή την αναζήτηση.</div>`;
+        updateStats();
+        renderPrintBank();
+        return;
+      }
+      if (state.index >= total) {
+        showResults();
+        return;
+      }
+
+      const q = getQuestion(state.activeIds[state.index]);
+      const answer = state.answers[q.id];
+      const order = ensureOptionOrder(q);
+      const optionsHtml = order.map((optionIndex, displayIndex) => {
+        const opt = q.options[optionIndex];
+        let cls = "";
+        if (answer) {
+          if (opt.correct) cls = " correct";
+          if (answer.selectedIndex === optionIndex && !opt.correct) cls = " wrong";
+        }
+        return `
+          <button class="option${cls}" type="button" data-option-index="${optionIndex}" ${answer ? "disabled" : ""}>
+            <span class="key">${LETTERS[displayIndex]})</span>
+            <span>${opt.text}</span>
+          </button>
+        `;
+      }).join("");
+
+      els.quiz.innerHTML = `
+        <article class="question-card">
+          <div class="question-meta">
+            <span class="pill">${q.category}</span>
+            <span>${q.source}</span>
+          </div>
+          <div class="question-text">${q.question}</div>
+          <div class="options">${optionsHtml}</div>
+          <div id="feedback" class="feedback ${answer ? "show " + (answer.correct ? "good" : "bad") : ""}">
+            ${answer ? `<div class="feedback-title">${answer.correct ? "Σωστό." : "Λάθος."}</div><div>${q.explanation}</div>` : ""}
+          </div>
+          <div class="quiz-actions">
+            <span class="muted">Ερώτηση ${state.index + 1} από ${total}</span>
+            <button id="nextBtn" class="primary" type="button" ${answer ? "" : "disabled"}>${state.index + 1 === total ? "Αποτελέσματα" : "Επόμενη ερώτηση"}</button>
+          </div>
+        </article>
+      `;
+
+      els.quiz.querySelectorAll(".option").forEach(btn => {
+        btn.addEventListener("click", () => answerQuestion(q.id, Number(btn.dataset.optionIndex)));
+      });
+      document.getElementById("nextBtn").addEventListener("click", nextQuestion);
+      updateStats();
+      renderPrintBank();
+      saveProgress();
+    }
+
+    function answerQuestion(questionId, optionIndex) {
+      const q = getQuestion(questionId);
+      const opt = q.options[optionIndex];
+      const correctOption = q.options.find(o => o.correct);
+      state.answers[questionId] = {
+        selectedIndex: optionIndex,
+        selectedText: opt.text,
+        correctText: correctOption.text,
+        correct: Boolean(opt.correct)
+      };
+      saveProgress();
+      renderQuestion();
+    }
+
+    function nextQuestion() {
+      if (state.index < state.activeIds.length - 1) {
+        state.index += 1;
+        renderQuestion();
+      } else {
+        state.completed = true;
+        saveProgress();
+        showResults();
+      }
+    }
+
+    function categoryRows(ids) {
+      const map = new Map();
+      ids.forEach(id => {
+        const q = getQuestion(id);
+        if (!map.has(q.category)) map.set(q.category, { total: 0, correct: 0, answered: 0 });
+        const row = map.get(q.category);
+        row.total += 1;
+        if (state.answers[id]) {
+          row.answered += 1;
+          if (state.answers[id].correct) row.correct += 1;
+        }
+      });
+      return [...map.entries()].sort((a, b) => a[0].localeCompare(b[0], "el"));
+    }
+
+    function showResults() {
+      const ids = state.activeIds;
+      const total = ids.length;
+      const correct = score();
+      const wrongIds = ids.filter(id => state.answers[id] && !state.answers[id].correct);
+      state.lastWrongIds = wrongIds;
+      state.completed = true;
+      els.quiz.classList.add("hide");
+      els.results.classList.add("show");
+      els.progressBar.style.width = "100%";
+
+      const rows = categoryRows(ids).map(([cat, r]) => `
+        <tr>
+          <td>${cat}</td>
+          <td>${r.total}</td>
+          <td>${r.correct}</td>
+          <td>${r.total - r.correct}</td>
+          <td>${percent(r.correct, r.total)}%</td>
+        </tr>
+      `).join("");
+
+      const wrongList = wrongIds.length ? wrongIds.map(id => {
+        const q = getQuestion(id);
+        const a = state.answers[id];
+        return `
+          <div class="wrong-item">
+            <b>${q.id}. ${q.question}</b>
+            <div class="muted">${q.category} - ${q.source}</div>
+            <div>Απάντησες: ${a.selectedText}</div>
+            <div>Σωστό: ${a.correctText}</div>
+          </div>
+        `;
+      }).join("") : `<p class="muted">Δεν υπάρχουν λανθασμένες απαντήσεις για επανάληψη.</p>`;
+
+      els.results.innerHTML = `
+        <h2>Τελική επίδοση</h2>
+        <div class="result-grid">
+          <div class="stat"><b>${correct} / ${total}</b><span>Συνολικό σκορ</span></div>
+          <div class="stat"><b>${percent(correct, total)}%</b><span>Ποσοστό επιτυχίας</span></div>
+          <div class="stat"><b>${correct}</b><span>Σωστές</span></div>
+          <div class="stat"><b>${total - correct}</b><span>Λανθασμένες</span></div>
+        </div>
+        <h3>Απόδοση ανά κατηγορία</h3>
+        <table>
+          <thead><tr><th>Κατηγορία</th><th>Ερωτήσεις</th><th>Σωστές</th><th>Λάθος</th><th>Ποσοστό</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+        <h3>Λανθασμένες ερωτήσεις</h3>
+        <div class="wrong-list">${wrongList}</div>
+        <div class="result-actions">
+          <button class="primary" type="button" id="restartBtn">Επανεκκίνηση</button>
+          <button class="secondary" type="button" id="retryWrongBtn" ${wrongIds.length ? "" : "disabled"}>Επανάληψη λανθασμένων</button>
+        </div>
+      `;
+      document.getElementById("restartBtn").addEventListener("click", () => startQuiz());
+      document.getElementById("retryWrongBtn").addEventListener("click", () => startQuiz(wrongIds));
+      updateStats();
+      saveProgress();
+    }
+
+    function startQuiz(forcedIds) {
+      state.settings = {
+        category: els.categoryFilter.value,
+        search: els.searchInput.value,
+        shuffleQuestions: els.shuffleQuestions.checked,
+        shuffleAnswers: els.shuffleAnswers.checked
+      };
+      let ids = Array.isArray(forcedIds) ? [...forcedIds] : getFilteredIds();
+      if (state.settings.shuffleQuestions) ids = shuffleArray(ids);
+      state.activeIds = ids;
+      state.index = 0;
+      state.answers = {};
+      state.optionOrders = {};
+      state.completed = false;
+      if (!Array.isArray(forcedIds)) state.lastWrongIds = [];
+      renderQuestion();
+    }
+
+    function renderPrintBank() {
+      const ids = state.activeIds.length ? state.activeIds : getFilteredIds();
+      const html = ids.map((id, idx) => {
+        const q = getQuestion(id);
+        const correctIndex = q.options.findIndex(o => o.correct);
+        const opts = q.options.map((o, i) => `<li>${LETTERS[i]}) ${o.text}</li>`).join("");
+        return `
+          <article class="print-question">
+            <h3>${idx + 1}. ${q.question}</h3>
+            <div>${q.category} - ${q.source}</div>
+            <ol style="list-style:none; padding-left:0;">${opts}</ol>
+            <div class="print-answer"><b>Απάντηση:</b> ${LETTERS[correctIndex]}) ${q.options[correctIndex].text}<br><b>Αιτιολόγηση:</b> ${q.explanation}</div>
+          </article>
+        `;
+      }).join("");
+      els.printBank.innerHTML = `<h1>Νευροανατομία - MCQs</h1>${html}`;
+    }
+
+    function populateCategories() {
+      const counts = questions.reduce((acc, q) => {
+        acc[q.category] = (acc[q.category] || 0) + 1;
+        return acc;
+      }, {});
+      const options = [`<option value="all">Όλες οι κατηγορίες (${questions.length})</option>`]
+        .concat(Object.keys(counts).sort((a, b) => a.localeCompare(b, "el")).map(cat => `<option value="${cat}">${cat} (${counts[cat]})</option>`));
+      els.categoryFilter.innerHTML = options.join("");
+    }
+
+    function wireEvents() {
+      els.startBtn.addEventListener("click", () => startQuiz());
+      els.clearProgressBtn.addEventListener("click", clearProgress);
+      els.printBtn.addEventListener("click", () => {
+        document.body.classList.toggle("print-answers", els.printAnswers.checked);
+        renderPrintBank();
+        window.print();
+      });
+      els.searchInput.addEventListener("keydown", event => {
+        if (event.key === "Enter") startQuiz();
+      });
+    }
+
+    populateCategories();
+    wireEvents();
+    if (!loadProgress()) {
+      startQuiz();
+    } else if (state.completed) {
+      showResults();
+    } else {
+      renderQuestion();
+    }
+  </script>
+</body>
+</html>
