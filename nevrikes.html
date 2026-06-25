@@ -1,0 +1,2684 @@
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Νευρικές Οδοί - Δύσκολα MCQs Νευροανατομίας</title>
+  <style>
+    :root {
+      --bg: #f4f7f6;
+      --panel: #ffffff;
+      --ink: #182523;
+      --muted: #64736f;
+      --line: #d8e1df;
+      --accent: #226a73;
+      --accent-2: #7b5d2e;
+      --good: #176b46;
+      --bad: #a83d3d;
+      --soft-good: #e5f4ed;
+      --soft-bad: #f8e7e7;
+      --soft-accent: #e5f1f2;
+      --shadow: 0 18px 45px rgba(24, 37, 35, 0.10);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background:
+        linear-gradient(180deg, #eef4f2 0%, var(--bg) 42%, #f8faf9 100%);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      line-height: 1.5;
+    }
+
+    header {
+      padding: 28px 18px 18px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.76);
+      backdrop-filter: blur(10px);
+    }
+
+    .wrap {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .title-row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.55rem, 2.4vw, 2.35rem);
+      font-weight: 760;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin: 6px 0 0;
+      color: var(--muted);
+      max-width: 820px;
+      font-size: 0.98rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--accent);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+
+    main { padding: 24px 0 42px; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .panel, .question-card, .results-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel { padding: 18px; position: sticky; top: 16px; }
+    .panel h2, .question-card h2, .results-card h2 {
+      margin: 0 0 14px;
+      font-size: 1rem;
+      letter-spacing: 0;
+    }
+
+    label {
+      display: block;
+      margin: 14px 0 7px;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 0.88rem;
+    }
+
+    select, input[type="search"] {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 11px 12px;
+      background: #fff;
+      color: var(--ink);
+      font-size: 0.98rem;
+    }
+
+    .checks {
+      display: grid;
+      gap: 10px;
+      margin: 14px 0 16px;
+    }
+
+    .check {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--ink);
+      background: #fbfdfc;
+      font-weight: 650;
+    }
+
+    .check input { width: 18px; height: 18px; accent-color: var(--accent); }
+
+    button {
+      border: 0;
+      border-radius: 8px;
+      padding: 11px 14px;
+      font: inherit;
+      font-weight: 760;
+      cursor: pointer;
+      color: #fff;
+      background: var(--accent);
+      transition: transform 0.12s ease, background 0.12s ease, opacity 0.12s ease;
+    }
+
+    button:hover { transform: translateY(-1px); }
+    button:disabled { cursor: not-allowed; opacity: 0.55; transform: none; }
+    .btn-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+    .secondary { color: var(--accent); background: var(--soft-accent); }
+    .warn { color: #fff; background: var(--accent-2); }
+    .ghost { color: var(--ink); background: #eef2f1; }
+
+    .statline {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .stat {
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfdfc;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.08rem;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .distribution {
+      margin-top: 16px;
+      border-top: 1px solid var(--line);
+      padding-top: 14px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    td, th {
+      padding: 8px 6px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th { color: var(--muted); font-size: 0.78rem; text-transform: uppercase; }
+
+    .quiz-shell { min-width: 0; }
+    .topbar {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .progress-text {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      color: var(--muted);
+      font-weight: 740;
+      font-size: 0.92rem;
+    }
+
+    .bar {
+      height: 10px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #dce7e4;
+      border: 1px solid var(--line);
+    }
+
+    .bar > div {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), #4f8f7d);
+      transition: width 0.25s ease;
+    }
+
+    .question-card { padding: 22px; }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 5px 9px;
+      background: var(--soft-accent);
+      color: var(--accent);
+      font-size: 0.82rem;
+      font-weight: 780;
+    }
+
+    .source { background: #f3eee5; color: var(--accent-2); }
+
+    .question {
+      margin: 0 0 18px;
+      font-size: clamp(1.08rem, 1.75vw, 1.35rem);
+      font-weight: 760;
+    }
+
+    .options {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .option {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 38px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 13px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--ink);
+      text-align: left;
+      font-weight: 650;
+    }
+
+    .option:hover { border-color: #9bb7b2; background: #fbfdfc; }
+    .option .letter {
+      display: inline-grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      background: #eef2f1;
+      font-weight: 850;
+      color: var(--accent);
+    }
+
+    .option.correct {
+      border-color: rgba(23, 107, 70, 0.55);
+      background: var(--soft-good);
+    }
+
+    .option.wrong {
+      border-color: rgba(168, 61, 61, 0.55);
+      background: var(--soft-bad);
+    }
+
+    .feedback {
+      display: none;
+      margin-top: 16px;
+      padding: 14px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: #fbfdfc;
+    }
+
+    .feedback.show { display: block; }
+    .feedback.good { border-color: rgba(23, 107, 70, 0.35); background: var(--soft-good); }
+    .feedback.bad { border-color: rgba(168, 61, 61, 0.35); background: var(--soft-bad); }
+    .feedback strong { display: block; margin-bottom: 4px; }
+
+    .empty {
+      padding: 22px;
+      color: var(--muted);
+      border: 1px dashed #b8c8c4;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.65);
+    }
+
+    .results-card { padding: 22px; }
+    .score-big {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin: 16px 0;
+    }
+
+    .score-box {
+      padding: 14px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: #fbfdfc;
+    }
+
+    .score-box strong { display: block; font-size: 1.45rem; }
+    .score-box span { color: var(--muted); font-weight: 700; font-size: 0.85rem; }
+
+    .review-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .review-item {
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: #fbfdfc;
+    }
+
+    .review-item strong { display: block; margin-bottom: 4px; }
+    .muted { color: var(--muted); }
+    .print-area { display: none; }
+
+    @media (max-width: 880px) {
+      .grid { grid-template-columns: 1fr; }
+      .panel { position: static; }
+      .score-big { grid-template-columns: repeat(2, 1fr); }
+      .title-row { align-items: flex-start; flex-direction: column; }
+    }
+
+    @media (max-width: 560px) {
+      .wrap { width: min(100% - 22px, 1120px); }
+      header { padding-top: 20px; }
+      .question-card, .results-card, .panel { padding: 15px; }
+      .statline, .score-big { grid-template-columns: 1fr; }
+      .topbar { grid-template-columns: 1fr; }
+      .option { grid-template-columns: 32px 1fr; padding: 11px; }
+      .option .letter { width: 28px; height: 28px; }
+    }
+
+    @media print {
+      body { background: #fff; color: #000; font-family: Georgia, "Times New Roman", serif; }
+      header, .grid, .topbar, .btn-row, .panel, .quiz-shell { display: none !important; }
+      .wrap { width: 100%; margin: 0; }
+      .print-area { display: block; padding: 0; }
+      .print-area h1 { font-size: 20pt; margin-bottom: 8pt; }
+      .print-question { break-inside: avoid; margin-bottom: 14pt; }
+      .print-question h3 { font-size: 12pt; margin: 0 0 5pt; }
+      .print-question ol { margin: 0 0 4pt 18pt; padding: 0; }
+      .print-answer { font-size: 10pt; color: #333; }
+      @page { margin: 14mm; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap title-row">
+      <div>
+        <h1>Νευρικές Οδοί - MCQs Νευροανατομίας</h1>
+        <p class="subtitle">Δύσκολες ερωτήσεις πολλαπλής επιλογής βασισμένες στις διαφάνειες για οσφρητική, γευστική, σωματοαισθητικές και οπτικές οδούς.</p>
+      </div>
+      <span class="pill" id="total-pill">70 ερωτήσεις</span>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="grid">
+      <aside class="panel">
+        <h2>Ρυθμίσεις quiz</h2>
+        <label for="category-filter">Κατηγορία</label>
+        <select id="category-filter"></select>
+
+        <label for="search-input">Αναζήτηση</label>
+        <input id="search-input" type="search" placeholder="π.χ. λημνίσκος, Meyer, γονάτιο">
+
+        <div class="checks">
+          <label class="check"><input id="shuffle-questions" type="checkbox" checked> Ανακάτεμα ερωτήσεων</label>
+          <label class="check"><input id="shuffle-options" type="checkbox" checked> Ανακάτεμα απαντήσεων</label>
+        </div>
+
+        <div class="btn-row">
+          <button id="start-btn">Έναρξη</button>
+          <button id="resume-btn" class="secondary" disabled>Συνέχεια</button>
+          <button id="print-btn" class="ghost">Εκτύπωση</button>
+          <button id="clear-btn" class="warn">Καθαρισμός προόδου</button>
+        </div>
+
+        <div class="statline">
+          <div class="stat"><strong id="available-count">0</strong><span>διαθέσιμες</span></div>
+          <div class="stat"><strong id="saved-count">0</strong><span>πρόοδος</span></div>
+          <div class="stat"><strong id="negative-count">0</strong><span>τύπου λάθους</span></div>
+        </div>
+
+        <div class="distribution">
+          <h2>Κατανομή</h2>
+          <table>
+            <thead><tr><th>Κατηγορία</th><th>Ερωτήσεις</th></tr></thead>
+            <tbody id="distribution-body"></tbody>
+          </table>
+        </div>
+      </aside>
+
+      <section class="quiz-shell">
+        <div class="topbar">
+          <div>
+            <div class="progress-text">
+              <span id="progress-count">0 / 0</span>
+              <span id="score-count">Σκορ 0</span>
+              <span id="percent-count">0%</span>
+              <span id="category-current">Κατηγορία: -</span>
+            </div>
+            <div class="bar" aria-label="Πρόοδος"><div id="progress-bar"></div></div>
+          </div>
+          <div class="btn-row">
+            <button id="next-btn" class="secondary" disabled>Επόμενη ερώτηση</button>
+          </div>
+        </div>
+
+        <div id="quiz-view" class="question-card">
+          <div class="empty">Ρύθμισε φίλτρο ή αναζήτηση και πάτησε «Έναρξη».</div>
+        </div>
+      </section>
+    </div>
+
+    <section id="print-area" class="print-area"></section>
+  </main>
+
+  <script>
+    const questions = [
+      {
+            id: 1,
+            category: "Οσφρητική οδός",
+            source: "Διαφ. 3",
+            negative: true,
+            question: "Σχετικά με την έξω ρίνα, όλα τα παρακάτω ισχύουν εκτός από ένα:",
+            options: [
+                  {
+                        text: "Η ρίζα της ρίνας στρέφεται προς τα επάνω.",
+                        correct: false
+                  },
+                  {
+                        text: "Η ράχη αντιστοιχεί στο πρόσθιο χείλος της ρίνας.",
+                        correct: false
+                  },
+                  {
+                        text: "Οι μυκτήρες χωρίζονται μεταξύ τους με τη στυλίδα.",
+                        correct: false
+                  },
+                  {
+                        text: "Το ακρορρίνιο αντιστοιχεί στο άνω πρόσθιο άκρο.",
+                        correct: true
+                  }
+            ],
+            explanation: "Το ακρορρίνιο περιγράφεται ως κάτω πρόσθιο άκρο, όχι άνω. Η παγίδα είναι η αλλαγή του προσανατολισμού."
+      },
+      {
+            id: 2,
+            category: "Οσφρητική οδός",
+            source: "Διαφ. 4",
+            negative: true,
+            question: "Ποια σχέση οσφρητικής περιοχής-ρινικής κοιλότητας είναι λανθασμένη;",
+            options: [
+                  {
+                        text: "Η οσφρητική περιοχή ταυτίζεται με τον πρόδομο της ρινός.",
+                        correct: true
+                  },
+                  {
+                        text: "Η οσφρητική περιοχή φαίνεται στην άνω μοίρα του ρινικού τοιχώματος.",
+                        correct: false
+                  },
+                  {
+                        text: "Η οσφρητική περιοχή σημειώνεται με κίτρινο στις τομές της διαφάνειας.",
+                        correct: false
+                  },
+                  {
+                        text: "Η αναπνευστική περιοχή βρίσκεται κατώτερα από την οσφρητική.",
+                        correct: false
+                  }
+            ],
+            explanation: "Στη διαφάνεια ο πρόδομος είναι χωριστή πρόσθια περιοχή, ενώ η οσφρητική περιοχή βρίσκεται άνω."
+      },
+      {
+            id: 3,
+            category: "Οσφρητική οδός",
+            source: "Διαφ. 5",
+            negative: false,
+            question: "Ποιο από τα παρακάτω αντιστοιχεί σωστά στο οσφρητικό επιθήλιο;",
+            options: [
+                  {
+                        text: "Αποτελείται αποκλειστικά από αδενικά κύτταρα του χορίου.",
+                        correct: false
+                  },
+                  {
+                        text: "Έχει πάχος 600 μ και βρίσκεται μόνο στον πρόδομο.",
+                        correct: false
+                  },
+                  {
+                        text: "Περιέχει οσφρητικούς νευρώνες, ερειστικά και βασικά κύτταρα.",
+                        correct: true
+                  },
+                  {
+                        text: "Σχηματίζεται από μυκητοειδείς και φυλλοειδείς θηλές.",
+                        correct: false
+                  }
+            ],
+            explanation: "Η διαφάνεια αναφέρει οσφρητικούς νευρώνες, ερειστικά και βασικά κύτταρα, με πάχος 60 μ."
+      },
+      {
+            id: 4,
+            category: "Οσφρητική οδός",
+            source: "Διαφ. 5",
+            negative: true,
+            question: "Σχετικά με τις αποφυάδες των οσφρητικών κυττάρων, τι δεν ισχύει;",
+            options: [
+                  {
+                        text: "Η περιφερική αποφυάδα είναι κοντή και παχύτερη.",
+                        correct: false
+                  },
+                  {
+                        text: "Η περιφερική αποφυάδα καταλήγει σε πάχυνση της ελεύθερης επιφάνειας.",
+                        correct: false
+                  },
+                  {
+                        text: "Η κεντρική αποφυάδα σχηματίζει τα οσφρητικά τριχίδια.",
+                        correct: true
+                  },
+                  {
+                        text: "Η κεντρική αποφυάδα είναι λεπτή και αμύελη.",
+                        correct: false
+                  }
+            ],
+            explanation: "Τα οσφρητικά τριχίδια ανήκουν στην περιφερική αποφυάδα. Η κεντρική γίνεται οσφρητική ίνα."
+      },
+      {
+            id: 5,
+            category: "Οσφρητική οδός",
+            source: "Διαφ. 5",
+            negative: false,
+            question: "Το σύνολο των οσφρητικών νηματίων αντιστοιχεί σε:",
+            options: [
+                  {
+                        text: "το οσφρητικό νεύρο.",
+                        correct: true
+                  },
+                  {
+                        text: "τον έξω ρινικό κλάδο του πρόσθιου ηθμοειδούς.",
+                        correct: false
+                  },
+                  {
+                        text: "την έξω οσφρητική χορδή.",
+                        correct: false
+                  },
+                  {
+                        text: "τον πρόσθιο οσφρητικό πυρήνα.",
+                        correct: false
+                  }
+            ],
+            explanation: "Η διαφάνεια τονίζει ότι το σύνολο των οσφρητικών νηματίων είναι το οσφρητικό νεύρο."
+      },
+      {
+            id: 6,
+            category: "Οσφρητική οδός",
+            source: "Διαφ. 7",
+            negative: true,
+            question: "Για τους οσφρητικούς αδένες Bowman, ποιο από τα παρακάτω είναι λάθος;",
+            options: [
+                  {
+                        text: "Είναι ορογόνοι σωληνοκυψελοειδείς αδένες.",
+                        correct: false
+                  },
+                  {
+                        text: "Εκβάλλουν αποκλειστικά μέσα στον οσφρητικό βολβό.",
+                        correct: true
+                  },
+                  {
+                        text: "Εκβάλλουν στην ελεύθερη επιφάνεια του ρινικού βλεννογόνου.",
+                        correct: false
+                  },
+                  {
+                        text: "Παράγουν ορώδες έκκριμα.",
+                        correct: false
+                  }
+            ],
+            explanation: "Οι αδένες Bowman εκβάλλουν στον ρινικό βλεννογόνο, όχι στον οσφρητικό βολβό."
+      },
+      {
+            id: 7,
+            category: "Οσφρητική οδός",
+            source: "Διαφ. 10-11",
+            negative: true,
+            question: "Στο σχήμα του οσφρητικού νεύρου, ποια αντιστοιχία δεν ταιριάζει;",
+            options: [
+                  {
+                        text: "Οσφρητικά νημάτια - τετρημένο πέταλο του ηθμοειδούς.",
+                        correct: false
+                  },
+                  {
+                        text: "Οσφρητικός βολβός - επάνω από τη ρινική κοιλότητα.",
+                        correct: false
+                  },
+                  {
+                        text: "Οσφρητική ταινία - συνέχεια πίσω από τον βολβό.",
+                        correct: false
+                  },
+                  {
+                        text: "Ρινοϋπερώιο νεύρο - κύρια συνέχεια της οσφρητικής ταινίας.",
+                        correct: true
+                  }
+            ],
+            explanation: "Η οσφρητική ταινία συνεχίζει τον βολβό προς τα πίσω. Το ρινοϋπερώιο νεύρο δεν είναι η συνέχεια της."
+      },
+      {
+            id: 8,
+            category: "Οσφρητική οδός",
+            source: "Διαφ. 13",
+            negative: false,
+            question: "Στη διαγραμματική οσφρητική οδό, ο 2ος αισθητικός νευρώνας είναι:",
+            options: [
+                  {
+                        text: "τα οσφρητικά κύτταρα του βλεννογόνου.",
+                        correct: false
+                  },
+                  {
+                        text: "τα τριτογενή κύτταρα της πρόσθιας μοίρας του απιοειδούς λοβού.",
+                        correct: false
+                  },
+                  {
+                        text: "οι νευρίτες των μιτροειδών κυττάρων.",
+                        correct: true
+                  },
+                  {
+                        text: "τα θαλαμοφλοιώδη κύτταρα του νεοχιτωνίου.",
+                        correct: false
+                  }
+            ],
+            explanation: "Μετά τον βολβό, οι νευρίτες των μιτροειδών κυττάρων αποτελούν τον 2ο αισθητικό νευρώνα."
+      },
+      {
+            id: 9,
+            category: "Οσφρητική οδός",
+            source: "Διαφ. 13, 16",
+            negative: true,
+            question: "Ποιο από τα παρακάτω δεν ανήκει στις καταλήξεις της έξω οσφρητικής χορδής;",
+            options: [
+                  {
+                        text: "Ουδός νήσου.",
+                        correct: false
+                  },
+                  {
+                        text: "Αμυγδαλοειδής πυρήνας.",
+                        correct: false
+                  },
+                  {
+                        text: "Άγκιστρο.",
+                        correct: false
+                  },
+                  {
+                        text: "Παροσφρητική άλως της υπομεσολοβίου έλικας.",
+                        correct: true
+                  }
+            ],
+            explanation: "Η παροσφρητική άλως συνδέεται με την έσω οσφρητική χορδή, όχι με την έξω."
+      },
+      {
+            id: 10,
+            category: "Οσφρητική οδός",
+            source: "Διαφ. 13, 16",
+            negative: true,
+            question: "Ποια αντιστοιχία είναι λανθασμένη στην οσφρητική οδό;",
+            options: [
+                  {
+                        text: "Τριτογενείς νευρώνες - οσφρητικά νημάτια.",
+                        correct: true
+                  },
+                  {
+                        text: "Έξω χορδή - πρόσθια μοίρα απιοειδούς λοβού.",
+                        correct: false
+                  },
+                  {
+                        text: "Έσω χορδή - παροσφρητική άλως.",
+                        correct: false
+                  },
+                  {
+                        text: "Κύριος οσφρητικός φλοιός - περιαμυγδαλοειδής και προαπιοειδής φλοιός.",
+                        correct: false
+                  }
+            ],
+            explanation: "Τα οσφρητικά νημάτια ανήκουν στην αρχή της οδού, πριν τον βολβό, όχι στους τριτογενείς νευρώνες."
+      },
+      {
+            id: 11,
+            category: "Οσφρητική οδός",
+            source: "Διαφ. 14",
+            negative: true,
+            question: "Σχετικά με τις ίνες του οσφρητικού βολβού, ποιο δεν ισχύει;",
+            options: [
+                  {
+                        text: "Υπάρχουν προσαγωγοί ίνες προς τα κοκκοειδή κύτταρα.",
+                        correct: false
+                  },
+                  {
+                        text: "Υπάρχουν απαγωγοί ίνες που σχετίζονται με μιτροειδή κύτταρα.",
+                        correct: false
+                  },
+                  {
+                        text: "Αναγνωρίζονται θυσανωτά και περισπειραματικά κύτταρα.",
+                        correct: false
+                  },
+                  {
+                        text: "Η παλίνδρομη αποφύαδα καταλήγει στον πλάγιο νωτιοθαλαμικό δεμάτιο.",
+                        correct: true
+                  }
+            ],
+            explanation: "Η παλίνδρομη απόφυση αφορά το τοπικό κύκλωμα του οσφρητικού βολβού, όχι νωτιοθαλαμική οδό."
+      },
+      {
+            id: 12,
+            category: "Οσφρητική οδός",
+            source: "Διαφ. 14",
+            negative: false,
+            question: "Η έσω οσφρητική χορδή στη διαφάνεια σχετίζεται κυρίως με:",
+            options: [
+                  {
+                        text: "το άνω γναθικό νεύρο και το σφηνοϋπερώιο γάγγλιο.",
+                        correct: false
+                  },
+                  {
+                        text: "τον πρόσθιο σύνδεσμο και την υπομεσολοβία άλω.",
+                        correct: true
+                  },
+                  {
+                        text: "το πλάγιο νωτιοθαλαμικό δεμάτιο και τον θάλαμο.",
+                        correct: false
+                  },
+                  {
+                        text: "την οπτική ακτινοβολία και το έξω γονατώδες σώμα.",
+                        correct: false
+                  }
+            ],
+            explanation: "Στο σχήμα η έσω χορδή σημειώνεται κοντά στον πρόσθιο σύνδεσμο και στην υπομεσολοβία/παροσφρητική άλω."
+      },
+      {
+            id: 13,
+            category: "Οσφρητική οδός",
+            source: "Διαφ. 13",
+            negative: true,
+            question: "Όλα τα παρακάτω εμφανίζονται ως τελικές ή ανώτερες συνδέσεις της οσφρητικής οδού εκτός από ένα:",
+            options: [
+                  {
+                        text: "Θάλαμος.",
+                        correct: false
+                  },
+                  {
+                        text: "Υποθάλαμος.",
+                        correct: false
+                  },
+                  {
+                        text: "Επιθάλαμος.",
+                        correct: false
+                  },
+                  {
+                        text: "Οπίσθιος έξω κοιλιακός πυρήνας ως κύριος 3ος νευρώνας.",
+                        correct: true
+                  }
+            ],
+            explanation: "Ο οπίσθιος έξω κοιλιακός πυρήνας ανήκει στις σωματοαισθητικές οδούς, όχι στην οσφρητική διαφάνεια."
+      },
+      {
+            id: 14,
+            category: "Οσφρητική οδός",
+            source: "Διαφ. 13",
+            negative: false,
+            question: "Στη διαφάνεια της οσφρητικής οδού, ο κύριος οσφρητικός φλοιός ορίζεται ως:",
+            options: [
+                  {
+                        text: "παροσφρητική άλως και υπομεσολόβια έλικα.",
+                        correct: false
+                  },
+                  {
+                        text: "περιαμυγδαλοειδής και προαπιοειδής φλοιός.",
+                        correct: true
+                  },
+                  {
+                        text: "θάλαμος και υποθάλαμος.",
+                        correct: false
+                  },
+                  {
+                        text: "άνω ρινική κόγχη και ρινικό διάφραγμα.",
+                        correct: false
+                  }
+            ],
+            explanation: "Η διαφάνεια γράφει ρητά: περιαμυγδαλοειδής + προαπιοειδής φλοιός = κύριος οσφρητικός φλοιός."
+      },
+      {
+            id: 15,
+            category: "Οσφρητική οδός",
+            source: "Διαφ. 13",
+            negative: true,
+            question: "Ποια αλληλουχία είναι λανθασμένη;",
+            options: [
+                  {
+                        text: "Οσφρητικός βλεννογόνος - οσφρητικά κύτταρα - οσφρητικά νημάτια.",
+                        correct: false
+                  },
+                  {
+                        text: "Οσφρητικά νημάτια - οσφρητικός βολβός - μιτροειδή κύτταρα.",
+                        correct: false
+                  },
+                  {
+                        text: "Οσφρητική ταινία - πρόσθιο νωτιοθαλαμικό δεμάτιο - οπίσθιος έξω κοιλιακός πυρήνας.",
+                        correct: true
+                  },
+                  {
+                        text: "Μιτροειδή κύτταρα - οσφρητική ταινία - οσφρητικές χορδές.",
+                        correct: false
+                  }
+            ],
+            explanation: "Το πρόσθιο νωτιοθαλαμικό δεμάτιο και ο VPL δεν ανήκουν στην οσφρητική αλληλουχία."
+      },
+      {
+            id: 16,
+            category: "Οσφρητική οδός",
+            source: "Διαφ. 7",
+            negative: false,
+            question: "Ποια ιδιότητα των οσφρητικών νευρώνων αναφέρεται ρητά;",
+            options: [
+                  {
+                        text: "Αντικαθίστανται λόγω αναγεννητικής ικανότητας.",
+                        correct: true
+                  },
+                  {
+                        text: "Μετατρέπονται σε γευστικές κάλυκες μετά από βλάβη.",
+                        correct: false
+                  },
+                  {
+                        text: "Μυελινώνονται πριν εισέλθουν στον βολβό.",
+                        correct: false
+                  },
+                  {
+                        text: "Καταλήγουν απευθείας στον οπτικό φλοιό.",
+                        correct: false
+                  }
+            ],
+            explanation: "Η διαφάνεια σημειώνει ότι οι οσφρητικοί νευρώνες αντικαθίστανται λόγω αναγεννητικής ικανότητας."
+      },
+      {
+            id: 17,
+            category: "Γευστική οδός",
+            source: "Διαφ. 20",
+            negative: true,
+            question: "Σχετικά με τις γευστικές κάλυκες, τι δεν ισχύει;",
+            options: [
+                  {
+                        text: "Η βάση τους βρίσκεται στη βασική μεμβράνη.",
+                        correct: false
+                  },
+                  {
+                        text: "Ο άνω πόλος τους φθάνει στην ελεύθερη επιφάνεια του επιθηλίου.",
+                        correct: false
+                  },
+                  {
+                        text: "Ο γευστικός πόρος προκύπτει από τα γύρω επιθηλιακά κύτταρα.",
+                        correct: false
+                  },
+                  {
+                        text: "Ο γευστικός πόρος είναι μακρύς σωλήνας του χορίου.",
+                        correct: true
+                  }
+            ],
+            explanation: "Ο γευστικός πόρος περιγράφεται ως βραχύς σωληνίσκος, όχι ως μακρύς σωλήνας του χορίου."
+      },
+      {
+            id: 18,
+            category: "Γευστική οδός",
+            source: "Διαφ. 20",
+            negative: true,
+            question: "Ποια αντιστοιχία κυττάρου-θέσης είναι λανθασμένη στις γευστικές κάλυκες;",
+            options: [
+                  {
+                        text: "Ερειστικά κύτταρα - επιθηλιακής προέλευσης.",
+                        correct: false
+                  },
+                  {
+                        text: "Ερειστικά κύτταρα - κυρίως στο κέντρο της κάλυκας.",
+                        correct: true
+                  },
+                  {
+                        text: "Γευστικά κύτταρα - νευροεπιθηλιακά.",
+                        correct: false
+                  },
+                  {
+                        text: "Γευστικό τριχίδιο - κορυφή μέσα στον γευστικό πόρο.",
+                        correct: false
+                  }
+            ],
+            explanation: "Τα ερειστικά κύτταρα αναφέρονται στην περιφέρεια της κάλυκας."
+      },
+      {
+            id: 19,
+            category: "Γευστική οδός",
+            source: "Διαφ. 20",
+            negative: false,
+            question: "Στη βάση του γευστικού κυττάρου καταλήγει ίνα που είναι:",
+            options: [
+                  {
+                        text: "παχιά μυελινωμένη κεντρική αποφυάδα μιτροειδούς κυττάρου.",
+                        correct: false
+                  },
+                  {
+                        text: "κινητική ίνα του προσωπικού πυρήνα.",
+                        correct: false
+                  },
+                  {
+                        text: "οπτική ίνα που φθάνει στο έξω γονατώδες σώμα.",
+                        correct: false
+                  },
+                  {
+                        text: "λεπτή αμύελη περιφερική αποφυάδα ψευδομονόπολου κυττάρου.",
+                        correct: true
+                  }
+            ],
+            explanation: "Η διαφάνεια τη συνδέει με περιφερική αποφυάδα ψευδομονόπολου κυττάρου γαγγλίου."
+      },
+      {
+            id: 20,
+            category: "Γευστική οδός",
+            source: "Διαφ. 21-24",
+            negative: true,
+            question: "Για τις θηλές της γλώσσας, ποια πρόταση είναι λάθος;",
+            options: [
+                  {
+                        text: "Οι τριχοειδείς βρίσκονται στα πρόσθια 2/3.",
+                        correct: false
+                  },
+                  {
+                        text: "Οι περιχαρακωμένες είναι οι μικρότερες και βρίσκονται στην κορυφή.",
+                        correct: true
+                  },
+                  {
+                        text: "Οι μυκητοειδείς είναι λιγότερες και βρίσκονται στα πλάγια χείλη και στην κορυφή.",
+                        correct: false
+                  },
+                  {
+                        text: "Οι φυλλοειδείς είναι υποτυπώδεις και οπίσθιες στα πλάγια χείλη.",
+                        correct: false
+                  }
+            ],
+            explanation: "Οι περιχαρακωμένες περιγράφονται ως μεγαλύτερες και σπουδαιότερες, στο γευστικό λάμβδα."
+      },
+      {
+            id: 21,
+            category: "Γευστική οδός",
+            source: "Διαφ. 21",
+            negative: false,
+            question: "Το γευστικό λάμβδα σχετίζεται κυρίως με:",
+            options: [
+                  {
+                        text: "τις τριχοειδείς θηλές.",
+                        correct: false
+                  },
+                  {
+                        text: "τους αδένες Bowman.",
+                        correct: false
+                  },
+                  {
+                        text: "το κεντρικό βοθρίο.",
+                        correct: false
+                  },
+                  {
+                        text: "τις περιχαρακωμένες θηλές.",
+                        correct: true
+                  }
+            ],
+            explanation: "Στη διαφάνεια οι περιχαρακωμένες συνδέονται με το γευστικό λάμβδα."
+      },
+      {
+            id: 22,
+            category: "Γευστική οδός",
+            source: "Διαφ. 26",
+            negative: true,
+            question: "Ποια αντιστοιχία γευστικών καλύκων-νεύρου δεν είναι σωστή;",
+            options: [
+                  {
+                        text: "Μυκητοειδείς θηλές - γλωσσικό νεύρο και χορδή τυμπάνου.",
+                        correct: false
+                  },
+                  {
+                        text: "Υπερώα - υπερώια νεύρα και μείζον επιπολής λιθοειδές.",
+                        correct: false
+                  },
+                  {
+                        text: "Επιγλωττίδα - κάτω φατνιακό νεύρο και V3.",
+                        correct: true
+                  },
+                  {
+                        text: "Περιχαρακωμένες και φυλλοειδείς - γλωσσικοί κλάδοι της IX.",
+                        correct: false
+                  }
+            ],
+            explanation: "Η επιγλωττίδα συνδέεται με τον έσω κλάδο του άνω λαρυγγικού και το πνευμονογαστρικό."
+      },
+      {
+            id: 23,
+            category: "Γευστική οδός",
+            source: "Διαφ. 26",
+            negative: true,
+            question: "Ποιο γάγγλιο δεν αντιστοιχεί στη σωστή γευστική είσοδο;",
+            options: [
+                  {
+                        text: "Έσω κλάδος άνω λαρυγγικού - μηνοειδές γάγγλιο.",
+                        correct: true
+                  },
+                  {
+                        text: "Χορδή τυμπάνου - γονάτιο γάγγλιο.",
+                        correct: false
+                  },
+                  {
+                        text: "Υπερώια νεύρα - σφηνοϋπερώιο γάγγλιο.",
+                        correct: false
+                  },
+                  {
+                        text: "Γλωσσικοί κλάδοι IX - λιθοειδές γάγγλιο.",
+                        correct: false
+                  }
+            ],
+            explanation: "Για την επιγλωττίδα η διαφάνεια δίνει οζώδες γάγγλιο, όχι μηνοειδές."
+      },
+      {
+            id: 24,
+            category: "Γευστική οδός",
+            source: "Διαφ. 26",
+            negative: false,
+            question: "Μετά τον πυρήνα της μονήρους δεσμίδας, η γευστική οδός συνεχίζει μέσω:",
+            options: [
+                  {
+                        text: "της οπτικής ακτινοβολίας προς το έσω κάψα.",
+                        correct: false
+                  },
+                  {
+                        text: "της έξω οσφρητικής χορδής.",
+                        correct: false
+                  },
+                  {
+                        text: "του έσω λημνίσκου με χιασμό.",
+                        correct: true
+                  },
+                  {
+                        text: "του πλάγιου αυχενικού πυρήνα.",
+                        correct: false
+                  }
+            ],
+            explanation: "Η διαφάνεια αναγράφει: πυρήνας μονήρους δεσμίδας - έσω λημνίσκος (χιασμός)."
+      },
+      {
+            id: 25,
+            category: "Γευστική οδός",
+            source: "Διαφ. 26",
+            negative: true,
+            question: "Σχετικά με τον τελικό φλοιό της γεύσης, τι δεν ισχύει;",
+            options: [
+                  {
+                        text: "Προηγούνται θαλαμοφλοιώδεις ίνες.",
+                        correct: false
+                  },
+                  {
+                        text: "Οι ίνες περνούν από το οπίσθιο σκέλος της έσω κάψας.",
+                        correct: false
+                  },
+                  {
+                        text: "Συμμετέχει ο ακτινωτός στέφανος.",
+                        correct: false
+                  },
+                  {
+                        text: "Το κέντρο βρίσκεται αποκλειστικά στην πληκτραία σχισμή.",
+                        correct: true
+                  }
+            ],
+            explanation: "Το κέντρο της γεύσης δίνεται στο κατώτερο τμήμα της οπίσθιας κεντρικής έλικας και στον πρόσθιο λοβό της νήσου."
+      },
+      {
+            id: 26,
+            category: "Γευστική οδός",
+            source: "Διαφ. 26",
+            negative: true,
+            question: "Ποια αλληλουχία είναι λάθος στη γευστική οδό;",
+            options: [
+                  {
+                        text: "Γευστικές κάλυκες υπερώας - υπερώια νεύρα - σφηνοϋπερώιο γάγγλιο.",
+                        correct: false
+                  },
+                  {
+                        text: "Γευστικές κάλυκες περιχαρακωμένων - V2 - σφηνοϋπερώιο γάγγλιο.",
+                        correct: true
+                  },
+                  {
+                        text: "Γευστικές κάλυκες επιγλωττίδας - έσω κλάδος άνω λαρυγγικού - οζώδες γάγγλιο.",
+                        correct: false
+                  },
+                  {
+                        text: "Γευστικές κάλυκες μυκητοειδών - χορδή τυμπάνου - γονάτιο γάγγλιο.",
+                        correct: false
+                  }
+            ],
+            explanation: "Οι περιχαρακωμένες/φυλλοειδείς θηλές περνούν με γλωσσικούς κλάδους της IX και λιθοειδές γάγγλιο."
+      },
+      {
+            id: 27,
+            category: "Γευστική οδός",
+            source: "Διαφ. 25-26",
+            negative: false,
+            question: "Η γεύση από τις μυκητοειδείς θηλές της γλώσσας φθάνει αρχικά μέσω:",
+            options: [
+                  {
+                        text: "έσω κλάδου του άνω λαρυγγικού νεύρου.",
+                        correct: false
+                  },
+                  {
+                        text: "γλωσσικού νεύρου και χορδής του τυμπάνου.",
+                        correct: true
+                  },
+                  {
+                        text: "γλωσσικών κλάδων του IX χωρίς συμμετοχή VII.",
+                        correct: false
+                  },
+                  {
+                        text: "υπερώιων νεύρων μέσω V2 ως τελικό αισθητικό νεύρο.",
+                        correct: false
+                  }
+            ],
+            explanation: "Στο διάγραμμα οι μυκητοειδείς θηλές περνούν από γλωσσικό νεύρο και χορδή του τυμπάνου."
+      },
+      {
+            id: 28,
+            category: "Γευστική οδός",
+            source: "Διαφ. 26",
+            negative: true,
+            question: "Ποια δομή δεν ανήκει στην κοινή κεντρική συνέχεια της γευστικής οδού;",
+            options: [
+                  {
+                        text: "Μονήρης δεσμίδα.",
+                        correct: false
+                  },
+                  {
+                        text: "Πυρήνας μονήρους δεσμίδας.",
+                        correct: false
+                  },
+                  {
+                        text: "Πρόσθιος οσφρητικός πυρήνας.",
+                        correct: true
+                  },
+                  {
+                        text: "Οπίσθιος έσω κοιλιακός πυρήνας του θαλάμου.",
+                        correct: false
+                  }
+            ],
+            explanation: "Ο πρόσθιος οσφρητικός πυρήνας ανήκει στα οσφρητικά σχήματα, όχι στη γευστική οδό."
+      },
+      {
+            id: 29,
+            category: "Γευστική οδός",
+            source: "Διαφ. 22-24",
+            negative: true,
+            question: "Στην τοπογραφία της γλώσσας, ποια σχέση είναι λανθασμένη;",
+            options: [
+                  {
+                        text: "Οι τριχοειδείς θηλές περιορίζονται στην επιγλωττίδα.",
+                        correct: true
+                  },
+                  {
+                        text: "Οι περιχαρακωμένες θηλές βρίσκονται κοντά στην τελική αύλακα.",
+                        correct: false
+                  },
+                  {
+                        text: "Οι μυκητοειδείς εμφανίζονται προς το σώμα και την κορυφή.",
+                        correct: false
+                  },
+                  {
+                        text: "Οι φυλλοειδείς σημειώνονται στα πλάγια της οπίσθιας γλώσσας.",
+                        correct: false
+                  }
+            ],
+            explanation: "Οι τριχοειδείς θηλές σημειώνονται στην πρόσθια ραχιαία επιφάνεια, όχι στην επιγλωττίδα."
+      },
+      {
+            id: 30,
+            category: "Γευστική οδός",
+            source: "Διαφ. 26",
+            negative: false,
+            question: "Ο τρίτος αισθητικός νευρώνας της γευστικής οδού βρίσκεται στον:",
+            options: [
+                  {
+                        text: "οπίσθιο έσω κοιλιακό πυρήνα του θαλάμου.",
+                        correct: true
+                  },
+                  {
+                        text: "οπίσθιο έξω κοιλιακό πυρήνα του θαλάμου.",
+                        correct: false
+                  },
+                  {
+                        text: "πλάγιο αυχενικό πυρήνα.",
+                        correct: false
+                  },
+                  {
+                        text: "προτετραδυμικό πυρήνα.",
+                        correct: false
+                  }
+            ],
+            explanation: "Η γεύση καταλήγει στον οπίσθιο έσω κοιλιακό πυρήνα, σε αντίθεση με κορμό/άκρα που χρησιμοποιούν VPL."
+      },
+      {
+            id: 31,
+            category: "Αφή και πίεση",
+            source: "Διαφ. 29",
+            negative: true,
+            question: "Στην οδό αφής και πίεσης από κορμό και άκρα, ποιο δεν αντιστοιχεί στον 1ο νευρώνα ή στους υποδοχείς του;",
+            options: [
+                  {
+                        text: "Κύτταρα νωτιαίων γαγγλίων.",
+                        correct: false
+                  },
+                  {
+                        text: "Απτικά σωμάτια Meissner.",
+                        correct: false
+                  },
+                  {
+                        text: "Σωμάτια Vater-Pacini και Golgi-Mazzoni.",
+                        correct: false
+                  },
+                  {
+                        text: "Κύτταρα του έξω γονατώδους σώματος.",
+                        correct: true
+                  }
+            ],
+            explanation: "Το έξω γονατώδες σώμα ανήκει στην οπτική οδό, όχι στον πρώτο νευρώνα αφής/πίεσης."
+      },
+      {
+            id: 32,
+            category: "Αφή και πίεση",
+            source: "Διαφ. 29",
+            negative: true,
+            question: "Ποια διάκριση δεματίου-ποιότητας είναι λάθος;",
+            options: [
+                  {
+                        text: "Πλάγιο νωτιοθαλαμικό δεμάτιο - κύρια οδός διακριτικής αφής.",
+                        correct: true
+                  },
+                  {
+                        text: "Ισχνό δεμάτιο - διακριτική αφή.",
+                        correct: false
+                  },
+                  {
+                        text: "Σφηνοειδές δεμάτιο - διακριτική αφή.",
+                        correct: false
+                  },
+                  {
+                        text: "Πρόσθιο νωτιοθαλαμικό δεμάτιο - αδρή αφή και πίεση.",
+                        correct: false
+                  }
+            ],
+            explanation: "Η διαφάνεια συνδέει διακριτική αφή με ισχνό/σφηνοειδές και αδρή αφή-πίεση με πρόσθιο νωτιοθαλαμικό."
+      },
+      {
+            id: 33,
+            category: "Αφή και πίεση",
+            source: "Διαφ. 29",
+            negative: false,
+            question: "Οι ίνες αδρής αφής και πίεσης καταλήγουν τελικά στον φλοιό μέσω:",
+            options: [
+                  {
+                        text: "οπισθίου έξω κοιλιακού πυρήνα του θαλάμου και θαλαμοφλοιωδών ινών.",
+                        correct: true
+                  },
+                  {
+                        text: "οπισθίου έσω κοιλιακού πυρήνα και πρόσθιου λοβού νήσου.",
+                        correct: false
+                  },
+                  {
+                        text: "έξω γονατώδους σώματος και οπτικής ακτινοβολίας.",
+                        correct: false
+                  },
+                  {
+                        text: "πυρήνα Edinger-Westphal και βραχέων ακτινοειδών νεύρων.",
+                        correct: false
+                  }
+            ],
+            explanation: "Για κορμό και άκρα, η διαφάνεια δίνει VPL και θαλαμοφλοιώδεις ίνες προς την οπίσθια κεντρική έλικα."
+      },
+      {
+            id: 34,
+            category: "Αφή και πίεση",
+            source: "Διαφ. 30",
+            negative: true,
+            question: "Για ερεθίσματα αφής/πίεσης από την κεφαλή, τι δεν ισχύει;",
+            options: [
+                  {
+                        text: "Ο 1ος νευρώνας βρίσκεται στο μηνοειδές γάγγλιο του τριδύμου.",
+                        correct: false
+                  },
+                  {
+                        text: "Συμμετέχει ο άνω αισθητικός πυρήνας του τριδύμου.",
+                        correct: false
+                  },
+                  {
+                        text: "Ο τελικός θαλαμικός πυρήνας είναι ο οπίσθιος έξω κοιλιακός.",
+                        correct: true
+                  },
+                  {
+                        text: "Συμμετέχει ο πυρήνας της νωτιαίας δεσμίδας του τριδύμου για πίεση.",
+                        correct: false
+                  }
+            ],
+            explanation: "Για την κεφαλή η διαφάνεια δίνει οπίσθιο έσω κοιλιακό πυρήνα, όχι έξω."
+      },
+      {
+            id: 35,
+            category: "Αφή και πίεση",
+            source: "Διαφ. 30",
+            negative: true,
+            question: "Ποια σχέση είναι λανθασμένη για την κεφαλική οδό αφής/πίεσης;",
+            options: [
+                  {
+                        text: "Ο λημνίσκος του τριδύμου καταλήγει πρώτα στο έξω γονατώδες σώμα.",
+                        correct: true
+                  },
+                  {
+                        text: "Υπάρχει χιασμός στον λημνίσκο του τριδύμου.",
+                        correct: false
+                  },
+                  {
+                        text: "Υπάρχει και αχίαστη πορεία μέσω οπίσθιου τριδυμοθαλαμικού δεματίου.",
+                        correct: false
+                  },
+                  {
+                        text: "Ο φλοιός είναι η κάτω μοίρα της οπίσθιας κεντρικής έλικας.",
+                        correct: false
+                  }
+            ],
+            explanation: "Το έξω γονατώδες σώμα είναι οπτικός σταθμός. Η κεφαλική σωματοαισθητική οδός φθάνει στον VPM."
+      },
+      {
+            id: 36,
+            category: "Αφή και πίεση",
+            source: "Διαφ. 30, 37",
+            negative: false,
+            question: "Ερεθίσματα από το πτερύγιο του έξω ωτός αναφέρονται να περνούν μέσω:",
+            options: [
+                  {
+                        text: "VII - γονάτιο γάγγλιο - πυρήνα μονήρους δεσμίδας.",
+                        correct: false
+                  },
+                  {
+                        text: "V2 - σφηνοϋπερώιο γάγγλιο - άνω αισθητικό πυρήνα V.",
+                        correct: false
+                  },
+                  {
+                        text: "Χ - σφαγιτιδικό γάγγλιο - αισθητική ρίζα Χ - πυρήνα νωτιαίας δεσμίδας V.",
+                        correct: true
+                  },
+                  {
+                        text: "IX - λιθοειδές γάγγλιο - πρόσθιο νωτιοθαλαμικό δεμάτιο.",
+                        correct: false
+                  }
+            ],
+            explanation: "Η διαφάνεια δίνει ρητά Χ, σφαγιτιδικό γάγγλιο, αισθητική ρίζα Χ και πυρήνα νωτιαίας δεσμίδας V."
+      },
+      {
+            id: 37,
+            category: "Αφή και πίεση",
+            source: "Διαφ. 31",
+            negative: true,
+            question: "Για το νωτιοαυχενικό δεμάτιο, ποιο δεν ισχύει;",
+            options: [
+                  {
+                        text: "Σχετίζεται με προετοιμασία αντίληψης πόνου.",
+                        correct: false
+                  },
+                  {
+                        text: "Δέχεται πίεση, κίνηση τριχών, θερμικά και ισχυρά μυϊκά ερεθίσματα.",
+                        correct: false
+                  },
+                  {
+                        text: "Καταλήγει απευθείας στον οσφρητικό βολβό.",
+                        correct: true
+                  },
+                  {
+                        text: "Συμμετέχει πλάγιος αυχενικός πυρήνας στην πλάγια δέσμη.",
+                        correct: false
+                  }
+            ],
+            explanation: "Η πορεία συνεχίζει με χιασμό, έσω λημνίσκο, VPL και αισθητικό φλοιό."
+      },
+      {
+            id: 38,
+            category: "Αφή και πίεση",
+            source: "Διαφ. 31",
+            negative: true,
+            question: "Ποια θέση του πλάγιου αυχενικού πυρήνα είναι λανθασμένη;",
+            options: [
+                  {
+                        text: "Στην έξω κοκκώδη στιβάδα του αμφιβληστροειδούς.",
+                        correct: true
+                  },
+                  {
+                        text: "Στην πλάγια δέσμη.",
+                        correct: false
+                  },
+                  {
+                        text: "Στα άνω δύο αυχενικά νευροτόμια.",
+                        correct: false
+                  },
+                  {
+                        text: "Με συνέχεια προς τον έσω λημνίσκο μετά από χιασμό.",
+                        correct: false
+                  }
+            ],
+            explanation: "Η έξω κοκκώδης στιβάδα αφορά φωτοϋποδοχείς, όχι τον πλάγιο αυχενικό πυρήνα."
+      },
+      {
+            id: 39,
+            category: "Αφή και πίεση",
+            source: "Διαφ. 29",
+            negative: false,
+            question: "Η επιχείλια ζώνη στην οδό αφής/πίεσης αναφέρεται ότι εκτείνεται:",
+            options: [
+                  {
+                        text: "μόνο μέσα στην οπτική ακτινοβολία.",
+                        correct: false
+                  },
+                  {
+                        text: "αποκλειστικά στον πρόσθιο λοβό της νήσου.",
+                        correct: false
+                  },
+                  {
+                        text: "1-3 νευροτόμια πάνω και κάτω.",
+                        correct: true
+                  },
+                  {
+                        text: "από τον αμφιβληστροειδή μέχρι το έξω γονατώδες σώμα.",
+                        correct: false
+                  }
+            ],
+            explanation: "Στη διαφάνεια σημειώνεται η επιχείλια ζώνη με 1-3 νευροτόμια πάνω και κάτω."
+      },
+      {
+            id: 40,
+            category: "Αφή και πίεση",
+            source: "Διαφ. 29",
+            negative: true,
+            question: "Ποια ζώνη δεν αναφέρεται ως κατάληξη στην οδό αφής/πίεσης;",
+            options: [
+                  {
+                        text: "Ζώνη VIII.",
+                        correct: true
+                  },
+                  {
+                        text: "Ζώνη I.",
+                        correct: false
+                  },
+                  {
+                        text: "Ζώνη IV.",
+                        correct: false
+                  },
+                  {
+                        text: "Ζώνη V.",
+                        correct: false
+                  }
+            ],
+            explanation: "Η διαφάνεια αναφέρει κατάληξη στις ζώνες I, IV και V."
+      },
+      {
+            id: 41,
+            category: "Άλγος και θερμοκρασία",
+            source: "Διαφ. 33",
+            negative: true,
+            question: "Ποιος υποδοχέας/ερέθισμα δεν αντιστοιχεί σωστά στην οδό άλγους και θερμοκρασίας;",
+            options: [
+                  {
+                        text: "Σωμάτια Vater-Pacini - οξύ θερμικό άλγος.",
+                        correct: true
+                  },
+                  {
+                        text: "Ελεύθερες απολήξεις - άλγος.",
+                        correct: false
+                  },
+                  {
+                        text: "Τελικές κορύνες Krause - ψυχρό.",
+                        correct: false
+                  },
+                  {
+                        text: "Σωμάτια Ruffini - θερμό.",
+                        correct: false
+                  }
+            ],
+            explanation: "Τα Vater-Pacini εμφανίζονται στην αφή/πίεση, ενώ εδώ δίνονται ελεύθερες απολήξεις, Krause και Ruffini."
+      },
+      {
+            id: 42,
+            category: "Άλγος και θερμοκρασία",
+            source: "Διαφ. 33",
+            negative: false,
+            question: "Ο 2ος νευρώνας για άλγος και θερμοκρασία από κορμό/άκρα περιλαμβάνει κύτταρα:",
+            options: [
+                  {
+                        text: "του έξω γονατώδους σώματος και της πληκτραίας σχισμής.",
+                        correct: false
+                  },
+                  {
+                        text: "των μιτροειδών κυττάρων και της οσφρητικής ταινίας.",
+                        correct: false
+                  },
+                  {
+                        text: "του γονάτιου γαγγλίου και της χορδής τυμπάνου.",
+                        correct: false
+                  },
+                  {
+                        text: "των πυρήνων του οπισθίου κέρατος στις ζώνες I και V.",
+                        correct: true
+                  }
+            ],
+            explanation: "Η διαφάνεια αναφέρει κύτταρα οπισθίου κέρατος στις ζώνες I και V, καθώς και ραχιαία πηκτωματώδη ουσία."
+      },
+      {
+            id: 43,
+            category: "Άλγος και θερμοκρασία",
+            source: "Διαφ. 34",
+            negative: true,
+            question: "Για το οξύ νυγμώδες άλγος, τι δεν ισχύει;",
+            options: [
+                  {
+                        text: "Ο 3ος νευρώνας βρίσκεται στον οπίσθιο έξω κοιλιακό πυρήνα.",
+                        correct: false
+                  },
+                  {
+                        text: "Η οδός συνεχίζει στην σύστοιχη πλάγια δέσμη χωρίς χιασμό.",
+                        correct: true
+                  },
+                  {
+                        text: "Συμμετέχει το πλάγιο νωτιοθαλαμικό δεμάτιο.",
+                        correct: false
+                  },
+                  {
+                        text: "Ο χιασμός γίνεται μέσω πρόσθιου λευκού συνδέσμου.",
+                        correct: false
+                  }
+            ],
+            explanation: "Η διαφάνεια δίνει χιασμό στον πρόσθιο λευκό σύνδεσμο και πορεία στην ετερόπλευρη πλάγια δέσμη."
+      },
+      {
+            id: 44,
+            category: "Άλγος και θερμοκρασία",
+            source: "Διαφ. 34",
+            negative: true,
+            question: "Ποια αλληλουχία είναι λανθασμένη για το οξύ νυγμώδες άλγος;",
+            options: [
+                  {
+                        text: "Πλάγιο νωτιοθαλαμικό δεμάτιο - έσω κάψα - ακτινωτός στέφανος.",
+                        correct: false
+                  },
+                  {
+                        text: "Πρόσθιος λευκός σύνδεσμος - χιασμός - ετερόπλευρη πλάγια δέσμη.",
+                        correct: false
+                  },
+                  {
+                        text: "Οπτικό χίασμα - έξω γονατώδες σώμα - πληκτραία σχισμή.",
+                        correct: true
+                  },
+                  {
+                        text: "VPL - θαλαμοφλοιώδεις ίνες - οπίσθια κεντρική έλικα.",
+                        correct: false
+                  }
+            ],
+            explanation: "Η τελευταία αλληλουχία είναι οπτική, όχι αλγοδεκτική."
+      },
+      {
+            id: 45,
+            category: "Άλγος και θερμοκρασία",
+            source: "Διαφ. 35-36",
+            negative: false,
+            question: "Ο βύθιος, καυστικός, αργός πόνος σχετίζεται στη διαφάνεια με:",
+            options: [
+                  {
+                        text: "οπτικά κύτταρα της έξω κοκκώδους στιβάδας.",
+                        correct: false
+                  },
+                  {
+                        text: "μιτροειδή κύτταρα του οσφρητικού βολβού.",
+                        correct: false
+                  },
+                  {
+                        text: "περιχαρακωμένες θηλές του γευστικού λάμβδα.",
+                        correct: false
+                  },
+                  {
+                        text: "πυρήνες δικτυωτού σχηματισμού του εγκεφαλικού στελέχους.",
+                        correct: true
+                  }
+            ],
+            explanation: "Η διαφάνεια συνδέει τον βύθιο/καυστικό/αργό πόνο με πυρήνες του δικτυωτού σχηματισμού."
+      },
+      {
+            id: 46,
+            category: "Άλγος και θερμοκρασία",
+            source: "Διαφ. 35",
+            negative: true,
+            question: "Ποια δομή δεν αναφέρεται στη διαδρομή ή στις συνδέσεις του βραδέος χρόνιου καυστικού πόνου;",
+            options: [
+                  {
+                        text: "Έλικα προσαγωγίου.",
+                        correct: false
+                  },
+                  {
+                        text: "Σφηνοϋπερώιο γάγγλιο.",
+                        correct: true
+                  },
+                  {
+                        text: "Νήσος.",
+                        correct: false
+                  },
+                  {
+                        text: "Προμετωπιαίος φλοιός.",
+                        correct: false
+                  }
+            ],
+            explanation: "Η διαφάνεια αναφέρει έλικα προσαγωγίου, νήσο και προμετωπιαίο φλοιό, όχι σφηνοϋπερώιο γάγγλιο."
+      },
+      {
+            id: 47,
+            category: "Άλγος και θερμοκρασία",
+            source: "Διαφ. 36",
+            negative: true,
+            question: "Ποια διατύπωση για τις αλγοδεκτικές πληροφορίες είναι λάθος;",
+            options: [
+                  {
+                        text: "Το νωτιοθαλαμικό σύστημα σχετίζεται με οξύ νυγμώδες άλγος.",
+                        correct: false
+                  },
+                  {
+                        text: "Το νωτιοθαλαμικό σύστημα δίνει ακριβή εντόπιση πόνου.",
+                        correct: false
+                  },
+                  {
+                        text: "Το νωτιαίο δικτυοθαλαμικό σύστημα είναι η κύρια οδός ευκρινούς όρασης.",
+                        correct: true
+                  },
+                  {
+                        text: "Το νωτιαίο δικτυοθαλαμικό σύστημα σχετίζεται με χρόνιο βύθιο καυστικό άλγος.",
+                        correct: false
+                  }
+            ],
+            explanation: "Η ευκρινής όραση ανήκει στην οπτική ενότητα. Το δικτυοθαλαμικό σύστημα αφορά αργό/συναισθηματικό άλγος."
+      },
+      {
+            id: 48,
+            category: "Άλγος και θερμοκρασία",
+            source: "Διαφ. 37",
+            negative: false,
+            question: "Άλγος και θερμοκρασία από το έξω ους αναφέρονται να περνούν μέσω:",
+            options: [
+                  {
+                        text: "X - σφαγιτιδικό γάγγλιο - αισθητική ρίζα X - πυρήνα νωτιαίας δεσμίδας V.",
+                        correct: true
+                  },
+                  {
+                        text: "VII - χορδή τυμπάνου - γονάτιο γάγγλιο - πυρήνα μονήρους δεσμίδας.",
+                        correct: false
+                  },
+                  {
+                        text: "IX - λιθοειδές γάγγλιο - έσω λημνίσκο - VPM.",
+                        correct: false
+                  },
+                  {
+                        text: "V2 - υπερώια νεύρα - σφηνοϋπερώιο γάγγλιο.",
+                        correct: false
+                  }
+            ],
+            explanation: "Η διαφάνεια για την κεφαλή δίνει την ακολουθία μέσω X και πυρήνα νωτιαίας δεσμίδας V."
+      },
+      {
+            id: 49,
+            category: "Άλγος και θερμοκρασία",
+            source: "Διαφ. 35",
+            negative: true,
+            question: "Σχετικά με τον υποθάλαμο στην αλγοδεκτική διαφάνεια, τι δεν ισχύει;",
+            options: [
+                  {
+                        text: "Αναφέρεται σε σύνδεση με θερμότητα.",
+                        correct: false
+                  },
+                  {
+                        text: "Αποτελεί τον πρώτο αισθητικό νευρώνα της οδού.",
+                        correct: true
+                  },
+                  {
+                        text: "Συνυπάρχει στο σχήμα με αμυγδαλοειδή πυρήνα.",
+                        correct: false
+                  },
+                  {
+                        text: "Συνυπάρχει με οπίσθιο σύμπλεγμα του θαλάμου.",
+                        correct: false
+                  }
+            ],
+            explanation: "Ο πρώτος νευρώνας είναι στα νωτιαία γάγγλια. Ο υποθάλαμος εμφανίζεται ως ανώτερη σύνδεση."
+      },
+      {
+            id: 50,
+            category: "Άλγος και θερμοκρασία",
+            source: "Διαφ. 33-34",
+            negative: true,
+            question: "Ποιο ζεύγος είναι λανθασμένο;",
+            options: [
+                  {
+                        text: "Ελεύθερες απολήξεις - καλυπτήριο επιθήλιο και συνδετικός ιστός.",
+                        correct: false
+                  },
+                  {
+                        text: "Πρώτος νευρώνας - κύτταρα νωτιαίων γαγγλίων.",
+                        correct: false
+                  },
+                  {
+                        text: "Νευρίτες δεύτερου νευρώνα - πλάγιο νωτιοθαλαμικό δεμάτιο.",
+                        correct: false
+                  },
+                  {
+                        text: "Τρίτος νευρώνας - πυρήνας Edinger-Westphal.",
+                        correct: true
+                  }
+            ],
+            explanation: "Ο τρίτος νευρώνας για οξύ άλγος/θερμοκρασία είναι στον VPL, όχι στον Edinger-Westphal."
+      },
+      {
+            id: 51,
+            category: "Οπτική οδός",
+            source: "Διαφ. 40, 53",
+            negative: true,
+            question: "Ποια στιβάδα/νευρώνας του αμφιβληστροειδούς δεν αντιστοιχεί σωστά;",
+            options: [
+                  {
+                        text: "Οπτικά κύτταρα - 1ος νευρώνας.",
+                        correct: false
+                  },
+                  {
+                        text: "Έξω γονατώδες σώμα - 1ος νευρώνας.",
+                        correct: true
+                  },
+                  {
+                        text: "Δίπολα κύτταρα - 2ος νευρώνας.",
+                        correct: false
+                  },
+                  {
+                        text: "Γαγγλιακά κύτταρα - 3ος νευρώνας.",
+                        correct: false
+                  }
+            ],
+            explanation: "Το έξω γονατώδες σώμα είναι ο 4ος νευρώνας της κύριας οπτικής οδού."
+      },
+      {
+            id: 52,
+            category: "Οπτική οδός",
+            source: "Διαφ. 41",
+            negative: true,
+            question: "Για τα οπτικά κύτταρα, τι δεν ισχύει;",
+            options: [
+                  {
+                        text: "Βρίσκονται στην έξω κοκκώδη στιβάδα.",
+                        correct: false
+                  },
+                  {
+                        text: "Έχουν έσω και έξω αποφυάδα.",
+                        correct: false
+                  },
+                  {
+                        text: "Η έξω αποφυάδα καταλήγει στην έσω κάψα.",
+                        correct: true
+                  },
+                  {
+                        text: "Η έσω αποφυάδα φέρεται στην έξω δικτυωτή στιβάδα.",
+                        correct: false
+                  }
+            ],
+            explanation: "Η έξω αποφυάδα διαπερνά τον έξω αφοριστικό υμένα και ονομάζεται ραβδίο ή κωνίο."
+      },
+      {
+            id: 53,
+            category: "Οπτική οδός",
+            source: "Διαφ. 41",
+            negative: false,
+            question: "Η διάκριση ραβδιοφόρων και κωνιοφόρων οπτικών κυττάρων βασίζεται:",
+            options: [
+                  {
+                        text: "στο σχήμα της έξω αποφυάδας.",
+                        correct: true
+                  },
+                  {
+                        text: "στην πορεία της χορδής του τυμπάνου.",
+                        correct: false
+                  },
+                  {
+                        text: "στον χιασμό του έσω λημνίσκου.",
+                        correct: false
+                  },
+                  {
+                        text: "στη σχέση με τις περιχαρακωμένες θηλές.",
+                        correct: false
+                  }
+            ],
+            explanation: "Η διαφάνεια αναφέρει ότι η έξω αποφυάδα ονομάζεται ραβδίο ή κωνίο ανάλογα με το σχήμα της."
+      },
+      {
+            id: 54,
+            category: "Οπτική οδός",
+            source: "Διαφ. 42",
+            negative: true,
+            question: "Στον βυθό του δεξιού οφθαλμού, ποια σχέση είναι λάθος;",
+            options: [
+                  {
+                        text: "Η οπτική θηλή αντιστοιχεί σε τυφλό σημείο.",
+                        correct: false
+                  },
+                  {
+                        text: "Η ωχρά κηλίδα περιέχει κεντρικό βοθρίο.",
+                        correct: false
+                  },
+                  {
+                        text: "Το κεντρικό βοθρίο σχετίζεται με μόνον κωνία και ευκρινή όραση.",
+                        correct: false
+                  },
+                  {
+                        text: "Η οπτική θηλή είναι η περιοχή της ευκρινέστερης όρασης.",
+                        correct: true
+                  }
+            ],
+            explanation: "Η ευκρινής όραση σημειώνεται στην ωχρά κηλίδα/κεντρικό βοθρίο, ενώ η θηλή είναι τυφλό σημείο."
+      },
+      {
+            id: 55,
+            category: "Οπτική οδός",
+            source: "Διαφ. 45",
+            negative: false,
+            question: "Το οπτικό νεύρο σχηματίζεται όταν:",
+            options: [
+                  {
+                        text: "τα ραβδία περνούν απευθείας στην πληκτραία σχισμή.",
+                        correct: false
+                  },
+                  {
+                        text: "η οπτική ακτινοβολία επιστρέφει στο οπτικό χίασμα.",
+                        correct: false
+                  },
+                  {
+                        text: "οι ίνες του Edinger-Westphal εισέρχονται στον αμφιβληστροειδή.",
+                        correct: false
+                  },
+                  {
+                        text: "οι νευρίτες των γαγγλιακών κυττάρων συγκλίνουν στη θηλή.",
+                        correct: true
+                  }
+            ],
+            explanation: "Η διαφάνεια αναφέρει ότι οι νευρίτες των γαγγλιακών κυττάρων συγκλίνουν στη θηλή και σχηματίζουν το οπτικό νεύρο."
+      },
+      {
+            id: 56,
+            category: "Οπτική οδός",
+            source: "Διαφ. 46, 57",
+            negative: true,
+            question: "Ποια πορεία της κύριας οπτικής οδού είναι λανθασμένη;",
+            options: [
+                  {
+                        text: "Αμφιβληστροειδής - οπτικό νεύρο - οπτικό χίασμα.",
+                        correct: false
+                  },
+                  {
+                        text: "Οπτική ταινία - πυρήνας μονήρους δεσμίδας - οπτικός φλοιός.",
+                        correct: true
+                  },
+                  {
+                        text: "Οπτικό χίασμα - οπτική ταινία - έξω γονατώδες σώμα.",
+                        correct: false
+                  },
+                  {
+                        text: "Έξω γονατώδες σώμα - οπτική ακτινοβολία - έσω κάψα.",
+                        correct: false
+                  }
+            ],
+            explanation: "Ο πυρήνας μονήρους δεσμίδας ανήκει στη γευστική οδό. Η κύρια οπτική συνεχίζει προς έξω γονατώδες σώμα."
+      },
+      {
+            id: 57,
+            category: "Οπτική οδός",
+            source: "Διαφ. 47, 57",
+            negative: true,
+            question: "Για το αντανακλαστικό του φωτός, ποιο δεν ισχύει;",
+            options: [
+                  {
+                        text: "Η προσαγωγός οδός περνά από οπτικό νεύρο, χίασμα και ταινία.",
+                        correct: false
+                  },
+                  {
+                        text: "Οι προτετραδυμικοί πυρήνες δίνουν ίνες προς Edinger-Westphal άμφω.",
+                        correct: false
+                  },
+                  {
+                        text: "Η απαγωγός οδός περνά από το κοινό κινητικό νεύρο.",
+                        correct: false
+                  },
+                  {
+                        text: "Το αντανακλαστικό καταλήγει στον διαστολέα μυ της κόρης.",
+                        correct: true
+                  }
+            ],
+            explanation: "Η διαφάνεια δίνει σφιγκτήρα μυ της ίριδας, δηλαδή στένωση κόρης, όχι διαστολέα."
+      },
+      {
+            id: 58,
+            category: "Οπτική οδός",
+            source: "Διαφ. 47, 57",
+            negative: false,
+            question: "Η έμμεση/συνεργής φωτοκινητική αντίδραση εξηγείται επειδή:",
+            options: [
+                  {
+                        text: "το σφηνοϋπερώιο γάγγλιο δίνει ίνες στον σφιγκτήρα της κόρης.",
+                        correct: false
+                  },
+                  {
+                        text: "η χορδή του τυμπάνου φθάνει και στους δύο οφθαλμούς.",
+                        correct: false
+                  },
+                  {
+                        text: "ο προτετραδυμικός πυρήνας χορηγεί ίνες σε Edinger-Westphal άμφω.",
+                        correct: true
+                  },
+                  {
+                        text: "το έξω γονατώδες σώμα νευρώνει άμεσα την ίριδα.",
+                        correct: false
+                  }
+            ],
+            explanation: "Ο πίνακας σημειώνει αμφοτερόπλευρη προβολή προς τους πυρήνες Edinger-Westphal."
+      },
+      {
+            id: 59,
+            category: "Οπτική οδός",
+            source: "Διαφ. 50-51",
+            negative: true,
+            question: "Ποια αντιστοιχία βλάβης-διαταραχής οπτικού πεδίου είναι λανθασμένη;",
+            options: [
+                  {
+                        text: "Οπτικό νεύρο - μονόφθαλμος τύφλωση.",
+                        correct: false
+                  },
+                  {
+                        text: "Οπτικό χίασμα - αμφικροταφική ημιανοψία.",
+                        correct: false
+                  },
+                  {
+                        text: "Αδένωμα υπόφυσης - άνω τεταρτοκυκλική ανοψία.",
+                        correct: true
+                  },
+                  {
+                        text: "Οπτική ταινία - ομώνυμη ημιανοψία.",
+                        correct: false
+                  }
+            ],
+            explanation: "Στη διαφάνεια το αδένωμα υπόφυσης συνδέεται με αμφικροταφική ημιανοψία."
+      },
+      {
+            id: 60,
+            category: "Οπτική οδός",
+            source: "Διαφ. 54-55",
+            negative: true,
+            question: "Ποια σχέση οπτικού πεδίου-ινών είναι λανθασμένη στο σχήμα;",
+            options: [
+                  {
+                        text: "Άνω οπτικό πεδίο - απευθείας στον πυρήνα μονήρους δεσμίδας.",
+                        correct: true
+                  },
+                  {
+                        text: "Άνω οπτικό πεδίο - πορεία μέσω κροταφικής ακτινοβολίας/αγκύλης Meyer.",
+                        correct: false
+                  },
+                  {
+                        text: "Κάτω οπτικό πεδίο - πορεία προς βρεγματική ακτινοβολία.",
+                        correct: false
+                  },
+                  {
+                        text: "Πληκτραία σχισμή - τελικός οπτικός φλοιός.",
+                        correct: false
+                  }
+            ],
+            explanation: "Οι διαφάνειες δείχνουν κεντρική οπτική οδό προς πληκτραία σχισμή, όχι προς μονήρη δεσμίδα."
+      },
+      {
+            id: 61,
+            category: "Οπτική οδός",
+            source: "Διαφ. 55",
+            negative: false,
+            question: "Στη διαφάνεια με την οπτική ακτινοβολία, το σφηνοειδές λοβίο βρίσκεται:",
+            options: [
+                  {
+                        text: "κάτω από τη γλωσσοειδή έλικα.",
+                        correct: false
+                  },
+                  {
+                        text: "μέσα στο οπτικό χίασμα.",
+                        correct: false
+                  },
+                  {
+                        text: "άνω της πληκτραίας σχισμής.",
+                        correct: true
+                  },
+                  {
+                        text: "στον πρόσθιο λοβό της νήσου.",
+                        correct: false
+                  }
+            ],
+            explanation: "Το σχήμα σημειώνει το σφηνοειδές λοβίο άνω και τη γλωσσοειδή έλικα κάτω από την πληκτραία σχισμή."
+      },
+      {
+            id: 62,
+            category: "Οπτική οδός",
+            source: "Διαφ. 55",
+            negative: true,
+            question: "Ποια αντιστοιχία γύρω από την πληκτραία σχισμή είναι λάθος;",
+            options: [
+                  {
+                        text: "Σφηνοειδές λοβίο - άνω της σχισμής.",
+                        correct: false
+                  },
+                  {
+                        text: "Ωχρά κηλίδα - φλεβώδης κόλπος της σχισμής.",
+                        correct: true
+                  },
+                  {
+                        text: "Γλωσσοειδής έλικα - κάτω της σχισμής.",
+                        correct: false
+                  },
+                  {
+                        text: "Οπτική ακτινοβολία - προς τον οπτικό φλοιό.",
+                        correct: false
+                  }
+            ],
+            explanation: "Η ωχρά κηλίδα είναι περιοχή του αμφιβληστροειδούς, όχι φλεβώδης κόλπος της πληκτραίας σχισμής."
+      },
+      {
+            id: 63,
+            category: "Οπτική οδός",
+            source: "Διαφ. 53",
+            negative: true,
+            question: "Ποια λειτουργία δεν αντιστοιχεί στα κύτταρα του έξω γονατώδους σώματος;",
+            options: [
+                  {
+                        text: "Αποτελούν τον τελικό αισθητικό πυρήνα του οπτικού νεύρου.",
+                        correct: false
+                  },
+                  {
+                        text: "Σχηματίζουν τις γευστικές κάλυκες της υπερώας.",
+                        correct: true
+                  },
+                  {
+                        text: "Οι ίνες τους φέρονται δια της οπτικής ακτινοβολίας.",
+                        correct: false
+                  },
+                  {
+                        text: "Βρίσκονται στην οπίσθια επιφάνεια του θαλάμου.",
+                        correct: false
+                  }
+            ],
+            explanation: "Οι γευστικές κάλυκες ανήκουν στη γευστική ενότητα, όχι στο έξω γονατώδες σώμα."
+      },
+      {
+            id: 64,
+            category: "Οπτική οδός",
+            source: "Διαφ. 57",
+            negative: true,
+            question: "Ποια οπτική οδός και λειτουργία δεν αντιστοιχούν σωστά;",
+            options: [
+                  {
+                        text: "1η κύρια οπτική οδός - αντίληψη κεντρικής και περιφερικής όρασης.",
+                        correct: false
+                  },
+                  {
+                        text: "2η οδός προς άνω δίδυμα - γρήγορος έλεγχος οφθαλμικών κινήσεων.",
+                        correct: false
+                  },
+                  {
+                        text: "3η οδός προς υπερχιασματικούς πυρήνες - κιρκάδιος ρυθμός.",
+                        correct: false
+                  },
+                  {
+                        text: "4η οδός προς προτετραδυμικούς πυρήνες - υποδοχή γεύσης.",
+                        correct: true
+                  }
+            ],
+            explanation: "Η 4η οδός σχετίζεται με αντανακλαστικό κόρης στο φως, μέγεθος κόρης και συντονισμό κινήσεων."
+      },
+      {
+            id: 65,
+            category: "Οπτική οδός",
+            source: "Διαφ. 57",
+            negative: true,
+            question: "Στην κύρια οπτική οδό του πίνακα, ποιο στοιχείο δεν ανήκει στην πορεία;",
+            options: [
+                  {
+                        text: "Οπτική ταινία.",
+                        correct: false
+                  },
+                  {
+                        text: "Λιθοειδές γάγγλιο.",
+                        correct: true
+                  },
+                  {
+                        text: "Έξω γονατώδες σώμα.",
+                        correct: false
+                  },
+                  {
+                        text: "Έσω κάψα.",
+                        correct: false
+                  }
+            ],
+            explanation: "Το λιθοειδές γάγγλιο ανήκει στη γευστική οδό της IX, όχι στην κύρια οπτική οδό."
+      },
+      {
+            id: 66,
+            category: "Οπτική οδός",
+            source: "Διαφ. 58",
+            negative: false,
+            question: "Στο αντανακλαστικό του κερατοειδούς, η προσαγωγός ίνα είναι:",
+            options: [
+                  {
+                        text: "η χορδή του τυμπάνου.",
+                        correct: false
+                  },
+                  {
+                        text: "το οφθαλμικό νεύρο (V1).",
+                        correct: true
+                  },
+                  {
+                        text: "το κοινό κινητικό νεύρο.",
+                        correct: false
+                  },
+                  {
+                        text: "το γλωσσοφαρυγγικό νεύρο.",
+                        correct: false
+                  }
+            ],
+            explanation: "Η διαφάνεια δείχνει τον κερατοειδή προς τον κύριο αισθητικό πυρήνα του V μέσω οφθαλμικού νεύρου V1."
+      },
+      {
+            id: 67,
+            category: "Οπτική οδός",
+            source: "Διαφ. 58",
+            negative: true,
+            question: "Ποια αντιστοιχία στο αντανακλαστικό του κερατοειδούς είναι λανθασμένη;",
+            options: [
+                  {
+                        text: "Πυρήνας Edinger-Westphal - τελικός κινητικός πυρήνας βλεφάρων.",
+                        correct: true
+                  },
+                  {
+                        text: "Κερατοειδής χιτώνας - αισθητική είσοδος.",
+                        correct: false
+                  },
+                  {
+                        text: "Κύριος αισθητικός πυρήνας V - σταθμός προσαγωγού.",
+                        correct: false
+                  },
+                  {
+                        text: "Προσωπικό νεύρο VII - απαγωγός οδός προς σφιγκτήρα βλεφάρων.",
+                        correct: false
+                  }
+            ],
+            explanation: "Το αντανακλαστικό κερατοειδούς στο σχήμα περνά σε κινητικό πυρήνα προσωπικού και VII, όχι σε Edinger-Westphal."
+      },
+      {
+            id: 68,
+            category: "Οπτική οδός",
+            source: "Διαφ. 39",
+            negative: true,
+            question: "Στη δομή του αμφιβληστροειδούς, ποια αντιστοιχία δεν ταιριάζει;",
+            options: [
+                  {
+                        text: "A - βραχύινα κύτταρα.",
+                        correct: false
+                  },
+                  {
+                        text: "R - κωνία.",
+                        correct: true
+                  },
+                  {
+                        text: "B - δίπολα κύτταρα.",
+                        correct: false
+                  },
+                  {
+                        text: "G - γαγγλιακά κύτταρα.",
+                        correct: false
+                  }
+            ],
+            explanation: "Στο υπόμνημα της διαφάνειας R αντιστοιχεί σε ραβδία, ενώ C αντιστοιχεί σε κωνία."
+      },
+      {
+            id: 69,
+            category: "Οπτική οδός",
+            source: "Διαφ. 39",
+            negative: true,
+            question: "Ποια προβολή οπτικού πεδίου είναι λανθασμένη με βάση το σχήμα;",
+            options: [
+                  {
+                        text: "Το οπτικό πεδίο προβάλλεται ανεστραμμένα στον αμφιβληστροειδή.",
+                        correct: false
+                  },
+                  {
+                        text: "Κάθε τεταρτημόριο έχει το ίδιο χρώμα και στους δύο αμφιβληστροειδείς χωρίς αναστροφή.",
+                        correct: true
+                  },
+                  {
+                        text: "Το κεντρικό τμήμα του πεδίου αντιστοιχεί σε ζώνη σύγκλισης.",
+                        correct: false
+                  },
+                  {
+                        text: "Οι οπτικές ταινίες φέρουν πληροφορίες μετά το χίασμα.",
+                        correct: false
+                  }
+            ],
+            explanation: "Το σχήμα δείχνει διαφορετική προβολή των τεταρτημορίων στους αμφιβληστροειδείς και χιασμό των ρινικών ινών."
+      },
+      {
+            id: 70,
+            category: "Οπτική οδός",
+            source: "Διαφ. 47, 52, 57",
+            negative: true,
+            question: "Ποια σχέση δεν ανήκει στο φωτοκινητικό αντανακλαστικό όπως παρουσιάζεται;",
+            options: [
+                  {
+                        text: "Κινητικός πυρήνας προσωπικού και σφιγκτήρας βλεφάρων.",
+                        correct: true
+                  },
+                  {
+                        text: "Προτετραδυμικός πυρήνας.",
+                        correct: false
+                  },
+                  {
+                        text: "Πυρήνας Edinger-Westphal.",
+                        correct: false
+                  },
+                  {
+                        text: "Οφθαλμικό γάγγλιο και βραχέα ακτινοειδή νεύρα.",
+                        correct: false
+                  }
+            ],
+            explanation: "Ο κινητικός πυρήνας VII και ο σφιγκτήρας βλεφάρων αφορούν το αντανακλαστικό του κερατοειδούς, όχι το φως."
+      }
+];
+
+    const letters = ["α", "β", "γ", "δ"];
+    const storageKey = "neuroanatomy_mcqs_progress_v1";
+    let state = {
+      activeQuestions: [],
+      index: 0,
+      answers: {},
+      mode: "idle",
+      settings: {}
+    };
+
+    const els = {
+      category: document.getElementById("category-filter"),
+      search: document.getElementById("search-input"),
+      shuffleQuestions: document.getElementById("shuffle-questions"),
+      shuffleOptions: document.getElementById("shuffle-options"),
+      start: document.getElementById("start-btn"),
+      resume: document.getElementById("resume-btn"),
+      print: document.getElementById("print-btn"),
+      clear: document.getElementById("clear-btn"),
+      next: document.getElementById("next-btn"),
+      quiz: document.getElementById("quiz-view"),
+      available: document.getElementById("available-count"),
+      saved: document.getElementById("saved-count"),
+      negative: document.getElementById("negative-count"),
+      distribution: document.getElementById("distribution-body"),
+      progressCount: document.getElementById("progress-count"),
+      scoreCount: document.getElementById("score-count"),
+      percentCount: document.getElementById("percent-count"),
+      categoryCurrent: document.getElementById("category-current"),
+      progressBar: document.getElementById("progress-bar"),
+      printArea: document.getElementById("print-area"),
+      totalPill: document.getElementById("total-pill")
+    };
+
+    function shuffle(array) {
+      const copy = array.slice();
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function normalize(text) {
+      return String(text || "").toLocaleLowerCase("el-GR");
+    }
+
+    function categoryCounts(list = questions) {
+      return list.reduce((acc, q) => {
+        acc[q.category] = (acc[q.category] || 0) + 1;
+        return acc;
+      }, {});
+    }
+
+    function getFilteredQuestions() {
+      const cat = els.category.value;
+      const term = normalize(els.search.value.trim());
+      return questions.filter(q => {
+        const inCategory = cat === "all" || q.category === cat;
+        const blob = normalize([
+          q.category, q.source, q.question, q.explanation,
+          ...q.options.map(o => o.text)
+        ].join(" "));
+        return inCategory && (!term || blob.includes(term));
+      });
+    }
+
+    function buildActiveQuestions(base) {
+      const ordered = els.shuffleQuestions.checked ? shuffle(base) : base.slice();
+      return ordered.map(q => ({
+        ...q,
+        options: els.shuffleOptions.checked ? shuffle(q.options) : q.options.slice()
+      }));
+    }
+
+    function score() {
+      return Object.values(state.answers).filter(a => a.isCorrect).length;
+    }
+
+    function answeredCount() {
+      return Object.keys(state.answers).length;
+    }
+
+    function percent(correct, total) {
+      if (!total) return 0;
+      return Math.round((correct / total) * 100);
+    }
+
+    function saveProgress() {
+      if (state.mode !== "quiz") return;
+      localStorage.setItem(storageKey, JSON.stringify(state));
+      updateSavedIndicator();
+    }
+
+    function loadProgress() {
+      try {
+        const raw = localStorage.getItem(storageKey);
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        if (!Array.isArray(parsed.activeQuestions) || !parsed.activeQuestions.length) return null;
+        return parsed;
+      } catch {
+        return null;
+      }
+    }
+
+    function clearProgress() {
+      localStorage.removeItem(storageKey);
+      updateSavedIndicator();
+    }
+
+    function updateSavedIndicator() {
+      const saved = loadProgress();
+      els.resume.disabled = !saved;
+      els.saved.textContent = saved ? `${Object.keys(saved.answers || {}).length}` : "0";
+    }
+
+    function populateControls() {
+      const categories = Object.keys(categoryCounts()).sort((a, b) => a.localeCompare(b, "el"));
+      els.category.innerHTML = `<option value="all">Όλες οι κατηγορίες</option>` +
+        categories.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join("");
+      els.totalPill.textContent = `${questions.length} ερωτήσεις`;
+      renderDistribution(questions);
+      updateFilterStats();
+      updateSavedIndicator();
+    }
+
+    function renderDistribution(list) {
+      const counts = categoryCounts(list);
+      els.distribution.innerHTML = Object.entries(counts)
+        .sort((a, b) => a[0].localeCompare(b[0], "el"))
+        .map(([cat, n]) => `<tr><td>${escapeHtml(cat)}</td><td>${n}</td></tr>`)
+        .join("");
+    }
+
+    function updateFilterStats() {
+      const filtered = getFilteredQuestions();
+      els.available.textContent = filtered.length;
+      els.negative.textContent = filtered.filter(q => q.negative).length;
+      renderDistribution(filtered);
+      buildPrintArea(filtered);
+    }
+
+    function startQuiz(list = getFilteredQuestions()) {
+      if (!list.length) {
+        els.quiz.innerHTML = `<div class="empty">Δεν βρέθηκαν ερωτήσεις με αυτά τα φίλτρα.</div>`;
+        return;
+      }
+      state = {
+        activeQuestions: buildActiveQuestions(list),
+        index: 0,
+        answers: {},
+        mode: "quiz",
+        settings: {
+          category: els.category.value,
+          search: els.search.value,
+          shuffleQuestions: els.shuffleQuestions.checked,
+          shuffleOptions: els.shuffleOptions.checked
+        }
+      };
+      renderQuestion();
+      saveProgress();
+    }
+
+    function resumeQuiz() {
+      const saved = loadProgress();
+      if (!saved) return;
+      state = saved;
+      els.category.value = saved.settings?.category || "all";
+      els.search.value = saved.settings?.search || "";
+      els.shuffleQuestions.checked = Boolean(saved.settings?.shuffleQuestions);
+      els.shuffleOptions.checked = Boolean(saved.settings?.shuffleOptions);
+      renderQuestion();
+      updateFilterStats();
+    }
+
+    function renderQuestion() {
+      const total = state.activeQuestions.length;
+      if (!total) {
+        updateProgress();
+        els.quiz.innerHTML = `<div class="empty">Δεν υπάρχει ενεργό quiz.</div>`;
+        return;
+      }
+      if (state.index >= total) {
+        renderResults();
+        return;
+      }
+
+      const q = state.activeQuestions[state.index];
+      const answer = state.answers[q.id];
+      els.next.disabled = !answer;
+      els.quiz.innerHTML = `
+        <div class="meta">
+          <span class="tag">${escapeHtml(q.category)}</span>
+          <span class="tag source">${escapeHtml(q.source)}</span>
+        </div>
+        <p class="question">${escapeHtml(q.question)}</p>
+        <div class="options">
+          ${q.options.map((option, i) => {
+            const selected = answer && answer.selectedIndex === i;
+            const cls = answer
+              ? option.correct ? " correct" : selected ? " wrong" : ""
+              : "";
+            return `<button class="option${cls}" data-index="${i}" ${answer ? "disabled" : ""}>
+              <span class="letter">${letters[i]})</span>
+              <span>${escapeHtml(option.text)}</span>
+            </button>`;
+          }).join("")}
+        </div>
+        <div id="feedback" class="feedback ${answer ? "show " + (answer.isCorrect ? "good" : "bad") : ""}">
+          ${answer ? feedbackHtml(q, answer) : ""}
+        </div>
+      `;
+
+      els.quiz.querySelectorAll(".option").forEach(btn => {
+        btn.addEventListener("click", () => selectAnswer(Number(btn.dataset.index)));
+      });
+      updateProgress();
+    }
+
+    function feedbackHtml(q, answer) {
+      const correctIndex = q.options.findIndex(o => o.correct);
+      const correctLetter = letters[correctIndex];
+      const selectedLetter = letters[answer.selectedIndex];
+      const head = answer.isCorrect
+        ? `Σωστό. Απάντηση ${correctLetter})`
+        : `Λάθος. Πάτησες ${selectedLetter}), σωστό είναι ${correctLetter})`;
+      return `<strong>${escapeHtml(head)}</strong><span>${escapeHtml(q.explanation)}</span>`;
+    }
+
+    function selectAnswer(index) {
+      const q = state.activeQuestions[state.index];
+      const isCorrect = Boolean(q.options[index]?.correct);
+      state.answers[q.id] = { selectedIndex: index, isCorrect };
+      renderQuestion();
+      saveProgress();
+    }
+
+    function nextQuestion() {
+      if (state.index < state.activeQuestions.length) {
+        state.index += 1;
+        renderQuestion();
+        saveProgress();
+      }
+    }
+
+    function updateProgress() {
+      const total = state.activeQuestions.length || 0;
+      const current = total ? Math.min(state.index + 1, total) : 0;
+      const correct = score();
+      const answered = answeredCount();
+      els.progressCount.textContent = `${current} / ${total}`;
+      els.scoreCount.textContent = `Σκορ ${correct}`;
+      els.percentCount.textContent = `${percent(correct, answered)}%`;
+      els.progressBar.style.width = total ? `${Math.round((answered / total) * 100)}%` : "0%";
+      const q = state.activeQuestions[state.index];
+      els.categoryCurrent.textContent = `Κατηγορία: ${q ? q.category : "-"}`;
+    }
+
+    function renderResults() {
+      state.mode = "done";
+      const total = state.activeQuestions.length;
+      const correct = score();
+      const wrong = total - correct;
+      const pct = percent(correct, total);
+      const byCategory = {};
+      const wrongItems = [];
+
+      state.activeQuestions.forEach(q => {
+        const ans = state.answers[q.id];
+        if (!byCategory[q.category]) byCategory[q.category] = { total: 0, correct: 0 };
+        byCategory[q.category].total += 1;
+        if (ans?.isCorrect) byCategory[q.category].correct += 1;
+        else wrongItems.push(q);
+      });
+
+      els.next.disabled = true;
+      els.progressBar.style.width = "100%";
+      els.progressCount.textContent = `${total} / ${total}`;
+      els.scoreCount.textContent = `Σκορ ${correct}`;
+      els.percentCount.textContent = `${pct}%`;
+      els.categoryCurrent.textContent = "Τελική οθόνη";
+
+      els.quiz.className = "results-card";
+      els.quiz.innerHTML = `
+        <h2>Αποτελέσματα</h2>
+        <div class="score-big">
+          <div class="score-box"><strong>${correct}/${total}</strong><span>συνολικό σκορ</span></div>
+          <div class="score-box"><strong>${pct}%</strong><span>ποσοστό</span></div>
+          <div class="score-box"><strong>${correct}</strong><span>σωστές</span></div>
+          <div class="score-box"><strong>${wrong}</strong><span>λανθασμένες</span></div>
+        </div>
+        <h2>Απόδοση ανά κατηγορία</h2>
+        <table>
+          <thead><tr><th>Κατηγορία</th><th>Σωστές</th><th>Ποσοστό</th></tr></thead>
+          <tbody>
+            ${Object.entries(byCategory).map(([cat, v]) => `<tr><td>${escapeHtml(cat)}</td><td>${v.correct}/${v.total}</td><td>${percent(v.correct, v.total)}%</td></tr>`).join("")}
+          </tbody>
+        </table>
+        <div class="btn-row">
+          <button id="restart-results">Επανεκκίνηση</button>
+          <button id="wrong-results" class="secondary" ${wrongItems.length ? "" : "disabled"}>Επανάληψη λανθασμένων</button>
+        </div>
+        <h2>Ανασκόπηση λανθασμένων</h2>
+        <div class="review-list">
+          ${wrongItems.length ? wrongItems.map(q => reviewHtml(q)).join("") : `<div class="empty">Δεν υπάρχουν λανθασμένες ερωτήσεις.</div>`}
+        </div>
+      `;
+
+      document.getElementById("restart-results").addEventListener("click", () => {
+        els.quiz.className = "question-card";
+        startQuiz();
+      });
+      document.getElementById("wrong-results").addEventListener("click", () => {
+        if (!wrongItems.length) return;
+        els.quiz.className = "question-card";
+        const ids = new Set(wrongItems.map(q => q.id));
+        startQuiz(questions.filter(q => ids.has(q.id)));
+      });
+      clearProgress();
+    }
+
+    function reviewHtml(q) {
+      const correct = q.options.find(o => o.correct);
+      return `<div class="review-item">
+        <strong>${escapeHtml(q.source)} - ${escapeHtml(q.question)}</strong>
+        <div class="muted">Σωστό: ${escapeHtml(correct.text)}</div>
+        <div>${escapeHtml(q.explanation)}</div>
+      </div>`;
+    }
+
+    function buildPrintArea(list) {
+      els.printArea.innerHTML = `
+        <h1>Νευρικές Οδοί - MCQs</h1>
+        <p>Ερωτήσεις: ${list.length}. Περιλαμβάνεται ενότητα απαντήσεων και σύντομων αιτιολογήσεων.</p>
+        ${list.map((q, idx) => `
+          <div class="print-question">
+            <h3>${idx + 1}. ${escapeHtml(q.question)} <span>(${escapeHtml(q.category)}, ${escapeHtml(q.source)})</span></h3>
+            <ol type="a">
+              ${q.options.map(o => `<li>${escapeHtml(o.text)}</li>`).join("")}
+            </ol>
+            <div class="print-answer"><strong>Απάντηση:</strong> ${letters[q.options.findIndex(o => o.correct)]}) ${escapeHtml(q.options.find(o => o.correct).text)}<br><strong>Αιτιολόγηση:</strong> ${escapeHtml(q.explanation)}</div>
+          </div>
+        `).join("")}
+      `;
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    els.start.addEventListener("click", () => {
+      els.quiz.className = "question-card";
+      startQuiz();
+    });
+    els.resume.addEventListener("click", () => {
+      els.quiz.className = "question-card";
+      resumeQuiz();
+    });
+    els.next.addEventListener("click", nextQuestion);
+    els.print.addEventListener("click", () => {
+      buildPrintArea(state.activeQuestions.length ? state.activeQuestions : getFilteredQuestions());
+      window.print();
+    });
+    els.clear.addEventListener("click", () => {
+      clearProgress();
+      state = { activeQuestions: [], index: 0, answers: {}, mode: "idle", settings: {} };
+      els.quiz.className = "question-card";
+      els.quiz.innerHTML = `<div class="empty">Η αποθηκευμένη πρόοδος καθαρίστηκε.</div>`;
+      updateProgress();
+    });
+    [els.category, els.search, els.shuffleQuestions, els.shuffleOptions].forEach(el => {
+      el.addEventListener("input", updateFilterStats);
+      el.addEventListener("change", updateFilterStats);
+    });
+
+    populateControls();
+    updateProgress();
+  </script>
+</body>
+</html>
