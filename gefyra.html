@@ -1,0 +1,1522 @@
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Νευροανατομία - Γέφυρα και Προμήκης Μυελός | MCQs</title>
+  <style>
+    :root {
+      --bg: #eef2f6;
+      --surface: #ffffff;
+      --surface-2: #f7f9fb;
+      --ink: #17202a;
+      --muted: #647184;
+      --line: #d7dee8;
+      --accent: #275d8c;
+      --accent-2: #7b5e2d;
+      --good: #147a44;
+      --good-bg: #e8f6ee;
+      --bad: #b13535;
+      --bad-bg: #fdecec;
+      --warn: #8a651d;
+      --shadow: 0 18px 45px rgba(31, 42, 55, .12);
+      font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "Noto Sans", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.55;
+    }
+
+    .app-shell {
+      width: min(1180px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 22px 0 42px;
+    }
+
+    header {
+      background: #152536;
+      color: #fff;
+      border-radius: 8px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    h1 {
+      margin: 0 0 6px;
+      font-size: clamp(1.35rem, 2.4vw, 2.15rem);
+      letter-spacing: 0;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: #d7e2ec;
+      font-size: .98rem;
+    }
+
+    .toolbar {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: minmax(180px, 1fr) minmax(220px, 1.4fr) repeat(2, minmax(132px, auto));
+      gap: 10px;
+      align-items: end;
+    }
+
+    label {
+      display: grid;
+      gap: 6px;
+      font-size: .78rem;
+      color: #dbe5ef;
+      font-weight: 700;
+    }
+
+    select, input[type="search"] {
+      width: 100%;
+      height: 42px;
+      border: 1px solid rgba(255,255,255,.28);
+      background: rgba(255,255,255,.1);
+      color: #fff;
+      border-radius: 6px;
+      padding: 0 12px;
+      font: inherit;
+      outline: none;
+    }
+
+    select option { color: #17202a; }
+
+    input::placeholder { color: #c4ceda; }
+
+    .toggle {
+      min-height: 42px;
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: 6px;
+      padding: 9px 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #fff;
+      background: rgba(255,255,255,.08);
+      font-size: .9rem;
+      font-weight: 650;
+      cursor: pointer;
+    }
+
+    .toggle input { accent-color: var(--accent-2); }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 6px;
+      min-height: 42px;
+      padding: 0 16px;
+      font: inherit;
+      font-weight: 750;
+      cursor: pointer;
+      color: #fff;
+      background: var(--accent);
+      transition: transform .15s ease, filter .15s ease, background .15s ease;
+    }
+
+    button:hover:not(:disabled) { filter: brightness(1.05); transform: translateY(-1px); }
+    button:disabled { cursor: not-allowed; opacity: .55; }
+
+    .secondary { background: #405164; }
+    .light { background: #f4f7fa; color: #1d2b38; border: 1px solid var(--line); }
+    .danger { background: #873838; }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin: 16px 0;
+    }
+
+    .metric {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 13px 14px;
+    }
+
+    .metric span {
+      display: block;
+      color: var(--muted);
+      font-size: .76rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .metric strong {
+      display: block;
+      margin-top: 4px;
+      font-size: 1.08rem;
+    }
+
+    .progress-track {
+      height: 10px;
+      background: #dce4ed;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      transition: width .25s ease;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .question-card, .side-panel, .results-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .question-card { padding: 22px; }
+
+    .q-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+      color: var(--muted);
+      font-size: .84rem;
+      font-weight: 750;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: #edf3f8;
+      color: #244760;
+      border: 1px solid #d4e0ea;
+    }
+
+    .question-text {
+      margin: 0 0 18px;
+      font-size: clamp(1.08rem, 2vw, 1.35rem);
+      line-height: 1.45;
+      font-weight: 800;
+    }
+
+    .options {
+      display: grid;
+      gap: 10px;
+    }
+
+    .option {
+      width: 100%;
+      min-height: auto;
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 10px;
+      align-items: start;
+      text-align: left;
+      background: var(--surface-2);
+      color: var(--ink);
+      border: 1px solid var(--line);
+      padding: 13px 14px;
+      border-radius: 8px;
+      font-weight: 650;
+    }
+
+    .option .key {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: inline-grid;
+      place-items: center;
+      background: #dfe8f1;
+      color: #1b384e;
+      font-weight: 850;
+    }
+
+    .option.correct {
+      background: var(--good-bg);
+      border-color: #9ad1b4;
+      color: #0e5130;
+    }
+
+    .option.wrong {
+      background: var(--bad-bg);
+      border-color: #e7a0a0;
+      color: #7d2222;
+    }
+
+    .feedback {
+      display: none;
+      margin-top: 16px;
+      border-radius: 8px;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      background: #f8fafc;
+    }
+
+    .feedback.show { display: block; }
+    .feedback.good { border-color: #a7d8bd; background: var(--good-bg); }
+    .feedback.bad { border-color: #ebb0b0; background: var(--bad-bg); }
+
+    .card-actions {
+      margin-top: 16px;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .side-panel {
+      padding: 16px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .side-panel h2 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .9rem;
+    }
+
+    th, td {
+      padding: 8px 0;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th:last-child, td:last-child { text-align: right; }
+
+    .results-card {
+      grid-column: 1 / -1;
+      padding: 22px;
+      display: none;
+    }
+
+    .results-card.show { display: block; }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin: 14px 0 18px;
+    }
+
+    .wrong-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .wrong-item {
+      background: #fafbfc;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+    }
+
+    .empty-state {
+      padding: 28px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .print-bank { display: none; }
+
+    @media (max-width: 860px) {
+      .toolbar { grid-template-columns: 1fr; }
+      .status-grid, .results-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      main { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 520px) {
+      .app-shell { width: min(100% - 18px, 1180px); padding-top: 10px; }
+      header, .question-card, .results-card { padding: 16px; }
+      .status-grid, .results-grid { grid-template-columns: 1fr; }
+      .option { grid-template-columns: 32px 1fr; padding: 12px; }
+      .actions button, .card-actions button { width: 100%; }
+    }
+
+    @media print {
+      body { background: #fff; color: #000; }
+      .app-shell { width: 100%; padding: 0; }
+      header, .status-grid, .progress-track, main, .results-card, .actions { display: none !important; }
+      .print-bank { display: block; }
+      .print-bank h1 { color: #000; margin-bottom: 8px; }
+      .print-question {
+        break-inside: avoid;
+        border-bottom: 1px solid #bbb;
+        padding: 10px 0;
+      }
+      .print-question h3 { margin: 0 0 6px; font-size: 12pt; }
+      .print-question ol { margin: 4px 0 6px 22px; padding: 0; }
+      .print-answer { font-size: 10pt; color: #222; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <header>
+      <h1>Γέφυρα και Προμήκης Μυελός - MCQs Νευροανατομίας</h1>
+      <p class="subtitle">Δύσκολες ερωτήσεις πολλαπλής επιλογής βασισμένες στις διαφάνειες του PDF.</p>
+      <div class="toolbar" aria-label="Ρυθμίσεις quiz">
+        <label>Κατηγορία
+          <select id="categoryFilter"></select>
+        </label>
+        <label>Αναζήτηση
+          <input id="searchInput" type="search" placeholder="Π.χ. ελαία, λημνίσκος, τρίδυμο">
+        </label>
+        <label class="toggle"><input id="shuffleQuestions" type="checkbox" checked> Ανακάτεμα ερωτήσεων</label>
+        <label class="toggle"><input id="shuffleAnswers" type="checkbox" checked> Ανακάτεμα απαντήσεων</label>
+      </div>
+      <div class="actions">
+        <button id="startBtn">Έναρξη / Εφαρμογή φίλτρων</button>
+        <button id="restartBtn" class="secondary">Επανεκκίνηση</button>
+        <button id="printBtn" class="secondary">Εκτύπωση</button>
+        <button id="clearStorageBtn" class="danger">Καθαρισμός προόδου</button>
+      </div>
+    </header>
+
+    <section class="status-grid" aria-label="Στατιστικά προόδου">
+      <div class="metric"><span>Πρόοδος</span><strong id="progressText">0 / 0</strong></div>
+      <div class="metric"><span>Σκορ</span><strong id="scoreText">0</strong></div>
+      <div class="metric"><span>Ποσοστό</span><strong id="percentText">0%</strong></div>
+      <div class="metric"><span>Κατηγορία</span><strong id="currentCategory">-</strong></div>
+    </section>
+    <div class="progress-track" aria-hidden="true"><div id="progressFill" class="progress-fill"></div></div>
+
+    <main>
+      <section id="quizCard" class="question-card" aria-live="polite">
+        <div class="empty-state">Φόρτωση quiz...</div>
+      </section>
+
+      <aside class="side-panel">
+        <section>
+          <h2>Κατανομή ερωτήσεων</h2>
+          <table>
+            <thead><tr><th>Κατηγορία</th><th>Πλήθος</th></tr></thead>
+            <tbody id="distributionBody"></tbody>
+          </table>
+        </section>
+        <section>
+          <h2>Τρέχον φίλτρο</h2>
+          <p id="filterSummary" class="subtitle" style="color: var(--muted);">Όλες οι ερωτήσεις.</p>
+        </section>
+      </aside>
+
+      <section id="resultsCard" class="results-card" aria-live="polite"></section>
+    </main>
+
+    <section id="printBank" class="print-bank"></section>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        id: 1,
+        category: "Γέφυρα - εξωτερική μορφολογία",
+        source: "Διαφάνειες 2-3",
+        question: "Σχετικά με τις σχέσεις της γέφυρας, ποιο από τα παρακάτω δεν ισχύει;",
+        options: [
+          { text: "Προς τα κάτω συνδέεται με τον προμήκη μυελό.", correct: false },
+          { text: "Προς τα επάνω σχετίζεται με τα εγκεφαλικά σκέλη.", correct: false },
+          { text: "Ανήκει στον οπίσθιο εγκέφαλο μαζί με την παρεγκεφαλίδα.", correct: false },
+          { text: "Προς τα πίσω συνδέεται άμεσα με τον νωτιαίο μυελό.", correct: true }
+        ],
+        explanation: "Η γέφυρα σχετίζεται με την παρεγκεφαλίδα, όχι άμεσα με τον νωτιαίο μυελό, σύμφωνα με τις διαφάνειες 2-3."
+      },
+      {
+        id: 2,
+        category: "Γέφυρα - εξωτερική μορφολογία",
+        source: "Διαφάνεια 4",
+        question: "Ποια από τις παρακάτω αντιστοιχίες για τα όρια της γέφυρας είναι λανθασμένη;",
+        options: [
+          { text: "Πρόσθιο όριο - πρόσθια γεφυρική αύλακα.", correct: false },
+          { text: "Οπίσθιο όριο - οπίσθια γεφυρική αύλακα.", correct: false },
+          { text: "Πλάγιο όριο - ανάδυση του υπογλωσσίου νεύρου.", correct: true },
+          { text: "Πλάγιο όριο - γραμμή μεταξύ τριδύμου και προσωπικού.", correct: false }
+        ],
+        explanation: "Το πλάγιο όριο δίνεται ως νοητή γραμμή από τρίδυμο προς προσωπικό, όχι από το υπογλώσσιο."
+      },
+      {
+        id: 3,
+        category: "Γέφυρα - εξωτερική μορφολογία",
+        source: "Διαφάνεια 4",
+        question: "Στην οπίσθια γεφυρική αύλακα, ποια ανάδυση αναφέρεται εκατέρωθεν;",
+        options: [
+          { text: "Του απαγωγού νεύρου.", correct: true },
+          { text: "Του τριδύμου νεύρου.", correct: false },
+          { text: "Του προσωπικού νεύρου.", correct: false },
+          { text: "Του υπογλωσσίου νεύρου.", correct: false }
+        ],
+        explanation: "Η διαφάνεια 4 συνδέει την οπίσθια γεφυρική αύλακα με την ανάδυση του απαγωγού."
+      },
+      {
+        id: 4,
+        category: "Γέφυρα - εξωτερική μορφολογία",
+        source: "Διαφάνεια 5",
+        question: "Σχετικά με τη βασική αύλακα της γέφυρας, τι δεν ισχύει;",
+        options: [
+          { text: "Φέρεται οβελιαία στη μέση γραμμή.", correct: false },
+          { text: "Υποδέχεται τη βασική αρτηρία.", correct: false },
+          { text: "Βρίσκεται στην πρόσθια επιφάνεια.", correct: false },
+          { text: "Βρίσκεται επί τα εκτός της ανάδυσης του τριδύμου.", correct: true }
+        ],
+        explanation: "Η βασική αύλακα είναι μέση και οβελιαία· επί τα εκτός της ανάδυσης του τριδύμου βρίσκονται τα μέσα σκέλη."
+      },
+      {
+        id: 5,
+        category: "Γέφυρα - εξωτερική μορφολογία",
+        source: "Διαφάνεια 5",
+        question: "Ποια από τις παρακάτω σχέσεις της πρόσθιας επιφάνειας της γέφυρας είναι σωστή;",
+        options: [
+          { text: "Τα πυραμιδικά ογκώματα είναι επί τα εκτός των μέσων σκελών.", correct: false },
+          { text: "Η ανάδυση του τριδύμου βρίσκεται πλάγια των πυραμιδικών ογκωμάτων.", correct: true },
+          { text: "Η βασική αύλακα αποκλίνει λοξά από τη μέση γραμμή.", correct: false },
+          { text: "Η λοξή δεσμίδα καταλήγει προς τα άνω και έσω.", correct: false }
+        ],
+        explanation: "Η ανάδυση του τριδύμου εντοπίζεται στα πλάγια των πυραμιδικών ογκωμάτων, στη μεσότητα της γέφυρας."
+      },
+      {
+        id: 6,
+        category: "Γέφυρα - εξωτερική μορφολογία",
+        source: "Διαφάνεια 5",
+        question: "Ένα από τα παρακάτω για τη λοξή δεσμίδα της γέφυρας είναι λάθος:",
+        options: [
+          { text: "Αποκλίνει από την ανάδυση του τριδύμου νεύρου.", correct: false },
+          { text: "Πορεύεται λοξά προς τα κάτω και έξω.", correct: false },
+          { text: "Αποτελεί δεσμίδα ινών της πρόσθιας επιφάνειας.", correct: false },
+          { text: "Πορεύεται λοξά προς τα κάτω και έσω.", correct: true }
+        ],
+        explanation: "Η κρίσιμη λέξη είναι «έξω»: η διαφάνεια αναφέρει πορεία προς τα κάτω και έξω."
+      },
+      {
+        id: 7,
+        category: "Γέφυρα - εξωτερική μορφολογία",
+        source: "Διαφάνεια 6",
+        question: "Σχετικά με την οπίσθια επιφάνεια της γέφυρας, τι ισχύει;",
+        options: [
+          { text: "Είναι τριγωνική και καλύπτεται από την παρεγκεφαλίδα.", correct: true },
+          { text: "Είναι ωοειδής και ακουμπά στο απόκλιμα του ινιακού.", correct: false },
+          { text: "Σχηματίζει το κάτω ημιμόριο του ρομβοειδούς βόθρου.", correct: false },
+          { text: "Υποδέχεται τη βασική αρτηρία στη μέση γραμμή.", correct: false }
+        ],
+        explanation: "Η οπίσθια επιφάνεια είναι τριγωνική, καλύπτεται από παρεγκεφαλίδα και συμβάλλει στο άνω ημιμόριο του βόθρου."
+      },
+      {
+        id: 8,
+        category: "Γέφυρα - εξωτερική μορφολογία",
+        source: "Διαφάνειες 5-6",
+        question: "Ποια σχέση επιφάνειας-ανατομικού στοιχείου δεν αντιστοιχεί σωστά στη γέφυρα;",
+        options: [
+          { text: "Πρόσθια επιφάνεια - βασική αύλακα.", correct: false },
+          { text: "Πρόσθια επιφάνεια - πυραμιδικά ογκώματα.", correct: false },
+          { text: "Οπίσθια επιφάνεια - άνω ημιμόριο ρομβοειδούς βόθρου.", correct: false },
+          { text: "Οπίσθια επιφάνεια - υποδοχή της βασικής αρτηρίας.", correct: true }
+        ],
+        explanation: "Η βασική αρτηρία αντιστοιχεί στη βασική αύλακα της πρόσθιας επιφάνειας."
+      },
+      {
+        id: 9,
+        category: "Γέφυρα - εξωτερική μορφολογία",
+        source: "Διαφάνειες 4-5",
+        question: "Όλα τα παρακάτω είναι αληθή για την πρόσθια περιοχή της γέφυρας εκτός από ένα:",
+        options: [
+          { text: "Η πρόσθια επιφάνεια εντοπίζεται στην άνω μοίρα του αποκλίματος.", correct: false },
+          { text: "Τα πυραμιδικά ογκώματα σχηματίζονται από κατερχόμενες ίνες.", correct: false },
+          { text: "Το τρίδυμο αναδύεται αντίστοιχα προς τη μεσότητα της γέφυρας.", correct: false },
+          { text: "Τα μέσα σκέλη βρίσκονται επί τα έσω της ανάδυσης του τριδύμου.", correct: true }
+        ],
+        explanation: "Τα μέσα σκέλη της παρεγκεφαλίδας εντοπίζονται επί τα εκτός της ανάδυσης του τριδύμου."
+      },
+      {
+        id: 10,
+        category: "Γέφυρα - εξωτερική μορφολογία",
+        source: "Διαφάνειες 4-5",
+        question: "Ποια επιλογή αποδίδει σωστά τις διαστάσεις της γέφυρας όπως δίνονται στις διαφάνειες;",
+        options: [
+          { text: "Μήκος 2,5-3 εκ., πλάτος 3-3,5 εκ., ύψος 2,5 εκ.", correct: true },
+          { text: "Μήκος 3-3,5 εκ., πλάτος 2,5-3 εκ., ύψος 2 εκ.", correct: false },
+          { text: "Μήκος 2 εκ., πλάτος 2,5-3 εκ., ύψος 1,25 εκ.", correct: false },
+          { text: "Μήκος 2,5-3 εκ., πλάτος 2 εκ., ύψος 1,25 εκ.", correct: false }
+        ],
+        explanation: "Η διαφάνεια 4 δίνει ακριβώς: μήκος 2,5-3, πλάτος 3-3,5 και ύψος 2,5 εκατοστά."
+      },
+      {
+        id: 11,
+        category: "Γέφυρα - πυρήνες και δεμάτια",
+        source: "Διαφάνεια 7",
+        question: "Στην ανώτερη μοίρα της γέφυρας, ποιος πυρήνας αναφέρεται ως κινητικός;",
+        options: [
+          { text: "Ο πυρήνας του απαγωγού νεύρου.", correct: false },
+          { text: "Ο κινητικός πυρήνας του τριδύμου νεύρου.", correct: true },
+          { text: "Ο πυρήνας του προσωπικού νεύρου.", correct: false },
+          { text: "Ο μικτός πυρήνας του πνευμονογαστρικού.", correct: false }
+        ],
+        explanation: "Στην ανώτερη μοίρα αναφέρεται ο κινητικός πυρήνας του τριδύμου· απαγωγός και προσωπικός δίνονται στην κατώτερη μοίρα."
+      },
+      {
+        id: 12,
+        category: "Γέφυρα - πυρήνες και δεμάτια",
+        source: "Διαφάνεια 7",
+        question: "Ποιος από τους παρακάτω δεν ανήκει στους αισθητικούς πυρήνες της ανώτερης μοίρας της γέφυρας;",
+        options: [
+          { text: "Κύριος ή άνω αισθητικός πυρήνας του τριδύμου.", correct: false },
+          { text: "Πυρήνας της μεσεγκεφαλικής ρίζας του τριδύμου.", correct: false },
+          { text: "Κοιλιακός και ραχιαίος πυρήνας του τραπεζοειδούς σώματος.", correct: false },
+          { text: "Πυρήνας της νωτιαίας δεσμίδας του τριδύμου.", correct: true }
+        ],
+        explanation: "Ο πυρήνας της νωτιαίας δεσμίδας του τριδύμου εμφανίζεται στην κατώτερη μοίρα της γέφυρας."
+      },
+      {
+        id: 13,
+        category: "Γέφυρα - πυρήνες και δεμάτια",
+        source: "Διαφάνειες 7-8",
+        question: "Ποιο από τα παρακάτω δεν κατατάσσεται ως εξωπυραμιδικός πυρήνας στην ανώτερη μοίρα της γέφυρας;",
+        options: [
+          { text: "Άνω πυρήνας της ελαίας.", correct: false },
+          { text: "Γεφυρικοί πυρήνες.", correct: false },
+          { text: "Πυρήνες του δικτυωτού σχηματισμού της γέφυρας.", correct: false },
+          { text: "Κάτω σιαλικός πυρήνας.", correct: true }
+        ],
+        explanation: "Ο κάτω σιαλικός πυρήνας αναφέρεται στον προμήκη, όχι στους εξωπυραμιδικούς πυρήνες της ανώτερης γέφυρας."
+      },
+      {
+        id: 14,
+        category: "Γέφυρα - πυρήνες και δεμάτια",
+        source: "Διαφάνεια 8",
+        question: "Στην ανώτερη μοίρα της γέφυρας, ποιο ζεύγος αισθητικών δεματίων είναι σωστό;",
+        options: [
+          { text: "Έσω λημνίσκος και έξω λημνίσκος.", correct: true },
+          { text: "Ισχνό δεμάτιο και σφηνοειδές δεμάτιο.", correct: false },
+          { text: "Νωτιαίος λημνίσκος και μονήρης δεσμίδα.", correct: false },
+          { text: "Λημνίσκος τριδύμου και ισχνό δεμάτιο.", correct: false }
+        ],
+        explanation: "Στην ανώτερη γέφυρα τα αισθητικά δεμάτια περιλαμβάνουν έσω και έξω λημνίσκο και τραπεζοειδές σώμα."
+      },
+      {
+        id: 15,
+        category: "Γέφυρα - πυρήνες και δεμάτια",
+        source: "Διαφάνεια 9",
+        question: "Για την κατώτερη μοίρα της γέφυρας, ποιο από τα παρακάτω είναι λάθος;",
+        options: [
+          { text: "Περιλαμβάνει πυρήνα του απαγωγού νεύρου.", correct: false },
+          { text: "Περιλαμβάνει πυρήνα του προσωπικού νεύρου.", correct: false },
+          { text: "Το κάτω ημιμόριο του προσώπου δέχεται ετερόπλευρη υπερπυρηνική νεύρωση.", correct: false },
+          { text: "Ο κινητικός πυρήνας του τριδύμου είναι ο κύριος κινητικός πυρήνας της.", correct: true }
+        ],
+        explanation: "Ο κινητικός πυρήνας του τριδύμου αναφέρεται στην ανώτερη, όχι στην κατώτερη μοίρα της γέφυρας."
+      },
+      {
+        id: 16,
+        category: "Γέφυρα - πυρήνες και δεμάτια",
+        source: "Διαφάνεια 10",
+        question: "Ποιος συνδυασμός πυρήνων αντιστοιχεί στην κατώτερη μοίρα της γέφυρας;",
+        options: [
+          { text: "Δακρυορρινικός πυρήνας και άνω σιαλικός πυρήνας.", correct: true },
+          { text: "Κάτω σιαλικός πυρήνας και ραχιαίος πυρήνας πνευμονογαστρικού.", correct: false },
+          { text: "Πυρήνας υπογλωσσίου και μικτός πυρήνας πνευμονογαστρικού.", correct: false },
+          { text: "Ισχνός πυρήνας και σφηνοειδής πυρήνας.", correct: false }
+        ],
+        explanation: "Οι παρασυμπαθητικοί πυρήνες της κατώτερης γέφυρας είναι δακρυορρινικός και άνω σιαλικός."
+      },
+      {
+        id: 17,
+        category: "Γέφυρα - πυρήνες και δεμάτια",
+        source: "Διαφάνειες 10-11",
+        question: "Ποιο αισθητικό δεμάτιο αναφέρεται στην κατώτερη αλλά όχι στην ανώτερη μοίρα της γέφυρας;",
+        options: [
+          { text: "Έσω λημνίσκος.", correct: false },
+          { text: "Έξω λημνίσκος.", correct: false },
+          { text: "Τραπεζοειδές σώμα.", correct: false },
+          { text: "Λημνίσκος του τριδύμου νεύρου.", correct: true }
+        ],
+        explanation: "Ο λημνίσκος του τριδύμου προστίθεται στα αισθητικά δεμάτια της κατώτερης μοίρας."
+      },
+      {
+        id: 18,
+        category: "Γέφυρα - πυρήνες και δεμάτια",
+        source: "Διαφάνειες 8 και 11",
+        question: "Ποιο εξωπυραμιδικό δεμάτιο αναφέρεται στην κατώτερη μοίρα της γέφυρας αλλά όχι στην ανώτερη;",
+        options: [
+          { text: "Έσω επιμήκης δεσμίδα.", correct: false },
+          { text: "Αιθουσονωτιαίο δεμάτιο.", correct: true },
+          { text: "Κεντρική καλυπτρική οδός.", correct: false },
+          { text: "Πρόσθιο δικτυονωτιαίο δεμάτιο.", correct: false }
+        ],
+        explanation: "Το αιθουσονωτιαίο δεμάτιο εμφανίζεται στη λίστα της κατώτερης μοίρας, όχι της ανώτερης."
+      },
+      {
+        id: 19,
+        category: "Γέφυρα - πυρήνες και δεμάτια",
+        source: "Διαφάνεια 10",
+        question: "Ποια από τις παρακάτω αντιστοιχίες αισθητικών πυρήνων της κατώτερης γέφυρας δεν είναι σωστή;",
+        options: [
+          { text: "Τρίδυμο - πυρήνας της νωτιαίας δεσμίδας.", correct: false },
+          { text: "Αιθουσαίο σύστημα - έσω, έξω, άνω και κάτω πυρήνας.", correct: false },
+          { text: "Κοχλιακό σύστημα - κοιλιακός και ραχιαίος πυρήνας.", correct: false },
+          { text: "Τραπεζοειδές σώμα - άνω και κάτω πυρήνας.", correct: true }
+        ],
+        explanation: "Για το τραπεζοειδές σώμα δίνονται κοιλιακός και ραχιαίος πυρήνας, όχι άνω και κάτω."
+      },
+      {
+        id: 20,
+        category: "Γέφυρα - πυρήνες και δεμάτια",
+        source: "Διαφάνειες 8 και 11",
+        question: "Όλα τα παρακάτω δεμάτια εμφανίζονται και στις δύο μοίρες της γέφυρας εκτός από ένα:",
+        options: [
+          { text: "Φλοιοπρομηκικό δεμάτιο.", correct: false },
+          { text: "Φλοιονωτιαίο δεμάτιο.", correct: false },
+          { text: "Γέφυροπαρεγκεφαλιδικές ίνες.", correct: false },
+          { text: "Λημνίσκος του τριδύμου νεύρου.", correct: true }
+        ],
+        explanation: "Ο λημνίσκος του τριδύμου αναφέρεται μόνο στην κατώτερη μοίρα της γέφυρας."
+      },
+      {
+        id: 21,
+        category: "Γέφυρα - πυρήνες και δεμάτια",
+        source: "Διαφάνεια 7",
+        question: "Η γέφυρα διαιρείται εσωτερικά σε δύο βασικές μοίρες. Ποια διατύπωση είναι σωστή;",
+        options: [
+          { text: "Κοιλιακή ή βασική μοίρα και ραχιαία μοίρα ή καλύπτρα.", correct: true },
+          { text: "Ραχιαία ή βασική μοίρα και κοιλιακή μοίρα ή καλύπτρα.", correct: false },
+          { text: "Έσω ή πυραμιδική μοίρα και έξω μοίρα ή άλως.", correct: false },
+          { text: "Ανοικτή και κλειστή μοίρα ανάλογα με την τέταρτη κοιλία.", correct: false }
+        ],
+        explanation: "Η διαφάνεια 7 ορίζει κοιλιακή/βασική μοίρα και ραχιαία μοίρα/καλύπτρα της γέφυρας."
+      },
+      {
+        id: 22,
+        category: "Γέφυρα - πυρήνες και δεμάτια",
+        source: "Διαφάνειες 7-11",
+        question: "Ποια μεταβολή από την ανώτερη προς την κατώτερη μοίρα της γέφυρας αποδίδεται σωστά;",
+        options: [
+          { text: "Χάνονται τα κινητικά δεμάτια και εμφανίζονται τα ισχνά δεμάτια.", correct: false },
+          { text: "Ο κινητικός πυρήνας του τριδύμου αντικαθίσταται από απαγωγό και προσωπικό.", correct: true },
+          { text: "Ο άνω σιαλικός πυρήνας αντικαθίσταται από τον κάτω σιαλικό.", correct: false },
+          { text: "Ο έξω λημνίσκος αντικαθίσταται από τον νωτιαίο λημνίσκο.", correct: false }
+        ],
+        explanation: "Στην κατώτερη μοίρα οι κινητικοί πυρήνες είναι του απαγωγού και του προσωπικού."
+      },
+      {
+        id: 23,
+        category: "Προμήκης - εξωτερική μορφολογία",
+        source: "Διαφάνεια 13",
+        question: "Σχετικά με τον προμήκη μυελό, ποιο από τα παρακάτω δεν ισχύει;",
+        options: [
+          { text: "Έχει σχήμα κόλουρου κώνου.", correct: false },
+          { text: "Η βάση του συνδέεται με τη γέφυρα.", correct: false },
+          { text: "Η κορυφή του συνδέεται με τον νωτιαίο μυελό.", correct: false },
+          { text: "Το μεγαλύτερο μέρος του βρίσκεται εκτός του κρανίου.", correct: true }
+        ],
+        explanation: "Το PDF αναφέρει ότι το μεγαλύτερο μέρος του προμήκη βρίσκεται μέσα στο κρανίο."
+      },
+      {
+        id: 24,
+        category: "Προμήκης - εξωτερική μορφολογία",
+        source: "Διαφάνεια 13",
+        question: "Ποια αντιστοιχία για τα όρια του προμήκη μυελού είναι λανθασμένη;",
+        options: [
+          { text: "Άνω όριο μπροστά - οπίσθια γεφυρική αύλακα.", correct: false },
+          { text: "Άνω όριο πίσω - γραμμή που συνδέει τις πλάγιες γωνίες του ρομβοειδούς βόθρου.", correct: false },
+          { text: "Κάτω όριο - επίπεδο αμέσως πάνω από το 1ο αυχενικό ζεύγος.", correct: false },
+          { text: "Κάτω όριο - νοητή γραμμή μεταξύ τριδύμου και προσωπικού.", correct: true }
+        ],
+        explanation: "Η γραμμή τριδύμου-προσωπικού ανήκει στα όρια της γέφυρας, όχι του προμήκη."
+      },
+      {
+        id: 25,
+        category: "Προμήκης - εξωτερική μορφολογία",
+        source: "Διαφάνεια 14",
+        question: "Ποια διατύπωση για την ανοικτή και κλειστή μοίρα του προμήκη είναι σωστή;",
+        options: [
+          { text: "Το κάτω ημιμόριο διασχίζεται από κεντρικό σωλήνα και το άνω διανοίγεται στην τέταρτη κοιλία.", correct: true },
+          { text: "Το άνω ημιμόριο διασχίζεται από κεντρικό σωλήνα και το κάτω διανοίγεται στην τέταρτη κοιλία.", correct: false },
+          { text: "Και τα δύο ημιμόρια διανοίγονται στον ρομβοειδή βόθρο.", correct: false },
+          { text: "Και τα δύο ημιμόρια παραμένουν κλειστά γύρω από τον κεντρικό σωλήνα.", correct: false }
+        ],
+        explanation: "Κάτω ημιμόριο = κλειστή μοίρα με κεντρικό σωλήνα· άνω ημιμόριο = ανοικτή μοίρα προς την τέταρτη κοιλία."
+      },
+      {
+        id: 26,
+        category: "Προμήκης - εξωτερική μορφολογία",
+        source: "Διαφάνεια 15",
+        question: "Στην πρόσθια επιφάνεια του προμήκη, τι δεν ισχύει για την πρόσθια μέση αύλακα;",
+        options: [
+          { text: "Προς τα πάνω βρίσκεται το τυφλό τρήμα.", correct: false },
+          { text: "Εκατέρωθεν του τυφλού τρήματος αναδύεται το απαγωγό.", correct: false },
+          { text: "Προς τα κάτω βρίσκεται ο χιασμός των πυραμίδων.", correct: false },
+          { text: "Επί τα εκτός της αναδύεται το υπογλώσσιο νεύρο.", correct: true }
+        ],
+        explanation: "Το υπογλώσσιο αναδύεται από την πρόσθια παρελαϊκή αύλακα, όχι από την πρόσθια μέση αύλακα."
+      },
+      {
+        id: 27,
+        category: "Προμήκης - εξωτερική μορφολογία",
+        source: "Διαφάνεια 15",
+        question: "Ποια από τις παρακάτω σχέσεις της πρόσθιας επιφάνειας είναι σωστή;",
+        options: [
+          { text: "Οι πυραμίδες βρίσκονται εκατέρωθεν της πρόσθιας μέσης αύλακας.", correct: true },
+          { text: "Οι πυραμίδες βρίσκονται επί τα εκτός των πρόσθιων πλαγίων αυλάκων.", correct: false },
+          { text: "Οι πρόσθιες πλάγιες αύλακες βρίσκονται επί τα έσω των πυραμίδων.", correct: false },
+          { text: "Ο χιασμός των πυραμίδων βρίσκεται προς τα άνω του τυφλού τρήματος.", correct: false }
+        ],
+        explanation: "Οι πυραμίδες είναι εκατέρωθεν της πρόσθιας μέσης αύλακας και έχουν υπόθεμα τα πυραμιδικά δεμάτια."
+      },
+      {
+        id: 28,
+        category: "Προμήκης - εξωτερική μορφολογία",
+        source: "Διαφάνεια 16",
+        question: "Για τις πρόσθιες έξω τοξοειδείς ίνες, όλα ισχύουν εκτός από ένα:",
+        options: [
+          { text: "Προέρχονται από τους τοξοειδείς πυρήνες.", correct: false },
+          { text: "Αναδύονται από την πρόσθια μέση αύλακα πάνω από τον χιασμό.", correct: false },
+          { text: "Πορεύονται προς τα έξω, επάνω και πίσω.", correct: false },
+          { text: "Εισδύονται τελικά στο μέσο σκέλος της παρεγκεφαλίδας.", correct: true }
+        ],
+        explanation: "Η διαφάνεια 16 αναφέρει τελική είσοδο στο κάτω σκέλος της παρεγκεφαλίδας."
+      },
+      {
+        id: 29,
+        category: "Προμήκης - εξωτερική μορφολογία",
+        source: "Διαφάνειες 17-18",
+        question: "Ποια αντιστοιχία αύλακας-ανάδυσης στη πλάγια επιφάνεια του προμήκη είναι λάθος;",
+        options: [
+          { text: "Υπερελαϊκό βοθρίο - 7η και 8η συζυγία.", correct: false },
+          { text: "Οπίσθια παρελαϊκή αύλακα - 9η, 10η και 11η συζυγία.", correct: false },
+          { text: "Πρόσθια παρελαϊκή αύλακα - 12η συζυγία.", correct: false },
+          { text: "Πρόσθια παρελαϊκή αύλακα - 7η και 8η συζυγία.", correct: true }
+        ],
+        explanation: "Η 7η και 8η συζυγία αναδύονται από το υπερελαϊκό βοθρίο, όχι από την πρόσθια παρελαϊκή αύλακα."
+      },
+      {
+        id: 30,
+        category: "Προμήκης - εξωτερική μορφολογία",
+        source: "Διαφάνεια 17",
+        question: "Σχετικά με την ελαία του προμήκη, ποιο από τα παρακάτω ισχύει;",
+        options: [
+          { text: "Είναι λευκωπό ωοειδές έπαρμα με υπόθεμα τον κάτω πυρήνα της ελαίας.", correct: true },
+          { text: "Είναι αύλακα που αφορίζει από πίσω τις πυραμίδες.", correct: false },
+          { text: "Είναι έπαρμα με υπόθεμα τον άνω πυρήνα της ελαίας.", correct: false },
+          { text: "Βρίσκεται στο κάτω άκρο του ισχνού δεματίου.", correct: false }
+        ],
+        explanation: "Η ελαία είναι λευκωπό ωοειδές έπαρμα προς τα επάνω, με υπόθεμα τον κάτω πυρήνα της ελαίας."
+      },
+      {
+        id: 31,
+        category: "Προμήκης - εξωτερική μορφολογία",
+        source: "Διαφάνειες 17-18",
+        question: "Ποια σχέση της ελαίας με γειτονικά μορφώματα δεν αποδίδεται σωστά;",
+        options: [
+          { text: "Το υπερελαϊκό βοθρίο αφορίζει από πίσω την ελαία.", correct: false },
+          { text: "Η οπίσθια παρελαϊκή αύλακα αφορίζει από πίσω την ελαία.", correct: false },
+          { text: "Η πρόσθια παρελαϊκή αύλακα αφορίζει από μπρος την ελαία.", correct: false },
+          { text: "Η πρόσθια πλάγια αύλακα αφορίζει από πίσω την ελαία.", correct: true }
+        ],
+        explanation: "Από πίσω την ελαία αφορίζει η οπίσθια πλάγια/παρελαϊκή περιοχή· η πρόσθια παρελαϊκή είναι μπροστά."
+      },
+      {
+        id: 32,
+        category: "Προμήκης - εξωτερική μορφολογία",
+        source: "Διαφάνειες 13-18",
+        question: "Ποιο από τα παρακάτω ζεύγη δομής-υποθέματος είναι λανθασμένο;",
+        options: [
+          { text: "Πυραμίδες - πυραμιδικά δεμάτια.", correct: false },
+          { text: "Ελαία - κάτω πυρήνας της ελαίας.", correct: false },
+          { text: "Πρόσθιες έξω τοξοειδείς ίνες - τοξοειδείς πυρήνες.", correct: false },
+          { text: "Υπερελαϊκό βοθρίο - πυρήνας του υπογλωσσίου.", correct: true }
+        ],
+        explanation: "Το υπερελαϊκό βοθρίο είναι σημείο ανάδυσης της 7ης και 8ης συζυγίας, όχι έπαρμα με υπόθεμα υπογλωσσίου."
+      },
+      {
+        id: 33,
+        category: "Προμήκης - οπίσθια επιφάνεια",
+        source: "Διαφάνεια 19",
+        question: "Στην οπίσθια επιφάνεια του προμήκη, ποια διάταξη από έσω προς έξω είναι σωστή;",
+        options: [
+          { text: "Οπίσθια μέση αύλακα, οπίσθια διάμεση αύλακα, οπίσθια πλάγια αύλακα.", correct: true },
+          { text: "Οπίσθια διάμεση αύλακα, οπίσθια μέση αύλακα, οπίσθια πλάγια αύλακα.", correct: false },
+          { text: "Οπίσθια πλάγια αύλακα, οπίσθια διάμεση αύλακα, οπίσθια μέση αύλακα.", correct: false },
+          { text: "Οπίσθια μέση αύλακα, πρόσθια πλάγια αύλακα, οπίσθια διάμεση αύλακα.", correct: false }
+        ],
+        explanation: "Η διαφάνεια 19 τοποθετεί τη μέση αύλακα στη μεσότητα, μετά τις διάμεσες και έξω τις πλάγιες."
+      },
+      {
+        id: 34,
+        category: "Προμήκης - οπίσθια επιφάνεια",
+        source: "Διαφάνεια 19",
+        question: "Για την πλάγια δέσμη του προμήκη, τι δεν ισχύει;",
+        options: [
+          { text: "Βρίσκεται επί τα εκτός της οπίσθιας διάμεσης αύλακας.", correct: false },
+          { text: "Αποτελεί συνέχεια της πλάγιας δέσμης του νωτιαίου μυελού.", correct: false },
+          { text: "Ανήκει στην οπίσθια επιφάνεια του προμήκη.", correct: false },
+          { text: "Βρίσκεται ανάμεσα στην οπίσθια μέση και την οπίσθια διάμεση αύλακα.", correct: true }
+        ],
+        explanation: "Ανάμεσα στην οπίσθια μέση και τη διάμεση αύλακα εντοπίζεται το ισχνό δεμάτιο."
+      },
+      {
+        id: 35,
+        category: "Προμήκης - οπίσθια επιφάνεια",
+        source: "Διαφάνεια 20",
+        question: "Ποια αντιστοιχία δεματίου-σωματικού ημιμορίου είναι σωστή;",
+        options: [
+          { text: "Ισχνό δεμάτιο - κατώτερο ημιμόριο του σώματος.", correct: true },
+          { text: "Ισχνό δεμάτιο - ανώτερο ημιμόριο του σώματος.", correct: false },
+          { text: "Σφηνοειδές δεμάτιο - κατώτερο ημιμόριο του σώματος.", correct: false },
+          { text: "Πλάγια δέσμη - ανώτερο ημιμόριο του σώματος.", correct: false }
+        ],
+        explanation: "Το ισχνό δεμάτιο έρχεται από το κατώτερο ημιμόριο, ενώ το σφηνοειδές από το ανώτερο."
+      },
+      {
+        id: 36,
+        category: "Προμήκης - οπίσθια επιφάνεια",
+        source: "Διαφάνεια 20",
+        question: "Σχετικά με το σφηνοειδές δεμάτιο, ποιο από τα παρακάτω είναι λάθος;",
+        options: [
+          { text: "Εντοπίζεται μεταξύ οπίσθιας διάμεσης και οπίσθιας πλάγιας αύλακας.", correct: false },
+          { text: "Έχει ως υπόθεμα το ομώνυμο δεμάτιο.", correct: false },
+          { text: "Έρχεται από το ανώτερο ημιμόριο του σώματος.", correct: false },
+          { text: "Εντοπίζεται μεταξύ οπίσθιας μέσης και οπίσθιας διάμεσης αύλακας.", correct: true }
+        ],
+        explanation: "Η τελευταία θέση αντιστοιχεί στο ισχνό δεμάτιο, όχι στο σφηνοειδές."
+      },
+      {
+        id: 37,
+        category: "Προμήκης - οπίσθια επιφάνεια",
+        source: "Διαφάνειες 21-22",
+        question: "Ποια αντιστοιχία φύματος-υποθέματος δεν είναι σωστή;",
+        options: [
+          { text: "Κορυνοειδές φύμα - πυρήνας ισχνού δεματίου.", correct: false },
+          { text: "Σφηνοειδές φύμα - πυρήνας σφηνοειδούς δεματίου.", correct: false },
+          { text: "Φαιό φύμα - πυρήνας νωτιαίας δεσμίδας τριδύμου.", correct: false },
+          { text: "Φαιό φύμα - επικουρικός σφηνοειδής πυρήνας.", correct: true }
+        ],
+        explanation: "Το φαιό φύμα έχει ως υπόθεμα τον πυρήνα της νωτιαίας δεσμίδας του τριδύμου."
+      },
+      {
+        id: 38,
+        category: "Προμήκης - οπίσθια επιφάνεια",
+        source: "Διαφάνεια 22",
+        question: "Για τα κάτω σκέλη της παρεγκεφαλίδας, όλα ισχύουν εκτός από ένα:",
+        options: [
+          { text: "Φέρονται κατά την προέκταση κορυνοειδούς, σφηνοειδούς και φαιού φύματος.", correct: false },
+          { text: "Πορεύονται λοξά προς τα επάνω και έξω.", correct: false },
+          { text: "Αφορίζουν από τα πλάγια την κάτω μοίρα του ρομβοειδούς βόθρου.", correct: false },
+          { text: "Εισδύονται στο αντίπλευρο ημισφαίριο της παρεγκεφαλίδας.", correct: true }
+        ],
+        explanation: "Η διαφάνεια αναφέρει είσοδο στο σύστοιχο ημισφαίριο της παρεγκεφαλίδας."
+      },
+      {
+        id: 39,
+        category: "Προμήκης - οπίσθια επιφάνεια",
+        source: "Διαφάνειες 20-22",
+        question: "Ποια δομή βρίσκεται επί τα εκτός του σφηνοειδούς φύματος;",
+        options: [
+          { text: "Το φαιό φύμα του Rolando.", correct: true },
+          { text: "Το κορυνοειδές φύμα.", correct: false },
+          { text: "Η οπίσθια μέση αύλακα.", correct: false },
+          { text: "Το ισχνό δεμάτιο.", correct: false }
+        ],
+        explanation: "Το φαιό φύμα περιγράφεται ως επί τα εκτός του σφηνοειδούς φύματος."
+      },
+      {
+        id: 40,
+        category: "Προμήκης - οπίσθια επιφάνεια",
+        source: "Διαφάνειες 19-22",
+        question: "Ποια σειρά από έσω προς έξω στην οπίσθια επιφάνεια είναι η πιο συμβατή με τις διαφάνειες;",
+        options: [
+          { text: "Ισχνό δεμάτιο, σφηνοειδές δεμάτιο, φαιό φύμα.", correct: true },
+          { text: "Σφηνοειδές δεμάτιο, ισχνό δεμάτιο, φαιό φύμα.", correct: false },
+          { text: "Φαιό φύμα, ισχνό δεμάτιο, σφηνοειδές δεμάτιο.", correct: false },
+          { text: "Ισχνό δεμάτιο, φαιό φύμα, σφηνοειδές δεμάτιο.", correct: false }
+        ],
+        explanation: "Το ισχνό είναι πιο έσω, το σφηνοειδές πιο έξω και το φαιό φύμα επί τα εκτός του σφηνοειδούς."
+      },
+      {
+        id: 41,
+        category: "Προμήκης - εγκάρσιες τομές",
+        source: "Διαφάνειες 23-25",
+        question: "Στην ανώτερη μοίρα του προμήκη, ποιος πυρήνας αναφέρεται ως κινητικός;",
+        options: [
+          { text: "Ο πυρήνας του υπογλωσσίου νεύρου.", correct: false },
+          { text: "Ο μικτός πυρήνας του πνευμονογαστρικού.", correct: true },
+          { text: "Ο πυρήνας του προσωπικού νεύρου.", correct: false },
+          { text: "Ο κινητικός πυρήνας του τριδύμου.", correct: false }
+        ],
+        explanation: "Στην εγκάρσια τομή της ανώτερης μοίρας του προμήκη δίνεται ως κινητικός ο μικτός πυρήνας του πνευμονογαστρικού."
+      },
+      {
+        id: 42,
+        category: "Προμήκης - εγκάρσιες τομές",
+        source: "Διαφάνεια 23",
+        question: "Ποιος αισθητικός πυρήνας δεν αναφέρεται στην ανώτερη μοίρα του προμήκη;",
+        options: [
+          { text: "Έσω, έξω και κάτω αιθουσαίος πυρήνας.", correct: false },
+          { text: "Ραχιαίος και κοιλιακός κοχλιακός πυρήνας.", correct: false },
+          { text: "Πυρήνας της νωτιαίας δεσμίδας του τριδύμου.", correct: false },
+          { text: "Ισχνός πυρήνας.", correct: true }
+        ],
+        explanation: "Ο ισχνός πυρήνας εμφανίζεται στις κατώτερες τομές, όχι στην ανώτερη μοίρα του προμήκη."
+      },
+      {
+        id: 43,
+        category: "Προμήκης - εγκάρσιες τομές",
+        source: "Διαφάνεια 24",
+        question: "Ποιο ζεύγος παρασυμπαθητικών πυρήνων αντιστοιχεί στην ανώτερη μοίρα του προμήκη;",
+        options: [
+          { text: "Κάτω σιαλικός πυρήνας και ραχιαίος πυρήνας πνευμονογαστρικού.", correct: true },
+          { text: "Άνω σιαλικός πυρήνας και δακρυορρινικός πυρήνας.", correct: false },
+          { text: "Πυρήνας υπογλωσσίου και μικτός πυρήνας πνευμονογαστρικού.", correct: false },
+          { text: "Έσω και κάτω αιθουσαίος πυρήνας.", correct: false }
+        ],
+        explanation: "Η διαφάνεια 24 αναφέρει κάτω σιαλικό και ραχιαίο πυρήνα του πνευμονογαστρικού."
+      },
+      {
+        id: 44,
+        category: "Προμήκης - εγκάρσιες τομές",
+        source: "Διαφάνεια 25",
+        question: "Στην ανώτερη μοίρα του προμήκη, ποιο αισθητικό δεμάτιο αναφέρεται μαζί με τον έσω λημνίσκο;",
+        options: [
+          { text: "Ο έξω λημνίσκος.", correct: false },
+          { text: "Το τραπεζοειδές σώμα.", correct: false },
+          { text: "Ο νωτιαίος λημνίσκος.", correct: true },
+          { text: "Το ισχνό δεμάτιο.", correct: false }
+        ],
+        explanation: "Στην ανώτερη μοίρα τα αισθητικά δεμάτια είναι έσω λημνίσκος, νωτιαίος λημνίσκος και νωτιαία δεσμίδα τριδύμου."
+      },
+      {
+        id: 45,
+        category: "Προμήκης - εγκάρσιες τομές",
+        source: "Διαφάνειες 26-28",
+        question: "Στο ύψος της ελαίας, ποιο από τα παρακάτω είναι λάθος;",
+        options: [
+          { text: "Περιλαμβάνεται πυρήνας του υπογλωσσίου νεύρου.", correct: false },
+          { text: "Περιλαμβάνεται μικτός πυρήνας του πνευμονογαστρικού.", correct: false },
+          { text: "Αναφέρεται πυρήνας της μονήρους δεσμίδας.", correct: false },
+          { text: "Κύριος κινητικός πυρήνας είναι ο πυρήνας του απαγωγού.", correct: true }
+        ],
+        explanation: "Στο ύψος της ελαίας οι κινητικοί πυρήνες είναι υπογλώσσιος και μικτός πνευμονογαστρικού."
+      },
+      {
+        id: 46,
+        category: "Προμήκης - εγκάρσιες τομές",
+        source: "Διαφάνεια 26",
+        question: "Ποια παρατήρηση για τον πυρήνα του υπογλωσσίου στο ύψος της ελαίας αποδίδεται σωστά;",
+        options: [
+          { text: "Το τμήμα για τον γενειογλωσσικό δέχεται ετερόπλευρη υπερπυρηνική πυραμιδική νεύρωση.", correct: true },
+          { text: "Το τμήμα για τον γενειογλωσσικό δέχεται ομόπλευρη υπερπυρηνική πυραμιδική νεύρωση.", correct: false },
+          { text: "Το τμήμα για το κάτω ημιμόριο του προσώπου δέχεται ετερόπλευρη νεύρωση.", correct: false },
+          { text: "Το τμήμα για την ελαία δέχεται αμφοτερόπλευρη πυραμιδική νεύρωση.", correct: false }
+        ],
+        explanation: "Η παρατήρηση αφορά τον γενειογλωσσικό και ετερόπλευρη υπερπυρηνική πυραμιδική νεύρωση."
+      },
+      {
+        id: 47,
+        category: "Προμήκης - εγκάρσιες τομές",
+        source: "Διαφάνεια 27",
+        question: "Ποιο από τα παρακάτω δεν είναι εξωπυραμιδικός πυρήνας στο ύψος της ελαίας;",
+        options: [
+          { text: "Κάτω πυρήνας της ελαίας.", correct: false },
+          { text: "Ραχιαίος επικουρικός πυρήνας της ελαίας.", correct: false },
+          { text: "Τοξοειδείς πυρήνες.", correct: false },
+          { text: "Άνω πυρήνας της ελαίας.", correct: true }
+        ],
+        explanation: "Στο ύψος της ελαίας αναφέρονται κάτω πυρήνας, ραχιαίος επικουρικός, τοξοειδείς και δικτυωτός σχηματισμός."
+      },
+      {
+        id: 48,
+        category: "Προμήκης - εγκάρσιες τομές",
+        source: "Διαφάνεια 27",
+        question: "Με τις ίνες του υπογλωσσίου, πώς διαιρείται ο δικτυωτός σχηματισμός στο ύψος της ελαίας;",
+        options: [
+          { text: "Σε λευκό προς τα μέσα και φαιό προς τα έξω.", correct: true },
+          { text: "Σε φαιό προς τα μέσα και λευκό προς τα έξω.", correct: false },
+          { text: "Σε ραχιαίο προς τα μέσα και κοιλιακό προς τα έξω.", correct: false },
+          { text: "Σε έσω προς τα πάνω και έξω προς τα κάτω.", correct: false }
+        ],
+        explanation: "Η διαφάνεια 27 δίνει ακριβώς: λευκό προς τα μέσα και φαιό προς τα έξω."
+      },
+      {
+        id: 49,
+        category: "Προμήκης - εγκάρσιες τομές",
+        source: "Διαφάνειες 29-30",
+        question: "Στο ύψος του χιασμού των έσω λημνίσκων, ποιο αισθητικό δεμάτιο δεν αναφέρεται;",
+        options: [
+          { text: "Ισχνό δεμάτιο.", correct: false },
+          { text: "Σφηνοειδές δεμάτιο.", correct: false },
+          { text: "Έσω τοξοειδείς ίνες.", correct: false },
+          { text: "Έξω λημνίσκος.", correct: true }
+        ],
+        explanation: "Η διαφάνεια 30 αναφέρει ισχνό, σφηνοειδές και έσω τοξοειδείς ίνες."
+      },
+      {
+        id: 50,
+        category: "Προμήκης - εγκάρσιες τομές",
+        source: "Διαφάνεια 30",
+        question: "Οι έσω τοξοειδείς ίνες σχηματίζουν τον χιασμό των έσω λημνίσκων αφού χιαστούν:",
+        options: [
+          { text: "Κοιλιακά της κεντρικής φαιάς ουσίας και ραχιαία των πυραμίδων.", correct: true },
+          { text: "Ραχιαία της κεντρικής φαιάς ουσίας και κοιλιακά των πυραμίδων.", correct: false },
+          { text: "Κοιλιακά των πυραμίδων και ραχιαία της ελαίας.", correct: false },
+          { text: "Ραχιαία του ρομβοειδούς βόθρου και κοιλιακά της γέφυρας.", correct: false }
+        ],
+        explanation: "Η παγίδα είναι η αντιστροφή κοιλιακά/ραχιαία: χιασμός κοιλιακά της φαιάς ουσίας και ραχιαία των πυραμίδων."
+      },
+      {
+        id: 51,
+        category: "Προμήκης - εγκάρσιες τομές",
+        source: "Διαφάνειες 29 και 31",
+        question: "Ποιος αισθητικός πυρήνας εμφανίζεται τόσο στον χιασμό των έσω λημνίσκων όσο και στον χιασμό των πυραμίδων;",
+        options: [
+          { text: "Επικουρικός σφηνοειδής πυρήνας.", correct: true },
+          { text: "Πυρήνας της μονήρους δεσμίδας.", correct: false },
+          { text: "Κάτω αιθουσαίος πυρήνας.", correct: false },
+          { text: "Ραχιαίος κοχλιακός πυρήνας.", correct: false }
+        ],
+        explanation: "Και στις δύο κατώτερες τομές αναφέρονται ισχνός, σφηνοειδής, επικουρικός σφηνοειδής και πυρήνας νωτιαίας δεσμίδας τριδύμου."
+      },
+      {
+        id: 52,
+        category: "Προμήκης - εγκάρσιες τομές",
+        source: "Διαφάνεια 31",
+        question: "Στο ύψος του χιασμού των πυραμίδων, ποια αντιστοιχία ομάδας-δομής είναι λανθασμένη;",
+        options: [
+          { text: "Δικτυωτός σχηματισμός προμήκη - εξωπυραμιδικοί πυρήνες.", correct: false },
+          { text: "Έσω επικουρικός πυρήνας ελαίας - εξωπυραμιδικός πυρήνας.", correct: false },
+          { text: "Κάτω πυρήνας της ελαίας - εξωπυραμιδικός πυρήνας.", correct: true },
+          { text: "Πυρήνας νωτιαίας δεσμίδας τριδύμου - αισθητικός πυρήνας.", correct: false }
+        ],
+        explanation: "Στη διαφάνεια 31 αναφέρονται δικτυωτός σχηματισμός και έσω επικουρικός πυρήνας, όχι κάτω πυρήνας της ελαίας."
+      },
+      {
+        id: 53,
+        category: "Προμήκης - εγκάρσιες τομές",
+        source: "Διαφάνειες 31-32",
+        question: "Στο ύψος του χιασμού των πυραμίδων, ποια καταγραφή κινητικού δεματίου είναι σωστή;",
+        options: [
+          { text: "Χιασμός των πυραμίδων.", correct: true },
+          { text: "Φλοιοπρομηκικό δεμάτιο.", correct: false },
+          { text: "Φλοιονωτιαίο δεμάτιο.", correct: false },
+          { text: "Γέφυροπαρεγκεφαλιδικές ίνες.", correct: false }
+        ],
+        explanation: "Στη συγκεκριμένη τομή το κινητικό δεμάτιο που καταγράφεται είναι ο χιασμός των πυραμίδων."
+      },
+      {
+        id: 54,
+        category: "Προμήκης - εγκάρσιες τομές",
+        source: "Διαφάνειες 25, 28, 30, 32",
+        question: "Ποιο εξωπυραμιδικό δεμάτιο επαναλαμβάνεται στις τομές του προμήκη που παρατίθενται;",
+        options: [
+          { text: "Έσω επιμήκης δεσμίδα.", correct: true },
+          { text: "Μετωποκροταφογεφυρικές ίνες.", correct: false },
+          { text: "Γέφυροπαρεγκεφαλιδικές ίνες.", correct: false },
+          { text: "Τραπεζοειδές σώμα.", correct: false }
+        ],
+        explanation: "Η έσω επιμήκης δεσμίδα εμφανίζεται επανειλημμένα στις λίστες εξωπυραμιδικών δεματίων του προμήκη."
+      },
+      {
+        id: 55,
+        category: "Προμήκης - εγκάρσιες τομές",
+        source: "Διαφάνειες 25 και 28",
+        question: "Ποιο από τα παρακάτω είναι αισθητικό δεμάτιο στην ανώτερη μοίρα και στο ύψος της ελαίας του προμήκη;",
+        options: [
+          { text: "Νωτιαία δεσμίδα του τριδύμου νεύρου.", correct: true },
+          { text: "Τραπεζοειδές σώμα.", correct: false },
+          { text: "Λημνίσκος του τριδύμου.", correct: false },
+          { text: "Ισχνό δεμάτιο.", correct: false }
+        ],
+        explanation: "Στις δύο αυτές τομές αναφέρονται έσω λημνίσκος, νωτιαίος λημνίσκος και νωτιαία δεσμίδα τριδύμου."
+      },
+      {
+        id: 56,
+        category: "Προμήκης - εγκάρσιες τομές",
+        source: "Διαφάνειες 23-32",
+        question: "Ποια αντιστοιχία τομής-χαρακτηριστικού είναι λανθασμένη;",
+        options: [
+          { text: "Ανώτερη μοίρα προμήκη - κάτω σιαλικός πυρήνας.", correct: false },
+          { text: "Ύψος ελαίας - πυρήνας της μονήρους δεσμίδας.", correct: false },
+          { text: "Χιασμός έσω λημνίσκων - έσω τοξοειδείς ίνες.", correct: false },
+          { text: "Χιασμός πυραμίδων - δακρυορρινικός πυρήνας.", correct: true }
+        ],
+        explanation: "Ο δακρυορρινικός πυρήνας εμφανίζεται στην κατώτερη γέφυρα, όχι στον χιασμό των πυραμίδων του προμήκη."
+      }
+    ];
+
+    const optionKeys = ["α", "β", "γ", "δ"];
+    const storageKey = "pontomedullaryQuizState.v1";
+    let activeQuestions = [];
+    let currentIndex = 0;
+    let answers = {};
+    let currentSettings = {};
+
+    const el = {
+      categoryFilter: document.getElementById("categoryFilter"),
+      searchInput: document.getElementById("searchInput"),
+      shuffleQuestions: document.getElementById("shuffleQuestions"),
+      shuffleAnswers: document.getElementById("shuffleAnswers"),
+      startBtn: document.getElementById("startBtn"),
+      restartBtn: document.getElementById("restartBtn"),
+      printBtn: document.getElementById("printBtn"),
+      clearStorageBtn: document.getElementById("clearStorageBtn"),
+      quizCard: document.getElementById("quizCard"),
+      resultsCard: document.getElementById("resultsCard"),
+      distributionBody: document.getElementById("distributionBody"),
+      progressText: document.getElementById("progressText"),
+      scoreText: document.getElementById("scoreText"),
+      percentText: document.getElementById("percentText"),
+      currentCategory: document.getElementById("currentCategory"),
+      progressFill: document.getElementById("progressFill"),
+      filterSummary: document.getElementById("filterSummary"),
+      printBank: document.getElementById("printBank")
+    };
+
+    function shuffleArray(items) {
+      const copy = [...items];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function placeCorrectAt(options, targetIndex) {
+      const copy = [...options];
+      const correctIndex = copy.findIndex(option => option.correct);
+      if (correctIndex < 0 || correctIndex === targetIndex) return copy;
+      const [correctOption] = copy.splice(correctIndex, 1);
+      copy.splice(targetIndex, 0, correctOption);
+      return copy;
+    }
+
+    function normalizeText(value) {
+      return String(value || "").toLocaleLowerCase("el-GR").normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
+
+    function questionMatchesSearch(q, term) {
+      if (!term) return true;
+      const haystack = [
+        q.category,
+        q.source,
+        q.question,
+        q.explanation,
+        ...q.options.map(o => o.text)
+      ].map(normalizeText).join(" ");
+      return haystack.includes(normalizeText(term));
+    }
+
+    function prepareQuestions(base, settings) {
+      let list = base.filter(q => {
+        const categoryOk = settings.category === "all" || q.category === settings.category;
+        return categoryOk && questionMatchesSearch(q, settings.search);
+      });
+      if (settings.shuffleQuestions) list = shuffleArray(list);
+      return list.map(q => ({
+        ...q,
+        options: settings.shuffleAnswers ? shuffleArray(q.options) : placeCorrectAt(q.options, (q.id - 1) % 4)
+      }));
+    }
+
+    function getSettingsFromControls() {
+      return {
+        category: el.categoryFilter.value || "all",
+        search: el.searchInput.value.trim(),
+        shuffleQuestions: el.shuffleQuestions.checked,
+        shuffleAnswers: el.shuffleAnswers.checked
+      };
+    }
+
+    function startQuiz(settings = getSettingsFromControls(), providedQuestions = null) {
+      currentSettings = settings;
+      activeQuestions = providedQuestions || prepareQuestions(questions, settings);
+      currentIndex = 0;
+      answers = {};
+      el.resultsCard.classList.remove("show");
+      renderDistribution(activeQuestions);
+      renderFilterSummary();
+      renderQuestion();
+      saveState();
+    }
+
+    function renderQuestion() {
+      if (!activeQuestions.length) {
+        el.quizCard.innerHTML = '<div class="empty-state">Δεν βρέθηκαν ερωτήσεις με τα τρέχοντα φίλτρα.</div>';
+        updateStats();
+        return;
+      }
+
+      if (currentIndex >= activeQuestions.length) {
+        renderResults();
+        return;
+      }
+
+      const q = activeQuestions[currentIndex];
+      const answer = answers[q.id];
+      const answered = Boolean(answer);
+      const optionButtons = q.options.map((option, index) => {
+        const key = optionKeys[index];
+        const selected = answer && answer.text === option.text;
+        const classes = ["option"];
+        if (answered && option.correct) classes.push("correct");
+        if (answered && selected && !option.correct) classes.push("wrong");
+        return `
+          <button class="${classes.join(" ")}" data-option-index="${index}" ${answered ? "disabled" : ""}>
+            <span class="key">${key}</span>
+            <span>${escapeHtml(option.text)}</span>
+          </button>
+        `;
+      }).join("");
+
+      const feedbackClass = answered ? (answer.correct ? "show good" : "show bad") : "";
+      const feedbackTitle = answered ? (answer.correct ? "Σωστό" : "Λάθος") : "";
+
+      el.quizCard.innerHTML = `
+        <div class="q-meta">
+          <span class="pill">Ερώτηση ${currentIndex + 1} / ${activeQuestions.length}</span>
+          <span class="pill">${escapeHtml(q.category)}</span>
+          <span class="pill">${escapeHtml(q.source)}</span>
+        </div>
+        <h2 class="question-text">${escapeHtml(q.question)}</h2>
+        <div class="options">${optionButtons}</div>
+        <div class="feedback ${feedbackClass}" id="feedbackBox">
+          <strong>${feedbackTitle}</strong>
+          <div>${answered ? escapeHtml(q.explanation) : ""}</div>
+        </div>
+        <div class="card-actions">
+          <button id="nextBtn" ${answered ? "" : "disabled"}>${currentIndex === activeQuestions.length - 1 ? "Αποτελέσματα" : "Επόμενη ερώτηση"}</button>
+          <button id="finishBtn" class="light">Τέλος quiz</button>
+        </div>
+      `;
+
+      el.quizCard.querySelectorAll(".option").forEach(btn => {
+        btn.addEventListener("click", () => selectOption(Number(btn.dataset.optionIndex)));
+      });
+      document.getElementById("nextBtn").addEventListener("click", nextQuestion);
+      document.getElementById("finishBtn").addEventListener("click", renderResults);
+      updateStats();
+    }
+
+    function selectOption(index) {
+      const q = activeQuestions[currentIndex];
+      if (answers[q.id]) return;
+      const option = q.options[index];
+      answers[q.id] = {
+        questionId: q.id,
+        text: option.text,
+        correct: option.correct,
+        category: q.category
+      };
+      saveState();
+      renderQuestion();
+    }
+
+    function nextQuestion() {
+      currentIndex += 1;
+      saveState();
+      renderQuestion();
+    }
+
+    function updateStats() {
+      const total = activeQuestions.length;
+      const answeredCount = Object.keys(answers).length;
+      const correctCount = Object.values(answers).filter(a => a.correct).length;
+      const percent = answeredCount ? Math.round((correctCount / answeredCount) * 100) : 0;
+      const progressPercent = total ? Math.round((Math.min(currentIndex + 1, total) / total) * 100) : 0;
+
+      el.progressText.textContent = `${Math.min(currentIndex + 1, total)} / ${total}`;
+      el.scoreText.textContent = `${correctCount}`;
+      el.percentText.textContent = `${percent}%`;
+      el.currentCategory.textContent = total && activeQuestions[currentIndex] ? activeQuestions[currentIndex].category : "-";
+      el.progressFill.style.width = `${progressPercent}%`;
+    }
+
+    function renderResults() {
+      const total = activeQuestions.length;
+      const answeredCount = Object.keys(answers).length;
+      const correctCount = Object.values(answers).filter(a => a.correct).length;
+      const wrongQuestions = activeQuestions.filter(q => answers[q.id] && !answers[q.id].correct);
+      const wrongCount = wrongQuestions.length;
+      const percent = answeredCount ? Math.round((correctCount / answeredCount) * 100) : 0;
+
+      const byCategory = {};
+      activeQuestions.forEach(q => {
+        byCategory[q.category] ||= { total: 0, correct: 0, wrong: 0 };
+        byCategory[q.category].total += 1;
+        if (answers[q.id]?.correct) byCategory[q.category].correct += 1;
+        if (answers[q.id] && !answers[q.id].correct) byCategory[q.category].wrong += 1;
+      });
+
+      const categoryRows = Object.entries(byCategory).map(([cat, stat]) => `
+        <tr><td>${escapeHtml(cat)}</td><td>${stat.correct} / ${stat.total}</td><td>${stat.wrong}</td></tr>
+      `).join("");
+
+      const wrongList = wrongQuestions.length ? wrongQuestions.map(q => {
+        const correctOption = q.options.find(o => o.correct);
+        const selected = answers[q.id]?.text || "-";
+        return `
+          <div class="wrong-item">
+            <strong>${escapeHtml(q.id + ". " + q.question)}</strong>
+            <p>Απάντησες: ${escapeHtml(selected)}</p>
+            <p>Σωστό: ${escapeHtml(correctOption ? correctOption.text : "")}</p>
+            <p>${escapeHtml(q.explanation)}</p>
+          </div>
+        `;
+      }).join("") : '<p class="empty-state">Δεν υπάρχουν λανθασμένες απαντήσεις.</p>';
+
+      el.resultsCard.innerHTML = `
+        <h2>Τελική οθόνη αποτελεσμάτων</h2>
+        <div class="results-grid">
+          <div class="metric"><span>Συνολικό σκορ</span><strong>${correctCount} / ${total}</strong></div>
+          <div class="metric"><span>Ποσοστό επιτυχίας</span><strong>${percent}%</strong></div>
+          <div class="metric"><span>Σωστές</span><strong>${correctCount}</strong></div>
+          <div class="metric"><span>Λανθασμένες</span><strong>${wrongCount}</strong></div>
+        </div>
+        <h3>Απόδοση ανά κατηγορία</h3>
+        <table>
+          <thead><tr><th>Κατηγορία</th><th>Σωστές / Σύνολο</th><th>Λάθη</th></tr></thead>
+          <tbody>${categoryRows}</tbody>
+        </table>
+        <div class="actions" style="margin: 16px 0;">
+          <button id="resultsRestart">Επανεκκίνηση</button>
+          <button id="retryWrong" class="secondary" ${wrongQuestions.length ? "" : "disabled"}>Επανάληψη λανθασμένων</button>
+        </div>
+        <h3>Ανασκόπηση λανθασμένων</h3>
+        <div class="wrong-list">${wrongList}</div>
+      `;
+      el.resultsCard.classList.add("show");
+      el.quizCard.innerHTML = '<div class="empty-state">Το quiz ολοκληρώθηκε. Δες τα αποτελέσματα παρακάτω.</div>';
+      updateStats();
+      document.getElementById("resultsRestart").addEventListener("click", () => startQuiz(currentSettings));
+      document.getElementById("retryWrong").addEventListener("click", () => {
+        const retry = wrongQuestions.map(q => ({
+          ...q,
+          options: currentSettings.shuffleAnswers ? shuffleArray(questions.find(original => original.id === q.id).options) : placeCorrectAt(questions.find(original => original.id === q.id).options, (q.id - 1) % 4)
+        }));
+        startQuiz({ ...currentSettings, search: "", category: "all" }, retry);
+      });
+      saveState();
+    }
+
+    function renderDistribution(list = questions) {
+      const counts = {};
+      list.forEach(q => { counts[q.category] = (counts[q.category] || 0) + 1; });
+      el.distributionBody.innerHTML = Object.entries(counts)
+        .sort((a, b) => a[0].localeCompare(b[0], "el"))
+        .map(([category, count]) => `<tr><td>${escapeHtml(category)}</td><td>${count}</td></tr>`)
+        .join("");
+    }
+
+    function renderFilterSummary() {
+      const parts = [];
+      parts.push(currentSettings.category === "all" ? "Όλες οι κατηγορίες" : currentSettings.category);
+      if (currentSettings.search) parts.push(`αναζήτηση: "${currentSettings.search}"`);
+      parts.push(`${activeQuestions.length} ερωτήσεις`);
+      el.filterSummary.textContent = parts.join(" · ");
+    }
+
+    function populateCategories() {
+      const categories = [...new Set(questions.map(q => q.category))].sort((a, b) => a.localeCompare(b, "el"));
+      el.categoryFilter.innerHTML = '<option value="all">Όλες οι κατηγορίες</option>' +
+        categories.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join("");
+    }
+
+    function renderPrintBank() {
+      const items = questions.map(q => {
+        const printOptions = placeCorrectAt(q.options, (q.id - 1) % 4);
+        const correct = printOptions.find(o => o.correct);
+        return `
+          <article class="print-question">
+            <h3>${q.id}. ${escapeHtml(q.question)} <small>(${escapeHtml(q.category)}, ${escapeHtml(q.source)})</small></h3>
+            <ol type="α">
+              ${printOptions.map(o => `<li>${escapeHtml(o.text)}</li>`).join("")}
+            </ol>
+            <div class="print-answer"><strong>Απάντηση:</strong> ${escapeHtml(correct ? correct.text : "")}<br><strong>Αιτιολόγηση:</strong> ${escapeHtml(q.explanation)}</div>
+          </article>
+        `;
+      }).join("");
+      el.printBank.innerHTML = `<h1>Γέφυρα και Προμήκης Μυελός - Ερωτήσεις και Απαντήσεις</h1>${items}`;
+    }
+
+    function saveState() {
+      try {
+        const state = { activeQuestions, currentIndex, answers, currentSettings };
+        localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (error) {
+        // Η αποθήκευση προόδου είναι προαιρετική και δεν πρέπει να διακόπτει το quiz.
+      }
+    }
+
+    function restoreState() {
+      try {
+        const raw = localStorage.getItem(storageKey);
+        if (!raw) return false;
+        const state = JSON.parse(raw);
+        if (!state.activeQuestions || !Array.isArray(state.activeQuestions)) return false;
+        activeQuestions = state.activeQuestions;
+        currentIndex = Number(state.currentIndex) || 0;
+        answers = state.answers || {};
+        currentSettings = state.currentSettings || getSettingsFromControls();
+        el.categoryFilter.value = currentSettings.category || "all";
+        el.searchInput.value = currentSettings.search || "";
+        el.shuffleQuestions.checked = Boolean(currentSettings.shuffleQuestions);
+        el.shuffleAnswers.checked = Boolean(currentSettings.shuffleAnswers);
+        renderDistribution(activeQuestions);
+        renderFilterSummary();
+        renderQuestion();
+        return true;
+      } catch (error) {
+        return false;
+      }
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    el.startBtn.addEventListener("click", () => startQuiz());
+    el.restartBtn.addEventListener("click", () => startQuiz(currentSettings.category ? currentSettings : getSettingsFromControls()));
+    el.printBtn.addEventListener("click", () => window.print());
+    el.clearStorageBtn.addEventListener("click", () => {
+      localStorage.removeItem(storageKey);
+      startQuiz(getSettingsFromControls());
+    });
+
+    populateCategories();
+    renderDistribution(questions);
+    renderPrintBank();
+    if (!restoreState()) startQuiz(getSettingsFromControls());
+  </script>
+</body>
+</html>
