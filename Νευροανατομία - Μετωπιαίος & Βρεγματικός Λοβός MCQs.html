@@ -1,0 +1,1586 @@
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Νευροανατομία - Μετωπιαίος & Βρεγματικός Λοβός MCQs</title>
+  <style>
+    :root {
+      --bg: #f6f7f9;
+      --panel: #ffffff;
+      --ink: #17202a;
+      --muted: #5d6978;
+      --line: #d9dee7;
+      --accent: #0f766e;
+      --accent-2: #1d4ed8;
+      --good: #137a3f;
+      --good-bg: #e7f6ee;
+      --bad: #b42318;
+      --bad-bg: #fff0ed;
+      --warn: #9a6700;
+      --shadow: 0 18px 45px rgba(26, 35, 48, .08);
+      --radius: 8px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.55;
+    }
+
+    header {
+      background: #11212f;
+      color: #fff;
+      border-bottom: 4px solid var(--accent);
+    }
+
+    .wrap {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      padding: 22px 0 18px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: center;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.35rem, 2.2vw, 2.1rem);
+      font-weight: 750;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin: 5px 0 0;
+      color: #dbeafe;
+      font-size: .98rem;
+    }
+
+    .header-actions, .controls-grid, .action-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    button, select, input[type="search"] {
+      font: inherit;
+    }
+
+    button {
+      border: 1px solid transparent;
+      border-radius: var(--radius);
+      padding: 10px 14px;
+      background: var(--accent);
+      color: #fff;
+      cursor: pointer;
+      font-weight: 700;
+      min-height: 42px;
+    }
+
+    button.secondary {
+      background: #fff;
+      color: #1f2937;
+      border-color: var(--line);
+    }
+
+    button.ghost {
+      background: transparent;
+      color: #fff;
+      border-color: rgba(255,255,255,.35);
+    }
+
+    button:disabled {
+      opacity: .55;
+      cursor: not-allowed;
+    }
+
+    main {
+      padding: 24px 0 42px;
+    }
+
+    .controls {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px;
+      margin-bottom: 18px;
+    }
+
+    .controls-grid {
+      justify-content: space-between;
+      align-items: end;
+    }
+
+    .field {
+      display: grid;
+      gap: 6px;
+      min-width: 190px;
+      flex: 1 1 220px;
+    }
+
+    .field.compact {
+      flex: 0 1 auto;
+      min-width: 150px;
+    }
+
+    label, .checkline {
+      color: var(--muted);
+      font-size: .88rem;
+      font-weight: 700;
+    }
+
+    select, input[type="search"] {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 10px 11px;
+      background: #fff;
+      color: var(--ink);
+      min-height: 42px;
+    }
+
+    .checkline {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 0 4px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .stat {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 12px;
+      min-height: 76px;
+    }
+
+    .stat span {
+      display: block;
+      color: var(--muted);
+      font-size: .82rem;
+      font-weight: 700;
+    }
+
+    .stat strong {
+      display: block;
+      margin-top: 5px;
+      font-size: 1.25rem;
+    }
+
+    .progress-shell {
+      background: #dde4ee;
+      border-radius: 999px;
+      overflow: hidden;
+      height: 10px;
+      margin-bottom: 18px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      transition: width .25s ease;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: clamp(18px, 3vw, 28px);
+    }
+
+    .question-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      border: 1px solid #cfd8e5;
+      color: #294052;
+      background: #f8fafc;
+      padding: 5px 10px;
+      font-size: .82rem;
+      font-weight: 800;
+    }
+
+    .question {
+      margin: 0 0 18px;
+      font-size: clamp(1.08rem, 1.8vw, 1.38rem);
+      font-weight: 750;
+    }
+
+    .options {
+      display: grid;
+      gap: 10px;
+      margin: 0 0 16px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .option {
+      width: 100%;
+      text-align: left;
+      background: #fff;
+      color: var(--ink);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 13px 14px;
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 8px;
+      font-weight: 650;
+      min-height: 56px;
+    }
+
+    .option:hover:not(:disabled) {
+      border-color: var(--accent);
+      background: #f0fdfa;
+    }
+
+    .option.correct {
+      border-color: var(--good);
+      background: var(--good-bg);
+      color: #08351e;
+    }
+
+    .option.wrong {
+      border-color: var(--bad);
+      background: var(--bad-bg);
+      color: #58120c;
+    }
+
+    .option .key {
+      font-weight: 850;
+      color: var(--accent);
+    }
+
+    .feedback {
+      display: none;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      padding: 13px 14px;
+      margin: 12px 0 16px;
+      background: #f8fafc;
+    }
+
+    .feedback.show {
+      display: block;
+    }
+
+    .feedback.good {
+      border-color: #9bd4b3;
+      background: var(--good-bg);
+    }
+
+    .feedback.bad {
+      border-color: #f1aaa0;
+      background: var(--bad-bg);
+    }
+
+    .empty {
+      text-align: center;
+      padding: 36px 18px;
+      color: var(--muted);
+    }
+
+    .results {
+      display: none;
+    }
+
+    .results.show {
+      display: block;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin: 14px 0 18px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0 20px;
+      font-size: .94rem;
+    }
+
+    th, td {
+      border-bottom: 1px solid var(--line);
+      padding: 9px 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      color: #2d3b4d;
+      background: #f8fafc;
+      font-size: .86rem;
+    }
+
+    .wrong-list {
+      display: grid;
+      gap: 10px;
+      margin: 12px 0 18px;
+    }
+
+    .wrong-item {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 12px;
+      background: #fff;
+    }
+
+    .print-area {
+      display: none;
+    }
+
+    @media (max-width: 820px) {
+      .topbar, .stats, .result-grid {
+        grid-template-columns: 1fr;
+      }
+      .header-actions {
+        justify-content: flex-start;
+      }
+      .option {
+        grid-template-columns: 28px 1fr;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+        color: #000;
+      }
+      header, .controls, .stats, .progress-shell, #quizCard, #resultsCard {
+        display: none !important;
+      }
+      main {
+        padding: 0;
+      }
+      .wrap {
+        width: 100%;
+        margin: 0;
+      }
+      .print-area {
+        display: block;
+      }
+      .print-q {
+        break-inside: avoid;
+        border-bottom: 1px solid #bbb;
+        padding: 10px 0;
+      }
+      .print-q h3 {
+        margin: 0 0 5px;
+        font-size: 12pt;
+      }
+      .print-q p, .print-q li {
+        font-size: 10.5pt;
+      }
+      .print-q ol {
+        margin: 5px 0 6px 20px;
+        padding: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap topbar">
+      <div>
+        <h1>Νευροανατομία: Μετωπιαίος & Βρεγματικός Λοβός</h1>
+        <p class="subtitle">Διαδραστικό quiz υψηλής δυσκολίας, βασισμένο στις διαφάνειες του PDF.</p>
+      </div>
+      <div class="header-actions">
+        <button class="ghost" id="printBtn" type="button">Εκτύπωση</button>
+        <button class="ghost" id="clearProgressBtn" type="button">Καθαρισμός προόδου</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <section class="controls" aria-label="Ρυθμίσεις quiz">
+        <div class="controls-grid">
+          <div class="field">
+            <label for="categoryFilter">Κατηγορία</label>
+            <select id="categoryFilter"></select>
+          </div>
+          <div class="field">
+            <label for="searchBox">Αναζήτηση</label>
+            <input id="searchBox" type="search" placeholder="Ερώτηση, επιλογή, αιτιολόγηση...">
+          </div>
+          <label class="checkline"><input id="shuffleQuestions" type="checkbox" checked> Ανακάτεμα ερωτήσεων</label>
+          <label class="checkline"><input id="shuffleAnswers" type="checkbox" checked> Ανακάτεμα απαντήσεων</label>
+          <div class="field compact">
+            <label>&nbsp;</label>
+            <button id="startBtn" type="button">Έναρξη</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="stats" aria-label="Στατιστικά">
+        <div class="stat"><span>Πρόοδος</span><strong id="progressText">0 / 60</strong></div>
+        <div class="stat"><span>Σκορ</span><strong id="scoreText">0</strong></div>
+        <div class="stat"><span>Ποσοστό</span><strong id="percentText">0%</strong></div>
+        <div class="stat"><span>Κατηγορία</span><strong id="currentCategory">-</strong></div>
+      </section>
+
+      <div class="progress-shell" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+
+      <section class="card" id="quizCard">
+        <div id="quizMount"></div>
+      </section>
+
+      <section class="card results" id="resultsCard">
+        <div id="resultsMount"></div>
+      </section>
+
+      <section class="print-area" id="printArea"></section>
+    </div>
+  </main>
+
+  <script>
+    const STORAGE_KEY = "neuroanatomy_mcqs_frontal_parietal_v1";
+    const labels = ["α", "β", "γ", "δ"];
+
+    const questions = [
+      {
+        id: 1,
+        category: "Γενική οργάνωση ΚΝΣ",
+        source: "Διαφάνεια 2",
+        question: "Σχετικά με το κεντρικό νευρικό σύστημα, ποιο από τα παρακάτω δεν ισχύει;",
+        options: [
+          { text: "Ο εγκέφαλος περιβάλλεται από το κρανίο.", correct: false },
+          { text: "Ο νωτιαίος μυελός περικλείεται στη σπονδυλική στήλη.", correct: false },
+          { text: "Ο εγκέφαλος αποτελείται μόνο από τα εγκεφαλικά ημισφαίρια.", correct: true },
+          { text: "Εγκέφαλος και νωτιαίος μυελός περικλείονται από μήνιγγες.", correct: false }
+        ],
+        explanation: "Στη διαφάνεια 2 ο εγκέφαλος περιλαμβάνει ημισφαίρια, στέλεχος και παρεγκεφαλίδα, όχι μόνο ημισφαίρια."
+      },
+      {
+        id: 2,
+        category: "Εμβρυολογική διαίρεση",
+        source: "Διαφάνεια 5",
+        question: "Ποια αντιστοίχιση εμβρυολογικής μοίρας και παραγώγων δεν αντιστοιχεί σωστά;",
+        options: [
+          { text: "Οπίσθιος εγκέφαλος - προμήκης μυελός και τέταρτη κοιλία.", correct: true },
+          { text: "Τελικός εγκέφαλος - ημισφαίρια, σύνδεσμοι, πυρήνες, πλάγιες κοιλίες.", correct: false },
+          { text: "Διάμεσος εγκέφαλος - θάλαμος, υποθάλαμος, επιθάλαμος, μεταθάλαμος.", correct: false },
+          { text: "Μέσος εγκέφαλος - τετράδυμο, εγκεφαλικά σκέλη, υδραγωγός.", correct: false }
+        ],
+        explanation: "Ο οπίσθιος εγκέφαλος δίνει γέφυρα και παρεγκεφαλίδα· ο προμήκης μυελός ανήκει στον έσχατο εγκέφαλο."
+      },
+      {
+        id: 3,
+        category: "Εμβρυολογική διαίρεση",
+        source: "Διαφάνεια 5",
+        question: "Όλα τα παρακάτω είναι αληθή για τη διαίρεση του εγκεφάλου εκτός από ένα:",
+        options: [
+          { text: "Ο τελικός εγκέφαλος σχετίζεται με τις πλάγιες κοιλίες.", correct: false },
+          { text: "Ο μεσεγκέφαλος σχετίζεται με την τέταρτη κοιλία.", correct: true },
+          { text: "Ο διεγκέφαλος σχετίζεται με την τρίτη κοιλία.", correct: false },
+          { text: "Ο μυελεγκέφαλος σχετίζεται με την τέταρτη κοιλία.", correct: false }
+        ],
+        explanation: "Στη διαφάνεια 5 ο μεσεγκέφαλος συνδέεται με τον υδραγωγό του εγκεφάλου, όχι με την τέταρτη κοιλία."
+      },
+      {
+        id: 4,
+        category: "Λοβοί και βασικές σχέσεις",
+        source: "Διαφάνειες 7-10",
+        question: "Ποιο από τα παρακάτω ισχύει για τον εγκέφαλο όπως περιγράφεται στις εισαγωγικές διαφάνειες;",
+        options: [
+          { text: "Βρίσκεται κάτω και πίσω από το εγκεφαλικό στέλεχος.", correct: false },
+          { text: "Καταλαμβάνει αποκλειστικά την οπίσθια κρανιακή κοιλότητα.", correct: false },
+          { text: "Τα δύο ημισφαίρια χωρίζονται από την εγκάρσια σχισμή.", correct: false },
+          { text: "Τα ημισφαίρια συνδέονται με το μεσολόβιο.", correct: true }
+        ],
+        explanation: "Η διαφάνεια 9 αναφέρει ότι τα δύο ημισφαίρια συνδέονται με δομή λευκής ουσίας, το μεσολόβιο."
+      },
+      {
+        id: 5,
+        category: "Αύλακες και σχισμές",
+        source: "Διαφάνεια 11",
+        question: "Σχετικά με αύλακα, έλικα και σχισμή, ποιο από τα παρακάτω είναι λάθος;",
+        options: [
+          { text: "Η σχισμή είναι επιφανειακή ανύψωση μεταξύ δύο αυλάκων.", correct: true },
+          { text: "Η αύλακα είναι κατάδυση στον εγκεφαλικό φλοιό.", correct: false },
+          { text: "Η έλικα είναι ανύψωση μεταξύ δύο αυλάκων.", correct: false },
+          { text: "Οι πρωτοταγείς αύλακες είναι σταθερά ευρήματα.", correct: false }
+        ],
+        explanation: "Ανύψωση μεταξύ δύο αυλάκων είναι η έλικα· η σχισμή είναι βαθιά αύλακα που διαιρεί λοβούς."
+      },
+      {
+        id: 6,
+        category: "Αύλακες και σχισμές",
+        source: "Διαφάνεια 11",
+        question: "Ποιο ζεύγος δεν αποδίδει σωστά τον όρο;",
+        options: [
+          { text: "Πρωτοταγείς αύλακες - σταθερά και καλά ανεπτυγμένα ευρήματα.", correct: false },
+          { text: "Έλικα - βαθιά αύλακα που διαιρεί τον εγκέφαλο σε λοβούς.", correct: true },
+          { text: "Δευτεροταγείς αύλακες - μεταβλητότητα μεταξύ ατόμων.", correct: false },
+          { text: "Τριτοταγείς αύλακες - ακανόνιστη έκφραση ατομικότητας.", correct: false }
+        ],
+        explanation: "Η βαθιά αύλακα που διαιρεί λοβούς είναι σχισμή, όχι έλικα."
+      },
+      {
+        id: 7,
+        category: "Αύλακες και σχισμές",
+        source: "Διαφάνεια 12",
+        question: "Σχετικά με την επιμήκη σχισμή, τι δεν ισχύει;",
+        options: [
+          { text: "Χωρίζει τα δύο εγκεφαλικά ημισφαίρια.", correct: false },
+          { text: "Περιλαμβάνει το δρέπανο του εγκεφάλου.", correct: false },
+          { text: "Περιλαμβάνει το σκηνίδιο της παρεγκεφαλίδας.", correct: true },
+          { text: "Σχετίζεται με τον άνω και κάτω οβελιαίο κόλπο.", correct: false }
+        ],
+        explanation: "Το σκηνίδιο της παρεγκεφαλίδας αναφέρεται στην εγκάρσια σχισμή, όχι στην επιμήκη."
+      },
+      {
+        id: 8,
+        category: "Αύλακες και σχισμές",
+        source: "Διαφάνεια 12",
+        question: "Ποια σχέση είναι σωστή για την εγκάρσια σχισμή;",
+        options: [
+          { text: "Βρίσκεται μεταξύ ημισφαιρίων και παρεγκεφαλίδας.", correct: true },
+          { text: "Βρίσκεται μεταξύ των δύο εγκεφαλικών ημισφαιρίων.", correct: false },
+          { text: "Περιλαμβάνει το δρέπανο του εγκεφάλου.", correct: false },
+          { text: "Περιλαμβάνει τον άνω και κάτω οβελιαίο κόλπο.", correct: false }
+        ],
+        explanation: "Η διαφάνεια 12 τοποθετεί την εγκάρσια σχισμή μεταξύ εγκεφαλικών ημισφαιρίων και παρεγκεφαλίδας."
+      },
+      {
+        id: 9,
+        category: "Αύλακες και σχισμές",
+        source: "Διαφάνεια 14",
+        question: "Ποια από τις παρακάτω σχέσεις είναι λανθασμένη;",
+        options: [
+          { text: "Η πλάγια αύλακα χωρίζει μετωπιαίο και βρεγματικό από κροταφικό λοβό.", correct: false },
+          { text: "Η κεντρική αύλακα χωρίζει μετωπιαίο από βρεγματικό λοβό.", correct: false },
+          { text: "Η πλάγια αύλακα έχει πρόσθιο, ανιόντα και οπίσθιο κλάδο.", correct: false },
+          { text: "Η βρεγματοϊνιακή σχισμή είναι κυρίως ορατή στην έξω επιφάνεια.", correct: true }
+        ],
+        explanation: "Η βρεγματοϊνιακή σχισμή αναφέρεται ως ορατή κυρίως στην έσω πλευρά."
+      },
+      {
+        id: 10,
+        category: "Λοβοί και βασικές σχέσεις",
+        source: "Διαφάνειες 8, 10, 17",
+        question: "Ποιο από τα παρακάτω δεν ανήκει στην ταξινόμηση των λοβών του φλοιού όπως δίνεται στο PDF;",
+        options: [
+          { text: "Μετωπιαίος λοβός.", correct: false },
+          { text: "Θαλαμικός λοβός.", correct: true },
+          { text: "Κεντρικός λοβός ή νήσος του Reil.", correct: false },
+          { text: "Κροταφικός λοβός.", correct: false }
+        ],
+        explanation: "Οι διαφάνειες δίνουν μετωπιαίο, βρεγματικό, ινιακό, κροταφικό και κεντρικό λοβό/νήσο Reil."
+      },
+      {
+        id: 11,
+        category: "Μετωπιαίος λοβός - όρια",
+        source: "Διαφάνειες 21, 23",
+        question: "Σχετικά με τον μετωπιαίο λοβό, ποιο από τα παρακάτω δεν ισχύει;",
+        options: [
+          { text: "Είναι μπροστά από τον βρεγματικό λοβό.", correct: false },
+          { text: "Βρίσκεται πάνω από τον κροταφικό λοβό.", correct: false },
+          { text: "Εκτείνεται από τον μετωπιαίο πόλο ως την κεντρική αύλακα.", correct: false },
+          { text: "Διαχωρίζεται από τον κροταφικό λοβό με τη βρεγματοϊνιακή σχισμή.", correct: true }
+        ],
+        explanation: "Από τον κροταφικό λοβό χωρίζεται με την πλάγια αύλακα/σχισμή Sylvius."
+      },
+      {
+        id: 12,
+        category: "Μετωπιαίος λοβός - λειτουργίες",
+        source: "Διαφάνεια 22",
+        question: "Ποια λειτουργία αποδίδεται στον μετωπιαίο λοβό στις διαφάνειες;",
+        options: [
+          { text: "Πρωτογενής οπτική αναγνώριση.", correct: false },
+          { text: "Εκούσια κίνηση και σχεδιασμός κίνησης.", correct: true },
+          { text: "Αποκλειστική επεξεργασία πόνου και θερμοκρασίας.", correct: false },
+          { text: "Αναγνώριση γραπτού λόγου μέσω γωνιώδους έλικας.", correct: false }
+        ],
+        explanation: "Η διαφάνεια 22 συνδέει τον μετωπιαίο λοβό με εκούσια κίνηση και σχεδιασμό κίνησης."
+      },
+      {
+        id: 13,
+        category: "Μετωπιαίος λοβός - άνω-έξω επιφάνεια",
+        source: "Διαφάνειες 25-26",
+        question: "Ποια δομή δεν αναφέρεται ως έλικα της άνω-έξω επιφάνειας του μετωπιαίου λοβού;",
+        options: [
+          { text: "Πρόσθια κεντρική έλικα.", correct: false },
+          { text: "Άνω μετωπιαία έλικα.", correct: false },
+          { text: "Οπισθοκεντρική έλικα.", correct: true },
+          { text: "Κάτω μετωπιαία έλικα.", correct: false }
+        ],
+        explanation: "Η οπισθοκεντρική έλικα ανήκει στην άνω-έξω επιφάνεια του βρεγματικού λοβού."
+      },
+      {
+        id: 14,
+        category: "Μετωπιαίος λοβός - άνω-έξω επιφάνεια",
+        source: "Διαφάνειες 25-26",
+        question: "Ποια μοίρα της κάτω μετωπιαίας έλικας δεν αντιστοιχεί σωστά;",
+        options: [
+          { text: "Κάτω μοίρα - παρακεντρική.", correct: true },
+          { text: "Πρόσθια μοίρα - κογχική.", correct: false },
+          { text: "Μέση μοίρα - τριγωνική.", correct: false },
+          { text: "Οπίσθια μοίρα - καλυπτρική.", correct: false }
+        ],
+        explanation: "Οι μοίρες που δίνονται είναι πρόσθια/κογχική, μέση/τριγωνική και οπίσθια/καλυπτρική."
+      },
+      {
+        id: 15,
+        category: "Μετωπιαίος λοβός - κογχική επιφάνεια",
+        source: "Διαφάνεια 27",
+        question: "Σχετικά με την κογχική ή κάτω επιφάνεια του μετωπιαίου λοβού, τι δεν ισχύει;",
+        options: [
+          { text: "Η οσφρητική αύλακα ανήκει στις αύλακές της.", correct: false },
+          { text: "Οι κογχικές αύλακες έχουν διάταξη σχήματος Η.", correct: false },
+          { text: "Η ευθεία έλικα αναφέρεται ως έλικά της.", correct: false },
+          { text: "Η επιχείλια αύλακα ανήκει στις κογχικές αύλακες.", correct: true }
+        ],
+        explanation: "Η επιχείλια αύλακα εμφανίζεται στην έσω επιφάνεια, όχι στην κογχική επιφάνεια."
+      },
+      {
+        id: 16,
+        category: "Μετωπιαίος λοβός - έσω επιφάνεια",
+        source: "Διαφάνειες 28-30",
+        question: "Ποια δομή ανήκει στις αύλακες της έσω επιφάνειας του μετωπιαίου λοβού;",
+        options: [
+          { text: "Κάτω μετωπιαία αύλακα.", correct: false },
+          { text: "Κογχική αύλακα.", correct: false },
+          { text: "Παρακεντρική αύλακα.", correct: true },
+          { text: "Άνω κροταφική αύλακα.", correct: false }
+        ],
+        explanation: "Στην έσω επιφάνεια αναφέρονται μεσολόβια, αύλακα του προσαγωγίου, παρακεντρική και επιχείλια αύλακα."
+      },
+      {
+        id: 17,
+        category: "Μετωπιαίος λοβός - έσω επιφάνεια",
+        source: "Διαφάνειες 29-30",
+        question: "Ποια από τις παρακάτω δομές δεν περιλαμβάνεται στις έλικες/λοβία της έσω επιφάνειας του μετωπιαίου λοβού;",
+        options: [
+          { text: "Προσφηνοειδές λόβιο.", correct: true },
+          { text: "Έλικα του προσαγωγίου.", correct: false },
+          { text: "Παράκεντρο λόβιο.", correct: false },
+          { text: "Υπομεσολόβια έλικα.", correct: false }
+        ],
+        explanation: "Το προσφηνοειδές λόβιο φαίνεται στο διάγραμμα ως βρεγματική/έσω γειτονική περιοχή, όχι στη λίστα μετωπιαίων ελίκων."
+      },
+      {
+        id: 18,
+        category: "Λειτουργικές περιοχές μετωπιαίου",
+        source: "Διαφάνεια 31",
+        question: "Ποια αντιστοίχιση λειτουργικής περιοχής και ρόλου δεν είναι σωστή;",
+        options: [
+          { text: "Πρωτογενής κινητικός φλοιός - εκούσια κίνηση.", correct: false },
+          { text: "Προμετωπιαίος φλοιός - πρωτογενής κοινή αισθητικότητα.", correct: true },
+          { text: "Προκινητικός φλοιός - σχεδιασμός και προετοιμασία κίνησης.", correct: false },
+          { text: "Μετωπιαία οπτική άλως - εκούσιες ταχείες κινήσεις οφθαλμών.", correct: false }
+        ],
+        explanation: "Ο προμετωπιαίος φλοιός συνδέεται με μνήμη, μάθηση, προσωπικότητα, συμπεριφορά και κρίση."
+      },
+      {
+        id: 19,
+        category: "Πρωτογενής κινητικός φλοιός",
+        source: "Διαφάνεια 32",
+        question: "Σχετικά με τον πρωτογενή κινητικό φλοιό, ποιο από τα παρακάτω δεν ισχύει;",
+        options: [
+          { text: "Η διέγερσή του προκαλεί αποκρίσεις σε μύες κορμού και άκρων.", correct: false },
+          { text: "Κάθε ημιμόριο αντιπροσωπεύεται κυρίως από το αντίθετο ημισφαίριο.", correct: false },
+          { text: "Η φλοιονωτιαία οδός αφορά τους μύες του προσώπου και τραχήλου.", correct: true },
+          { text: "Η φλοιοπρομηκική οδός αφορά μύες προσώπου και τραχήλου.", correct: false }
+        ],
+        explanation: "Η διαφάνεια 32 δίνει φλοιονωτιαία οδό για άκρα και φλοιοπρομηκική για πρόσωπο/τράχηλο."
+      },
+      {
+        id: 20,
+        category: "Πρωτογενής κινητικός φλοιός",
+        source: "Διαφάνεια 32",
+        question: "Ποιο νεύρο δεν αναφέρεται στη λίστα της φλοιοπρομηκικής οδού στη διαφάνεια;",
+        options: [
+          { text: "Τρίδυμο.", correct: false },
+          { text: "Προσωπικό.", correct: false },
+          { text: "Υπογλώσσιο.", correct: false },
+          { text: "Οσφρητικό.", correct: true }
+        ],
+        explanation: "Η λίστα περιλαμβάνει τρίδυμο, προσωπικό, γλωσσοφαρυγγικό, πνευμονογαστρικό, παραπληρωματικό και υπογλώσσιο."
+      },
+      {
+        id: 21,
+        category: "Κινητικό ανθρωπάριο",
+        source: "Διαφάνεια 33",
+        question: "Ποια διάταξη στο κινητικό ανθρωπάριο είναι λανθασμένη;",
+        options: [
+          { text: "Προς τα κάτω βρίσκονται περιοχές για φάρυγγα και χείλη.", correct: false },
+          { text: "Το παράκεντρο λόβιο αντιστοιχεί αποκλειστικά στους μυς της κεφαλής.", correct: true },
+          { text: "Πιο πάνω βρίσκονται περιοχές για χέρι και άνω άκρο.", correct: false },
+          { text: "Η περιοχή του κάτω άκρου φτάνει στην έσω επιφάνεια.", correct: false }
+        ],
+        explanation: "Στο παράκεντρο λόβιο εντοπίζεται η περιοχή του κάτω άκρου και κέντρα ούρησης/αφόδευσης."
+      },
+      {
+        id: 22,
+        category: "Κινητικό ανθρωπάριο",
+        source: "Διαφάνεια 33",
+        question: "Ποια πρόταση για την έκταση των περιοχών στο κινητικό ανθρωπάριο ισχύει;",
+        options: [
+          { text: "Μεγαλύτερη έκταση έχουν περιοχές με λεπτότερο κινητικό έλεγχο.", correct: true },
+          { text: "Μεγαλύτερη έκταση έχουν αποκλειστικά οι εγγύς μύες των άκρων.", correct: false },
+          { text: "Όλες οι περιοχές του σώματος εκπροσωπούνται ισομερώς.", correct: false },
+          { text: "Η έκταση καθορίζεται μόνο από το απόλυτο μέγεθος του μέλους.", correct: false }
+        ],
+        explanation: "Η διαφάνεια 33 τονίζει ότι σύνθετες/λεπτές κινητικές μονάδες καταλαμβάνουν μεγαλύτερη αναπαράσταση."
+      },
+      {
+        id: 23,
+        category: "Αρτηριακή άρδευση",
+        source: "Διαφάνεια 34",
+        question: "Ποια αντιστοίχιση αρτηρίας και περιοχής δεν αποδίδεται σωστά;",
+        options: [
+          { text: "Μέση εγκεφαλική - έξω εγκεφαλικός φλοιός.", correct: false },
+          { text: "Μέση εγκεφαλική - άνω άκρα, χέρι και τράχηλος.", correct: false },
+          { text: "Πρόσθια εγκεφαλική - αποκλειστικά πλάγια επιφάνεια του φλοιού.", correct: true },
+          { text: "Πρόσθια εγκεφαλική - γεννητικά όργανα, κάτω άκρα και πέλμα.", correct: false }
+        ],
+        explanation: "Η πρόσθια εγκεφαλική αρδεύει την έσω επιφάνεια των ημισφαιρίων στις διαφάνειες."
+      },
+      {
+        id: 24,
+        category: "Προκινητικός φλοιός",
+        source: "Διαφάνειες 35-36",
+        question: "Σχετικά με τον προκινητικό και συμπληρωματικό κινητικό φλοιό, τι δεν ισχύει;",
+        options: [
+          { text: "Ο προκινητικός φλοιός αφορά προετοιμασία κίνησης.", correct: false },
+          { text: "Ο συμπληρωματικός κινητικός φλοιός βρίσκεται στο οπίσθιο τμήμα της άνω μετωπιαίας έλικας.", correct: false },
+          { text: "Οι δύο περιοχές αλληλεπιδρούν με βασικά γάγγλια και παρεγκεφαλίδα.", correct: false },
+          { text: "Ο συμπληρωματικός κινητικός φλοιός αφορά κυρίως πρωτογενή όραση.", correct: true }
+        ],
+        explanation: "Η διαφάνεια 35 συνδέει τον συμπληρωματικό κινητικό φλοιό με στάση και συντονισμό κίνησης."
+      },
+      {
+        id: 25,
+        category: "Προκινητικός φλοιός",
+        source: "Διαφάνεια 35",
+        question: "Ποια θέση αποδίδεται στον προκινητικό φλοιό;",
+        options: [
+          { text: "Κάτω άκρο της οπίσθιας κεντρικής έλικας.", correct: false },
+          { text: "Οπίσθια τμήματα μετωπιαίων ελίκων.", correct: true },
+          { text: "Οπίσθιο άκρο της πλάγιας σχισμής.", correct: false },
+          { text: "Οπίσθια έσω επιφάνεια του βρεγματικού λοβού.", correct: false }
+        ],
+        explanation: "Η διαφάνεια 35 τοποθετεί τον προκινητικό φλοιό στα οπίσθια τμήματα των μετωπιαίων ελίκων."
+      },
+      {
+        id: 26,
+        category: "Προμετωπιαίος φλοιός",
+        source: "Διαφάνειες 37-38",
+        question: "Ποιο από τα παρακάτω δεν συνδέεται με τον προμετωπιαίο φλοιό ή τις βλάβες του στο PDF;",
+        options: [
+          { text: "Λήψη αποφάσεων και κρίση.", correct: false },
+          { text: "Έλλειψη πρωτοβουλίας.", correct: false },
+          { text: "Στερεοαγνωσία ως κύρια βλάβη.", correct: true },
+          { text: "Περιορισμός στα ενδιαφέροντα.", correct: false }
+        ],
+        explanation: "Η στερεοαγνωσία αποδίδεται στη δευτερογενή σωματοαισθητική περιοχή, όχι στον προμετωπιαίο φλοιό."
+      },
+      {
+        id: 27,
+        category: "Μετωπιαία οπτική άλως",
+        source: "Διαφάνεια 39",
+        question: "Σχετικά με τη μετωπιαία οπτική άλω, ποια σχέση είναι λανθασμένη;",
+        options: [
+          { text: "Στέλνει άμεσα ίνες στον βρεγματικό πρωτογενή αισθητικό φλοιό.", correct: true },
+          { text: "Σχετίζεται με συζυγείς κινήσεις των οφθαλμικών βολβών.", correct: false },
+          { text: "Οι κινήσεις είναι κυρίως προς την αντίθετη πλευρά.", correct: false },
+          { text: "Συνδέεται με πυρήνες πρόσθιων διδυμίων.", correct: false }
+        ],
+        explanation: "Η διαφάνεια 39 περιγράφει σύνδεση με πρόσθια δίδυμα και οφθαλμοκινητικούς πυρήνες, όχι αισθητικό φλοιό."
+      },
+      {
+        id: 28,
+        category: "Μετωπιαία οπτική άλως",
+        source: "Διαφάνεια 41",
+        question: "Ποιο εύρημα αναφέρεται μετά από βλάβη της μετωπιαίας οπτικής άλω;",
+        options: [
+          { text: "Βίαιη απόκλιση του βλέμματος προς την αντίθετη πλευρά.", correct: false },
+          { text: "Αδυναμία αναγνώρισης του γραπτού λόγου.", correct: false },
+          { text: "Πλήρης κατάργηση της κοινής αισθητικότητας.", correct: false },
+          { text: "Βίαιη απόκλιση του βλέμματος προς την πλευρά της βλάβης.", correct: true }
+        ],
+        explanation: "Η διαφάνεια 41 αναφέρει απόκλιση του βλέμματος προς την πλευρά της βλάβης."
+      },
+      {
+        id: 29,
+        category: "Οφθαλμοκινητικά νεύρα",
+        source: "Διαφάνεια 40",
+        question: "Ποια αντιστοίχιση οφθαλμοκινητικού νεύρου και μυός είναι λανθασμένη;",
+        options: [
+          { text: "Κοινό κινητικό - άνω ορθός.", correct: false },
+          { text: "Τροχιλιακό - έξω ορθός.", correct: true },
+          { text: "Κοινό κινητικό - κάτω λοξός.", correct: false },
+          { text: "Απαγωγό - έξω ορθός.", correct: false }
+        ],
+        explanation: "Στη διαφάνεια 40 το τροχιλιακό αντιστοιχεί στον άνω λοξό, ενώ το απαγωγό στον έξω ορθό."
+      },
+      {
+        id: 30,
+        category: "Περιοχή Broca",
+        source: "Διαφάνειες 31, 42-43",
+        question: "Σχετικά με την περιοχή Broca, τι δεν ισχύει;",
+        options: [
+          { text: "Εντοπίζεται κυρίως στο τριγωνικό τμήμα της κάτω μετωπιαίας έλικας.", correct: false },
+          { text: "Συμμετέχει στο σχηματισμό των λέξεων.", correct: false },
+          { text: "Αφορά την πρωτογενή επεξεργασία αφής και πίεσης.", correct: true },
+          { text: "Βρίσκεται στο επικρατές ημισφαίριο.", correct: false }
+        ],
+        explanation: "Η περιοχή Broca είναι κινητικό κέντρο λόγου, όχι φλοιός κοινής αισθητικότητας."
+      },
+      {
+        id: 31,
+        category: "Περιοχή Broca",
+        source: "Διαφάνεια 43",
+        question: "Ποια κλινική περιγραφή ταιριάζει με βλάβη της περιοχής Broca όπως δίνεται;",
+        options: [
+          { text: "Κατανόηση λόγου με αδυναμία συντονισμού των μυών της ομιλίας.", correct: true },
+          { text: "Αδυναμία αναγνώρισης αντικειμένου με κλειστά μάτια.", correct: false },
+          { text: "Λεξική τύφλωση με διατήρηση ομιλίας.", correct: false },
+          { text: "Βίαιη απόκλιση βλέμματος προς την πλευρά της βλάβης.", correct: false }
+        ],
+        explanation: "Η διαφάνεια 43 αναφέρει ότι οι ασθενείς κατανοούν τον λόγο αλλά δεν συντονίζουν τους μυς για ομιλία."
+      },
+      {
+        id: 32,
+        category: "Περιοχή Broca",
+        source: "Διαφάνεια 44",
+        question: "Ποιο ζεύγος πυρήνων/μυών δεν αντιστοιχεί σωστά στη διαφάνεια για την περιοχή Broca;",
+        options: [
+          { text: "VII - μύες έκφρασης του προσώπου.", correct: false },
+          { text: "IX, X, XI - μαλθακή υπερώα, σταφυλή, φάρυγγας και λάρυγγας.", correct: false },
+          { text: "XII - γλώσσα.", correct: false },
+          { text: "V - αποκλειστικά έξω ορθός μυς.", correct: true }
+        ],
+        explanation: "Η διαφάνεια 44 δίνει VII, IX/X/XI και XII· ο έξω ορθός αφορά το απαγωγό στη διαφάνεια 40."
+      },
+      {
+        id: 33,
+        category: "Περιοχή Broca",
+        source: "Διαφάνεια 44",
+        question: "Ποιο χαρακτηριστικό δεν αποδίδεται στην αφασία Broca στη διαφάνεια;",
+        options: [
+          { text: "Μη ρέουσα ομιλία.", correct: false },
+          { text: "Λεξική κώφωση ως κύριο εύρημα.", correct: true },
+          { text: "Γραμματικά λανθασμένη ομιλία.", correct: false },
+          { text: "Μη κατανοητή γλώσσα.", correct: false }
+        ],
+        explanation: "Η λεξική κώφωση αναφέρεται στη βλάβη της υπερχείλιας έλικας, όχι στην αφασία Broca."
+      },
+      {
+        id: 34,
+        category: "Βρεγματικός λοβός - όρια",
+        source: "Διαφάνεια 48",
+        question: "Σχετικά με τα όρια του βρεγματικού λοβού, τι δεν ισχύει;",
+        options: [
+          { text: "Η κεντρική αύλακα ανήκει στα όριά του.", correct: false },
+          { text: "Η πλάγια σχισμή ανήκει στα όριά του.", correct: false },
+          { text: "Η οσφρητική αύλακα αποτελεί κύριο όριό του.", correct: true },
+          { text: "Η βρεγματοϊνιακή σχισμή ανήκει στα όριά του.", correct: false }
+        ],
+        explanation: "Η οσφρητική αύλακα ανήκει στην κογχική επιφάνεια του μετωπιαίου λοβού."
+      },
+      {
+        id: 35,
+        category: "Βρεγματικός λοβός - άνω-έξω επιφάνεια",
+        source: "Διαφάνεια 49",
+        question: "Ποια δομή δεν ανήκει στην άνω-έξω επιφάνεια του βρεγματικού λοβού όπως απαριθμείται;",
+        options: [
+          { text: "Οπίσθια κεντρική έλικα.", correct: false },
+          { text: "Άνω βρεγματικό λόβιο.", correct: false },
+          { text: "Κάτω βρεγματικό λόβιο.", correct: false },
+          { text: "Ευθεία έλικα.", correct: true }
+        ],
+        explanation: "Η ευθεία έλικα εμφανίζεται στην κογχική επιφάνεια του μετωπιαίου λοβού."
+      },
+      {
+        id: 36,
+        category: "Βρεγματικός λοβός - άνω-έξω επιφάνεια",
+        source: "Διαφάνεια 49",
+        question: "Ποιο από τα παρακάτω αποτελεί αύλακα της άνω-έξω επιφάνειας του βρεγματικού λοβού;",
+        options: [
+          { text: "Οπισθοκεντρική αύλακα.", correct: true },
+          { text: "Οσφρητική αύλακα.", correct: false },
+          { text: "Άνω μετωπιαία αύλακα.", correct: false },
+          { text: "Μεσολόβια αύλακα.", correct: false }
+        ],
+        explanation: "Η οπισθοκεντρική και η διαβρεγμάτια αύλακα δίνονται ως αύλακες της άνω-έξω βρεγματικής επιφάνειας."
+      },
+      {
+        id: 37,
+        category: "Λειτουργικές περιοχές βρεγματικού",
+        source: "Διαφάνεια 50",
+        question: "Ποια λειτουργική περιοχή δεν ανήκει στον βρεγματικό λοβό σύμφωνα με τη λίστα της διαφάνειας;",
+        options: [
+          { text: "Πρωτεύων σωματοαισθητικός φλοιός.", correct: false },
+          { text: "Μετωπιαία οπτική άλως.", correct: true },
+          { text: "Δευτερογενής σωματοαισθητικός φλοιός.", correct: false },
+          { text: "Οπίσθιος βρεγματικός συνειρμικός σωματοαισθητικός φλοιός.", correct: false }
+        ],
+        explanation: "Η μετωπιαία οπτική άλως είναι λειτουργική περιοχή του μετωπιαίου λοβού."
+      },
+      {
+        id: 38,
+        category: "Πρωτογενής σωματοαισθητικός φλοιός",
+        source: "Διαφάνεια 51",
+        question: "Ποιο από τα παρακάτω δεν περιλαμβάνεται στην κοινή αισθητικότητα όπως περιγράφεται;",
+        options: [
+          { text: "Αφή.", correct: false },
+          { text: "Πίεση.", correct: false },
+          { text: "Σχηματισμός λέξεων.", correct: true },
+          { text: "Πόνος και θερμοκρασία.", correct: false }
+        ],
+        explanation: "Ο σχηματισμός λέξεων αποδίδεται στην περιοχή Broca, όχι στον πρωτογενή σωματοαισθητικό φλοιό."
+      },
+      {
+        id: 39,
+        category: "Πρωτογενής σωματοαισθητικός φλοιός",
+        source: "Διαφάνειες 51-53",
+        question: "Σχετικά με τον πρωτογενή σωματοαισθητικό φλοιό, ποια πρόταση είναι λανθασμένη;",
+        options: [
+          { text: "Περιέχει νευρώνες για γενικές σωματικές αισθήσεις.", correct: false },
+          { text: "Αφορά εξωδέκτρια και ιδιοδέκτρια αισθητικότητα.", correct: false },
+          { text: "Τοποθετείται λειτουργικά στην οπίσθια κεντρική έλικα.", correct: false },
+          { text: "Δέχεται ερεθίσματα απευθείας από μυς χωρίς νωτιαίο μυελό.", correct: true }
+        ],
+        explanation: "Η διαφάνεια 53 περιγράφει μετάδοση μέσω του νωτιαίου μυελού προς την οπίσθια κεντρική έλικα."
+      },
+      {
+        id: 40,
+        category: "Αισθητικό ανθρωπάριο",
+        source: "Διαφάνεια 52",
+        question: "Ποια πρόταση για το αισθητικό ανθρωπάριο του Penfield ισχύει;",
+        options: [
+          { text: "Η λειτουργική σημασία μιας περιοχής σχετίζεται με μεγαλύτερη φλοιική έκταση.", correct: true },
+          { text: "Δεν έχει σωματοτοπογραφική διάταξη.", correct: false },
+          { text: "Αφορά την πρόσθια και όχι την οπίσθια κεντρική έλικα.", correct: false },
+          { text: "Δεν προσομοιάζει με το κινητικό ανθρωπάριο.", correct: false }
+        ],
+        explanation: "Η διαφάνεια 52 αναφέρει σωματοτοπία στην οπίσθια κεντρική έλικα και μεγαλύτερη έκταση για σημαντικές περιοχές."
+      },
+      {
+        id: 41,
+        category: "Δευτερογενής σωματοαισθητικός φλοιός",
+        source: "Διαφάνεια 54",
+        question: "Σχετικά με τη δευτερογενή σωματοαισθητική χώρα, τι δεν ισχύει;",
+        options: [
+          { text: "Εντοπίζεται στο κάτω άκρο της οπίσθιας κεντρικής έλικας.", correct: false },
+          { text: "Αποτελεί το κύριο κινητικό κέντρο του λόγου.", correct: true },
+          { text: "Έχει διάταξη πρόσωπο-άνω άκρα-κορμός-κάτω άκρα από μπροστά προς τα πίσω.", correct: false },
+          { text: "Σχετίζεται με τα νωτιοθαλαμικά δεμάτια.", correct: false }
+        ],
+        explanation: "Το κινητικό κέντρο του λόγου είναι η περιοχή Broca, όχι η δευτερογενής σωματοαισθητική χώρα."
+      },
+      {
+        id: 42,
+        category: "Δευτερογενής σωματοαισθητικός φλοιός",
+        source: "Διαφάνειες 54-55",
+        question: "Ποια βλάβη δεν αναφέρεται για τη δευτερογενή σωματοαισθητική περιοχή;",
+        options: [
+          { text: "Στερεοαγνωσία.", correct: false },
+          { text: "Γραφοαγνωσία.", correct: false },
+          { text: "Λεξική κώφωση.", correct: true },
+          { text: "Βαροαγνωσία.", correct: false }
+        ],
+        explanation: "Η λεξική κώφωση συνδέεται με την υπερχείλια έλικα, ενώ οι άλλες βλάβες αναφέρονται στη διαφάνεια 55."
+      },
+      {
+        id: 43,
+        category: "Οπίσθιος βρεγματικός φλοιός",
+        source: "Διαφάνεια 56",
+        question: "Ποια απόδοση του οπίσθιου βρεγματικού φλοιού είναι λανθασμένη;",
+        options: [
+          { text: "Αλληλοσυσχέτιση ιδιοδέκτριων και εξωδέκτριων πληροφοριών.", correct: false },
+          { text: "Ολοκλήρωση σε παραστάσεις σχήματος, μεγέθους και σύστασης.", correct: false },
+          { text: "Αντίληψη της συνειδητής εικόνας του σώματος.", correct: false },
+          { text: "Πρωτογενής ακουστική επεξεργασία ως κύρια λειτουργία.", correct: true }
+        ],
+        explanation: "Η διαφάνεια 56 συνδέει τον βρεγματικό φλοιό με σωματικές αισθήσεις, όχι πρωτογενή ακουστική λειτουργία."
+      },
+      {
+        id: 44,
+        category: "Συνειρμικές αισθήσεις",
+        source: "Διαφάνεια 56",
+        question: "Ποια αντιστοίχιση λοβού και αισθήσεων είναι σωστή σύμφωνα με τη διαφάνεια;",
+        options: [
+          { text: "Βρεγματικός - σωματικές αισθήσεις.", correct: true },
+          { text: "Ινιακός - ακουστικές αισθήσεις.", correct: false },
+          { text: "Κροταφικός - οπτικές αισθήσεις.", correct: false },
+          { text: "Μετωπιαίος - κύριες οπτικές αισθήσεις.", correct: false }
+        ],
+        explanation: "Η διαφάνεια 56 δίνει βρεγματικός-σωματικές, ινιακός-οπτικές, κροταφικός-ακουστικές αισθήσεις."
+      },
+      {
+        id: 45,
+        category: "Υπερχείλια και γωνιώδης έλικα",
+        source: "Διαφάνεια 57",
+        question: "Σχετικά με την υπερχείλια έλικα, ποιο από τα παρακάτω δεν ισχύει;",
+        options: [
+          { text: "Καμπυλώνεται γύρω από το οπίσθιο άκρο της πλάγιας σχισμής.", correct: false },
+          { text: "Περιέχει το οπτικό κέντρο του γραπτού λόγου.", correct: true },
+          { text: "Μαζί με τη γωνιώδη έλικα ανήκει στο κάτω βρεγματικό λοβίδιο.", correct: false },
+          { text: "Βλάβη της προκαλεί λεξική κώφωση.", correct: false }
+        ],
+        explanation: "Το οπτικό κέντρο για κατανόηση γραπτού λόγου αποδίδεται στη γωνιώδη έλικα."
+      },
+      {
+        id: 46,
+        category: "Υπερχείλια και γωνιώδης έλικα",
+        source: "Διαφάνεια 58",
+        question: "Σχετικά με τη γωνιώδη έλικα, ποια σχέση είναι λανθασμένη;",
+        options: [
+          { text: "Βλάβη της προκαλεί αδυναμία αναγνώρισης γραπτού λόγου.", correct: false },
+          { text: "Στο φλοιό της βρίσκεται το οπτικό κέντρο του λόγου.", correct: false },
+          { text: "Η βλάβη της δίνει λεξική κώφωση προφορικού λόγου.", correct: true },
+          { text: "Συμμετέχει στην κατανόηση του γραπτού λόγου.", correct: false }
+        ],
+        explanation: "Η λεξική κώφωση αποδίδεται στην υπερχείλια έλικα· στη γωνιώδη έλικα αναφέρεται λεξική τύφλωση."
+      },
+      {
+        id: 47,
+        category: "Υπερχείλια και γωνιώδης έλικα",
+        source: "Διαφάνειες 57-58",
+        question: "Ποιο από τα παρακάτω δεν αντιστοιχεί σωστά;",
+        options: [
+          { text: "Υπερχείλια έλικα - ακουστικό κέντρο λόγου.", correct: false },
+          { text: "Γωνιώδης έλικα - οπτικό κέντρο λόγου.", correct: false },
+          { text: "Γωνιώδης έλικα - κατανόηση γραπτού λόγου.", correct: false },
+          { text: "Υπερχείλια έλικα - λεξική τύφλωση.", correct: true }
+        ],
+        explanation: "Η λεξική τύφλωση συνδέεται με τη γωνιώδη έλικα, όχι με την υπερχείλια."
+      },
+      {
+        id: 48,
+        category: "Σωματοαισθητικές οδοί",
+        source: "Διαφάνεια 59",
+        question: "Ποια αισθητικότητα αντιστοιχεί στην οπίσθια δέσμη - έσω λημνίσκο σύμφωνα με τη διαφάνεια;",
+        options: [
+          { text: "Δόνηση.", correct: true },
+          { text: "Πόνος.", correct: false },
+          { text: "Θερμοκρασία.", correct: false },
+          { text: "Έντονο άγγιγμα.", correct: false }
+        ],
+        explanation: "Η οπίσθια δέσμη-έσω λημνίσκος αναφέρεται για διακριτική αφή, ιδιοδεκτικότητα, δόνηση και πίεση."
+      },
+      {
+        id: 49,
+        category: "Σωματοαισθητικές οδοί",
+        source: "Διαφάνεια 59",
+        question: "Ποιο από τα παρακάτω δεν ανήκει στη νωτιοθαλαμική οδό όπως παρατίθεται;",
+        options: [
+          { text: "Πόνος.", correct: false },
+          { text: "Ιδιοδεκτικότητα.", correct: true },
+          { text: "Θερμοκρασία.", correct: false },
+          { text: "Έντονο άγγιγμα - αφή.", correct: false }
+        ],
+        explanation: "Η ιδιοδεκτικότητα τοποθετείται στην οπίσθια δέσμη - έσω λημνίσκο."
+      },
+      {
+        id: 50,
+        category: "Οπίσθια δέσμη - έσω λημνίσκος",
+        source: "Διαφάνεια 60",
+        question: "Σχετικά με την οπίσθια δέσμη - έσω λημνίσκο, ποια πρόταση είναι λάθος;",
+        options: [
+          { text: "Ο πρώτος προσαγωγός νευρώνας βρίσκεται στο ραχιαίο γάγγλιο.", correct: false },
+          { text: "Ο δεύτερος προσαγωγός νευρώνας ξεκινά στο εγκεφαλικό στέλεχος.", correct: false },
+          { text: "Οι άξονες του τρίτου νευρώνα καταλήγουν στον μετωπιαίο λοβό.", correct: true },
+          { text: "Ο τρίτος προσαγωγός νευρώνας βρίσκεται στον θάλαμο.", correct: false }
+        ],
+        explanation: "Η διαφάνεια 60 αναφέρει κατάληξη στον βρεγματικό λοβό του εγκεφαλικού φλοιού."
+      },
+      {
+        id: 51,
+        category: "Οπίσθια δέσμη - έσω λημνίσκος",
+        source: "Διαφάνεια 60",
+        question: "Ποιο τμήμα διέρχονται οι άξονες του τρίτου προσαγωγού νευρώνα πριν καταλήξουν στον βρεγματικό φλοιό;",
+        options: [
+          { text: "Πρόσθιο κέρας της πλάγιας κοιλίας.", correct: false },
+          { text: "Κογχικές αύλακες.", correct: false },
+          { text: "Πλάγιος εγκάρσιος κόλπος.", correct: false },
+          { text: "Οπίσθιο σκέλος της έσω κάψας.", correct: true }
+        ],
+        explanation: "Στη διαφάνεια 60 ο τρίτος νευρώνας στέλνει άξονες στο οπίσθιο σκέλος της έσω κάψας."
+      },
+      {
+        id: 52,
+        category: "Νωτιοθαλαμική οδός",
+        source: "Διαφάνεια 61",
+        question: "Σχετικά με τη νωτιοθαλαμική οδό, ποιο από τα παρακάτω δεν ισχύει;",
+        options: [
+          { text: "Ο τρίτος νευρώνας στέλνει ίνες στον πρωτογενή κινητικό φλοιό.", correct: true },
+          { text: "Ο πρώτος νευρώνας βρίσκεται στο ραχιαίο γάγγλιο.", correct: false },
+          { text: "Ο δεύτερος προσαγωγός νευρώνας βρίσκεται στην κεντρική ζελατινώδη ουσία.", correct: false },
+          { text: "Ο τρίτος προσαγωγός νευρώνας βρίσκεται στους θαλαμικούς πυρήνες.", correct: false }
+        ],
+        explanation: "Η διαφάνεια 61 αναφέρει προσαγωγές ίνες στον πρωτογενή αισθητικό φλοιό."
+      },
+      {
+        id: 53,
+        category: "Σωματοαισθητικές οδοί",
+        source: "Διαφάνειες 60-61",
+        question: "Ποια διατύπωση για τη διασταύρωση των σωματοαισθητικών οδών είναι σωστή;",
+        options: [
+          { text: "Οι άξονες παραμένουν πάντα στην ίδια πλευρά μέχρι τον φλοιό.", correct: false },
+          { text: "Οι άξονες διασχίζουν τη μέση γραμμή προς την αντίθετη πλευρά κάτω από το επίπεδο του θαλάμου.", correct: true },
+          { text: "Η διασταύρωση γίνεται μόνο στην πλάγια σχισμή.", correct: false },
+          { text: "Η διασταύρωση αφορά αποκλειστικά τη φλοιοπρομηκική οδό.", correct: false }
+        ],
+        explanation: "Οι διαφάνειες 60-61 τονίζουν διέλευση στη μέση γραμμή προς την αντίθετη πλευρά κάτω από τον θάλαμο."
+      },
+      {
+        id: 54,
+        category: "Αισθητικό και κινητικό ανθρωπάριο",
+        source: "Διαφάνεια 62",
+        question: "Ποια σχέση μεγέθους αναπαράστασης είναι λανθασμένη σύμφωνα με τη διαφάνεια 62;",
+        options: [
+          { text: "Χείλη και χέρια έχουν μεγάλη αισθητική αναπαράσταση.", correct: false },
+          { text: "Πόδια και γεννητικά όργανα έχουν περισσότερους αισθητικούς νευρώνες από άλλα σημεία.", correct: false },
+          { text: "Η ράχη καταλαμβάνει τη μεγαλύτερη κινητική περιοχή.", correct: true },
+          { text: "Χέρια, χείλη και πρόσωπο έχουν μεγάλη κινητική αναπαράσταση.", correct: false }
+        ],
+        explanation: "Η διαφάνεια 62 αναφέρει μεγάλη κινητική αναπαράσταση για χέρια, χείλη και πρόσωπο."
+      },
+      {
+        id: 55,
+        category: "Αρτηριακή άρδευση",
+        source: "Διαφάνειες 63-64",
+        question: "Ποια αντιστοίχιση αιμάτωσης είναι λανθασμένη;",
+        options: [
+          { text: "Μέση εγκεφαλική - πλάγιος εγκεφαλικός φλοιός.", correct: false },
+          { text: "Πρόσθια εγκεφαλική - έσω πλευρά ημισφαιρίων.", correct: false },
+          { text: "Μέση εγκεφαλική - άνω άκρα, χέρι και λαιμός.", correct: false },
+          { text: "Πρόσθια εγκεφαλική - αποκλειστικά άνω άκρα και χέρι.", correct: true }
+        ],
+        explanation: "Η πρόσθια εγκεφαλική συνδέεται με γεννητικά όργανα, πόδι/κάτω άκρο και πέλμα."
+      },
+      {
+        id: 56,
+        category: "Αρτηριακή άρδευση",
+        source: "Διαφάνεια 64",
+        question: "Ποια επιφάνεια του μετωπιαίου λοβού αιματώνεται από την πρόσθια εγκεφαλική αρτηρία σύμφωνα με τη διαφάνεια;",
+        options: [
+          { text: "Άνω και έσω επιφάνεια.", correct: true },
+          { text: "Κάτω και πλάγια επιφάνεια.", correct: false },
+          { text: "Οπίσθια έσω επιφάνεια.", correct: false },
+          { text: "Μόνο η κογχική επιφάνεια.", correct: false }
+        ],
+        explanation: "Στη διαφάνεια 64 ο μετωπιαίος λοβός έχει άνω+έσω επιφάνεια από πρόσθια εγκεφαλική."
+      },
+      {
+        id: 57,
+        category: "Αρτηριακή άρδευση",
+        source: "Διαφάνεια 64",
+        question: "Σχετικά με την αιμάτωση του βρεγματικού λοβού, ποιο από τα παρακάτω δεν ισχύει;",
+        options: [
+          { text: "Η πλάγια επιφάνεια αιματώνεται από τη μέση εγκεφαλική αρτηρία.", correct: false },
+          { text: "Η πλάγια επιφάνεια αιματώνεται κυρίως από την πρόσθια εγκεφαλική αρτηρία.", correct: true },
+          { text: "Η πρόσθια έσω επιφάνεια αιματώνεται από την πρόσθια εγκεφαλική αρτηρία.", correct: false },
+          { text: "Η οπίσθια έσω επιφάνεια αιματώνεται από την οπίσθια εγκεφαλική αρτηρία.", correct: false }
+        ],
+        explanation: "Για τον βρεγματικό λοβό η πλάγια επιφάνεια δίνεται στη μέση εγκεφαλική αρτηρία."
+      },
+      {
+        id: 58,
+        category: "Λειτουργική σύγκριση λοβών",
+        source: "Διαφάνεια 19",
+        question: "Ποια λειτουργία δεν αποδίδεται στον βρεγματικό λοβό στη συγκριτική διαφάνεια;",
+        options: [
+          { text: "Αισθητικές πληροφορίες.", correct: false },
+          { text: "Προσανατολισμός και κίνηση στο χώρο.", correct: false },
+          { text: "Έναρξη και σχεδιασμός κίνησης.", correct: true },
+          { text: "Αναγνώριση σχήματος και μεγέθους.", correct: false }
+        ],
+        explanation: "Η έναρξη και ο σχεδιασμός κίνησης αποδίδονται στον μετωπιαίο λοβό."
+      },
+      {
+        id: 59,
+        category: "Λειτουργική σύγκριση λοβών",
+        source: "Διαφάνεια 19",
+        question: "Ποια λειτουργία δεν αποδίδεται στον μετωπιαίο λοβό στη συγκριτική διαφάνεια;",
+        options: [
+          { text: "Εκούσια κίνηση.", correct: false },
+          { text: "Ομιλία.", correct: false },
+          { text: "Χαρακτηριστικά προσωπικότητας και σκέψεις.", correct: false },
+          { text: "Επεξεργασία δεδομένων αριθμητικά.", correct: true }
+        ],
+        explanation: "Η αριθμητική επεξεργασία δίνεται στη στήλη του βρεγματικού λοβού."
+      },
+      {
+        id: 60,
+        category: "Σύνθετες τοπογραφικές παγίδες",
+        source: "Διαφάνειες 14, 25, 49, 57-58",
+        question: "Ποιο από τα παρακάτω ζεύγη είναι σωστό;",
+        options: [
+          { text: "Διαβρεγμάτια αύλακα - βρεγματική άνω-έξω επιφάνεια.", correct: true },
+          { text: "Κογχικές αύλακες - βρεγματική άνω-έξω επιφάνεια.", correct: false },
+          { text: "Υπερχείλια έλικα - κάτω μετωπιαία έλικα.", correct: false },
+          { text: "Βρεγματοϊνιακή σχισμή - διαχωρισμός μετωπιαίου από κροταφικό.", correct: false }
+        ],
+        explanation: "Η διαβρεγμάτια αύλακα ανήκει στην άνω-έξω επιφάνεια του βρεγματικού λοβού."
+      }
+    ];
+
+    let activeQuestions = [];
+    let currentIndex = 0;
+    let score = 0;
+    let answered = {};
+    let wrongIds = [];
+    let currentMode = "full";
+
+    const els = {
+      categoryFilter: document.getElementById("categoryFilter"),
+      searchBox: document.getElementById("searchBox"),
+      shuffleQuestions: document.getElementById("shuffleQuestions"),
+      shuffleAnswers: document.getElementById("shuffleAnswers"),
+      startBtn: document.getElementById("startBtn"),
+      quizMount: document.getElementById("quizMount"),
+      quizCard: document.getElementById("quizCard"),
+      resultsCard: document.getElementById("resultsCard"),
+      resultsMount: document.getElementById("resultsMount"),
+      progressText: document.getElementById("progressText"),
+      scoreText: document.getElementById("scoreText"),
+      percentText: document.getElementById("percentText"),
+      currentCategory: document.getElementById("currentCategory"),
+      progressBar: document.getElementById("progressBar"),
+      printArea: document.getElementById("printArea"),
+      printBtn: document.getElementById("printBtn"),
+      clearProgressBtn: document.getElementById("clearProgressBtn")
+    };
+
+    function shuffle(array) {
+      const copy = array.slice();
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function normalize(text) {
+      return String(text || "").toLocaleLowerCase("el-GR").normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
+
+    function getFilteredQuestions() {
+      const category = els.categoryFilter.value;
+      const term = normalize(els.searchBox.value.trim());
+      return questions.filter(q => {
+        const categoryOk = category === "all" || q.category === category;
+        const haystack = normalize([
+          q.question,
+          q.category,
+          q.source,
+          q.explanation,
+          q.options.map(o => o.text).join(" ")
+        ].join(" "));
+        return categoryOk && (!term || haystack.includes(term));
+      });
+    }
+
+    function startQuiz(sourceQuestions, mode = "full") {
+      currentMode = mode;
+      const pool = sourceQuestions || getFilteredQuestions();
+      activeQuestions = els.shuffleQuestions.checked && mode !== "resume" ? shuffle(pool) : pool.slice();
+      currentIndex = 0;
+      score = 0;
+      answered = {};
+      wrongIds = [];
+      els.resultsCard.classList.remove("show");
+      els.quizCard.style.display = "block";
+      renderQuestion();
+      saveProgress();
+    }
+
+    function renderQuestion() {
+      if (!activeQuestions.length) {
+        els.quizMount.innerHTML = '<div class="empty"><h2>Δεν βρέθηκαν ερωτήσεις</h2><p>Άλλαξε φίλτρο ή αναζήτηση και πάτησε ξανά «Έναρξη».</p></div>';
+        updateStats();
+        return;
+      }
+      if (currentIndex >= activeQuestions.length) {
+        renderResults();
+        return;
+      }
+
+      const q = activeQuestions[currentIndex];
+      const prior = answered[q.id];
+      const optionList = prior?.optionOrder
+        ? prior.optionOrder.map(i => q.options[i])
+        : (els.shuffleAnswers.checked ? shuffle(q.options.map((o, i) => ({...o, originalIndex: i}))) : q.options.map((o, i) => ({...o, originalIndex: i})));
+      if (!prior) {
+        answered[q.id] = { optionOrder: optionList.map(o => o.originalIndex), selected: null, correct: null };
+      }
+
+      els.quizMount.innerHTML = `
+        <div class="question-meta">
+          <span class="pill">${q.category}</span>
+          <span class="pill">${q.source}</span>
+          <span class="pill">Ερώτηση ${currentIndex + 1} / ${activeQuestions.length}</span>
+        </div>
+        <h2 class="question">${escapeHtml(q.question)}</h2>
+        <div class="options" id="optionsMount"></div>
+        <div class="feedback" id="feedback"></div>
+        <div class="action-row">
+          <button id="nextBtn" type="button" style="display:none;">${currentIndex === activeQuestions.length - 1 ? "Αποτελέσματα" : "Επόμενη ερώτηση"}</button>
+        </div>
+      `;
+
+      const optionsMount = document.getElementById("optionsMount");
+      const state = answered[q.id];
+      optionList.forEach((opt, idx) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "option";
+        button.innerHTML = `<span class="key">${labels[idx]})</span><span>${escapeHtml(opt.text)}</span>`;
+        button.dataset.originalIndex = opt.originalIndex;
+        button.addEventListener("click", () => answerQuestion(q, opt.originalIndex));
+        optionsMount.appendChild(button);
+      });
+
+      if (state.selected !== null) {
+        showAnsweredState(q);
+      }
+      updateStats();
+    }
+
+    function answerQuestion(q, originalIndex) {
+      const selected = q.options[originalIndex];
+      const isCorrect = !!selected.correct;
+      answered[q.id].selected = originalIndex;
+      answered[q.id].correct = isCorrect;
+      if (isCorrect) {
+        score += 1;
+      } else if (!wrongIds.includes(q.id)) {
+        wrongIds.push(q.id);
+      }
+      showAnsweredState(q);
+      updateStats();
+      saveProgress();
+    }
+
+    function showAnsweredState(q) {
+      const state = answered[q.id];
+      const buttons = Array.from(document.querySelectorAll(".option"));
+      buttons.forEach(button => {
+        const idx = Number(button.dataset.originalIndex);
+        button.disabled = true;
+        if (q.options[idx].correct) button.classList.add("correct");
+        if (state.selected === idx && !q.options[idx].correct) button.classList.add("wrong");
+      });
+      const feedback = document.getElementById("feedback");
+      feedback.className = `feedback show ${state.correct ? "good" : "bad"}`;
+      feedback.innerHTML = `<strong>${state.correct ? "Σωστό." : "Λάθος."}</strong> ${escapeHtml(q.explanation)}`;
+      const nextBtn = document.getElementById("nextBtn");
+      nextBtn.style.display = "inline-flex";
+      nextBtn.addEventListener("click", () => {
+        currentIndex += 1;
+        renderQuestion();
+        saveProgress();
+      }, { once: true });
+    }
+
+    function updateStats() {
+      const answeredCount = Object.values(answered).filter(a => a.selected !== null).length;
+      const total = activeQuestions.length || getFilteredQuestions().length || questions.length;
+      const pct = answeredCount ? Math.round((score / answeredCount) * 100) : 0;
+      els.progressText.textContent = `${Math.min(currentIndex + (activeQuestions.length ? 1 : 0), total)} / ${total}`;
+      els.scoreText.textContent = String(score);
+      els.percentText.textContent = `${pct}%`;
+      els.currentCategory.textContent = activeQuestions[currentIndex]?.category || "-";
+      els.progressBar.style.width = total ? `${Math.min(100, (answeredCount / total) * 100)}%` : "0%";
+    }
+
+    function renderResults() {
+      els.quizCard.style.display = "none";
+      els.resultsCard.classList.add("show");
+      const total = activeQuestions.length;
+      const wrong = wrongIds.length;
+      const correct = score;
+      const pct = total ? Math.round((correct / total) * 100) : 0;
+      const byCategory = {};
+      activeQuestions.forEach(q => {
+        byCategory[q.category] ||= { total: 0, correct: 0 };
+        byCategory[q.category].total += 1;
+        if (answered[q.id]?.correct) byCategory[q.category].correct += 1;
+      });
+      const categoryRows = Object.entries(byCategory).map(([cat, s]) => `
+        <tr><td>${escapeHtml(cat)}</td><td>${s.correct} / ${s.total}</td><td>${Math.round((s.correct / s.total) * 100)}%</td></tr>
+      `).join("");
+      const wrongRows = wrongIds.map(id => {
+        const q = questions.find(item => item.id === id);
+        const selected = answered[id]?.selected;
+        const selectedText = selected !== null && selected !== undefined ? q.options[selected].text : "-";
+        const correctText = q.options.find(o => o.correct).text;
+        return `<div class="wrong-item">
+          <strong>${q.id}. ${escapeHtml(q.question)}</strong>
+          <p><b>Δική σου απάντηση:</b> ${escapeHtml(selectedText)}</p>
+          <p><b>Σωστή:</b> ${escapeHtml(correctText)}</p>
+          <p>${escapeHtml(q.explanation)}</p>
+        </div>`;
+      }).join("") || "<p>Δεν υπάρχουν λανθασμένες ερωτήσεις.</p>";
+
+      els.resultsMount.innerHTML = `
+        <h2>Τελική επίδοση</h2>
+        <div class="result-grid">
+          <div class="stat"><span>Συνολικό σκορ</span><strong>${correct} / ${total}</strong></div>
+          <div class="stat"><span>Ποσοστό</span><strong>${pct}%</strong></div>
+          <div class="stat"><span>Σωστές</span><strong>${correct}</strong></div>
+          <div class="stat"><span>Λανθασμένες</span><strong>${wrong}</strong></div>
+        </div>
+        <h3>Απόδοση ανά κατηγορία</h3>
+        <table>
+          <thead><tr><th>Κατηγορία</th><th>Σκορ</th><th>Ποσοστό</th></tr></thead>
+          <tbody>${categoryRows}</tbody>
+        </table>
+        <h3>Ανασκόπηση λανθασμένων</h3>
+        <div class="wrong-list">${wrongRows}</div>
+        <div class="action-row">
+          <button type="button" id="restartBtn">Επανεκκίνηση</button>
+          <button type="button" id="retryWrongBtn" class="secondary" ${wrong ? "" : "disabled"}>Επανάληψη λανθασμένων</button>
+        </div>
+      `;
+      document.getElementById("restartBtn").addEventListener("click", () => startQuiz(getFilteredQuestions(), "full"));
+      document.getElementById("retryWrongBtn").addEventListener("click", () => {
+        const retry = wrongIds.map(id => questions.find(q => q.id === id)).filter(Boolean);
+        startQuiz(retry, "wrong");
+      });
+      updateStats();
+      saveProgress();
+    }
+
+    function populateCategories() {
+      const cats = Array.from(new Set(questions.map(q => q.category))).sort((a, b) => a.localeCompare(b, "el"));
+      els.categoryFilter.innerHTML = '<option value="all">Όλες οι κατηγορίες</option>' + cats.map(cat => `<option value="${escapeAttr(cat)}">${escapeHtml(cat)}</option>`).join("");
+    }
+
+    function renderPrintArea() {
+      const categoryCounts = Array.from(new Set(questions.map(q => q.category))).map(cat => {
+        const count = questions.filter(q => q.category === cat).length;
+        return `<tr><td>${escapeHtml(cat)}</td><td>${count}</td></tr>`;
+      }).join("");
+      els.printArea.innerHTML = `
+        <h1>Νευροανατομία - Μετωπιαίος & Βρεγματικός Λοβός</h1>
+        <p>Σύνολο ερωτήσεων: ${questions.length}</p>
+        <h2>Κατανομή ανά κατηγορία</h2>
+        <table><thead><tr><th>Κατηγορία</th><th>Ερωτήσεις</th></tr></thead><tbody>${categoryCounts}</tbody></table>
+        <h2>Ερωτήσεις και απαντήσεις</h2>
+        ${questions.map(q => `
+          <div class="print-q">
+            <h3>${q.id}. ${escapeHtml(q.question)} <small>(${escapeHtml(q.category)} - ${escapeHtml(q.source)})</small></h3>
+            <ol type="a">
+              ${q.options.map(o => `<li>${escapeHtml(o.text)}</li>`).join("")}
+            </ol>
+            <p><b>Σωστή απάντηση:</b> ${labels[q.options.findIndex(o => o.correct)]}) ${escapeHtml(q.options.find(o => o.correct).text)}</p>
+            <p><b>Αιτιολόγηση:</b> ${escapeHtml(q.explanation)}</p>
+          </div>
+        `).join("")}
+      `;
+    }
+
+    function saveProgress() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+          ids: activeQuestions.map(q => q.id),
+          currentIndex,
+          score,
+          answered,
+          wrongIds,
+          settings: {
+            category: els.categoryFilter.value,
+            search: els.searchBox.value,
+            shuffleQuestions: els.shuffleQuestions.checked,
+            shuffleAnswers: els.shuffleAnswers.checked
+          },
+          mode: currentMode
+        }));
+      } catch (err) {}
+    }
+
+    function loadProgress() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return false;
+        const data = JSON.parse(raw);
+        if (!data?.ids?.length) return false;
+        els.categoryFilter.value = data.settings?.category || "all";
+        els.searchBox.value = data.settings?.search || "";
+        els.shuffleQuestions.checked = data.settings?.shuffleQuestions ?? true;
+        els.shuffleAnswers.checked = data.settings?.shuffleAnswers ?? true;
+        activeQuestions = data.ids.map(id => questions.find(q => q.id === id)).filter(Boolean);
+        currentIndex = Math.min(data.currentIndex || 0, activeQuestions.length);
+        score = data.score || 0;
+        answered = data.answered || {};
+        wrongIds = data.wrongIds || [];
+        currentMode = data.mode || "resume";
+        els.resultsCard.classList.remove("show");
+        els.quizCard.style.display = "block";
+        renderQuestion();
+        return true;
+      } catch (err) {
+        return false;
+      }
+    }
+
+    function escapeHtml(text) {
+      return String(text).replace(/[&<>"']/g, ch => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+      }[ch]));
+    }
+
+    function escapeAttr(text) {
+      return escapeHtml(text).replace(/"/g, "&quot;");
+    }
+
+    els.startBtn.addEventListener("click", () => startQuiz(getFilteredQuestions(), "full"));
+    els.categoryFilter.addEventListener("change", () => updateStats());
+    els.searchBox.addEventListener("input", () => updateStats());
+    els.printBtn.addEventListener("click", () => {
+      renderPrintArea();
+      window.print();
+    });
+    els.clearProgressBtn.addEventListener("click", () => {
+      localStorage.removeItem(STORAGE_KEY);
+      startQuiz(getFilteredQuestions(), "full");
+    });
+
+    populateCategories();
+    renderPrintArea();
+    if (!loadProgress()) {
+      startQuiz(getFilteredQuestions(), "full");
+    }
+  </script>
+</body>
+</html>

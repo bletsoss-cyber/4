@@ -1,0 +1,1675 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Έξω και Μέσο Ους - MCQs Ανατομίας</title>
+  <style>
+    :root {
+      --ink: #17202a;
+      --muted: #5c6673;
+      --line: #d9e1ea;
+      --paper: #f6f8fb;
+      --panel: #ffffff;
+      --navy: #19324d;
+      --teal: #1d766f;
+      --teal-soft: #e7f4f2;
+      --red: #b83a3a;
+      --red-soft: #fdeaea;
+      --green: #237a4b;
+      --green-soft: #e8f5ed;
+      --amber: #986a10;
+      --amber-soft: #fff6de;
+      --shadow: 0 14px 40px rgba(23, 32, 42, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.55;
+    }
+
+    header {
+      background: var(--navy);
+      color: #fff;
+      padding: 24px 20px;
+      border-bottom: 5px solid var(--teal);
+    }
+
+    .wrap {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin: 0 0 6px;
+      font-size: clamp(1.55rem, 3vw, 2.35rem);
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: #dbe8f1;
+      max-width: 880px;
+    }
+
+    main { padding: 22px 0 42px; }
+
+    .controls, .question-card, .results, .empty-state {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .controls {
+      padding: 18px;
+      margin-bottom: 18px;
+    }
+
+    .control-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1.4fr repeat(2, auto);
+      gap: 12px;
+      align-items: end;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      font-size: 0.92rem;
+      margin-bottom: 5px;
+      color: var(--navy);
+    }
+
+    select, input[type="search"] {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 9px 11px;
+      background: #fff;
+      color: var(--ink);
+      font: inherit;
+    }
+
+    .checkline {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      min-height: 42px;
+      color: var(--ink);
+      font-weight: 650;
+      white-space: nowrap;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 6px;
+      padding: 10px 14px;
+      font: inherit;
+      font-weight: 750;
+      cursor: pointer;
+      background: var(--navy);
+      color: #fff;
+      transition: transform 0.12s ease, opacity 0.12s ease, background 0.12s ease;
+    }
+
+    button:hover:not(:disabled) { transform: translateY(-1px); }
+    button:disabled { opacity: 0.48; cursor: not-allowed; }
+    button.secondary { background: #496273; }
+    button.ghost { background: #e8eef4; color: var(--navy); }
+    button.warn { background: var(--amber); }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .stat {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 11px 12px;
+    }
+
+    .stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .stat strong {
+      display: block;
+      margin-top: 2px;
+      font-size: 1.18rem;
+      color: var(--navy);
+    }
+
+    .progress-shell {
+      height: 10px;
+      background: #e8eef4;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 18px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: var(--teal);
+      transition: width 0.2s ease;
+    }
+
+    .question-card { padding: 22px; }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      border-radius: 999px;
+      padding: 4px 10px;
+      background: var(--teal-soft);
+      color: var(--teal);
+      font-size: 0.85rem;
+      font-weight: 800;
+    }
+
+    .pill.source {
+      background: #eef2f7;
+      color: #4d5d70;
+    }
+
+    .question-text {
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      font-weight: 780;
+      margin: 0 0 16px;
+    }
+
+    .options {
+      display: grid;
+      gap: 10px;
+    }
+
+    .option {
+      width: 100%;
+      text-align: left;
+      background: #fff;
+      color: var(--ink);
+      border: 1px solid var(--line);
+      padding: 13px 14px;
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 8px;
+      align-items: start;
+      min-height: 52px;
+    }
+
+    .option:hover:not(:disabled) {
+      background: #f5f9fc;
+      border-color: #9eb6c8;
+    }
+
+    .option.correct {
+      background: var(--green-soft);
+      border-color: var(--green);
+      color: #164b2e;
+    }
+
+    .option.wrong {
+      background: var(--red-soft);
+      border-color: var(--red);
+      color: #742222;
+    }
+
+    .key {
+      font-weight: 850;
+      color: var(--navy);
+    }
+
+    .feedback {
+      display: none;
+      margin-top: 16px;
+      border-radius: 8px;
+      padding: 13px 14px;
+      border: 1px solid var(--line);
+      background: #f9fbfd;
+    }
+
+    .feedback.show { display: block; }
+    .feedback.correct { border-color: var(--green); background: var(--green-soft); }
+    .feedback.wrong { border-color: var(--red); background: var(--red-soft); }
+
+    .question-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 16px;
+    }
+
+    .results {
+      display: none;
+      padding: 22px;
+    }
+
+    .results.show { display: block; }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin: 14px 0 18px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0 18px;
+      background: #fff;
+    }
+
+    th, td {
+      border: 1px solid var(--line);
+      padding: 9px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #eef3f8;
+      color: var(--navy);
+    }
+
+    .wrong-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .wrong-item {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      background: #fff;
+    }
+
+    .distribution {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .empty-state {
+      display: none;
+      padding: 22px;
+      text-align: center;
+    }
+
+    .print-review { display: none; }
+
+    @media (max-width: 880px) {
+      .control-grid, .stats, .result-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .wrap { width: min(100% - 20px, 1120px); }
+      header { padding: 20px 10px; }
+      main { padding-top: 14px; }
+      .control-grid, .stats, .result-grid {
+        grid-template-columns: 1fr;
+      }
+      .question-card, .controls, .results, .empty-state {
+        padding: 14px;
+      }
+      .option {
+        grid-template-columns: 30px 1fr;
+        padding: 12px;
+      }
+    }
+
+    @media print {
+      body { background: #fff; color: #000; }
+      header, .controls, .stats, .progress-shell, .question-card, .results, .empty-state {
+        display: none !important;
+      }
+      main { padding: 0; }
+      .wrap { width: 100%; }
+      .print-review {
+        display: block;
+        font-size: 11pt;
+      }
+      .print-question {
+        break-inside: avoid;
+        margin: 0 0 14px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #bbb;
+      }
+      .print-question h3 {
+        font-size: 12pt;
+        margin: 0 0 6px;
+      }
+      .print-question p { margin: 3px 0; }
+      .print-answer {
+        margin-top: 5px;
+        color: #000;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>Έξω και Μέσο Ους - MCQs Ανατομίας</h1>
+      <p class="subtitle">Διαδραστικό quiz υψηλής δυσκολίας βασισμένο στις διαφάνειες «Έξω - Μέσο Ους».</p>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <section class="controls" aria-label="Ρυθμίσεις quiz">
+        <div class="control-grid">
+          <div>
+            <label for="categoryFilter">Κατηγορία</label>
+            <select id="categoryFilter"></select>
+          </div>
+          <div>
+            <label for="searchBox">Αναζήτηση</label>
+            <input id="searchBox" type="search" placeholder="Εκφώνηση, επιλογές, αιτιολόγηση ή κατηγορία">
+          </div>
+          <label class="checkline"><input id="shuffleQuestions" type="checkbox" checked> Ανακάτεμα ερωτήσεων</label>
+          <label class="checkline"><input id="shuffleAnswers" type="checkbox" checked> Ανακάτεμα απαντήσεων</label>
+        </div>
+        <div class="button-row">
+          <button id="startBtn">Έναρξη quiz</button>
+          <button id="printBtn" class="secondary">Εκτύπωση</button>
+          <button id="clearProgressBtn" class="ghost">Καθαρισμός προόδου</button>
+        </div>
+        <div id="distribution" class="distribution"></div>
+      </section>
+
+      <section class="stats" aria-label="Στατιστικά">
+        <div class="stat"><span>Σκορ</span><strong id="scoreStat">0</strong></div>
+        <div class="stat"><span>Πρόοδος</span><strong id="progressStat">0 / 0</strong></div>
+        <div class="stat"><span>Επιτυχία</span><strong id="percentStat">0%</strong></div>
+        <div class="stat"><span>Κατηγορία</span><strong id="categoryStat">-</strong></div>
+      </section>
+
+      <div class="progress-shell" aria-hidden="true"><div id="progressBar" class="progress-bar"></div></div>
+
+      <section id="questionCard" class="question-card" aria-live="polite">
+        <div class="meta">
+          <span id="questionCategory" class="pill"></span>
+          <span id="questionSource" class="pill source"></span>
+        </div>
+        <p id="questionText" class="question-text"></p>
+        <div id="options" class="options"></div>
+        <div id="feedback" class="feedback"></div>
+        <div class="question-actions">
+          <button id="nextBtn" style="display:none;">Επόμενη ερώτηση</button>
+        </div>
+      </section>
+
+      <section id="emptyState" class="empty-state">
+        Δεν βρέθηκαν ερωτήσεις με τα τρέχοντα φίλτρα.
+      </section>
+
+      <section id="results" class="results">
+        <h2>Τελική επίδοση</h2>
+        <div class="result-grid">
+          <div class="stat"><span>Σκορ</span><strong id="finalScore">0</strong></div>
+          <div class="stat"><span>Ποσοστό</span><strong id="finalPercent">0%</strong></div>
+          <div class="stat"><span>Σωστές</span><strong id="finalCorrect">0</strong></div>
+          <div class="stat"><span>Λανθασμένες</span><strong id="finalWrong">0</strong></div>
+          <div class="stat"><span>Σύνολο</span><strong id="finalTotal">0</strong></div>
+        </div>
+        <h3>Απόδοση ανά κατηγορία</h3>
+        <div id="categoryResults"></div>
+        <h3>Ανασκόπηση λανθασμένων</h3>
+        <div id="wrongList" class="wrong-list"></div>
+        <div class="button-row">
+          <button id="restartBtn">Επανεκκίνηση</button>
+          <button id="retryWrongBtn" class="warn">Επανάληψη λανθασμένων</button>
+        </div>
+      </section>
+
+      <section id="printReview" class="print-review"></section>
+    </div>
+  </main>
+
+  <script>
+    const questions = [
+      {
+        id: 1,
+        category: "Γενική οργάνωση",
+        source: "Διαφάνεια 2",
+        question: "Σχετικά με τη διαίρεση του στατικοακουστικού οργάνου, ποιο δεν ισχύει;",
+        options: [
+          { key: "α", text: "Το έξω ους περιλαμβάνει το πτερύγιο και τον έξω ακουστικό πόρο.", correct: false },
+          { key: "β", text: "Ο τυμπανικός υμένας χωρίζει το έξω από το μέσο ους.", correct: false },
+          { key: "γ", text: "Το μέσο ους περιλαμβάνει τον λαβύρινθο ως κύριο αισθητήριο όργανο.", correct: true },
+          { key: "δ", text: "Το μέσο ους περιέχει αλυσίδα ακουστικών οσταρίων.", correct: false }
+        ],
+        explanation: "Ο λαβύρινθος αναφέρεται στο έσω ους, όχι στο μέσο ους."
+      },
+      {
+        id: 2,
+        category: "Γενική οργάνωση",
+        source: "Διαφάνεια 2",
+        question: "Ποιο από τα παρακάτω αντιστοιχεί σωστά σε τμήμα του μέσου ωτός;",
+        options: [
+          { key: "α", text: "Κοίλο του τυμπάνου, μαστοειδές άντρο, μαστοειδείς κυψέλες, ακουστική σάλπιγγα.", correct: true },
+          { key: "β", text: "Πτερύγιο, έξω ακουστικός πόρος, μαστοειδές άντρο, λαβύρινθος.", correct: false },
+          { key: "γ", text: "Κόγχη, έξω ακουστικός πόρος, τυμπανικός υμένας, ακουστική σάλπιγγα.", correct: false },
+          { key: "δ", text: "Λαβύρινθος, κοίλο τυμπάνου, πτερύγιο και μαστοειδείς κυψέλες.", correct: false }
+        ],
+        explanation: "Η διαφάνεια ορίζει αυτά τα τέσσερα ως μέρη του μέσου ωτός."
+      },
+      {
+        id: 3,
+        category: "Πτερύγιο ωτός",
+        source: "Διαφάνεια 5",
+        question: "Σχετικά με το πτερύγιο του ωτός, όλα τα παρακάτω είναι αληθή εκτός από ένα:",
+        options: [
+          { key: "α", text: "Είναι δερματική πτυχή που περιβάλλει το στόμιο του έξω ακουστικού πόρου.", correct: false },
+          { key: "β", text: "Το υπόθεμά του είναι ο πτερυγιαίος χόνδρος.", correct: false },
+          { key: "γ", text: "Το λοβίο περιέχει πτερυγιαίο χόνδρο με λεπτό δερματικό κάλυμμα.", correct: true },
+          { key: "δ", text: "Εμφανίζει έξω και έσω επιφάνεια.", correct: false }
+        ],
+        explanation: "Στο λοβίο ο πτερυγιαίος χόνδρος λείπει και αντικαθίσταται από λιπώδη ιστό."
+      },
+      {
+        id: 4,
+        category: "Πτερύγιο ωτός",
+        source: "Διαφάνειες 6-7",
+        question: "Ποια από τις παρακάτω σχέσεις της έξω επιφάνειας του πτερυγίου είναι λανθασμένη;",
+        options: [
+          { key: "α", text: "Η κόγχη οδηγεί στο στόμιο του έξω ακουστικού πόρου.", correct: false },
+          { key: "β", text: "Η ανθέλικα εμφανίζει σκέλη που αφορίζουν τριγωνικό βόθρο.", correct: false },
+          { key: "γ", text: "Ο τράγος σχετίζεται με τη μεσοτράγια εντομή.", correct: false },
+          { key: "δ", text: "Η σκάφη αντιστοιχεί στην κυμβοειδή μοίρα της κόγχης.", correct: true }
+        ],
+        explanation: "Η σκάφη αναφέρεται ως σκαφοειδής αύλακα, ενώ η κύμβη αποτελεί περιοχή της κόγχης."
+      },
+      {
+        id: 5,
+        category: "Πτερύγιο ωτός",
+        source: "Διαφάνεια 8",
+        question: "Σχετικά με την υφή του πτερυγίου, ποιο δεν ισχύει;",
+        options: [
+          { key: "α", text: "Το δέρμα συνδέεται χαλαρά με τον χόνδρο και έχει πολλούς ιδρωτοποιούς αδένες.", correct: true },
+          { key: "β", text: "Ο ωτιαίος χόνδρος περιλαμβάνει πτερυγιαίο χόνδρο και χόνδρο του έξω ακουστικού πόρου.", correct: false },
+          { key: "γ", text: "Οι μύες του πτερυγίου περιλαμβάνουν άνω, πρόσθιο και οπίσθιο ωτιαίο.", correct: false },
+          { key: "δ", text: "Οι σύνδεσμοι αναφέρονται ως άνω, πρόσθιος και οπίσθιος ωτιαίος.", correct: false }
+        ],
+        explanation: "Το δέρμα συνδέεται στέρεα με τον χόνδρο και έχει πολλούς σμηγματογόνους, λίγους ιδρωτοποιούς αδένες."
+      },
+      {
+        id: 6,
+        category: "Αγγεία και νεύρα πτερυγίου",
+        source: "Διαφάνεια 11",
+        question: "Ποιο από τα παρακάτω δεν αντιστοιχεί στα αγγεία ή στη λεμφική παροχέτευση του πτερυγίου;",
+        options: [
+          { key: "α", text: "Αρτηρίες: επιπολής κροταφική και οπίσθια ωτιαία.", correct: false },
+          { key: "β", text: "Φλέβες: οι αντίστοιχες, με παροχέτευση στην οπίσθια προσωπική φλέβα.", correct: false },
+          { key: "γ", text: "Λεμφαγγεία: κυρίως στα ωτιαία και μερικά στα επιπολής τραχηλικά και παρωτιδικά.", correct: false },
+          { key: "δ", text: "Αρτηρίες: πρόσθια και οπίσθια τυμπανική ως κύριοι κλάδοι.", correct: true }
+        ],
+        explanation: "Οι πρόσθια και οπίσθια τυμπανική αφορούν τον τυμπανικό υμένα/βλεννογόνο, όχι τα κύρια αγγεία του πτερυγίου."
+      },
+      {
+        id: 7,
+        category: "Αγγεία και νεύρα πτερυγίου",
+        source: "Διαφάνεια 12",
+        question: "Σχετικά με τα νεύρα του πτερυγίου, ποιο ισχύει;",
+        options: [
+          { key: "α", text: "Οι κινητικοί κλάδοι προέρχονται από το προσωπικό νεύρο.", correct: true },
+          { key: "β", text: "Το ωτοκροταφικό νεύρο αναφέρεται στους κινητικούς κλάδους.", correct: false },
+          { key: "γ", text: "Ο ωτιαίος κλάδος του πνευμονογαστρικού είναι κινητικός κλάδος.", correct: false },
+          { key: "δ", text: "Το μείζον ωτιαίο και το έλασσον ινιακό δεν ανήκουν στην αισθητική νεύρωση.", correct: false }
+        ],
+        explanation: "Η διαφάνεια δίνει κινητικά κλάδους του προσωπικού και αισθητικά από αυχενικό πλέγμα, Vagus και ωτοκροταφικό."
+      },
+      {
+        id: 8,
+        category: "Έξω ακουστικός πόρος",
+        source: "Διαφάνεια 14",
+        question: "Σχετικά με τον έξω ακουστικό πόρο, ποιο δεν ισχύει;",
+        options: [
+          { key: "α", text: "Εκτείνεται από την κοιλότητα της κόγχης μέχρι τον τυμπανικό υμένα.", correct: false },
+          { key: "β", text: "Βρίσκεται μπροστά από τη μαστοειδή απόφυση.", correct: false },
+          { key: "γ", text: "Βρίσκεται πίσω από την κροταφογναθική διάρθρωση.", correct: false },
+          { key: "δ", text: "Βρίσκεται κάτω από την παρωτίδα.", correct: true }
+        ],
+        explanation: "Η διαφάνεια τον τοποθετεί πάνω από την παρωτίδα."
+      },
+      {
+        id: 9,
+        category: "Έξω ακουστικός πόρος",
+        source: "Διαφάνεια 14",
+        question: "Ποια αντιστοιχία μήκους του έξω ακουστικού πόρου είναι λανθασμένη;",
+        options: [
+          { key: "α", text: "Συνολικό μήκος πόρου: 24 χιλ.", correct: false },
+          { key: "β", text: "Μήκος από το ελεύθερο χείλος του τράγου: 35 χιλ.", correct: false },
+          { key: "γ", text: "Χόνδρινη μοίρα: 16 χιλ.", correct: true },
+          { key: "δ", text: "Οστέινη μοίρα: 16 χιλ.", correct: false }
+        ],
+        explanation: "Η χόνδρινη μοίρα δίνεται ως 8 χιλ., ενώ η οστέινη ως 16 χιλ."
+      },
+      {
+        id: 10,
+        category: "Έξω ακουστικός πόρος",
+        source: "Διαφάνεια 14",
+        question: "Ποια φάση της σιγμοειδούς πορείας του έξω ακουστικού πόρου αποδίδεται λάθος;",
+        options: [
+          { key: "α", text: "Στην αρχή φέρεται έσω, εμπρός και πάνω.", correct: false },
+          { key: "β", text: "Στη συνέχεια φέρεται πίσω, έσω και πάνω.", correct: false },
+          { key: "γ", text: "Καταλήγει κάτω, έσω και μπρός.", correct: false },
+          { key: "δ", text: "Καταλήγει πάνω, έξω και πίσω.", correct: true }
+        ],
+        explanation: "Η τελική πορεία στη διαφάνεια είναι κάτω, έσω και μπρός."
+      },
+      {
+        id: 11,
+        category: "Έξω ακουστικός πόρος",
+        source: "Διαφάνεια 15",
+        question: "Σχετικά με το δέρμα του έξω ακουστικού πόρου, ποιο δεν ισχύει;",
+        options: [
+          { key: "α", text: "Στη χόνδρινη μοίρα είναι παχύ και τριχωτό.", correct: false },
+          { key: "β", text: "Στη χόνδρινη μοίρα φέρει πολλούς σμηγματογόνους αδένες.", correct: false },
+          { key: "γ", text: "Στην οστέινη μοίρα είναι παχύ, τριχωτό και πλούσιο σε κυψελίδα.", correct: true },
+          { key: "δ", text: "Στην οστέινη μοίρα είναι λεπτό και άτριχο.", correct: false }
+        ],
+        explanation: "Η παχιά, τριχωτή μοίρα με πολλούς σμηγματογόνους αφορά τη χόνδρινη μοίρα."
+      },
+      {
+        id: 12,
+        category: "Τυμπανικός υμένας",
+        source: "Διαφάνεια 16",
+        question: "Σχετικά με τη θέση του τυμπανικού υμένα, ποιο δεν ισχύει;",
+        options: [
+          { key: "α", text: "Είναι λεπτός, στιλπνός και ημιδιαφανής υμένας.", correct: false },
+          { key: "β", text: "Φέρεται λοξά από άνω και έξω προς τα κάτω και έσω.", correct: false },
+          { key: "γ", text: "Έχει πρόσθια κλίση προς τα κάτω και εμπρός.", correct: false },
+          { key: "δ", text: "Με το κάτω τοίχωμα σχηματίζει γωνία περίπου 145 μοιρών.", correct: true }
+        ],
+        explanation: "Η γωνία 145 μοιρών δίνεται με το άνω τοίχωμα· με το κάτω είναι 45-55 μοιρών."
+      },
+      {
+        id: 13,
+        category: "Τυμπανικός υμένας",
+        source: "Διαφάνεια 16",
+        question: "Ποια αντιστοιχία πρόσφυσης ή μοίρας του τυμπανικού υμένα είναι λάθος;",
+        options: [
+          { key: "α", text: "Η περιφέρεια προσφύεται στην τυμπανική αύλακα του τυμπανικού οστού.", correct: false },
+          { key: "β", text: "Η περιφέρεια προσφύεται και στην τυμπανική εντομή του λεπιδοειδούς οστού.", correct: false },
+          { key: "γ", text: "Η μοίρα που αντιστοιχεί στην τυμπανική εντομή είναι η χαλαρή μοίρα.", correct: false },
+          { key: "δ", text: "Η υπόλοιπη μοίρα ονομάζεται υμένας του Shrapnell.", correct: true }
+        ],
+        explanation: "Ο υμένας του Shrapnell είναι η χαλαρή μοίρα· η υπόλοιπη είναι η τεταμένη μοίρα."
+      },
+      {
+        id: 14,
+        category: "Τυμπανικός υμένας",
+        source: "Διαφάνεια 18",
+        question: "Στην έξω επιφάνεια του τυμπανικού υμένα, ποιο ισχύει;",
+        options: [
+          { key: "α", text: "Είναι υπόκυρτη και σχηματίζει το έσω τοίχωμα της τυμπανικής κοιλότητας.", correct: false },
+          { key: "β", text: "Ο ομφαλός είναι περίπου στο κέντρο και αποτελεί το βαθύτερο μέρος.", correct: true },
+          { key: "γ", text: "Η σφυριαία ταινία ξεκινά από την περιφέρεια και καταλήγει στον ομφαλό.", correct: false },
+          { key: "δ", text: "Οι πτυχές του τυμπανικού υμένα φέρονται από τον ομφαλό προς την περιφέρεια.", correct: false }
+        ],
+        explanation: "Η έξω επιφάνεια είναι υπόκοιλη και ο ομφαλός είναι το βαθύτερο κεντρικό σημείο."
+      },
+      {
+        id: 15,
+        category: "Τυμπανικός υμένας",
+        source: "Διαφάνειες 18-19",
+        question: "Ποιο από τα παρακάτω δεν αντιστοιχεί σωστά σε στοιχείο της έξω επιφάνειας;",
+        options: [
+          { key: "α", text: "Σφυριαία ταινία: αντιστοιχεί στην υποκείμενη λαβή της σφύρας.", correct: false },
+          { key: "β", text: "Σφυριαίο έπαρμα: παράγεται από την έξω απόφυση της σφύρας.", correct: false },
+          { key: "γ", text: "Χαλαρή μοίρα: βρίσκεται ανάμεσα στην πρόσθια και οπίσθια πτυχή.", correct: false },
+          { key: "δ", text: "Φωτεινός κώνος: αντιστοιχεί στην τυμπανική εντομή του λεπιδοειδούς.", correct: true }
+        ],
+        explanation: "Η τυμπανική εντομή σχετίζεται με τη χαλαρή μοίρα, όχι με τον φωτεινό κώνο."
+      },
+      {
+        id: 16,
+        category: "Τυμπανικός υμένας",
+        source: "Διαφάνεια 21",
+        question: "Σχετικά με την έσω επιφάνεια του τυμπανικού υμένα, ποιο είναι λάθος;",
+        options: [
+          { key: "α", text: "Είναι υπόκυρτη.", correct: false },
+          { key: "β", text: "Αποτελεί μέρος του τοιχώματος του κοίλου του τυμπάνου.", correct: false },
+          { key: "γ", text: "Στο άνω μέρος υπάρχουν πτυχές βλεννογόνου από τη χορδή του τυμπάνου.", correct: false },
+          { key: "δ", text: "Στο κάτω μέρος σχηματίζονται η πρόσθια και η οπίσθια πτυχή της σφύρας.", correct: true }
+        ],
+        explanation: "Οι πτυχές της σφύρας αναφέρονται στο άνω μέρος."
+      },
+      {
+        id: 17,
+        category: "Τυμπανικός υμένας",
+        source: "Διαφάνεια 22",
+        question: "Ποια στιβάδα/κάλυψη του τυμπανικού υμένα αποδίδεται σωστά;",
+        options: [
+          { key: "α", text: "Εξωτερικά καλύπτεται από δέρμα και εσωτερικά από βλεννογόνο του κοίλου.", correct: true },
+          { key: "β", text: "Εξωτερικά καλύπτεται από βλεννογόνο και εσωτερικά από δέρμα του πόρου.", correct: false },
+          { key: "γ", text: "Δεν έχει ίδιο ινώδη υμένα ανάμεσα στις επιφανειακές καλύψεις.", correct: false },
+          { key: "δ", text: "Το δέρμα του έχει παχύ χόριο με εμφανείς θηλές.", correct: false }
+        ],
+        explanation: "Η διαφάνεια δίνει ίδιο ινώδη υμένα, έξω δέρμα και έσω βλεννογόνο."
+      },
+      {
+        id: 18,
+        category: "Τυμπανικός υμένας",
+        source: "Διαφάνεια 23",
+        question: "Ποια νεύρωση του τυμπανικού υμένα δεν αντιστοιχεί σωστά;",
+        options: [
+          { key: "α", text: "Εξωτερική επιφάνεια: κλάδοι του ωτοκροταφικού.", correct: false },
+          { key: "β", text: "Εξωτερική επιφάνεια: ωτιαίος κλάδος του πνευμονογαστρικού.", correct: false },
+          { key: "γ", text: "Εσωτερική επιφάνεια: τυμπανικό πλέγμα από το γλωσσοφαρυγγικό.", correct: false },
+          { key: "δ", text: "Εσωτερική επιφάνεια: κλάδοι του ωτοκροταφικού και του πνευμονογαστρικού.", correct: true }
+        ],
+        explanation: "Το ωτοκροταφικό και ο ωτιαίος κλάδος του Vagus δίνονται για την εξωτερική επιφάνεια."
+      },
+      {
+        id: 19,
+        category: "Τυμπανικός υμένας",
+        source: "Διαφάνεια 23",
+        question: "Σχετικά με αγγεία/λεμφαγγεία του τυμπανικού υμένα, ποιο δεν ισχύει;",
+        options: [
+          { key: "α", text: "Οι αρτηρίες περιλαμβάνουν πρόσθια και οπίσθια τυμπανική.", correct: false },
+          { key: "β", text: "Αναφέρεται και η εν τω βάθει ωτιαία αρτηρία.", correct: false },
+          { key: "γ", text: "Οι φλέβες του εσωτερικού δικτύου εκβάλλουν στην έξω σφαγίτιδα.", correct: true },
+          { key: "δ", text: "Τα εσωτερικά λεμφαγγεία οδηγούνται στα λεμφαγγεία του κοίλου του τυμπάνου.", correct: false }
+        ],
+        explanation: "Στην έξω σφαγίτιδα εκβάλλει το εξωτερικό φλεβικό δίκτυο· το εσωτερικό στο πτερυγοειδές πλέγμα."
+      },
+      {
+        id: 20,
+        category: "Τυμπανική κοιλότητα",
+        source: "Διαφάνεια 24",
+        question: "Σχετικά με το κοίλο του τυμπάνου, ποιο δεν ισχύει;",
+        options: [
+          { key: "α", text: "Μπροστά εκβάλλει η ακουστική σάλπιγγα.", correct: false },
+          { key: "β", text: "Πίσω εκβάλλει το μαστοειδές άντρο.", correct: false },
+          { key: "γ", text: "Η άνω μοίρα είναι ο επιτυμπάνιος χώρος ή αττικός θόλος.", correct: false },
+          { key: "δ", text: "Η κάτω μοίρα είναι ο μεσοτυμπάνιος χώρος.", correct: true }
+        ],
+        explanation: "Η κάτω μοίρα αναφέρεται ως υποτυμπάνιος χώρος ή υποτυμπάνιο κόλπωμα."
+      },
+      {
+        id: 21,
+        category: "Τυμπανική κοιλότητα",
+        source: "Διαφάνεια 24",
+        question: "Ποια διάσταση της τυμπανικής κοιλότητας είναι λάθος;",
+        options: [
+          { key: "α", text: "Κάθετη διάμετρος: περίπου 15 χιλ.", correct: false },
+          { key: "β", text: "Προσθιοπίσθια διάμετρος: περίπου 15 χιλ.", correct: false },
+          { key: "γ", text: "Εγκάρσια επάνω: περίπου 6 χιλ.", correct: false },
+          { key: "δ", text: "Εγκάρσια στον ομφαλό: περίπου 6 χιλ.", correct: true }
+        ],
+        explanation: "Στον ομφαλό η εγκάρσια διάσταση δίνεται περίπου 2 χιλ."
+      },
+      {
+        id: 22,
+        category: "Τοιχώματα τυμπανικής κοιλότητας",
+        source: "Διαφάνεια 25",
+        question: "Ποια αντιστοιχία τοιχώματος της τυμπανικής κοιλότητας είναι λανθασμένη;",
+        options: [
+          { key: "α", text: "Έξω τοίχωμα: υμενώδες, με τυμπανικό υμένα και περιβάλλον οστούν.", correct: false },
+          { key: "β", text: "Έσω τοίχωμα: λαβυρινθικό, με ακρωτήριο και θυρίδες.", correct: false },
+          { key: "γ", text: "Πρόσθιο τοίχωμα: καρωτιδικό.", correct: false },
+          { key: "δ", text: "Κάτω τοίχωμα: οροφαίο.", correct: true }
+        ],
+        explanation: "Το κάτω τοίχωμα είναι σφαγιτιδικό· το άνω είναι οροφαίο."
+      },
+      {
+        id: 23,
+        category: "Τοιχώματα τυμπανικής κοιλότητας",
+        source: "Διαφάνεια 25",
+        question: "Ποια δομή ανήκει στο έσω λαβυρινθικό τοίχωμα;",
+        options: [
+          { key: "α", text: "Στόμιο λιθοτυμπανικής σχισμής.", correct: false },
+          { key: "β", text: "Είσοδος μαστοειδούς άντρου.", correct: false },
+          { key: "γ", text: "Έπαρμα του έξω ημικύκλιου σωλήνα.", correct: true },
+          { key: "δ", text: "Σφαγιτιδικός βόθρος.", correct: false }
+        ],
+        explanation: "Το έπαρμα του έξω ημικύκλιου σωλήνα περιλαμβάνεται στο έσω τοίχωμα."
+      },
+      {
+        id: 24,
+        category: "Τοιχώματα τυμπανικής κοιλότητας",
+        source: "Διαφάνεια 27",
+        question: "Σχετικά με το έξω τοίχωμα της τυμπανικής κοιλότητας, ποιο δεν ισχύει;",
+        options: [
+          { key: "α", text: "Περιλαμβάνει την έσω επιφάνεια του τυμπανικού υμένα.", correct: false },
+          { key: "β", text: "Περιλαμβάνει στενές οστέινες περιοχές επιτυμπάνιου και υποτυμπάνιου χώρου.", correct: false },
+          { key: "γ", text: "Η οστέινη περιοχή του υποτυμπάνιου χώρου σχηματίζει στενή οβελιαία αύλακα.", correct: false },
+          { key: "δ", text: "Η οστέινη περιοχή του επιτυμπάνιου χώρου ανήκει στο σφαγιτιδικό οστό.", correct: true }
+        ],
+        explanation: "Η περιοχή του επιτυμπάνιου χώρου αναφέρεται ότι ανήκει στο λεπιδοειδές οστό."
+      },
+      {
+        id: 25,
+        category: "Τοιχώματα τυμπανικής κοιλότητας",
+        source: "Διαφάνειες 29-30",
+        question: "Ποια αντιστοιχία μοίρας του έσω τοιχώματος είναι λάθος;",
+        options: [
+          { key: "α", text: "Άνω μοίρα: επιτυμπάνιος χώρος.", correct: false },
+          { key: "β", text: "Άνω μοίρα: έπαρμα προσωπικού πόρου.", correct: false },
+          { key: "γ", text: "Κάτω μοίρα: ακρωτήριο και αύλακα του ακρωτηρίου.", correct: false },
+          { key: "δ", text: "Κάτω μοίρα: έπαρμα του έξω ημικύκλιου σωλήνα.", correct: true }
+        ],
+        explanation: "Το έπαρμα του έξω ημικύκλιου σωλήνα δίνεται στην άνω μοίρα."
+      },
+      {
+        id: 26,
+        category: "Τοιχώματα τυμπανικής κοιλότητας",
+        source: "Διαφάνεια 30",
+        question: "Στην κάτω μοίρα του έσω τοιχώματος, ποιο από τα παρακάτω αναφέρεται;",
+        options: [
+          { key: "α", text: "Τυμπανικός κόλπος.", correct: true },
+          { key: "β", text: "Στόμιο λιθοτυμπανικής σχισμής.", correct: false },
+          { key: "γ", text: "Βόθρος του άκμονα.", correct: false },
+          { key: "δ", text: "Οροφή τυμπάνου.", correct: false }
+        ],
+        explanation: "Η κάτω μοίρα εμφανίζει, μεταξύ άλλων, τον τυμπανικό κόλπο."
+      },
+      {
+        id: 27,
+        category: "Τοιχώματα τυμπανικής κοιλότητας",
+        source: "Διαφάνεια 33",
+        question: "Σχετικά με το άνω τοίχωμα της τυμπανικής κοιλότητας, ποιο δεν ισχύει;",
+        options: [
+          { key: "α", text: "Είναι λεπτό.", correct: false },
+          { key: "β", text: "Εμφανίζει πολλά τρήματα.", correct: false },
+          { key: "γ", text: "Αντιστοιχεί στην πρόσθια επιφάνεια του λιθοειδούς οστού.", correct: false },
+          { key: "δ", text: "Αντιστοιχεί στον σφαγιτιδικό βόθρο.", correct: true }
+        ],
+        explanation: "Ο σφαγιτιδικός βόθρος αντιστοιχεί στο κάτω τοίχωμα."
+      },
+      {
+        id: 28,
+        category: "Τοιχώματα τυμπανικής κοιλότητας",
+        source: "Διαφάνεια 34",
+        question: "Σχετικά με το κάτω τοίχωμα της τυμπανικής κοιλότητας, ποιο ισχύει;",
+        options: [
+          { key: "α", text: "Είναι παχύ και αντιστοιχεί στην πρόσθια επιφάνεια του λιθοειδούς.", correct: false },
+          { key: "β", text: "Είναι λεπτό, αντιστοιχεί στον σφαγιτιδικό βόθρο και εμφανίζει τυμπανικές κυψέλες.", correct: true },
+          { key: "γ", text: "Φέρει το στόμιο του μαστοειδούς άντρου και τον βόθρο του άκμονα.", correct: false },
+          { key: "δ", text: "Περιέχει το στόμιο της ακουστικής σάλπιγγας και τη λιθοτυμπανική σχισμή.", correct: false }
+        ],
+        explanation: "Η διαφάνεια συνδέει το κάτω τοίχωμα με τον σφαγιτιδικό βόθρο και τις τυμπανικές κυψέλες."
+      },
+      {
+        id: 29,
+        category: "Τοιχώματα τυμπανικής κοιλότητας",
+        source: "Διαφάνεια 35",
+        question: "Στο πρόσθιο τοίχωμα της τυμπανικής κοιλότητας, ποιο δεν αναφέρεται;",
+        options: [
+          { key: "α", text: "Στόμιο της ακουστικής σάλπιγγας.", correct: false },
+          { key: "β", text: "Στόμιο της λιθοτυμπανικής σχισμής.", correct: false },
+          { key: "γ", text: "Στόμιο του καρωτιδοτυμπανικού σωληναρίου.", correct: false },
+          { key: "δ", text: "Πυραμοειδής εξοχή.", correct: true }
+        ],
+        explanation: "Η πυραμοειδής εξοχή ανήκει στο οπίσθιο τοίχωμα."
+      },
+      {
+        id: 30,
+        category: "Τοιχώματα τυμπανικής κοιλότητας",
+        source: "Διαφάνεια 36",
+        question: "Ποια αντιστοιχία του οπίσθιου τοιχώματος είναι λανθασμένη;",
+        options: [
+          { key: "α", text: "Στόμιο μαστοειδούς άντρου.", correct: false },
+          { key: "β", text: "Βόθρος του άκμονα χαμηλότερα.", correct: false },
+          { key: "γ", text: "Πυραμοειδής εξοχή ως έκφυση τένοντα μυός αναβολέα.", correct: false },
+          { key: "δ", text: "Τυμπανικό στόμιο της ακουστικής σάλπιγγας.", correct: true }
+        ],
+        explanation: "Στο οπίσθιο τοίχωμα αναφέρεται το σωληνάριο της χορδής του τυμπάνου, όχι το στόμιο της ακουστικής σάλπιγγας."
+      },
+      {
+        id: 31,
+        category: "Ακουστικά οστάρια",
+        source: "Διαφάνεια 37",
+        question: "Σχετικά με την ακουστική άλυσο, ποιο δεν ισχύει;",
+        options: [
+          { key: "α", text: "Αποτελείται από σφύρα, άκμονα και αναβολέα.", correct: false },
+          { key: "β", text: "Διέρχεται το κοίλο του τυμπάνου.", correct: false },
+          { key: "γ", text: "Μεταβιβάζει ηχητικά κύματα προς τον λαβύρινθο δια της στρογγύλης θυρίδας.", correct: true },
+          { key: "δ", text: "Η πορεία της περιγράφεται ως αγκυλοειδής με κορυφή προς τα επάνω.", correct: false }
+        ],
+        explanation: "Η μεταβίβαση προς τον λαβύρινθο γίνεται δια της ωοειδούς θυρίδας."
+      },
+      {
+        id: 32,
+        category: "Ακουστικά οστάρια",
+        source: "Διαφάνεια 37",
+        question: "Ποια σχέση των σκελών της αγκύλης της ακουστικής αλύσου είναι σωστή;",
+        options: [
+          { key: "α", text: "Το έξω σκέλος είναι ο άκμονας και το έσω η σφύρα.", correct: false },
+          { key: "β", text: "Το έξω σκέλος είναι η σφύρα και το έσω ο άκμονας.", correct: true },
+          { key: "γ", text: "Το έξω σκέλος είναι ο αναβολέας και το έσω η σφύρα.", correct: false },
+          { key: "δ", text: "Το έξω σκέλος είναι ο άκμονας και το έσω ο αναβολέας.", correct: false }
+        ],
+        explanation: "Η διαφάνεια ορίζει έξω σκέλος τη σφύρα και έσω σκέλος τον άκμονα."
+      },
+      {
+        id: 33,
+        category: "Ακουστικά οστάρια",
+        source: "Διαφάνειες 39-40",
+        question: "Ποια μορφολογική αντιστοιχία οσταρίου είναι λανθασμένη;",
+        options: [
+          { key: "α", text: "Σφύρα: κεφαλή, αυχένας, λαβή και αποφύσεις.", correct: false },
+          { key: "β", text: "Άκμονας: σώμα, βραχύ σκέλος και μακρό σκέλος.", correct: false },
+          { key: "γ", text: "Αναβολέας: βάση, πρόσθιο και οπίσθιο σκέλος.", correct: false },
+          { key: "δ", text: "Άκμονας: λαβή, έξω απόφυση και σφυριαία ταινία.", correct: true }
+        ],
+        explanation: "Λαβή και έξω απόφυση ανήκουν στη σφύρα, ενώ η σφυριαία ταινία είναι στοιχείο του υμένα."
+      },
+      {
+        id: 34,
+        category: "Ακουστικά οστάρια",
+        source: "Διαφάνεια 42",
+        question: "Ποια διάρθρωση των ακουστικών οσταρίων δεν αντιστοιχεί σωστά;",
+        options: [
+          { key: "α", text: "Σφύρας-άκμονα: εφιππιοειδής.", correct: false },
+          { key: "β", text: "Άκμονα-αναβολέα: σφαιροειδής.", correct: false },
+          { key: "γ", text: "Σφύρας-αναβολέα: εφιππιοειδής.", correct: true },
+          { key: "δ", text: "Τα οστάρια συντάσσονται μεταξύ τους με διαρθρώσεις.", correct: false }
+        ],
+        explanation: "Η διαφάνεια αναφέρει διαρθρώσεις σφύρας-άκμονα και άκμονα-αναβολέα, όχι άμεση σφύρας-αναβολέα."
+      },
+      {
+        id: 35,
+        category: "Ακουστικά οστάρια",
+        source: "Διαφάνεια 42",
+        question: "Ποιος σύνδεσμος ή υμένας δεν αποδίδεται σωστά στη σύνδεση των οσταρίων;",
+        options: [
+          { key: "α", text: "Άνω σύνδεσμος της σφύρας.", correct: false },
+          { key: "β", text: "Οπίσθιος σύνδεσμος του άκμονα.", correct: false },
+          { key: "γ", text: "Δακτυλιοειδής σύνδεσμος της βάσης του αναβολέα.", correct: false },
+          { key: "δ", text: "Πρόσθιος σύνδεσμος του αναβολέα.", correct: true }
+        ],
+        explanation: "Για τον αναβολέα αναφέρονται ο επιπωματικός υμένας και ο δακτυλιοειδής σύνδεσμος της βάσης."
+      },
+      {
+        id: 36,
+        category: "Μύες ακουστικών οσταρίων",
+        source: "Διαφάνεια 43",
+        question: "Σχετικά με τον τείνοντα το τύμπανο μυ, ποιο δεν ισχύει;",
+        options: [
+          { key: "α", text: "Είναι πτεροειδής μυς μήκους περίπου 2 εκ.", correct: false },
+          { key: "β", text: "Βρίσκεται μέσα στο μυϊκό ημισωλήνιο του μυοσαλπιγγικού σωλήνα.", correct: false },
+          { key: "γ", text: "Ο τένοντάς του γωνιώνεται γύρω από την κοχλιαροειδή απόφυση.", correct: false },
+          { key: "δ", text: "Καταφύεται στον αυχένα του αναβολέα.", correct: true }
+        ],
+        explanation: "Ο τείνων το τύμπανο καταφύεται στη λαβή της σφύρας."
+      },
+      {
+        id: 37,
+        category: "Μύες ακουστικών οσταρίων",
+        source: "Διαφάνεια 43",
+        question: "Ποια νεύρωση του τείνοντος το τύμπανο μυός είναι σωστή;",
+        options: [
+          { key: "α", text: "Νεύρο του τείνοντος το τύμπανο μυός, από τον 3ο κλάδο του V.", correct: true },
+          { key: "β", text: "Νεύρο του μυός του αναβολέα, κλάδος του προσωπικού.", correct: false },
+          { key: "γ", text: "Τυμπανικό πλέγμα, από το γλωσσοφαρυγγικό.", correct: false },
+          { key: "δ", text: "Ωτιαίος κλάδος του πνευμονογαστρικού.", correct: false }
+        ],
+        explanation: "Η διαφάνεια δίνει νεύρο του τείνοντος το τύμπανο από τον τρίτο κλάδο του τριδύμου."
+      },
+      {
+        id: 38,
+        category: "Μύες ακουστικών οσταρίων",
+        source: "Διαφάνεια 45",
+        question: "Σχετικά με τον μυ του αναβολέα, ποιο είναι λάθος;",
+        options: [
+          { key: "α", text: "Είναι ο μικρότερος από τους γραμμωτούς μυς του σώματος.", correct: false },
+          { key: "β", text: "Βρίσκεται μέσα στην πυραμοειδή εξοχή.", correct: false },
+          { key: "γ", text: "Ο τένοντάς του εξέρχεται από την κορυφή της εξοχής.", correct: false },
+          { key: "δ", text: "Καταφύεται στη λαβή της σφύρας.", correct: true }
+        ],
+        explanation: "Ο μυς του αναβολέα καταφύεται στον αυχένα του αναβολέα."
+      },
+      {
+        id: 39,
+        category: "Μύες ακουστικών οσταρίων",
+        source: "Διαφάνεια 45",
+        question: "Ποια νεύρωση αντιστοιχεί στον μυ του αναβολέα;",
+        options: [
+          { key: "α", text: "Νεύρο του τείνοντος το τύμπανο από τον V3.", correct: false },
+          { key: "β", text: "Νεύρο του μυός του αναβολέα, κλάδος του προσωπικού νεύρου.", correct: true },
+          { key: "γ", text: "Ωτοκροταφικό νεύρο.", correct: false },
+          { key: "δ", text: "Νεύρο του Bock από το σφηνοϋπερώιο γάγγλιο.", correct: false }
+        ],
+        explanation: "Η διαφάνεια αναφέρει ρητά κλάδο του προσωπικού νεύρου."
+      },
+      {
+        id: 40,
+        category: "Μύες ακουστικών οσταρίων",
+        source: "Διαφάνεια 46",
+        question: "Ποια σχέση ενέργειας των μυών των οσταρίων είναι λανθασμένη;",
+        options: [
+          { key: "α", text: "Ο τείνων το τύμπανο έλκει τη λαβή της σφύρας και την αλυσίδα προς τα έσω.", correct: false },
+          { key: "β", text: "Ο τείνων το τύμπανο αυξάνει την πίεση στην ωοειδή θυρίδα.", correct: false },
+          { key: "γ", text: "Ο μυς του αναβολέα ελαττώνει την πίεση του υγρού του λαβυρίνθου.", correct: false },
+          { key: "δ", text: "Ο μυς του αναβολέα έχει ίδια δράση με τον τείνοντα στην ωοειδή θυρίδα.", correct: true }
+        ],
+        explanation: "Η διαφάνεια τονίζει ότι ο μυς του αναβολέα έχει αντίθετη δράση στην ωοειδή θυρίδα."
+      },
+      {
+        id: 41,
+        category: "Μύες ακουστικών οσταρίων",
+        source: "Διαφάνεια 46",
+        question: "Σε παράλυση του μυός του αναβολέα, τι αναφέρεται ότι συμβαίνει;",
+        options: [
+          { key: "α", text: "Δεν λειτουργεί το αντανακλαστικό και εμφανίζεται υπερακουστικότητα.", correct: true },
+          { key: "β", text: "Αυξάνεται η προστατευτική ελάττωση του πλάτους των δονήσεων.", correct: false },
+          { key: "γ", text: "Καταργείται η πρόσφυση της λαβής της σφύρας.", correct: false },
+          { key: "δ", text: "Η πίεση στην ωοειδή θυρίδα ελαττώνεται αντανακλαστικά.", correct: false }
+        ],
+        explanation: "Η διαφάνεια συνδέει την παράλυση του μυός του αναβολέα με υπερακουστικότητα."
+      },
+      {
+        id: 42,
+        category: "Βλεννογόνος τυμπανικής κοιλότητας",
+        source: "Διαφάνεια 47",
+        question: "Σχετικά με τον βλεννογόνο του κοίλου του τυμπάνου, ποιο δεν ισχύει;",
+        options: [
+          { key: "α", text: "Είναι λεπτός, διαφανής και αγγειοβριθής.", correct: false },
+          { key: "β", text: "Καλύπτει τοιχώματα, οστάρια, μύες, συνδέσμους και χορδή του τυμπάνου.", correct: false },
+          { key: "γ", text: "Προς τα πίσω επεκτείνεται στο μαστοειδές άντρο και στις μαστοειδείς κυψέλες.", correct: false },
+          { key: "δ", text: "Μπροστά μεταπίπτει στο δέρμα του έξω ακουστικού πόρου.", correct: true }
+        ],
+        explanation: "Μπροστά μεταπίπτει στον βλεννογόνο της ακουστικής σάλπιγγας."
+      },
+      {
+        id: 43,
+        category: "Βλεννογόνος τυμπανικής κοιλότητας",
+        source: "Διαφάνεια 48",
+        question: "Ποια πτυχή ή κόλπωμα του βλεννογόνου δεν αποδίδεται σωστά;",
+        options: [
+          { key: "α", text: "Πρόσθια και οπίσθια πτυχή της σφύρας: πρόσθιο και οπίσθιο κόλπωμα τυμπανικού υμένα.", correct: false },
+          { key: "β", text: "Πτυχή του άκμονα: από την οροφή προς σώμα και βραχύ σκέλος του άκμονα.", correct: false },
+          { key: "γ", text: "Πτυχή του αναβολέα: ξεκινά από το οπίσθιο τοίχωμα και περιβάλλει τον αναβολέα.", correct: false },
+          { key: "δ", text: "Πτυχή της σφύρας: ξεκινά από το πρόσθιο τοίχωμα και περιβάλλει τη βάση του αναβολέα.", correct: true }
+        ],
+        explanation: "Η περιβολή του αναβολέα με τον επιπωματικό υμένα αφορά την πτυχή του αναβολέα."
+      },
+      {
+        id: 44,
+        category: "Βλεννογόνος τυμπανικής κοιλότητας",
+        source: "Διαφάνεια 49",
+        question: "Ποια αρτηριακή αντιστοιχία του βλεννογόνου είναι λανθασμένη;",
+        options: [
+          { key: "α", text: "Πρόσθια τυμπανική: από την έσω γναθιαία.", correct: false },
+          { key: "β", text: "Οπίσθια τυμπανική: από τη βελονομαστοειδή αρτηρία.", correct: false },
+          { key: "γ", text: "Κάτω τυμπανική: από την ανιούσα φαρυγγική.", correct: false },
+          { key: "δ", text: "Εν τω βάθει ωτιαία: από την ανιούσα φαρυγγική.", correct: true }
+        ],
+        explanation: "Η εν τω βάθει ωτιαία αναφέρεται στις φλεβικές εκβολές εδώ· η κάτω τυμπανική συνδέεται με την ανιούσα φαρυγγική."
+      },
+      {
+        id: 45,
+        category: "Βλεννογόνος τυμπανικής κοιλότητας",
+        source: "Διαφάνεια 49",
+        question: "Στα αγγεία και νεύρα του βλεννογόνου, ποιο δεν ισχύει;",
+        options: [
+          { key: "α", text: "Οι φλέβες είναι αντίστοιχες των αρτηριών.", correct: false },
+          { key: "β", text: "Οι φλέβες εκβάλλουν και στις μέσες μηνιγγικές.", correct: false },
+          { key: "γ", text: "Οι φλέβες εκβάλλουν και στο πτερυγοειδές πλέγμα.", correct: false },
+          { key: "δ", text: "Τα νεύρα δίνονται ως κλάδοι του προσωπικού νεύρου.", correct: true }
+        ],
+        explanation: "Τα νεύρα του βλεννογόνου αναφέρονται ως τυμπανικό πλέγμα."
+      },
+      {
+        id: 46,
+        category: "Μαστοειδές άντρο και κυψέλες",
+        source: "Διαφάνεια 50",
+        question: "Σχετικά με το μαστοειδές άντρο, ποιο ισχύει;",
+        options: [
+          { key: "α", text: "Είναι μικρή αεροφόρα κοιλότητα σε σχήμα νεφρού ή φασολιού.", correct: true },
+          { key: "β", text: "Βρίσκεται στο οπίσθιο άκρο της κάτω ρινικής κόγχης.", correct: false },
+          { key: "γ", text: "Αποτελεί την κάτω μοίρα του κοίλου του τυμπάνου.", correct: false },
+          { key: "δ", text: "Επαλείφεται από δέρμα του έξω ακουστικού πόρου.", correct: false }
+        ],
+        explanation: "Η διαφάνεια το περιγράφει ως μικρή αεροφόρα κοιλότητα στο πρόσθιο μέρος της μαστοειδούς απόφυσης."
+      },
+      {
+        id: 47,
+        category: "Μαστοειδές άντρο και κυψέλες",
+        source: "Διαφάνεια 50",
+        question: "Ποιο από τα παρακάτω δεν ισχύει για τις μαστοειδείς κυψέλες;",
+        options: [
+          { key: "α", text: "Είναι μικρές αεροφόρες κοιλότητες.", correct: false },
+          { key: "β", text: "Βρίσκονται γύρω από το μαστοειδές άντρο.", correct: false },
+          { key: "γ", text: "Επαλείφονται από προσεκβολές του βλεννογόνου του κοίλου του τυμπάνου.", correct: false },
+          { key: "δ", text: "Αποτελούν το φαρυγγικό στόμιο της ακουστικής σάλπιγγας.", correct: true }
+        ],
+        explanation: "Το φαρυγγικό στόμιο ανήκει στην ακουστική σάλπιγγα, όχι στις κυψέλες."
+      },
+      {
+        id: 48,
+        category: "Ακουστική σάλπιγγα",
+        source: "Διαφάνεια 51",
+        question: "Σχετικά με την ακουστική σάλπιγγα, ποιο δεν ισχύει;",
+        options: [
+          { key: "α", text: "Είναι οστεοχόνδρινος σωλήνας μήκους 36 χιλ.", correct: false },
+          { key: "β", text: "Αρχίζει από το πρόσθιο τοίχωμα του κοίλου του τυμπάνου.", correct: false },
+          { key: "γ", text: "Φέρεται εμπρός, έσω και κάτω.", correct: false },
+          { key: "δ", text: "Εκβάλλει στο οπίσθιο τοίχωμα του λάρυγγα.", correct: true }
+        ],
+        explanation: "Η σάλπιγγα εκβάλλει στο πλάγιο τοίχωμα του φάρυγγα."
+      },
+      {
+        id: 49,
+        category: "Ακουστική σάλπιγγα",
+        source: "Διαφάνεια 51",
+        question: "Ποια αντιστοιχία στομίων της ακουστικής σάλπιγγας είναι σωστή;",
+        options: [
+          { key: "α", text: "Το τυμπανικό στόμιο βρίσκεται στο άνω τμήμα του πρόσθιου τοιχώματος του κοίλου.", correct: true },
+          { key: "β", text: "Το τυμπανικό στόμιο βρίσκεται στο οπίσθιο τοίχωμα της ρινικής μοίρας.", correct: false },
+          { key: "γ", text: "Το φαρυγγικό στόμιο βρίσκεται στο κάτω τοίχωμα του κοίλου του τυμπάνου.", correct: false },
+          { key: "δ", text: "Το φαρυγγικό στόμιο απέχει 1-1,25 εκ. από το πρόσθιο άκρο της άνω ρινικής κόγχης.", correct: false }
+        ],
+        explanation: "Το τυμπανικό στόμιο δίνεται στο άνω τμήμα του πρόσθιου τοιχώματος του κοίλου."
+      },
+      {
+        id: 50,
+        category: "Ακουστική σάλπιγγα",
+        source: "Διαφάνεια 51",
+        question: "Ποιο από τα παρακάτω δεν αποδίδει σωστά τη λειτουργία της ακουστικής σάλπιγγας;",
+        options: [
+          { key: "α", text: "Λειτουργεί σαν αεραγωγός.", correct: false },
+          { key: "β", text: "Μεταφέρει αέρα από το εξωτερικό περιβάλλον στο κοίλο του τυμπάνου.", correct: false },
+          { key: "γ", text: "Εξισώνει την πίεση στις δύο επιφάνειες του τυμπάνου.", correct: false },
+          { key: "δ", text: "Μεταβιβάζει τα ηχητικά κύματα δια της ωοειδούς θυρίδας.", correct: true }
+        ],
+        explanation: "Η μεταβίβαση ηχητικών κυμάτων δια της ωοειδούς θυρίδας αφορά την ακουστική άλυσο."
+      },
+      {
+        id: 51,
+        category: "Ακουστική σάλπιγγα",
+        source: "Διαφάνεια 52",
+        question: "Ποια αντιστοιχία μοίρας της ακουστικής σάλπιγγας είναι λανθασμένη;",
+        options: [
+          { key: "α", text: "Οστέινη μοίρα: μήκος περίπου 1,2 εκ.", correct: false },
+          { key: "β", text: "Χόνδρινη μοίρα: μήκος περίπου 2,4 εκ.", correct: false },
+          { key: "γ", text: "Οστέινη μοίρα: αρχίζει από το τυμπανικό στόμιο.", correct: false },
+          { key: "δ", text: "Χόνδρινη μοίρα: αποτελείται από τον σαλπιγγικό ημισωλήνιο του μυοσαλπιγγικού σωλήνα.", correct: true }
+        ],
+        explanation: "Ο σαλπιγγικός ημισωλήνιος αφορά την οστέινη μοίρα."
+      },
+      {
+        id: 52,
+        category: "Ακουστική σάλπιγγα",
+        source: "Διαφάνεια 52",
+        question: "Σχετικά με τη χόνδρινη μοίρα της ακουστικής σάλπιγγας, ποιο δεν ισχύει;",
+        options: [
+          { key: "α", text: "Έχει μήκος περίπου 2,4 εκ.", correct: false },
+          { key: "β", text: "Αποτελείται από τριγωνικό αυλακοειδή χόνδρο.", correct: false },
+          { key: "γ", text: "Συμπληρώνεται εξωτερικά με ινώδες πέταλο.", correct: false },
+          { key: "δ", text: "Φθάνει μέχρι τη γωνία μεταξύ λιθοειδούς και λεπιδοειδούς οστού.", correct: true }
+        ],
+        explanation: "Η διαδρομή μέχρι τη γωνία λιθοειδούς-λεπιδοειδούς αφορά την οστέινη μοίρα."
+      },
+      {
+        id: 53,
+        category: "Ακουστική σάλπιγγα",
+        source: "Διαφάνεια 52",
+        question: "Ποια περιγραφή του βλεννογόνου της ακουστικής σάλπιγγας είναι σωστή;",
+        options: [
+          { key: "α", text: "Μονόστιβο κροσσωτό επιθήλιο, ενώ στον φάρυγγα πολύστιχο.", correct: true },
+          { key: "β", text: "Πολύστιβο επιθήλιο σε όλο το μήκος της σάλπιγγας.", correct: false },
+          { key: "γ", text: "Λεπτό δέρμα με κεράτινη στιβάδα και χωρίς θηλές.", correct: false },
+          { key: "δ", text: "Βλεννογόνος που δεν συνεχίζεται προς τον φάρυγγα.", correct: false }
+        ],
+        explanation: "Η διαφάνεια δίνει μονόστιβο κροσσωτό επιθήλιο, με πολύστιχο στον φάρυγγα."
+      },
+      {
+        id: 54,
+        category: "Ακουστική σάλπιγγα",
+        source: "Διαφάνεια 54",
+        question: "Στο φαρυγγικό στόμιο της ακουστικής σάλπιγγας, ποιο στοιχείο αναφέρεται;",
+        options: [
+          { key: "α", text: "Σφυριαίο έπαρμα.", correct: false },
+          { key: "β", text: "Σαλπιγγικό όγκωμα.", correct: true },
+          { key: "γ", text: "Τυμπανικός κόλπος.", correct: false },
+          { key: "δ", text: "Πυραμοειδής εξοχή.", correct: false }
+        ],
+        explanation: "Στη διαφάνεια του φαρυγγικού στομίου αναφέρονται η σαλπιγγοϋπερώια πτυχή και το σαλπιγγικό όγκωμα."
+      },
+      {
+        id: 55,
+        category: "Ακουστική σάλπιγγα",
+        source: "Διαφάνεια 55",
+        question: "Ποια αρτηριακή πηγή της ακουστικής σάλπιγγας δεν αναφέρεται;",
+        options: [
+          { key: "α", text: "Ανιούσα φαρυγγική.", correct: false },
+          { key: "β", text: "Μέση μηνιγγική.", correct: false },
+          { key: "γ", text: "Αρτηρία του πτερυγοειδούς πόρου.", correct: false },
+          { key: "δ", text: "Οπίσθια ωτιαία.", correct: true }
+        ],
+        explanation: "Η οπίσθια ωτιαία αναφέρεται στο πτερύγιο, όχι στις αρτηρίες της σάλπιγγας."
+      },
+      {
+        id: 56,
+        category: "Ακουστική σάλπιγγα",
+        source: "Διαφάνεια 55",
+        question: "Σχετικά με τα αγγεία και νεύρα της ακουστικής σάλπιγγας, ποιο δεν ισχύει;",
+        options: [
+          { key: "α", text: "Οι φλέβες εκβάλλουν στο πτερυγοειδές πλέγμα.", correct: false },
+          { key: "β", text: "Τα λεμφαγγεία εκβάλλουν στα οπισθοφαρυγγικά λεμφογάγγλια.", correct: false },
+          { key: "γ", text: "Τα νεύρα περιλαμβάνουν το τυμπανικό πλέγμα.", correct: false },
+          { key: "δ", text: "Η περιοχή του φαρυγγικού στομίου νευρώνεται από τον ωτιαίο κλάδο του Vagus.", correct: true }
+        ],
+        explanation: "Για την περιοχή του φαρυγγικού στομίου αναφέρεται το νεύρο του Bock."
+      },
+      {
+        id: 57,
+        category: "Ακουστική σάλπιγγα",
+        source: "Διαφάνεια 55",
+        question: "Το νεύρο του Bock περιγράφεται στη διαφάνεια ως:",
+        options: [
+          { key: "α", text: "Απαγωγός οπίσθιος άνω ρινικός κλάδος του σφηνοϋπερώιου γαγγλίου.", correct: true },
+          { key: "β", text: "Κινητικός κλάδος του προσωπικού προς τον μυ του αναβολέα.", correct: false },
+          { key: "γ", text: "Κλάδος του τρίτου κλάδου του τριδύμου προς τη λαβή της σφύρας.", correct: false },
+          { key: "δ", text: "Αισθητικός κλάδος του πνευμονογαστρικού προς το πτερύγιο.", correct: false }
+        ],
+        explanation: "Η διαφάνεια χαρακτηρίζει το νεύρο του Bock ως απαγωγό οπίσθιο άνω ρινικό κλάδο του σφηνοϋπερώιου γαγγλίου."
+      },
+      {
+        id: 58,
+        category: "Τοπογραφικές παγίδες",
+        source: "Διαφάνειες 25, 35-36",
+        question: "Ποια αντιστοιχία τοίχου-δομής δεν είναι σωστή;",
+        options: [
+          { key: "α", text: "Πρόσθιο τοίχωμα: στόμιο ακουστικής σάλπιγγας.", correct: false },
+          { key: "β", text: "Πρόσθιο τοίχωμα: στόμιο λιθοτυμπανικής σχισμής.", correct: false },
+          { key: "γ", text: "Οπίσθιο τοίχωμα: πυραμοειδής εξοχή.", correct: false },
+          { key: "δ", text: "Οπίσθιο τοίχωμα: στόμιο καρωτιδοτυμπανικού σωληναρίου.", correct: true }
+        ],
+        explanation: "Το στόμιο του καρωτιδοτυμπανικού σωληναρίου δίνεται στο πρόσθιο τοίχωμα."
+      },
+      {
+        id: 59,
+        category: "Τοπογραφικές παγίδες",
+        source: "Διαφάνειες 25, 33-34",
+        question: "Ποια σχέση τοιχώματος και γειτονικής δομής είναι λάθος;",
+        options: [
+          { key: "α", text: "Άνω τοίχωμα: πρόσθια επιφάνεια λιθοειδούς οστού.", correct: false },
+          { key: "β", text: "Κάτω τοίχωμα: άνω βολβός της έσω σφαγίτιδας φλέβας.", correct: false },
+          { key: "γ", text: "Κάτω τοίχωμα: σφαγιτιδικός βόθρος.", correct: false },
+          { key: "δ", text: "Άνω τοίχωμα: πτερυγοειδές φλεβώδες πλέγμα.", correct: true }
+        ],
+        explanation: "Το πτερυγοειδές πλέγμα αναφέρεται σε φλεβικές εκβολές, όχι ως σχέση του άνω τοιχώματος."
+      },
+      {
+        id: 60,
+        category: "Τοπογραφικές παγίδες",
+        source: "Διαφάνειες 23, 49, 55",
+        question: "Ποια φλεβική εκβολή δεν αντιστοιχεί σωστά στην περιοχή;",
+        options: [
+          { key: "α", text: "Εξωτερικό δίκτυο τυμπανικού υμένα: έξω σφαγίτιδα φλέβα.", correct: false },
+          { key: "β", text: "Εσωτερικό δίκτυο τυμπανικού υμένα: πτερυγοειδές φλεβώδες πλέγμα.", correct: false },
+          { key: "γ", text: "Ακουστική σάλπιγγα: πτερυγοειδές πλέγμα.", correct: false },
+          { key: "δ", text: "Πτερύγιο: μέσες μηνιγγικές φλέβες.", correct: true }
+        ],
+        explanation: "Οι φλέβες του πτερυγίου παροχετεύουν στην οπίσθια προσωπική φλέβα."
+      },
+      {
+        id: 61,
+        category: "Τοπογραφικές παγίδες",
+        source: "Διαφάνειες 21, 35-36",
+        question: "Ποια δήλωση για τη χορδή του τυμπάνου είναι λανθασμένη με βάση τις διαφάνειες;",
+        options: [
+          { key: "α", text: "Η διερχόμενη χορδή δημιουργεί πτυχές βλεννογόνου στην έσω επιφάνεια του υμένα.", correct: false },
+          { key: "β", text: "Σχετίζεται με το στόμιο της λιθοτυμπανικής σχισμής στο πρόσθιο τοίχωμα.", correct: false },
+          { key: "γ", text: "Σχετίζεται με τυμπανικό στόμιο σωληναρίου στο οπίσθιο τοίχωμα.", correct: false },
+          { key: "δ", text: "Διέρχεται από το καρωτιδοτυμπανικό σωληνάριο με τα ομώνυμα αγγεία.", correct: true }
+        ],
+        explanation: "Το καρωτιδοτυμπανικό σωληνάριο αφορά ομώνυμα αγγεία και νεύρα, όχι τη χορδή του τυμπάνου."
+      },
+      {
+        id: 62,
+        category: "Τοπογραφικές παγίδες",
+        source: "Διαφάνειες 43, 45",
+        question: "Ποια αντιστοιχία μυός-θέσης-κατάφυσης είναι σωστή;",
+        options: [
+          { key: "α", text: "Τείνων το τύμπανο: πυραμοειδής εξοχή, κατάφυση στον αυχένα του αναβολέα.", correct: false },
+          { key: "β", text: "Μυς αναβολέα: μυϊκό ημισωλήνιο, κατάφυση στη λαβή της σφύρας.", correct: false },
+          { key: "γ", text: "Τείνων το τύμπανο: μυϊκό ημισωλήνιο, κατάφυση στη λαβή της σφύρας.", correct: true },
+          { key: "δ", text: "Μυς αναβολέα: κοχλιαροειδής απόφυση, κατάφυση στην έξω απόφυση της σφύρας.", correct: false }
+        ],
+        explanation: "Ο τείνων το τύμπανο βρίσκεται στο μυϊκό ημισωλήνιο και καταφύεται στη λαβή της σφύρας."
+      },
+      {
+        id: 63,
+        category: "Τοπογραφικές παγίδες",
+        source: "Διαφάνειες 18, 43, 45",
+        question: "Ποια αντιστοιχία σφύρας ή αναβολέα δεν είναι σωστή;",
+        options: [
+          { key: "α", text: "Λαβή σφύρας: υπόκειται στη σφυριαία ταινία.", correct: false },
+          { key: "β", text: "Έξω απόφυση σφύρας: παράγει το σφυριαίο έπαρμα.", correct: false },
+          { key: "γ", text: "Λαβή σφύρας: κατάφυση τένοντα τείνοντος το τύμπανο.", correct: false },
+          { key: "δ", text: "Αυχένας αναβολέα: κατάφυση τένοντα τείνοντος το τύμπανο.", correct: true }
+        ],
+        explanation: "Στον αυχένα του αναβολέα καταφύεται ο μυς του αναβολέα, όχι ο τείνων το τύμπανο."
+      },
+      {
+        id: 64,
+        category: "Τοπογραφικές παγίδες",
+        source: "Διαφάνειες 11-12, 23",
+        question: "Ποια νευραγγειακή αντιστοιχία είναι λανθασμένη;",
+        options: [
+          { key: "α", text: "Πτερύγιο κινητικά: κλάδοι προσωπικού νεύρου.", correct: false },
+          { key: "β", text: "Πτερύγιο αισθητικά: μείζον ωτιαίο και έλασσον ινιακό.", correct: false },
+          { key: "γ", text: "Τυμπανικός υμένας εξωτερικά: ωτοκροταφικό και ωτιαίος κλάδος Vagus.", correct: false },
+          { key: "δ", text: "Τυμπανικός υμένας εσωτερικά: νεύρο του τείνοντος το τύμπανο.", correct: true }
+        ],
+        explanation: "Η εσωτερική επιφάνεια του τυμπανικού υμένα νευρώνεται από το τυμπανικό πλέγμα."
+      },
+      {
+        id: 65,
+        category: "Τοπογραφικές παγίδες",
+        source: "Διαφάνειες 30, 35-36",
+        question: "Ποια από τις παρακάτω δομές ανήκει στο έσω τοίχωμα και όχι στο πρόσθιο ή οπίσθιο;",
+        options: [
+          { key: "α", text: "Ωοειδής θυρίδα.", correct: true },
+          { key: "β", text: "Στόμιο λιθοτυμπανικής σχισμής.", correct: false },
+          { key: "γ", text: "Πυραμοειδής εξοχή.", correct: false },
+          { key: "δ", text: "Βόθρος του άκμονα.", correct: false }
+        ],
+        explanation: "Η ωοειδής θυρίδα δίνεται στην κάτω μοίρα του έσω τοιχώματος."
+      },
+      {
+        id: 66,
+        category: "Τοπογραφικές παγίδες",
+        source: "Διαφάνειες 42, 48",
+        question: "Ποια αντιστοιχία άκμονα είναι λανθασμένη;",
+        options: [
+          { key: "α", text: "Συνδέεται με τη σφύρα μέσω εφιππιοειδούς διάρθρωσης.", correct: false },
+          { key: "β", text: "Συνδέεται με τον αναβολέα μέσω σφαιροειδούς διάρθρωσης.", correct: false },
+          { key: "γ", text: "Έχει άνω και οπίσθιο σύνδεσμο.", correct: false },
+          { key: "δ", text: "Η πτυχή του ξεκινά από το κάτω τοίχωμα προς το μακρό σκέλος.", correct: true }
+        ],
+        explanation: "Η πτυχή του άκμονα ξεκινά από την οροφή και φέρεται στο σώμα και το βραχύ σκέλος."
+      },
+      {
+        id: 67,
+        category: "Τοπογραφικές παγίδες",
+        source: "Διαφάνειες 51-52",
+        question: "Ποια σχέση της ακουστικής σάλπιγγας είναι λάθος;",
+        options: [
+          { key: "α", text: "Αρχίζει από το πρόσθιο τοίχωμα του κοίλου του τυμπάνου.", correct: false },
+          { key: "β", text: "Το φαρυγγικό στόμιο βρίσκεται στο πλάγιο τοίχωμα της ρινικής μοίρας του φάρυγγα.", correct: false },
+          { key: "γ", text: "Το τυμπανικό στόμιο βρίσκεται στο άνω τμήμα του πρόσθιου τοιχώματος.", correct: false },
+          { key: "δ", text: "Η οστέινη μοίρα αρχίζει από το φαρυγγικό στόμιο.", correct: true }
+        ],
+        explanation: "Η οστέινη μοίρα αρχίζει από το τυμπανικό στόμιο."
+      },
+      {
+        id: 68,
+        category: "Τοπογραφικές παγίδες",
+        source: "Διαφάνειες 16, 18, 21",
+        question: "Ποια σχέση επιφάνειας του τυμπανικού υμένα είναι λανθασμένη;",
+        options: [
+          { key: "α", text: "Έξω επιφάνεια: υπόκοιλη και χωνοειδής.", correct: false },
+          { key: "β", text: "Έσω επιφάνεια: υπόκυρτη.", correct: false },
+          { key: "γ", text: "Έξω επιφάνεια: ομφαλός περίπου στο κέντρο.", correct: false },
+          { key: "δ", text: "Έσω επιφάνεια: σφυριαία ταινία που καταλήγει στο σφυριαίο έπαρμα.", correct: true }
+        ],
+        explanation: "Η σφυριαία ταινία περιγράφεται στην έξω επιφάνεια του τυμπανικού υμένα."
+      }
+    ];
+
+    const storageKey = "ear_mcq_progress_v1";
+
+    const els = {
+      categoryFilter: document.getElementById("categoryFilter"),
+      searchBox: document.getElementById("searchBox"),
+      shuffleQuestions: document.getElementById("shuffleQuestions"),
+      shuffleAnswers: document.getElementById("shuffleAnswers"),
+      startBtn: document.getElementById("startBtn"),
+      printBtn: document.getElementById("printBtn"),
+      clearProgressBtn: document.getElementById("clearProgressBtn"),
+      scoreStat: document.getElementById("scoreStat"),
+      progressStat: document.getElementById("progressStat"),
+      percentStat: document.getElementById("percentStat"),
+      categoryStat: document.getElementById("categoryStat"),
+      progressBar: document.getElementById("progressBar"),
+      questionCard: document.getElementById("questionCard"),
+      emptyState: document.getElementById("emptyState"),
+      questionCategory: document.getElementById("questionCategory"),
+      questionSource: document.getElementById("questionSource"),
+      questionText: document.getElementById("questionText"),
+      options: document.getElementById("options"),
+      feedback: document.getElementById("feedback"),
+      nextBtn: document.getElementById("nextBtn"),
+      results: document.getElementById("results"),
+      finalScore: document.getElementById("finalScore"),
+      finalPercent: document.getElementById("finalPercent"),
+      finalCorrect: document.getElementById("finalCorrect"),
+      finalWrong: document.getElementById("finalWrong"),
+      finalTotal: document.getElementById("finalTotal"),
+      categoryResults: document.getElementById("categoryResults"),
+      wrongList: document.getElementById("wrongList"),
+      restartBtn: document.getElementById("restartBtn"),
+      retryWrongBtn: document.getElementById("retryWrongBtn"),
+      distribution: document.getElementById("distribution"),
+      printReview: document.getElementById("printReview")
+    };
+
+    let state = {
+      pool: [],
+      index: 0,
+      score: 0,
+      responses: {},
+      lastWrongIds: [],
+      mode: "normal"
+    };
+
+    function shuffle(array) {
+      const copy = [...array];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function normalize(text) {
+      return String(text || "").toLocaleLowerCase("el-GR");
+    }
+
+    function makeQuestionInstance(question, shuffleAnswers) {
+      const options = shuffleAnswers ? shuffle(question.options) : [...question.options];
+      return { ...question, options: options.map(option => ({ ...option })) };
+    }
+
+    function getFilteredQuestions(limitIds = null) {
+      const category = els.categoryFilter.value;
+      const query = normalize(els.searchBox.value.trim());
+      const allowedIds = limitIds ? new Set(limitIds) : null;
+      return questions.filter(q => {
+        if (allowedIds && !allowedIds.has(q.id)) return false;
+        if (category !== "all" && q.category !== category) return false;
+        if (!query) return true;
+        const haystack = normalize([
+          q.category,
+          q.source,
+          q.question,
+          q.explanation,
+          ...q.options.map(o => o.text)
+        ].join(" "));
+        return haystack.includes(query);
+      });
+    }
+
+    function startQuiz(limitIds = null, mode = "normal") {
+      const base = getFilteredQuestions(limitIds);
+      const ordered = els.shuffleQuestions.checked ? shuffle(base) : base;
+      state = {
+        pool: ordered.map(q => makeQuestionInstance(q, els.shuffleAnswers.checked)),
+        index: 0,
+        score: 0,
+        responses: {},
+        lastWrongIds: [],
+        mode
+      };
+      els.results.classList.remove("show");
+      renderQuestion();
+      saveProgress();
+    }
+
+    function renderQuestion() {
+      updateStats();
+      els.feedback.className = "feedback";
+      els.feedback.textContent = "";
+      els.nextBtn.style.display = "none";
+      els.emptyState.style.display = state.pool.length ? "none" : "block";
+      els.questionCard.style.display = state.pool.length && state.index < state.pool.length ? "block" : "none";
+
+      if (!state.pool.length) {
+        els.results.classList.remove("show");
+        return;
+      }
+      if (state.index >= state.pool.length) {
+        showResults();
+        return;
+      }
+
+      const q = state.pool[state.index];
+      const existing = state.responses[q.id];
+      els.questionCategory.textContent = q.category;
+      els.questionSource.textContent = q.source;
+      els.questionText.textContent = `${state.index + 1}. ${q.question}`;
+      els.options.innerHTML = "";
+
+      q.options.forEach(option => {
+        const btn = document.createElement("button");
+        btn.className = "option";
+        btn.type = "button";
+        btn.innerHTML = `<span class="key">${option.key})</span><span>${option.text}</span>`;
+        btn.addEventListener("click", () => answerQuestion(option));
+        if (existing) {
+          btn.disabled = true;
+          if (option.correct) btn.classList.add("correct");
+          if (existing.selectedKey === option.key && !option.correct) btn.classList.add("wrong");
+        }
+        els.options.appendChild(btn);
+      });
+
+      if (existing) {
+        showFeedback(existing.correct, q);
+        els.nextBtn.style.display = "inline-block";
+      }
+    }
+
+    function answerQuestion(option) {
+      const q = state.pool[state.index];
+      if (state.responses[q.id]) return;
+      const correctOption = q.options.find(o => o.correct);
+      const response = {
+        id: q.id,
+        category: q.category,
+        source: q.source,
+        question: q.question,
+        selectedKey: option.key,
+        selectedText: option.text,
+        correctKey: correctOption.key,
+        correctText: correctOption.text,
+        correct: option.correct,
+        explanation: q.explanation
+      };
+      state.responses[q.id] = response;
+      if (option.correct) state.score += 1;
+      renderQuestion();
+      saveProgress();
+    }
+
+    function showFeedback(isCorrect, q) {
+      const correctOption = q.options.find(o => o.correct);
+      els.feedback.className = `feedback show ${isCorrect ? "correct" : "wrong"}`;
+      els.feedback.innerHTML = `<strong>${isCorrect ? "Σωστό." : "Λάθος."}</strong> Σωστή απάντηση: ${correctOption.key}) ${correctOption.text}<br>${q.explanation}`;
+    }
+
+    function nextQuestion() {
+      state.index += 1;
+      renderQuestion();
+      saveProgress();
+    }
+
+    function updateStats() {
+      const answered = Object.keys(state.responses).length;
+      const total = state.pool.length;
+      const percent = answered ? Math.round((state.score / answered) * 100) : 0;
+      els.scoreStat.textContent = String(state.score);
+      els.progressStat.textContent = `${Math.min(state.index + (total ? 1 : 0), total)} / ${total}`;
+      els.percentStat.textContent = `${percent}%`;
+      els.categoryStat.textContent = total && state.index < total ? state.pool[state.index].category : "-";
+      els.progressBar.style.width = total ? `${Math.round((answered / total) * 100)}%` : "0%";
+    }
+
+    function showResults() {
+      els.questionCard.style.display = "none";
+      els.emptyState.style.display = "none";
+      els.results.classList.add("show");
+      const responses = Object.values(state.responses);
+      const total = state.pool.length;
+      const correct = responses.filter(r => r.correct).length;
+      const wrong = total - correct;
+      const percent = total ? Math.round((correct / total) * 100) : 0;
+      state.lastWrongIds = responses.filter(r => !r.correct).map(r => r.id);
+
+      els.finalScore.textContent = `${correct} / ${total}`;
+      els.finalPercent.textContent = `${percent}%`;
+      els.finalCorrect.textContent = String(correct);
+      els.finalWrong.textContent = String(wrong);
+      els.finalTotal.textContent = String(total);
+      els.retryWrongBtn.disabled = state.lastWrongIds.length === 0;
+
+      renderCategoryResults(responses);
+      renderWrongList(responses.filter(r => !r.correct));
+      localStorage.removeItem(storageKey);
+    }
+
+    function renderCategoryResults(responses) {
+      const byCategory = {};
+      state.pool.forEach(q => {
+        if (!byCategory[q.category]) byCategory[q.category] = { total: 0, correct: 0 };
+        byCategory[q.category].total += 1;
+      });
+      responses.forEach(r => {
+        if (r.correct) byCategory[r.category].correct += 1;
+      });
+      const rows = Object.entries(byCategory).map(([category, item]) => {
+        const pct = item.total ? Math.round((item.correct / item.total) * 100) : 0;
+        return `<tr><td>${category}</td><td>${item.correct} / ${item.total}</td><td>${pct}%</td></tr>`;
+      }).join("");
+      els.categoryResults.innerHTML = `<table><thead><tr><th>Κατηγορία</th><th>Σκορ</th><th>Ποσοστό</th></tr></thead><tbody>${rows}</tbody></table>`;
+    }
+
+    function renderWrongList(wrongResponses) {
+      if (!wrongResponses.length) {
+        els.wrongList.innerHTML = "<p>Δεν υπάρχουν λανθασμένες ερωτήσεις.</p>";
+        return;
+      }
+      els.wrongList.innerHTML = wrongResponses.map(r => `
+        <article class="wrong-item">
+          <strong>${r.source} - ${r.category}</strong>
+          <p>${r.question}</p>
+          <p><b>Δική σου απάντηση:</b> ${r.selectedKey}) ${r.selectedText}</p>
+          <p><b>Σωστή:</b> ${r.correctKey}) ${r.correctText}</p>
+          <p>${r.explanation}</p>
+        </article>
+      `).join("");
+    }
+
+    function populateCategories() {
+      const categories = [...new Set(questions.map(q => q.category))];
+      els.categoryFilter.innerHTML = `<option value="all">Όλες οι κατηγορίες</option>` + categories.map(cat => `<option value="${cat}">${cat}</option>`).join("");
+      const counts = categories.map(cat => `${cat}: ${questions.filter(q => q.category === cat).length}`).join(" | ");
+      els.distribution.textContent = `Κατανομή ερωτήσεων: ${counts}`;
+    }
+
+    function buildPrintReview() {
+      els.printReview.innerHTML = `
+        <h1>Έξω και Μέσο Ους - Εκτυπώσιμο MCQ</h1>
+        <p>Σύνολο ερωτήσεων: ${questions.length}</p>
+        ${questions.map((q, index) => {
+          const correct = q.options.find(o => o.correct);
+          return `<section class="print-question">
+            <h3>${index + 1}. ${q.question}</h3>
+            <p><b>${q.category}</b> - ${q.source}</p>
+            ${q.options.map(o => `<p>${o.key}) ${o.text}</p>`).join("")}
+            <p class="print-answer"><b>Απάντηση:</b> ${correct.key}) ${correct.text}</p>
+            <p><b>Αιτιολόγηση:</b> ${q.explanation}</p>
+          </section>`;
+        }).join("")}
+      `;
+    }
+
+    function saveProgress() {
+      const payload = {
+        state,
+        settings: {
+          category: els.categoryFilter.value,
+          search: els.searchBox.value,
+          shuffleQuestions: els.shuffleQuestions.checked,
+          shuffleAnswers: els.shuffleAnswers.checked
+        }
+      };
+      localStorage.setItem(storageKey, JSON.stringify(payload));
+    }
+
+    function loadProgress() {
+      const raw = localStorage.getItem(storageKey);
+      if (!raw) return false;
+      try {
+        const payload = JSON.parse(raw);
+        if (!payload.state || !Array.isArray(payload.state.pool)) return false;
+        els.categoryFilter.value = payload.settings?.category || "all";
+        els.searchBox.value = payload.settings?.search || "";
+        els.shuffleQuestions.checked = payload.settings?.shuffleQuestions !== false;
+        els.shuffleAnswers.checked = payload.settings?.shuffleAnswers !== false;
+        state = payload.state;
+        renderQuestion();
+        return true;
+      } catch {
+        localStorage.removeItem(storageKey);
+        return false;
+      }
+    }
+
+    function restartCurrent() {
+      startQuiz(null, "normal");
+    }
+
+    els.startBtn.addEventListener("click", () => startQuiz());
+    els.nextBtn.addEventListener("click", nextQuestion);
+    els.restartBtn.addEventListener("click", restartCurrent);
+    els.retryWrongBtn.addEventListener("click", () => startQuiz(state.lastWrongIds, "wrong-only"));
+    els.printBtn.addEventListener("click", () => window.print());
+    els.clearProgressBtn.addEventListener("click", () => {
+      localStorage.removeItem(storageKey);
+      startQuiz();
+    });
+
+    [els.categoryFilter, els.searchBox, els.shuffleQuestions, els.shuffleAnswers].forEach(control => {
+      control.addEventListener("change", () => startQuiz());
+      control.addEventListener("input", () => {
+        if (control === els.searchBox) startQuiz();
+      });
+    });
+
+    populateCategories();
+    buildPrintReview();
+    if (!loadProgress()) startQuiz();
+  </script>
+</body>
+</html>

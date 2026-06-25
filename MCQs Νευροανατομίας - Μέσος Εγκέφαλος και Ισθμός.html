@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MCQs Νευροανατομίας - Μέσος Εγκέφαλος και Ισθμός</title>
+  <style>
+    :root {
+      --bg: #f4f6f8;
+      --panel: #ffffff;
+      --ink: #17202a;
+      --muted: #64748b;
+      --line: #d8dee7;
+      --primary: #0f766e;
+      --primary-dark: #115e59;
+      --accent: #b45309;
+      --good: #15803d;
+      --bad: #b91c1c;
+      --good-bg: #dcfce7;
+      --bad-bg: #fee2e2;
+      --warn-bg: #fff7ed;
+      --shadow: 0 14px 40px rgba(15, 23, 42, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    header {
+      background: #17202a;
+      color: #fff;
+      padding: 24px 20px;
+      border-bottom: 5px solid var(--primary);
+    }
+
+    .wrap {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin: 0 0 6px;
+      font-size: clamp(1.35rem, 2.5vw, 2.2rem);
+      letter-spacing: 0;
+      font-weight: 750;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: #d7dee8;
+      font-size: 0.98rem;
+    }
+
+    main {
+      padding: 22px 0 48px;
+    }
+
+    .toolbar, .stats, .card, .results {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .toolbar {
+      padding: 16px;
+      display: grid;
+      grid-template-columns: 1fr 1.2fr auto auto auto;
+      gap: 12px;
+      align-items: end;
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    select, input[type="search"] {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 9px 10px;
+      font: inherit;
+      background: #fff;
+      color: var(--ink);
+    }
+
+    .checkline {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 42px;
+      color: var(--ink);
+      font-weight: 650;
+      white-space: nowrap;
+    }
+
+    .checkline input { width: 18px; height: 18px; }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 0 0 16px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 6px;
+      padding: 10px 14px;
+      min-height: 42px;
+      font: inherit;
+      font-weight: 750;
+      cursor: pointer;
+      color: #fff;
+      background: var(--primary);
+      transition: transform 0.12s ease, background 0.12s ease, opacity 0.12s ease;
+    }
+
+    button:hover:not(:disabled) { background: var(--primary-dark); transform: translateY(-1px); }
+    button:disabled { cursor: not-allowed; opacity: 0.5; }
+    button.secondary { background: #334155; }
+    button.secondary:hover:not(:disabled) { background: #1f2937; }
+    button.ghost { background: #e2e8f0; color: #17202a; }
+    button.ghost:hover:not(:disabled) { background: #cbd5e1; }
+    button.warn { background: var(--accent); }
+    button.warn:hover:not(:disabled) { background: #92400e; }
+
+    .stats {
+      padding: 14px 16px;
+      margin-bottom: 16px;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .stat {
+      border-left: 4px solid var(--primary);
+      background: #f8fafc;
+      padding: 10px 12px;
+      border-radius: 6px;
+    }
+
+    .stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .stat strong {
+      display: block;
+      margin-top: 2px;
+      font-size: 1.05rem;
+    }
+
+    .progress-shell {
+      margin-top: 12px;
+      height: 10px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--primary), #2563eb);
+      transition: width 0.2s ease;
+    }
+
+    .card {
+      padding: 22px;
+      min-height: 360px;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid #cbd5e1;
+      border-radius: 999px;
+      padding: 5px 9px;
+      color: #334155;
+      background: #f8fafc;
+      font-size: 0.82rem;
+      font-weight: 750;
+    }
+
+    .question {
+      margin: 0 0 18px;
+      font-size: clamp(1.08rem, 2vw, 1.34rem);
+      font-weight: 760;
+    }
+
+    .options {
+      display: grid;
+      gap: 10px;
+    }
+
+    .option {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 38px 1fr;
+      align-items: start;
+      gap: 10px;
+      text-align: left;
+      background: #fff;
+      color: var(--ink);
+      border: 1px solid var(--line);
+      border-left: 5px solid #cbd5e1;
+      padding: 12px 14px 12px 10px;
+      min-height: 54px;
+      font-weight: 650;
+    }
+
+    .option:hover:not(:disabled) {
+      background: #f8fafc;
+      border-left-color: var(--primary);
+    }
+
+    .option .key {
+      font-weight: 850;
+      color: var(--primary-dark);
+    }
+
+    .option.correct {
+      background: var(--good-bg);
+      border-color: #86efac;
+      border-left-color: var(--good);
+    }
+
+    .option.wrong {
+      background: var(--bad-bg);
+      border-color: #fecaca;
+      border-left-color: var(--bad);
+    }
+
+    .feedback {
+      margin-top: 16px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      padding: 14px;
+      background: #f8fafc;
+      display: none;
+    }
+
+    .feedback.good { display: block; background: var(--good-bg); border-color: #86efac; }
+    .feedback.bad { display: block; background: var(--bad-bg); border-color: #fecaca; }
+    .feedback strong { display: block; margin-bottom: 4px; }
+
+    .next-row {
+      display: none;
+      justify-content: flex-end;
+      margin-top: 16px;
+    }
+
+    .next-row.show { display: flex; }
+
+    .empty {
+      padding: 22px;
+      border: 1px dashed #94a3b8;
+      background: #f8fafc;
+      border-radius: 8px;
+      color: #475569;
+    }
+
+    .results {
+      padding: 22px;
+      display: none;
+    }
+
+    .results.show { display: block; }
+    .results h2 { margin: 0 0 12px; }
+
+    .table-wrap {
+      overflow-x: auto;
+      margin: 14px 0;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 520px;
+      background: #fff;
+    }
+
+    th, td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f1f5f9;
+      color: #334155;
+      font-size: 0.86rem;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+
+    .wrong-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .wrong-item {
+      border: 1px solid #fed7aa;
+      background: var(--warn-bg);
+      border-radius: 8px;
+      padding: 12px;
+    }
+
+    .wrong-item strong { display: block; margin-bottom: 4px; }
+
+    .print-section {
+      display: none;
+    }
+
+    @media (max-width: 860px) {
+      .toolbar {
+        grid-template-columns: 1fr 1fr;
+      }
+      .stat-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 560px) {
+      .wrap {
+        width: min(100% - 22px, 1120px);
+      }
+      header { padding: 20px 0; }
+      main { padding-top: 14px; }
+      .toolbar, .stat-grid {
+        grid-template-columns: 1fr;
+      }
+      .card, .results { padding: 16px; }
+      .button-row button { width: 100%; }
+      .option { grid-template-columns: 32px 1fr; }
+    }
+
+    @media print {
+      body { background: #fff; color: #000; }
+      header, .toolbar, .button-row, .stats, .card, .results { display: none !important; }
+      .wrap { width: 100%; margin: 0; }
+      .print-section {
+        display: block;
+        padding: 0;
+        font-family: Georgia, "Times New Roman", serif;
+      }
+      .print-section h1 { color: #000; font-size: 18pt; margin-bottom: 10pt; }
+      .print-question {
+        break-inside: avoid;
+        margin-bottom: 14pt;
+        padding-bottom: 8pt;
+        border-bottom: 1px solid #bbb;
+      }
+      .print-question h3 { font-size: 12pt; margin: 0 0 5pt; }
+      .print-question ol { margin: 0 0 5pt 18pt; padding: 0; }
+      .print-question li { margin: 2pt 0; }
+      .answer-key {
+        margin-top: 18pt;
+        break-before: page;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>MCQs Νευροανατομίας: Μέσος Εγκέφαλος και Ισθμός</h1>
+      <p class="subtitle">Δύσκολες ερωτήσεις πολλαπλής επιλογής βασισμένες στις διαφάνειες του PDF.</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="toolbar" aria-label="Ρυθμίσεις quiz">
+      <div>
+        <label for="categoryFilter">Κατηγορία</label>
+        <select id="categoryFilter"></select>
+      </div>
+      <div>
+        <label for="searchBox">Αναζήτηση</label>
+        <input id="searchBox" type="search" placeholder="Όρος, δομή, δεμάτιο, πυρήνας...">
+      </div>
+      <label class="checkline"><input id="shuffleQuestions" type="checkbox" checked> Ανακάτεμα ερωτήσεων</label>
+      <label class="checkline"><input id="shuffleAnswers" type="checkbox" checked> Ανακάτεμα απαντήσεων</label>
+      <button id="applyBtn">Έναρξη</button>
+    </section>
+
+    <div class="button-row">
+      <button id="restartBtn" class="secondary">Επανεκκίνηση</button>
+      <button id="retryWrongBtn" class="warn" disabled>Επανάληψη λανθασμένων</button>
+      <button id="clearBtn" class="ghost">Καθαρισμός προόδου</button>
+      <button id="printBtn" class="ghost">Εκτύπωση</button>
+    </div>
+
+    <section class="stats" aria-live="polite">
+      <div class="stat-grid">
+        <div class="stat"><span>Σκορ</span><strong id="scoreStat">0</strong></div>
+        <div class="stat"><span>Πρόοδος</span><strong id="progressStat">0 / 40</strong></div>
+        <div class="stat"><span>Επιτυχία</span><strong id="percentStat">0%</strong></div>
+        <div class="stat"><span>Κατηγορία</span><strong id="categoryStat">-</strong></div>
+      </div>
+      <div class="progress-shell"><div id="progressBar" class="progress-bar"></div></div>
+    </section>
+
+    <section id="quizCard" class="card">
+      <div id="questionArea"></div>
+      <div id="feedback" class="feedback"></div>
+      <div id="nextRow" class="next-row"><button id="nextBtn">Επόμενη ερώτηση</button></div>
+    </section>
+
+    <section id="results" class="results"></section>
+    <section id="printSection" class="print-section"></section>
+  </main>
+
+  <script>
+    const questions = [
+      {
+        id: 1,
+        category: "Μακροσκοπική τοπογραφία",
+        source: "Διαφάνεια 2",
+        question: "Σχετικά με τις επιφάνειες του μέσου εγκεφάλου, τι δεν ισχύει;",
+        options: [
+          { key: "α", text: "Η ραχιαία επιφάνεια αντιστοιχεί στο τετράδυμο πέταλο.", correct: false },
+          { key: "β", text: "Οι πλάγιες επιφάνειες σχηματίζονται από την οπίσθια διάτρητη ουσία.", correct: true },
+          { key: "γ", text: "Η κοιλιακή επιφάνεια περιλαμβάνει τα εγκεφαλικά σκέλη.", correct: false },
+          { key: "δ", text: "Ο υδραγωγός διασχίζει κατά μήκος τον μέσο εγκέφαλο.", correct: false }
+        ],
+        explanation: "Λάθος είναι η β: οι πλάγιες επιφάνειες σχετίζονται με τους βραχίονες του τετραδύμου, όχι με την οπίσθια διάτρητη ουσία."
+      },
+      {
+        id: 2,
+        category: "Τετράδυμο πέταλο",
+        source: "Διαφάνεια 3",
+        question: "Σχετικά με το τετράδυμο πέταλο, ποιο από τα παρακάτω ισχύει;",
+        options: [
+          { key: "α", text: "Εκτείνεται από τη γέφυρα έως το κωνάριο.", correct: false },
+          { key: "β", text: "Αποτελείται μόνο από τα οπίσθια διδύμια.", correct: false },
+          { key: "γ", text: "Το οπίσθιο άκρο της οβελιαίας αύλακας σχηματίζει τον υποκωνάριο βόθρο.", correct: false },
+          { key: "δ", text: "Από τις δύο πλευρές του χαλινού αναδύεται το τροχιλιακό νεύρο.", correct: true }
+        ],
+        explanation: "Η δ είναι σωστή: το τροχιλιακό νεύρο αναδύεται εκατέρωθεν του χαλινού του πρόσθιου μυέλινου ιστίου."
+      },
+      {
+        id: 3,
+        category: "Τετράδυμο πέταλο",
+        source: "Διαφάνεια 4",
+        question: "Ποια από τις παρακάτω αντιστοιχίες των βραχιόνων του τετραδύμου δεν είναι σωστή;",
+        options: [
+          { key: "α", text: "Άνω βραχίονας - άνω διδύμιο και έξω γονατώδες σώμα.", correct: false },
+          { key: "β", text: "Κάτω βραχίονας - κάτω διδύμιο και έσω γονατώδες σώμα.", correct: false },
+          { key: "γ", text: "Άνω βραχίονας - άνω διδύμιο και έσω γονατώδες σώμα.", correct: true },
+          { key: "δ", text: "Βραχίονες τετραδύμου - πλάγια επιφάνεια μέσου εγκεφάλου.", correct: false }
+        ],
+        explanation: "Λάθος είναι η γ: ο άνω βραχίονας συνδέει το άνω διδύμιο με το έξω γονατώδες σώμα."
+      },
+      {
+        id: 4,
+        category: "Εγκεφαλικά σκέλη",
+        source: "Διαφάνεια 5",
+        question: "Σχετικά με τα εγκεφαλικά σκέλη, ένα από τα παρακάτω είναι λάθος:",
+        options: [
+          { key: "α", text: "Ο μεσοσκελιαίος πυρήνας βρίσκεται στην πλάγια αύλακα του Reil.", correct: true },
+          { key: "β", text: "Ο μεσοσκελαίος βόθρος παρεμβάλλεται μεταξύ των δύο σκελών.", correct: false },
+          { key: "γ", text: "Το έδαφος του βόθρου αποτελείται από την οπίσθια διάτρητη ουσία.", correct: false },
+          { key: "δ", text: "Η εσωτερική επιφάνεια φέρει την αύλακα του κοινού κινητικού.", correct: false }
+        ],
+        explanation: "Ο μεσοσκελιαίος πυρήνας βρίσκεται στον πυθμένα του μεσοσκελαίου βόθρου, όχι στην πλάγια αύλακα."
+      },
+      {
+        id: 5,
+        category: "Εγκεφαλικά σκέλη",
+        source: "Διαφάνεια 5",
+        question: "Ποια αντιστοίχιση ορίου ή αύλακας των εγκεφαλικών σκελών δεν αντιστοιχεί σωστά;",
+        options: [
+          { key: "α", text: "Άνω όριο - διάμεσος εγκέφαλος και οπτικές ταινίες.", correct: false },
+          { key: "β", text: "Κάτω όριο - γέφυρα και πρόσθια γεφυρική αύλακα.", correct: false },
+          { key: "γ", text: "Εξωτερική επιφάνεια - πλάγια αύλακα του Reil.", correct: false },
+          { key: "δ", text: "Κάτω όριο - διάμεσος εγκέφαλος και οπτικές ταινίες.", correct: true }
+        ],
+        explanation: "Λάθος είναι η δ: οι οπτικές ταινίες αναφέρονται στο άνω όριο, ενώ κάτω συνάπτονται με τη γέφυρα."
+      },
+      {
+        id: 6,
+        category: "Μέλαινα ουσία",
+        source: "Διαφάνειες 6-7",
+        question: "Σχετικά με τη μέλαινα ουσία, τι δεν ισχύει;",
+        options: [
+          { key: "α", text: "Φέρεται από την πλάγια αύλακα έως την αύλακα του κοινού κινητικού.", correct: false },
+          { key: "β", text: "Χωρίζει κάθε εγκεφαλικό σκέλος σε καλύπτρα και τετράδυμο πέταλο.", correct: true },
+          { key: "γ", text: "Σε εγκάρσια τομή εμφανίζει μηνοειδές σχήμα.", correct: false },
+          { key: "δ", text: "Τα κύτταρα της ραχιαίας στιβάδας περιέχουν άφθονη μελανίνη.", correct: false }
+        ],
+        explanation: "Λάθος είναι η β: η μέλαινα ουσία χωρίζει το σκέλος σε βάση ή πόδα και καλύπτρα."
+      },
+      {
+        id: 7,
+        category: "Μέλαινα ουσία",
+        source: "Διαφάνεια 7",
+        question: "Ποιο από τα παρακάτω αποδίδεται στη μέλαινα ουσία σύμφωνα με τις διαφάνειες;",
+        options: [
+          { key: "α", text: "Ανήκει στα κέντρα του πυραμιδικού συστήματος.", correct: false },
+          { key: "β", text: "Ο ερεθισμός της μειώνει τον τόνο των εκτεινόντων μυών.", correct: false },
+          { key: "γ", text: "Ο ερεθισμός της αυξάνει τον τόνο των εκτεινόντων μυών.", correct: true },
+          { key: "δ", text: "Η μελανίνη χαρακτηρίζει κυρίως την κοιλιακή στιβάδα.", correct: false }
+        ],
+        explanation: "Η γ είναι σωστή: η διαφάνεια αναφέρει αύξηση του τόνου των εκτεινόντων μυών μετά από ερεθισμό."
+      },
+      {
+        id: 8,
+        category: "Υδραγωγός εγκεφάλου",
+        source: "Διαφάνεια 8",
+        question: "Σχετικά με τον υδραγωγό του εγκεφάλου, τι δεν ισχύει;",
+        options: [
+          { key: "α", text: "Συνδέει την 3η κοιλία με την κάτω γωνία της 4ης κοιλίας.", correct: true },
+          { key: "β", text: "Διασχίζει τον μέσο εγκέφαλο σε όλο το μήκος του.", correct: false },
+          { key: "γ", text: "Περιβάλλεται από την κεντρική φαιά ουσία.", correct: false },
+          { key: "δ", text: "Μέσα στην κεντρική φαιά ουσία βρίσκονται πυρήνες ΙΙΙ και IV.", correct: false }
+        ],
+        explanation: "Λάθος είναι η α: η σύνδεση γίνεται με την άνω γωνία της 4ης κοιλίας."
+      },
+      {
+        id: 9,
+        category: "Υδραγωγός εγκεφάλου",
+        source: "Διαφάνεια 9",
+        question: "Ποια διατύπωση για τον υδραγωγό δεν αντιστοιχεί στο PDF;",
+        options: [
+          { key: "α", text: "Αποτελεί μία από τις στενότερες θέσεις του κοιλιακού συστήματος.", correct: false },
+          { key: "β", text: "Περιβάλλεται κυρίως από λεπτό στρώμα λευκής ουσίας.", correct: true },
+          { key: "γ", text: "Σε συγγενή υδροκέφαλο μπορεί να εμφανίζει πολλαπλά λεπτά σωληνάρια.", correct: false },
+          { key: "δ", text: "Όγκοι του μέσου εγκεφάλου μπορούν να προκαλέσουν απόφραξη και υδροκέφαλο.", correct: false }
+        ],
+        explanation: "Λάθος είναι η β: το PDF αναφέρει λεπτό στρώμα νευρώνων, δηλαδή κεντρική φαιά ουσία."
+      },
+      {
+        id: 10,
+        category: "Ύφη και δεμάτια",
+        source: "Διαφάνεια 11",
+        question: "Ποιο από τα παρακάτω δεν αναφέρεται ως κατιούσα ίνα της βάσης του μέσου εγκεφάλου;",
+        options: [
+          { key: "α", text: "Μετωπογεφυρικές ίνες.", correct: false },
+          { key: "β", text: "Φλοιοπρομηκικές ίνες.", correct: false },
+          { key: "γ", text: "Κροταφογεφυρικές ίνες.", correct: false },
+          { key: "δ", text: "Έσω λημνίσκος.", correct: true }
+        ],
+        explanation: "Ο έσω λημνίσκος εμφανίζεται ως αισθητικό δεμάτιο, όχι ως κατιούσα ίνα της βάσης."
+      },
+      {
+        id: 11,
+        category: "Ύφη και δεμάτια",
+        source: "Διαφάνειες 10-11",
+        question: "Σχετικά με τη βάση ή πόδα του μέσου εγκεφάλου, ποιο ισχύει;",
+        options: [
+          { key: "α", text: "Περιλαμβάνει φλοιοπρομηκικές, φλοιονωτιαίες και γεφυρικές ίνες.", correct: true },
+          { key: "β", text: "Περιλαμβάνει τους πυρήνες της ΙΙΙ και IV συζυγίας.", correct: false },
+          { key: "γ", text: "Αντιστοιχεί στο τετράδυμο πέταλο της ραχιαίας επιφάνειας.", correct: false },
+          { key: "δ", text: "Περιέχει τον πυρήνα του οπισθίου συνδέσμου.", correct: false }
+        ],
+        explanation: "Η βάση περιέχει κατιούσες ίνες, μεταξύ των οποίων φλοιοπρομηκικές, φλοιονωτιαίες και γεφυρικές."
+      },
+      {
+        id: 12,
+        category: "Συνδέσεις μέλαινας ουσίας",
+        source: "Διαφάνεια 12",
+        question: "Ποια από τις παρακάτω δεν αναφέρεται ως προσαγωγή προς τη μέλαινα ουσία;",
+        options: [
+          { key: "α", text: "Ίνες από τον φλοιό κινητικής και προκινητικής χώρας.", correct: false },
+          { key: "β", text: "Ίνες από τα βασικά γάγγλια.", correct: false },
+          { key: "γ", text: "Ίνες από τον έσω λημνίσκο.", correct: true },
+          { key: "δ", text: "Ίνες από τον ερυθρό πυρήνα.", correct: false }
+        ],
+        explanation: "Ο έσω λημνίσκος δεν δίνεται ως προσαγωγή της μέλαινας ουσίας στη σχετική διαφάνεια."
+      },
+      {
+        id: 13,
+        category: "Συνδέσεις μέλαινας ουσίας",
+        source: "Διαφάνεια 12",
+        question: "Ποια από τις παρακάτω δεν αναφέρεται ως απαγωγή της μέλαινας ουσίας;",
+        options: [
+          { key: "α", text: "Προς τον οδοντωτό πυρήνα της παρεγκεφαλίδας.", correct: true },
+          { key: "β", text: "Προς τον ερυθρό πυρήνα.", correct: false },
+          { key: "γ", text: "Προς την ωχρά σφαίρα.", correct: false },
+          { key: "δ", text: "Προς τον δικτυωτό σχηματισμό.", correct: false }
+        ],
+        explanation: "Η διαφάνεια δίνει απαγωγές προς ερυθρό πυρήνα, ωχρά σφαίρα, θάλαμο και δικτυωτό σχηματισμό."
+      },
+      {
+        id: 14,
+        category: "Καλύπτρα και εγκάρσιες τομές",
+        source: "Διαφάνεια 13",
+        question: "Στο ύψος των οπισθίων διδυμίων, τι δεν ανήκει στην καλύπτρα σύμφωνα με τη διαφάνεια;",
+        options: [
+          { key: "α", text: "Οι δύο πυρήνες των τροχιλιακών νεύρων.", correct: false },
+          { key: "β", text: "Ο χιασμός των ινών των άνω σκελών της παρεγκεφαλίδας.", correct: false },
+          { key: "γ", text: "Η αρχική εμφάνιση του μεσεγκεφαλικού πυρήνα του τριδύμου.", correct: false },
+          { key: "δ", text: "Ο πυρήνας του κοινού κινητικού νεύρου.", correct: true }
+        ],
+        explanation: "Ο πυρήνας του κοινού κινητικού τοποθετείται στο ύψος των πρόσθιων διδυμίων."
+      },
+      {
+        id: 15,
+        category: "Καλύπτρα και εγκάρσιες τομές",
+        source: "Διαφάνεια 14",
+        question: "Στο ύψος των πρόσθιων διδυμίων, τι δεν ισχύει;",
+        options: [
+          { key: "α", text: "Ανευρίσκεται ο πυρήνας του κοινού κινητικού νεύρου.", correct: false },
+          { key: "β", text: "Ανευρίσκεται ο πυρήνας του τροχιλιακού νεύρου ως κύριος κινητικός πυρήνας.", correct: true },
+          { key: "γ", text: "Ανευρίσκεται ο πυρήνας του οπισθίου συνδέσμου.", correct: false },
+          { key: "δ", text: "Ανευρίσκεται ο διάμεσος πυρήνας του Cajal.", correct: false }
+        ],
+        explanation: "Λάθος είναι η β: ο πυρήνας του τροχιλιακού αντιστοιχεί στο ύψος των οπισθίων διδυμίων."
+      },
+      {
+        id: 16,
+        category: "Ερυθρός πυρήνας",
+        source: "Διαφάνεια 14",
+        question: "Σχετικά με τον ερυθρό πυρήνα, ποια πρόταση δεν συμφωνεί με το PDF;",
+        options: [
+          { key: "α", text: "Καλύπτει όλη την έκταση του μέσου εγκεφάλου καθ' ύψος.", correct: false },
+          { key: "β", text: "Ανήκει στο εξωπυραμιδικό σύστημα.", correct: false },
+          { key: "γ", text: "Βρίσκεται κοιλιακά του μέσου εγκεφάλου.", correct: true },
+          { key: "δ", text: "Αναφέρεται στην καλύπτρα στο ύψος των πρόσθιων διδυμίων.", correct: false }
+        ],
+        explanation: "Η διαφάνεια αναφέρει ότι ο ερυθρός πυρήνας βρίσκεται ραχιαία, όχι κοιλιακά."
+      },
+      {
+        id: 17,
+        category: "Καλύπτρα και εγκάρσιες τομές",
+        source: "Διαφάνεια 15",
+        question: "Στην εγκάρσια τομή στο ύψος των πρόσθιων διδυμίων, ποιος είναι ο παρασυμπαθητικός πυρήνας;",
+        options: [
+          { key: "α", text: "Ο πυρήνας της κόρης του οφθαλμού.", correct: true },
+          { key: "β", text: "Ο πυρήνας του προσθίου διδυμίου.", correct: false },
+          { key: "γ", text: "Ο ερυθρός πυρήνας.", correct: false },
+          { key: "δ", text: "Ο πυρήνας της μεσεγκεφαλικής ρίζας του τριδύμου.", correct: false }
+        ],
+        explanation: "Ο πυρήνας της κόρης του οφθαλμού δίνεται ξεχωριστά ως παρασυμπαθητικός πυρήνας."
+      },
+      {
+        id: 18,
+        category: "Καλύπτρα και εγκάρσιες τομές",
+        source: "Διαφάνεια 15",
+        question: "Στην τομή των πρόσθιων διδυμίων, ποιος πυρήνας δεν ανήκει στους αισθητικούς πυρήνες της λίστας;",
+        options: [
+          { key: "α", text: "Πυρήνες της μεσεγκεφαλικής ρίζας του τριδύμου.", correct: false },
+          { key: "β", text: "Πυρήνας του οπισθίου διδυμίου.", correct: true },
+          { key: "γ", text: "Πυρήνας του προσθίου διδυμίου.", correct: false },
+          { key: "δ", text: "Μεσεγκεφαλικός πυρήνας του τριδύμου.", correct: false }
+        ],
+        explanation: "Στο ύψος των πρόσθιων διδυμίων αναφέρεται ο πυρήνας του προσθίου, όχι του οπισθίου διδυμίου."
+      },
+      {
+        id: 19,
+        category: "Ύφη και δεμάτια",
+        source: "Διαφάνεια 16",
+        question: "Στην τομή των πρόσθιων διδυμίων, ποιο δεμάτιο δεν ανήκει στη σχετική λίστα;",
+        options: [
+          { key: "α", text: "Έσω λημνίσκος.", correct: false },
+          { key: "β", text: "Κεντρική καλυπτρική οδός.", correct: false },
+          { key: "γ", text: "Οδοντωτοερυθραίο δεμάτιο.", correct: false },
+          { key: "δ", text: "Έξω λημνίσκος.", correct: true }
+        ],
+        explanation: "Ο έξω λημνίσκος εμφανίζεται στη λίστα της τομής στο ύψος των οπισθίων διδυμίων."
+      },
+      {
+        id: 20,
+        category: "Καλύπτρα και εγκάρσιες τομές",
+        source: "Διαφάνεια 17",
+        question: "Στην εγκάρσια τομή στο ύψος των οπισθίων διδυμίων, τι δεν ισχύει;",
+        options: [
+          { key: "α", text: "Κινητικός πυρήνας είναι ο πυρήνας του τροχιλιακού νεύρου.", correct: false },
+          { key: "β", text: "Αισθητικός πυρήνας είναι ο πυρήνας του οπισθίου διδυμίου.", correct: false },
+          { key: "γ", text: "Κινητικός πυρήνας είναι ο πυρήνας του κοινού κινητικού νεύρου.", correct: true },
+          { key: "δ", text: "Εξωπυραμιδικός πυρήνας είναι ο μεσοσκελιαίος πυρήνας.", correct: false }
+        ],
+        explanation: "Λάθος είναι η γ: στο επίπεδο αυτό ο κινητικός πυρήνας είναι του τροχιλιακού νεύρου."
+      },
+      {
+        id: 21,
+        category: "Ύφη και δεμάτια",
+        source: "Διαφάνεια 18",
+        question: "Ποια αισθητικά δεμάτια αναφέρονται στην τομή των οπισθίων διδυμίων;",
+        options: [
+          { key: "α", text: "Έσω λημνίσκος και έξω λημνίσκος.", correct: true },
+          { key: "β", text: "Έσω λημνίσκος και ερυθρονωτιαίο δεμάτιο.", correct: false },
+          { key: "γ", text: "Έξω λημνίσκος και ραχιαία επιμήκης δεσμίδα.", correct: false },
+          { key: "δ", text: "Κεντρική καλυπτρική οδός και τετραδυμονωτιαίο δεμάτιο.", correct: false }
+        ],
+        explanation: "Στη διαφάνεια 18 τα αισθητικά δεμάτια είναι ο έσω και ο έξω λημνίσκος."
+      },
+      {
+        id: 22,
+        category: "Ύφη και δεμάτια",
+        source: "Διαφάνεια 18",
+        question: "Στα εξωπυραμιδικά δεμάτια της τομής των οπισθίων διδυμίων, ποιο δεν αντιστοιχεί σωστά;",
+        options: [
+          { key: "α", text: "Χιασμός των άνω σκελών της παρεγκεφαλίδας.", correct: false },
+          { key: "β", text: "Τετραδυμονωτιαίο δεμάτιο.", correct: false },
+          { key: "γ", text: "Κεντρική καλυπτρική οδός.", correct: false },
+          { key: "δ", text: "Χιασμός του Forel ως κύριο στοιχείο της τομής αυτής.", correct: true }
+        ],
+        explanation: "Στην τομή των οπισθίων διδυμίων αναφέρεται ο χιασμός των άνω σκελών της παρεγκεφαλίδας."
+      },
+      {
+        id: 23,
+        category: "Προτετραδυμική χώρα",
+        source: "Διαφάνεια 19",
+        question: "Σχετικά με την προτετραδυμική χώρα, τι δεν ισχύει;",
+        options: [
+          { key: "α", text: "Βρίσκεται μπροστά από τα πρόσθια διδύμια.", correct: false },
+          { key: "β", text: "Βρίσκεται πίσω από τα οπίσθια διδύμια.", correct: true },
+          { key: "γ", text: "Αποτελεί μεταβατική περιοχή μεταξύ διάμεσου και μέσου εγκεφάλου.", correct: false },
+          { key: "δ", text: "Περιέχει τον οπίσθιο σύνδεσμο του εγκεφάλου.", correct: false }
+        ],
+        explanation: "Λάθος είναι η β: η περιοχή βρίσκεται μπροστά από τα πρόσθια διδύμια."
+      },
+      {
+        id: 24,
+        category: "Προτετραδυμική χώρα",
+        source: "Διαφάνεια 19",
+        question: "Ποια δομή δεν περιλαμβάνεται στα περιεχόμενα της προτετραδυμικής χώρας;",
+        options: [
+          { key: "α", text: "Προτετραδυμικός πυρήνας.", correct: false },
+          { key: "β", text: "Διάμεσος πυρήνας του Cajal.", correct: false },
+          { key: "γ", text: "Μέλαινα ουσία του Sommering.", correct: true },
+          { key: "δ", text: "Πυρήνας οπισθίου συνδέσμου του Darkschewitsch.", correct: false }
+        ],
+        explanation: "Η μέλαινα ουσία δεν αναφέρεται στα περιεχόμενα της προτετραδυμικής χώρας."
+      },
+      {
+        id: 25,
+        category: "Ερυθρός πυρήνας",
+        source: "Διαφάνεια 20",
+        question: "Σχετικά με τον ερυθρό πυρήνα, μία πρόταση είναι λάθος:",
+        options: [
+          { key: "α", text: "Αποτελεί συναπτικό σταθμό κυρίως ακουστικών ώσεων.", correct: true },
+          { key: "β", text: "Συμμετέχει στον συντονισμό κινητικών ώσεων.", correct: false },
+          { key: "γ", text: "Σχετίζεται με την όρθια στάση και τη βάδιση.", correct: false },
+          { key: "δ", text: "Βλάβη του μπορεί να προκαλέσει μεταβολή μυϊκού τόνου.", correct: false }
+        ],
+        explanation: "Λάθος είναι η α: η διαφάνεια τονίζει τις κινητικές ώσεις, τη στάση, τη βάδιση και τον μυϊκό τόνο."
+      },
+      {
+        id: 26,
+        category: "Συνδέσεις ερυθρού πυρήνα",
+        source: "Διαφάνεια 21",
+        question: "Ποια προσαγωγός σύνδεση του ερυθρού πυρήνα δεν αποδίδεται σωστά;",
+        options: [
+          { key: "α", text: "Ωχρο-ερυθραίες ίνες: ωχρά σφαίρα προς ομόπλευρο ερυθρό πυρήνα.", correct: false },
+          { key: "β", text: "Παρεγκεφαλιδο-ερυθραίες ίνες: οδοντωτός πυρήνας προς ομόπλευρο ερυθρό πυρήνα.", correct: true },
+          { key: "γ", text: "Τετραδυμο-ερυθραίες ίνες: πυρήνας πρόσθιου διδυμίου προς ερυθρούς πυρήνες άμφω.", correct: false },
+          { key: "δ", text: "Μελαινο-ερυθραίες ίνες: μέλαινα ουσία προς ομόπλευρο ερυθρό πυρήνα.", correct: false }
+        ],
+        explanation: "Λάθος είναι η β: οι παρεγκεφαλιδο-ερυθραίες ίνες καταλήγουν στον ετερόπλευρο ερυθρό πυρήνα."
+      },
+      {
+        id: 27,
+        category: "Συνδέσεις ερυθρού πυρήνα",
+        source: "Διαφάνεια 22",
+        question: "Ποια απαγωγός σύνδεση του ερυθρού πυρήνα δεν αντιστοιχεί σωστά;",
+        options: [
+          { key: "α", text: "Ερυθρονωτιαίο δεμάτιο: ερυθρός πυρήνας - χιασμός Forel - αυχενική μοίρα ΝΜ.", correct: false },
+          { key: "β", text: "Ερυθροδικτυωτό δεμάτιο: ερυθρός πυρήνας - δικτυωτός σχηματισμός γέφυρας και προμήκη.", correct: false },
+          { key: "γ", text: "Ερυθροθαλαμική δεσμίδα: ερυθρός πυρήνας - αντίπλευρος έξω κοιλιακός πυρήνας θαλάμου.", correct: true },
+          { key: "δ", text: "Ερυθρο-ελαϊκό δεμάτιο: ερυθρός πυρήνας - κάτω πυρήνας της ελαίας.", correct: false }
+        ],
+        explanation: "Λάθος είναι η γ: η ερυθροθαλαμική δεσμίδα καταλήγει στον ομόπλευρο έξω κοιλιακό πυρήνα."
+      },
+      {
+        id: 28,
+        category: "Συνδέσεις μέλαινας ουσίας",
+        source: "Διαφάνεια 23",
+        question: "Στις συνδέσεις της μέλαινας ουσίας, τι δεν ισχύει;",
+        options: [
+          { key: "α", text: "Οι φλοιο-μέλαινες ίνες προέρχονται από μετωπιαίο και προκινητικό φλοιό.", correct: false },
+          { key: "β", text: "Οι ραβδωτο-μέλαινες ίνες προέρχονται από κερκοφόρο και κέλυφος.", correct: false },
+          { key: "γ", text: "Οι μελαινο-ραβδωτές ίνες αποτελούν απαγωγές προς το ραβδωτό σώμα.", correct: false },
+          { key: "δ", text: "Οι μελαινο-ραβδωτές ίνες αποτελούν προσαγωγές προς τη μέλαινα ουσία.", correct: true }
+        ],
+        explanation: "Λάθος είναι η δ: οι μελαινο-ραβδωτές ίνες δίνονται ως απαγωγές της μέλαινας ουσίας."
+      },
+      {
+        id: 29,
+        category: "Μέλαινα ουσία",
+        source: "Διαφάνεια 24",
+        question: "Σχετικά με τη νόσο Parkinson στη διαφάνεια, τι δεν ισχύει;",
+        options: [
+          { key: "α", text: "Η ντοπαμίνη αυξάνεται στις απολήξεις των μελαινο-ραβδωτών ινών.", correct: true },
+          { key: "β", text: "Υπάρχει εκφύλιση νευρώνων της μέλαινας ουσίας.", correct: false },
+          { key: "γ", text: "Μειώνεται η ανασταλτική δράση των μελαινο-ραβδωτών ινών.", correct: false },
+          { key: "δ", text: "Αναφέρονται τρόμος, μυϊκή υπερτονία και βραδυκινησία.", correct: false }
+        ],
+        explanation: "Λάθος είναι η α: στη νόσο Parkinson αναφέρεται ελάττωση της ντοπαμίνης στις απολήξεις."
+      },
+      {
+        id: 30,
+        category: "Μέλαινα ουσία",
+        source: "Διαφάνεια 24",
+        question: "Για τη χορεία του Huntington, ποια διατύπωση είναι λάθος;",
+        options: [
+          { key: "α", text: "Αναφέρεται εκφύλιση των ραβδωτο-μέλαινων ινών.", correct: false },
+          { key: "β", text: "Η ανασταλτική δράση των ντοπαμινεργικών ινών στο ραβδωτό σώμα ελαττώνεται.", correct: true },
+          { key: "γ", text: "Οι κινήσεις περιγράφονται ως απότομες και ακανόνιστες.", correct: false },
+          { key: "δ", text: "Οι ραβδωτο-μέλαινες ίνες συνδέονται με GABA, ουσία Ρ και Ach.", correct: false }
+        ],
+        explanation: "Λάθος είναι η β: η διαφάνεια αναφέρει ενίσχυση της ανασταλτικής δράσης των ντοπαμινεργικών ινών."
+      },
+      {
+        id: 31,
+        category: "Ισθμός εγκεφάλου",
+        source: "Διαφάνεια 25",
+        question: "Σχετικά με τον ισθμό του εγκεφάλου, τι δεν ισχύει;",
+        options: [
+          { key: "α", text: "Κοιλιακά αντιστοιχεί στην ανώτατη μοίρα του εδάφους της 4ης κοιλίας.", correct: false },
+          { key: "β", text: "Ραχιαία σχετίζεται με τα άνω σκέλη της παρεγκεφαλίδας.", correct: false },
+          { key: "γ", text: "Πλάγια αφορίζεται από την οπίσθια διάτρητη ουσία.", correct: true },
+          { key: "δ", text: "Πλάγια σχετίζεται με το τρίγωνο του έξω λημνίσκου.", correct: false }
+        ],
+        explanation: "Λάθος είναι η γ: πλάγια αναφέρεται το τρίγωνο έξω λημνίσκου."
+      },
+      {
+        id: 32,
+        category: "Ισθμός εγκεφάλου",
+        source: "Διαφάνεια 26",
+        question: "Ποια διατύπωση για τα άνω σκέλη της παρεγκεφαλίδας είναι σωστή;",
+        options: [
+          { key: "α", text: "Συνδέουν την παρεγκεφαλίδα με τον προμήκη μυελό.", correct: false },
+          { key: "β", text: "Οριοθετούν από τα πλάγια την κατώτερη μοίρα της 4ης κοιλίας.", correct: false },
+          { key: "γ", text: "Σχηματίζουν μόνα τους το έδαφος της 4ης κοιλίας.", correct: false },
+          { key: "δ", text: "Συνδέουν την παρεγκεφαλίδα με τον μέσο εγκέφαλο.", correct: true }
+        ],
+        explanation: "Η δ είναι σωστή: τα άνω σκέλη συνδέουν παρεγκεφαλίδα και μέσο εγκέφαλο."
+      },
+      {
+        id: 33,
+        category: "Ισθμός εγκεφάλου",
+        source: "Διαφάνεια 26",
+        question: "Σχετικά με το πρόσθιο ή άνω μυέλινο ιστίο, τι δεν ισχύει;",
+        options: [
+          { key: "α", text: "Συνδέει μεταξύ τους τα κάτω σκέλη της παρεγκεφαλίδας.", correct: true },
+          { key: "β", text: "Είναι τριγωνικό λεπτό πέταλο από λευκή ουσία.", correct: false },
+          { key: "γ", text: "Συνδέει μεταξύ τους τα άνω σκέλη της παρεγκεφαλίδας.", correct: false },
+          { key: "δ", text: "Συμβάλλει στον σχηματισμό της οροφής της 4ης κοιλίας.", correct: false }
+        ],
+        explanation: "Λάθος είναι η α: το πρόσθιο μυέλινο ιστίο συνδέει τα άνω, όχι τα κάτω, σκέλη."
+      },
+      {
+        id: 34,
+        category: "Ισθμός εγκεφάλου",
+        source: "Διαφάνεια 26",
+        question: "Στο τρίγωνο του έξω λημνίσκου, ποια πρόταση δεν συμφωνεί με τη διαφάνεια;",
+        options: [
+          { key: "α", text: "Βρίσκεται ο έξω λημνίσκος.", correct: false },
+          { key: "β", text: "Βρίσκεται το έσω τμήμα του έσω λημνίσκου ως οδός του πόνου.", correct: true },
+          { key: "γ", text: "Ο έξω λημνίσκος αναφέρεται ως ακουστική οδός.", correct: false },
+          { key: "δ", text: "Βρίσκεται το έξω τμήμα του έσω λημνίσκου.", correct: false }
+        ],
+        explanation: "Λάθος είναι η β: η διαφάνεια αναφέρει το έξω τμήμα του έσω λημνίσκου."
+      },
+      {
+        id: 35,
+        category: "Καλύπτρα και εγκάρσιες τομές",
+        source: "Διαφάνειες 3, 13-14",
+        question: "Ποια αντιστοίχιση νεύρου ή πυρήνα δεν είναι σωστή;",
+        options: [
+          { key: "α", text: "Τροχιλιακό νεύρο - ανάδυση εκατέρωθεν του χαλινού.", correct: false },
+          { key: "β", text: "Πυρήνες τροχιλιακών - καλύπτρα στο ύψος οπισθίων διδυμίων.", correct: false },
+          { key: "γ", text: "Κοινό κινητικό νεύρο - ανάδυση εκατέρωθεν του χαλινού.", correct: true },
+          { key: "δ", text: "Πυρήνας κοινού κινητικού - ύψος πρόσθιων διδυμίων.", correct: false }
+        ],
+        explanation: "Λάθος είναι η γ: η ανάδυση εκατέρωθεν του χαλινού αφορά το τροχιλιακό νεύρο."
+      },
+      {
+        id: 36,
+        category: "Εγκεφαλικά σκέλη",
+        source: "Διαφάνεια 5",
+        question: "Ποια πρόταση για τον μεσοσκελιαίο πυρήνα είναι σωστή;",
+        options: [
+          { key: "α", text: "Βρίσκεται στην αύλακα του κοινού κινητικού νεύρου.", correct: false },
+          { key: "β", text: "Σχηματίζει την οπίσθια διάτρητη ουσία.", correct: false },
+          { key: "γ", text: "Αποτελεί τον κάτω βραχίονα του τετραδύμου.", correct: false },
+          { key: "δ", text: "Βρίσκεται στον πυθμένα του μεσοσκελαίου βόθρου και συγκροτεί γάγγλιο.", correct: true }
+        ],
+        explanation: "Η δ είναι σωστή: ο πυρήνας του Gudden βρίσκεται στον πυθμένα και συγκροτεί το μεσοσκελιαίο γάγγλιο."
+      },
+      {
+        id: 37,
+        category: "Μέλαινα ουσία",
+        source: "Διαφάνεια 7",
+        question: "Στη μορφολογία της μέλαινας ουσίας, τι δεν ισχύει;",
+        options: [
+          { key: "α", text: "Το κοίλο του μηνοειδούς σχήματος στρέφεται προς τη βάση.", correct: true },
+          { key: "β", text: "Το κοίλο του μηνοειδούς σχήματος στρέφεται προς την καλύπτρα.", correct: false },
+          { key: "γ", text: "Η ραχιαία στιβάδα περιέχει κύτταρα με άφθονη μελανίνη.", correct: false },
+          { key: "δ", text: "Η μορφή της περιγράφεται σε εγκάρσια διατομή.", correct: false }
+        ],
+        explanation: "Λάθος είναι η α: το κοίλο στρέφεται προς την καλύπτρα."
+      },
+      {
+        id: 38,
+        category: "Υδραγωγός εγκεφάλου",
+        source: "Διαφάνεια 8",
+        question: "Ποια πρόταση για την κεντρική φαιά ουσία γύρω από τον υδραγωγό είναι σωστή;",
+        options: [
+          { key: "α", text: "Αποτελεί παχύ στρώμα εμμύελων ινών γύρω από τον υδραγωγό.", correct: false },
+          { key: "β", text: "Περιέχει τους πυρήνες της ΙΙΙ και IV συζυγίας.", correct: true },
+          { key: "γ", text: "Σχηματίζει την πλάγια αύλακα του Reil.", correct: false },
+          { key: "δ", text: "Συνδέει τους βραχίονες του τετραδύμου με τα γονατώδη σώματα.", correct: false }
+        ],
+        explanation: "Η β είναι σωστή: μέσα στην κεντρική φαιά ουσία βρίσκονται πυρήνες της ΙΙΙ και IV συζυγίας."
+      },
+      {
+        id: 39,
+        category: "Τετράδυμο πέταλο",
+        source: "Διαφάνεια 3",
+        question: "Για τα διδύμια στα θηλαστικά, ποια πρόταση είναι λάθος;",
+        options: [
+          { key: "α", text: "Τα πρόσθια διδύμια σχετίζονται με οφθαλμικά αντανακλαστικά.", correct: false },
+          { key: "β", text: "Τα οπίσθια διδύμια σχετίζονται με ακουστικά αντανακλαστικά.", correct: false },
+          { key: "γ", text: "Τα οπίσθια διδύμια αποτελούν κέντρα οφθαλμικών αντανακλαστικών.", correct: true },
+          { key: "δ", text: "Η αναφορά σε όραση και ακοή διαφοροποιείται από τα κατώτερα σπονδυλωτά.", correct: false }
+        ],
+        explanation: "Λάθος είναι η γ: στα θηλαστικά τα οπίσθια διδύμια σχετίζονται με ακουστικά αντανακλαστικά."
+      },
+      {
+        id: 40,
+        category: "Προτετραδυμική χώρα",
+        source: "Διαφάνεια 19",
+        question: "Ποιο από τα παρακάτω δεν αναφέρεται ως περιεχόμενο της προτετραδυμικής χώρας;",
+        options: [
+          { key: "α", text: "Προτετραδυμικός πυρήνας.", correct: false },
+          { key: "β", text: "Οπίσθιος σύνδεσμος του εγκεφάλου.", correct: false },
+          { key: "γ", text: "Προσκέφαλο του θαλάμου.", correct: false },
+          { key: "δ", text: "Οπτική ταινία.", correct: true }
+        ],
+        explanation: "Η οπτική ταινία δεν αναφέρεται στα περιεχόμενα της προτετραδυμικής χώρας στη διαφάνεια."
+      }
+    ];
+
+    const STORAGE_KEY = "midbrain_isthmus_mcq_state_v1";
+    const greekKeys = ["α", "β", "γ", "δ"];
+    let state = null;
+
+    const els = {
+      categoryFilter: document.getElementById("categoryFilter"),
+      searchBox: document.getElementById("searchBox"),
+      shuffleQuestions: document.getElementById("shuffleQuestions"),
+      shuffleAnswers: document.getElementById("shuffleAnswers"),
+      applyBtn: document.getElementById("applyBtn"),
+      restartBtn: document.getElementById("restartBtn"),
+      retryWrongBtn: document.getElementById("retryWrongBtn"),
+      clearBtn: document.getElementById("clearBtn"),
+      printBtn: document.getElementById("printBtn"),
+      scoreStat: document.getElementById("scoreStat"),
+      progressStat: document.getElementById("progressStat"),
+      percentStat: document.getElementById("percentStat"),
+      categoryStat: document.getElementById("categoryStat"),
+      progressBar: document.getElementById("progressBar"),
+      questionArea: document.getElementById("questionArea"),
+      feedback: document.getElementById("feedback"),
+      nextRow: document.getElementById("nextRow"),
+      nextBtn: document.getElementById("nextBtn"),
+      quizCard: document.getElementById("quizCard"),
+      results: document.getElementById("results"),
+      printSection: document.getElementById("printSection")
+    };
+
+    function shuffle(items) {
+      const copy = [...items];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function normalize(text) {
+      return String(text || "").toLocaleLowerCase("el-GR").normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
+
+    function getQuestion(id) {
+      return questions.find(q => q.id === id);
+    }
+
+    function matchingQuestions() {
+      const category = els.categoryFilter.value;
+      const query = normalize(els.searchBox.value.trim());
+      return questions.filter(q => {
+        const categoryOk = category === "all" || q.category === category;
+        const haystack = normalize([
+          q.question,
+          q.category,
+          q.source,
+          q.explanation,
+          ...q.options.map(o => o.text)
+        ].join(" "));
+        return categoryOk && (!query || haystack.includes(query));
+      });
+    }
+
+    function buildOptionOrder(question, shouldShuffle) {
+      const original = question.options.map(o => o.key);
+      return shouldShuffle ? shuffle(original) : original;
+    }
+
+    function startQuiz(ids, mode = "normal") {
+      const settings = {
+        category: els.categoryFilter.value,
+        search: els.searchBox.value,
+        shuffleQuestions: els.shuffleQuestions.checked,
+        shuffleAnswers: els.shuffleAnswers.checked
+      };
+      const ordered = settings.shuffleQuestions ? shuffle(ids) : [...ids];
+      const optionOrders = {};
+      ordered.forEach(id => {
+        optionOrders[id] = buildOptionOrder(getQuestion(id), settings.shuffleAnswers);
+      });
+      state = {
+        mode,
+        order: ordered,
+        currentIndex: 0,
+        answers: {},
+        optionOrders,
+        settings
+      };
+      saveState();
+      render();
+    }
+
+    function applyFiltersAndStart() {
+      const pool = matchingQuestions().map(q => q.id);
+      startQuiz(pool, "normal");
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch (err) {
+        console.warn("Η πρόοδος δεν αποθηκεύτηκε.", err);
+      }
+    }
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        if (!parsed || !Array.isArray(parsed.order)) return null;
+        return parsed;
+      } catch (err) {
+        return null;
+      }
+    }
+
+    function clearState() {
+      localStorage.removeItem(STORAGE_KEY);
+      state = null;
+      els.searchBox.value = "";
+      els.categoryFilter.value = "all";
+      els.shuffleQuestions.checked = true;
+      els.shuffleAnswers.checked = true;
+      startQuiz(questions.map(q => q.id), "normal");
+    }
+
+    function score() {
+      return Object.values(state.answers).filter(a => a.correct).length;
+    }
+
+    function answeredCount() {
+      return Object.keys(state.answers).length;
+    }
+
+    function updateStats() {
+      const total = state.order.length;
+      const answered = answeredCount();
+      const current = Math.min(state.currentIndex + 1, total);
+      const pct = answered ? Math.round((score() / answered) * 100) : 0;
+      const q = state.order[state.currentIndex] ? getQuestion(state.order[state.currentIndex]) : null;
+      els.scoreStat.textContent = String(score());
+      els.progressStat.textContent = total ? `${current} / ${total}` : "0 / 0";
+      els.percentStat.textContent = `${pct}%`;
+      els.categoryStat.textContent = q ? q.category : "-";
+      els.progressBar.style.width = total ? `${Math.round((answered / total) * 100)}%` : "0%";
+      const wrongIds = Object.entries(state.answers).filter(([, a]) => !a.correct).map(([id]) => Number(id));
+      els.retryWrongBtn.disabled = wrongIds.length === 0;
+    }
+
+    function render() {
+      els.results.classList.remove("show");
+      els.quizCard.style.display = "block";
+      updateStats();
+      if (!state.order.length) {
+        els.questionArea.innerHTML = `<div class="empty">Δεν βρέθηκαν ερωτήσεις για τα τρέχοντα φίλτρα.</div>`;
+        els.feedback.className = "feedback";
+        els.feedback.style.display = "none";
+        els.nextRow.classList.remove("show");
+        return;
+      }
+      if (state.currentIndex >= state.order.length) {
+        renderResults();
+        return;
+      }
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      const id = state.order[state.currentIndex];
+      const q = getQuestion(id);
+      const answer = state.answers[id];
+      const orderedKeys = state.optionOrders[id] || q.options.map(o => o.key);
+      const optionHtml = orderedKeys.map((originalKey, index) => {
+        const option = q.options.find(o => o.key === originalKey);
+        const displayKey = greekKeys[index];
+        let cls = "option";
+        if (answer) {
+          if (option.correct) cls += " correct";
+          if (answer.selectedKey === option.key && !option.correct) cls += " wrong";
+        }
+        return `<button class="${cls}" data-key="${option.key}" ${answer ? "disabled" : ""}>
+          <span class="key">${displayKey})</span><span>${option.text}</span>
+        </button>`;
+      }).join("");
+
+      els.questionArea.innerHTML = `
+        <div class="meta">
+          <span class="pill">#${q.id}</span>
+          <span class="pill">${q.category}</span>
+          <span class="pill">${q.source}</span>
+        </div>
+        <p class="question">${q.question}</p>
+        <div class="options">${optionHtml}</div>
+      `;
+
+      els.questionArea.querySelectorAll(".option").forEach(btn => {
+        btn.addEventListener("click", () => chooseAnswer(q.id, btn.dataset.key));
+      });
+
+      if (answer) {
+        showFeedback(q, answer);
+        els.nextRow.classList.add("show");
+      } else {
+        els.feedback.className = "feedback";
+        els.feedback.style.display = "none";
+        els.nextRow.classList.remove("show");
+      }
+      updateStats();
+    }
+
+    function chooseAnswer(questionId, selectedKey) {
+      const q = getQuestion(questionId);
+      const option = q.options.find(o => o.key === selectedKey);
+      state.answers[questionId] = {
+        selectedKey,
+        correct: Boolean(option.correct)
+      };
+      saveState();
+      renderQuestion();
+    }
+
+    function showFeedback(q, answer) {
+      const correctOption = q.options.find(o => o.correct);
+      const selectedOption = q.options.find(o => o.key === answer.selectedKey);
+      els.feedback.className = `feedback ${answer.correct ? "good" : "bad"}`;
+      els.feedback.style.display = "block";
+      els.feedback.innerHTML = `
+        <strong>${answer.correct ? "Σωστό." : "Λάθος."}</strong>
+        <div>Σωστή απάντηση: ${correctOption.key}) ${correctOption.text}</div>
+        <div>Επιλογή σου: ${selectedOption.key}) ${selectedOption.text}</div>
+        <div>${q.explanation} <span style="color:#64748b;">(${q.source})</span></div>
+      `;
+    }
+
+    function nextQuestion() {
+      if (state.currentIndex < state.order.length) {
+        state.currentIndex += 1;
+        saveState();
+        render();
+      }
+    }
+
+    function renderResults() {
+      els.quizCard.style.display = "none";
+      els.results.classList.add("show");
+      const total = state.order.length;
+      const correct = score();
+      const wrong = total - correct;
+      const percent = total ? Math.round((correct / total) * 100) : 0;
+      const byCategory = {};
+      state.order.forEach(id => {
+        const q = getQuestion(id);
+        if (!byCategory[q.category]) byCategory[q.category] = { total: 0, correct: 0 };
+        byCategory[q.category].total += 1;
+        if (state.answers[id] && state.answers[id].correct) byCategory[q.category].correct += 1;
+      });
+      const categoryRows = Object.entries(byCategory).map(([cat, data]) => {
+        const pct = data.total ? Math.round((data.correct / data.total) * 100) : 0;
+        return `<tr><td>${cat}</td><td>${data.correct}</td><td>${data.total}</td><td>${pct}%</td></tr>`;
+      }).join("");
+      const wrongItems = state.order
+        .filter(id => state.answers[id] && !state.answers[id].correct)
+        .map(id => {
+          const q = getQuestion(id);
+          const selected = q.options.find(o => o.key === state.answers[id].selectedKey);
+          const correctOption = q.options.find(o => o.correct);
+          return `<div class="wrong-item">
+            <strong>#${q.id} - ${q.category}</strong>
+            <div>${q.question}</div>
+            <div>Επέλεξες: ${selected.key}) ${selected.text}</div>
+            <div>Σωστό: ${correctOption.key}) ${correctOption.text}</div>
+          </div>`;
+        }).join("");
+
+      els.results.innerHTML = `
+        <h2>Τελικό αποτέλεσμα</h2>
+        <div class="stat-grid">
+          <div class="stat"><span>Σύνολο σκορ</span><strong>${correct} / ${total}</strong></div>
+          <div class="stat"><span>Ποσοστό</span><strong>${percent}%</strong></div>
+          <div class="stat"><span>Σωστές</span><strong>${correct}</strong></div>
+          <div class="stat"><span>Λανθασμένες</span><strong>${wrong}</strong></div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Κατηγορία</th><th>Σωστές</th><th>Σύνολο</th><th>Επιτυχία</th></tr></thead>
+            <tbody>${categoryRows}</tbody>
+          </table>
+        </div>
+        <h3>Ανασκόπηση λανθασμένων</h3>
+        <div class="wrong-list">${wrongItems || "<div class='empty'>Δεν υπάρχουν λανθασμένες ερωτήσεις.</div>"}</div>
+      `;
+      updateStats();
+    }
+
+    function retryWrong() {
+      const wrongIds = Object.entries(state.answers).filter(([, a]) => !a.correct).map(([id]) => Number(id));
+      if (wrongIds.length) startQuiz(wrongIds, "wrong");
+    }
+
+    function restartCurrent() {
+      const ids = state && state.order.length ? [...state.order] : matchingQuestions().map(q => q.id);
+      startQuiz(ids, state ? state.mode : "normal");
+    }
+
+    function populateCategories() {
+      const categories = [...new Set(questions.map(q => q.category))].sort((a, b) => a.localeCompare(b, "el"));
+      els.categoryFilter.innerHTML = `<option value="all">Όλες οι κατηγορίες</option>` + categories.map(c => `<option value="${c}">${c}</option>`).join("");
+    }
+
+    function buildPrintSection() {
+      const rows = questions.map(q => {
+        const options = q.options.map(o => `<li>${o.key}) ${o.text}</li>`).join("");
+        const correct = q.options.find(o => o.correct);
+        return `<article class="print-question">
+          <h3>#${q.id} - ${q.category} - ${q.source}</h3>
+          <p>${q.question}</p>
+          <ol>${options}</ol>
+          <p><strong>Απάντηση:</strong> ${correct.key}) ${correct.text}</p>
+          <p><strong>Αιτιολόγηση:</strong> ${q.explanation}</p>
+        </article>`;
+      }).join("");
+      const distribution = [...new Set(questions.map(q => q.category))]
+        .map(cat => `<tr><td>${cat}</td><td>${questions.filter(q => q.category === cat).length}</td></tr>`)
+        .join("");
+      els.printSection.innerHTML = `
+        <h1>MCQs Νευροανατομίας - Μέσος Εγκέφαλος και Ισθμός</h1>
+        <table>
+          <thead><tr><th>Κατηγορία</th><th>Αριθμός ερωτήσεων</th></tr></thead>
+          <tbody>${distribution}</tbody>
+        </table>
+        <div>${rows}</div>
+      `;
+    }
+
+    function restoreSettings(saved) {
+      if (!saved || !saved.settings) return;
+      els.categoryFilter.value = saved.settings.category || "all";
+      els.searchBox.value = saved.settings.search || "";
+      els.shuffleQuestions.checked = saved.settings.shuffleQuestions !== false;
+      els.shuffleAnswers.checked = saved.settings.shuffleAnswers !== false;
+    }
+
+    els.applyBtn.addEventListener("click", applyFiltersAndStart);
+    els.restartBtn.addEventListener("click", restartCurrent);
+    els.retryWrongBtn.addEventListener("click", retryWrong);
+    els.clearBtn.addEventListener("click", clearState);
+    els.printBtn.addEventListener("click", () => window.print());
+    els.nextBtn.addEventListener("click", nextQuestion);
+
+    populateCategories();
+    buildPrintSection();
+    const saved = loadState();
+    if (saved) {
+      restoreSettings(saved);
+      state = saved;
+      render();
+    } else {
+      startQuiz(questions.map(q => q.id), "normal");
+    }
+  </script>
+</body>
+</html>

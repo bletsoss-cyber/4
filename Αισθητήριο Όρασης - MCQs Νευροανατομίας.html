@@ -1,0 +1,1799 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Αισθητήριο Όρασης - MCQs Νευροανατομίας</title>
+  <style>
+    :root {
+      --bg: #f4f7f8;
+      --surface: #ffffff;
+      --ink: #172126;
+      --muted: #62727d;
+      --line: #d7e0e5;
+      --primary: #1f6f78;
+      --primary-dark: #15545b;
+      --accent: #8a5d2f;
+      --good: #1f7a4d;
+      --good-bg: #e6f4ec;
+      --bad: #b13b3b;
+      --bad-bg: #f8e8e8;
+      --warn-bg: #fff7dc;
+      --shadow: 0 18px 45px rgba(23, 33, 38, 0.09);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.55;
+    }
+
+    header {
+      background: #12343a;
+      color: #fff;
+      padding: 22px 18px;
+      border-bottom: 5px solid #d9a85c;
+    }
+
+    .wrap {
+      width: min(1120px, calc(100% - 28px));
+      margin: 0 auto;
+    }
+
+    .topline {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-end;
+      flex-wrap: wrap;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.45rem, 3vw, 2.25rem);
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin: 6px 0 0;
+      color: #d7e7ea;
+      font-size: 0.98rem;
+    }
+
+    main {
+      padding: 22px 0 38px;
+    }
+
+    .panel, .quiz-card, .results {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel {
+      padding: 18px;
+      margin-bottom: 18px;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: minmax(180px, 240px) minmax(220px, 1fr) repeat(2, auto);
+      gap: 12px;
+      align-items: end;
+    }
+
+    label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    select, input[type="search"] {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 10px 12px;
+      font: inherit;
+      color: var(--ink);
+      background: #fff;
+    }
+
+    .checkrow {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-top: 14px;
+    }
+
+    .checkrow label {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      margin: 0;
+      font-weight: 650;
+      color: var(--ink);
+      cursor: pointer;
+    }
+
+    button {
+      border: 0;
+      border-radius: 6px;
+      padding: 10px 14px;
+      font: inherit;
+      font-weight: 750;
+      cursor: pointer;
+      background: var(--primary);
+      color: #fff;
+      min-height: 42px;
+    }
+
+    button:hover { background: var(--primary-dark); }
+    button.secondary { background: #e9eff2; color: var(--ink); }
+    button.secondary:hover { background: #dce6ea; }
+    button.warning { background: var(--accent); }
+    button.warning:hover { background: #70491f; }
+    button:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    .statsbar {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(120px, 1fr));
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .stat {
+      background: #edf4f5;
+      border: 1px solid #d7e5e8;
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+
+    .stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .stat strong {
+      font-size: 1rem;
+    }
+
+    .progress-shell {
+      height: 10px;
+      background: #dce7ea;
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 0 0 16px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #1f6f78, #d9a85c);
+      transition: width 180ms ease;
+    }
+
+    .quiz-card {
+      padding: clamp(16px, 3vw, 26px);
+    }
+
+    .meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .question {
+      font-size: clamp(1.08rem, 2.4vw, 1.45rem);
+      font-weight: 760;
+      margin: 0 0 18px;
+    }
+
+    .options {
+      display: grid;
+      gap: 10px;
+    }
+
+    .option {
+      width: 100%;
+      text-align: left;
+      background: #fff;
+      color: var(--ink);
+      border: 1px solid var(--line);
+      padding: 12px 14px;
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 10px;
+      align-items: start;
+      font-weight: 600;
+    }
+
+    .option:hover {
+      background: #f4fafb;
+      border-color: #9fc6cc;
+    }
+
+    .option.correct {
+      background: var(--good-bg);
+      border-color: var(--good);
+      color: #0d4f30;
+    }
+
+    .option.wrong {
+      background: var(--bad-bg);
+      border-color: var(--bad);
+      color: #7b2323;
+    }
+
+    .key {
+      font-weight: 850;
+      color: var(--primary);
+    }
+
+    .feedback {
+      margin-top: 16px;
+      padding: 14px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: #f8fbfc;
+      display: none;
+    }
+
+    .feedback.good {
+      display: block;
+      border-color: var(--good);
+      background: var(--good-bg);
+    }
+
+    .feedback.bad {
+      display: block;
+      border-color: var(--bad);
+      background: var(--bad-bg);
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 0.94rem;
+    }
+
+    th, td {
+      padding: 9px 10px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--muted);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .results {
+      padding: clamp(16px, 3vw, 26px);
+      display: none;
+    }
+
+    .review-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .review-item {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      background: #fbfdfe;
+    }
+
+    .notice {
+      background: var(--warn-bg);
+      border: 1px solid #ecd388;
+      padding: 12px;
+      border-radius: 8px;
+      margin-top: 12px;
+    }
+
+    .print-only { display: none; }
+
+    @media (max-width: 820px) {
+      .controls, .statsbar {
+        grid-template-columns: 1fr;
+      }
+      .topline {
+        align-items: flex-start;
+      }
+      .option {
+        grid-template-columns: 28px 1fr;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+        color: #000;
+        font-size: 11pt;
+      }
+      header, .panel, .statsbar, .progress-shell, .quiz-card, .results, .no-print {
+        display: none !important;
+      }
+      .wrap {
+        width: 100%;
+        margin: 0;
+      }
+      .print-only {
+        display: block;
+      }
+      .print-question {
+        break-inside: avoid;
+        border-bottom: 1px solid #bbb;
+        padding: 0 0 10px;
+        margin: 0 0 12px;
+      }
+      .print-question h3 {
+        margin: 0 0 6px;
+        font-size: 12pt;
+      }
+      .print-question ol {
+        margin: 4px 0 0 22px;
+        padding: 0;
+      }
+      .answer-key {
+        break-before: page;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap topline">
+      <div>
+        <h1>Αισθητήριο Όρασης - MCQs Νευροανατομίας</h1>
+        <p class="subtitle">Δύσκολες ερωτήσεις Ανατομίας βασισμένες στις διαφάνειες του PDF.</p>
+      </div>
+      <button class="warning no-print" id="printBtn" type="button">Εκτύπωση</button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="panel no-print">
+      <div class="controls">
+        <div>
+          <label for="categoryFilter">Κατηγορία</label>
+          <select id="categoryFilter"></select>
+        </div>
+        <div>
+          <label for="searchBox">Αναζήτηση</label>
+          <input id="searchBox" type="search" placeholder="π.χ. ακτινωτό, Schlemm, θηλή">
+        </div>
+        <button id="applyBtn" type="button">Έναρξη</button>
+        <button id="resetBtn" type="button" class="secondary">Επανεκκίνηση</button>
+      </div>
+      <div class="checkrow">
+        <label><input id="shuffleQuestions" type="checkbox" checked> Ανακάτεμα ερωτήσεων</label>
+        <label><input id="shuffleOptions" type="checkbox" checked> Ανακάτεμα απαντήσεων</label>
+        <button id="clearProgressBtn" class="secondary" type="button">Καθαρισμός προόδου</button>
+      </div>
+      <div id="distribution"></div>
+    </section>
+
+    <section class="statsbar no-print" aria-live="polite">
+      <div class="stat"><span>Σκορ</span><strong id="scoreStat">0</strong></div>
+      <div class="stat"><span>Πρόοδος</span><strong id="progressStat">0 / 0</strong></div>
+      <div class="stat"><span>Ποσοστό</span><strong id="percentStat">0%</strong></div>
+      <div class="stat"><span>Κατηγορία</span><strong id="categoryStat">-</strong></div>
+    </section>
+
+    <div class="progress-shell no-print"><div class="progress-fill" id="progressFill"></div></div>
+
+    <section class="quiz-card no-print" id="quizCard">
+      <div class="meta">
+        <span id="sourceMeta"></span>
+        <span id="idMeta"></span>
+      </div>
+      <p class="question" id="questionText">Πατήστε «Έναρξη» για να ξεκινήσει το quiz.</p>
+      <div class="options" id="optionsBox"></div>
+      <div class="feedback" id="feedbackBox"></div>
+      <div class="actions">
+        <button id="nextBtn" type="button" style="display:none;">Επόμενη ερώτηση</button>
+      </div>
+    </section>
+
+    <section class="results no-print" id="resultsBox"></section>
+
+    <section class="print-only" id="printArea"></section>
+  </main>
+
+  <script>
+    const questions = [
+      {
+        id: 1,
+        category: "Μορφολογία και άξονες βολβού",
+        source: "Διαφάνειες 2-3",
+        question: "Σχετικά με τη γενική μορφή του οφθαλμικού βολβού, ποιο δεν ισχύει;",
+        options: [
+          { key: "α", text: "Καταλαμβάνει το πρόσθιο ημιμόριο του οφθαλμικού κόγχου.", correct: false },
+          { key: "β", text: "Το πρόσθιο εκτημόριο είναι διαφανές και έχει μικρότερη ακτίνα καμπυλότητας.", correct: false },
+          { key: "γ", text: "Τα οπίσθια πέντε εκτημόρια είναι διαφανή και αποτελούν τον κερατοειδή.", correct: true },
+          { key: "δ", text: "Το όριο των δύο καμπυλοτήτων αντιστοιχεί στην επιπολής σκληραία αύλακα.", correct: false }
+        ],
+        explanation: "Το διαφανές πρόσθιο εκτημόριο είναι ο κερατοειδής· τα οπίσθια πέντε εκτημόρια είναι αδιαφανή. (Διαφ. 2)"
+      },
+      {
+        id: 2,
+        category: "Μορφολογία και άξονες βολβού",
+        source: "Διαφάνεια 3",
+        question: "Ποια σχέση του οπτικού νεύρου με τον οπίσθιο πόλο αποδίδεται σωστά;",
+        options: [
+          { key: "α", text: "Εισδύεται 3 mm ρινικά και 1 mm κάτω από τον οπίσθιο πόλο.", correct: true },
+          { key: "β", text: "Εισδύεται 3 mm κροταφικά και 1 mm πάνω από τον οπίσθιο πόλο.", correct: false },
+          { key: "γ", text: "Εισδύεται ακριβώς στο κέντρο του οπίσθιου πόλου.", correct: false },
+          { key: "δ", text: "Εισδύεται 1 mm ρινικά και 3 mm κάτω από τον οπίσθιο πόλο.", correct: false }
+        ],
+        explanation: "Η διαφάνεια δίνει ρητά 3 mm ρινικά και 1 mm κάτω από τον οπίσθιο πόλο. (Διαφ. 3)"
+      },
+      {
+        id: 3,
+        category: "Μορφολογία και άξονες βολβού",
+        source: "Διαφάνειες 4-5",
+        question: "Ένα από τα παρακάτω για τους χιτώνες του βολβού είναι λάθος:",
+        options: [
+          { key: "α", text: "Ο ινώδης χιτώνας περιλαμβάνει κερατοειδή και σκληρό χιτώνα.", correct: false },
+          { key: "β", text: "Ο αγγειώδης χιτώνας περιλαμβάνει χοριοειδή, ακτινωτό σώμα και ίριδα.", correct: false },
+          { key: "γ", text: "Ο αμφιβληστροειδής περιλαμβάνει έξω μελάγχρουν πέταλο και έσω ιδίως αμφιβληστροειδή.", correct: false },
+          { key: "δ", text: "Το υαλοειδές σώμα ανήκει στους ομόκεντρους χιτώνες του τοιχώματος.", correct: true }
+        ],
+        explanation: "Το υαλοειδές σώμα είναι διαφανές περιεχόμενο, όχι χιτώνας του τοιχώματος. (Διαφ. 4-5)"
+      },
+      {
+        id: 4,
+        category: "Μορφολογία και άξονες βολβού",
+        source: "Διαφάνειες 7-8",
+        question: "Σχετικά με τους άξονες του βολβού, ποιο δεν ισχύει;",
+        options: [
+          { key: "α", text: "Ο ανατομικός άξονας ενώνει νοητά τους δύο πόλους.", correct: false },
+          { key: "β", text: "Ο οπτικός άξονας διέρχεται από τα κέντρα των διαθλαστικών μέσων.", correct: false },
+          { key: "γ", text: "Ο άξονας της όρασης καταλήγει στο κεντρικό βοθρίο.", correct: false },
+          { key: "δ", text: "Ο άξονας της όρασης ταυτίζεται σε όλο το μήκος με τον οπτικό άξονα.", correct: true }
+        ],
+        explanation: "Ο άξονας της όρασης χιάζεται με τον οπτικό άξονα υπό οξεία οπτική γωνία. (Διαφ. 8)"
+      },
+      {
+        id: 5,
+        category: "Μορφολογία και άξονες βολβού",
+        source: "Διαφάνεια 7",
+        question: "Ποια αντιστοιχία πόλου είναι λανθασμένη;",
+        options: [
+          { key: "α", text: "Πρόσθιος πόλος - κέντρο καμπυλότητας του κερατοειδή.", correct: false },
+          { key: "β", text: "Οπίσθιος πόλος - σημείο μέγιστης καμπυλότητας του πίσω τμήματος.", correct: false },
+          { key: "γ", text: "Οπίσθιος πόλος - σημείο που συμπίπτει με τον οπτικό άξονα.", correct: false },
+          { key: "δ", text: "Πρόσθιος πόλος - είσοδος του οπτικού νεύρου στον βολβό.", correct: true }
+        ],
+        explanation: "Η είσοδος του οπτικού νεύρου είναι οπίσθια και έκκεντρη, όχι ο πρόσθιος πόλος. (Διαφ. 3, 7)"
+      },
+      {
+        id: 6,
+        category: "Μορφολογία και άξονες βολβού",
+        source: "Διαφάνεια 5",
+        question: "Ποια σειρά του αγγειώδους χιτώνα από πίσω προς τα εμπρός είναι σωστή;",
+        options: [
+          { key: "α", text: "Ίριδα - ακτινωτό σώμα - χοριοειδής.", correct: false },
+          { key: "β", text: "Χοριοειδής - ακτινωτό σώμα - ίριδα.", correct: true },
+          { key: "γ", text: "Ακτινωτό σώμα - χοριοειδής - ίριδα.", correct: false },
+          { key: "δ", text: "Χοριοειδής - ίριδα - ακτινωτό σώμα.", correct: false }
+        ],
+        explanation: "Η σειρά που δίνεται είναι χοριοειδής, ακτινωτό σώμα, ίριδα. (Διαφ. 5)"
+      },
+      {
+        id: 7,
+        category: "Μορφολογία και άξονες βολβού",
+        source: "Διαφάνειες 7-8",
+        question: "Ποιο από τα παρακάτω δεν αντιστοιχεί σωστά;",
+        options: [
+          { key: "α", text: "Ανατομικός άξονας - γραμμή πρόσθιου προς οπίσθιο πόλο.", correct: false },
+          { key: "β", text: "Οπτικός άξονας - κέντρα κερατοειδή και φακού.", correct: false },
+          { key: "γ", text: "Άξονας όρασης - δεσμικό σημείο και κεντρικό βοθρίο.", correct: false },
+          { key: "δ", text: "Ισημερινός - γραμμή από πρόσθιο προς οπίσθιο πόλο.", correct: true }
+        ],
+        explanation: "Οι γραμμές από πρόσθιο προς οπίσθιο πόλο είναι οι μεσημβρινοί· ο ισημερινός χωρίζει τον βολβό σε ημιμόρια. (Διαφ. 3)"
+      },
+      {
+        id: 8,
+        category: "Ινώδης χιτώνας και σκληροκερατοειδής στεφάνη",
+        source: "Διαφάνειες 9-10",
+        question: "Για τον ινώδη χιτώνα, όλα ισχύουν εκτός από ένα:",
+        options: [
+          { key: "α", text: "Είναι παχύτερος και σκληρότερος από τους υπόλοιπους χιτώνες.", correct: false },
+          { key: "β", text: "Χρησιμεύει για την πρόσφυση μυών που κινούν τον βολβό.", correct: false },
+          { key: "γ", text: "Είναι φορέας των αγγείων του οφθαλμού.", correct: true },
+          { key: "δ", text: "Συμβάλλει στη διατήρηση του σχήματος του βολβού.", correct: false }
+        ],
+        explanation: "Φορέας των αγγείων περιγράφεται ο αγγειώδης, όχι ο ινώδης χιτώνας. (Διαφ. 9, 20)"
+      },
+      {
+        id: 9,
+        category: "Ινώδης χιτώνας και σκληροκερατοειδής στεφάνη",
+        source: "Διαφάνεια 12",
+        question: "Σχετικά με τις επιφάνειες του κερατοειδή, ποιο δεν ισχύει;",
+        options: [
+          { key: "α", text: "Η πρόσθια επιφάνεια είναι υπόκυρτη και προβάλλει στη μεσοβλεφάρια σχισμή.", correct: false },
+          { key: "β", text: "Η πρόσθια επιφάνεια υγραίνεται από τα δάκρυα.", correct: false },
+          { key: "γ", text: "Η οπίσθια επιφάνεια είναι υπόκοιλη και υγραίνεται από υδατοειδές υγρό.", correct: false },
+          { key: "δ", text: "Η περιφέρεια αντιστοιχεί εσωτερικά στην ωχρά κηλίδα.", correct: true }
+        ],
+        explanation: "Η περιφέρεια του κερατοειδή αντιστοιχεί εξωτερικά στην επιπολής σκληραία αύλακα. (Διαφ. 12)"
+      },
+      {
+        id: 10,
+        category: "Ινώδης χιτώνας και σκληροκερατοειδής στεφάνη",
+        source: "Διαφάνεια 13",
+        question: "Ποια σχέση της έξω επιφάνειας του σκληρού χιτώνα είναι λανθασμένη;",
+        options: [
+          { key: "α", text: "Μπροστά καλύπτεται από τον βολβικό επιπεφυκότα.", correct: false },
+          { key: "β", text: "Στην υπόλοιπη έκταση συνδέεται με την περιοφθάλμια περιτονία μέσω επισκληριδίου.", correct: false },
+          { key: "γ", text: "Χρησιμεύει για την πρόσφυση τενόντων των μυών του βολβού.", correct: false },
+          { key: "δ", text: "Συνάπτεται στενά με το μελάγχρουν επιθήλιο του αμφιβληστροειδή.", correct: true }
+        ],
+        explanation: "Η στενή σχέση με το μελάγχρουν επιθήλιο αφορά την έσω επιφάνεια του χοριοειδή. (Διαφ. 13, 21)"
+      },
+      {
+        id: 11,
+        category: "Ινώδης χιτώνας και σκληροκερατοειδής στεφάνη",
+        source: "Διαφάνειες 14-15",
+        question: "Στη σκληροκερατοειδή στεφάνη, ποιο στοιχείο βρίσκεται στο βάθος της;",
+        options: [
+          { key: "α", text: "Ο φλεβώδης κόλπος του σκληρού και το γωνιακό δικτυωτό.", correct: true },
+          { key: "β", text: "Η θηλή του οπτικού νεύρου και η ωχρά κηλίδα.", correct: false },
+          { key: "γ", text: "Οι περιδίνητες φλέβες και το κεντρικό βοθρίο.", correct: false },
+          { key: "δ", text: "Ο φακαίος βόθρος και η ακτινωτή ζώνη.", correct: false }
+        ],
+        explanation: "Στο βάθος της στεφάνης αναφέρονται ο σωλήνας/φλεβώδης κόλπος και το γωνιακό δικτυωτό. (Διαφ. 14-15)"
+      },
+      {
+        id: 12,
+        category: "Ινώδης χιτώνας και σκληροκερατοειδής στεφάνη",
+        source: "Διαφάνεια 16",
+        question: "Σχετικά με το γωνιακό δικτυωτό, ποιο είναι λάθος;",
+        options: [
+          { key: "α", text: "Βρίσκεται στην περιφέρεια του πρόσθιου θαλάμου.", correct: false },
+          { key: "β", text: "Η κορυφή του φέρεται εμπρός και συνδέεται με τον υμένα του Descemet.", correct: false },
+          { key: "γ", text: "Η βάση του φέρεται προς τα πίσω προς το σκληραίο πλήκτρο και το ακτινωτό σώμα.", correct: false },
+          { key: "δ", text: "Η κορυφή του φέρεται προς τα πίσω και συνδέεται με την πριονωτή περιφέρεια.", correct: true }
+        ],
+        explanation: "Η κορυφή φέρεται εμπρός, όχι πίσω· η πριονωτή περιφέρεια ανήκει στο όριο χοριοειδή-ακτινωτού. (Διαφ. 16, 21)"
+      },
+      {
+        id: 13,
+        category: "Ινώδης χιτώνας και σκληροκερατοειδής στεφάνη",
+        source: "Διαφάνεια 16",
+        question: "Ποια μοίρα δεν αναφέρεται ως μοίρα του γωνιακού δικτυωτού;",
+        options: [
+          { key: "α", text: "Σκληραία ή σκληροκερατοειδής μοίρα.", correct: false },
+          { key: "β", text: "Ραγοειδής μοίρα.", correct: false },
+          { key: "γ", text: "Ακτινωτή ή πριονωτή μοίρα.", correct: true },
+          { key: "δ", text: "Μοίρα που σχετίζεται με τον σωλήνα του Schlemm.", correct: false }
+        ],
+        explanation: "Οι δύο ρητές μοίρες είναι σκληραία/σκληροκερατοειδής και ραγοειδής. (Διαφ. 16)"
+      },
+      {
+        id: 14,
+        category: "Ινώδης χιτώνας και σκληροκερατοειδής στεφάνη",
+        source: "Διαφάνεια 16",
+        question: "Ποια διαδρομή αποχέτευσης από το γωνιακό δικτυωτό είναι σωστή;",
+        options: [
+          { key: "α", text: "Μεσοπετάλιοι χώροι του δικτυωτού προς τον σωλήνα του Schlemm.", correct: true },
+          { key: "β", text: "Κοιλάδες του Kuhnt προς την κεντρική φλέβα του αμφιβληστροειδή.", correct: false },
+          { key: "γ", text: "Φακοκοραία σχισμή προς τις περιδίνητες φλέβες.", correct: false },
+          { key: "δ", text: "Υαλοειδές σώμα προς τον σηραγγώδη κόλπο.", correct: false }
+        ],
+        explanation: "Οι σχισμοειδείς μεσοπετάλιοι χώροι απάγουν υδατοειδές στον σωλήνα του Schlemm. (Διαφ. 16)"
+      },
+      {
+        id: 15,
+        category: "Ινώδης χιτώνας και σκληροκερατοειδής στεφάνη",
+        source: "Διαφάνειες 17-18",
+        question: "Όλα τα παρακάτω για σκληρό χιτώνα και υδατοειδές είναι αληθή εκτός από ένα:",
+        options: [
+          { key: "α", text: "Η παρεμπόδιση αποχέτευσης στη γωνία αυξάνει την ενδοφθάλμια πίεση.", correct: false },
+          { key: "β", text: "Τα αθροιστικά σωληνάρια εκπορεύονται από το έξω ή κυρτό χείλος του Schlemm.", correct: false },
+          { key: "γ", text: "Ο σκληρός έχει λίγες αρτηρίες και μικρή αναγεννητική ικανότητα.", correct: false },
+          { key: "δ", text: "Ο σκληρός διαθέτει άφθονα γνήσια λεμφαγγεία προς τον χοριοειδή.", correct: true }
+        ],
+        explanation: "Γνήσια λεμφαγγεία στον σκληρό δεν υπάρχουν· αναφέρονται λεμφώδη αραιώματα. (Διαφ. 18)"
+      },
+      {
+        id: 16,
+        category: "Ινώδης χιτώνας και σκληροκερατοειδής στεφάνη",
+        source: "Διαφάνεια 18",
+        question: "Ποια νεύρα του σκληρού αντιστοιχούν σωστά;",
+        options: [
+          { key: "α", text: "Τα μακρά και κυρίως τα βραχέα ακτινοειδή νεύρα.", correct: true },
+          { key: "β", text: "Το δακρυϊκό και το ζυγωματοπροσωπικό νεύρο.", correct: false },
+          { key: "γ", text: "Το τροχιλιακό και το απαγωγό νεύρο.", correct: false },
+          { key: "δ", text: "Το υποκόγχιο και το άνω φατνιακό νεύρο.", correct: false }
+        ],
+        explanation: "Η νεύρωση του σκληρού δίνεται από μακρά και κυρίως βραχέα ακτινοειδή. (Διαφ. 18)"
+      },
+      {
+        id: 17,
+        category: "Αγγειώδης χιτώνας και ίριδα",
+        source: "Διαφάνεια 20",
+        question: "Ποιο δεν ανήκει στις λειτουργικές αναφορές του αγγειώδους χιτώνα;",
+        options: [
+          { key: "α", text: "Φέρει τα αγγεία του οφθαλμού.", correct: false },
+          { key: "β", text: "Η ακτινωτή μοίρα εκκρίνει το υδατοειδές υγρό.", correct: false },
+          { key: "γ", text: "Ο χοριοειδής συμβάλλει στη θρέψη των εξωτερικών στιβάδων του αμφιβληστροειδούς.", correct: false },
+          { key: "δ", text: "Ο κερατοειδής του αποτελεί τον κύριο λείο μυ για προσαρμογή.", correct: true }
+        ],
+        explanation: "Ο κερατοειδής ανήκει στον ινώδη χιτώνα· λείος μυς προσαρμογής είναι ο ακτινωτός. (Διαφ. 20)"
+      },
+      {
+        id: 18,
+        category: "Αγγειώδης χιτώνας και ίριδα",
+        source: "Διαφάνεια 21",
+        question: "Για τον χοριοειδή χιτώνα, ποιο δεν ισχύει;",
+        options: [
+          { key: "α", text: "Καταλαμβάνει τα δύο οπίσθια τριτημόρια του αγγειώδους χιτώνα.", correct: false },
+          { key: "β", text: "Εκτείνεται από την είσοδο του οπτικού νεύρου μέχρι την πριονωτή περιφέρεια.", correct: false },
+          { key: "γ", text: "Η έξω επιφάνειά του συνάπτεται στενά με το μελάγχρουν επιθήλιο.", correct: true },
+          { key: "δ", text: "Η έσω επιφάνειά του συνάπτεται στενά με το μελάγχρουν επιθήλιο.", correct: false }
+        ],
+        explanation: "Η έξω επιφάνεια συνάπτεται χαλαρά με τον σκληρό μέσω φαιού πετάλου· η έσω στενά με το μελάγχρουν επιθήλιο. (Διαφ. 21)"
+      },
+      {
+        id: 19,
+        category: "Αγγειώδης χιτώνας και ίριδα",
+        source: "Διαφάνειες 22-23",
+        question: "Ποια σχέση του ακτινωτού σώματος είναι λανθασμένη;",
+        options: [
+          { key: "α", text: "Είναι συνέχεια προς τα εμπρός του χοριοειδή χιτώνα.", correct: false },
+          { key: "β", text: "Εκτείνεται από την πριονωτή περιφέρεια μέχρι το περιφερικό χείλος της ίριδας.", correct: false },
+          { key: "γ", text: "Η έξω πλευρά του συνάπτεται με τον σκληρό.", correct: false },
+          { key: "δ", text: "Η πρόσθια πλευρά του αντιστοιχεί αποκλειστικά στην ωχρά κηλίδα.", correct: true }
+        ],
+        explanation: "Η πρόσθια πλευρά αντιστοιχεί στο δικτυωτό, στο περιφερικό χείλος της ίριδας και στην περιφέρεια του οπίσθιου θαλάμου. (Διαφ. 22)"
+      },
+      {
+        id: 20,
+        category: "Αγγειώδης χιτώνας και ίριδα",
+        source: "Διαφάνεια 23",
+        question: "Στη βάση του ακτινωτού σώματος, ποια αντιστοιχία είναι σωστή;",
+        options: [
+          { key: "α", text: "Έξω μοίρα - περιφέρεια πρόσθιου θαλάμου και ιριδοκερατοειδής γωνία.", correct: true },
+          { key: "β", text: "Έσω μοίρα - περιφέρεια πρόσθιου θαλάμου και σωλήνας Schlemm.", correct: false },
+          { key: "γ", text: "Έξω μοίρα - ιριδοακτινωτή γωνία με την ίριδα.", correct: false },
+          { key: "δ", text: "Έσω μοίρα - πριονωτή περιφέρεια και χοριοειδής.", correct: false }
+        ],
+        explanation: "Η ρίζα της ίριδας χωρίζει τη βάση: η έξω μοίρα αντιστοιχεί στην ιριδοκερατοειδή γωνία, η έσω σχηματίζει την ιριδοακτινωτή. (Διαφ. 23)"
+      },
+      {
+        id: 21,
+        category: "Αγγειώδης χιτώνας και ίριδα",
+        source: "Διαφάνειες 24-25",
+        question: "Ποιο δεν ισχύει για ακτινωτό κύκλο και ακτινωτό στέφανο;",
+        options: [
+          { key: "α", text: "Ο ακτινωτός κύκλος βρίσκεται μπροστά από την πριονωτή περιφέρεια.", correct: false },
+          { key: "β", text: "Ο ακτινωτός στέφανος βρίσκεται ανάμεσα στον ακτινωτό κύκλο και την ίριδα.", correct: false },
+          { key: "γ", text: "Οι κοιλάδες του Kuhnt χωρίζουν τις ακτινοειδείς προβολές.", correct: false },
+          { key: "δ", text: "Ο ακτινωτός κύκλος αποτελεί την πρόσθια μοίρα που εισέχει στον οπίσθιο θάλαμο.", correct: true }
+        ],
+        explanation: "Πρόσθια στενή ζώνη με ακτινοειδείς προβολές είναι ο ακτινωτός στέφανος, όχι ο ακτινωτός κύκλος. (Διαφ. 24-25)"
+      },
+      {
+        id: 22,
+        category: "Αγγειώδης χιτώνας και ίριδα",
+        source: "Διαφάνεια 25",
+        question: "Ποια πρόταση για τον ακτινωτό στέφανο είναι σωστή;",
+        options: [
+          { key: "α", text: "Εμφανίζει 70-80 υψηλές αγγειώδεις πτυχές που φέρονται κατά τους μεσημβρινούς.", correct: true },
+          { key: "β", text: "Αποτελεί την οπίσθια μοίρα πίσω από την πριονωτή περιφέρεια.", correct: false },
+          { key: "γ", text: "Καλύπτεται από βολβικό επιπεφυκότα και εκβάλλει στον δακρυϊκό ασκό.", correct: false },
+          { key: "δ", text: "Σχηματίζει τη θηλή του οπτικού νεύρου και το τυφλό σημείο.", correct: false }
+        ],
+        explanation: "Ο ακτινωτός στέφανος έχει 70-80 ακτινοειδείς προβολές κατά τους μεσημβρινούς. (Διαφ. 25)"
+      },
+      {
+        id: 23,
+        category: "Αγγειώδης χιτώνας και ίριδα",
+        source: "Διαφάνειες 26-27",
+        question: "Σχετικά με τον ακτινωτό μυ, τι δεν ισχύει;",
+        options: [
+          { key: "α", text: "Σε διατομή έχει σχήμα ορθογωνίου τριγώνου.", correct: false },
+          { key: "β", text: "Η βάση του στρέφεται προς το περιφερικό χείλος της ίριδας και τους θαλάμους.", correct: false },
+          { key: "γ", text: "Η έξω πλευρά του σχετίζεται με το αγγειώδες στρώμα του ακτινωτού σώματος.", correct: true },
+          { key: "δ", text: "Μεταβάλλει την κυρτότητα του κρυσταλλοειδή φακού.", correct: false }
+        ],
+        explanation: "Η έξω πλευρά συνάπτεται με τον σκληρό μέσω φαιού πετάλου· η έσω σχετίζεται με το αγγειώδες στρώμα. (Διαφ. 26)"
+      },
+      {
+        id: 24,
+        category: "Αγγειώδης χιτώνας και ίριδα",
+        source: "Διαφάνεια 27",
+        question: "Ποια νεύρωση του ακτινωτού μυός αποδίδεται σωστά;",
+        options: [
+          { key: "α", text: "Παρασυμπαθητικές ίνες φέρονται μέσω του κοινού κινητικού νεύρου.", correct: true },
+          { key: "β", text: "Κινητικές ίνες φέρονται κυρίως μέσω του τροχιλιακού νεύρου.", correct: false },
+          { key: "γ", text: "Συμπαθητικές ίνες έχουν τον κύριο συσταλτικό ρόλο.", correct: false },
+          { key: "δ", text: "Οι παχύτερες εμμύελες ίνες είναι συμπαθητικές.", correct: false }
+        ],
+        explanation: "Η παρασυμπαθητική νεύρωση φέρεται μέσω του κοινού κινητικού· οι συμπαθητικές αναφέρονται ως ανασταλτικές. (Διαφ. 27)"
+      },
+      {
+        id: 25,
+        category: "Αγγειώδης χιτώνας και ίριδα",
+        source: "Διαφάνεια 28",
+        question: "Για την ίριδα, όλα ισχύουν εκτός από ένα:",
+        options: [
+          { key: "α", text: "Είναι η πρόσθια και έγχρωμη μοίρα του αγγειώδους χιτώνα.", correct: false },
+          { key: "β", text: "Παρεμβάλλεται ανάμεσα στον κερατοειδή και τον κρυσταλλοειδή φακό.", correct: false },
+          { key: "γ", text: "Η οπή στο μέσον της ονομάζεται κόρη.", correct: false },
+          { key: "δ", text: "Αποτελεί την οπίσθια αδιαφανή μοίρα του ινώδους χιτώνα.", correct: true }
+        ],
+        explanation: "Η ίριδα είναι πρόσθια μοίρα του αγγειώδους χιτώνα, όχι ινώδης χιτώνας. (Διαφ. 28)"
+      },
+      {
+        id: 26,
+        category: "Αγγειώδης χιτώνας και ίριδα",
+        source: "Διαφάνεια 29",
+        question: "Ποια σχέση της πρόσθιας επιφάνειας της ίριδας είναι λανθασμένη;",
+        options: [
+          { key: "α", text: "Είναι υπόκυρτη και ανώμαλη με πτυχές και κρύπτες.", correct: false },
+          { key: "β", text: "Αφορίζει από πίσω τον πρόσθιο θάλαμο.", correct: false },
+          { key: "γ", text: "Το βοστρύχιο βρίσκεται περίπου 1,5 mm κοντά στο κοραίο χείλος.", correct: false },
+          { key: "δ", text: "Με το βοστρύχιο διαιρείται σε πρόσθια και οπίσθια επιφάνεια.", correct: true }
+        ],
+        explanation: "Το βοστρύχιο διαιρεί την πρόσθια επιφάνεια σε έσω/κοραία και έξω/περιφερική ζώνη. (Διαφ. 29)"
+      },
+      {
+        id: 27,
+        category: "Αγγειώδης χιτώνας και ίριδα",
+        source: "Διαφάνεια 29",
+        question: "Ποια αντιστοιχία ζώνης της ίριδας δεν είναι σωστή;",
+        options: [
+          { key: "α", text: "Έσω ζώνη - κοραία ζώνη.", correct: false },
+          { key: "β", text: "Έσω ζώνη - ελάσσων κύκλος.", correct: false },
+          { key: "γ", text: "Έξω ζώνη - μείζων κύκλος.", correct: false },
+          { key: "δ", text: "Έξω ζώνη - στενή ζώνη με λεπτές ακτινωτές πτυχές.", correct: true }
+        ],
+        explanation: "Η στενή ζώνη με λεπτές ακτινωτές πτυχές είναι η έσω/κοραία, όχι η έξω/μείζων. (Διαφ. 29)"
+      },
+      {
+        id: 28,
+        category: "Αγγειώδης χιτώνας και ίριδα",
+        source: "Διαφάνεια 31",
+        question: "Ποια διαδρομή προς τον σφιγκτήρα της κόρης είναι σωστή;",
+        options: [
+          { key: "α", text: "Πυρήνας Edinger-Westphal, κοινό κινητικό νεύρο, οφθαλμικό γάγγλιο, βραχέα ακτινοειδή.", correct: true },
+          { key: "β", text: "Βλεφαρονωτιαίο κέντρο, άνω αυχενικό γάγγλιο, μακρά ακτινοειδή.", correct: false },
+          { key: "γ", text: "Πυρήνας απαγωγού, οφθαλμικό γάγγλιο, δακρυϊκό νεύρο.", correct: false },
+          { key: "δ", text: "Σφηνουπερώιο γάγγλιο, ζυγωματικό νεύρο, δακρυϊκό νεύρο.", correct: false }
+        ],
+        explanation: "Ο σφιγκτήρας δέχεται παρασυμπαθητικές ίνες από τον πυρήνα της κόρης μέσω III, οφθαλμικού γαγγλίου και βραχέων ακτινοειδών. (Διαφ. 31)"
+      },
+      {
+        id: 29,
+        category: "Αγγειώδης χιτώνας και ίριδα",
+        source: "Διαφάνεια 32",
+        question: "Σχετικά με τον διαστολέα της κόρης, ποιο δεν ισχύει;",
+        options: [
+          { key: "α", text: "Καταλαμβάνει σχεδόν όλο το πλάτος της ίριδας.", correct: false },
+          { key: "β", text: "Αποτελείται από μυοεπιθηλιακά κύτταρα με ακτινοειδή φορά.", correct: false },
+          { key: "γ", text: "Οι ίνες του προέρχονται από το βλεφαρονωτιαίο κέντρο και διακόπτονται στο άνω αυχενικό γάγγλιο.", correct: false },
+          { key: "δ", text: "Οι μεταγαγγλιακές ίνες διακόπτονται στο οφθαλμικό γάγγλιο πριν φθάσουν στον μυ.", correct: true }
+        ],
+        explanation: "Οι συμπαθητικές μεταγαγγλιακές ίνες διαπερνούν το οφθαλμικό γάγγλιο και δεν διακόπτονται σε αυτό. (Διαφ. 32)"
+      },
+      {
+        id: 30,
+        category: "Αγγεία οφθαλμού",
+        source: "Διαφάνεια 33",
+        question: "Για τις πρόσθιες ακτινοειδείς αρτηρίες, ποια πρόταση είναι λάθος;",
+        options: [
+          { key: "α", text: "Εκφύονται διφυείς από μυϊκούς κλάδους της οφθαλμικής αρτηρίας.", correct: false },
+          { key: "β", text: "Φέρονται προς τα εμπρός μέσα στον επισκληρίδιο ιστό.", correct: false },
+          { key: "γ", text: "Διατρυπούν τον σκληρό 3-4 mm πίσω από τη σκληροκερατοειδή στεφάνη.", correct: false },
+          { key: "δ", text: "Πριν εισέλθουν στον βολβό χορηγούν αποκλειστικά οπίσθιες αρτηρίες του επιπεφυκότα.", correct: true }
+        ],
+        explanation: "Πριν εισέλθουν χορηγούν επισκληρίδιες αρτηρίες και πρόσθιες αρτηρίες του επιπεφυκότα. (Διαφ. 33)"
+      },
+      {
+        id: 31,
+        category: "Αγγεία οφθαλμού",
+        source: "Διαφάνεια 34",
+        question: "Ποιο δεν ισχύει για τις φλέβες του αγγειώδους χιτώνα;",
+        options: [
+          { key: "α", text: "Διακρίνονται σε ακτινοειδείς και περιδίνητες.", correct: false },
+          { key: "β", text: "Στερούνται βαλβίδων και απάγουν αίμα προς τον σηραγγώδη κόλπο.", correct: false },
+          { key: "γ", text: "Οι οπίσθιες ακτινοειδείς αντιστοιχούν πλήρως στις ομώνυμες αρτηρίες.", correct: true },
+          { key: "δ", text: "Οι πρόσθιες ακτινοειδείς συνοδεύουν τις ομώνυμες αρτηρίες.", correct: false }
+        ],
+        explanation: "Οι οπίσθιες ακτινοειδείς φλέβες δεν αντιστοιχούν στις ομώνυμες αρτηρίες. (Διαφ. 34)"
+      },
+      {
+        id: 32,
+        category: "Αγγεία οφθαλμού",
+        source: "Διαφάνεια 34",
+        question: "Ποια αντιστοιχία για τις περιδίνητες φλέβες είναι σωστή;",
+        options: [
+          { key: "α", text: "Συνήθως είναι τέσσερις: δύο άνω προς την άνω οφθαλμική και δύο κάτω προς την κάτω οφθαλμική φλέβα.", correct: true },
+          { key: "β", text: "Συνήθως είναι δύο και εκβάλλουν απευθείας στην κεντρική φλέβα του αμφιβληστροειδή.", correct: false },
+          { key: "γ", text: "Περιβάλλουν τη φακοκοραία σχισμή και εκβάλλουν στον σωλήνα του Schlemm.", correct: false },
+          { key: "δ", text: "Σχηματίζουν το μείζον αρτηριακό κύκλο της ίριδας.", correct: false }
+        ],
+        explanation: "Οι περιδίνητες είναι συνήθως 4, με τις άνω στην άνω και τις κάτω στην κάτω οφθαλμική φλέβα. (Διαφ. 34)"
+      },
+      {
+        id: 33,
+        category: "Αμφιβληστροειδής",
+        source: "Διαφάνεια 35",
+        question: "Σχετικά με τον αμφιβληστροειδή, τι δεν ισχύει;",
+        options: [
+          { key: "α", text: "Αποτελείται από έξω μελάγχρουν επιθήλιο και έσω ιδίως αμφιβληστροειδή.", correct: false },
+          { key: "β", text: "Κάθε πέταλο εμφανίζει οπτική, ακτινωτή και ιριδική μοίρα.", correct: false },
+          { key: "γ", text: "Η ακτινωτή και η ιριδική μοίρα αποτελούν την τυφλή μοίρα.", correct: false },
+          { key: "δ", text: "Η ακτινωτή μοίρα είναι ο κυρίως αισθητήριος χιτώνας από όπου αρχίζει το οπτικό νεύρο.", correct: true }
+        ],
+        explanation: "Η οπτική μοίρα είναι ο κυρίως αισθητήριος χιτώνας και από αυτή αρχίζει το οπτικό νεύρο. (Διαφ. 35)"
+      },
+      {
+        id: 34,
+        category: "Αμφιβληστροειδής",
+        source: "Διαφάνεια 36",
+        question: "Ποια σχέση του μελάγχρου επιθηλίου είναι σωστή;",
+        options: [
+          { key: "α", text: "Συνάπτεται στενότερα με το βασικό πέταλο του χοριοειδή παρά με τον ιδίως αμφιβληστροειδή.", correct: true },
+          { key: "β", text: "Συνάπτεται στενά μόνο με το υαλοειδές σώμα σε όλη την έκταση.", correct: false },
+          { key: "γ", text: "Εκτείνεται από την κόρη μέχρι τη φακοκοραία σχισμή.", correct: false },
+          { key: "δ", text: "Αποτελείται από εννέα στιβάδες νευρικών ινών.", correct: false }
+        ],
+        explanation: "Το μελάγχρουν επιθήλιο συνάπτεται στενά με τον χοριοειδή και απλά με τον ιδίως αμφιβληστροειδή, με εξαιρέσεις. (Διαφ. 36)"
+      },
+      {
+        id: 35,
+        category: "Αμφιβληστροειδής",
+        source: "Διαφάνεια 37",
+        question: "Για τον ιδίως αμφιβληστροειδή, ποιο είναι λάθος;",
+        options: [
+          { key: "α", text: "Εκτείνεται από την είσοδο του οπτικού νεύρου μέχρι την πριονωτή περιφέρεια.", correct: false },
+          { key: "β", text: "Η έξω υπόκυρτη επιφάνεια συνάπτεται με το μελάγχρουν επιθήλιο.", correct: false },
+          { key: "γ", text: "Η έσω επιφάνεια σχετίζεται με το υαλοειδές σώμα.", correct: false },
+          { key: "δ", text: "Η ερυθρή χροιά του βυθού οφείλεται αποκλειστικά στον ιδίως αμφιβληστροειδή.", correct: true }
+        ],
+        explanation: "Η ερυθρή χροιά οφείλεται στα αγγεία/χρωστική του χοριοειδή και στο μελάγχρουν επιθήλιο. (Διαφ. 37)"
+      },
+      {
+        id: 36,
+        category: "Αμφιβληστροειδής",
+        source: "Διαφάνεια 38",
+        question: "Ποια πρόταση για τη θηλή του οπτικού νεύρου δεν ισχύει;",
+        options: [
+          { key: "α", text: "Βρίσκεται 3,5 mm ρινικά και 1 mm επάνω από τον οπίσθιο πόλο.", correct: false },
+          { key: "β", text: "Είναι κυκλοτερής έως ελαφρά ωοειδής υπόλευκη ροδίζουσα περιοχή.", correct: false },
+          { key: "γ", text: "Η κεντρική μοίρα είναι υπόκοιλη και ονομάζεται βοθρίο της οπτικής θηλής.", correct: false },
+          { key: "δ", text: "Από το βοθρίο αναδύονται τα κεντρικά αγγεία του αμφιβληστροειδή.", correct: false }
+        ],
+        explanation: "Η πρόταση παγίδα είναι η α αν αντιστραφεί με τη θέση του οπτικού νεύρου σε άλλη διαφάνεια· εδώ η θηλή δίνεται 3,5 mm ρινικά και 1 mm πάνω. (Διαφ. 38)"
+      },
+      {
+        id: 37,
+        category: "Αμφιβληστροειδής",
+        source: "Διαφάνεια 39",
+        question: "Σχετικά με την ωχρά κηλίδα, ποιο δεν ισχύει;",
+        options: [
+          { key: "α", text: "Βρίσκεται κροταφικά από το μέσο της θηλής του οπτικού νεύρου.", correct: false },
+          { key: "β", text: "Βρίσκεται 1 mm κάτω από το οριζόντιο επίπεδο της θηλής.", correct: false },
+          { key: "γ", text: "Η περιφέρειά της αντιστοιχεί στο παχύτερο μέρος του αμφιβληστροειδή.", correct: false },
+          { key: "δ", text: "Το κεντρικό βοθρίο αποτελείται μόνο από ραβδία.", correct: true }
+        ],
+        explanation: "Το κεντρικό βοθρίο αποτελείται μόνο από κωνία και αντιστοιχεί στην ευκρινή όραση. (Διαφ. 39)"
+      },
+      {
+        id: 38,
+        category: "Αμφιβληστροειδής",
+        source: "Διαφάνεια 39",
+        question: "Ποια αντιστοιχία της ωχράς κηλίδας είναι σωστή;",
+        options: [
+          { key: "α", text: "Κεντρικό βοθρίο - οπίσθιο άκρο του άξονα της όρασης.", correct: true },
+          { key: "β", text: "Κεντρικός βόθρος - σημείο εξόδου των κεντρικών αγγείων.", correct: false },
+          { key: "γ", text: "Περιφέρεια ωχράς - λεπτότερο σημείο 0,1 mm.", correct: false },
+          { key: "δ", text: "Ωχρά κηλίδα - ρινικά της θηλής κατά 4 mm.", correct: false }
+        ],
+        explanation: "Το κεντρικό βοθρίο είναι το κεντρικό σημείο ευκρινούς όρασης και οπίσθιο άκρο του άξονα της όρασης. (Διαφ. 39)"
+      },
+      {
+        id: 39,
+        category: "Αμφιβληστροειδής",
+        source: "Διαφάνειες 40-41",
+        question: "Ποια σειρά μετάδοσης της οπτικής διέγερσης αποδίδεται σωστά;",
+        options: [
+          { key: "α", text: "Κωνία/ραβδία, δίπολα κύτταρα, γαγγλιακά κύτταρα, οπτικό νεύρο.", correct: true },
+          { key: "β", text: "Γαγγλιακά κύτταρα, δίπολα κύτταρα, κωνία/ραβδία, οπτικό νεύρο.", correct: false },
+          { key: "γ", text: "Έσω αφοριστικός υμένας, χοριοειδής, φακός, οπτικό νεύρο.", correct: false },
+          { key: "δ", text: "Μελάγχρουν επιθήλιο, ακτινωτός μυς, σφιγκτήρας κόρης, οπτικό νεύρο.", correct: false }
+        ],
+        explanation: "Το φως διεγείρει κωνία/ραβδία και η ώση μεταβιβάζεται σε δίπολα και γαγγλιακά, των οποίων οι νευρίτες σχηματίζουν το οπτικό νεύρο. (Διαφ. 41)"
+      },
+      {
+        id: 40,
+        category: "Αμφιβληστροειδής",
+        source: "Διαφάνεια 40",
+        question: "Ποια στιβάδα δεν τοποθετείται σωστά από έξω προς τα μέσα;",
+        options: [
+          { key: "α", text: "Στιβάδα κωνίων και ραβδίων πριν από τον έξω αφοριστικό υμένα.", correct: false },
+          { key: "β", text: "Έξω κοκκώδης πριν από την έξω δικτυωτή στιβάδα.", correct: false },
+          { key: "γ", text: "Στιβάδα γαγγλιακών κυττάρων πριν από τη στιβάδα νευρικών ινών.", correct: false },
+          { key: "δ", text: "Έσω αφοριστικός υμένας πριν από την έσω δικτυωτή στιβάδα.", correct: true }
+        ],
+        explanation: "Ο έσω αφοριστικός υμένας είναι η 9η, έσωτερη στιβάδα, μετά τη στιβάδα νευρικών ινών. (Διαφ. 40)"
+      },
+      {
+        id: 41,
+        category: "Αγγεία οφθαλμού",
+        source: "Διαφάνεια 42",
+        question: "Για την κεντρική αρτηρία του αμφιβληστροειδή, τι δεν ισχύει;",
+        options: [
+          { key: "α", text: "Είναι κλάδος της οφθαλμικής αρτηρίας.", correct: false },
+          { key: "β", text: "Εισδύεται στο οπτικό νεύρο από την κάτω επιφάνειά του.", correct: false },
+          { key: "γ", text: "Πορεύεται στον κεντρικό άξονα του οπτικού νεύρου.", correct: false },
+          { key: "δ", text: "Η ομώνυμη φλέβα βρίσκεται ρινικά της κατά την πορεία στο οπτικό νεύρο.", correct: true }
+        ],
+        explanation: "Η διαφάνεια αναφέρει ότι κροταφικά έχει την ομώνυμη φλέβα. (Διαφ. 42)"
+      },
+      {
+        id: 42,
+        category: "Αγγεία οφθαλμού",
+        source: "Διαφάνεια 42",
+        question: "Ποια διακλάδωση της κεντρικής αρτηρίας του αμφιβληστροειδή είναι σωστή;",
+        options: [
+          { key: "α", text: "Μετά το βοθρίο της θηλής αποσχίζεται σε άνω και κάτω κλάδο, και καθένας σε ρινικό και κροταφικό.", correct: true },
+          { key: "β", text: "Πριν εισέλθει στο οπτικό νεύρο αποσχίζεται σε περιδίνητες φλέβες.", correct: false },
+          { key: "γ", text: "Στον πρόσθιο θάλαμο αποσχίζεται σε σκληραία και ραγοειδή μοίρα.", correct: false },
+          { key: "δ", text: "Στην ωχρά κηλίδα αποσχίζεται σε φακαίο και υαλοειδικό κλάδο.", correct: false }
+        ],
+        explanation: "Μετά την ανάδυση στη θηλή δίνει άνω/κάτω κλάδο, και καθένας έσω ή ρινικό και έξω ή κροταφικό. (Διαφ. 42)"
+      },
+      {
+        id: 43,
+        category: "Αγγεία οφθαλμού",
+        source: "Διαφάνεια 44",
+        question: "Σχετικά με τις φλέβες του αμφιβληστροειδή, ποιο είναι λάθος;",
+        options: [
+          { key: "α", text: "Αρχίζουν από τα τριχοειδικά δίκτυα.", correct: false },
+          { key: "β", text: "Είναι άμυες.", correct: false },
+          { key: "γ", text: "Συμπορεύονται σταθερά με τις αντίστοιχες αρτηρίες.", correct: true },
+          { key: "δ", text: "Αθροίζονται στην περιοχή της θηλής και σχηματίζουν την κεντρική φλέβα.", correct: false }
+        ],
+        explanation: "Η διαφάνεια τονίζει ότι οι φλέβες δεν συμπορεύονται με τις αντίστοιχες αρτηρίες. (Διαφ. 44)"
+      },
+      {
+        id: 44,
+        category: "Αγγεία οφθαλμού",
+        source: "Διαφάνεια 44",
+        question: "Ποια κλινικοανατομική σχέση αποδίδεται σωστά;",
+        options: [
+          { key: "α", text: "Αύξηση ενδοκράνιας πίεσης μπορεί να εμποδίσει τη φλεβική αποχέτευση και να προκαλέσει οίδημα θηλής.", correct: true },
+          { key: "β", text: "Απόφραξη της φακοκοραίας σχισμής προκαλεί άμεσα οίδημα ωχράς μέσω λεμφαγγείων.", correct: false },
+          { key: "γ", text: "Υπέρταση του υαλοειδούς προκαλεί αναστολή του σφιγκτήρα της κόρης.", correct: false },
+          { key: "δ", text: "Απόφραξη του δακρυϊκού σημείου προκαλεί θρόμβωση της κεντρικής αρτηρίας.", correct: false }
+        ],
+        explanation: "Η παρεμπόδιση φλεβικής αποχέτευσης από αυξημένη ενδοκράνια πίεση συνδέεται με οίδημα της θηλής. (Διαφ. 44)"
+      },
+      {
+        id: 45,
+        category: "Διαθλαστικά μέσα και θάλαμοι",
+        source: "Διαφάνειες 45-47",
+        question: "Για τον κρυσταλλοειδή φακό, ποιο δεν ισχύει;",
+        options: [
+          { key: "α", text: "Είναι διαφανής και έχει ιδιότητες αμφίκυρτου φακού.", correct: false },
+          { key: "β", text: "Φέρεται πίσω από την ίριδα και μπροστά από το υαλοειδές σώμα.", correct: false },
+          { key: "γ", text: "Η οπίσθια επιφάνειά του είναι κυρτότερη από την πρόσθια.", correct: false },
+          { key: "δ", text: "Η πρόσθια επιφάνειά του εισέχει στον φακαίο βόθρο του υαλοειδούς.", correct: true }
+        ],
+        explanation: "Στον φακαίο βόθρο εισέχει η οπίσθια, όχι η πρόσθια επιφάνεια του φακού. (Διαφ. 47)"
+      },
+      {
+        id: 46,
+        category: "Διαθλαστικά μέσα και θάλαμοι",
+        source: "Διαφάνεια 47",
+        question: "Ποια σχέση της πρόσθιας επιφάνειας του φακού είναι σωστή;",
+        options: [
+          { key: "α", text: "Η κεντρική μοίρα αντιστοιχεί στην κόρη και η περιφερική χωρίζεται από την ίριδα με τη φακοκοραία σχισμή.", correct: true },
+          { key: "β", text: "Η κεντρική μοίρα αντιστοιχεί στην ωχρά κηλίδα και η περιφερική στον σωλήνα Schlemm.", correct: false },
+          { key: "γ", text: "Η περιφερική μοίρα εισέχει στον φακαίο βόθρο του υαλοειδούς.", correct: false },
+          { key: "δ", text: "Η πρόσθια επιφάνεια συνδέεται άμεσα με τον σκληρό χιτώνα.", correct: false }
+        ],
+        explanation: "Η πρόσθια επιφάνεια έχει κεντρική σχέση με την κόρη και περιφερικά χωρίζεται από την ίριδα με τη φακοκοραία σχισμή. (Διαφ. 47)"
+      },
+      {
+        id: 47,
+        category: "Διαθλαστικά μέσα και θάλαμοι",
+        source: "Διαφάνειες 48-49",
+        question: "Στην προσαρμογή για κοντινή όραση, ποιο είναι σωστό;",
+        options: [
+          { key: "α", text: "Συσπάται ο ακτινωτός μυς, το ακτινωτό σώμα έλκεται εμπρός και έσω, η ζώνη χαλαρώνει και ο φακός κυρτώνεται.", correct: true },
+          { key: "β", text: "Χαλαρώνει ο ακτινωτός μυς, η ζώνη χαλαρώνει και ο φακός αποπλατύνεται.", correct: false },
+          { key: "γ", text: "Συσπάται ο ακτινωτός μυς, η ζώνη διατείνεται και ο φακός αποπλατύνεται.", correct: false },
+          { key: "δ", text: "Χαλαρώνει ο ακτινωτός μυς, το ακτινωτό σώμα έλκεται προς τον φακό και ο φακός κυρτώνεται.", correct: false }
+        ],
+        explanation: "Η σύσπαση χαλαρώνει την ακτινωτή ζώνη και η ελαστικότητα κυρτώνει τον φακό για κοντινή όραση. (Διαφ. 49)"
+      },
+      {
+        id: 48,
+        category: "Διαθλαστικά μέσα και θάλαμοι",
+        source: "Διαφάνεια 50",
+        question: "Ποιο δεν ισχύει για τους θαλάμους του βολβού;",
+        options: [
+          { key: "α", text: "Ο πρόσθιος θάλαμος έχει μπροστά τον κερατοειδή και πίσω την ίριδα.", correct: false },
+          { key: "β", text: "Ο οπίσθιος θάλαμος δεν έχει κεντρική μοίρα.", correct: false },
+          { key: "γ", text: "Ο οπίσθιος θάλαμος μοιάζει με κοίλο δακτύλιο και σε διατομή με τρίγωνο.", correct: false },
+          { key: "δ", text: "Οι δύο θάλαμοι επικοινωνούν μέσω του φακαίου βόθρου.", correct: true }
+        ],
+        explanation: "Οι θάλαμοι επικοινωνούν με τη φακοκοραία σχισμή, όχι με τον φακαίο βόθρο. (Διαφ. 50)"
+      },
+      {
+        id: 49,
+        category: "Διαθλαστικά μέσα και θάλαμοι",
+        source: "Διαφάνεια 51",
+        question: "Ποια πορεία του υδατοειδούς υγρού αποδίδεται σωστά;",
+        options: [
+          { key: "α", text: "Οπίσθιος θάλαμος, φακοκοραία σχισμή, πρόσθιος θάλαμος, γωνιακό δικτυωτό, Schlemm, πρόσθιες ακτινοειδείς φλέβες.", correct: true },
+          { key: "β", text: "Πρόσθιος θάλαμος, υαλοειδές σώμα, φακαίος βόθρος, κεντρική φλέβα.", correct: false },
+          { key: "γ", text: "Οπίσθιος θάλαμος, ωχρά κηλίδα, περιδίνητες φλέβες, σηραγγώδης κόλπος.", correct: false },
+          { key: "δ", text: "Ακτινωτός κύκλος, θηλή οπτικού νεύρου, δακρυϊκός ασκός, ρινοδακρυϊκός πόρος.", correct: false }
+        ],
+        explanation: "Η παραγωγή γίνεται από ακτινοειδείς προβολές και η αποχέτευση περνά από φακοκοραία σχισμή προς πρόσθιο θάλαμο και γωνιακό δικτυωτό. (Διαφ. 51)"
+      },
+      {
+        id: 50,
+        category: "Διαθλαστικά μέσα και θάλαμοι",
+        source: "Διαφάνεια 52",
+        question: "Για το υαλοειδές σώμα, ένα από τα παρακάτω είναι λάθος:",
+        options: [
+          { key: "α", text: "Καταλαμβάνει το μεγαλύτερο μέρος της κοιλότητας του βολβού.", correct: false },
+          { key: "β", text: "Βρίσκεται πίσω από τον φακό και την ακτινωτή ζώνη.", correct: false },
+          { key: "γ", text: "Είναι πηκτοειδής διαφανής μάζα των διαθλαστικών μέσων.", correct: false },
+          { key: "δ", text: "Εμφανίζει μπροστά τον κεντρικό βόθρο όπου προσαρμόζεται η ωχρά κηλίδα.", correct: true }
+        ],
+        explanation: "Μπροστά εμφανίζει φακαίο βόθρο όπου προσαρμόζεται η οπίσθια επιφάνεια του φακού. (Διαφ. 52)"
+      },
+      {
+        id: 51,
+        category: "Βλέφαρα και οφρύες",
+        source: "Διαφάνεια 54",
+        question: "Για τις οφρύες, ποια αντιστοιχία δεν είναι σωστή;",
+        options: [
+          { key: "α", text: "Έσω μοίρα - πλατύτερη κεφαλή.", correct: false },
+          { key: "β", text: "Μέση μοίρα - σώμα.", correct: false },
+          { key: "γ", text: "Έξω μοίρα - στενότερη ουρά.", correct: false },
+          { key: "δ", text: "Οι κεφαλές ενώνονται με τον έσω βλεφαρικό σύνδεσμο.", correct: true }
+        ],
+        explanation: "Οι κεφαλές των οφρύων χωρίζονται με το μεσόφρυο. (Διαφ. 54)"
+      },
+      {
+        id: 52,
+        category: "Βλέφαρα και οφρύες",
+        source: "Διαφάνεια 55",
+        question: "Σχετικά με τα βλέφαρα, ποιο είναι λάθος;",
+        options: [
+          { key: "α", text: "Το άνω βλέφαρο είναι πλατύτερο κατά κάθετη γραμμή.", correct: false },
+          { key: "β", text: "Το άνω βλέφαρο είναι πιο ευκίνητο από το κάτω.", correct: false },
+          { key: "γ", text: "Κατά τη σύγκλιση το κάτω βλέφαρο καλύπτει κυρίως τον κερατοειδή.", correct: true },
+          { key: "δ", text: "Τα βλέφαρα χωρίζονται μεταξύ τους με τη μεσοβλεφάρια σχισμή.", correct: false }
+        ],
+        explanation: "Κατά τη σύγκλιση το άνω κινείται προς τα κάτω και καλύπτει τον κερατοειδή· το κάτω ανέρχεται ανεπαίσθητα. (Διαφ. 55)"
+      },
+      {
+        id: 53,
+        category: "Βλέφαρα και οφρύες",
+        source: "Διαφάνειες 57-59",
+        question: "Ποιο δεν ισχύει για την περιγραφή των βλεφάρων;",
+        options: [
+          { key: "α", text: "Έχουν πρόσθια και οπίσθια επιφάνεια.", correct: false },
+          { key: "β", text: "Έχουν έσω και έξω άκρο.", correct: false },
+          { key: "γ", text: "Έχουν προσπεφυκός και ελεύθερο χείλος.", correct: false },
+          { key: "δ", text: "Το ελεύθερο χείλος έχει ίσες έσω και έξω μοίρες.", correct: true }
+        ],
+        explanation: "Το ελεύθερο χείλος έχει δύο άνισες μοίρες· η έξω/βολβική καταλαμβάνει τα 5/6. (Διαφ. 59)"
+      },
+      {
+        id: 54,
+        category: "Βλέφαρα και οφρύες",
+        source: "Διαφάνεια 59",
+        question: "Ποια σχέση της δακρυϊκής θηλής είναι σωστή;",
+        options: [
+          { key: "α", text: "Αποτελεί το όριο ανάμεσα στην έσω δακρυϊκή και την έξω βολβική μοίρα του ελεύθερου χείλους.", correct: true },
+          { key: "β", text: "Βρίσκεται στην έξω βλεφαρική στεφάνη και δέχεται τους ταρσαίους αδένες.", correct: false },
+          { key: "γ", text: "Είναι η εκβολή των πόρων του δακρυϊκού αδένα στον άνω θόλο.", correct: false },
+          { key: "δ", text: "Αντιστοιχεί στη βλεφαροπαρειακή αύλακα του κάτω βλεφάρου.", correct: false }
+        ],
+        explanation: "Στην κορυφή της δακρυϊκής θηλής βρίσκεται το δακρυϊκό σημείο, αρχή του σύστοιχου πόρου. (Διαφ. 59)"
+      },
+      {
+        id: 55,
+        category: "Βλέφαρα και οφρύες",
+        source: "Διαφάνεια 60",
+        question: "Στο ελεύθερο χείλος των βλεφάρων, ποια αντιστοιχία είναι λανθασμένη;",
+        options: [
+          { key: "α", text: "Οπίσθια βλεφαρική στεφάνη - στόμια ταρσαίων αδένων.", correct: false },
+          { key: "β", text: "Πρόσθια βλεφαρική στεφάνη - έκφυση βλεφαρίδων.", correct: false },
+          { key: "γ", text: "Μεσοστεφανιαία ζώνη - ανάμεσα στις δύο στεφάνες.", correct: false },
+          { key: "δ", text: "Πρόσθια βλεφαρική στεφάνη - 20-30 στόμια ταρσαίων αδένων.", correct: true }
+        ],
+        explanation: "Τα 20-30 στόμια των ταρσαίων αδένων βρίσκονται κατά μήκος της οπίσθιας στεφάνης. (Διαφ. 60)"
+      },
+      {
+        id: 56,
+        category: "Βλέφαρα και οφρύες",
+        source: "Διαφάνεια 61",
+        question: "Ποια ενέργεια της μυϊκής στιβάδας των βλεφάρων δεν αντιστοιχεί σωστά;",
+        options: [
+          { key: "α", text: "Κογχική μοίρα - απότομο και ισχυρό κλείσιμο.", correct: false },
+          { key: "β", text: "Βλεφαρική μοίρα - ήρεμο κλείσιμο.", correct: false },
+          { key: "γ", text: "Δακρυϊκή μοίρα - συμπίεση δακρυϊκού ασκού.", correct: false },
+          { key: "δ", text: "Δακρυϊκή μοίρα - ανύψωση του άνω βλεφάρου.", correct: true }
+        ],
+        explanation: "Η δακρυϊκή μοίρα του σφιγκτήρα συμπιέζει τον ασκό· η ανύψωση αφορά τον ανελκτήρα. (Διαφ. 61, 84)"
+      },
+      {
+        id: 57,
+        category: "Βλέφαρα και οφρύες",
+        source: "Διαφάνειες 62-63",
+        question: "Για τον ινώδη σκελετό των βλεφάρων, τι δεν ισχύει;",
+        options: [
+          { key: "α", text: "Ο ταρσός είναι το ινώδες πέταλο προς το ελεύθερο χείλος.", correct: false },
+          { key: "β", text: "Το κογχικό διάφραγμα είναι το ινώδες πέταλο προς τη βάση.", correct: false },
+          { key: "γ", text: "Ο άνω ταρσός είναι μεγαλύτερος και μηνοειδής.", correct: false },
+          { key: "δ", text: "Ο έσω βλεφαρικός σύνδεσμος προσφύεται μόνο στο κογχικό φύμα του ζυγωματικού.", correct: true }
+        ],
+        explanation: "Το κογχικό φύμα του ζυγωματικού αφορά τον έξω σύνδεσμο· ο έσω αποσχίζεται σε δύο σκέλη προς τις δακρυϊκές ακρολοφίες. (Διαφ. 63)"
+      },
+      {
+        id: 58,
+        category: "Βλέφαρα και οφρύες",
+        source: "Διαφάνεια 65",
+        question: "Ποια αισθητική νεύρωση βλεφάρου είναι σωστή;",
+        options: [
+          { key: "α", text: "Άνω βλέφαρο: υπερκόγχιο έσω ημιμόριο και δακρυϊκό έξω ημιμόριο.", correct: true },
+          { key: "β", text: "Άνω βλέφαρο: υποκόγχιο έσω ημιμόριο και ζυγωματοπροσωπικό έξω ημιμόριο.", correct: false },
+          { key: "γ", text: "Κάτω βλέφαρο: δακρυϊκό έσω ημιμόριο και υπερκόγχιο έξω ημιμόριο.", correct: false },
+          { key: "δ", text: "Κάτω βλέφαρο: τροχιλιακό έσω ημιμόριο και απαγωγό έξω ημιμόριο.", correct: false }
+        ],
+        explanation: "Η διαφάνεια δίνει για το άνω βλέφαρο υπερκόγχιο στο έσω και δακρυϊκό στο έξω ημιμόριο. (Διαφ. 65)"
+      },
+      {
+        id: 59,
+        category: "Επιπεφυκότας",
+        source: "Διαφάνειες 66-69",
+        question: "Σχετικά με τον επιπεφυκότα, ποιο είναι λάθος;",
+        options: [
+          { key: "α", text: "Καλύπτει την οπίσθια επιφάνεια των βλεφάρων.", correct: false },
+          { key: "β", text: "Ανακάμπτει στον βολβό και επαλείφει το πρόσθιο τριτημόριό του.", correct: false },
+          { key: "γ", text: "Διακρίνεται σε βλεφαρικό, βολβικό και θόλους.", correct: false },
+          { key: "δ", text: "Οι εκφορητικοί πόροι του δακρυϊκού αδένα εκβάλλουν στην έσω μοίρα του κάτω θόλου.", correct: true }
+        ],
+        explanation: "Οι εκφορητικοί πόροι εκβάλλουν στην έξω μοίρα του άνω θόλου του επιπεφυκότα. (Διαφ. 69)"
+      },
+      {
+        id: 60,
+        category: "Επιπεφυκότας",
+        source: "Διαφάνειες 67-68",
+        question: "Ποια διάκριση βλεφαρικού και βολβικού επιπεφυκότα είναι σωστή;",
+        options: [
+          { key: "α", text: "Ο βλεφαρικός συνδέεται στενά με τον σύστοιχο ταρσό, ενώ ο βολβικός χαλαρά με την πρόσθια μοίρα του σκληρού.", correct: true },
+          { key: "β", text: "Ο βλεφαρικός καλύπτει τον κερατοειδή, ενώ ο βολβικός καλύπτει τον ταρσό.", correct: false },
+          { key: "γ", text: "Ο βολβικός είναι παχύτερος και λιγότερο διαφανής από τον βλεφαρικό.", correct: false },
+          { key: "δ", text: "Ο βλεφαρικός περιέχει το επιχείλιο αγκυλωτό αγγειακό δίκτυο γύρω από τον κερατοειδή.", correct: false }
+        ],
+        explanation: "Ο βλεφαρικός καλύπτει τον ταρσό στενά· ο βολβικός καλύπτει χαλαρά τον πρόσθιο σκληρό και μεταπίπτει στο επιθήλιο του κερατοειδή. (Διαφ. 67-68)"
+      },
+      {
+        id: 61,
+        category: "Δακρυϊκή συσκευή",
+        source: "Διαφάνειες 70-72",
+        question: "Για τον δακρυϊκό αδένα, ποιο δεν ισχύει;",
+        options: [
+          { key: "α", text: "Βρίσκεται στον δακρυϊκό βόθρο του άνω τοιχώματος του κόγχου.", correct: false },
+          { key: "β", text: "Ο τένοντας του ανελκτήρα του άνω βλεφάρου τον διαιρεί ατελώς σε κογχική και βλεφαρική μοίρα.", correct: false },
+          { key: "γ", text: "Η άνω κογχική μοίρα είναι μεγαλύτερη και συμπαγέστερη.", correct: false },
+          { key: "δ", text: "Η κάτω μοίρα βρίσκεται κάτω από την έσω μοίρα του κάτω θόλου του επιπεφυκότα.", correct: true }
+        ],
+        explanation: "Η κάτω μοίρα βρίσκεται επάνω από την έξω μοίρα του άνω θόλου του επιπεφυκότα. (Διαφ. 72)"
+      },
+      {
+        id: 62,
+        category: "Δακρυϊκή συσκευή",
+        source: "Διαφάνεια 73",
+        question: "Ποια αγγειακή/λεμφική σχέση του δακρυϊκού αδένα είναι σωστή;",
+        options: [
+          { key: "α", text: "Αρτηρίες από δακρυϊκή και μερικές φορές υποκόγχια αρτηρία, φλέβες συνήθως στην άνω οφθαλμική.", correct: true },
+          { key: "β", text: "Αρτηρίες από κεντρική αμφιβληστροειδική και φλέβες στον δακρυϊκό ασκό.", correct: false },
+          { key: "γ", text: "Λεμφαγγεία αποκλειστικά στον περιοφθάλμιο λεμφώδη χώρο του Tenon.", correct: false },
+          { key: "δ", text: "Φλέβες αποκλειστικά στις πρόσθιες ακτινοειδείς φλέβες.", correct: false }
+        ],
+        explanation: "Αναφέρονται δακρυϊκή και ενίοτε υποκόγχια αρτηρία, φλέβες στην άνω οφθαλμική και λεμφαγγεία σε προωτιαία/παρωτιδικά λεμφογάγγλια. (Διαφ. 73)"
+      },
+      {
+        id: 63,
+        category: "Δακρυϊκή συσκευή",
+        source: "Διαφάνεια 74",
+        question: "Ποια παρασυμπαθητική διαδρομή προς τον δακρυϊκό αδένα είναι σωστή;",
+        options: [
+          { key: "α", text: "Δακρυορρινικός πυρήνας, μείζον επιπολής λιθοειδές, νεύρο πτερυγοειδούς πόρου, σφηνουπερώιο γάγγλιο.", correct: true },
+          { key: "β", text: "Edinger-Westphal, κοινό κινητικό, οφθαλμικό γάγγλιο, βραχέα ακτινοειδή.", correct: false },
+          { key: "γ", text: "Βλεφαρονωτιαίο κέντρο, άνω αυχενικό γάγγλιο, εν τω βάθει λιθοειδές με διακοπή στο σφηνουπερώιο.", correct: false },
+          { key: "δ", text: "Πυρήνας απαγωγού, τροχιλιακό νεύρο, δακρυϊκό νεύρο, δακρυϊκός αδένας.", correct: false }
+        ],
+        explanation: "Η προγαγγλιακή παρασυμπαθητική οδός περνά από μείζον επιπολής λιθοειδές και νεύρο Vidi προς το σφηνουπερώιο γάγγλιο. (Διαφ. 74)"
+      },
+      {
+        id: 64,
+        category: "Δακρυϊκή συσκευή",
+        source: "Διαφάνεια 74",
+        question: "Σχετικά με τις συμπαθητικές ίνες του δακρυϊκού αδένα, τι δεν ισχύει;",
+        options: [
+          { key: "α", text: "Προέρχονται από το άνω αυχενικό συμπαθητικό γάγγλιο.", correct: false },
+          { key: "β", text: "Φέρονται με το εν τω βάθει λιθοειδές νεύρο.", correct: false },
+          { key: "γ", text: "Σχετίζονται με το συμπαθητικό πλέγμα της έσω καρωτίδας.", correct: false },
+          { key: "δ", text: "Διακόπτονται υποχρεωτικά στο σφηνουπερώιο γάγγλιο.", correct: true }
+        ],
+        explanation: "Οι συμπαθητικές ίνες περνούν από το γάγγλιο χωρίς διακοπή. (Διαφ. 74)"
+      },
+      {
+        id: 65,
+        category: "Δακρυϊκή συσκευή",
+        source: "Διαφάνεια 75",
+        question: "Ποιο δεν ισχύει για τους δακρυϊκούς πόρους;",
+        options: [
+          { key: "α", text: "Κάθε πόρος αρχίζει από το δακρυϊκό σημείο.", correct: false },
+          { key: "β", text: "Εμφανίζει μια κάθετη βραχύτατη και μια οριζόντια επιμηκέστερη μοίρα.", correct: false },
+          { key: "γ", text: "Η οριζόντια μοίρα φέρεται κάτω από το δέρμα του έσω κανθού.", correct: false },
+          { key: "δ", text: "Εκβάλλει πάντοτε χωριστά στο πρόσθιο τοίχωμα του δακρυϊκού ασκού.", correct: true }
+        ],
+        explanation: "Συχνότερα οι πόροι εκβάλλουν με κοινό στέλεχος, τον κοινό δακρυϊκό πόρο, στο οπίσθιο τοίχωμα του ασκού. (Διαφ. 75)"
+      },
+      {
+        id: 66,
+        category: "Δακρυϊκή συσκευή",
+        source: "Διαφάνεια 76",
+        question: "Για τον δακρυϊκό ασκό, ποια πρόταση είναι λάθος;",
+        options: [
+          { key: "α", text: "Αποτελεί άνω ανευρυσμένη τυφλή μοίρα του ρινοδακρυϊκού πόρου.", correct: false },
+          { key: "β", text: "Βρίσκεται στον ομώνυμο βόθρο μεταξύ πρόσθιας και οπίσθιας δακρυϊκής ακρολοφίας.", correct: false },
+          { key: "γ", text: "Το άνω άκρο του είναι τυφλό και υπερέχει του έσω κανθού.", correct: false },
+          { key: "δ", text: "Στο πρόσθιο έσω τοίχωμα εκβάλλει ο κοινός δακρυϊκός πόρος.", correct: true }
+        ],
+        explanation: "Ο κοινός δακρυϊκός πόρος εκβάλλει στο οπίσθιο έξω τοίχωμα του δακρυϊκού ασκού. (Διαφ. 76)"
+      },
+      {
+        id: 67,
+        category: "Δακρυϊκή συσκευή",
+        source: "Διαφάνεια 77",
+        question: "Ποια σχέση του ρινοδακρυϊκού πόρου είναι σωστή;",
+        options: [
+          { key: "α", text: "Τελειώνει στην πρόσθια μοίρα του κάτω ρινικού πόρου με ανευρυσμένο άκρο.", correct: true },
+          { key: "β", text: "Τελειώνει στην οπίσθια μοίρα του άνω ρινικού πόρου ως οριζόντια σχισμή.", correct: false },
+          { key: "γ", text: "Εκβάλλει στον μέσο ρινικό πόρο κάτω από την ηθμοειδή κύστη.", correct: false },
+          { key: "δ", text: "Συνδέει άμεσα τον άνω θόλο του επιπεφυκότα με τον σηραγγώδη κόλπο.", correct: false }
+        ],
+        explanation: "Το ρινικό στόμιο βρίσκεται στην πρόσθια μοίρα του κάτω ρινικού πόρου και αφορίζεται από τη βαλβίδα Hasner. (Διαφ. 77)"
+      },
+      {
+        id: 68,
+        category: "Δακρυϊκή συσκευή",
+        source: "Διαφάνεια 77",
+        question: "Ποιο δεν ισχύει για τις μοίρες του ρινοδακρυϊκού πόρου;",
+        options: [
+          { key: "α", text: "Εμφανίζει ενδόστεα και βλεννογόνια μοίρα.", correct: false },
+          { key: "β", text: "Η ενδόστεα πορεύεται μέσα στον οστέινο ρινοδακρυϊκό πόρο.", correct: false },
+          { key: "γ", text: "Η ενδόστεα μοίρα περιβάλλεται από φλεβώδη πλέγματα.", correct: false },
+          { key: "δ", text: "Η βλεννογόνια μοίρα πορεύεται μέσα στον βολβικό επιπεφυκότα.", correct: true }
+        ],
+        explanation: "Η βλεννογόνια μοίρα φέρεται μέσα στον ρινικό βλεννογόνο. (Διαφ. 77)"
+      },
+      {
+        id: 69,
+        category: "Περιοφθάλμια μόρια",
+        source: "Διαφάνεια 78",
+        question: "Για την περιόφθαλμη περιτονία του Tenon, ποιο δεν ισχύει;",
+        options: [
+          { key: "α", text: "Περιβάλλει τον βολβό και εκτείνεται από το οπτικό νεύρο μέχρι τη σκληροκερατοειδή στεφάνη.", correct: false },
+          { key: "β", text: "Χωρίζει τον βολβό από το λιπώδες σώμα του κόγχου.", correct: false },
+          { key: "γ", text: "Πίσω διατρυπάται από τα ακτινοειδή αγγεία και νεύρα.", correct: false },
+          { key: "δ", text: "Η έσω επιφάνειά της αφορίζει με τον χοριοειδή τον πρόσθιο θάλαμο.", correct: true }
+        ],
+        explanation: "Η έσω επιφάνεια αφορίζει με τον σκληρό τον περιοφθάλμιο λεμφώδη χώρο του Tenon. (Διαφ. 78)"
+      },
+      {
+        id: 70,
+        category: "Περιοφθάλμια μόρια",
+        source: "Διαφάνειες 78-80",
+        question: "Ποια αντιστοιχία περιοφθάλμιων μορίων είναι σωστή;",
+        options: [
+          { key: "α", text: "Έσω στρώμα κογχικού λίπους - ανάμεσα σε μύες, περιόφθαλμη περιτονία και οπτικό νεύρο.", correct: true },
+          { key: "β", text: "Έξω στρώμα κογχικού λίπους - μέσα στον περιοφθάλμιο λεμφώδη χώρο.", correct: false },
+          { key: "γ", text: "Περικόγχιο - βλεννογόνος της οπίσθιας επιφάνειας των βλεφάρων.", correct: false },
+          { key: "δ", text: "Περιτονία Tenon - περιόστεο των οστών του τοιχώματος του κόγχου.", correct: false }
+        ],
+        explanation: "Το έσω στρώμα λίπους βρίσκεται ανάμεσα στους μύες, την περιτονία Tenon και το οπτικό νεύρο· το περικόγχιο είναι το περιόστεο. (Διαφ. 79-80)"
+      },
+      {
+        id: 71,
+        category: "Μύες οφθαλμικού κόγχου",
+        source: "Διαφάνειες 81-85",
+        question: "Για τους μύες του οφθαλμικού κόγχου, τι δεν ισχύει;",
+        options: [
+          { key: "α", text: "Υπάρχουν επτά γραμμωτοί σκελετικοί μύες μέσα στον κόγχο.", correct: false },
+          { key: "β", text: "Ένας καταφύεται στο άνω βλέφαρο και οι λοιποί στον βολβό.", correct: false },
+          { key: "γ", text: "Οι περισσότεροι εκφύονται από τον κοινό τενόντιο δακτύλιο του Zinn.", correct: false },
+          { key: "δ", text: "Όλοι οι ορθοί μύες νευρώνονται από το κοινό κινητικό νεύρο.", correct: true }
+        ],
+        explanation: "Ο έξω ορθός αποτελεί την εξαίρεση και νευρώνεται από το απαγωγό νεύρο. (Διαφ. 85)"
+      },
+      {
+        id: 72,
+        category: "Μύες οφθαλμικού κόγχου",
+        source: "Διαφάνεια 84",
+        question: "Ποια σχέση του ανελκτήρα του άνω βλεφάρου είναι σωστή;",
+        options: [
+          { key: "α", text: "Φέρεται κάτω από το άνω τοίχωμα του κόγχου και επάνω από τον άνω ορθό μυ.", correct: true },
+          { key: "β", text: "Φέρεται κάτω από τον κάτω ορθό και καταφύεται στο κάτω βλέφαρο.", correct: false },
+          { key: "γ", text: "Εκφύεται από το υποκόγχιο χείλος και φέρεται λοξά προς τα πίσω.", correct: false },
+          { key: "δ", text: "Νευρώνεται από το προσωπικό νεύρο όπως ο σφιγκτήρας των βλεφάρων.", correct: false }
+        ],
+        explanation: "Ο ανελκτήρας εκφύεται από την ελάσσονα πτέρυγα, πορεύεται πάνω από τον άνω ορθό και νευρώνεται από το κοινό κινητικό. (Διαφ. 84)"
+      },
+      {
+        id: 73,
+        category: "Μύες οφθαλμικού κόγχου",
+        source: "Διαφάνεια 85",
+        question: "Σχετικά με τους ορθούς μύες, ποιο είναι λάθος;",
+        options: [
+          { key: "α", text: "Σχηματίζουν συνολικά κοίλη πυραμίδα με βάση που περιέχει τον βολβό.", correct: false },
+          { key: "β", text: "Το εσωτερικό της πυραμίδας γεμίζει από κογχικό λίπος.", correct: false },
+          { key: "γ", text: "Διατρυπούν την περιόφθαλμη περιτονία πριν καταφυθούν στον σκληρό.", correct: false },
+          { key: "δ", text: "Καταφύονται όλοι στην ίδια απόσταση από τον κερατοειδή.", correct: true }
+        ],
+        explanation: "Η διαφάνεια τονίζει ότι καταφύονται στον σκληρό σε διαφορετική απόσταση από τον κερατοειδή. (Διαφ. 85)"
+      },
+      {
+        id: 74,
+        category: "Μύες οφθαλμικού κόγχου",
+        source: "Διαφάνεια 86",
+        question: "Για τον άνω λοξό μυ, ποιο δεν ισχύει;",
+        options: [
+          { key: "α", text: "Είναι ο λεπτότερος και επιμηκέστερος.", correct: false },
+          { key: "β", text: "Εκφύεται από το οπτικό τρήμα μεταξύ άνω και έσω ορθού.", correct: false },
+          { key: "γ", text: "Γωνιώνεται στη χόνδρινη τροχιλία.", correct: false },
+          { key: "δ", text: "Καταφύεται στην κάτω έσω επιφάνεια του βολβού μπροστά από τον ισημερινό.", correct: true }
+        ],
+        explanation: "Ο άνω λοξός καταφύεται στην άνω έξω επιφάνεια του βολβού πίσω από τον ισημερινό. (Διαφ. 86)"
+      },
+      {
+        id: 75,
+        category: "Μύες οφθαλμικού κόγχου",
+        source: "Διαφάνεια 87",
+        question: "Ποια πρόταση για τον κάτω λοξό μυ είναι σωστή;",
+        options: [
+          { key: "α", text: "Εκφύεται πίσω από την έσω μοίρα του υποκόγχιου χείλους και φέρεται κάτω από τον κάτω ορθό.", correct: true },
+          { key: "β", text: "Εκφύεται από το οπτικό τρήμα και γωνιώνεται στην τροχιλία.", correct: false },
+          { key: "γ", text: "Καταφύεται στην έσω επιφάνεια του σκληρού μπροστά από τον ισημερινό.", correct: false },
+          { key: "δ", text: "Νευρώνεται από το τροχιλιακό νεύρο και φέρει την κόρη προς τα κάτω.", correct: false }
+        ],
+        explanation: "Ο κάτω λοξός εκφύεται πίσω από την έσω μοίρα του υποκόγχιου χείλους, περνά κάτω από τον κάτω ορθό και νευρώνεται από III. (Διαφ. 87)"
+      },
+      {
+        id: 76,
+        category: "Μύες οφθαλμικού κόγχου",
+        source: "Διαφάνειες 82, 86-88",
+        question: "Ποια αντιστοιχία μυός-νεύρου δεν είναι σωστή;",
+        options: [
+          { key: "α", text: "Άνω λοξός - τροχιλιακό νεύρο.", correct: false },
+          { key: "β", text: "Έξω ορθός - απαγωγό νεύρο.", correct: false },
+          { key: "γ", text: "Κάτω λοξός - κοινό κινητικό νεύρο.", correct: false },
+          { key: "δ", text: "Άνω λοξός - κοινό κινητικό νεύρο.", correct: true }
+        ],
+        explanation: "Η εξαίρεση είναι ο άνω λοξός, ο οποίος νευρώνεται από το τροχιλιακό νεύρο. (Διαφ. 82, 86)"
+      },
+      {
+        id: 77,
+        category: "Μύες οφθαλμικού κόγχου",
+        source: "Διαφάνειες 86-88",
+        question: "Ποια ενέργεια δεν αντιστοιχεί σωστά στον μυ;",
+        options: [
+          { key: "α", text: "Άνω λοξός - στροφή του βολβού προς τα κάτω και έξω.", correct: false },
+          { key: "β", text: "Κάτω λοξός - ανάσπαση και απαγωγή.", correct: false },
+          { key: "γ", text: "Έσω ορθός - στροφή προς τα έσω.", correct: false },
+          { key: "δ", text: "Έξω ορθός - στροφή προς τα έσω.", correct: true }
+        ],
+        explanation: "Ο έξω ορθός προκαλεί στροφή προς τα έξω, όχι προς τα έσω. (Διαφ. 88)"
+      },
+      {
+        id: 78,
+        category: "Μύες οφθαλμικού κόγχου",
+        source: "Διαφάνειες 86-88",
+        question: "Ποια αντιστοιχία μυός-κίνησης είναι σωστή;",
+        options: [
+          { key: "α", text: "Κάτω ορθός - στροφή προς τα έσω και κάτω.", correct: true },
+          { key: "β", text: "Άνω ορθός - στροφή προς τα έξω και κάτω.", correct: false },
+          { key: "γ", text: "Κάτω λοξός - στροφή προς τα έσω και κάτω.", correct: false },
+          { key: "δ", text: "Άνω λοξός - στροφή προς τα έσω και άνω.", correct: false }
+        ],
+        explanation: "Στο διάγραμμα ενεργειών ο κάτω ορθός στρέφει προς τα έσω και κάτω. (Διαφ. 88)"
+      },
+      {
+        id: 79,
+        category: "Διαθλαστικά μέσα και θάλαμοι",
+        source: "Διαφάνειες 45-52",
+        question: "Ποιο από τα παρακάτω δεν ανήκει στα διαθλαστικά μέσα όπως παρουσιάζονται;",
+        options: [
+          { key: "α", text: "Κρυσταλλοειδής φακός.", correct: false },
+          { key: "β", text: "Θάλαμοι και υδατοειδές υγρό.", correct: false },
+          { key: "γ", text: "Υαλοειδές σώμα.", correct: false },
+          { key: "δ", text: "Περιοφθάλμια περιτονία του Tenon.", correct: true }
+        ],
+        explanation: "Η περιτονία Tenon είναι επικουρικό μόριο που περιβάλλει τον βολβό, όχι διαθλαστικό μέσο. (Διαφ. 45, 78)"
+      },
+      {
+        id: 80,
+        category: "Επιπεφυκότας",
+        source: "Διαφάνειες 68-69",
+        question: "Ποια σχέση του βολβικού επιπεφυκότα ή των θόλων είναι λανθασμένη;",
+        options: [
+          { key: "α", text: "Ο βολβικός επιπεφυκότας μεταπίπτει στο επιθήλιο της πρόσθιας επιφάνειας του κερατοειδή.", correct: false },
+          { key: "β", text: "Γύρω από το χείλος του κερατοειδή περιέχει το επιχείλιο αγκυλωτό αγγειακό δίκτυο.", correct: false },
+          { key: "γ", text: "Οι θόλοι είναι ανακάμψεις από την οπίσθια επιφάνεια των βλεφάρων στον βολβό.", correct: false },
+          { key: "δ", text: "Κάθε θόλος συνάπτεται στενά και αμετακίνητα με τον σκληρό χιτώνα.", correct: true }
+        ],
+        explanation: "Οι θόλοι συνάπτονται χαλαρά με το υπόθεμα, διευκολύνοντας κινήσεις βολβού και βλεφάρων. (Διαφ. 69)"
+      }
+    ];
+
+    const storageKey = "vision_mcq_progress_v1";
+    let activeQuestions = [];
+    let currentIndex = 0;
+    let answers = {};
+    let optionOrders = {};
+    let repeatMode = false;
+
+    const categoryFilter = document.getElementById("categoryFilter");
+    const searchBox = document.getElementById("searchBox");
+    const shuffleQuestionsBox = document.getElementById("shuffleQuestions");
+    const shuffleOptionsBox = document.getElementById("shuffleOptions");
+    const quizCard = document.getElementById("quizCard");
+    const resultsBox = document.getElementById("resultsBox");
+    const optionsBox = document.getElementById("optionsBox");
+    const feedbackBox = document.getElementById("feedbackBox");
+    const nextBtn = document.getElementById("nextBtn");
+
+    function shuffle(array) {
+      const copy = array.slice();
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function percent(part, total) {
+      return total ? Math.round((part / total) * 100) : 0;
+    }
+
+    function getCorrectOption(q) {
+      return q.options.find(o => o.correct);
+    }
+
+    function visibleText(q) {
+      return [q.category, q.source, q.question, q.explanation, ...q.options.map(o => o.text)].join(" ").toLowerCase();
+    }
+
+    function makeFilteredQuestions() {
+      const selected = categoryFilter.value;
+      const query = searchBox.value.trim().toLowerCase();
+      let list = questions.filter(q => selected === "all" || q.category === selected);
+      if (query) list = list.filter(q => visibleText(q).includes(query));
+      if (shuffleQuestionsBox.checked) list = shuffle(list);
+      return list;
+    }
+
+    function buildOptionOrder(q) {
+      const opts = shuffleOptionsBox.checked ? shuffle(q.options) : q.options.slice();
+      optionOrders[q.id] = opts.map(o => o.key);
+      return opts;
+    }
+
+    function orderedOptions(q) {
+      const order = optionOrders[q.id];
+      if (!order) return buildOptionOrder(q);
+      return order.map(key => q.options.find(o => o.key === key)).filter(Boolean);
+    }
+
+    function saveProgress() {
+      const payload = {
+        activeIds: activeQuestions.map(q => q.id),
+        currentIndex,
+        answers,
+        optionOrders,
+        repeatMode,
+        settings: {
+          category: categoryFilter.value,
+          search: searchBox.value,
+          shuffleQuestions: shuffleQuestionsBox.checked,
+          shuffleOptions: shuffleOptionsBox.checked
+        }
+      };
+      localStorage.setItem(storageKey, JSON.stringify(payload));
+    }
+
+    function loadProgress() {
+      try {
+        const raw = localStorage.getItem(storageKey);
+        if (!raw) return false;
+        const payload = JSON.parse(raw);
+        if (!payload.activeIds || !payload.activeIds.length) return false;
+        categoryFilter.value = payload.settings?.category || "all";
+        searchBox.value = payload.settings?.search || "";
+        shuffleQuestionsBox.checked = payload.settings?.shuffleQuestions !== false;
+        shuffleOptionsBox.checked = payload.settings?.shuffleOptions !== false;
+        activeQuestions = payload.activeIds.map(id => questions.find(q => q.id === id)).filter(Boolean);
+        currentIndex = payload.currentIndex || 0;
+        answers = payload.answers || {};
+        optionOrders = payload.optionOrders || {};
+        repeatMode = Boolean(payload.repeatMode);
+        return activeQuestions.length > 0;
+      } catch {
+        return false;
+      }
+    }
+
+    function updateStats() {
+      const answeredCount = Object.keys(answers).length;
+      const correctCount = Object.values(answers).filter(a => a.correct).length;
+      const q = activeQuestions[currentIndex];
+      document.getElementById("scoreStat").textContent = String(correctCount);
+      document.getElementById("progressStat").textContent = `${Math.min(currentIndex + 1, activeQuestions.length)} / ${activeQuestions.length}`;
+      document.getElementById("percentStat").textContent = `${percent(correctCount, answeredCount)}%`;
+      document.getElementById("categoryStat").textContent = q ? q.category : "-";
+      document.getElementById("progressFill").style.width = `${percent(answeredCount, activeQuestions.length)}%`;
+    }
+
+    function renderQuestion() {
+      resultsBox.style.display = "none";
+      quizCard.style.display = "block";
+      feedbackBox.className = "feedback";
+      feedbackBox.innerHTML = "";
+      nextBtn.style.display = "none";
+
+      if (!activeQuestions.length) {
+        document.getElementById("questionText").textContent = "Δεν βρέθηκαν ερωτήσεις με τα τρέχοντα φίλτρα.";
+        document.getElementById("sourceMeta").textContent = "";
+        document.getElementById("idMeta").textContent = "";
+        optionsBox.innerHTML = "";
+        updateStats();
+        return;
+      }
+
+      if (currentIndex >= activeQuestions.length) {
+        renderResults();
+        return;
+      }
+
+      const q = activeQuestions[currentIndex];
+      document.getElementById("sourceMeta").textContent = `${q.category} · ${q.source}`;
+      document.getElementById("idMeta").textContent = `ID ${q.id}`;
+      document.getElementById("questionText").textContent = q.question;
+      optionsBox.innerHTML = "";
+
+      const prior = answers[q.id];
+      orderedOptions(q).forEach((option, index) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "option";
+        btn.innerHTML = `<span class="key">${["α", "β", "γ", "δ"][index]})</span><span>${option.text}</span>`;
+        btn.dataset.key = option.key;
+        btn.disabled = Boolean(prior);
+        if (prior) {
+          if (option.correct) btn.classList.add("correct");
+          if (prior.selectedKey === option.key && !option.correct) btn.classList.add("wrong");
+        }
+        btn.addEventListener("click", () => answerQuestion(q, option.key));
+        optionsBox.appendChild(btn);
+      });
+
+      if (prior) showFeedback(q, prior);
+      updateStats();
+      saveProgress();
+    }
+
+    function answerQuestion(q, selectedKey) {
+      if (answers[q.id]) return;
+      const selected = q.options.find(o => o.key === selectedKey);
+      answers[q.id] = { selectedKey, correct: Boolean(selected?.correct) };
+      saveProgress();
+      renderQuestion();
+    }
+
+    function showFeedback(q, answer) {
+      const correct = getCorrectOption(q);
+      const selected = q.options.find(o => o.key === answer.selectedKey);
+      feedbackBox.className = `feedback ${answer.correct ? "good" : "bad"}`;
+      feedbackBox.innerHTML = `
+        <strong>${answer.correct ? "Σωστό." : "Λάθος."}</strong>
+        <div>Σωστή απάντηση: ${correct.text}</div>
+        <div>${q.explanation}</div>
+      `;
+      nextBtn.style.display = "inline-block";
+      nextBtn.textContent = currentIndex === activeQuestions.length - 1 ? "Αποτελέσματα" : "Επόμενη ερώτηση";
+    }
+
+    function startQuiz() {
+      activeQuestions = makeFilteredQuestions();
+      currentIndex = 0;
+      answers = {};
+      optionOrders = {};
+      repeatMode = false;
+      activeQuestions.forEach(q => buildOptionOrder(q));
+      saveProgress();
+      renderQuestion();
+    }
+
+    function restartSame() {
+      const ids = activeQuestions.map(q => q.id);
+      activeQuestions = ids.map(id => questions.find(q => q.id === id)).filter(Boolean);
+      if (shuffleQuestionsBox.checked) activeQuestions = shuffle(activeQuestions);
+      currentIndex = 0;
+      answers = {};
+      optionOrders = {};
+      activeQuestions.forEach(q => buildOptionOrder(q));
+      saveProgress();
+      renderQuestion();
+    }
+
+    function renderResults() {
+      quizCard.style.display = "none";
+      resultsBox.style.display = "block";
+      const total = activeQuestions.length;
+      const correct = Object.values(answers).filter(a => a.correct).length;
+      const wrong = total - correct;
+      const byCategory = {};
+      activeQuestions.forEach(q => {
+        byCategory[q.category] ||= { total: 0, correct: 0 };
+        byCategory[q.category].total++;
+        if (answers[q.id]?.correct) byCategory[q.category].correct++;
+      });
+      const wrongQuestions = activeQuestions.filter(q => answers[q.id] && !answers[q.id].correct);
+      const rows = Object.entries(byCategory).map(([cat, s]) =>
+        `<tr><td>${cat}</td><td>${s.correct} / ${s.total}</td><td>${percent(s.correct, s.total)}%</td></tr>`
+      ).join("");
+      const review = wrongQuestions.length ? wrongQuestions.map(q => {
+        const picked = q.options.find(o => o.key === answers[q.id].selectedKey);
+        const correctOption = getCorrectOption(q);
+        return `<div class="review-item"><strong>ID ${q.id} · ${q.category}</strong><br>${q.question}<br><span>Απάντησες: ${picked?.text || "-"}</span><br><span>Σωστό: ${correctOption.text}</span><br><span>${q.explanation}</span></div>`;
+      }).join("") : `<div class="notice">Δεν υπάρχουν λανθασμένες απαντήσεις για επανάληψη.</div>`;
+
+      resultsBox.innerHTML = `
+        <h2>Τελικό αποτέλεσμα</h2>
+        <div class="statsbar">
+          <div class="stat"><span>Συνολικό σκορ</span><strong>${correct} / ${total}</strong></div>
+          <div class="stat"><span>Ποσοστό</span><strong>${percent(correct, total)}%</strong></div>
+          <div class="stat"><span>Σωστές</span><strong>${correct}</strong></div>
+          <div class="stat"><span>Λανθασμένες</span><strong>${wrong}</strong></div>
+        </div>
+        <h3>Απόδοση ανά κατηγορία</h3>
+        <table><thead><tr><th>Κατηγορία</th><th>Σκορ</th><th>Ποσοστό</th></tr></thead><tbody>${rows}</tbody></table>
+        <h3>Ανασκόπηση λανθασμένων</h3>
+        <div class="review-list">${review}</div>
+        <div class="actions">
+          <button type="button" onclick="restartSame()">Επανεκκίνηση</button>
+          <button type="button" ${wrongQuestions.length ? "" : "disabled"} onclick="repeatWrong()">Επανάληψη λανθασμένων</button>
+        </div>
+      `;
+      updateStats();
+      saveProgress();
+    }
+
+    function repeatWrong() {
+      const wrongIds = activeQuestions.filter(q => answers[q.id] && !answers[q.id].correct).map(q => q.id);
+      activeQuestions = wrongIds.map(id => questions.find(q => q.id === id)).filter(Boolean);
+      if (shuffleQuestionsBox.checked) activeQuestions = shuffle(activeQuestions);
+      currentIndex = 0;
+      answers = {};
+      optionOrders = {};
+      repeatMode = true;
+      activeQuestions.forEach(q => buildOptionOrder(q));
+      saveProgress();
+      renderQuestion();
+    }
+
+    function clearProgress() {
+      localStorage.removeItem(storageKey);
+      answers = {};
+      optionOrders = {};
+      currentIndex = 0;
+      renderQuestion();
+    }
+
+    function renderCategoryControls() {
+      const cats = [...new Set(questions.map(q => q.category))].sort((a, b) => a.localeCompare(b, "el"));
+      categoryFilter.innerHTML = `<option value="all">Όλες οι κατηγορίες</option>` + cats.map(c => `<option value="${c}">${c}</option>`).join("");
+      const counts = cats.map(cat => [cat, questions.filter(q => q.category === cat).length]);
+      document.getElementById("distribution").innerHTML = `
+        <table>
+          <thead><tr><th>Κατηγορία</th><th>Αριθμός ερωτήσεων</th></tr></thead>
+          <tbody>${counts.map(([cat, count]) => `<tr><td>${cat}</td><td>${count}</td></tr>`).join("")}</tbody>
+        </table>
+      `;
+    }
+
+    function renderPrintArea() {
+      const questionHtml = questions.map((q, i) => `
+        <div class="print-question">
+          <h3>${i + 1}. ${q.question}</h3>
+          <div>${q.category} · ${q.source}</div>
+          <ol type="a">
+            ${q.options.map(o => `<li>${o.text}</li>`).join("")}
+          </ol>
+        </div>
+      `).join("");
+      const answerHtml = questions.map((q, i) => {
+        const correct = getCorrectOption(q);
+        const letter = ["α", "β", "γ", "δ"][q.options.findIndex(o => o.correct)];
+        return `<div class="print-question"><strong>${i + 1}. ${letter})</strong> ${correct.text}<br>${q.explanation}</div>`;
+      }).join("");
+      document.getElementById("printArea").innerHTML = `
+        <h1>Αισθητήριο Όρασης - MCQs Νευροανατομίας</h1>
+        ${questionHtml}
+        <section class="answer-key">
+          <h2>Απαντήσεις και αιτιολογήσεις</h2>
+          ${answerHtml}
+        </section>
+      `;
+    }
+
+    nextBtn.addEventListener("click", () => {
+      currentIndex++;
+      renderQuestion();
+    });
+    document.getElementById("applyBtn").addEventListener("click", startQuiz);
+    document.getElementById("resetBtn").addEventListener("click", restartSame);
+    document.getElementById("clearProgressBtn").addEventListener("click", clearProgress);
+    document.getElementById("printBtn").addEventListener("click", () => window.print());
+
+    renderCategoryControls();
+    renderPrintArea();
+    if (loadProgress()) {
+      renderQuestion();
+    } else {
+      startQuiz();
+    }
+  </script>
+</body>
+</html>
